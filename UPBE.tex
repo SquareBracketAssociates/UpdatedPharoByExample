@@ -1,0 +1,123 @@
+% $Author$
+% $Date$
+% $Revision$
+
+% HISTORY:
+
+%=================================================================
+% This is the main file for the Pharo By Example book.
+% The individual chapters can also be latexed by themselves.
+% Note that the \end{document} marker occurs near the
+% middle of this file, to leave out additional material
+% for a future version of the book.
+%=================================================================
+
+
+% TODO:
+
+%=================================================================
+% lulu -> figures in .png / to see: macros
+%%Encoding -> see Henrik
+% fix \chapterauthor on each chapter
+%
+%=================================================================
+
+\documentclass[a4paper,10pt,twoside]{book}
+\usepackage[
+	papersize={6.13in,9.21in},
+	hmargin={.75in,.75in},
+	vmargin={.75in,1in},
+	ignoreheadfoot
+]{geometry}
+\input{common.tex}
+\setboolean{lulu}{true}
+%=================================================================
+% Add the path for the figures of each chapter here:
+\graphicspath{
+	{figures/}
+	{Zinc/figures/}
+	{ConcurrencyBasics/figures/}
+	{Lint/figures/}
+	{Deltawerken/figures/}
+	{NeoCSV/figures/}
+	{NativeBoost/figures/}
+	{STON/figures/}
+	{KeyMapping/figures/}
+	{NeoCSV/figures/}
+	{Spec/figures/}
+	{BabyMock/figures/}
+	{Voyage/figures/}
+	{BioPharo/figures/}
+	{Installation/figures/}
+	{Fuel/figures/}
+}
+%=================================================================
+\let\wholebook=\relax
+\makeindex
+\makeglossary
+%=================================================================
+\renewcommand{\nnbb}[2]{} % Disable editorial comments
+%=================================================================
+\begin{document}
+\frontmatter
+%=================================================================
+\setcounter{page}{1}
+\pagestyle{headings}
+%=================================================================
+\author{
+	Damien Cassou\quad \\
+	St\'ephane Ducasse\quad \\
+	... and Many More :)}
+\title{\Huge\bf Pharo for the Enterprise}
+\isodate
+\date{\emph{Version of \today}}
+\maketitle
+%=================================================================
+\tableofcontents
+% \listoffigures
+% \listoftables
+% \lstlistoflistings
+\sloppy % To avoid LaTeX's annoying habit of letting lines stick over the margins!
+\mainmatter
+%=================================================================
+% \input{Preface/Preface2.tex}
+%=================================================================
+
+
+\part{Warming Up}
+\input{BabyMock/BabyMock.pier.tex}
+\input{BioPharo/BioPharo.pier.tex}
+\input{ConcurrencyBasics/ConcurrencyBasics.pier.tex}
+\input{Deltawerken/Deltawerken.pier.tex}
+\input{DSL/DSL.pier.tex}
+\input{DSL/DSLExercises.pier.tex}
+\input{Fuel/Fuel.pier.tex}
+\input{Installation/Installation.pier.tex}
+\input{KeyMapping/KeyMapping.pier.tex}
+\input{Lint/Lint.pier.tex}
+\input{NativeBoost/NativeBoost.pier.tex}
+\input{NeoCSV/NeoCSV.pier.tex}
+\input{Spec/Spec.pier.tex}
+\input{Zinc/Zinc.pier.tex}
+\input{STON/STON.pier.tex}
+\input{StartupPreferences/StartupPreferences.pier.tex}
+\input{Voyage/Voyage.pier.tex}
+
+% another try 
+% \printglossary
+\bibliographystyle{jurabib}
+\bibliography{scg}
+
+\printindex
+
+\end{document}
+
+% \end{document} % NB: The actual end is further up
+%=================================================================
+%%% Local Variables:
+%%% coding: utf-8
+%%% mode: latex
+%%% TeX-master: t
+%%% TeX-PDF-mode: t
+%%% ispell-local-dictionary: "english"
+%%% End:
