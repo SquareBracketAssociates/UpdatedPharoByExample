@@ -1,5 +1,15 @@
 Updated version of Pharo by Example
 ==========================================
+This is a test to see if it makes sense to convert PharoByExample into pier format.
+
+I (Stef) have a log here of what I should have a look
+	https://docs.google.com/document/d/1lVOTw2d5Bqv_49XPZ9MwUF6zDbsLWf8l7ev2NAgHhhg/edit?usp=drive_web
+I pay attention to do it in the frnech and english version in parallel.
+
+So if somebody changes something in the english version please add it to this log
+
+From here down nothing is correct
+==========================================
 
 
 This book is continuously built on an [Inria Jenkins server](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/).
