@@ -11,11 +11,12 @@
 % Allows book to be generated in multiple formats.
 %=============================================================
 %:Packages
+\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}  %%%%%% really important to get the code directly in the text!
 \usepackage{lmodern}
 %\usepackage[scaled=0.85]{bookmanx} % needs another scale factor if used with \renewcommand{\sfdefault}{cmbr}
 \usepackage{palatino}
-\usepackage[scaled=0.85]{helvet}
+\usepackage[scaled=0.9]{helvet}
 \usepackage[protrusion,expansion=false]{microtype}
 \usepackage{graphicx}
 \usepackage{theorem}
@@ -58,7 +59,7 @@
 \usepackage[newparttoc,pagestyles]{titlesec}
 \usepackage{titletoc}
 \usepackage{wrapfig}
-
+\usepackage{fixltx2e}
 \usepackage[
 	super,
 	citefull=first,
@@ -475,7 +476,7 @@ Damien Pollet},
 		mathescape=false,
 		name={Script},
 		caption={\emph{#2}},
-		label={scr:#1}
+		label={#1}
 	}
 }{}
 \lstnewenvironment{method}[2][defaultlabel]{%
