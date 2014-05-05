@@ -1,24 +1,23 @@
 #!/bin/bash
 
+# This script is meant for the EnterprisePharo book. You can use it for other projects
+
 # Exit immediately if a command exits with a non-zero status
 set -e
 
-VM_EXECUTABLE=./pharo
-
-function generate_html() {
-    pier_source="$1"
-    $VM_EXECUTABLE Pharo.image eval <<EOF
-GutembergConsole generateStandaloneHTMLFromPier: '${pier_source}'.
-WorldState addDeferredUIMessage: [ SmalltalkImage current snapshot: true andQuit: true ].
-EOF
+function pillar_all() {
+    ./pillar export --to='LaTeX whole book'
+    ./pillar export --to='LaTeX by chapter'
+    ./pillar export --to='HTML by chapter'
+    ./pillar export --to='Markdown by chapter'
 }
 
-function generate_latex() {
-    pier_source="$1"
-    $VM_EXECUTABLE Pharo.image eval <<EOF
-GutembergConsole generateSBALaTeXChapterFromPier: '${pier_source}'.
-WorldState addDeferredUIMessage: [ SmalltalkImage current snapshot: true andQuit: true ].
-EOF
+function pillar_one() {
+    input="$1"
+    ./pillar export --to='LaTeX whole book' "$input"
+    ./pillar export --to='LaTeX by chapter' "$input"
+    ./pillar export --to='HTML by chapter' "$input"
+    ./pillar export --to='Markdown by chapter' "$input"
 }
 
 function mypdflatex() {
@@ -43,37 +42,38 @@ function produce_pdf() {
     cd ..
 }
 
-function compile() {
-    dir="$1"
-    pier_file="$2"
-    pier_source="${dir}/${pier_file}"
-    generate_html "$pier_source"
-    generate_latex "$pier_source"
-
-    produce_pdf "${dir}" "${pier_file}"
-}
-
 function compile_chapters() {
-    chapters=$(cat PFTE.tex  | grep '^\\input' | grep -v common.tex | sed -e 's/^\\input{\([^}]*\)}.*$/\1/')
+    chapters=$(./pillar show inputFiles 2>/dev/null)
 
     for chapter in $chapters; do
         echo =========================================================
         echo COMPILING $chapter
         echo =========================================================
 
-        # e.g., chapter = Zinc/Zinc.pier.tex
+        # e.g., chapter = Zinc/Zinc.pier
 
-        pier_file=$(basename $chapter .tex) # e.g., Zinc.pier
+        pier_file=$(basename $chapter) # e.g., Zinc.pier
         dir=$(dirname $chapter) # e.g., Zinc
 
-        compile "${dir}" "${pier_file}"
+        produce_pdf "${dir}" "${pier_file}"
     done
+}
+
+function compile_latex_book() {
+       echo =========================================================
+       echo COMPILING Book
+       echo =========================================================
+
+       produce_pdf . EnterprisePharo
 }
 
 if [[ $# -eq 1 ]]; then
     dir=$(dirname "$1") # e.g., Zinc
     pier_file=$(basename "$1") # e.g., Zinc.pier
-    compile "${dir}" "${pier_file}"
+    pillar_one "$1"
+    produce_pdf "${dir}" "${pier_file}"
 else
+    pillar_all
     compile_chapters
+    compile_latex_book
 fi
