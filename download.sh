@@ -37,7 +37,7 @@ get_image() {
     done
 }
 prepare_image() {
-    ./pharo Pharo.image eval --save "StartupPreferencesLoader allowStartupScript: false."
+    ./pharo Pharo.image --no-default-preferences eval --save "StartupPreferencesLoader allowStartupScript: false."
     ./pharo Pharo.image eval --save "Deprecation raiseWarning: false; showWarning: false. 'ok'"
 }
 
