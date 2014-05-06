@@ -7,7 +7,7 @@
         vmargin={.75in,1in},
         ignoreheadfoot
 ]{geometry}
-\input{common.tex}
+\input{_support/latex/common.tex}
 \setboolean{lulu}{true}
 %=================================================================
 % Add the path for the figures of each chapter here:
