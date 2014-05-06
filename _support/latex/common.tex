@@ -89,22 +89,6 @@
 \setboolean{lulu}{false}
 \newcommand{\ifluluelse}[2]{\ifthenelse{\boolean{lulu}}{#1}{#2}}
 %=============================================================
-%:Names
-\newcommand{\SUnit}{SUnit\xspace}
-\newcommand{\sunit}{SUnit\xspace}
-\newcommand{\xUnit}{$x$Unit\xspace}
-\newcommand{\JUnit}{JUnit\xspace}
-\newcommand{\st}{Smalltalk\xspace}
-\newcommand{\pharo}{Pharo\xspace} % Use this, not \Pharo
-%\newcommand{\sqmap}{SqueakMap\xspace}
-\newcommand{\squeak}{Squeak\xspace} % use this, not \Squeak or \sq
-\newcommand{\sqsrc}{SqueakSource\xspace}
-\newcommand{\sbe}{\url{http://SqueakByExample.org}\xspace}
-\newcommand{\pharoweb}{\url{http://pharo-project.org}\xspace}
-\newcommand{\pbe}{\url{http://PharoByExample.org}\xspace}
-\newcommand{\sba}{\url{http://SquareBracketAssociates.org}\xspace}
-\newcommand{\bam}{\lct{Bounc\-ing\-Atoms\-Morph}\xspace}
-%=============================================================
 %:Markup macros for proof-reading
 \usepackage[normalem]{ulem} % for \sout
 \usepackage{xcolor}
@@ -125,41 +109,6 @@
 \newcommand{\nnbb}[2]{\yellowbox{#1} \triangles{#2}}
 \newcommand{\fix}{\yellowbox{FIX!}}
 \newcommand{\here}{\yellowbox{CONTINUE HERE!}}
-% editor macros
-\newcommand{\apl}[1]{\nnbb{Alain}{#1}} % Alain
-\newcommand{\ab}[1]{\nnbb{Andrew}{#1}} % Black
-\newcommand{\sd}[1]{\nnbb{St\'{e}f}{#1}} % Ducasse
-\newcommand{\gl}[1]{\nnbb{Guillaume}{#1}} % Ducasse
-\newcommand{\cd}[1]{\nnbb{Christophe}{#1}} % Ducasse
-\newcommand{\sig}[1]{\nnbb{Igor}{#1}} % Igor
-\newcommand{\dc}[1]{\nnbb{DamienC}{#1}} % Ducasse
-\newcommand{\md}[1]{\nnbb{Marcus}{#1}} % Denker
-\newcommand{\on}[1]{\nnbb{Oscar}{#1}} % Nierstrasz
-\newcommand{\damien}[1]{\nnbb{Damien}{#1}} % Pollet
-\newcommand{\lr}[1]{\nnbb{Lukas}{#1}} % Renggli
-\newcommand{\orla}[1]{\nnbb{Orla}{#1}} % Greevy
-\newcommand{\alex}[1]{\nnbb{Alex}{#1}} % Bergel
-\newcommand{\alx}[1]{\nnbb{Alex}{#1}} % Bergel
-\newcommand{\dr}[1]{\nnbb{David}{#1}} % Roethlisberger
-\newcommand{\ja}[1]{\nnbb{Jannik}{#1}} % Laval
-\newcommand{\jr}[1]{\nnbb{Jorge}{#1}} % Ressia
-\newcommand{\jb}[1]{\nnbb{JB}{#1}} % JB
-\newcommand{\jp}[1]{\nnbb{Javier}{#1}} % Pimas
-\newcommand{\fp}[1]{\nnbb{Fabrizio}{#1}} % Perin
-\newcommand{\michael}[1]{\nnbb{Michael}{#1}} % Davies
-\newcommand{\ew}[1]{\nnbb{Erwann}{#1}} % Wernli
-\newcommand{\mb}[1]{\nnbb{Martial}{#1}} % Boniou
-\newcommand{\hw}[1]{\nnbb{Hernan}{#1}} % Wilkinson
-\newcommand{\ben}[1]{\nnbb{Benjamin}{#1}} % Benjamin Van Ryseghem
-\newcommand{\hjo}[1]{\nnbb{HwaJong}{#1}} % HwaJong Oh aka daliot
-\newcommand{\ml}[1]{\nnbb{Max}{#1}} % Max Leske
-\newcommand{\mmp}[1]{\nnbb{Mariano}{#1}} % Mariano Martinez Peck
-\newcommand{\luc}[1]{\nnbb{Luc}{#1}} % Luc Fabresse
-\newcommand{\dkl}[1]{\nnbb{Daniel}{#1}} % Daniel Lyons
-\newcommand{\vu}[1]{\nnbb{Veronica}{#1}} % Veronica Uquillas Gomez
-\newcommand{\martin}[1]{\nnbb{Martin}{#1}} % Martin Dias
-\newcommand{\vp}[1]{\nnbb{Vanessa}{#1}} % Vanessa Pena
-\newcommand{\gp}[1]{\nnbb{Guille}{#1}} % Guillermo Polito
 
 %=============================================================
 %:Abbreviation macros
@@ -618,29 +567,6 @@ Damien Pollet},
 \setcounter{bottomnumber}{9}
 \setcounter{totalnumber}{20}
 \setcounter{dbltopnumber}{9}
-%=============================================================
-% Give information from each chapter's author
-\newcommand{\contact}[2]{\textbf{#1} \textsf{(#2)}}
-
-\newcommand{\chapterauthor}[1]{\emph{with the participation of:\\#1}\\}
-\newcommand{\chapterwritten}[1]{\emph{written by:\\#1}\\}
-
-\newcommand{\authornoury}{\contact{Noury Bouraqadi}{Noury.Bouraqadi@mines-douai.fr}}
-\newcommand{\authordamienc}{\contact{Damien Cassou}{damien.cassou@gmail.com}}
-\newcommand{\authoroscar}{\contact{Oscar Nierstrasz}{oscar.nierstrasz@acm.org}}
-\newcommand{\authorsteph}{\contact{St\'ephane Ducasse}{stephane.ducasse@inria.fr}}
-\newcommand{\authoralex}{\contact{Alexandre Bergel}{alexandre@bergel.eu}}
-\newcommand{\authorolivier}{\contact{Olivier Auverlot}{olivier.auverlot@inria.fr}}
-\newcommand{\authornicolas}{\contact{Nicolas Cellier}{nicolas.cellier.aka.nice@gmail.com}}
-\newcommand{\authormarcus}{\contact{Marcus Denker}{marcus.denker@inria.fr}}
-\newcommand{\authoralain}{\contact{Alain Plantec}{alain.plantec@univ-brest.fr}}
-\newcommand{\authordale}{\contact{Dale Henrichs}{dale.henrichs@gemstone.com}}
-\newcommand{\authormariano}{\contact{Mariano Martinez Peck}{marianopeck@gmail.com}}
-\newcommand{\authorsven}{\contact{Sven Van Caekenberghe}{sven@beta9.be}}
-\newcommand{\authorlukas}{\contact{Lukas Renggli}{renggli@gmail.com}}
-\newcommand{\authorjankurs}{\contact{Jan Kurs}{kurs@iam.unibe.ch}}
-\newcommand{\authorguillaume}{\contact{Guillaume Larcheveque}{guillaume.larcheveque@gmail.com}}
-\newcommand{\authorguillep}{\contact{Guillermo Polito}{guillermopolito@gmail.com}}
 
 %=============================================================
 % apb doesn't like paragraphs to run in to each other without a break
