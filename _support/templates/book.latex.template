@@ -7,41 +7,13 @@
         vmargin={.75in,1in},
         ignoreheadfoot
 ]{geometry}
-\input{common.tex}
+\input{_support/latex/common.tex}
 \setboolean{lulu}{true}
 %=================================================================
 % Add the path for the figures of each chapter here:
 \graphicspath{
         {figures/}
-        {Mapless/}
-        {Athens/}
-        {BabyMock/}
-        {BioPharo/}
-        {CalculatorTutorial/}
-        {ComparingSolutions/}
-        {ConcurrencyBasics/}
-        {DSL/}
-        {WebSockets/}
-        {Deltawerken/}
-        {Fuel/}
-        {Installation/}
-        {KeyMapping/}
-        {Lint/}
-        {MetacelloIntro/}
-        {NativeBoost/}
-        {NeoCSV/}
-        {ParseTreeRewriter/}
-        {Reddit/}
-        {NeoCSV/}
-        {ODE/}
-        {STON/}
-        {ST99/}
-        {Spec/}
-        {RenoirST/}
-        {Voyage/}
-        {Zinc/}
-        {Smacc/}
-        {GitAndPharo/}
+        {Example/}
 }
 %=================================================================
 \let\wholebook=\relax
@@ -57,10 +29,9 @@
 \pagestyle{headings}
 %=================================================================
 \author{
-        Damien Cassou\quad \\
-        St\'ephane Ducasse\quad \\
-        ... and Many More :)}
-\title{\Huge\bf Pharo for the Enterprise}
+  <Put the authors here>
+}
+\title{\Huge\bf {{{title}}} }
 \isodate
 \date{\emph{Version of \today}}
 \maketitle
