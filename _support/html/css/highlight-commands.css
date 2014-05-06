@@ -1,0 +1,6 @@
+pre .shellcommands .prompt {
+    font-weight: bold;
+}
+pre .shellcommands .output {
+    color: #666;
+}
