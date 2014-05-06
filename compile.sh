@@ -64,7 +64,7 @@ function compile_latex_book() {
        echo COMPILING Book
        echo =========================================================
 
-       produce_pdf . EnterprisePharo
+       produce_pdf . Book
 }
 
 if [[ $# -eq 1 ]]; then
