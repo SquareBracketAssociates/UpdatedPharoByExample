@@ -72,13 +72,24 @@ function compile_latex_book() {
   produce_pdf . Book
 }
 
+function latex_enabled() {
+  hash pdflatex 2>/dev/null
+}
+
 if [[ $# -eq 1 ]]; then
+  echo 'Generating files based on $1'
   dir=$(dirname "$1") # e.g., Zinc
   pier_file=$(basename "$1") # e.g., Zinc.pier
   pillar_one "$1"
-  produce_pdf "${dir}" "${pier_file}"
+  if latex_enabled; then
+    produce_pdf "${dir}" "${pier_file}"
+  fi
 else
+  echo 'Generating files for all chapters'
   pillar_all
-  compile_chapters
-  compile_latex_book
+  if latex_enabled; then
+    compile_chapters
+    compile_latex_book
+  fi
 fi
+echo 'Done'
