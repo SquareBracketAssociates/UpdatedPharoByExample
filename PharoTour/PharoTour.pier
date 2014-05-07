@@ -1,0 +1,24 @@
+!Chapter 1
+!A Quick tour of Pharo
+
+In this chapter we will give you a high-level tour of Pharo to help you get comfortable with the environment. There will be plenty of opportunities to try things out, so it would be a good idea if you have a computer handy when you read this chapter.
+In particular, you will fire up Pharo, learn about the different ways of interacting with the system, and discover some of the basic tools. You will also learn how to define a new method, create an object and send it messages.
+
+!!Getting started
+
+Pharo is available as a free download from *http://pharo-project.org>http://pharo-project.org*. There are three parts that you will need to download, consisting of four files (see Figure 1.1).
+
+#The virtual machine (VM) is the only part of the system that is different for each operating system and processor. Pre-compiled virtual machines are available for all the major computing environments. In Figure 1.1 we see the VM for the selected platform is called Pharo.exe.
+#The sources file contains the source code for all of the parts of Pharo that don’t change very frequently. In Figure 1.1 it is called PharoV30.sources
+#The current system image is a snapshot of a running Pharo system, frozen in time. It consists of two files: an .image file, which contains the state of all of the objects in the system (including classes and methods, since they are objects too), and a .changes file, which contains a log of all of the changes to the source code of the system. In Figure 1.1, these files are called pharo.image and pharo.changes.
+
+We recommend that you use the image provided on the *Pharo by Example>http://pharobyexample.org/* web page.
+
+Most of the introductory material in this book will work with any version, so if you already have one installed, you may as well continue to use it. However, if you notice differences between the appearance or behaviour of your system and what is described here, do not be surprised.
+
+As you work in Pharo, the image and changes files are modified, so you need to make sure that they are writable. Always keep these two files together. Never edit them directly with a text editor, as Pharo uses them to store the objects you work with and to log the changes you make to the source code. It is a good idea to keep a backup copy of the downloaded image and changes files so you can always start from a fresh image and reload your code.
+
+The sources file and the VM can be read-only — they can be shared between different users. All of these files can be placed in the same directory, but it is also possible to put the Virtual Machine and sources file in separate directory where everyone has access to them. Do whatever works best for your style of working and your operating system.
+
+""Launching"". To start Pharo, do whatever your operating system expects: drag the .image file onto the icon of the virtual machine, or double-click the .image file, or at the command line type the name of the virtual machine followed by the path to the .image file. (When you have multiple VMs installed on your machine the operating system may not automatically pick the right one; in this case it is safer to drag and drop the image onto the virtual machine, or to use the command line.)
+Once Pharo is running, you should see a single large window, possibly containing some open workspace windows (see Figure 1.2), and it’s not
