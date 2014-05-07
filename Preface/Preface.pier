@@ -24,7 +24,7 @@ Do not be frustrated by parts of Smalltalk that you do not immediately understan
 
 This book is open book in the following senses:
 
--The content of this book is released under the Creative Commons Attribution-ShareAlike (by-sa) license. In short, you are allowed to freely share and adapt this book, as long as you respect the conditions of the license available at the following *URL:http://creativecommons.org/licenses/by-sa/3.0/>URL:http://creativecommons.org/licenses/by-sa/3.0/*.
+-The content of this book is released under the Creative Commons Attribution-ShareAlike (by-sa) license. In short, you are allowed to freely share and adapt this book, as long as you respect the conditions of the license available at the following *URL:http://creativecommons.org/licenses/by-sa/3.0/>http://creativecommons.org/licenses/by-sa/3.0/*.
 
 -This book just describes the core of Pharo. Ideally we would like to encourage others to contribute chapters on the parts of Pharo that we have not described. If you would like to participate in this effort, please contact us. We would like to see this book grow!
 
@@ -51,7 +51,7 @@ We have tried to provide as many examples as possible. In particular, there are 
 In case you want to play in Pharo with these code snippets, you can download a plain text file with all the example code from the book’s web site: *http://PharoByExample.org>http://PharoByExample.org*.
 ￼
 
-%todo by Kilon: I have removed the tooltip icon because I dont like the way it looks. Maybe Pillar should have syntax that deals with tooltips. I also removed the tooltip text but I will continute using the text of tooltips and integrate it inside the main text.
+@@todo by Kilon: I have removed the tooltip icon because I dont like the way it looks. Maybe Pillar should have syntax that deals with tooltips. I also removed the tooltip text but I will continute using the text of tooltips and integrate it inside the main text.
 
 !Acknowledgments
 
