@@ -19,6 +19,8 @@ SmalltalkHub.
 
 There is an [Emacs plugin](https://github.com/DamienCassou/pier-cl) to help you write Pier file within Emacs.
 
+Documentation about Pillar can be found [here](https://github.com/DamienCassou/pillar-documentation)
+
 How to
 ======
 
@@ -57,7 +59,7 @@ You can also compile just one chapter by doing:
 ./compile.sh DSL/DSL.pier
 ```
 
-Sample
-======
+Samples
+=======
 
-Download and check a [Sample.pier file](https://github.com/DamienCassou/pier-cl/blob/master/Sample.pier), [Sample.pier.html file](https://github.com/DamienCassou/pier-cl/blob/master/Sample.pier.html?raw=true), or a [Sample.pier.pdf file](https://github.com/DamienCassou/pier-cl/blob/master/Sample.pier.pdf?raw=true).
+Besides the pier files that can be found in this repository more examples can be also found in [ Pharo for the Enterprise](https://github.com/SquareBracketAssociates/PharoForTheEnterprise-english)
