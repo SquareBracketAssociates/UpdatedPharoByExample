@@ -8,7 +8,7 @@ Pharo is a modern, open source, fully-featured implementation of the Smalltalk p
 
 Whereas Squeak was developed mainly as a platform for developing experimental educational software, Pharo strives to offer a lean, open-source platform for professional software development, and a robust and stable platform for research and development into dynamic languages and environments. Pharo serves as the reference implementation for the Seaside web development framework. 
 
-Pharo resolves some licensing issues with Squeak. Unlike previous versions of Squeak, the Pharo core contains only code that has been contributed under the MIT license. The Pharo project started in March 2008 as a fork of Squeak 3.9, and the first 1.0 beta version was released on July 31, 2009. 
+Pharo resolves some licensing issues with Squeak. Unlike previous versions of Squeak, the Pharo core contains only code that has been contributed under the MIT license. The Pharo project started in March 2008 and the first 1.0 beta version was released on July 31, 2009. The current version is Pharo 3.0 and it was released beginning of May 2014.
 
 Although Pharo removes many packages from Squeak, it also includes numerous features that are optional in Squeak. For example, true type fonts are bundled into Pharo. Pharo also includes support for true block closures. The user interfaces has been simplified and revised. 
 
