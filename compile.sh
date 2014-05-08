@@ -21,13 +21,13 @@ function pillar_one() {
 }
 
 function mypdflatex() {
-  pier_file="$1"
+  pillar_file="$1"
 
   echo "Compiling PDF..."
-  pdflatex -halt-on-error -file-line-error -interaction batchmode "$pier_file" 2>&1 1>/dev/null
+  pdflatex -halt-on-error -file-line-error -interaction batchmode "$pillar_file" 2>&1 1>/dev/null
   ret=$?
   if [[ $ret -ne 0 ]]; then
-    cat $pier_file.log
+    cat $pillar_file.log
     echo "Can't generate the PDF!"
     exit 1
   fi
@@ -40,10 +40,10 @@ function produce_pdf() {
   fi
 
   dir="$1"
-  pier_file="$2"
+  pillar_file="$2"
 
   cd "$dir"         # e.g., cd Zinc/
-  mypdflatex "$pier_file" && mypdflatex "$pier_file"
+  mypdflatex "$pillar_file" && mypdflatex "$pillar_file"
   cd ..
 }
 
@@ -55,12 +55,12 @@ function compile_chapters() {
     echo COMPILING $chapter
     echo =========================================================
 
-    # e.g., chapter = Zinc/Zinc.pier
+    # e.g., chapter = Zinc/Zinc.pillar
 
-    pier_file=$(basename $chapter) # e.g., Zinc.pier
+    pillar_file=$(basename $chapter) # e.g., Zinc.pillar
     dir=$(dirname $chapter) # e.g., Zinc
 
-    produce_pdf "${dir}" "${pier_file}"
+    produce_pdf "${dir}" "${pillar_file}"
   done
 }
 
@@ -79,10 +79,10 @@ function latex_enabled() {
 if [[ $# -eq 1 ]]; then
   echo 'Generating files based on $1'
   dir=$(dirname "$1") # e.g., Zinc
-  pier_file=$(basename "$1") # e.g., Zinc.pier
+  pillar_file=$(basename "$1") # e.g., Zinc.pillar
   pillar_one "$1"
   if latex_enabled; then
-    produce_pdf "${dir}" "${pier_file}"
+    produce_pdf "${dir}" "${pillar_file}"
   fi
 else
   echo 'Generating files for all chapters'
