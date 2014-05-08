@@ -4,13 +4,25 @@
 !!What is Pharo?
 
 
-Pharo is a modern, open source, fully-featured implementation of the Smalltalk programming language and environment. Pharo is derived from Squeak (see Dan Ingalls et al., Back to the Future: The Story of Squeak, a Practical Smalltalk Written in Itself. In Proceedings of the 12th ACM SIGPLAN conference on Object-oriented programming, systems, languages, and applications (OOPSLA’97). ACM Press, November 1997 *Link>http://www.cosc.canterbury.ac.nz/~wolfgang/cosc205/squeak.html* ), a re-implementation of the classic Smalltalk-80 system. Whereas Squeak was developed mainly as a platform for developing experimental educational software, Pharo strives to offer a lean, open-source platform for professional software development, and a robust and stable platform for research and development into dynamic languages and environments. Pharo serves as the reference implementation for the Seaside web development framework. Pharo resolves some licensing issues with Squeak. Unlike previous ver- sions of Squeak, the Pharo core contains only code that has been contributed under the MIT license. The Pharo project started in March 2008 as a fork of Squeak 3.9, and the first 1.0 beta version was released on July 31, 2009. Although Pharo removes many packages from Squeak, it also includes numerous features that are optional in Squeak. For example, true type fonts are bundled into Pharo. Pharo also includes support for true block closures. The user interfaces has been simplified and revised. Pharo is highly portable — even its virtual machine is written entirely in Smalltalk, making it easy to debug, analyze, and change. Pharo is the vehicle for a wide range of innovative projects from multimedia applications and educational platforms to commercial web development environments. There is an important aspect behind Pharo: Pharo should not just be a copy of the past but really reinvent Smalltalk. Big-bang approaches rarely succeed. Pharo will really favor evolutionary and incremental changes. We want to be able to experiment with important new features or libraries. Evolution means that Pharo accepts mistakes and is not aiming for the next perfect solution in one big step — even if we would love it. Pharo will favor small incremental changes but a multitude of them. The success of Pharo depends on the contributions of its community.
+Pharo is a modern, open source, fully-featured implementation of the Smalltalk programming language and environment. Pharo is derived from Squeak (see Dan Ingalls et al., Back to the Future: The Story of Squeak, a Practical Smalltalk Written in Itself. *Link>http://www.cosc.canterbury.ac.nz/~wolfgang/cosc205/squeak.html* ), a re-implementation of the classic Smalltalk-80 system. 
+
+Whereas Squeak was developed mainly as a platform for developing experimental educational software, Pharo strives to offer a lean, open-source platform for professional software development, and a robust and stable platform for research and development into dynamic languages and environments. Pharo serves as the reference implementation for the Seaside web development framework. 
+
+Pharo resolves some licensing issues with Squeak. Unlike previous versions of Squeak, the Pharo core contains only code that has been contributed under the MIT license. The Pharo project started in March 2008 as a fork of Squeak 3.9, and the first 1.0 beta version was released on July 31, 2009. 
+
+Although Pharo removes many packages from Squeak, it also includes numerous features that are optional in Squeak. For example, true type fonts are bundled into Pharo. Pharo also includes support for true block closures. The user interfaces has been simplified and revised. 
+
+Pharo is highly portable - even its virtual machine is written entirely in Smalltalk, making it easy to debug, analyze, and change. Pharo is the vehicle for a wide range of innovative projects from multimedia applications and educational platforms to commercial web development environments.
+
+There is an important aspect behind Pharo: Pharo should not just be a copy of the past but really reinvent Smalltalk. Big-bang approaches rarely succeed. Pharo will really favor evolutionary and incremental changes. We want to be able to experiment with important new features or libraries. Evolution means that Pharo accepts mistakes and is not aiming for the next perfect solution in one big step - even if we would love it. Pharo will favor small incremental changes but a multitude of them. The success of Pharo depends on the contributions of its community.
 
 !!Who should read this book ?
 
-This book is based on *Squeak by Example>http://SqueakByExample.org* , an open-source introduction to Squeak. The book has been liberally adapted and revised to reflect the differ- ences between Pharo and Squeak. This book presents the various aspects of Pharo, starting with the basics, and proceeding to more advanced topics.
+This book is based on *Squeak by Example>http://SqueakByExample.org* , an open-source introduction to Squeak written by the authors. The book has been liberally adapted and revised to reflect the differences between Pharo and Squeak. This book presents the various aspects of Pharo, starting with the basics, and proceeding to more advanced topics.
+
 This book will not teach you how to program. The reader should have some familiarity with programming languages. Some background with object-oriented programming would be helpful.
-This book will introduce the Pharo programming environment, the lan- guage and the associated tools. You will be exposed to common idioms and practices, but the focus is on the technology, not on object-oriented de- sign. Wherever possible, we will show you lots of examples. We have been inspired by Alec Sharp’s excellent book on Smalltalk (Alec Sharp, *Smalltalk by Example>Http://stephane.ducasse.free.fr/FreeBooks/ByExample*. McGraw-Hill, 1997 ).
+This book will introduce the Pharo programming environment, the language and the associated tools. You will be exposed to common idioms and practices, but the focus is on the technology, not on object-oriented design. Wherever possible, we will show you lots of examples. We have been inspired by Alec Sharp’s excellent book on Smalltalk (Alec Sharp, *Smalltalk by Example>Http://stephane.ducasse.free.fr/FreeBooks/ByExample*. McGraw-Hill, 1997).
+
 There are *numerous other books on Smalltalk freely available on the web>http://stephane.ducasse.free.fr/FreeBooks.html* but none of these focuses specifically on Pharo.
 
 !!A word of advice
@@ -18,7 +30,7 @@ There are *numerous other books on Smalltalk freely available on the web>http://
 
 Do not be frustrated by parts of Smalltalk that you do not immediately understand. You do not have to know everything! Alan Knight expresses as follows:
 
-|""Try not to care"". Beginning Smalltalk programmers often have trouble because they think they need to understand all the details of how a thing works before they can use it. This means it takes quite a while before they can master Transcript show: 'Hello World'. One of the great leaps in OO is to be able to answer the question “How does this work?” with “I don’t care”.|
+|""Try not to care"". Beginning Smalltalk programmers often have trouble because they think they need to understand all the details of how a thing works before they can use it. This means it takes quite a while before they can master Transcript show: 'Hello World'. One of the great leaps in OO is to be able to answer the question “How does this work?” with "I don't care".|
 
 !!An open book
 
@@ -34,7 +46,7 @@ This book is open book in the following senses:
 
 The Pharo community is friendly and active. Here is a short list of resources that you may find useful:
 
--*http://www.pharo-project.org>http://www.pharo-project.org* is the main web site of Pharo
+-*http://www.pharo.org>http://www.pharo.org* is the main web site of Pharo
 -In irc you can find us in freedone.net server , channel "pharo"
 -you can also ask questions in *stackoverflow>http://stackoverflow.com/questions/tagged/pharo* with the tag "pharo" and "smalltalk".
 -*http://www.smalltalkhub.com/>http://www.smalltalkhub.com/* is the equivalent of SourceForge for Pharo projects. Many optional packages for Pharo live there.
@@ -43,20 +55,26 @@ The Pharo community is friendly and active. Here is a short list of resources th
 
 We make use of two special conventions in this book.
 
-We have tried to provide as many examples as possible. In particular, there are many examples that show a fragment of code which can be evaluated. We use the symbol −→ an expression and to indicate the result that you obtain when you select an expression and ""print it"":
+We have tried to provide as many examples as possible. In particular, there are many examples that show a fragment of code which can be evaluated. We use the symbol \-\> an expression and to indicate the result that you obtain when you select an expression and ""print it"":
 
-￼￼￼[[[label=script1|caption=Small example|language=Smalltalk
-3 + 4 "−→ 7 if you select 3+4 and 'print it', you will see 7"￼]]]￼
+[[[label=script1|caption=Small example|language=Smalltalk
+3 + 4 
+\-\> 7 "if you select 3+4 and 'print it', you will see 7"
+]]]
 
-In case you want to play in Pharo with these code snippets, you can download a plain text file with all the example code from the book’s web site: *http://PharoByExample.org>http://PharoByExample.org*.
-￼
+In case you want to play in Pharo with these code snippets, you can download a plain text file with all the example code from the book's web site: *http://PharoByExample.org>http://PharoByExample.org*.
 
-@@todo by Kilon: I have removed the tooltip icon because I dont like the way it looks. Maybe Pillar should have syntax that deals with tooltips. I also removed the tooltip text but I will continute using the text of tooltips and integrate it inside the main text.
+@@todo by Kilon: I have removed the tooltip icon because I dont like the way it looks. Maybe Pillar should have syntax that deals with tooltips. I also removed the tooltip text but I will continue using the text of tooltips and integrate it inside the main text. SD: Please keep the text.
+
 
 !Acknowledgments
 
 We would first like to thank the original developers of Squeak for making this amazing Smalltalk development environment available as an open source project.
-We would also like to thank Hilaire Fernandes and Serge Stinckwich who allowed us to translate parts of their columns on Smalltalk, and Damien Cassou for contributing the chapter on streams.
-We especially thank Alexandre Bergel, Orla Greevy, Fabrizio Perin, Lukas Renggli, Jorge Ressia and Erwann Wernli for their detailed reviews.
+
+We would also like to thank Hilaire Fernandes and Serge Stinckwich who allowed us to translate parts of their columns on Smalltalk, and Damien Cassou for contributing the chapter on streams. We especially thank Alexandre Bergel, Orla Greevy, Fabrizio Perin, Lukas Renggli, Jorge Ressia and Erwann Wernli for their detailed reviews.
+
 We thank the University of Bern, Switzerland, for graciously supporting this open-source project and for hosting the web site of this book.
-We also thank the Squeak community for their enthusiastic support of this book project, and for informing us of the errors found in the first edition of this book.
+
+We also thank the Squeak community for informing us of the errors found in the first edition of this book.
+
+We also thank the Pharo community for their enthusiastic support of this book project. Thank for all the translations.
