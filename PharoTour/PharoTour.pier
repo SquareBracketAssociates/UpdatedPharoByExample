@@ -1,7 +1,9 @@
 !Chapter 1
+
 !A Quick tour of Pharo
 
 In this chapter we will give you a high-level tour of Pharo to help you get comfortable with the environment. There will be plenty of opportunities to try things out, so it would be a good idea if you have a computer handy when you read this chapter.
+
 In particular, you will fire up Pharo, learn about the different ways of interacting with the system, and discover some of the basic tools. You will also learn how to define a new method, create an object and send it messages.
 
 !!Getting started
@@ -26,6 +28,7 @@ Pharo does need to install anything in your system as its perfectly capable of r
 Only thing you need to do is download Pharo 3 from the Pharo *website>http://www.pharo-project.org/home* . Depending on your platform download the approriate zip file , uncompress it in a directory of your choice and now you are ready to launch Pharo. In case of Ubuntu there is the extra option of installing Pharo via the Pharo PPA.
 
 !!Launch Pharo
+
 In Macos double click the Pharo icon that you have unziped when you downloaded Pharo. In Windows enter the uncompressed Pharo folder and double click the Pharo.exe. In Linux its possible to launch Pharo from the terminal passing the image file as first parameter. Its also possible drag the .image file onto the icon of the virtual machine for all OSes , or at the command line type the name of the virtual machine followed by the path to the .image file. In Ubuntu if you had installed Pharo through the PPA process then "pharo nameofthe.image" will launch the image of your choice. Its also possible to associate image files with the Pharo binary (Pharo VM) , in MacOS via GetInfo , Windows via Open With.
 
 !!The World Menu
@@ -64,3 +67,26 @@ In addition to the .image file, there is also a .changes file. This file contain
 The image that you have been working with is a descendant of the original Smalltalk-80 image created in the late 1970s. Some of these objects have been around for decades!
 
 You might think that the image is the key mechanism for storing and managing software projects, but you would be wrong. As we shall see very soon, there are much better tools for managing code and sharing software developed by teams. Images are very useful, but you should learn to be very cavalier about creating and throwing away images, since tools like Monticello offer much better ways to manage versions and share code amongst developers.
+
+!!Workspace and Transcripts
+
+Close all open windows.Open a transcript and a workspace. (The transcript can be opened from the World > Tools ... submenu.)
+
+Position and resize the transcript and workspace windows so that the workspace just overlaps the transcript.
+
+You can resize windows either by dragging one of the corners, or by meta- clicking the window to bring up the morphic halo, and dragging the yellow (bottom right) handle.
+
+At any time only one window is active; it is in front and has its border highlighted.
+
+The transcript is an object that is often used for logging system messages. It is a kind of “system console”.
+
+Workspaces are useful for typing snippets of Smalltalk code that you would like to experiment with. You can also use workspaces simply for typing arbitrarily text that you would like to remember, such as to-do lists or instructions for anyone who will use your image. Workspaces are often used to hold documentation about a captured image, as is the case with the standard image that we downloaded earlier (see Figure 1.2).
+
+Type the following text into the workspace:
+
+[[[language = Smalltalk
+Transcript show: 'hello world'; cr.]]]
+
+Try double-clicking in the workspace at various points in the text you have just typed. Notice how an entire word, entire string, or the whole text is selected, depending on whether you click within a word, at the end of the string, or at the end of the entire expression.
+Select the text you have typed and right click Select do it (d) .
+Notice how the text “hello world” appears in the transcript window. Do it again.
