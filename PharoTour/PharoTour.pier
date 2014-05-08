@@ -6,11 +6,11 @@ In particular, you will fire up Pharo, learn about the different ways of interac
 
 !!Getting started
 
-Pharo is available as a free download from *http://pharo-project.org>http://pharo-project.org*. There are three parts that you will need to download, consisting of four files (see Figure 1.1).
+Pharo is available as a free download from *http://pharo-project.org>http://pharo-project.org*. There are three parts that you will need to download, consisting of four files.
 
-#The virtual machine (VM) is the only part of the system that is different for each operating system and processor. Pre-compiled virtual machines are available for all the major computing environments. In Figure 1.1 we see the VM for the selected platform is called Pharo.exe.
-#The sources file contains the source code for all of the parts of Pharo that don’t change very frequently. In Figure 1.1 it is called PharoV30.sources
-#The current system image is a snapshot of a running Pharo system, frozen in time. It consists of two files: an .image file, which contains the state of all of the objects in the system (including classes and methods, since they are objects too), and a .changes file, which contains a log of all of the changes to the source code of the system. In Figure 1.1, these files are called pharo.image and pharo.changes.
+#The virtual machine (VM) is the only part of the system that is different for each operating system and processor. Pre-compiled virtual machines are available for all the major computing environments.(For example in case of Windows the VM for the selected platform is called Pharo.exe).
+#The sources file contains the source code for all of the parts of Pharo that don’t change very frequently. In case of Pharo3 is called PharoV30.sources
+#The current system image is a snapshot of a running Pharo system, frozen in time. It consists of two files: an .image file, which contains the state of all of the objects in the system (including classes and methods, since they are objects too), and a .changes file, which contains a log of all of the changes to the source code of the system. Pharo 3 comes with the files that are called pharo.image and pharo.changes.
 
 We recommend that you use the image provided on the *Pharo by Example>http://pharobyexample.org/* web page.
 
@@ -20,5 +20,47 @@ As you work in Pharo, the image and changes files are modified, so you need to m
 
 The sources file and the VM can be read-only — they can be shared between different users. All of these files can be placed in the same directory, but it is also possible to put the Virtual Machine and sources file in separate directory where everyone has access to them. Do whatever works best for your style of working and your operating system.
 
-""Launching"". To start Pharo, do whatever your operating system expects: drag the .image file onto the icon of the virtual machine, or double-click the .image file, or at the command line type the name of the virtual machine followed by the path to the .image file. (When you have multiple VMs installed on your machine the operating system may not automatically pick the right one; in this case it is safer to drag and drop the image onto the virtual machine, or to use the command line.)
-Once Pharo is running, you should see a single large window, possibly containing some open workspace windows (see Figure 1.2), and it’s not
+!!Install Pharo
+
+Pharo does need to install anything in your system as its perfectly capable of running as stand alone.
+Only thing you need to do is download Pharo 3 from the Pharo *website>http://www.pharo-project.org/home* . Depending on your platform download the approriate zip file , uncompress it in a directory of your choice and now you are ready to launch Pharo. In case of Ubuntu there is the extra option of installing Pharo via the Pharo PPA.
+
+!!Launch Pharo
+In Macos double click the Pharo icon that you have unziped when you downloaded Pharo. In Windows enter the uncompressed Pharo folder and double click the Pharo.exe. In Linux its possible to launch Pharo from the terminal passing the image file as first parameter. Its also possible drag the .image file onto the icon of the virtual machine for all OSes , or at the command line type the name of the virtual machine followed by the path to the .image file. In Ubuntu if you had installed Pharo through the PPA process then "pharo nameofthe.image" will launch the image of your choice. Its also possible to associate image files with the Pharo binary (Pharo VM) , in MacOS via GetInfo , Windows via Open With.
+
+!!The World Menu
+
+Left clicking anywhere that there is open space inside the Pharo window will display the World Menu. World Menu contains many of the Pharo tools, utilities and settings.
+
++Pharo 3 window with World Menu activated>file://figures/world-menu.png|width=100|label=worldMenu+
+
+You will see a list of several of the core tools in Pharo, including the browser and the workspace. We will encounter most of them in the coming chapters.
+
+!!Sending messages
+
+Left click on open space to open the World Menu and then click on the "Workspace" menu option. The Workspace tool will open. We can use the Workspace to quickly execute Pharo code. Enter the following code in it then right click and select "do it"
+
+[[[language=smalltalk
+PharoTutorial go.]]]
+
+This Pharo command will trigger the Pharo tutorial. Its interactive tutorial that will teach you the basics of Pharo. You have just sent your first message. Pharo is based on the concept of sending messages to objects. The Pharo objects are like your soldiers ready to obey once you send them a message they can understand. We will see later on how an object can understand a message.
+
+If you talk to Smalltalkers for a while, you will quickly notice that they gen erally do not use expressions like “call an operation” or “invoke a method”, as coders do in other programming languages, but instead they will say “send a message”. This reflects the idea that objects are responsible for their own actions. You never tell an object what to do , instead you politely ask it to do something by sending it a message. The object, not you, selects the appropriate method for responding to your message.
+
+As a user you dont need to understand how each message works , the only thing you need to know is what the available messages are for the Objects that interest you. This way the Object can hide its complexity and coding can be kept as simple as possible without losing flexibility.
+
+!!Saving, quitting and restarting a Pharo session
+
+We can exit Pharo at any point. You can close the Pharo window as you do any other window of OS. Additionally you can trigger the World Menu choose either "Save and quit" or "Quit".
+
+In any case Pharo will display a prompt to ask you about saving your image. If you do save your image and reopen it you will see that things are exactly as you left them. This happens because the image file is capable of storing any information that Pharo has loaded to your memory so that nothing is lost on exit.
+
+When you start Pharo for the first time, the Pharo virtual machine loads the image file that you provide. This file contains a snapshot of a large number of objects, including a vast amount of pre-existing code and a large number of programming tools (all of which are objects). As you work with Pharo, you will send messages to these objects, you will create new objects, and some of these objects will die and their memory will be reclaimed (i.e., garbage-collected).
+
+When you quit Pharo, you will normally save a snapshot that contains all of your objects. If you save normally, you will overwrite your old image file with the new snapshot. Alternatively, you may save the image under a new name, as we just did.
+
+In addition to the .image file, there is also a .changes file. This file contains a log of all the changes to the source code that you have made using the standard tools. Most of the time you do not need to worry about this file at all. As we shall see, however, the .changes file can be very useful for recovering from errors, or replaying lost changes. More about this later!
+
+The image that you have been working with is a descendant of the original Smalltalk-80 image created in the late 1970s. Some of these objects have been around for decades!
+
+You might think that the image is the key mechanism for storing and managing software projects, but you would be wrong. As we shall see very soon, there are much better tools for managing code and sharing software developed by teams. Images are very useful, but you should learn to be very cavalier about creating and throwing away images, since tools like Monticello offer much better ways to manage versions and share code amongst developers.
