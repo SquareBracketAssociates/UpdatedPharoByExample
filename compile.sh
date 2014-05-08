@@ -77,7 +77,7 @@ function latex_enabled() {
 }
 
 if [[ $# -eq 1 ]]; then
-  echo 'Generating files based on $1'
+  echo "Generating files based on $1"
   dir=$(dirname "$1") # e.g., Zinc
   pillar_file=$(basename "$1") # e.g., Zinc.pillar
   pillar_one "$1"
