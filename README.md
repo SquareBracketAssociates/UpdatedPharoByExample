@@ -1,4 +1,4 @@
-Updated version of Pharo by Example
+Updated version of Pharo by Example [![Build Status](https://ci.inria.fr/pharo-contribution/buildStatus/icon?job=UpdatedPharoByExample)](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/)
 ==========================================
 This is a test to see if it makes sense to convert PharoByExample into pier format.
 
