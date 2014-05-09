@@ -16,17 +16,17 @@ How to use Skeleton
 * Customise `pillar.conf` with your book's title.
 * Add this repository as a remote:
 
-```shell
-git remote add skeleton https://github.com/pillar-markup/book-skeleton.git
-```
+  ```shell
+  git remote add skeleton https://github.com/pillar-markup/book-skeleton.git
+  ```
 
 * Then you want to get updates from this repository execute:
 
-```shell
-git pull skeleton master
-```
+  ```shell
+  git pull skeleton master
+  ```
 
-You will have to resolve conflicts if updates occurred in the lines that you've changed.
+  You will have to resolve conflicts if updates occurred in the lines that you've changed.
 
 ### Continuous Integration suggestions
 
