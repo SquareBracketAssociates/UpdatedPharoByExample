@@ -39,6 +39,8 @@ and then to archive these artefacts:
 
     Book.pdf, Book.tex, **/*.pillar, **/*.pillar.tex, **/*.pillar.pdf, **/*.pillar.html,  **/*.pillar.md, **/figures/*, html/**
 
+Also Skeleton comes with [Travis CI](https://travis-ci.org) configuration file. This allows you to start automated testing of your book just by enabling it on Travis CI service. Finally you can follow [Sharing Travis-CI generated files](http://sleepycoders.blogspot.com/2013/03/sharing-travis-ci-generated-files.html) tutorial, to hack GitHub and Travis into storing your artefacts.
+
 <!--- SKELETON-SPECIFIC DATA ENDS HERE --->
 
 
