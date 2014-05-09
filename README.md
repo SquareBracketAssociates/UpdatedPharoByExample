@@ -71,7 +71,7 @@ Tools
 
 There are mods/bundles/packages for text editors, that provide improvements for pillar files editing:
 
-Emacs: [pillar-mode](https://github.com/pillar-markup/pillar-mode)
-Vim: [vim-pillar](https://github.com/cdlm/vim-pillar)
-TextMate: [Pillar.tmbundle](https://github.com/pillar-markup/Pillar.tmbundle)
-ATOM: [language-pillar](https://github.com/pillar-markup/language-pillar)
+* Emacs: [pillar-mode](https://github.com/pillar-markup/pillar-mode)
+* Vim: [vim-pillar](https://github.com/cdlm/vim-pillar)
+* TextMate: [Pillar.tmbundle](https://github.com/pillar-markup/Pillar.tmbundle)
+* ATOM: [language-pillar](https://github.com/pillar-markup/language-pillar)
