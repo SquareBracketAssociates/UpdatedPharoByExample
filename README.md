@@ -1,4 +1,4 @@
-Pillar Book Skeleton
+Pillar Book Skeleton [![Build Status](https://travis-ci.org/pillar-markup/book-skeleton.svg?branch=master)](https://travis-ci.org/pillar-markup/book-skeleton)
 ====================
 
 This is a skeleton that can be used as a starting place to write your book. For now on this it is being used by [PharoForTheEnterprise](https://github.com/SquareBracketAssociates/PharoForTheEnterprise-english) and [UpdatedPharoByExample](https://github.com/SquareBracketAssociates/UpdatedPharoByExample) books.
@@ -40,6 +40,7 @@ and then to archive these artefacts:
     Book.pdf, Book.tex, **/*.pillar, **/*.pillar.tex, **/*.pillar.pdf, **/*.pillar.html,  **/*.pillar.md, **/figures/*, html/**
 
 <!--- SKELETON-SPECIFIC DATA ENDS HERE --->
+
 
 How to write a book
 -------------------
