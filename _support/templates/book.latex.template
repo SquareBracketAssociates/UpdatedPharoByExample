@@ -12,8 +12,9 @@
 %=================================================================
 % Add the path for the figures of each chapter here:
 \graphicspath{
-        {figures/}
-        {SUnit/}
+  {figures/}
+  {PharoTour/}
+  {SUnit/}
 }
 %=================================================================
 \let\wholebook=\relax
