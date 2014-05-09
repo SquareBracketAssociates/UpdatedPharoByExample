@@ -18,6 +18,16 @@ How to use Skeleton
       git pull skeleton master
   yes, you'll have to resolve conflicts if updates occurred in the lines that you've changed.
 
+###CI suggestions
+Generally on CI you only have to run:
+
+    ./download.sh
+    ./compile.sh
+
+Artefacts to publish:
+
+    Book.pdf, Book.tex, **/*.pillar, **/*.pillar.tex, **/*.pillar.pdf, **/*.pillar.html,  **/*.pillar.md, **/figures/*, html/**
+
 <!--- SKELETON-SPECIFIC DATA ENDS HERE --->
 
 How to write a book
