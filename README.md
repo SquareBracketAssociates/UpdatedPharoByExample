@@ -19,7 +19,7 @@ SmalltalkHub.
 
 There is an [Emacs plugin](https://github.com/pillar-markup/pillar-mode) to help you write Pier file within Emacs.
 
-Documentation about Pillar can be found [here](https://github.com/DamienCassou/pillar-documentation)
+Documentation about Pillar can be found [here](https://github.com/pillar-markup/pillar-documentation)
 
 How to Download and compile/build the book
 ==========================================
