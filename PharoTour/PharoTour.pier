@@ -90,3 +90,31 @@ Transcript show: 'hello world'; cr.]]]
 Try double-clicking in the workspace at various points in the text you have just typed. Notice how an entire word, entire string, or the whole text is selected, depending on whether you click within a word, at the end of the string, or at the end of the entire expression.
 Select the text you have typed and right click Select do it (d) .
 Notice how the text “hello world” appears in the transcript window. Do it again.
+
+!!Keyboard shortcuts
+
+If you want  to evaluate an expression, you do not always have to right click. Instead, you can use keyboard shortcuts. These are the parenthesized expressions in the menu.  Depending on your platform, you may have to press one of the modifier keys which are control, alt and command. We will be focusing on the MacOS platform since this is the platform most Pharo developer uses where command key (a.k.a CMD key) is the main modifier key , the similar key in Windows is Alt and so is in Linux  so each time you see something like CMD-d just replace with the approriate modifier key depending on your OS.
+
+@@todo Test that alt is the modifier key for Linux
+
+In addition to ""do it"", you might have noticed ""print it"", ""inspect it"" and ""explore it"". Let's have a quick look at each of these.
+
+Type the expression {{{3 + 4}}} into the workspace. Now ""do it"" with the keyboard shortcut.
+
+Do not be surprised if you saw nothing happen! What you just did is send the message {{{+}}} with argument 4 to the number 3. Normally the result 7 will have been computed and returned to you, but since the workspace did not know what to do with this answer, it simply threw the answer away.  If you want to see the result, you should ""print it"" instead. ""print it"" actually compiles the expression, executes it, sends the message printString to the result, and displays the resulting string.
+
+Select {{{3+4}}} and ""print it"" ( CMD-p).
+
+This time we see the result we expect .
+
+[[[lang=Smalltalk
+3 + 4 --> 7]]]
+
+We use the notation ""-->"" as a convention in this book to indicate that a particular Pharo expression yields a given result when you ""print it"".
+
+Delete the highlighted text "7" (Pharo should have selected it for you, so you can just press the delete key). Select {{{3+4}}} again and this time ""inspect it"" ( CMD-i)
+
+
+Now you should see a new window, called an ''inspector'', with the heading SmallInteger: 7. The inspector is an extremely useful tool that will allow you to browse and interact with any object in the system. The title tells us that 7 is an instance of the class ''SmallInteger''. The left panel allows us to browse the instance variables of an object, the values of which are shown in the right panel.The bottom panel can be used to write expressions to send messages to the object.
+
+Type ""self squared"" in the bottom panel of the inspector on ""7"" and ""print it"".
