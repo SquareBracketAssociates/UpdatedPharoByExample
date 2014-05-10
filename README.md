@@ -8,7 +8,7 @@ I pay attention to do it in the frnech and english version in parallel.
 
 So if somebody changes something in the english version please add it to this log
 
-From here down nothing is correct
+Documentation and Tools
 ==========================================
 
 
@@ -17,12 +17,12 @@ This book is continuously built on an [Inria Jenkins server](https://ci.inria.fr
 The [engine used](http://www.smalltalkhub.com/#!/~DamienCassou/Pier-Gutemberg) to build PDF and HTML outputs is hosted on
 SmalltalkHub.
 
-There is an [Emacs plugin](https://github.com/DamienCassou/pier-cl) to help you write Pier file within Emacs.
+There is an [Emacs plugin](https://github.com/pillar-markup/pillar-mode) to help you write Pier file within Emacs.
 
 Documentation about Pillar can be found [here](https://github.com/DamienCassou/pillar-documentation)
 
-How to
-======
+How to Download and compile/build the book
+==========================================
 
 You first have to download this project
 
