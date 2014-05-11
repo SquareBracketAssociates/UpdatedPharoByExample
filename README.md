@@ -1,4 +1,4 @@
-Pillar Book Skeleton [![Build Status](https://ci.inria.fr/pharo-contribution/buildStatus/icon?job=UpdatedPharoByExample)](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/) [![Build Status](https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample.svg?branch=master)](https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample)
+Updated version of Pharo by Example [![Build Status](https://ci.inria.fr/pharo-contribution/buildStatus/icon?job=UpdatedPharoByExample)](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/) [![Build Status](https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample.svg?branch=master)](https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample)
 ====================
 
 This is a test to see if it makes sense to convert PharoByExample into pier format.
