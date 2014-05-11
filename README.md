@@ -1,5 +1,6 @@
-Updated version of Pharo by Example [![Build Status](https://ci.inria.fr/pharo-contribution/buildStatus/icon?job=UpdatedPharoByExample)](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/)
-==========================================
+Pillar Book Skeleton [![Build Status](https://ci.inria.fr/pharo-contribution/buildStatus/icon?job=UpdatedPharoByExample)](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/) [![Build Status](https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample.svg?branch=master)](https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample)
+====================
+
 This is a test to see if it makes sense to convert PharoByExample into pier format.
 
 I (Stef) have a log here of what I should have a look
@@ -8,58 +9,39 @@ I pay attention to do it in the frnech and english version in parallel.
 
 So if somebody changes something in the english version please add it to this log
 
-Documentation and Tools
-==========================================
-
-
 This book is continuously built on an [Inria Jenkins server](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/).
 
-The [engine used](http://www.smalltalkhub.com/#!/~DamienCassou/Pier-Gutemberg) to build PDF and HTML outputs is hosted on
-SmalltalkHub.
 
-There is an [Emacs plugin](https://github.com/pillar-markup/pillar-mode) to help you write Pier file within Emacs.
+How to write a book
+-------------------
 
-Documentation about Pillar can be found [here](https://github.com/pillar-markup/pillar-documentation)
+This book is written in Pillar markup. If you are not familiar with it please check the [pillar-documentation](https://github.com/pillar-markup/pillar-documentation).
 
-How to Download and compile/build the book
-==========================================
+###Generating the book
 
-You first have to download this project
+First of all you have to run `./download.sh` to obtain the Pillar executable that does all the job.
 
-```bash
-# if you have commit access:
-git clone git@github.com:SquareBracketAssociates/UpdatedPharoByExample.git
-# if you don't
-git clone git://github.com/SquareBracketAssociates/UpdatedPharoByExample.git
-```
+To generate your book execute `./compile.sh`. If you want to generate only one chapter, pass the file's path to the script: `./compile.sh Example/Example.pillar`. If you have `pdflatex` installed and available in your system's `PATH`, the script will also generate pdf files.
 
-Then you must download the Pharo VM and image
+###Adding a chapter
 
-```bash
-./download.sh
-```
+To add a chapter create a directory for it (named, e.g., `Example`) and put there a `.pillar` file (named, e.g., `Example.pillar`) which will contain the chapter itself. Put images in the `figures` subdirectory of the new chapter directory.
 
-Finally, to build the book
+Add your chapter to:
 
-```bash
-./compile.sh
-```
+* `pillar.conf` in the `inputFiles` array as: `"Example/Example.pillar"`, and
+* `_support/templates/book.latex.template` in `\graphicspath` as `{Example/}`
 
-The `compile.sh` script will only compile the files that are included
-from the `PFTE.tex` file. If you write a new chapter, don't forget to
-reference it in the `PFTE.tex` file to have it compiled:
+###Caveats
 
-```latex
-\input{MyChapter/MyChapter.pier.tex}
-```
+* You must neither use spaces nor underscores (`_`) in file names.
 
-You can also compile just one chapter by doing:
+Tools
+-----
 
-```bash
-./compile.sh DSL/DSL.pier
-```
+There are mods/bundles/packages for text editors, that provide improvements for pillar files editing:
 
-Samples
-=======
-
-Besides the pier files that can be found in this repository more examples can be also found in [ Pharo for the Enterprise](https://github.com/SquareBracketAssociates/PharoForTheEnterprise-english)
+* Emacs: [pillar-mode](https://github.com/pillar-markup/pillar-mode)
+* Vim: [vim-pillar](https://github.com/cdlm/vim-pillar)
+* TextMate: [Pillar.tmbundle](https://github.com/pillar-markup/Pillar.tmbundle)
+* ATOM: [language-pillar](https://github.com/pillar-markup/language-pillar)
