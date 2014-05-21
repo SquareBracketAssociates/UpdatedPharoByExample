@@ -166,3 +166,15 @@ A browser will open on the Boolean class. There is also a keyboard shortcut CMD-
 Use the keyboard shortcut to browse the class ""Boolean"".
 
 Notice that when the Boolean class is selected but no protocol or method is selected, instead of the source code of a method, we see a class definition. This is nothing more than an ordinary Smalltalk message that is sent to the parent class, asking it to create a subclass. Here we see that the class Object is being asked to create a subclass named Boolean with no instance variables, class variables or ''pool dictionaries'', and to put the class Boolean} in the Kernel-Objects category. If you click on the ""comments"" button  at the bottom of the class pane, you can see the class comment  in a dedicated pane.
+
+
+Often, the fastest way to find a class is to search for it by name. For example, suppose that you are looking for some unknown class that represents dates and times.
+
+Put the mouse in the package pane of the browser and type CMD-f, or select
+find class (f) by right clicking inside the package pane.  Type "time" in the dialog box and accept it.
+
+You will be presented with a list of classes whose names contain "time". Choose one, say, Time, and the browser will show it, along with a class comment that suggests other classes that might be useful.  If you want to browse one of the others, select its name (in any text pane), and type CMD-b.
+
+Note that if you type the complete (and correctly capitalized) name of a class in the find dialog, the browser will go directly to that class without showing you the list of options.
+
+!!Finding methods
