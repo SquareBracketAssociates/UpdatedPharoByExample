@@ -83,3 +83,74 @@ We can see examples of the various syntactic elements in the Table bellow.
 ""Cascades"". Semicolons ( \; ) can be used to send a cascade of messages to a single receiver. In Transcript show: 'hello'; cr we first send the keyword message show: 'hello' to the receiver Transcript, and then we send the unary message cr to the same receiver.
 
 The classes Number, Character, String and Boolean are described in more detail in Chapter 8.
+
+!!Pseudo-variables
+
+In Smalltalk, there are 6 reserved keywords, or pseudo-variables: ""nil, true, false, self, super"", and ""thisContext"". They are called pseudo-variables because they are predefined and cannot be assigned to. true, false, and nil are constants while the values of self, super, and thisContext vary dynamically as code is executed.
+
+""true"" and ""false"" are the unique instances of the Boolean classes True and False. See Chapter 8 for more details.
+
+""self"" always refers to the receiver of the currently executing method.
+
+""super"" also refers to the receiver of the current method, but when you send a message to super, the method-lookup changes so that it starts from the superclass of the class containing the method that uses super. For further details see Chapter 5.
+
+""nil"" is the undefined object. It is the unique instance of the class UndefinedObject. Instance variables, class variables and local variables are initialized to nil.
+
+""thisContext"" is a pseudo-variable that represents the top frame of the run- time stack. In other words, it represents the currently executing MethodContext or BlockClosure. thisContext is normally not of interest to most programmers, but it is essential for implementing development tools like the debugger and it is also used to implement exception handling and continuations.
+
+!!Message sends
+
+There are three kinds of messages in Pharo.
+#Unary messages take no argument. 1 factorial sends the message factorial to the object 1.
+#Binary messages take exactly one argument. 1 \+ 2 sends the message \+ with argument 2 to the object 1.
+#Keyword messages take an arbitrary number of arguments. 2 raisedTo: 6 modulo: 10 sends the message consisting of the message selector raisedTo:modulo: and the arguments 6 and 10 to the object 2.
+
+Unary message selectors consist of alphanumeric characters, and start with a lower case letter.
+
+Binary message selectors consist of one or more characters from the fol- lowing set:
+
+[[[ lang=Smalltalk
+
++ - / \ * ~ < > = @ % | & ? , ]]]
+
+Keyword message selectors consist of a series of alphanumeric keywords, where each keyword starts with a lower-case letter and ends with a colon.
+
+Unary messages have the highest precedence, then binary messages, and finally keyword messages, so:
+
+[[[lang=Smalltalk
+
+2 raisedTo: 1 + 3 factorial --> 128]]]
+
+(First we send factorial to 3, then we send \+ 6 to 1, and finally we send raisedTo: 7 to 2.) Recall that we use the notation expression \-\-\> result to show the result of evaluating an expression.
+
+Precedence aside, evaluation is strictly from left to right, so
+
+[[[lang=Smalltalk
+
+1 + 2 * 3 --> 9 ]]]
+
+
+not 7. Parentheses must be used to alter the order of evaluation:
+
+[[[lang=Smalltalk
+
+1 + (2 * 3) --> 7 ]]]
+
+Message sends may be composed with periods and semi-colons. A period separated sequence of expressions causes each expression in the series to be evaluated as a statement, one after the other.
+
+[[[lang=Smalltalk
+
+Transcript cr.
+Transcript show: 'hello world'.
+Transcript cr]]]
+
+This will send cr to the Transcript object, then send it show: 'hello world', and finally send it another cr.
+
+When a series of messages is being sent to the same receiver, then this can be expressed more succinctly as a cascade. The receiver is specified just once, and the sequence of messages is separated by semi-colons:
+
+[[[lang=Smalltalk
+
+Transcript cr;
+show: 'hello world'; cr]]]
+
+This has precisely the same effect as the previous example.
