@@ -29,9 +29,7 @@ We can see examples of the various syntactic elements in the Table bellow.
 |#(1 2 3) | a literal array
 | { 1 . 2 . 1 + 2 } | a dynamic array
 |"a comment" | a comment
-
-%%"|" x y "|" declaration of variables x and y
-
+|\| x y \| | declaration of variables x and y
 |x := 1| assign 1 to x
 |[ x + y ]| a block that evaluates to x + y
 |<primitive: 1>| virtual machine primitive or annotation
@@ -54,17 +52,17 @@ We can see examples of the various syntactic elements in the Table bellow.
 
 ""Characters"". A dollar sign introduces a literal character: $a is the literal for 'a'. Instances of non-printing characters can be obtained by sending appropriately named messages to the Character class, such as Character space and Character tab.
 
-""Strings"". Single quotes are used to define a literal string. If you want a string with a quote inside, just double the quote, as in.
+""Strings"". Single quotes \'\' are used to define a literal string. If you want a string with a quote inside, just double the quote, as in.
 
 ""Symbols"" are like Strings, in that they contain a sequence of characters. How- ever, unlike a string, a literal symbol is guaranteed to be globally unique. There is only one Symbol object #Hello but there may be multiple String objects with the value 'Hello'.
 
 ""Compile-time arrays"" are defined by #( ), surrounding space-separated literals. Everything within the parentheses must be a compile-time constant. For example, #(27 (true false) abc) is a literal array of three elements: the integer 27, the compile-time array containing the two booleans, and the symbol #abc. (Note that this is the same as #(27 #(true false) #abc).)
 
-""Run-time arrays"". Curly braces  define a (dynamic) array at run-time.  (The curly-brace notation is peculiar to the Pharo and Squeak dialects of Smalltalk! In other Smalltalks you must build up dynamic arrays explicitly.)
+""Run-time arrays"". Curly braces \{ \}  define a (dynamic) array at run-time. Ele- ments are expressions separated by periods. So \{ 1. 2. 1\+2 \} defines an array with elements 1, 2, and the result of evaluating 1\+2 (The curly-brace notation is peculiar to the Pharo and Squeak dialects of Smalltalk! In other Smalltalks you must build up dynamic arrays explicitly.)
 
-""Comments"" are enclosed in double quotes. "hello" is a comment, not a string, and is ignored by the Pharo compiler. Comments may span multiple lines.
+""Comments"" are enclosed in double quotes \" \". "hello" is a comment, not a string, and is ignored by the Pharo compiler. Comments may span multiple lines.
 
-""Local variable definitions"". Vertical bars || enclose the declaration of one or more local variables in a method (and also in a block).
+""Local variable definitions"". Vertical bars \| \| enclose the declaration of one or more local variables in a method (and also in a block).
 
 ""Assignment"". := assigns an object to a variable.
 
@@ -78,10 +76,10 @@ We can see examples of the various syntactic elements in the Table bellow.
 
 ""Keyword messages"" consist of multiple keywords (like raisedTo: modulo:), each ending with a colon and taking a single argument. In the expression 2 raisedTo: 6 modulo: 10, the message selector raisedTo:modulo: takes the two arguments 6 and 10, one following each colon. We send the message to the receiver 2.
 
-""Method return"".upper arrow is used to return a value from a method.
+""Method return"". ^ is used to return a value from a method.
 
 ""Sequences of statements"". A period or full-stop (.) is the statement separator. Putting a period between two expressions turns them into independent statements.
 
-""Cascades"". Semicolons can be used to send a cascade of messages to a single receiver. In Transcript show: 'hello'; cr we first send the keyword message show: 'hello' to the receiver Transcript, and then we send the unary message cr to the same receiver.
+""Cascades"". Semicolons ( \; ) can be used to send a cascade of messages to a single receiver. In Transcript show: 'hello'; cr we first send the keyword message show: 'hello' to the receiver Transcript, and then we send the unary message cr to the same receiver.
 
 The classes Number, Character, String and Boolean are described in more detail in Chapter 8.
