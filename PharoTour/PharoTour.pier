@@ -24,13 +24,13 @@ The sources file and the VM can be read-only , they can be shared between differ
 
 !!Install Pharo
 
-Pharo does need to install anything in your system as its perfectly capable of running as stand alone.
+Pharo does not need to install anything in your system as its perfectly capable of running as stand alone.
 
 Only thing you need to do is download Pharo 3 from the Pharo *website>http://www.pharo-project.org/home* . Depending on your platform download the approriate zip file , uncompress it in a directory of your choice and now you are ready to launch Pharo. In case of Ubuntu there is the extra option of installing Pharo via the Pharo PPA.
 
 !!Launch Pharo
 
-In Macos double click the Pharo icon that you have unziped when you downloaded Pharo. In Windows enter the uncompressed Pharo folder and double click the Pharo.exe. In Linux its possible to launch Pharo from the terminal passing the image file as first parameter. Its also possible drag the .image file onto the icon of the virtual machine for all OSes , or at the command line type the name of the virtual machine followed by the path to the .image file. In Ubuntu if you had installed Pharo through the PPA process then "pharo nameofthe.image" will launch the image of your choice. Its also possible to associate image files with the Pharo binary (Pharo VM) , in MacOS via GetInfo , Windows via Open With.
+In Macos double click the Pharo icon that you have unziped when you downloaded Pharo. In Windows enter the uncompressed Pharo folder and double click the Pharo.exe. In Linux its possible to launch Pharo from the terminal passing the image file as first parameter. Its also possible to drag the .image file onto the icon of the virtual machine for all OSes , or at the command line type the name of the virtual machine followed by the path to the .image file. In Ubuntu if you had installed Pharo through the PPA process then "pharo nameofthe.image" will launch the image of your choice. Its also possible to associate image files with the Pharo binary (Pharo VM) , in MacOS via GetInfo and Windows via Open With both accessed by right clicking on the image file.
 
 !!The World Menu
 
@@ -55,7 +55,7 @@ As a user you don't need to understand how each message works , the only thing y
 
 !!Saving, quitting and restarting a Pharo session
 
-We can exit Pharo at any point. You can close the Pharo window as you do any other window of OS. Additionally you can trigger the World Menu choose either "Save and quit" or "Quit".
+We can exit Pharo at any point. You can close the Pharo window as you do any other window of OS. Additionally you can trigger the World Menu and choose either "Save and quit" or "Quit".
 
 In any case Pharo will display a prompt to ask you about saving your image. If you do save your image and reopen it you will see that things are exactly as you left them. This happens because the image file is capable of storing any information that Pharo has loaded to your memory so that nothing is lost on exit.
 
@@ -132,7 +132,7 @@ The explorer is similar to the inspector, but it offers a tree view of a complex
 
 !!The System Browser
 
-The ""System Browser"" f, also known as "System Browser" , is one of the key tools used for programming. As we shall see, there are several interesting browsers available for Pharo, but this is the basic one you will find in any image.
+The ""System Browser"" , also known as "Class Browser" , is one of the key tools used for programming. As we shall see, there are several interesting browsers available for Pharo, but this is the basic one you will find in any image.
 
 Open the System Browser by selecting World Menu > System Browser.
 
