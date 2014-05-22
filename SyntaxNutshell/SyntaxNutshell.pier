@@ -1,0 +1,87 @@
+!Syntax in a nutshell
+
+Pharo, like most modern Smalltalk dialects, adopts a syntax very close to that of Smalltalk-80. The syntax is designed so that program text can be read aloud as though it were a kind of pidgin English:
+
+[[[lang=Smalltalk
+
+(Smalltalk includes: Class) ifTrue: [ Transcript show: Class superclass ]
+]]]
+
+Pharo’s syntax is minimal. Essentially there is syntax only for sending messages (i.e., expressions) . Expressions are built up from a very small number of primitive elements. There are only 6 keywords, and there is no syntax for control structures or declaring new classes. Instead, nearly everything is achieved by sending messages to objects. For instance, instead of an if-then- else control structure, Smalltalk sends messages like ifTrue: to Boolean objects. New (sub-)classes are created by sending a message to their superclass.
+
+!! Syntactic elements
+
+Expressions are composed of the following building blocks: (i) six reserved keywords, or pseudo-variables: self, super, nil, true, false, and thisContext, (ii) con- stant expressions for literal objects including numbers, characters, strings, symbols and arrays, (iii) variable declarations, (iv) assignments, (v) block closures, and (vi) messages.
+
+We can see examples of the various syntactic elements in the Table bellow.
+
+|!Syntax |!What it represents
+|startPoint | a variable name
+|Transcript | a global variable name
+|self | pseudo-variable
+|1 | decimal integer
+|2r101 | binary integer
+|1.5 | floating point number
+|2.4e7 | exponential notation
+|$a | the character 'a'
+|'Hello' | the string 'Hello'
+|#Hello | the symbol #Hello
+|#(1 2 3) | a literal array
+| { 1 . 2 . 1 + 2 } | a dynamic array
+|"a comment" | a comment
+
+%%"|" x y "|" declaration of variables x and y
+
+|x := 1| assign 1 to x
+|[ x + y ]| a block that evaluates to x + y
+|<primitive: 1>| virtual machine primitive or annotation
+|3 factorial| unary message
+|3 + 4| binary message
+|2 raisedTo: 6 modulo: 10| keyword message
+|^ true| return the value true
+|Transcript show: 'hello' . Transcript cr| expression seperator (.)
+|Transcript show: 'hello'; cr| message cascade (;)
+
+""Local variables"" startPoint is a variable name, or identifier. By convention, identifiers are composed of words in "camelCase" (i.e., each word except the first starting with an upper case letter). The first letter of an instance variable, method or block argument, or temporary variable must be lower case. This indicates to the reader that the variable has a private scope.
+
+""Shared variables"" Identifiers that start with upper case letters are global vari- ables, class variables, pool dictionaries or class names. Transcript is a global variable, an instance of the class TranscriptStream.
+
+""The receiver"". self is a keyword that refers to the object inside which the current method is executing. We call it "the receiver" because this object will normally have received the message that caused the method to execute. self is called a "pseudo-variable" since we cannot assign to it.
+
+""Integers"". In addition to ordinary decimal integers like 42,Pharo also provides a radix notation. 2r101 is 101 in radix 2 (i.e., binary), which is equal to decimal 5.
+
+""Floating point numbers"" can be specified with their base-ten exponent: 2.4e7 is 2.4 X 10^7.
+
+""Characters"". A dollar sign introduces a literal character: $a is the literal for 'a'. Instances of non-printing characters can be obtained by sending appropriately named messages to the Character class, such as Character space and Character tab.
+
+""Strings"". Single quotes are used to define a literal string. If you want a string with a quote inside, just double the quote, as in.
+
+""Symbols"" are like Strings, in that they contain a sequence of characters. How- ever, unlike a string, a literal symbol is guaranteed to be globally unique. There is only one Symbol object #Hello but there may be multiple String objects with the value 'Hello'.
+
+""Compile-time arrays"" are defined by #( ), surrounding space-separated literals. Everything within the parentheses must be a compile-time constant. For example, #(27 (true false) abc) is a literal array of three elements: the integer 27, the compile-time array containing the two booleans, and the symbol #abc. (Note that this is the same as #(27 #(true false) #abc).)
+
+""Run-time arrays"". Curly braces  define a (dynamic) array at run-time.  (The curly-brace notation is peculiar to the Pharo and Squeak dialects of Smalltalk! In other Smalltalks you must build up dynamic arrays explicitly.)
+
+""Comments"" are enclosed in double quotes. "hello" is a comment, not a string, and is ignored by the Pharo compiler. Comments may span multiple lines.
+
+""Local variable definitions"". Vertical bars || enclose the declaration of one or more local variables in a method (and also in a block).
+
+""Assignment"". := assigns an object to a variable.
+
+""Blocks"". Square brackets [ ] define a block, also known as a block closure or a lexical closure, which is a first-class object representing a function. As we shall see, blocks may take arguments and can have local variables.
+
+""Primitives"". < primitive: ... > denotes an invocation of a virtual machine primitive. ( < primitive: 1 > is the VM primitive for SmallInteger ) Any code following the primitive is executed only if the primitive fails. The same syntax is also used for method annotations.
+
+""Unary messages"" consist of a single word (like factorial) sent to a receiver (like 3).
+
+""Binary messages"" are operators for example {{{+}}} sent to a receiver and taking a single argument. In 3 {{{+}}} 4, the receiver is 3 and the argument is 4.
+
+""Keyword messages"" consist of multiple keywords (like raisedTo: modulo:), each ending with a colon and taking a single argument. In the expression 2 raisedTo: 6 modulo: 10, the message selector raisedTo:modulo: takes the two arguments 6 and 10, one following each colon. We send the message to the receiver 2.
+
+""Method return"".upper arrow is used to return a value from a method.
+
+""Sequences of statements"". A period or full-stop (.) is the statement separator. Putting a period between two expressions turns them into independent statements.
+
+""Cascades"". Semicolons can be used to send a cascade of messages to a single receiver. In Transcript show: 'hello'; cr we first send the keyword message show: 'hello' to the receiver Transcript, and then we send the unary message cr to the same receiver.
+
+The classes Number, Character, String and Boolean are described in more detail in Chapter 8.
