@@ -154,3 +154,61 @@ Transcript cr;
 show: 'hello world'; cr]]]
 
 This has precisely the same effect as the previous example.
+
+!!Method syntax
+
+Whereas expressions may be evaluated anywhere in Pharo (for example, in a workspace, in a debugger, or in a browser), methods are normally defined in a browser window, or in the debugger. (Methods can also be filed in from an external medium, but this is not the usual way to program in Pharo.)
+
+Programs are developed one method at a time, in the context of a given class. (A class is defined by sending a message to an existing class, asking it to create a subclass, so there is no special syntax required for defining classes.)
+
+Here is the method lineCount in the class String. (The usual convention is to refer to methods as ClassName\>\>methodName, so we call this method String\>\>lineCount.)
+
+[[[lang = Smalltalk
+String >> lineCount
+"Answer the number of lines represented by the receiver, where every cr adds one line."
+| cr count |
+cr := Character cr.
+count := 1 min: self size.
+self do:
+    [:c | c == cr ifTrue: [count := count + 1]].
+^ count]]]
+
+Syntactically, a method consists of:
+
+#the method pattern, containing the name (i.e., lineCount) and any argu- ments (none in this example);
+#comments (these may occur anywhere, but the convention is to put one at the top that explains what the method does);
+#declarations of local variables (i.e., cr and count); and
+#any number of expressions separated by dots; here there are four.
+
+The evaluation of any expression preceded by a ^ (typed as upper arrow which is shift \+ 6 for most keyboards) will cause the method to exit at that point, returning the value of that expression. A method that terminates without explicitly returning some expression will implicitly return self.
+
+Arguments and local variables should always start with lower case letters. Names starting with upper-case letters are assumed to be global variables. Class names, like Character, for example, are simply global variables referring to the object representing that class.
+
+!!Block syntax
+
+Blocks provide a mechanism to defer the evaluation of expressions. A block is essentially an anonymous function. A block is evaluated by sending it the message value. The block answers the value of the last expression in its body, unless there is an explicit return (with ^), in which case it does not answer any value.
+
+[[[lang= Smalltalk
+[ 1 + 2 ] value --> 3]]]
+
+Blocks may take parameters, each of which is declared with a leading colon. A vertical bar separates the parameter declaration(s) from the body of the block. To evaluate a block with one parameter, you must send it the message value: with one argument. A two-parameter block must be sent value:value:, and so on, up to 4 arguments.
+
+[[[lang=Smalltalk
+[ :x | 1 + x ] value:2 --> 3
+[ :x :y | x + y ] value: 1 value: 2 --> 3]]]
+
+If you have a block with more than four parameters, you must use valueWithArguments: and pass the arguments in an array. (A block with a large number of parameters is often a sign of a design problem.)
+
+Blocks may also declare local variables, which are surrounded by vertical bars, just like local variable declarations in a method. Locals are declared after any arguments:
+
+[[[lang=Smalltalk
+[ :x :y || z | z := x + y. z ] value: 1 value: 2 --> 3]]]
+
+Blocks are actually lexical closures, since they can refer to variables of the surrounding environment. The following block refers to the variable x of its enclosing environment:
+
+[[[lang=Smalltalk
+|x|
+x := 1.
+[ :y | x + y ] value: 2 --> 3]]]
+
+Blocks are instances of the class BlockClosure. This means that they are objects, so they can be assigned to variables and passed as arguments just like any other object.
