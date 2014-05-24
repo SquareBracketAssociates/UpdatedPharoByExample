@@ -7,11 +7,11 @@ Pharo, like most modern Smalltalk dialects, adopts a syntax very close to that o
 (Smalltalk includes: Class) ifTrue: [ Transcript show: Class superclass ]
 ]]]
 
-Pharo’s syntax is minimal. Essentially there is syntax only for sending messages (i.e., expressions) . Expressions are built up from a very small number of primitive elements. There are only 6 keywords, and there is no syntax for control structures or declaring new classes. Instead, nearly everything is achieved by sending messages to objects. For instance, instead of an if-then- else control structure, Smalltalk sends messages like ifTrue: to Boolean objects. New (sub-)classes are created by sending a message to their superclass.
+Pharo's syntax is minimal. Essentially there is syntax only for sending messages (i.e., expressions) . Expressions are built up from a very small number of primitive elements. There are only 6 keywords, and there is no syntax for control structures or declaring new classes. Instead, nearly everything is achieved by sending messages to objects. For instance, instead of an if-then- else control structure, Smalltalk sends messages like ifTrue: to Boolean objects. New (sub-)classes are created by sending a message to their superclass.
 
 !! Syntactic elements
 
-Expressions are composed of the following building blocks: (i) six reserved keywords, or pseudo-variables: self, super, nil, true, false, and thisContext, (ii) con- stant expressions for literal objects including numbers, characters, strings, symbols and arrays, (iii) variable declarations, (iv) assignments, (v) block closures, and (vi) messages.
+Expressions are composed of the following building blocks: (i) six reserved keywords, or pseudo-variables: self, super, nil, true, false, and thisContext, (ii) constant expressions for literal objects including numbers, characters, strings, symbols and arrays, (iii) variable declarations, (iv) assignments, (v) block closures, and (vi) messages.
 
 We can see examples of the various syntactic elements in the Table bellow.
 
@@ -72,7 +72,7 @@ We can see examples of the various syntactic elements in the Table bellow.
 
 ""Unary messages"" consist of a single word (like factorial) sent to a receiver (like 3).
 
-""Binary messages"" are operators for example {{{+}}} sent to a receiver and taking a single argument. In 3 {{{+}}} 4, the receiver is 3 and the argument is 4.
+""Binary messages"" are operators for example \+ sent to a receiver and taking a single argument. In 3 \+ 4, the receiver is 3 and the argument is 4.
 
 ""Keyword messages"" consist of multiple keywords (like raisedTo: modulo:), each ending with a colon and taking a single argument. In the expression 2 raisedTo: 6 modulo: 10, the message selector raisedTo:modulo: takes the two arguments 6 and 10, one following each colon. We send the message to the receiver 2.
 
@@ -101,6 +101,7 @@ In Smalltalk, there are 6 reserved keywords, or pseudo-variables: ""nil, true, f
 !!Message sends
 
 There are three kinds of messages in Pharo.
+
 #Unary messages take no argument. 1 factorial sends the message factorial to the object 1.
 #Binary messages take exactly one argument. 1 \+ 2 sends the message \+ with argument 2 to the object 1.
 #Keyword messages take an arbitrary number of arguments. 2 raisedTo: 6 modulo: 10 sends the message consisting of the message selector raisedTo:modulo: and the arguments 6 and 10 to the object 2.
@@ -212,3 +213,108 @@ x := 1.
 [ :y | x + y ] value: 2 --> 3]]]
 
 Blocks are instances of the class BlockClosure. This means that they are objects, so they can be assigned to variables and passed as arguments just like any other object.
+
+!!Conditionals and loops in a nutshell
+
+Smalltalk offers no special syntax for control constructs. Instead, these are typ- ically expressed by sending messages to booleans, numbers and collections, with blocks as arguments.
+
+Conditionals are expressed by sending one of the messages ifTrue:, ifFalse: or ifTrue:ifFalse: to the result of a boolean expression. See Chapter 8 for more about booleans.
+[[[lang=Smalltalk
+(17 * 13 > 220)
+ifTrue: [ 'bigger' ]
+ifFalse: [ 'smaller' ] -->'bigger']]]
+
+Loops are typically expressed by sending messages to blocks, integers or collections. Since the exit condition for a loop may be repeatedly evaluated, it should be a block rather than a boolean value. Here is an example of a very procedural loop:
+
+[[[lang=Smalltalk
+n := 1.
+[ n < 1000 ] whileTrue: [ n := n*2 ].
+n --> 1024]]]
+
+whileFalse: reverses the exit condition.
+
+[[[lang=Smalltalk
+n := 1.
+[ n > 1000 ] whileFalse: [ n := n*2 ].
+n --> 1024]]]
+
+timesRepeat: offers a simple way to implement a fixed iteration:
+
+[[[lang=Smalltalk
+n := 1.
+10 timesRepeat: [ n := n*2 ].
+n --> 1024]]]
+
+We can also send the message to:do: to a number which then acts as the initial value of a loop counter. The two arguments are the upper bound, and a block that takes the current value of the loop counter as its argument:
+
+[[[lang=Smalltalk
+result := String new.
+1 to: 10 do: [:n | result := result, n printString, ' '].
+result --> '12345678910']]]
+
+""High-Order Iterators"". Collections comprise a large number of different classes, many of which support the same protocol. The most important messages for iterating over collections include do:, collect:, select:, reject:, detect: and inject:into:. These messages define high-level iterators that allow one to write very compact code.
+
+An ""Interval"" is a collection that lets one iterate over a sequence of numbers from the starting point to the end. 1 to: 10 represents the interval from 1 to 10. Since it is a collection, we can send the message do: to it. The argument is a block that is evaluated for each element of the collection.
+
+[[[lang=Smalltalk
+result := String new.
+(1 to: 10) do: [:n | result := result, n printString, ' '].
+result --> '12345678910']]]
+
+""collect:"" builds a new collection of the same size, transforming each ele- ment.
+[[[lang=Smalltalk
+(1to:10)collect:[ :each | each * each ] --> #(149162536496481100)]]]
+
+""select:"" and ""reject:"" build new collections, each containing a subset of the ele- ments satisfying (or not) the boolean block condition. detect: returns the first element satisfying the condition. Don’t forget that strings are also collections, so you can iterate over all the characters.
+
+[[[lang=Smalltalk
+'hello there' select: [ :char | char isVowel ] --> 'eoee'
+'hello there' reject: [ :char | char isVowel ] --> 'hll thr'
+'hello there' detect: [ :char | char isVowel ] --> $e]]]
+
+Finally, you should be aware that collections also support a functional- style fold operator in the inject:into: method. This lets you generate a cumulative result using an expression that starts with a seed value and injects each element of the collection. Sums and products are typical examples.
+
+[[[lang=Smalltalk
+(1to:10)inject:0into:[:sum :each |sum + each] --> 55]]]
+
+This is equivalent to 0\+1\+2\+3\+4\+5\+6\+7\+8\+9\+10.
+
+More about collections can be found in Chapter 9.3.6
+
+!! Primitives and pragmas
+
+In Smalltalk everything is an object, and everything happens by sending messages. Nevertheless, at certain points we hit rock bottom. Certain objects can only get work done by invoking virtual machine primitives.
+
+For example, the following are all implemented as primitives: memory allocation (new, new:), bit manipulation (bitAnd:, bitOr:, bitShift:), pointer and integer arithmetic (\+, \-, \<, \>, \*, \/ , \ , \=, \=\=...), and array access (at:, at:put:).
+
+Primitives are invoked with the syntax <primitive: aNumber>. A method that invokes such a primitive may also include Smalltalk code, which will be evaluated only if the primitive fails.
+
+Here we see the code for SmallInteger >>\+. If the primitive fails, the expression super \+ aNumber will be evaluated and returned.
+
+[[[lang=Smalltalk
++ aNumber
+
+"Primitive. Add the receiver to the argument and answer with the result
+if it is a SmallInteger. Fail if the argument or the result is not a
+SmallInteger Essential No Lookup. See Object documentation whatIsAPrimitive."
+
+<primitive: 1>
+^ super + aNumber]]]
+
+In Pharo, the angle bracket syntax is also used for method annotations called pragmas.
+
+!!Chapter summary
+-Pharo has (only) six reserved identifiers also called pseudo-variables: true, false, nil, self, super, and thisContext.
+-There are five kinds of literal objects: numbers (5, 2.5, 1.9e15, 2r111), characters ($a), strings ('hello'), symbols (#hello), and arrays (#('hello' #hi))
+-Strings are delimited by single quotes, comments by double quotes. To get a quote inside a string, double it.
+- Unlike strings, symbols are guaranteed to be globally unique.
+-Use #( ... ) to define a literal array. Use { ... } to define a dynamic array.
+Note that #(1\+2)size \--> 3, but \{1\+2\} size --> 1
+-There are three kinds of messages: unary (e.g., 1 asString, Array new), binary (e.g., 3 + 4, 'hi' , ' there'), and keyword (e.g., 'hi' at: 2 put: $o)
+-A cascaded message send is a sequence of messages sent to the same target, separated by semi-colons: OrderedCollection new add: #calvin; add: #hobbes; size --> 2
+-Local variables are declared with vertical bars. Use := for assignment. |x| x:=1
+-Expressions consist of message sends, cascades and assignments, possi- bly grouped with parentheses. Statements are expressions separated by periods.
+-Block closures are expressions enclosed in square brackets. Blocks may take arguments and can contain temporary variables. The expressions in the block are not evaluated until you send the block a value... message with the correct number of arguments.
+\[:x\|x+2\]value:4 --> 6.
+-There is no dedicated syntax for control constructs, just messages that conditionally evaluate blocks.
+(Smalltalk includes: Class) ifTrue: [ Transcript show: Class superclass ]
