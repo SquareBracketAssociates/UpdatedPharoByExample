@@ -1,0 +1,9 @@
+!A first application
+
+In this chapter, we will develop a simple game: *Lights Out>http://en.wikipedia.org/wiki/Lights_Out_(game)*. Along the way we will demonstrate most of the tools that Pharo programmers use to construct and debug their programs, and show how programs are exchanged with other developers. We will see the browser, the object inspector, the debugger and the Monticello package browser. Development in Smalltalk is efficient: you will find that you spend far more time actually writing code and far less managing the development process. This is partly because the Smalltalk language is very simple, and partly because the tools that make up the programming environment are very well integrated with the language.
+
+!!The Lights Out game
+
+To show you how to use Pharo’s programming tools, we will build a simple game called Lights Out. The game board consists of rectangular array of light yellow cells. When you click on one of the cells with the mouse, the four surrounding cells turn blue. Click again, and they toggle back to light yellow. The object of the game is to turn blue as many cells as possible.
+
+The Lights Out game is made up of two kinds of objects: the game board itself, and 100 individual cell objects. The Pharo code to implement the game will contain two classes: one for the game and one for the cells. We will now show you how to define these classes using the Pharo programming tools.
