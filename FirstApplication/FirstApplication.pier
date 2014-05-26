@@ -4,6 +4,52 @@ In this chapter, we will develop a simple game: *Lights Out>http://en.wikipedia.
 
 !!The Lights Out game
 
-To show you how to use Pharo’s programming tools, we will build a simple game called Lights Out. The game board consists of rectangular array of light yellow cells. When you click on one of the cells with the mouse, the four surrounding cells turn blue. Click again, and they toggle back to light yellow. The object of the game is to turn blue as many cells as possible.
+To show you how to use Pharo's programming tools, we will build a simple game called Lights Out. The game board consists of rectangular array of light yellow cells. When you click on one of the cells with the mouse, the four surrounding cells turn blue. Click again, and they toggle back to light yellow. The object of the game is to turn blue as many cells as possible.
 
 The Lights Out game is made up of two kinds of objects: the game board itself, and 100 individual cell objects. The Pharo code to implement the game will contain two classes: one for the game and one for the cells. We will now show you how to define these classes using the Pharo programming tools.
+
+!!Creating new Package
+
+We have already seen the browser in Chapter 1, where we learned how to navigate to classes and methods, and saw how to define new methods. Now we will see how to create packages, categories and classes.
+
+Type the name of the new package (we will use PBE-LightsOut) in the dialog
+box and click ""accept"" (or just press the return key); the new package is created,and positioned alphabetically in the list of packages.
+
+!!Defining the class LOCell
+
+As yet there are of course no classes in the new package. However, the main editing pane displays a template to make it easy to create a new class
+
+This template shows us a Smalltalk expression that sends a message to a class called Object, asking it to create a subclass called ""NameOfSubClass"". The new class has no variables, and should belong to the category ""PBE-LightsOut"".
+
+!!!On Categories and Packages
+
+Historically, Smalltalk only knows about categories, not packages. You may well ask, what is the difference ? A category is simply a collection of related classes in a Smalltalk image. A package is a collection of related classes and extension methods that may be versioned using the Monticello versioning tool. By convention, package names and category names are the same. For most purposes we do not care about the difference, but we will be careful to use the correct terminology in this book since there are points where the difference is crucial. We will learn more when we start working with Monticello.
+
+!!!Creating a new class
+
+We simply modify the template to create the class that we really want.
+
+Modify the class creation template as follows:
+
+-Replace Object by SimpleSwitchMorph.
+-Replace NameOfSubClass by LOCell.
+-Add mouseAction to the list of instance variables.
+
+
+The result should look like this:
+
+[[[lang=Smalltalk
+SimpleSwitchMorph subclass: #LOCell
+instanceVariableNames: 'mouseAction'
+classVariableNames: '' poolDictionaries: ''
+category: 'PBE-LightsOut']]]
+
+This new definition consists of a Smalltalk expression that sends a message to the existing class SimpleSwitchMorph, asking it to create a subclass called LOCell. (Actually, since LOCell does not exist yet, we passed as an argument the symbol \#LOCell which stands for the name of the class to create.) We also tell it that instances of the new class should have a mouseAction instance variable, which we will use to define what action the cell should take if the mouse should click over it.
+
+At this point you still have not created anything. Note that the border of the class template pane has changed to red . This means that there are unsaved changes. To actually send this message, you must accept it.
+
+Either right-click and select ""accept"", or use the shortcut CMD-s (for "save"). The message will be sent to ""SimpleSwitchMorph"", which will cause
+the new class to be compiled.
+
+
+Once the class definition is accepted, the class will be created and appear in the classes pane of the browser . The editing pane now shows the class definition, and a small pane below it will remind you to write a few words describing the purpose of the class. This is called a class comment, and it is quite important to write one that will give other programmers a high-level overview of the purpose of this class. Smalltalkers put a very high value on the readability of their code, and detailed comments in methods are unusual: the philosophy is that the code should speak for itself. (If it doesn't, you should refactor it until it does!) A class comment need not contain a detailed description of the class, but a few words describing its overall purpose are vital if programmers who come after you are to know whether to spend time looking at this class.
