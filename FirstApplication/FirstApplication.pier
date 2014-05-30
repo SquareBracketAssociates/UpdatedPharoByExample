@@ -106,3 +106,58 @@ refresh to see the new bounds value.)
 
 
 Delete the cell by clicking on the x in the pink handle.
+
+!!Defining the class LOGame
+
+Now let's create the other class that we need for the game, which we will call ""LOGame"".
+
+Make the class definition template visible in the browser main window.Do this by clicking on the package name. Edit the code so that it reads as follows, and accept it.
+
+[[[lang=Smalltalk
+BorderedMorph subclass: #LOGame
+instanceVariableNames: '' classVariableNames: ''
+poolDictionaries: ''
+category: 'PBE-LightsOut']]]
+
+Here we subclass BorderedMorph; Morph is the superclass of all of the graphical shapes in Pharo, and (surprise!) a BorderedMorph is a Morph with a border. We could also insert the names of the instance variables between the quotes on the second line, but for now, let’s just leave that list empty.
+
+Now let’s define an initialize method for LOGame. Type the following into the browser as a method for LOGame and try to ""accept"" it.
+
+[[[lang=Smalltalk
+initialize
+ | sampleCell width height n |
+ super initialize.
+ n := self cellsPerSide.
+ sampleCell := LOCell new.
+ width := sampleCell width.
+ height := sampleCell height.
+ self bounds: (5@5 extent: ((width*n) @(height*n)) + (2 * self borderWidth)).
+ cells := Matrix new: n tabulate: [ :i :j | self newCellAt: i at: j ].]]]
+
+Pharo will complain that it doesn't know the meaning of some of the terms. Pharo tells you that it doesn't know of a message cellsPerSide, and suggests a number of corrections, in case it was a spelling mistake.
+
+But cellsPerSide is not a mistake \-\- it is just a method that we haven't yet defined \-\- we will do so in a minute or two.
+
+So just select the first item from the menu, which confirms that we really meant cellsPerSide.
+
+Next, Pharo will complain that it doesn’t know the meaning of cells. It offers you a number of ways of fixing this.
+
+Choose ""declare instance"" because we want cells to be an instance variable.
+
+Finally, Pharo will complain about the message ""newCellAt: at:"" sent on the last line; this is also not a mistake, so confirm that message too.
+
+If you now look at the class definition once again (which you can do by clicking on the ""instance"" button), you will see that the browser has modified it to include the instance variable cells.
+
+Let's look at this initialize method. The line \| sampleCell width height n \| declares 4 temporary variables. They are called temporary variables because their scope and lifetime are limited to this method. Temporary variables with explanatory names are helpful in making code more readable. Smalltalk has no special syntax to distinguish constants and variables, and in fact all four of these “variables” are really constants. Lines 4\-7 define these constants.
+
+How big should our game board be? Big enough to hold some integral number of cells, and big enough to draw a border around them. How many cells is the right number? 5? 10? 100? We don’t know yet, and if we did, we would probably change our minds later. So we delegate the responsibility for knowing that number to another method, which we will call ""cellsPerSide"", and which we will write in a minute or two. It’s because we are sending the cellsPerSide message before we define a method with that name that Pharo asked us to "confirm, correct, or cancel" when we accepted the method body for initialize. Don't be put off by this: it is actually good practice to write in terms of other methods that we haven’t yet defined. Why? Well, it wasn’t until we started writing the initialize method that we realized that we needed it, and at that point, we can give it a meaningful name, and move on, without interrupting our flow.
+
+The fourth line uses this method: the Smalltalk ""self cellsPerSide"" sends the message cellsPerSide to self, i.e., to this very object. The response, which will be the number of cells per side of the game board, is assigned to n.
+
+The next three lines create a new LOCell object, and assign its width and height to the appropriate temporary variables.
+
+Line 8 sets the bounds of the new object. Without worrying too much about the details just yet, just believe us that the expression in parentheses creates a square with its origin (i.e., its top-left corner) at the point (5,5) and its bottom-right corner far enough away to allow space for the right number of cells.
+
+The last line sets the LOGame object’s instance variable cells to a newly created Matrix with the right number of rows and columns. We do this by sending the message ""new: tabulate:"" to the Matrix class (classes are objects too, so we can send them messages). We know that new: tabulate: takes two arguments because it has two colons (:) in its name. The arguments go right after the colons. If you are used to languages that put all of the arguments together inside parentheses, this may seem weird at first. Don't panic, it's only syntax! It turns out to be a very good syntax because the name of the method can be used to explain the roles of the arguments. For example, it is pretty clear that Matrix rows: 5 columns: 2 has 5 rows and 2 columns, and not 2 rows and 5 columns.
+
+Matrix new: n tabulate: [ :i :j \| self newCellAt: i at: j ] creates a new n X n matrix and initializes its elements. The initial value of each element will depend on its coordinates. The (i,j)th element will be initialized to the result of evaluating self newCellAt: i at: j.
