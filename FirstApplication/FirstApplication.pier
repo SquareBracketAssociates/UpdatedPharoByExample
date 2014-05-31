@@ -119,9 +119,9 @@ instanceVariableNames: '' classVariableNames: ''
 poolDictionaries: ''
 category: 'PBE-LightsOut']]]
 
-Here we subclass BorderedMorph; Morph is the superclass of all of the graphical shapes in Pharo, and (surprise!) a BorderedMorph is a Morph with a border. We could also insert the names of the instance variables between the quotes on the second line, but for now, let’s just leave that list empty.
+Here we subclass BorderedMorph; Morph is the superclass of all of the graphical shapes in Pharo, and (surprise!) a BorderedMorph is a Morph with a border. We could also insert the names of the instance variables between the quotes on the second line, but for now, let's just leave that list empty.
 
-Now let’s define an initialize method for LOGame. Type the following into the browser as a method for LOGame and try to ""accept"" it.
+Now let's define an initialize method for LOGame. Type the following into the browser as a method for LOGame and try to ""accept"" it.
 
 [[[lang=Smalltalk
 initialize
@@ -140,7 +140,7 @@ But cellsPerSide is not a mistake \-\- it is just a method that we haven't yet d
 
 So just select the first item from the menu, which confirms that we really meant cellsPerSide.
 
-Next, Pharo will complain that it doesn’t know the meaning of cells. It offers you a number of ways of fixing this.
+Next, Pharo will complain that it doesn't know the meaning of cells. It offers you a number of ways of fixing this.
 
 Choose ""declare instance"" because we want cells to be an instance variable.
 
@@ -148,9 +148,9 @@ Finally, Pharo will complain about the message ""newCellAt: at:"" sent on the la
 
 If you now look at the class definition once again (which you can do by clicking on the ""instance"" button), you will see that the browser has modified it to include the instance variable cells.
 
-Let's look at this initialize method. The line \| sampleCell width height n \| declares 4 temporary variables. They are called temporary variables because their scope and lifetime are limited to this method. Temporary variables with explanatory names are helpful in making code more readable. Smalltalk has no special syntax to distinguish constants and variables, and in fact all four of these “variables” are really constants. Lines 4\-7 define these constants.
+Let's look at this initialize method. The line \| sampleCell width height n \| declares 4 temporary variables. They are called temporary variables because their scope and lifetime are limited to this method. Temporary variables with explanatory names are helpful in making code more readable. Smalltalk has no special syntax to distinguish constants and variables, and in fact all four of these "variables" are really constants. Lines 4\-7 define these constants.
 
-How big should our game board be? Big enough to hold some integral number of cells, and big enough to draw a border around them. How many cells is the right number? 5? 10? 100? We don’t know yet, and if we did, we would probably change our minds later. So we delegate the responsibility for knowing that number to another method, which we will call ""cellsPerSide"", and which we will write in a minute or two. It’s because we are sending the cellsPerSide message before we define a method with that name that Pharo asked us to "confirm, correct, or cancel" when we accepted the method body for initialize. Don't be put off by this: it is actually good practice to write in terms of other methods that we haven’t yet defined. Why? Well, it wasn’t until we started writing the initialize method that we realized that we needed it, and at that point, we can give it a meaningful name, and move on, without interrupting our flow.
+How big should our game board be? Big enough to hold some integral number of cells, and big enough to draw a border around them. How many cells is the right number? 5? 10? 100? We don't know yet, and if we did, we would probably change our minds later. So we delegate the responsibility for knowing that number to another method, which we will call ""cellsPerSide"", and which we will write in a minute or two. It's because we are sending the cellsPerSide message before we define a method with that name that Pharo asked us to "confirm, correct, or cancel" when we accepted the method body for initialize. Don't be put off by this: it is actually good practice to write in terms of other methods that we haven't yet defined. Why? Well, it wasn't until we started writing the initialize method that we realized that we needed it, and at that point, we can give it a meaningful name, and move on, without interrupting our flow.
 
 The fourth line uses this method: the Smalltalk ""self cellsPerSide"" sends the message cellsPerSide to self, i.e., to this very object. The response, which will be the number of cells per side of the game board, is assigned to n.
 
@@ -158,6 +158,90 @@ The next three lines create a new LOCell object, and assign its width and height
 
 Line 8 sets the bounds of the new object. Without worrying too much about the details just yet, just believe us that the expression in parentheses creates a square with its origin (i.e., its top-left corner) at the point (5,5) and its bottom-right corner far enough away to allow space for the right number of cells.
 
-The last line sets the LOGame object’s instance variable cells to a newly created Matrix with the right number of rows and columns. We do this by sending the message ""new: tabulate:"" to the Matrix class (classes are objects too, so we can send them messages). We know that new: tabulate: takes two arguments because it has two colons (:) in its name. The arguments go right after the colons. If you are used to languages that put all of the arguments together inside parentheses, this may seem weird at first. Don't panic, it's only syntax! It turns out to be a very good syntax because the name of the method can be used to explain the roles of the arguments. For example, it is pretty clear that Matrix rows: 5 columns: 2 has 5 rows and 2 columns, and not 2 rows and 5 columns.
+The last line sets the LOGame object's instance variable cells to a newly created Matrix with the right number of rows and columns. We do this by sending the message ""new: tabulate:"" to the Matrix class (classes are objects too, so we can send them messages). We know that new: tabulate: takes two arguments because it has two colons (:) in its name. The arguments go right after the colons. If you are used to languages that put all of the arguments together inside parentheses, this may seem weird at first. Don't panic, it's only syntax! It turns out to be a very good syntax because the name of the method can be used to explain the roles of the arguments. For example, it is pretty clear that Matrix rows: 5 columns: 2 has 5 rows and 2 columns, and not 2 rows and 5 columns.
 
 Matrix new: n tabulate: [ :i :j \| self newCellAt: i at: j ] creates a new n X n matrix and initializes its elements. The initial value of each element will depend on its coordinates. The (i,j)th element will be initialized to the result of evaluating self newCellAt: i at: j.
+
+!!Organizing methods into protocols
+
+Before we define any more methods, let's take a quick look at the third pane at the top of the browser. In the same way that the first pane of the browser lets us categorize classes into packages so we are not overwhelmed by a very long list of class names in the second pane, so the third pane lets us categorize methods so that we are not overwhelmed by a very long list of method names in the fourth pane. These categories of methods are called "protocols".
+
+If there are only a few methods in a class, the extra level of hierarchy provided by protocols is not really necessary. This is why the browser also offers us the \-\-all\-\- virtual protocol, which, you will not be surprised to learn, contains all of the methods in the class.
+
+If you have followed along with this example, the third pane may well contain the protocol ""as yet unclassified"".
+
+Right-click in the protocol pane and select ""various"" \-\-> ""categorize automatically"" to fix this, and move the initialize methods to a new protocol called ""initialization"".
+
+How does Pharo know that this is the right protocol ? Well, in general Pharo can't know, but in this case there is also an initialize method in a superclass, and Pharo assumes that our ""initialize"" method should go in the same category as the one that it overrides.
+
+A typographic convention. Smalltalkers frequently use the notation ">>" to identify the class to which a method belongs, so, for example, the cellsPerSide method in class LOGame would be referred to as LOGame >> cellsPerSide. To indicate that this is not Smalltalk syntax, we will use the special symbol >> instead, so this method will appear in the text as LOGame >> cellsPerSide
+
+From now on, when we show a method in this book, we will write the name of the method in this form. Of course, when you actually type the code into the browser, you don't have to type the class name or the >> ; instead, you just make sure that the appropriate class is selected in the class pane.
+
+Now let's define the other two methods that are used by the LOGame >> initialize method. Both of them can go in the initialization protocol.
+
+[[[lang=Smalltalk
+LOGame >> cellsPerSide
+"The number of cells along each side of the game"
+^ 10]]]
+
+This method could hardly be simpler: it answers the constant 10. One advantage of representing constants as methods is that if the program evolves so that the constant then depends on some other features, the method can be changed to calculate this value.
+
+[[[lang=Smalltalk
+LOGame >> newCellAt: i at: j
+"Create a cell for position (i,j) and add it to my on-screen representation at the appropriate screen position. Answer the new cell"
+| c origin |
+c := LOCell new.
+origin := self innerBounds origin.
+self addMorph: c.
+c position: ((i - 1) * c width) @ ((j - 1) * c height) + origin.
+c mouseAction: [self toggleNeighboursOfCellAt: i at: j]
+]]]
+
+Add the methods LOGame >> cellsPerSide and LOGame >> newCellAt: at: .
+
+Confirm the spelling of the new selectors toggleNeighboursOfCellAt:at: and mouseAction:.
+
+The method above answers a new LOCell, specialized to position (i, j) in the Matrix of cells. The last line defines the new cell's mouseAction to be the block [self toggleNeighboursOfCellAt: i at: j ]. In effect, this defines the callback behaviour to perform when the mouse is clicked. The corresponding method also needs to be defined.
+
+[[[lang=Smalltalk
+LOGame >> toggleNeighboursOfCellAt: i at: j
+(i > 1) ifTrue: [ (cells at: i - 1 at: j ) toggleState].
+(i < self cellsPerSide) ifTrue: [ (cells at: i + 1 at: j) toggleState].
+(j > 1) ifTrue: [ (cells at: i at: j - 1) toggleState].
+(j < self cellsPerSide) ifTrue: [ (cells at: i at: j + 1) toggleState].
+]]]
+
+The above method toggles the state of the four cells to the north, south, west and east of cell (i, j). The only complication is that the board is finite, so we have to make sure that a neighboring cell exists before we toggle its state.
+
+Place this method in a new protocol called game logic. (Right-click in the protocol pane to add a new protocol.)
+
+To move the method, you can simply click on its name and drag it to the newly-created protocol.
+
+To complete the Lights Out game, we need to define two more methods in class LOCell to handle mouse events.
+
+[[[lang=Smalltalk
+LOCell >> mouseAction: aBlock
+^ mouseAction := aBlock]]]
+
+The method above does nothing more than set the cell's mouseAction variable to the argument, and then answers the new value. Any method that changes the value of an instance variable in this way is called a setter method; a method that answers the current value of an instance variable is called a getter method.
+
+If you are used to getters and setters in other programming languages, you might expect these methods to be called setmouseAction and getmouseAction. The Smalltalk convention is different. A getter always has the same name as the variable it gets, and a setter is named similarly, but with a trailing ":", hence mouseAction and mouseAction:.
+
+Collectively, setters and getters are called accessor methods, and by convention they should be placed in the accessing protocol. In Smalltalk, all instance variables are private to the object that owns them, so the only way for another object to read or write those variables in the Smalltalk language is through accessor methods like this one.In fact, the instance variables can be accessed in subclasses too.
+
+Go to the class LOCell, define LOCell >> mouseAction: and put it in the accessing protocol.
+
+Finally, we need to define a method mouseUp:; this will be called automatically by the GUI framework if the mouse button is released while the mouse is over this cell on the screen.
+
+[[[lang=Smalltalk
+LOCell >> mouseUp: anEvent
+mouseAction value]]]
+
+Add the method LOCell >> mouseUp: and then ""categorize automatically"" methods.
+
+What this method does is to send the message value to the object stored in the instance variable mouseAction. Recall that in LOGame >> newCellAt: i at: j we assigned the following code fragment to mouseAction:
+
+[self toggleNeighboursOfCellAt: i at: j ]
+
+Sending the value message causes this code fragment to be evaluated, and consequently the state of the cells will toggle.
