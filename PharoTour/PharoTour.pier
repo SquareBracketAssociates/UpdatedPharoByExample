@@ -86,7 +86,7 @@ At any time only one window is active; it is in front and has its border highlig
 
 The transcript is an object that is often used for logging system messages. It is a kind of "system console".
 
-Workspaces are useful for typing snippets of Smalltalk code that you would like to experiment with. You can also use workspaces simply for typing arbitrarily text that you would like to remember, such as to-do lists or instructions for anyone who will use your image. Workspaces are often used to hold documentation about a captured image, as is the case with the standard image that we downloaded earlier (see Figure 1.2).
+Workspaces are useful for typing snippets of code that you would like to experiment with. You can also use workspaces simply for typing arbitrarily text that you would like to remember, such as to-do lists or instructions for anyone who will use your image. Workspaces are often used to hold documentation about a captured image, as is the case with the standard image that we downloaded earlier (see Figure 1.2).
 
 - Type the following text into the workspace:
 
@@ -137,24 +137,23 @@ The explorer is similar to the inspector, but it offers a tree view of a complex
 
 !!The System Browser
 
-The ""System Browser"" , also known as "Class Browser" , is one of the key tools used for programming. As we shall see, there are several interesting browsers available for Pharo, but this is the basic one you will find in any image.
+The ""System Browser"", also known as "Class Browser", is one of the key tools used for programming. As we shall see, there are several interesting browsers available for Pharo, but this is the basic one you will find in any image.
 
-Open the System Browser by selecting World Menu > System Browser.
+- Open the System Browser by selecting World Menu > System Browser.
 
-+The System Browser showing the printString method of class Object>file://figures/system-browser.png+
++The System Browser showing the printString method of class Object>file://figures/system-browser.png|label=systemBrowser+
 
-We can see a Systen Browser .
+We can see a Systen Browser in Figure *systemBrowser*. The title bar indicates that we are browsing the class Object and its method ==printString==. 
 
-The title bar indicates that we are browsing the class Object and its method printString. When the System Browser first opens, all panes are empty but the leftmost one. This first pane lists all known packages, which contain groups of related classes.
+When the System Browser first opens, all panes are empty but the leftmost one. This first pane lists all known packages, which contain groups of related classes.
 
 When we select a package it causes the second pane to show a list of all of the classes in the selected package. When a class object is selected the remaining two panes will be filled with text. The third pane displays the protocols of the currently selected class. These are convenient groupings of related methods. If no protocol is selected you should see all methods in the fourth pane.
 
-Select the ""printing"" protocol.
+-Select the ""printing"" protocol.
 
-You may have to scroll down to find it. Now you will see in the fourth pane only methods related to printing.
+You may have to scroll down to find it. You can also type pr when the fourth column as the focus. Now you will see in the fourth pane only methods related to printing.
 
-
-Select the ""printString"" method.
+-Select the ""printString"" method.
 
 Now we see in the bottom pane the source code of the printString method, shared by all objects in the system (except those that override it).
 
@@ -164,14 +163,15 @@ There are several ways to find a class in Pharo.  The first, as we have just see
 
 A second way is to send the ""browse"" message to the class, asking it to open a browser on itself.  Suppose we want to browse the class ""Boolean"".
 
-Type ""Boolean browse"" into a workspace and ""do it"".
+-Type ""Boolean browse"" into a workspace and ""do it"".
 
 A browser will open on the Boolean class. There is also a keyboard shortcut CMD-b (browse) that you can use in any tool where you find a class name; select the name and type CMD-b.
 
+- Use the keyboard shortcut to browse the class ""Boolean"".
 
-Use the keyboard shortcut to browse the class ""Boolean"".
+Notice that when the Boolean class is selected but no protocol or method is selected, instead of the source code of a method, we see a class definition. This is nothing more than an ordinary message that is sent to the parent class, asking it to create a subclass. Here we see that the class Object is being asked to create a subclass named Boolean with no instance variables, class variables or ''pool dictionaries'', and to put the class Boolean} in the Kernel-Objects category. If you click on the ""comments"" button  at the bottom of the class pane, you can see the class comment  in a dedicated pane.
 
-Notice that when the Boolean class is selected but no protocol or method is selected, instead of the source code of a method, we see a class definition. This is nothing more than an ordinary Smalltalk message that is sent to the parent class, asking it to create a subclass. Here we see that the class Object is being asked to create a subclass named Boolean with no instance variables, class variables or ''pool dictionaries'', and to put the class Boolean} in the Kernel-Objects category. If you click on the ""comments"" button  at the bottom of the class pane, you can see the class comment  in a dedicated pane.
+@@todo put a screenshot with the Boolean class
 
 
 Often, the fastest way to find a class is to search for it by name. For example, suppose that you are looking for some unknown class that represents dates and times.
@@ -193,11 +193,15 @@ The method finder will display a list of all the method names that contain the s
 
 +The method finder showing all classes defining a method named now.>file://figures/finder.png+
 
-Type 'eureka' . 'EUREKA' into the method finder and press the RETURN key
+At other times you may have a good idea that a method exists, but will have no idea what it might be called. The method finder can still help! For example, suppose that you would like to find a method that turns a string into upper case, for example, it would translate 'eureka' into 'EUREKA'. We can give the inputs and expected output of a method and the Finder will try to find it for you.
+
+- In the Finder, select the examples mode using the second combo-box. 
+
+- Type =='eureka' . 'EUREKA'== into the method finder and press the RETURN key.
 
 The method finder will suggest a method that does what you want.
 
-An asterisk at the beginning of a line in the right pane of the method finder indicates that this method is the one that was actually used to obtain the requested result. So, the asterisk in front of String asUppercase lets us know that the method ""asUppercase"" defined on the class ""String"" was executed and returned the result we wanted. The methods that do not have an asterisk are just the other methods that have the same name as the ones that returned the expected result. So ""Character >> asUppercase "" was not executed on our example, because 'eureka' is not a Character object.
+An asterisk at the beginning of a line in the right pane of the method finder indicates that this method is the one that was actually used to obtain the requested result. So, the asterisk in front of String asUppercase lets us know that the method ==asUppercase== defined on the class ==String== was executed and returned the result we wanted. The methods that do not have an asterisk are just the other methods that have the same name as the ones that returned the expected result. So ==Character>>asUppercase== was not executed on our example, because =='eureka'== is not a ==Character== object.
 
 You can also use the method finder for methods with arguments; for example, if you are looking for a method that will find the greatest common factor of two integers, you might try 25. 35. 5 as an example. You can also give the method finder multiple examples to narrow the search space; the help text in the bottom pane explains how.
 
@@ -214,9 +218,9 @@ To make this example into something that the system can use, we turn it into a t
 testShout
   self assert: ('Don"t panic' shout = 'DON"T PANIC!')]]]
 
-How do we create a new method in Pharo ? First, we have to decide which class the method should belong to. In this case, the shout method that we are testing will go in class String, so the corresponding test will, by convention, go in a class called ""StringTest"".
+How do we create a new method in Pharo? First, we have to decide which class the method should belong to. In this case, the shout method that we are testing will go in class String, so the corresponding test will, by convention, go in a class called ==StringTest==.
 
-Open a browser on the class StringTest, and select an appropriate protocol for our method, in this case tests - converting . The highlighted text in the bottom pane is a template that reminds you what a Smalltalk method looks like. Delete this and enter the code mentioned earlier on.
+- Open a browser on the class StringTest, and select an appropriate protocol for our method, in this case tests - converting . The highlighted text in the bottom pane is a template that reminds you what a Pharo method looks like. Delete this and enter the code mentioned earlier on: Just select by clicking either on the beginning or end of the text and start typing your method.
 
 Once you have typed the text into the browser, notice that the bottom pane is outlined in red. This is a reminder that the pane contains unsaved changes. So select accept (s) by right clicking in the bottom pane, or just type CMD-s, to compile and save your method.
 
@@ -224,29 +228,30 @@ If this is the first time you have accepted any code in your image, you will lik
 
 Because there is as yet no method called shout, the browser will ask you to confirm that this is the name that you really want - and it will suggest some other names that you might have intended . This can be quite useful if you have merely made a typing mistake, but in this case, we really do mean shout, since that is the method we are about to create, so we have to confirm this by selecting the first option from the menu of choices.
 
-Run your newly created test: open the ""SUnit TestRunner"" from the World
-Menu.
+- Run your newly created test: open the ""SUnit TestRunner"" from the World Menu.
 
 The leftmost two panes are a bit like the top panes in the browser. The left pane contains a list of categories, but it's restricted to those categories that contain test classes.
 
-Select ""CollectionsTests-Text"" and the pane to the right will show all of the test classes in that category, which includes the class ""StringTest"". The names of the classes are already selected, so click Run Selected to run all these tests.
+- Select ""CollectionsTests-Text"" and the pane to the right will show all of the test classes in that category, which includes the class ""StringTest"". The names of the classes are already selected, so click Run Selected to run all these tests.
 
-You should see a message like "Unknown selector...", which indicates that there was an error in running the tests. The list of tests that gave rise to errors is shown in the bottom right pane; as you can see, "" StringTest >> testShout"" is the culprit. (Note that ""StringTest >> testShout"" is the Smalltalk way of identifying the ""testShout"" method of the ""StringTest"" class.) If you click on that line of text, the erroneous test will run again, this time in such a way that you see the error happen: ""MessageNotUnderstood: ByteString >> shout"".
+You should see a message like "Unknown selector...", which indicates that there was an error in running the tests. The list of tests that gave rise to errors is shown in the bottom right pane; as you can see, ==StringTest>>testShout== is the culprit. (Note that ==StringTest>>testShout== is the Pharo way of identifying the ==testShout== method of the ==StringTest== class.) If you click on that line of text, the erroneous test will run again, this time in such a way that you see the error happen: ==MessageNotUnderstood: ByteString>>shout==.
 
-The window that opens with the error message is the Smalltalk debugger . We will look at the debugger and how to use it in Chapter 6.
+The window that opens with the error message is the Pharo debugger. We will look at the debugger and how to use it in Chapter 6.
+
+@@todo add a screenshot of the debugger preview
 
 The error is, of course, exactly what we expected: running the test generates an error because we haven't yet written a method that tells strings how to shout. Nevertheless, it's good practice to make sure that the test fails because this confirms that we have set up the testing machinery correctly and that the new test is actually being run. Once you have seen the error, you can ""Abandon"" the running test, which will close the debugger window. Note that often with Smalltalk you can define the missing method using the ""Create"" button, edit the newly-created method in the debugger, and then ""Proceed"" with the test.
 
 Now let's define the method that will make the test succeed!
 
 
-Select class ""String"" in the browser, select the converting protocol method , type the code of the method bellow over the method template , and ""accept"" it.
+- Select class ==String== in the browser, select the converting protocol method, type the code of the method bellow over the method template, and ""accept"" it.
 
 [[[ lang= Smalltalk
 shout
   ^ self asUppercase,'!' ]]]
 
-The comma is the string concatenation operation, so the body of this method appends an exclamation mark to an upper-case version of whatever String object the shout message was sent to. The ^ tells Pharo that the expression that follows is the answer to be returned from the method, in this case the new concatenated string.
+The comma is the string concatenation operation, so the body of this method appends an exclamation mark to an upper-case version of whatever String object the shout message was sent to. The ==^== tells Pharo that the expression that follows is the answer to be returned from the method, in this case the new concatenated string.
 
 Does this method work? Let's run the tests and see.
 
@@ -258,7 +263,7 @@ When you get to a green bar, it's a good idea to save your work and take a break
 
 This chapter has introduced you to the Pharo environment and shown you how to use some of the major tools, such as the browser, the method finder, and the test runner. You have also seen a little of Pharo's syntax, even though you may not understand it all yet.
 
--A running Pharo system consists of a virtual machine, a sources file, and image and changes files. Only these last two change, as they record a snapshot of the running system.
+-A running Pharo system consists of a ''virtual machine'', a ''sources file'', and ''image and changes'' files. Only these last two change, as they record a snapshot of the running system.
 -When you restore a Pharo image, you will find yourself in exactly the same state , with the same running objects , that you had when you last saved that image.
 -You click on the Pharo background to bring up the ""World menu"" and launch various tools.
 -A ""workspace"" is a tool for writing and evaluating snippets of code. You can also use it to store arbitrary text.
