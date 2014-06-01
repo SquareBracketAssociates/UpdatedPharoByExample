@@ -245,3 +245,144 @@ What this method does is to send the message value to the object stored in the i
 [self toggleNeighboursOfCellAt: i at: j ]
 
 Sending the value message causes this code fragment to be evaluated, and consequently the state of the cells will toggle.
+
+!!Let's try our code
+
+That’s it: the Lights Out game is complete!
+
+If you have followed all of the steps, you should be able to play the game, consisting of just 2 classes and 7 methods.
+
+In a workspace, type LOGame new openInWorld and ""do it"" .
+
+The game will open, and you should be able to click on the cells and see how it works.
+
+Well, so much for theory... When you click on a cell, a notifier window called the PreDebugWindow window appears with an error message! It says MessageNotUnderstood: LOGame >> toggleState.
+
+What happened ? To find out, let’s use one of Smalltalk’s more powerful tools: the debugger.
+
+Click on the ""debug"" button in the notifer window.
+
+The debugger will appear. In the upper part of the debugger window you can see the execution stack, showing all the active methods; selecting any one of them will show, in the middle pane, the Smalltalk code being executed in that method, with the part that triggered the error highlighted.
+
+Click on the line labelled LOGame»toggleNeighboursOfCellAt: at: (near the top).
+
+The debugger will show you the execution context within this method where the error occurred.
+
+At the bottom of the debugger are two small inspector windows. On the left, you can inspect the object that is the receiver of the message that caused the selected method to execute, so you can look here to see the values of the instance variables. On the right you can inspect an object that represents the currently executing method itself, so you can look here to see the values of the method's parameters and temporary variables.
+
+Using the debugger, you can execute code step by step, inspect objects in parameters and local variables, evaluate code just as you can in a workspace, and, most surprisingly to those used to other debuggers, change the code while it is being debugged! Some Smalltalkers program in the debugger almost all the time, rather than in the browser. The advantage of this is that you see the method that you are writing as it will be executed, with real parameters in the actual execution context.
+
+In this case we can see in the first line of the top panel that the toggleState message has been sent to an instance of LOGame, while it should clearly have been an instance of LOCell. The problem is most likely with the initialization of the cells matrix. Browsing the code of LOGame >> initialize shows that cells is filled with the return values of newCellAt: at:, but when we look at that method, we see that there is no return statement there! By default, a method returns self, which in the case of newCellAt: at: is indeed an instance of LOGame.
+
+Close the debugger window. Add the expression "^ c" to the end of the method LOGame >> newCellAt:at: so that it returns c.
+
+[[[lang=Smalltalk
+LOGame >> newCellAt: i at: j
+"Create a cell for position (i,j) and add it to my on-screen representation at the appropriate screen position. Answer the new cell"
+| c origin |
+c := LOCell new.
+origin := self innerBounds origin.
+self addMorph: c.
+c position: ((i - 1) * c width) @ ((j - 1) * c height) + origin. c mouseAction: [self toggleNeighboursOfCellAt: i at: j].
+^ c]]]
+
+Recall from Chapter 1 that the construct to return a value from a method in Smalltalk is ^, which you obtain by typing ^.
+
+Often, you can fix the code directly in the debugger window and click Proceed to continue running the application. In our case, because the bug was in the initialization of an object, rather than in the method that failed, the easiest thing to do is to close the debugger window, destroy the running instance of the game (with the halo), and create a new one.
+
+Do: LOGame new openInWorld again.
+
+Now the game should work properly ... or nearly so. If we happen to move the mouse between clicking and releasing, then the cell the mouse is over will also be toggled. This turns out to be behavior that we inherit from SimpleSwitchMorph. We can fix this simply by overriding mouseMove: to do nothing:
+
+[[[lang=Smalltalk
+LOGame >> mouseMove: anEvent
+]]]
+
+
+Finally we are done!
+
+!!Saving and sharing Smalltalk code
+
+Now that you have the Lights Out game working, you probably want to save it somewhere so that you can share it with your friends. Of course, you can save your whole Pharo image, and show off your first program by running it, but your friends probably have their own code in their images, and don't want to give that up to use your image. What you need is a way of getting source code out of your Pharo image so that other programmers can bring it into theirs.
+
+The simplest way of doing this is by filing out the code. The action-click menu in the Package pane will give you the option to various U\-\-> file out the whole of package PBE-LightsOut. The resulting file is more or less human readable, but is really intended for computers, not humans. You can email this file to your friends, and they can file it into their own Pharo images using the file list browser.
+
+Right-click on the PBE-LightsOut package and various \-\-> file out the contents.
+
+You should now find a file called "PBE-LightsOut.st" in the same folder on disk where your image is saved. Have a look at this file with a text editor.
+
+Open a fresh Pharo image and use the File Browser tool ( Tools... \-\-> File Browser ) to file in the PBE-LightsOut.st fileout. Verify that the game now works in the new image.
+
+!!!Monticello packages
+
+Although fileouts are a convenient way of making a snapshot of the code you have written, they are decidedly "old school". Just as most open-source projects find it much more convenient to maintain their code in a repository using CVS4 or Subversion5, so Pharo programmers find it more convenient to manage their code using Monticello packages. These packages are represented as files with names ending in .mcz; they are actually zip-compressed bundles that contain the complete code of your package.
+
+Using the Monticello package browser, you can save packages to repositories on various types of server, including FTP and HTTP servers; you can also just write the packages to a repository in a local file system directory. A copy of your package is also always cached on your local hard-disk in the package-cache folder. Monticello lets you save multiple versions of your program, merge versions, go back to an old version, and browse the differences between versions. In fact, Monticello is a distributed revision control system; this means it allows developers to save their work on different places, not on a single repository as it is the case with CVS or Subversion.
+
+You can also send a .mcz file by email. The recipient will have to place it in her package-cache folder; she will then be able to use Monticello to browse and load it.
+
+Open the Monticello browser from the World menu.
+
+In the right-hand pane of the browser is a list of Monticello repositories, which will include all of the repositories from which code has been loaded into the image that you are using.
+
+At the top of the list in the Monticello browser is a repository in a local directory called the package cache, which caches copies of the packages that you have loaded or published over the network. This local cache is really handy because it lets you keep your own local history; it also allows you to work in places where you do not have internet access, or where access is slow enough that you do not want to save to a remote repository very frequently.
+
+!!!Saving and loading code with Monticello
+
+On the left-hand side of the Monticello browser is a list of packages that have a version loaded into the image; packages that have been modified since they were loaded are marked with an asterisk. (These are sometimes referred to as dirty packages.) If you select a package, the list of repositories is restricted to just those repositories that contain a copy of the selected package.
+
+Add the PBE-LightsOut package to your Monticello browser using the ""+ Package"" button and type PBE-LightsOut.
+
+!!!SqueakSource: a SourceForge for Pharo
+
+We think that the best way to save your code and share it is to create an account for your project on a SqueakSource server. SqueakSource is like SourceForge6: it is a web front-end to a HTTP Monticello server that lets you manage your projects. There is a public SqueakSource server at http://www.squeaksource.com, and a copy of the code related to this book is stored there at http://www.squeaksource.com/PharoByExample.html. You can look at this project with a web browser, but it’s a lot more productive to do so from inside Pharo, using the Monticello browser, which lets you manage your packages.
+
+Open a web browser to http://www.squeaksource.com. Create an account for yourself and then create (i.e., “register”) a project for the Lights Out game.
+
+SqueakSource will show you the information that you should use when adding a repository using the Monticello browser.
+
+Once your project has been created on SqueakSource, you have to tell your Pharo system to use it.
+
+With the PBE-LightsOut package selected, click the ""+Repository"" button in the Monticello browser.
+
+You will see a list of the different types of Repository that are available; to add a SqueakSource repository select HTTP . You will be presented with a dialog in which you can provide the necessary information about the server. You should copy the presented template to identify your SqueakSource project, paste it into Monticello and supply your initials and password:
+
+[[[lang=Smalltalk
+MCHttpRepository
+location: 'http://www.squeaksource.com/YourProject'
+user: 'yourInitials'
+password: 'yourPassword']]]
+
+If you provide empty initials and password strings, you can still load the project, but you will not be able to update it:
+
+[[[lang=Smalltalk
+MCHttpRepository
+location: 'http://www.squeaksource.com/YourProject'
+user: ''
+password: '']]]
+
+Once you have accepted this template, your new repository should be listed on the right-hand side of the Monticello browser.
+
+Click on the ""Save"" button to save a first version of your Lights Out game on SqueakSource.
+
+To load a package into your image, you must first select a particular version. You can do this in the repository browser, which you can open using the button or the right-click menu. Once you have selected a version, you can load it onto your image.
+
+Open the PBE-LightsOut repository you have just saved.
+
+Monticello has many more capabilities, which will be discussed in depth in Chapter 6. You can also look at the on-line documentation for Monticello at http://www.wiresong.ca/Monticello/.
+
+!!Chapter summary
+
+
+In this chapter you have seen how to create categories, classes and methods. You have see how to use the browser, the inspector, the debugger and the Monticello browser.
+
+-Categories are groups of related classes.
+-A new class is created by sending a message to its superclass.
+-Protocols are groups of related methods.
+-A new method is created or modified by editing its definition in the browser and then accepting the changes.
+-The inspector offers a simple, general-purpose GUI for inspecting and interacting with arbitrary objects.
+-The browser detects usage of undeclared methods and variables, and offers possible corrections.
+-The initialize method is automatically executed after an object is created in Pharo. You can put any initialization code there.
+-The debugger provides a high-level GUI to inspect and modify the state of a running program.
+-You can share source code filing out a category.
+-A better way to share code is to use Monticello to manage an external repository, for example defined as a SqueakSource project.
