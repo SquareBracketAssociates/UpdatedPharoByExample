@@ -1,4 +1,4 @@
-!A Quick tour of Pharo
+!A quick tour of Pharo
 
 In this chapter we will give you a high-level tour of Pharo to help you get comfortable with the environment. There will be plenty of opportunities to try things out, so it would be a good idea if you have a computer handy when you read this chapter.
 
@@ -6,11 +6,11 @@ In particular, you will fire up Pharo, learn about the different ways of interac
 
 !!Getting started
 
-Pharo is available as a free download from *http://pharo-project.org>http://pharo-project.org*. There are three parts that you will need to download, consisting of four files.
+Pharo is available as a free download from *http://www.pharo.org>http://www.pharo.org*. There are three parts that you will need to download, consisting of four files.
 
-#The virtual machine (VM) is the only part of the system that is different for each operating system and processor. Pre-compiled virtual machines are available for all the major computing environments.(For example in case of Windows the VM for the selected platform is called Pharo.exe).
-#The sources file contains the source code for all of the parts of Pharo that don't change very frequently. In case of Pharo3 is called PharoV30.sources
-#The current system image is a snapshot of a running Pharo system, frozen in time. It consists of two files: an .image file, which contains the state of all of the objects in the system (including classes and methods, since they are objects too), and a .changes file, which contains a log of all of the changes to the source code of the system. Pharo 3 comes with the files that are called pharo.image and pharo.changes.
+#The ''virtual machine'' (VM) is the only part of the system that is different for each operating system and processor. Pre-compiled virtual machines are available for all the major computing environments.(For example in case of Windows the VM for the selected platform is called Pharo.exe).
+#The ''sources'' file contains the source code for all of the parts of Pharo that don't change very frequently. In case of Pharo3 is called PharoV30.sources
+#The current ''system image'' is a snapshot of a running Pharo system, frozen in time. It consists of two files: an ''.image'' file, which contains the state of all of the objects in the system (including classes and methods, since they are objects too), and a ''.changes'' file, which contains a log of all of the changes to the source code of the system. Pharo 3 comes with the files that are called ''pharo.image'' and ''pharo.changes''.
 
 We recommend that you use the image provided on the *Pharo by Example>http://pharobyexample.org/* web page.
 
@@ -18,17 +18,24 @@ Most of the introductory material in this book will work with any version, so if
 
 As you work in Pharo, the image and changes files are modified, so you need to make sure that they are writable. Always keep these two files together. Never edit them directly with a text editor, as Pharo uses them to store the objects you work with and to log the changes you make to the source code. It is a good idea to keep a backup copy of the downloaded image and changes files so you can always start from a fresh image and reload your code.
 
-The sources file and the VM can be read-only , they can be shared between different users. All of these files can be placed in the same directory, but it is also possible to put the Virtual Machine and sources file in separate directory where everyone has access to them. Do whatever works best for your style of working and your operating system.
+The ''sources'' file and the VM can be read-only , they can be shared between different users. All of these files can be placed in the same directory, but it is also possible to put the Virtual Machine and sources file in separate directory where everyone has access to them. Do whatever works best for your style of working and your operating system.
 
 !!Install Pharo
 
 Pharo does not need to install anything in your system as its perfectly capable of running as stand alone.
 
-Only thing you need to do is download Pharo 3 from the Pharo *website>http://www.pharo-project.org/home* . Depending on your platform download the approriate zip file , uncompress it in a directory of your choice and now you are ready to launch Pharo. In case of Ubuntu there is the extra option of installing Pharo via the Pharo PPA.
+Only thing you need to do is download Pharo 3 from the Pharo website *http://www.pharo.org/>http://www.pharo.org/*. Depending on your platform download the appropriate zip file, uncompress it in a directory of your choice and now you are ready to launch Pharo. In case of Ubuntu there is the extra option of installing Pharo via the Pharo PPA.
 
 !!Launch Pharo
 
-In Macos double click the Pharo icon that you have unziped when you downloaded Pharo. In Windows enter the uncompressed Pharo folder and double click the Pharo.exe. In Linux its possible to launch Pharo from the terminal passing the image file as first parameter. Its also possible to drag the .image file onto the icon of the virtual machine for all OSes , or at the command line type the name of the virtual machine followed by the path to the .image file. In Ubuntu if you had installed Pharo through the PPA process then "pharo nameofthe.image" will launch the image of your choice. Its also possible to associate image files with the Pharo binary (Pharo VM) , in MacOS via GetInfo and Windows via Open With both accessed by right clicking on the image file.
+-In MacOS double click the Pharo icon that you have unziped when you downloaded Pharo. 
+-In Windows enter the uncompressed Pharo folder and double click the Pharo.exe. 
+-In Linux its possible to launch Pharo from the terminal passing the image file as first parameter. 
+
+It is also possible to drag the ''.image'' file onto the icon of the virtual machine for all OSes, or at the command line type the name of the virtual machine followed by the path to the ''.image'' file. In Ubuntu if you had installed Pharo through the PPA process then "pharo nameofthe.image" will launch the image of your choice. It is also possible to associate image files with the Pharo binary (Pharo VM), in MacOS via GetInfo and Windows via Open With both accessed by right clicking on the image file.
+
+Once Pharo is running, you should see a single large window, possibly containing some open workspace windows (see Figure *worldMenu*). You might notice a menu bar, but Pharo mainly makes use of context-dependent pop-up menus.
+
 
 !!The World Menu
 
@@ -45,9 +52,9 @@ Left click on open space to open the World Menu and then click on the "Workspace
 [[[language=smalltalk
 PharoTutorial go.]]]
 
-This Pharo command will trigger the Pharo tutorial. Its interactive tutorial that will teach you the basics of Pharo. You have just sent your first message. Pharo is based on the concept of sending messages to objects. The Pharo objects are like your soldiers ready to obey once you send them a message they can understand. We will see later on how an object can understand a message.
+This Pharo expression will trigger the Pharo tutorial. Its interactive tutorial that will teach you the basics of Pharo. You have just sent your first message. Pharo is based on the concept of sending messages to objects. The Pharo objects are like your soldiers ready to obey once you send them a message they can understand. We will see later on how an object can understand a message.
 
-If you talk to Smalltalkers for a while, you will quickly notice that they gen erally do not use expressions like "call an operation" or "invoke a method", as coders do in other programming languages, but instead they will say "send a message". This reflects the idea that objects are responsible for their own actions. You never tell an object what to do , instead you politely ask it to do something by sending it a message. The object, not you, selects the appropriate method for responding to your message.
+If you talk to Pharoers for a while, you will quickly notice that they generally do not use expressions like "call an operation" or "invoke a method", as coders do in other programming languages, but instead they will say "send a message". This reflects the idea that objects are responsible for their own actions. You never tell an object what to do , instead you politely ask it to do something by sending it a message. The object, not you, selects the appropriate method for responding to your message.
 
 As a user you don't need to understand how each message works , the only thing you need to know is what the available messages are for the Objects that interest you. This way the Object can hide its complexity and coding can be kept as simple as possible without losing flexibility.
 
@@ -61,7 +68,7 @@ When you start Pharo for the first time, the Pharo virtual machine loads the ima
 
 When you quit Pharo, you will normally save a snapshot that contains all of your objects. If you save normally, you will overwrite your old image file with the new snapshot. Alternatively, you may save the image under a new name, as we just did.
 
-In addition to the .image file, there is also a .changes file. This file contains a log of all the changes to the source code that you have made using the standard tools. Most of the time you do not need to worry about this file at all. As we shall see, however, the .changes file can be very useful for recovering from errors, or replaying lost changes. More about this later!
+In addition to the ''.image'' file, there is also a ''.changes'' file. This file contains a log of all the changes to the source code that you have made using the standard tools. Most of the time you do not need to worry about this file at all. As we shall see, however, the .changes file can be very useful for recovering from errors, or replaying lost changes. More about this later!
 
 The image that you have been working with is a descendant of the original Smalltalk-80 image created in the late 1970s. Some of these objects have been around for decades!
 
@@ -69,11 +76,11 @@ You might think that the image is the key mechanism for storing and managing sof
 
 !!Workspace and Transcripts
 
-Close all open windows.Open a transcript and a workspace. (The transcript can be opened from the World > Tools ... submenu.)
-
-Position and resize the transcript and workspace windows so that the workspace just overlaps the transcript.
-
-You can resize windows either by dragging one of the corners, or by meta- clicking the window to bring up the morphic halo, and dragging the yellow (bottom right) handle.
+Some exercises:
+# Close all open windows. 
+# Open a transcript and a workspace. (The transcript can be opened from the World > Tools ... submenu.)
+# Position and resize the transcript and workspace windows so that the workspace just overlaps the transcript.
+You can resize windows  by dragging one of the corners.
 
 At any time only one window is active; it is in front and has its border highlighted.
 
@@ -81,50 +88,50 @@ The transcript is an object that is often used for logging system messages. It i
 
 Workspaces are useful for typing snippets of Smalltalk code that you would like to experiment with. You can also use workspaces simply for typing arbitrarily text that you would like to remember, such as to-do lists or instructions for anyone who will use your image. Workspaces are often used to hold documentation about a captured image, as is the case with the standard image that we downloaded earlier (see Figure 1.2).
 
-Type the following text into the workspace:
+- Type the following text into the workspace:
 
 [[[language = Smalltalk
 Transcript show: 'hello world'; cr.]]]
 
-Try double-clicking in the workspace at various points in the text you have just typed. Notice how an entire word, entire string, or the whole text is selected, depending on whether you click within a word, at the end of the string, or at the end of the entire expression.
-Select the text you have typed and right click Select do it (d) .
-Notice how the text "hello world" appears in the transcript window. Do it again.
+#Try double-clicking in the workspace at various points in the text you have just typed. Notice how an entire word, entire string, or the whole text is selected, depending on whether you click within a word, at the end of the string, or at the end of the entire expression.
+#Select the text you have typed and right click Select do it (d) .
+#Notice how the text "hello world" appears in the transcript window. Do it again.
 
 !!Keyboard shortcuts
 
-If you want  to evaluate an expression, you do not always have to right click. Instead, you can use keyboard shortcuts. These are the parenthesized expressions in the menu.  Depending on your platform, you may have to press one of the modifier keys which are control, alt and command. We will be focusing on the MacOS platform since this is the platform most Pharo developer uses where command key (a.k.a CMD key) is the main modifier key , the similar key in Windows is Alt and so is in Linux  so each time you see something like CMD-d just replace with the approriate modifier key depending on your OS.
+If you want  to evaluate an expression, you do not always have to right click. Instead, you can use keyboard shortcuts. These are the parenthesized expressions in the menu.  Depending on your platform, you may have to press one of the modifier keys which are control, alt and command. We will be focusing on the MacOS platform since this is the platform most Pharo developers use where command key (a.k.a CMD key) is the main modifier key, the similar key in Windows is Alt and so is in Linux  so each time you see something like CMD-d just replace with the appropriate modifier key depending on your OS.
 
 @@todo Test that alt is the modifier key for Linux
 
 In addition to ""do it"", you might have noticed ""print it"", ""inspect it"" and ""explore it"". Let's have a quick look at each of these.
 
-Type the expression {{{3 + 4}}} into the workspace. Now ""do it"" with the keyboard shortcut.
+Type the expression ==3 + 4== into the workspace. Now ""do it"" with the keyboard shortcut.
 
-Do not be surprised if you saw nothing happen! What you just did is send the message {{{+}}} with argument 4 to the number 3. Normally the result 7 will have been computed and returned to you, but since the workspace did not know what to do with this answer, it simply threw the answer away.  If you want to see the result, you should ""print it"" instead. ""print it"" actually compiles the expression, executes it, sends the message printString to the result, and displays the resulting string.
+Do not be surprised if you saw nothing happen! What you just did is send the message ==+== with argument 4 to the number 3. Normally the result 7 will have been computed and returned to you, but since the workspace did not know what to do with this answer, it simply threw the answer away.  If you want to see the result, you should ""print it"" instead. ""print it"" actually compiles the expression, executes it, sends the message printString to the result, and displays the resulting string.
 
-Select {{{3+4}}} and ""print it"" ( CMD-p).
+Select ==3+4== and ""print it"" ( CMD-p).
 
-This time we see the result we expect .
+This time we see the result we expect.
 
 [[[lang=Smalltalk
 3 + 4 --> 7]]]
 
 We use the notation ""-->"" as a convention in this book to indicate that a particular Pharo expression yields a given result when you ""print it"".
 
-Delete the highlighted text "7" (Pharo should have selected it for you, so you can just press the delete key). Select {{{3+4}}} again and this time ""inspect it"" ( CMD-i)
+Delete the highlighted text "7" (Pharo should have selected it for you, so you can just press the delete key). Select ==3+4== again and this time ""inspect it"" ( CMD-i)
 
 
 Now you should see a new window, called an ''inspector'', with the heading SmallInteger: 7. The inspector is an extremely useful tool that will allow you to browse and interact with any object in the system. The title tells us that 7 is an instance of the class ''SmallInteger''. The left panel allows us to browse the instance variables of an object, the values of which are shown in the right panel.The bottom panel can be used to write expressions to send messages to the object.
 
 Type ""self squared"" in the bottom panel of the inspector on ""7"" and ""print it"".
 
-+Inspecting an object>file://figures/inspector.png|label=inspector+
++Inspecting an object>file://figures/inspector.png|width=80|label=inspector+
 
 Close the inspector. Type the expression Object in a workspace and this time ""explore it"" (CMD-I, uppercased i)
 
 This time you should see a window labelled ""Object"" containing the text ""root: Object"". Click on the triangle to open it up.
 
-+Exploring Object>file://figures/explorer.png|label=explorer+
++Exploring Object>file://figures/explorer.png|width=60|label=explorer+
 
 The explorer is similar to the inspector, but it offers a tree view of a complex object. In this case the object we are looking at is the ""Object"" class. We can see directly all the information stored in this class, and we can easily navigate to all its parts.
 
