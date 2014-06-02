@@ -22,22 +22,22 @@ We can see examples of the various syntactic elements in the Table below.
 |==2r101== | binary integer
 |==1.5== | floating point number
 |==2.4e7== | exponential notation
-|==$a== | the character 'a'
-|=='Hello'== | the string 'Hello'
-|==#Hello== | the symbol #Hello
+|==$a== | the character =='a'==
+|=='Hello'== | the string =='Hello'==
+|==#Hello== | the symbol ==#Hello==
 |==#(1 2 3)== | a literal array
 | =={ 1 . 2 . 1 + 2 }== | a dynamic array
 |=="a comment"== | a comment
-|==\| x y \|==| declaration of variables x and y
-|==x := 1==| assign 1 to x
-|==[:x \| x + 2 ]==| a block that evaluates to x + 2
+|==\| x y \|==| declaration of variables ==x== and ==y==
+|==x := 1==| assign 1 to ==x==
+|==[:x \| x + 2 ]==| a block that evaluates to ==x + 2==
 |==<primitive: 1>==| virtual machine primitive or annotation
 |==3 factorial==| unary message
 |==3 + 4==| binary message
 |==2 raisedTo: 6 modulo: 10==| keyword message
 |==^ true==| return the value true
-|==Transcript show: 'hello' . Transcript cr==| expression separator (.)
-|==Transcript show: 'hello'; cr==| message cascade (;)
+|==Transcript show: 'hello' . Transcript cr==| expression separator (==.==)
+|==Transcript show: 'hello'; cr==| message cascade (==;==)
 
 
 
