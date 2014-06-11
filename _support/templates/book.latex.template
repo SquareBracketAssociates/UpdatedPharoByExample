@@ -15,6 +15,7 @@
   {figures/}
   {PharoTour/}
   {SUnit/}
+  {Streams/}
 }
 %=================================================================
 \let\wholebook=\relax
