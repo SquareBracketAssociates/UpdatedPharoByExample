@@ -71,7 +71,7 @@ It is also possible to create ==ReadWriteStream==s that support both
 the reading and writing protocols.
 
 The main problem with ==WriteStream== and ==ReadWriteStream== is
-that they only support arrays and strings in \pharo. This is currently
+that they only support arrays and strings in Pharo. This is currently
 being changed by the development of a new library named Nile, 
 but for now if you try to stream over another kind of
 collection, you will get an error:
@@ -94,7 +94,7 @@ StandardFileStream
                 cr;
                 nextPutAll: 'abcd'].
 ]]]
-\cmindex{FileStream class}{fileNamed:do:}
+
 
 The following sections present the protocols in more depth.
 
@@ -121,7 +121,7 @@ stream next. -->   1
 stream next. -->   #(#a #b #c)
 stream next. -->   false
 ]]]
-\cmindex{PositionableStream class}{on:}
+
 
 [[[
 stream := ReadStream on: 'abcdef'.
@@ -142,7 +142,7 @@ negative ifTrue: [stream next].       "ignores the minus character"
 number := stream upToEnd.
 number. --> '143'
 ]]]
-\noindent
+
 This code sets the boolean variable ==negative== according to the sign of the
 number in the stream and ==number== to its absolute value. The method
 ==ReadStream>>upToEnd== returns everything from the current position to the end
@@ -154,7 +154,7 @@ stream := '-143' readStream.
 (stream peekFor: $-) --> true
 stream upToEnd         --> '143'
 ]]]
-\noindent
+
 ==peekFor:== also returns a boolean
 indicating if the parameter equals the element.
 
@@ -290,7 +290,7 @@ The following ==WriteStream== methods are especially useful in this context:
 ;==nextPutAll:==
 :adds each element of the collection, passed as a parameter, to the stream;
 ;==print:==
-:adds the textual representation of the parameter to the stream. \cmindex{Stream}{print:}
+:adds the textual representation of the parameter to the stream. 
 
 
 There are also methods useful for printing different kinds of characters to
@@ -304,7 +304,7 @@ in the stream is a space; if the last character isn't a space it adds one.
 Using ==WriteStream>>nextPut:== and ==WriteStream>>nextPutAll:== on a ==WriteStream== is often the best way to
 concatenate characters. Using the comma concatenation operator (==,==) is far
 less efficient:
-\index{Collection!comma operator}
+
 
 [[[
 [| temp |
@@ -342,8 +342,8 @@ It's possible to use a stream to access a collection for reading and
 writing at the same time.
 Imagine you want to create an ==History== class which will manage
 backward and forward buttons in a web browser.
-A history would react as in figures from \ref{fig:emptyStream} to
-\ref{fig:page4}.
+A history would react as in figures from *fig:emptyStream* to
+*fig:page4*.
 
 +A new history is empty. Nothing is displayed in the web browser.>file://figures/emptyStef.png|label=fig:emptyStream+
 
@@ -464,15 +464,15 @@ To create file streams, you will have to use one of the following
 instance creation methods offered by the class ==ai=={FileStream}:
 
 ;==fileNamed:==
-:Open a file with the given name for reading and writing. If the file already exists, its prior contents may be modified or replaced, but the file will not be truncated on close. If the name has no directory part, then the file will be created in the default directory. \cmindex{FileStream class}{fileNamed:}
+:Open a file with the given name for reading and writing. If the file already exists, its prior contents may be modified or replaced, but the file will not be truncated on close. If the name has no directory part, then the file will be created in the default directory. 
 ;==newFileNamed:==
-:Create a new file with the given name, and answer a stream opened for writing on that file. If the file already exists, ask the user what to do. \cmindex{FileStream class}{newFileNamed:}
+:Create a new file with the given name, and answer a stream opened for writing on that file. If the file already exists, ask the user what to do. 
 ;==forceNewFileNamed:==
-:Create a new file with the given name, and answer a stream opened for writing on that file. If the file already exists, delete it without asking before creating the new file. \cmindex{FileStream class}{forceNewFileNamed:}
+:Create a new file with the given name, and answer a stream opened for writing on that file. If the file already exists, delete it without asking before creating the new file. 
 ;==oldFileNamed:==
-:Open an existing file with the given name for reading and writing. If the file already exists, its prior contents may be modified or replaced, but the file will not be truncated on close. If the name has no directory part, then the file will be created in the default directory. \cmindex{FileStream class}{oldFileNamed:}
+:Open an existing file with the given name for reading and writing. If the file already exists, its prior contents may be modified or replaced, but the file will not be truncated on close. If the name has no directory part, then the file will be created in the default directory. 
 ;==readOnlyFileNamed:==
-:Open an existing file with the given name for reading. \cmindex{FileStream class}{readOnlyFileNamed:}
+:Open an existing file with the given name for reading. 
 
 
 You have to remember that each time you open a stream on a file, you
