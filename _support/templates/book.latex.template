@@ -13,7 +13,10 @@
 % Add the path for the figures of each chapter here:
 \graphicspath{
   {figures/}
+  {Preface}
   {PharoTour/}
+  {FirstApplication}
+  {SyntaxNutshell}
   {SUnit/}
   {Streams/}
 }
