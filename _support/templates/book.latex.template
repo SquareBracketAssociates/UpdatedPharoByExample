@@ -15,8 +15,8 @@
   {figures/}
   {Preface}
   {PharoTour/}
-  {FirstApplication}
-  {SyntaxNutshell}
+  {FirstApplication/}
+  {SyntaxNutshell/}
   {SUnit/}
   {Streams/}
 }
