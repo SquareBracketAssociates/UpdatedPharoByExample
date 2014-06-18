@@ -333,43 +333,46 @@ On the left-hand side of the Monticello browser is a list of packages that have 
 
 Add the PBE-LightsOut package to your Monticello browser using the ""+ Package"" button and type PBE-LightsOut.
 
-!!!SqueakSource: a SourceForge for Pharo
+!!!SmalltalkHub: a Github for Pharo
 
-We think that the best way to save your code and share it is to create an account for your project on a SqueakSource server. SqueakSource is like SourceForge6: it is a web front-end to a HTTP Monticello server that lets you manage your projects. There is a public SqueakSource server at http://www.squeaksource.com, and a copy of the code related to this book is stored there at http://www.squeaksource.com/PharoByExample.html. You can look at this project with a web browser, but it’s a lot more productive to do so from inside Pharo, using the Monticello browser, which lets you manage your packages.
+We think that the best way to save your code and share it is to create an account for your project on a SqueakSource server. SmalltalkHub is like GitHub: it is a web front-end to a HTTP Monticello server that lets you manage your projects. There is a public server at *http://www.smalltalkhub.com/>http://www.smalltalkhub.com/*.
 
-Open a web browser to http://www.squeaksource.com. Create an account for yourself and then create (i.e., “register”) a project for the Lights Out game.
+In order to be able to use SmalltalkHub you will need an account. Using the link provided go to the website with your internet browser. Just click on the ""Join"" link and follow the instructions to create a new account. Then ""login"" to your account.
 
-SqueakSource will show you the information that you should use when adding a repository using the Monticello browser.
++Join and login at SmalltalkHub>file://figures/smalltalkhub-join.png|width=100|label=join+
 
-Once your project has been created on SqueakSource, you have to tell your Pharo system to use it.
+Click on the ""+ New project"" to create a bew project. Fill in the information requested and click ""Register project"" button. You will be sent to your profile page, on the right side you will see the list of your projects and projects you watch by other coders. Click on the project you just created.
+
+Under ""Monticello registration"" title label you will see a box containg a smalltalk message similar to
+
+[[[lang=Smalltalk
+MCHttpRepository
+	location: 'http://www.smalltalkhub.com/mc/UserName/ProjectName/main'
+	user: ''
+	password: '' ]]]
+
+Copy those contents.
+
+Go back to Pharo.
+
+Once your project has been created on SmalltalkHub, you have to tell your Pharo system to use it.
 
 With the PBE-LightsOut package selected, click the ""+Repository"" button in the Monticello browser.
 
-You will see a list of the different types of Repository that are available; to add a SqueakSource repository select HTTP . You will be presented with a dialog in which you can provide the necessary information about the server. You should copy the presented template to identify your SqueakSource project, paste it into Monticello and supply your initials and password:
+You will see a list of the different types of Repository that are available; to add a SqueakSource repository select HTTP . You will be presented with a dialog in which you can provide the necessary information about the server. You should paste the smalltalk message you have copied from SmalltalkHub . This message tells to Monticello where to find your project online. You can also provide your user name and password. If you do not, then Pharo will ask for them each time you try to save into your online repository at SmalltalkHub.
 
-[[[lang=Smalltalk
-MCHttpRepository
-location: 'http://www.squeaksource.com/YourProject'
-user: 'yourInitials'
-password: 'yourPassword']]]
 
-If you provide empty initials and password strings, you can still load the project, but you will not be able to update it:
+Once you have accepted , your new repository should be listed on the right-hand side of the Monticello browser.
 
-[[[lang=Smalltalk
-MCHttpRepository
-location: 'http://www.squeaksource.com/YourProject'
-user: ''
-password: '']]]
-
-Once you have accepted this template, your new repository should be listed on the right-hand side of the Monticello browser.
-
-Click on the ""Save"" button to save a first version of your Lights Out game on SqueakSource.
+Click on the ""Save"" button to save a first version of your Lights Out game on SmalltalkHub
 
 To load a package into your image, you must first select a particular version. You can do this in the repository browser, which you can open using the button or the right-click menu. Once you have selected a version, you can load it onto your image.
 
 Open the PBE-LightsOut repository you have just saved.
 
-Monticello has many more capabilities, which will be discussed in depth in Chapter 6. You can also look at the on-line documentation for Monticello at http://www.wiresong.ca/Monticello/.
+Monticello has many more capabilities, which will be discussed in depth in Chapter 6. You can also look at the on-line documentation for Monticello at *http://www.wiresong.ca/Monticello/>http://www.wiresong.ca/Monticello/*.
+
+If you are already familiar with Git and Github there is a chapter about how to use Git and Github with Pharo in the online book Pharo for The Enterprise here *https://ci.inria.fr/pharo-contribution/job/PharoForTheEnterprise/lastSuccessfulBuild/artifact/>https://ci.inria.fr/pharo-contribution/job/PharoForTheEnterprise/lastSuccessfulBuild/artifact/*. If you have not done so already its recommended to download the entire book , ""EnterprisePharo.pdf"", because it contains a lot of valuable information about Pharo and its third party libraries.
 
 !!Chapter summary
 
