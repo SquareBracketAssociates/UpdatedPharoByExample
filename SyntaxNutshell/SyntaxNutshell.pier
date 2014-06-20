@@ -1,4 +1,5 @@
 !Syntax in a nutshell
+@chapterSyntaxNutshell
 
 Pharo, like most modern Smalltalk dialects, adopts a syntax very close to that of Smalltalk. The syntax is designed so that program text can be read aloud as though it were a kind of pidgin English:
 
@@ -148,9 +149,9 @@ This will send ==cr== to the ==Transcript== object, then send it ==show: 'hello 
 When a series of messages is being sent to the ''same'' receiver, then this can be expressed more succinctly as a ''cascade''. The receiver is specified just once, and the sequence of messages is separated by semi-colons:
 
 [[[lang=Smalltalk
-Transcript 
+Transcript
 	cr;
-	show: 'hello world'; 
+	show: 'hello world';
 	cr]]]
 
 This has precisely the same effect as the previous example.

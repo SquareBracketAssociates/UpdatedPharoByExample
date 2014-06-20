@@ -1,0 +1,13 @@
+!Understanding message syntax
+
+@chapterUnderstandingMessage
+
+
+Although Smalltalk's message syntax is extremely simple, it is unconventional and can take some time getting used to.
+This chapter offers some guidance to help you get acclimatized to this special syntax for sending messages.
+If you already feel comfortable with the syntax, you may choose to skip this chapter, or come back to it later.
+
+!!Identifying messages
+
+
+ In Smalltalk, except for the syntactic elements listed in Chapter *chapterSyntaxNutshell* (\:= ^ . ; # () {} [ : | ]), everything is a message send.
