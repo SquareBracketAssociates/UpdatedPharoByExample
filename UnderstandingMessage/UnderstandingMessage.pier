@@ -41,3 +41,63 @@ A receiver can be the first element of a message, such as ==100== in the message
 |==aPen go: 100 + 20== | keyword and binary | pen moves forward 120 pixels.
 
 The Table shows several examples of message sends. You should note that not all message sends have arguments. Unary messages like ==open== do not have arguments. Single keyword and binary messages like ==go: 100== and ==+ 20== each have one argument. There are also simple messages and composed ones. ==Color yellow== and ==100 + 20== are  simple:  a message is sent to an object, while the message send ==aPen go: 100 + 20== is composed of two messages: ==+ 20== is sent to ==100== and ==go:== is sent to ==aPen== with the argument being the result of the first message. A receiver can be an expression (such as an assignment, a message send or a literal) which returns an object. In ==Pen new go: 100==, the message ==go: 100== is sent to the object that results from the execution of the message send ==Pen new==.
+
+!!Three kinds of messages
+
+
+Smalltalk defines a few simple rules to determine the order in which the messages are sent. These rules are based on the distinction between 3 different kinds of messages:
+-''Unary messages'' are messages that are sent to an object without any other information. For example in ==3 factorial==, ==factorial== is a unary message.
+-''Binary messages'' are messages consisting of operators (often arithmetic). They are binary because they always involve only two objects: the receiver and the argument object. For example in ==10 + 20==, ==+== is a binary message sent to the receiver ==10== with argument ==20==.
+-''Keyword messages'' are messages consisting of one or more keywords, each ending with a colon (==:==) and taking an argument.  For example in ==anArray at: 1 put: 10==, the keyword ==at:== takes the argument ==1== and the keyword ==put:== takes the argument ==10==.
+
+
+!!!Unary messages
+
+Unary messages are messages that do not require any argument. They follow the syntactic template: ==receiver messageName==. The selector is simply made up of a succession of characters not containing ==:== (''e.g.'', ==factorial==, ==open==, ==class==).
+
+[[[
+89 sin           --> 0.860069405812453
+3 sqrt           --> 1.732050807568877
+Float pi         --> 3.141592653589793
+'blop' size     --> 4
+true not        --> false
+Object class --> Object class  "The class of Object is Object class (BANG)"
+]]]
+
+Unary messages are messages that do not require any argument.They follow the syntactic template: receiver ""selector""
+
+!!!Binary messages
+
+Binary messages are messages that require exactly one argument ''and'' whose selector consists of a sequence of one or more characters from the set: ==+==, ==-==, ==*==, ==/==, ==&==, =====, ==>==, ==|==, ==<==, ==~==, and ==@==. Note that ==--== is not allowed for parsing reasons.
+
+[[[
+100@100      --> 100@100  "creates a Point object"
+3 + 4              --> 7
+10 - 1            --> 9
+4 <= 3            --> false
+(4/3) * 3 == 4  --> true  "equality is just a binary message, and Fractions are exact"
+(3/4) == (3/4) --> false  "two equal Fractions are not the same object"
+]]]
+
+Binary messages are messages that require exactly one argument ''and'' whose selector is composed of a sequence of characters from: ==+==, ==-==, ==*==, ==/==, ==\&==, =====, ==>==, ==|==, ==<==, ==\~==, and ==@==. ==--== is not possible.They follow the syntactic template: receiver ""selector"" argument
+
+!!!Keyword messages
+
+
+Keyword messages are messages that require one or more arguments and whose selector consists of one or more keywords each ending in ==:==.  Keyword messages follow the syntactic template: receiver ""selectorWordOne"" argumentOne ""wordTwo"" argumentTwo
+
+Each keyword takes an argument. Hence ==r:g:b:== is a method with three arguments, ==playFileNamed:== and ==at:== are methods with one argument, and ==at:put:== is a method with two arguments. To create an instance of the class ==Color== one can use the method ==r:g:b:== as in ==Color r: 1 g: 0 b: 0==, which creates the color red. Note that the colons are part of the selector.
+
+In Java or C++, the Smalltalk method invocation ==Color r: 1 g: 0 b: 0== would be written ==Color.rgb(1,0,0)==.
+
+[[[
+1 to: 10                        --> (1 to: 10)  "creates an interval"
+Color r: 1 g: 0 b: 0       --> Color red  "creates a new color"
+12 between: 8 and: 15 --> true
+
+nums := Array newFrom: (1 to: 5).
+nums at: 1 put: 6.
+nums --> #(6 2 3 4 5)
+]]]
+
+Keyword based  messages are messages that require one or more arguments. Their selector consists of one or more keywords each ending in a colon (==:==). They follow the syntactic template: receiver ""selectorWordOne"" argumentOne ""wordTwo"" argumentTwo
