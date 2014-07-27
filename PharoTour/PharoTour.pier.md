@@ -1,0 +1,356 @@
+
+
+##A quick tour of Pharo
+
+In this chapter we will give you a high\-level tour of Pharo to help you get comfortable with the environment\. There will be plenty of opportunities to try things out, so it would be a good idea if you have a computer handy when you read this chapter\.
+
+In particular, you will fire up Pharo, learn about the different ways of interacting with the system, and discover some of the basic tools\. You will also learn how to define a new method, create an object and send it messages\.
+
+
+
+###1\. Getting started
+
+Pharo is available as a free download from [http://www\.pharo\.org](http://www.pharo.org)\. There are three parts that you will need to download, consisting of four files\.
+
+
+
+1. The *virtual machine* \(VM\) is the only part of the system that is different for each operating system and processor\. Pre\-compiled virtual machines are available for all the major computing environments\.\(For example in case of Windows the VM for the selected platform is called Pharo\.exe\)\.
+2. The *sources* file contains the source code for all of the parts of Pharo that don't change very frequently\. In case of Pharo3 is called PharoV30\.sources
+3. The current *system image* is a snapshot of a running Pharo system, frozen in time\. It consists of two files: an *\.image* file, which contains the state of all of the objects in the system \(including classes and methods, since they are objects too\), and a *\.changes* file, which contains a log of all of the changes to the source code of the system\. Pharo 3 comes with the files that are called *pharo\.image* and *pharo\.changes*\.
+
+We recommend that you use the image provided on the [Pharo by Example](http://pharobyexample.org/) web page\.
+
+Most of the introductory material in this book will work with any version, so if you already have one installed, you may as well continue to use it\. However, if you notice differences between the appearance or behaviour of your system and what is described here, do not be surprised\.
+
+As you work in Pharo, the image and changes files are modified, so you need to make sure that they are writable\. Always keep these two files together\. Never edit them directly with a text editor, as Pharo uses them to store the objects you work with and to log the changes you make to the source code\. It is a good idea to keep a backup copy of the downloaded image and changes files so you can always start from a fresh image and reload your code\.
+
+The *sources* file and the VM can be read\-only , they can be shared between different users\. All of these files can be placed in the same directory, but it is also possible to put the Virtual Machine and sources file in separate directory where everyone has access to them\. Do whatever works best for your style of working and your operating system\.
+
+
+
+###2\. Install Pharo
+
+Pharo does not need to install anything in your system as its perfectly capable of running as stand alone\.
+
+Only thing you need to do is download Pharo 3 from the Pharo website [http://www\.pharo\.org/](http://www.pharo.org/)\. Depending on your platform download the appropriate zip file, uncompress it in a directory of your choice and now you are ready to launch Pharo\. In case of Ubuntu there is the extra option of installing Pharo via the Pharo PPA\.
+
+
+
+###3\. Launch Pharo
+
+&nbsp;
+
+- In MacOS double click the Pharo icon that you have unziped when you downloaded Pharo\. 
+- In Windows enter the uncompressed Pharo folder and double click the Pharo\.exe\. 
+- In Linux its possible to launch Pharo from the terminal passing the image file as first parameter\. 
+
+It is also possible to drag the *\.image* file onto the icon of the virtual machine for all OSes, or at the command line type the name of the virtual machine followed by the path to the *\.image* file\. In Ubuntu if you had installed Pharo through the PPA process then "pharo nameofthe\.image" will launch the image of your choice\. It is also possible to associate image files with the Pharo binary \(Pharo VM\), in MacOS via GetInfo and Windows via Open With both accessed by right clicking on the image file\.
+
+Once Pharo is running, you should see a single large window, possibly containing some open workspace windows \(see Figure [4\.1](#worldMenu)\)\. You might notice a menu bar, but Pharo mainly makes use of context\-dependent pop\-up menus\.
+
+
+
+
+###4\. The World Menu
+
+Left clicking anywhere that there is open space inside the Pharo window will display the World Menu\. World Menu contains many of the Pharo tools, utilities and settings\.
+
+<a name="worldMenu"></a><figure><img src="figures/world-menu.png" width="100%"></img><figcaption>Pharo 3 window with World Menu activated</figcaption></figure>
+
+You will see a list of several of the core tools in Pharo, including the browser and the workspace\. We will encounter most of them in the coming chapters\.
+
+
+
+###5\. Sending messages
+
+Left click on open space to open the World Menu and then click on the "Workspace" menu option\. The Workspace tool will open\. We can use the Workspace to quickly execute Pharo code\. Enter the following code in it then right click and select "do it"
+
+
+
+```smalltalk
+PharoTutorial go.
+```
+
+
+
+This Pharo expression will trigger the Pharo tutorial\. Its interactive tutorial that will teach you the basics of Pharo\. You have just sent your first message\. Pharo is based on the concept of sending messages to objects\. The Pharo objects are like your soldiers ready to obey once you send them a message they can understand\. We will see later on how an object can understand a message\.
+
+If you talk to Pharoers for a while, you will quickly notice that they generally do not use expressions like "call an operation" or "invoke a method", as coders do in other programming languages, but instead they will say "send a message"\. This reflects the idea that objects are responsible for their own actions\. You never tell an object what to do , instead you politely ask it to do something by sending it a message\. The object, not you, selects the appropriate method for responding to your message\.
+
+As a user you don't need to understand how each message works , the only thing you need to know is what the available messages are for the Objects that interest you\. This way the Object can hide its complexity and coding can be kept as simple as possible without losing flexibility\.
+
+
+
+###6\. Saving, quitting and restarting a Pharo session
+
+We can exit Pharo at any point\. You can close the Pharo window as you do any other window of OS\. Additionally you can trigger the World Menu and choose either "Save and quit" or "Quit"\.
+
+In any case Pharo will display a prompt to ask you about saving your image\. If you do save your image and reopen it you will see that things are exactly as you left them\. This happens because the image file is capable of storing any information that Pharo has loaded to your memory so that nothing is lost on exit\.
+
+When you start Pharo for the first time, the Pharo virtual machine loads the image file that you provide\. This file contains a snapshot of a large number of objects, including a vast amount of pre\-existing code and a large number of programming tools \(all of which are objects\)\. As you work with Pharo, you will send messages to these objects, you will create new objects, and some of these objects will die and their memory will be reclaimed \(i\.e\., garbage\-collected\)\.
+
+When you quit Pharo, you will normally save a snapshot that contains all of your objects\. If you save normally, you will overwrite your old image file with the new snapshot\. Alternatively, you may save the image under a new name, as we just did\.
+
+In addition to the *\.image* file, there is also a *\.changes* file\. This file contains a log of all the changes to the source code that you have made using the standard tools\. Most of the time you do not need to worry about this file at all\. As we shall see, however, the \.changes file can be very useful for recovering from errors, or replaying lost changes\. More about this later\!
+
+The image that you have been working with is a descendant of the original Smalltalk\-80 image created in the late 1970s\. Some of these objects have been around for decades\!
+
+You might think that the image is the key mechanism for storing and managing software projects, but you would be wrong\. As we shall see very soon, there are much better tools for managing code and sharing software developed by teams\. Images are very useful, but you should learn to be very cavalier about creating and throwing away images, since tools like Monticello offer much better ways to manage versions and share code amongst developers\.
+
+
+
+###7\. Workspace and Transcripts
+
+Some exercises:
+&nbsp;
+
+1.  Close all open windows\. 
+2.  Open a transcript and a workspace\. \(The transcript can be opened from the World > Tools \.\.\. submenu\.\)
+3.  Position and resize the transcript and workspace windows so that the workspace just overlaps the transcript\.
+You can resize windows  by dragging one of the corners\.
+
+At any time only one window is active; it is in front and has its border highlighted\.
+
+The transcript is an object that is often used for logging system messages\. It is a kind of "system console"\.
+
+Workspaces are useful for typing snippets of code that you would like to experiment with\. You can also use workspaces simply for typing arbitrarily text that you would like to remember, such as to\-do lists or instructions for anyone who will use your image\. Workspaces are often used to hold documentation about a captured image, as is the case with the standard image that we downloaded earlier \(see Figure 1\.2\)\.
+
+&nbsp;
+
+-  Type the following text into the workspace:
+
+
+
+```smalltalk
+Transcript show: 'hello world'; cr.
+```
+
+
+
+&nbsp;
+
+1. Try double\-clicking in the workspace at various points in the text you have just typed\. Notice how an entire word, entire string, or the whole text is selected, depending on whether you click within a word, at the end of the string, or at the end of the entire expression\.
+2. Select the text you have typed and right click Select do it \(d\) \.
+3. Notice how the text "hello world" appears in the transcript window\. Do it again\.
+
+
+
+###8\. Keyboard shortcuts
+
+If you want  to evaluate an expression, you do not always have to right click\. Instead, you can use keyboard shortcuts\. These are the parenthesized expressions in the menu\.  Depending on your platform, you may have to press one of the modifier keys which are control, alt and command\. We will be focusing on the MacOS platform since this is the platform most Pharo developers use where command key \(a\.k\.a CMD key\) is the main modifier key, the similar key in Windows is Alt and so is in Linux  so each time you see something like CMD\-d just replace with the appropriate modifier key depending on your OS\.
+
+&nbsp;<p class="todo">Test that alt is the modifier key for Linux</p>
+In addition to **do it**, you might have noticed **print it**, **inspect it** and **explore it**\. Let's have a quick look at each of these\.
+
+Type the expression `3 + 4` into the workspace\. Now **do it** with the keyboard shortcut\.
+
+Do not be surprised if you saw nothing happen\! What you just did is send the message `+` with argument 4 to the number 3\. Normally the result 7 will have been computed and returned to you, but since the workspace did not know what to do with this answer, it simply threw the answer away\.  If you want to see the result, you should **print it** instead\. **print it** actually compiles the expression, executes it, sends the message printString to the result, and displays the resulting string\.
+
+Select `3+4` and **print it** \( CMD\-p\)\.
+
+This time we see the result we expect\.
+
+
+
+```smalltalk
+3 + 4 --> 7
+```
+
+
+
+We use the notation **\-\->** as a convention in this book to indicate that a particular Pharo expression yields a given result when you **print it**\.
+
+Delete the highlighted text "7" \(Pharo should have selected it for you, so you can just press the delete key\)\. Select `3+4` again and this time **inspect it** \( CMD\-i\)
+
+
+Now you should see a new window, called an *inspector*, with the heading SmallInteger: 7\. The inspector is an extremely useful tool that will allow you to browse and interact with any object in the system\. The title tells us that 7 is an instance of the class *SmallInteger*\. The left panel allows us to browse the instance variables of an object, the values of which are shown in the right panel\.The bottom panel can be used to write expressions to send messages to the object\.
+
+Type **self squared** in the bottom panel of the inspector on **7** and **print it**\.
+
+<a name="inspector"></a><figure><img src="figures/inspector.png" width="80%"></img><figcaption>Inspecting an object</figcaption></figure>
+
+Close the inspector\. Type the expression Object in a workspace and this time **explore it** \(CMD\-I, uppercased i\)
+
+This time you should see a window labelled **Object** containing the text **root: Object**\. Click on the triangle to open it up\.
+
+<a name="explorer"></a><figure><img src="figures/explorer.png" width="60%"></img><figcaption>Exploring Object</figcaption></figure>
+
+The explorer is similar to the inspector, but it offers a tree view of a complex object\. In this case the object we are looking at is the **Object** class\. We can see directly all the information stored in this class, and we can easily navigate to all its parts\.
+
+
+
+###9\. The System Browser
+
+The **System Browser**, also known as "Class Browser", is one of the key tools used for programming\. As we shall see, there are several interesting browsers available for Pharo, but this is the basic one you will find in any image\.
+
+&nbsp;
+
+-  Open the System Browser by selecting World Menu > System Browser\.
+
+<a name="systemBrowser"></a>![systemBrowser](figures/system-browser.png "The System Browser showing the printString method of class Object")
+
+We can see a Systen Browser in Figure [9\.1](#systemBrowser)\. The title bar indicates that we are browsing the class Object and its method `printString`\. 
+
+When the System Browser first opens, all panes are empty but the leftmost one\. This first pane lists all known packages, which contain groups of related classes\.
+
+When we select a package it causes the second pane to show a list of all of the classes in the selected package\. When a class object is selected the remaining two panes will be filled with text\. The third pane displays the protocols of the currently selected class\. These are convenient groupings of related methods\. If no protocol is selected you should see all methods in the fourth pane\.
+
+&nbsp;
+
+- Select the **printing** protocol\.
+
+You may have to scroll down to find it\. You can also type pr when the fourth column as the focus\. Now you will see in the fourth pane only methods related to printing\.
+
+&nbsp;
+
+- Select the **printString** method\.
+
+Now we see in the bottom pane the source code of the printString method, shared by all objects in the system \(except those that override it\)\.
+
+
+
+###10\. Finding classes
+
+There are several ways to find a class in Pharo\.  The first, as we have just seen above, is to know \(or guess\) what category it is in, and to navigate to it using the browser\.
+
+A second way is to send the **browse** message to the class, asking it to open a browser on itself\.  Suppose we want to browse the class **Boolean**\.
+
+&nbsp;
+
+- Type **Boolean browse** into a workspace and **do it**\.
+
+A browser will open on the Boolean class\. There is also a keyboard shortcut CMD\-b \(browse\) that you can use in any tool where you find a class name; select the name and type CMD\-b\.
+
+&nbsp;
+
+-  Use the keyboard shortcut to browse the class **Boolean**\.
+
+Notice that when the Boolean class is selected but no protocol or method is selected, instead of the source code of a method, we see a class definition\. This is nothing more than an ordinary message that is sent to the parent class, asking it to create a subclass\. Here we see that the class Object is being asked to create a subclass named Boolean with no instance variables, class variables or *pool dictionaries*, and to put the class Boolean\} in the Kernel\-Objects category\. If you click on the **comments** button  at the bottom of the class pane, you can see the class comment  in a dedicated pane\.
+
+&nbsp;<p class="todo">put a screenshot with the Boolean class</p>
+
+Often, the fastest way to find a class is to search for it by name\. For example, suppose that you are looking for some unknown class that represents dates and times\.
+
+Put the mouse in the package pane of the browser and type CMD\-f, or select
+find class \(f\) by right clicking inside the package pane\.  Type "time" in the dialog box and accept it\.
+
+You will be presented with a list of classes whose names contain "time"\. Choose one, say, Time, and the browser will show it, along with a class comment that suggests other classes that might be useful\.  If you want to browse one of the others, select its name \(in any text pane\), and type CMD\-b\.
+
+Note that if you type the complete \(and correctly capitalized\) name of a class in the find dialog, the browser will go directly to that class without showing you the list of options\.
+
+
+
+###11\. Finding methods
+
+Sometimes you can guess the name of a method, or at least part of the name of a method, more easily than the name of a class\. For example, if you are interested in the current time, you might expect that there would be a method called "now", or containing "now" as a substring\. But where might it be? The **method finder** can help you\.
+
+Select World Menu \-> Tools \-> Method finder\. Type "now" in the top left pane, and **accept** it \(or just press the RETURN key\)\.
+
+The method finder will display a list of all the method names that contain the substring "now"\. To scroll to now itself, move the cursor to the list and type "n"; this trick works in all scrolling windows\. Select "now" and the right\-hand pane shows you the classes that define a method with this name\. Selecting any one of them will open a browser on it\.
+
+<a name=""></a>![](figures/finder.png "The method finder showing all classes defining a method named now.")
+
+At other times you may have a good idea that a method exists, but will have no idea what it might be called\. The method finder can still help\! For example, suppose that you would like to find a method that turns a string into upper case, for example, it would translate 'eureka' into 'EUREKA'\. We can give the inputs and expected output of a method and the Finder will try to find it for you\.
+
+&nbsp;
+
+-  In the Finder, select the examples mode using the second combo\-box\. 
+
+&nbsp;
+
+-  Type `'eureka' . 'EUREKA'` into the method finder and press the RETURN key\.
+
+The method finder will suggest a method that does what you want\.
+
+An asterisk at the beginning of a line in the right pane of the method finder indicates that this method is the one that was actually used to obtain the requested result\. So, the asterisk in front of String asUppercase lets us know that the method `asUppercase` defined on the class `String` was executed and returned the result we wanted\. The methods that do not have an asterisk are just the other methods that have the same name as the ones that returned the expected result\. So `Character>>asUppercase` was not executed on our example, because `'eureka'` is not a `Character` object\.
+
+You can also use the method finder for methods with arguments; for example, if you are looking for a method that will find the greatest common factor of two integers, you might try 25\. 35\. 5 as an example\. You can also give the method finder multiple examples to narrow the search space; the help text in the bottom pane explains how\.
+
+
+
+###12\. Defining a new method
+
+The advent of Test Driven Development \(TDD\) has changed the way that we write code\. The idea behind TDD is that we write a test that defines the desired behaviour of our code before we write the code itself\. Only then do we write the code that satisfies the test\.
+
+Suppose that our assignment is to write a method that "says something loudly and with emphasis"\. What exactly could that mean? What would be a good name for such a method? How can we make sure that programmers who may have to maintain our method in the future have an unambiguous description of what it should do? We can answer all of these questions by giving an example:
+
+When we send the message shout to the string "Don't panic" the result should be "DON'T PANIC\!"\.
+
+To make this example into something that the system can use, we turn it into a test method:
+
+
+```smalltalk
+testShout
+  self assert: ('Don"t panic' shout = 'DON"T PANIC!')
+```
+
+
+
+How do we create a new method in Pharo? First, we have to decide which class the method should belong to\. In this case, the shout method that we are testing will go in class String, so the corresponding test will, by convention, go in a class called `StringTest`\.
+
+&nbsp;
+
+-  Open a browser on the class StringTest, and select an appropriate protocol for our method, in this case tests \- converting \. The highlighted text in the bottom pane is a template that reminds you what a Pharo method looks like\. Delete this and enter the code mentioned earlier on: Just select by clicking either on the beginning or end of the text and start typing your method\.
+
+Once you have typed the text into the browser, notice that the bottom pane is outlined in red\. This is a reminder that the pane contains unsaved changes\. So select accept \(s\) by right clicking in the bottom pane, or just type CMD\-s, to compile and save your method\.
+
+If this is the first time you have accepted any code in your image, you will likely be prompted to enter your name\. Since many people have contributed code to the image, it is important to keep track of everyone who creates or modifies methods\. Simply enter your first and last names, without any spaces, or separated by a dot\.
+
+Because there is as yet no method called shout, the browser will ask you to confirm that this is the name that you really want \- and it will suggest some other names that you might have intended \. This can be quite useful if you have merely made a typing mistake, but in this case, we really do mean shout, since that is the method we are about to create, so we have to confirm this by selecting the first option from the menu of choices\.
+
+&nbsp;
+
+-  Run your newly created test: open the **SUnit TestRunner** from the World Menu\.
+
+The leftmost two panes are a bit like the top panes in the browser\. The left pane contains a list of categories, but it's restricted to those categories that contain test classes\.
+
+&nbsp;
+
+-  Select **CollectionsTests\-Text** and the pane to the right will show all of the test classes in that category, which includes the class **StringTest**\. The names of the classes are already selected, so click Run Selected to run all these tests\.
+
+You should see a message like "Unknown selector\.\.\.", which indicates that there was an error in running the tests\. The list of tests that gave rise to errors is shown in the bottom right pane; as you can see, `StringTest>>testShout` is the culprit\. \(Note that `StringTest>>testShout` is the Pharo way of identifying the `testShout` method of the `StringTest` class\.\) If you click on that line of text, the erroneous test will run again, this time in such a way that you see the error happen: `MessageNotUnderstood: ByteString>>shout`\.
+
+The window that opens with the error message is the Pharo debugger\. We will look at the debugger and how to use it in Chapter 6\.
+
+&nbsp;<p class="todo">add a screenshot of the debugger preview</p>
+The error is, of course, exactly what we expected: running the test generates an error because we haven't yet written a method that tells strings how to shout\. Nevertheless, it's good practice to make sure that the test fails because this confirms that we have set up the testing machinery correctly and that the new test is actually being run\. Once you have seen the error, you can **Abandon** the running test, which will close the debugger window\. Note that often with Smalltalk you can define the missing method using the **Create** button, edit the newly\-created method in the debugger, and then **Proceed** with the test\.
+
+Now let's define the method that will make the test succeed\!
+
+
+&nbsp;
+
+-  Select class `String` in the browser, select the converting protocol method, type the code of the method bellow over the method template, and **accept** it\.
+
+
+
+```smalltalk
+shout
+  ^ self asUppercase,'!'
+```
+
+
+
+The comma is the string concatenation operation, so the body of this method appends an exclamation mark to an upper\-case version of whatever String object the shout message was sent to\. The `^` tells Pharo that the expression that follows is the answer to be returned from the method, in this case the new concatenated string\.
+
+Does this method work? Let's run the tests and see\.
+
+Click on **Run Selected** again in the test runner, and this time you should see green bar and text indicating that all of the tests ran with no failures and no errors\.
+
+When you get to a green bar, it's a good idea to save your work and take a break\. So do that right now\!
+
+
+
+###13\. Chapter Summary
+
+This chapter has introduced you to the Pharo environment and shown you how to use some of the major tools, such as the browser, the method finder, and the test runner\. You have also seen a little of Pharo's syntax, even though you may not understand it all yet\.
+
+&nbsp;
+
+- A running Pharo system consists of a *virtual machine*, a *sources file*, and *image and changes* files\. Only these last two change, as they record a snapshot of the running system\.
+- When you restore a Pharo image, you will find yourself in exactly the same state , with the same running objects , that you had when you last saved that image\.
+- You click on the Pharo background to bring up the **World menu** and launch various tools\.
+- A **workspace** is a tool for writing and evaluating snippets of code\. You can also use it to store arbitrary text\.
+- You can use keyboard shortcuts on text in the workspace, or any other tool, to evaluate code\. The most important of these are do it \(CMD\-d\), print it \(CMD\-p\), inspect it \(CMD\-i\), explore it \(CMD\-I\) and browse it \(CMD\-b\)\.
+- The **browser** is the main tool for browsing Pharo code and for developing new code\.
+- The **test runner** is a tool for running unit tests\. It also supports Test Driven Development\.
