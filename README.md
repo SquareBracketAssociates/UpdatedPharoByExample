@@ -14,7 +14,7 @@ CONTRIBUTING
 -----------
 More info about contributing in this book can be found in the github repo of
 [Updated Pharo By Example](https://github.com/SquareBracketAssociates/UpdatedPharoByExample)
-in the CONTRIBUTING.md file that you can view with any text editor/viewer.
+in the [CONTRIBUTING.md](https://github.com/SquareBracketAssociates/UpdatedPharoByExample/blob/master/CONTRIBUTING.md) file that you can view with any text editor/viewer.
 
 Other outputs of this book
 ---------------------------
