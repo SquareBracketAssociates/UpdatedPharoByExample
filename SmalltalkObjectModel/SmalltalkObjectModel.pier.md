@@ -349,48 +349,196 @@ Note also that `WebServer` and `ReliableWebServer` will each have their own clas
 
 
 
+###4\. Every class has a superclass
+
+
+
+Each class in Smalltalk inherits its behaviour and the description of its structure from a single *superclass*\.
+This means that Smalltalk has single inheritance\.
+
+
+
+
+```smalltalk
+SmallInteger superclass --> Integer
+Integer superclass          --> Number
+Number superclass        --> Magnitude
+Magnitude superclass    --> Object
+Object superclass           --> ProtoObject
+ProtoObject superclass  --> nil
+```
+
+
+
+Traditionally the root of the Smalltalk inheritance hierarchy is the class `Object` \(since everything is an object\)\. In Pharo, the root is actually a class called `ProtoObject`, but you will normally not pay any attention to this class\.
+`ProtoObject` encapsulates the minimal set of messages that all objects *must* have\.  However, most classes inherit from `Object`, which defines many additional messages that almost all objects ought to understand and respond to\.
+Unless you have a very good reason to do otherwise, when creating application classes you should normally subclass `Object`, or one of its subclasses\.
+
+A new class is normally created by sending the message `subclass: instanceVariableNames: ...` to an existing class\. There are a few other methods to create classes\. Have a look at the protocol `Kernel-Classes go Class go subclass creation` to see what they are\.\}
+
+
+Although Pharo does not provide multiple inheritance, it supports a mechanism called *trait*s for sharing behaviour across unrelated classes\. Traits are collections of methods that can be reused by multiple classes that are not related by inheritance\. Using traits allows one to share code between different classes without duplicating code\.
+
+
+
+####4\.1\. Abstract methods and abstract classes
+
+
+An abstract class is a class that exists to be subclassed, rather than to be instantiated\.
+An abstract class is usually incomplete, in the sense that it does not define all of the methods that it uses\.
+The *missing* methods,those that the other methods assume but which are not themselves defined,are called abstract methods\.
+
+
+
+Smalltalk has no dedicated syntax to specify that a method or a class is abstract\. By convention, the body of an abstract method consists of the expression `self subclassResponsibility`\. This is known as a *marker method*, and indicates that subclasses have the responsibility to define a concrete version of the method\. `self subclassResponsibility` methods should always be overridden, and thus should never be executed\.If you forget to override one, and it is executed, an exception will be raised\.
+
+
+A class is considered abstract if one of its methods is abstract\.Nothing actually prevents you from creating an instance of an abstract class; everything will work until an abstract method is invoked\.
+
+**Example: the classMagnitude**
+
+`Magnitude` is an abstract class that helps us to  define objects that can be compared to each other\. Subclasses of `Magnitude` should implement the methods `<`, ``= and `hash`\. Using such messages `Magnitude` defines other methods such as `>`, `>`=, `<`=, `max:`, `min:` `between:and:` and others for comparing objects\. Such methods are inherited by subclasses\. The method `Magnitude>><` is abstract and defined as shown in mthref\{MagnitudeLessThan\}\.
+
+
+
+<a name="MagnitudeLessThan"></a>** Magnitude>>><
+**
+
+```smalltalk
+Magnitude>>>< aMagnitude
+    "Answer whether the receiver is less than the argument."
+    ^self subclassResponsibility
+```
+
+
+
+
+By contrast, the method >= is concrete; it is defined in terms of `<`:
+
+
+
+<a name="Magnitude>="></a>** Magnitude >> >=
+**
+
+```smalltalk
+>= aMagnitude
+    "Answer whether the receiver is greater than or equal to the argument."
+    ^(self < aMagnitude) not
+```
+
+
+The same is true of the other comparison methods\.
+
+`Character` is a subclass of `Magnitude`; it overrides the `Object>>subclassResponsibility` method for `<` with its own version of `<` \(see mthref\{CharacterLessThan\}\)\.  `Character` also defines methods ``= and `hash`; it inherits from `Magnitude` the methods `>`=, `<`=, `~`= and others\.
+
+
+
+<a name="CharacterLessThan"></a>**Character>><=
+**
+
+```smalltalk
+Character>>>< aCharacter
+    "Answer true if the receiver's value < aCharacter's value."
+    ^self asciiValue < aCharacter asciiValue
+```
 
 
 
 
 
+####4\.2\. Traits
+
+A *trait* is a collection of methods that can be included in the behaviour of a class without the need for inheritance\.
+This makes it easy for classes to have a unique superclass, yet still share useful methods with otherwise unrelated classes\.
+
+To define a new trait, simply replace the subclass creation template by a message to the class `Trait`\.
+
+
+
+<a name="tauthor"></a>**Defining a new trait
+**
+
+```smalltalk
+Trait named: #TAuthor
+    uses: { }
+    category: 'PBE-LightsOut'
+```
 
 
 
 
+Here we define the trait `TAuthor` in the category `PBE-LightsOut`\.This trait does not *use* any other existing traits\.In general we can specify a *trait composition expression* of other traits to use as part of the `uses:` keyword argument\. Here we simply provide an empty array\.
+
+Traits may contain methods, but no instance variables\.Suppose we would like to be able to add an `author` method to various classes, independent of where they occur in the hierarchy\.
+
+We might do this as follows:
+
+
+
+<a name="author"></a>**An author method
+**
+
+```smalltalk
+TAuthor>>>author
+    "Returns author initials"
+    ^ 'on'    "oscar nierstrasz"
+```
 
 
 
 
+Now we can use this trait in a class that already has its own superclass, for instance the `LOGame` class that we defined in Chapter [¿?](#cha:firstApp)\.
+We simply modify the class creation template for `LOGame` to include a `uses:` keyword argument that specifies that `TAuthor` should be used\.
+
+
+
+<a name="sbegamewithtrait"></a>**Using a trait
+**
+
+```smalltalk
+BorderedMorph subclass: #LOGame
+    uses: TAuthor
+    instanceVariableNames: 'cells'
+    classVariableNames: ''
+    poolDictionaries: ''
+    category: 'PBE-LightsOut'
+```
+
+
+
+If we now instantiate `LOGame`, it will respond to the `author` message as expected\.
+
+
+
+```smalltalk
+LOGame new author --> 'on'
+```
+
+
+
+Trait composition expressions may combine multiple traits using the `+` operator\. In case of conflicts \(*i\.e\.*, if multiple traits define methods with the same name\), these conflicts can be resolved by explicitly removing these methods \(with `-`\), or by redefining these methods in the class or trait that you are defining\.It is also possible to *alias* methods \(with `@`\), providing a new name for them\.
+
+Traits are used in the system kernel\. One good example is the class `Behavior`\.
 
 
 
 
+<a name="behaviorwithtraits"></a>** Behavior  defined using traits
+**
+
+```smalltalk
+Object subclass: #Behavior
+    uses: TPureBehavior @ {#basicAddTraitSelector:withMethod:->#addTraitSelector:withMethod:}
+    instanceVariableNames: 'superclass methodDict format'
+    classVariableNames: 'ObsoleteSubclasses'
+    poolDictionaries: ''
+    category: 'Kernel-Classes'
+```
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Here we see that the method `addTraitSelector:withMethod:` defined in the trait `TPureBehavior` has been aliased to `basicAddTraitSelector:withMethod:`\.
+Support for traits is currently being added to the browsers\.
 
 
 

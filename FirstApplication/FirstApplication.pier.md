@@ -2,6 +2,7 @@
 
 ##A first application
 
+<a name="cha:firstApp"></a>
 In this chapter, we will develop a simple game: [Lights Out](http://en.wikipedia.org/wiki/Lights_Out_(game))\. Along the way we will demonstrate most of the tools that Pharo programmers use to construct and debug their programs, and show how programs are exchanged with other developers\. We will see the browser, the object inspector, the debugger and the Monticello package browser\. Development in Smalltalk is efficient: you will find that you spend far more time actually writing code and far less managing the development process\. This is partly because the Smalltalk language is very simple, and partly because the tools that make up the programming environment are very well integrated with the language\.
 
 
@@ -432,9 +433,9 @@ Under **Monticello registration** title label you will see a box containg a smal
 
 ```smalltalk
 MCHttpRepository
-	location: 'http://www.smalltalkhub.com/mc/UserName/ProjectName/main'
-	user: ''
-	password: ''
+    location: 'http://www.smalltalkhub.com/mc/UserName/ProjectName/main'
+    user: ''
+    password: ''
 ```
 
 
