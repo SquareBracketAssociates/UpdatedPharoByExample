@@ -59,40 +59,110 @@ Deep in the implementation of Smalltalk, there are three different kinds of obje
 
 
 
+###3\. Every object is an instance of a class
+
+
+
+Every object has a class; you can find out which by sending it the message `class`\.
+
+
+
+```smalltalk
+1 class                 --> SmallInteger
+20 factorial class --> LargePositiveInteger
+'hello' class          --> ByteString
+#(1 2 3) class       --> Array
+(4@5) class         --> Point
+Object new class --> Object
+```
+
+
+
+A class defines the *structure* of its instances via instance variables,
+and the *behavior* of its instances via methods\.
+Each method has a name, called its *selector*, which is unique within the class\.
+
+Since *classes are objects*, and *every object is an instance of a class*, it follows that classes must also be instances of classes\.
+A class whose instances are classes is called a *metaclass*\.
+Whenever you create a class, the system automatically creates a metaclass for you\.
+The metaclass defines the structure and behavior of the class that is its instance\.
+99%  of the time you will not need to think about metaclasses, and may happily ignore them\.
+\(We will have a closer look at metaclasses in Chapter 13\)
+
+
+
+####3\.1\. Instance variables
+
+
+Instance variables in Smalltalk are private to the *instance* itself\.
+This is in contrast to Java and C\+\+, which allow instance variables \(also known as *fields* or *member variables*\) to be accessed by any other instance that happens to be of the same class\. We say that the *encapsulation boundary* of objects in Java and C\+\+ is the class, whereas in Smalltalk it is the instance\.
+
+
+In Smalltalk, two instances of the same class cannot access each other's instance variables unless the class defines *accessor methods*\.There is no language syntax that provides direct access to the instance variables of any other object\.\(Actually, a mechanism called reflection does provide a way to ask another object for the values of its instance variables; meta\-programming is intended for writing tools like the object inspector, whose sole purpose is to look inside other objects\.\)
+
+Instance variables can be accessed by name in any of the instance methods of the class that defines them, and also in the methods defined in its subclasses\. This means that Smalltalk instance variables are similar to *protected* variables in C\+\+ and Java\. However, we prefer to say that they are private, because it is considered bad style in Smalltalk to access an instance variable directly from a subclass\.
+
+
+
+#####3\.1\.1\. Example
+
+Method `Point>>dist:` computes the distance between the receiver and another point\. The instance variables `x` and `y` of the receiver are accessed directly by the method body\.  However, the instance variables of the other point must be accessed by sending it the messages `x` and `y`\.
+
+
+
+
+```smalltalk
+Point>>>dist: aPoint
+    "Answer the distance between aPoint and the receiver."
+    | dx dy |
+    dx := aPoint x - x.
+    dy :=  aPoint y - y.
+    ^ ((dx * dx) + (dy * dy)) sqrt
+```
 
 
 
 
 
+```smalltalk
+1@1 dist: 4@5 --> 5.0
+```
+
+
+
+The key reason to prefer instance\-based encapsulation to class\-based encapsulation is that it enables different implementations of the same abstraction to coexist\. For example, method `point>>>dist:`, need not know or care whether the argument `aPoint` is an instance of the same class as the receiver\.  The argument object might be represented in polar coordinates, or as a record in a database, or on another computer in a distributed system; as long as it can respond to the messages `x` and `y`, the code in mthref\{dist:\} will still work\.
+
+
+
+####3\.2\. Methods
+
+
+All methods are public\.footnote\{Well, almost all\.  In Pharo, methods whose selectors start with the string `pvt` are private: a `pvt` message can be sent *only* to self\.  However, `pvt` methods are not used very much\.\}
+Methods are grouped into protocols that indicate their intent\.
+Some common protocol names have been established by convention, for example, `accessing` for all accessor methods, and `initialization` for establishing a consistent initial state for the object\.
+The protocol `private` is sometimes used to group methods that should not be seen from outside\.
+Nothing, however, prevents you from sending a message that is implemented by such a *private* method\.
+
+Methods can access all instance variables of the object\.
+Some Smalltalk developers prefer to access instance variables only through accessors\.
+This practice has some value, but it also clutters the interface of your classes, and worse, exposes private state to the world\.
+
+
+
+####3\.3\. The instance side and the class side
+
+
+Since classes are objects, they can have their own instance variables and their own methods\.
+We call these *class instance variables* and *class methods*, but they are really no different from ordinary instance variables and methods:
+class instance variables are just instance variables defined by a metaclass, and class methods are just methods defined by a metaclass\.
 
 
 
 
+A class and its metaclass are two separate classes, even though the former is an instance of the latter\.
+However, this is largely irrelevant to you as a programmer: you are concerned with defining the behavior of your objects and the classes that create them\.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<a name=""></a><figure><img src="figures/Color-Buttons.png" width="50%"></img><figcaption>Browsing a class and its metaclass For this reason, the browser  helps you to browse both class and metaclass as if they were a single thing with two ''sides'': the ''instance side'' and the ''class side'', as shown in Figure *fig:Buttons*. Clicking on the \button{instance} button browses the class ==Color==, ''i.e.'', you browse the methods that are executed when messages are sent to an instance of ==Color==, like the blue color. Pressing the \button{class} button browses the class ==Color class==, ''i.e.'', you see the methods that will be executed when messages are sent to the class ==Color== itself. For example, ==Color blue== sends the message ==blue== to the class ==Color==. You will therefore find the method ==blue== defined on the class side of ==Color==, not on the instance side.</figcaption></figure>
 
 
 
