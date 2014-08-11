@@ -162,45 +162,190 @@ class instance variables are just instance variables defined by a metaclass, and
 A class and its metaclass are two separate classes, even though the former is an instance of the latter\.
 However, this is largely irrelevant to you as a programmer: you are concerned with defining the behavior of your objects and the classes that create them\.
 
-<a name=""></a><figure><img src="figures/Color-Buttons.png" width="90%"></img><figcaption>Browsing a class and its metaclass For this reason, the browser  helps you to browse both class and metaclass as if they were a single thing with two ''sides'': the ''instance side'' and the ''class side'', as shown in Figure *fig:Buttons*. Clicking on the \button{instance} button browses the class ==Color==, ''i.e.'', you browse the methods that are executed when messages are sent to an instance of ==Color==, like the blue color. Pressing the \button{class} button browses the class ==Color class==, ''i.e.'', you see the methods that will be executed when messages are sent to the class ==Color== itself. For example, ==Color blue== sends the message ==blue== to the class ==Color==. You will therefore find the method ==blue== defined on the class side of ==Color==, not on the instance side.</figcaption></figure>
+<a name="fig:Buttons"></a><figure><img src="figures/Color-Buttons.png" width="90%"></img><figcaption>Browsing a class and its metaclass</figcaption></figure>
+
+For this reason, the browser  helps you to browse both class and metaclass as if they were a single thing with two *sides*: the *instance side* and the *class side*, as shown in Figure [3\.1](#fig:Buttons)\. Clicking
+on the **instance** button browses the class `Color`, *i\.e\.*, you browse the methods that are executed when messages
+are sent to an instance of `Color`, like the blue color\. Pressing the button\{class\} button browses the class `Color class`, *i\.e\.*, you see
+the methods that will be executed when messages are sent to the class `Color` itself\.
+For example, `Color blue` sends the message `blue` to the class `Color`\.
+You will therefore find the method `blue` defined on the class side of `Color`, not on the instance side\.
 
 
 
 
 
 
+```smalltalk
+aColor := Color blue.               "Class side method blue"
+aColor        --> Color blue
+aColor red  --> 0.0         "Instance side accessor method red"
+aColor blue --> 1.0        "Instance side accessor method blue"
+```
 
 
 
+You define a class by filling in the template proposed on the instance side\.
+When you accept this template, the system creates not just the class that you defined, but also the corresponding metaclass\.
+You can browse the metaclass by clicking on the **class** button\.
+The only part of the metaclass creation template that makes sense for you to edit directly is the list of instance variable names\.
+
+Once a class has been created, clicking the **instance** button lets you edit and browse the methods that will be possessed by instances of that class \(and of its subclasses\)\. For example, we can see in Figure [3\.1](#fig:Buttons) that the method `hue` is defined on instances of the class `Color`\.
+In contrast, the ** button** lets you browse and edit the metaclass \(in this case `Color class`\)\.
 
 
 
+####3\.4\. Class methods
+
+
+Class methods can be quite useful; browse `Color class` for some good examples\.You will see that there are two kinds of method defined on a class: those that create instances of the class, like `Color class>>blue` and those that perform a utility function, like `Color class>>showColorCube`\. This is typical, although you will occasionally find class methods used in other ways\.
+
+It is convenient to place utility methods on the class side because they can be executed without having to create any additional objects first\.
+Indeed, many of them will contain a comment designed to make it easy to execute them\.
+
+Browse method `Color class>>>showColorCube`, double\-click just inside the quotes on the comment `"Color showColorCube"` and type CMD\-D\.
+You will see the effect of executing this method\.  \(Select menu\{World > restore display \(r\) to undo the effects\.\)
+
+For those familiar with Java and C\+\+,  class methods may seem similar to static methods\. However, the uniformity of Smalltalk means that they are somewhat different: whereas Java static methods are really just statically\-resolved procedures, Smalltalk class methods are dynamically\-dispatched methods\.  This means that inheritance, overriding and super\-sends work for class methods in Smalltalk, whereas they don't work for static methods in Java\.
 
 
 
+####3\.5\. Class instance variables
+
+With ordinary instance variables, all the instances of a class have the same set of variable names, and the instances of its subclasses inherit those names; however, each instance has its own private set of values\.The story is exactly the same with class instance variables: each class has its own private class instance variables\.A subclass will inherit those class instance variables, *but it has its own private copies of those variables*\.Just as objects don't share instance variables, neither do classes and their subclasses share class instance variables\.
+
+You could use a class instance variable called `count` to keep track of how many instances you create of a given class\.
+However, any subclass would have its own `count` variable, so subclass instances would be counted separately\.
+
+**Example: class instance variables are not shared with subclasses\.**
+
+Suppose we define classes `Dog` and `Hyena`, where `Hyena` inherits the class instance variable `count` from `Dog`\.
 
 
 
+```smalltalk
+Object subclass: #Dog
+    instanceVariableNames: ''
+    classVariableNames: ''
+    poolDictionaries: ''
+    category: 'PBE-CIV'
+
+Dog class
+    instanceVariableNames: 'count'
+
+Dog subclass: #Hyena
+    instanceVariableNames: ''
+    classVariableNames: ''
+    poolDictionaries: ''
+    category: 'PBE-CIV'
+```
 
 
 
+Now suppose we define class methods for `Dog` to initialize its `count` to `0`, and to increment it when new instances are created:
+
+
+```smalltalk
+Dog class>>>initialize
+    super initialize.
+    count := 0.
+
+Dog class>>>new
+    count := count +1.
+    ^ super new
+
+Dog class>>>count
+    ^ count
+```
 
 
 
+Now when we create a new `Dog` its count is incremented, and so is that of every `Hyena`, but they are counted separately:
+
+
+```smalltalk
+Dog initialize.
+Hyena initialize.
+Dog count     --> 0
+Hyena count --> 0
+Dog new.
+Dog count     --> 1
+Dog new.
+Dog count     --> 2
+Hyena new.
+Hyena count --> 1
+```
 
 
 
+Note also that class instance variables are private to a class in exactly the same way that instance variables are private to the instance\.
+Since classes and their instances are different objects,
+this has the following immediate consequences:
+&nbsp;<p class="important">**A class does not have access to the instance variables of its own instances\.**</p>&nbsp;<p class="important">** An instance of a class does not have access to the class instance variables of its class\.**</p>For this reason, instance initialization methods must always be defined on the instance side, the class side has no access to instance variables, so cannot initialize them\!
+All that the class can do is to send initialization messages, possibly using accessors, to newly created instances\.
+
+Similarly, instances can only access class instance variables indirectly, by sending accessor messages to their class\.
+
+Java has nothing equivalent to class instance variables\.
+Java and C\+\+ static variables are more like Smalltalk class variables, which we will discuss in Section [¿?](#sec:classVars): all of the subclasses and all of their instances share the same static variable\.
+
+**Example: Defining a Singleton\.**
+
+The Singleton pattern provides a typical example of the use of class instance variables and class methods\.Imagine that we would like to implement a class `WebServer` and use the Singleton pattern to ensure that it has only one instance\.
+
+Clicking on the **instance** button in the browser, we define the class `WebServer` as follow\.
+
+**A singleton class
+**
+
+```smalltalk
+Object subclass: #WebServer
+    instanceVariableNames: 'sessions'
+    classVariableNames: ''
+    poolDictionaries: ''
+    category: 'Web'
+```
 
 
 
+Then, clicking on the **class** button, we add the instance variable `uniqueInstance` to the class side\.
+
+**The class side of the singleton class
+**
+
+```smalltalk
+WebServer class
+    instanceVariableNames: 'uniqueInstance'
+```
 
 
 
+The consequence of this is that the class `WebServer` now has another instance variable,in addition to the variables that it inherits, such as `superclass` and `methodDict`\.
+
+We can now define a class method named `uniqueInstance` as shown in mthref\{uniqueInstance\}\.
+This method first checks whether `uniqueInstance` has been initialized\.
+If it has not, the method creates an instance and assigns it to the class instance variable `uniqueInstance`\.
+Finally the value of `uniqueInstance` is returned\.
+Since `uniqueInstance` is a class instance variable, this method can directly access it\.
 
 
 
+<a name="uniqueInstance"></a>**uniqueInstance \(on the class side\)
+**
+
+```smalltalk
+WebServer class>>>uniqueInstance
+     uniqueInstance ifNil: [uniqueInstance := self new].
+     ^ uniqueInstance
+```
 
 
+
+The first time that `WebServer uniqueInstance` is executed, an instance of the class `WebServer` will be created and assigned to the `uniqueInstance` variable\.The next time, the previously created instance will be returned instead of creating a new one\.
+
+Note that the instance creation code inside the conditional in [3\.1](#uniqueInstance) is written as `self new` and not as `WebServer new`\.
+What is the difference?   Since the `uniqueInstance` method is defined in `WebServer class`, you might think that they were the same\.    And indeed, until someone creates a subclass of `WebServer`, they are the same\.  But suppose that `ReliableWebServer` is a subclass of `WebServer`, and inherits the `uniqueInstance` method\.  We would clearly expect `ReliableWebServer uniqueInstance` to answer a `ReliableWebServer`:\. Using **self** ensures that this will happen, since it will be bound to the respective class\.
+Note also that `WebServer` and `ReliableWebServer` will each have their own class instance variable called `uniqueInstance`\.  These two variables will of course have different values\.
 
 
 
