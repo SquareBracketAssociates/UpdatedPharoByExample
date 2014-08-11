@@ -131,7 +131,7 @@ class instance variables are just instance variables defined by a metaclass, and
 A class and its metaclass are two separate classes, even though the former is an instance of the latter.
 However, this is largely irrelevant to you as a programmer: you are concerned with defining the behavior of your objects and the classes that create them.
 
-+Browsing a class and its metaclass>file://figures/Color-Buttons.png|width=100+
++Browsing a class and its metaclass>file://figures/Color-Buttons.png|width=90+
 % For this reason, the browser  helps you to browse both class and metaclass as if they were a single thing with two ''sides'': the ''instance side'' and the ''class side'', as shown in Figure *fig:Buttons*. Clicking
 % on the \button{instance} button browses the class ==Color==, ''i.e.'', you browse the methods that are executed when messages
 % are sent to an instance of ==Color==, like the blue color. Pressing the \button{class} button browses the class ==Color class==, ''i.e.'', you see
