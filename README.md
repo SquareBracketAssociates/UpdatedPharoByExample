@@ -20,7 +20,7 @@ Other outputs of this book
 ---------------------------
 Updated version of Pharo by Example can be also be found in the following sites:  
 
-* Jenkins ![Build Status](https://ci.inria.fr/pharo-contribution/buildStatus/icon?job=UpdatedPharoByExample) [PDFS] (https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/)
+* Jenkins ![Build Status](https://ci.inria.fr/pharo-contribution/buildStatus/icon?job=UpdatedPharoByExample) [All PDFs] (https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/)
 
 
 * Travis ![Build Status](https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample.svg?branch=master)(https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample)
