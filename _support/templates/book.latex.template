@@ -36,9 +36,9 @@
 \pagestyle{headings}
 %=================================================================
 \author{
-        Damien Cassou\quad \\
-        St\'ephane Ducasse\quad \\
-        ... and Many More :)}
+        Originally by Andrew P. Black \quad St\'ephane Ducasse \\ \quad Oscar Nierstrasz \quad Damien Pollet\quad \\
+       with Damien Cassou and Marcus Denker\\
+	   Updated by Kilon Alios, Damien Cassou and St\'ephane Ducasse}
 \title{\Huge\bf Updated Pharo by Example}
 \isodate
 \date{\emph{Version of \today}}
