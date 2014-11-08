@@ -20,5 +20,5 @@ Other outputs of this book
 ---------------------------
 Updated version of Pharo by Example can be also be found in the following sites:  
 
-[![Build Status](https://ci.inria.fr/pharo-contribution/buildStatus/icon?job=UpdatedPharoByExample)] [PDFS] (https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/)
+![Build Status](https://ci.inria.fr/pharo-contribution/buildStatus/icon?job=UpdatedPharoByExample) [PDFS] (https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/)
 ====================
