@@ -19,5 +19,8 @@ Any comment, suggestion, advice can be sent to the pharo-dev mailing list a link
 Other outputs of this book
 ---------------------------
 Updated version of Pharo by Example can be also be found in the following sites
-:  [![Build Status](https://ci.inria.fr/pharo-contribution/buildStatus/icon?job=UpdatedPharoByExample)](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/) [![Build Status](https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample.svg?branch=master)](https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample)
+:  
+
+[https://ci.inria.fr/pharo-contribution/buildStatus/icon?job=UpdatedPharoByExample]https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/ 
+[https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample.svg?branch=master]https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample
 ====================
