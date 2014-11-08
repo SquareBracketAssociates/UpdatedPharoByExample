@@ -9,10 +9,8 @@ In particular, you will fire up Pharo, learn about the different ways of interac
 Pharo is available as a free download from *http://www.pharo.org>http://www.pharo.org*. There are three parts that you will need to download, consisting of four files.
 
 #The ''virtual machine'' (VM) is the only part of the system that is different for each operating system and processor. Pre-compiled virtual machines are available for all the major computing environments.(For example in case of Windows the VM for the selected platform is called Pharo.exe).
-#The ''sources'' file contains the source code for all of the parts of Pharo that don't change very frequently. In case of Pharo3 is called PharoV30.sources
-#The current ''system image'' is a snapshot of a running Pharo system, frozen in time. It consists of two files: an ''.image'' file, which contains the state of all of the objects in the system (including classes and methods, since they are objects too), and a ''.changes'' file, which contains a log of all of the changes to the source code of the system. Pharo 3 comes with the files that are called ''pharo.image'' and ''pharo.changes''.
-
-We recommend that you use the image provided on the *Pharo by Example>http://pharobyexample.org/* web page.
+#The ''sources'' file contains the source code for all of the parts of Pharo that don't change very frequently. In case of Pharo30 is called PharoV30.sources
+#The current ''system image'' is a snapshot of a running Pharo system, frozen in time. It consists of two files: an ''.image'' file, which contains the state of all of the objects in the system (including classes and methods, since they are objects too), and a ''.changes'' file, which contains a log of all of the changes to the source code of the system. Pharo30 comes with the files that are called ''pharo.image'' and ''pharo.changes''.
 
 Most of the introductory material in this book will work with any version, so if you already have one installed, you may as well continue to use it. However, if you notice differences between the appearance or behaviour of your system and what is described here, do not be surprised.
 
@@ -22,17 +20,20 @@ The ''sources'' file and the VM can be read-only , they can be shared between di
 
 !!Install Pharo
 
-Pharo does not need to install anything in your system as its perfectly capable of running as stand alone.
+Pharo does not need to install anything in your system as its perfectly capable of running as stand alone. We recommend that you use the image provided on the *Pharo by Example>http://pharobyexample.org/* web page or to refer to the download page of the Pharo web site *http://www.pharo.org/download* and to take the distribution for your OS.
 
-Only thing you need to do is download Pharo 3 from the Pharo website *http://www.pharo.org/>http://www.pharo.org/*. Depending on your platform download the appropriate zip file, uncompress it in a directory of your choice and now you are ready to launch Pharo. In case of Ubuntu there is the extra option of installing Pharo via the Pharo PPA.
+Only thing you need to do is download Pharo30 from the Pharo website *http://www.pharo.org/>http://www.pharo.org/*. Depending on your platform download the appropriate zip file, uncompress it in a directory of your choice and now you are ready to launch Pharo. In case of Ubuntu there is the extra option of installing Pharo via the Pharo PPA.
 
 !!Launch Pharo
 
--In MacOS double click the Pharo icon that you have unziped when you downloaded Pharo. 
--In Windows enter the uncompressed Pharo folder and double click the Pharo.exe. 
--In Linux its possible to launch Pharo from the terminal passing the image file as first parameter. 
+To start Pharo, do whatever your operating system expects: drag the ''.image'' file onto the icon of the virtual machine, or double-click the ''.image'' file, or at the command line type the name of the virtual machine followed by the path to the ''.image'' file. 
+(When you have multiple VMs installed on your machine the operating system may not automatically pick the right one; in this case it is safer to drag and drop the image onto the virtual ma- chine, or to use the command line.)
 
-It is also possible to drag the ''.image'' file onto the icon of the virtual machine for all OSes, or at the command line type the name of the virtual machine followed by the path to the ''.image'' file. In Ubuntu if you had installed Pharo through the PPA process then "pharo nameofthe.image" will launch the image of your choice. It is also possible to associate image files with the Pharo binary (Pharo VM), in MacOS via GetInfo and Windows via Open With both accessed by right clicking on the image file.
+@@todo: TODO: we should revisit this! Introduce the launcher
+
+-On MacOS, double click the Pharo image or drag and drop it on the VM that you have unziped when you downloaded Pharo. 
+-On Windows, enter the uncompressed Pharo folder and double click the Pharo.exe. 
+-On Linux, it is possible to launch Pharo from the terminal passing the image file as first parameter. 
 
 Once Pharo is running, you should see a single large window, possibly containing some open workspace windows (see Figure *worldMenu*). You might notice a menu bar, but Pharo mainly makes use of context-dependent pop-up menus.
 
@@ -41,7 +42,7 @@ Once Pharo is running, you should see a single large window, possibly containing
 
 Left clicking anywhere that there is open space inside the Pharo window will display the World Menu. World Menu contains many of the Pharo tools, utilities and settings.
 
-+Pharo 3 window with World Menu activated>file://figures/world-menu.png|width=100|label=worldMenu+
++Pharo30 window with World Menu activated>file://figures/world-menu.png|width=100|label=worldMenu+
 
 You will see a list of several of the core tools in Pharo, including the browser and the workspace. We will encounter most of them in the coming chapters.
 
