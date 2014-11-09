@@ -29,7 +29,7 @@ Only thing you need to do is download Pharo30 from the Pharo website *http://www
 To start Pharo, do whatever your operating system expects: drag the ''.image'' file onto the icon of the virtual machine, or double-click the ''.image'' file, or at the command line type the name of the virtual machine followed by the path to the ''.image'' file. 
 (When you have multiple VMs installed on your machine the operating system may not automatically pick the right one; in this case it is safer to drag and drop the image onto the virtual ma- chine, or to use the command line.)
 
-@@todo: TODO: we should revisit this! Introduce the launcher
+@@todo TODO: we should revisit this! Introduce the launcher
 
 -On MacOS, double click the Pharo image or drag and drop it on the VM that you have unziped when you downloaded Pharo. 
 -On Windows, enter the uncompressed Pharo folder and double click the Pharo.exe. 
@@ -38,13 +38,18 @@ To start Pharo, do whatever your operating system expects: drag the ''.image'' f
 Once Pharo is running, you should see a single large window, possibly containing some open workspace windows (see Figure *worldMenu*). You might notice a menu bar, but Pharo mainly makes use of context-dependent pop-up menus.
 
 
-!!The World Menu
-
-Left clicking anywhere that there is open space inside the Pharo window will display the World Menu. World Menu contains many of the Pharo tools, utilities and settings.
-
 +Pharo30 window with World Menu activated>file://figures/world-menu.png|width=100|label=worldMenu+
 
+!!The World Menu
+
+Left clicking anywhere to the background of the Pharo window will display the World Menu. World Menu contains many of the Pharo tools, utilities and settings.
+
+
+
 You will see a list of several of the core tools in Pharo, including the browser and the workspace. We will encounter most of them in the coming chapters.
+
+
+@@todo ToDo: harvest a bit more from the original version. 
 
 !!Sending messages
 
@@ -53,31 +58,55 @@ Left click on open space to open the World Menu and then click on the "Workspace
 [[[language=smalltalk
 PharoTutorial go.]]]
 
-This Pharo expression will trigger the Pharo tutorial. Its interactive tutorial that will teach you the basics of Pharo. You have just sent your first message. Pharo is based on the concept of sending messages to objects. The Pharo objects are like your soldiers ready to obey once you send them a message they can understand. We will see later on how an object can understand a message.
 
-If you talk to Pharoers for a while, you will quickly notice that they generally do not use expressions like "call an operation" or "invoke a method", as coders do in other programming languages, but instead they will say "send a message". This reflects the idea that objects are responsible for their own actions. You never tell an object what to do , instead you politely ask it to do something by sending it a message. The object, not you, selects the appropriate method for responding to your message.
++Executing an expression is simple with the ''do it'' menu item.>file://figures/pharotutorial.png|width=70|label=pharotutorial+
 
-As a user you don't need to understand how each message works , the only thing you need to know is what the available messages are for the Objects that interest you. This way the Object can hide its complexity and coding can be kept as simple as possible without losing flexibility.
+
+This expression will trigger the Pharo tutorial (as shown in Figure *pharotutorial*). It is a simple and interactive tutorial that will teach you the basics of Pharo. 
+You have just sent your first message. Pharo is based on the concept of sending messages to objects. The Pharo objects are like your soldiers ready
+ to obey once you send them a message they can understand. We will see later on how an object can understand a message.
+ 
+ 
+ +PharoTutorial is a simple interactive tutorial to learn about Pharo>file://figures/ProfStef.png|width=80|label=ProfStef+
+
+If you talk to Pharoers for a while, you will quickly notice that they generally do not use expressions like "call an operation" or "invoke a method", 
+as coders do in other programming languages, but instead they will say "send a message". This reflects the idea that objects are 
+responsible for their own actions. You never tell an object what to do , instead you politely ask it to do something by sending it a message. 
+The object, not you, selects the appropriate method for responding to your message.
+
+As a user you don't need to understand how each message works , the only thing you need to know is what the available messages are for the objects 
+that interest you. This way an object can hide its complexity and coding can be kept as simple as possible without losing flexibility.
 
 !!Saving, quitting and restarting a Pharo session
 
-We can exit Pharo at any point. You can close the Pharo window as you do any other window of OS. Additionally you can trigger the World Menu and choose either "Save and quit" or "Quit".
+We can exit Pharo at any point. You can close the Pharo window as you do any other window of OS. Additionally you can trigger the World Menu and choose 
+either "Save and quit" or "Quit".
 
-In any case Pharo will display a prompt to ask you about saving your image. If you do save your image and reopen it you will see that things are exactly as you left them. This happens because the image file is capable of storing any information that Pharo has loaded to your memory so that nothing is lost on exit.
+In any case Pharo will display a prompt to ask you about saving your image. If you do save your image and reopen it you will see that things are ''exactly'' 
+as you left them. This happens because the image file is capable of storing any information (created objects, edited text, added methods... of course since they are all objects) 
+that Pharo has loaded to your memory so that nothing is lost on exit.
 
-When you start Pharo for the first time, the Pharo virtual machine loads the image file that you provide. This file contains a snapshot of a large number of objects, including a vast amount of pre-existing code and a large number of programming tools (all of which are objects). As you work with Pharo, you will send messages to these objects, you will create new objects, and some of these objects will die and their memory will be reclaimed (i.e., garbage-collected).
+When you start Pharo for the first time, the Pharo virtual machine loads the image file that you provide. This file contains a snapshot of a 
+large number of objects, including a vast amount of pre-existing code and a large number of programming tools (all of which are objects). 
+As you work with Pharo, you will send messages to these objects, you will create new objects, and some of these objects will die and their memory will 
+be reclaimed (i.e., garbage-collected).
 
-When you quit Pharo, you will normally save a snapshot that contains all of your objects. If you save normally, you will overwrite your old image file with the new snapshot. Alternatively, you may save the image under a new name, as we just did.
+When you quit Pharo, you will normally save a snapshot that contains all of your objects. If you save normally, you will overwrite your 
+old image file with the new snapshot. Alternatively, you may save the image under a new name, as we just did.
 
-In addition to the ''.image'' file, there is also a ''.changes'' file. This file contains a log of all the changes to the source code that you have made using the standard tools. Most of the time you do not need to worry about this file at all. As we shall see, however, the .changes file can be very useful for recovering from errors, or replaying lost changes. More about this later!
+In addition to the ''.image'' file, there is also a ''.changes'' file. This file contains a log of all the changes to the source code that you have made using 
+the standard tools. Most of the time you do not need to worry about this file at all. As we shall see, however, the ''.changes'' file can be very useful for 
+recovering from errors, or replaying lost changes. More about this later!
 
-The image that you have been working with is a descendant of the original Smalltalk-80 image created in the late 1970s. Some of these objects have been around for decades!
 
-You might think that the image is the key mechanism for storing and managing software projects, but you would be wrong. As we shall see very soon, there are much better tools for managing code and sharing software developed by teams. Images are very useful, but you should learn to be very cavalier about creating and throwing away images, since tools like Monticello offer much better ways to manage versions and share code amongst developers.
+You might think that the image is the key mechanism for storing and managing software projects, but you would be wrong. As we shall see very soon, 
+there are much better tools for managing code and sharing software developed by teams. Images are very useful, but you should learn to be very 
+cavalier about creating and throwing away images, since tools like Monticello offer much better ways to manage versions and share code amongst developers.
+In addition if you need to store objects you can use several systems such as Fuel (a fast object binary serializer), STON (a textual object serializer) or a database.
 
 !!Workspace and Transcripts
 
-Some exercises:
+!!!!Let us start with some exercises:
 # Close all open windows. 
 # Open a transcript and a workspace. (The transcript can be opened from the World > Tools ... submenu.)
 # Position and resize the transcript and workspace windows so that the workspace just overlaps the transcript.
@@ -87,30 +116,39 @@ At any time only one window is active; it is in front and has its border highlig
 
 The transcript is an object that is often used for logging system messages. It is a kind of "system console".
 
-Workspaces are useful for typing snippets of code that you would like to experiment with. You can also use workspaces simply for typing arbitrarily text that you would like to remember, such as to-do lists or instructions for anyone who will use your image. Workspaces are often used to hold documentation about a captured image, as is the case with the standard image that we downloaded earlier (see Figure 1.2).
+Workspaces are useful for typing snippets of code that you would like to experiment with. You can also use workspaces simply for typing arbitrarily text 
+that you would like to remember, such as to-do lists or instructions for anyone who will use your image. Workspaces are often used to hold documentation 
+about a captured image, as is the case with the standard image that we downloaded earlier (see Figure 1.2).
 
 - Type the following text into the workspace:
 
 [[[language = Smalltalk
 Transcript show: 'hello world'; cr.]]]
 
-#Try double-clicking in the workspace at various points in the text you have just typed. Notice how an entire word, entire string, or the whole text is selected, depending on whether you click within a word, at the end of the string, or at the end of the entire expression.
-#Select the text you have typed and right click Select do it (d) .
+#Try double-clicking in the workspace at various points in the text you have just typed. Notice how an entire word, entire string, or the whole text is selected, depending on whether you click within a word, at the end of the string, or at the end of the entire expression. In particular, if you place the cursor at before the first character or after the last character and double-click you select the complete paragraph.
+#Select the text you have typed and right click and select ''do it (d)''. (d) indicates that you can use the shortcut CMD-d to get the same result. 
 #Notice how the text "hello world" appears in the transcript window. Do it again.
+
++Executing an expresssion: displaying a string in the Transcript.>file://figures/HelloWorld.png|width=80|label=HelloWorld+
+
+
 
 !!Keyboard shortcuts
 
 If you want  to evaluate an expression, you do not always have to right click. Instead, you can use keyboard shortcuts. These are the parenthesized expressions in the menu.  Depending on your platform, you may have to press one of the modifier keys which are control, alt and command. We will be focusing on the MacOS platform since this is the platform most Pharo developers use where command key (a.k.a CMD key) is the main modifier key, the similar key in Windows is Alt and so is in Linux  so each time you see something like CMD-d just replace with the appropriate modifier key depending on your OS.
 
-@@todo Test that alt is the modifier key for Linux
+@@todo TODO: Test that alt is the modifier key for Linux
 
 In addition to ""do it"", you might have noticed ""print it"", ""inspect it"" and ""explore it"". Let's have a quick look at each of these.
 
 Type the expression ==3 + 4== into the workspace. Now ""do it"" with the keyboard shortcut.
 
-Do not be surprised if you saw nothing happen! What you just did is send the message ==+== with argument 4 to the number 3. Normally the result 7 will have been computed and returned to you, but since the workspace did not know what to do with this answer, it simply threw the answer away.  If you want to see the result, you should ""print it"" instead. ""print it"" actually compiles the expression, executes it, sends the message printString to the result, and displays the resulting string.
+Do not be surprised if you saw nothing happen! What you just did is send the message ==+== with argument 4 to the number 3. Normally the result 7  
+have been computed and returned to you, but since the workspace did not know what to do with this answer, it simply threw the answer away.  
+If you want to see the result, you should ""print it"" instead. ""print it"" actually compiles the expression, executes it, sends the message ==printString== to 
+the result, and displays the resulting string.
 
-Select ==3+4== and ""print it"" ( CMD-p).
+Select ==3+4== and ""print it"" (CMD-p).
 
 This time we see the result we expect.
 
@@ -140,9 +178,12 @@ The explorer is similar to the inspector, but it offers a tree view of a complex
 
 The ""System Browser"", also known as "Class Browser", is one of the key tools used for programming. As we shall see, there are several interesting browsers available for Pharo, but this is the basic one you will find in any image.
 
-- Open the System Browser by selecting World Menu > System Browser.
+@@todo TODO: factorial on number would be better. and should redo the screenshot
 
-+The System Browser showing the printString method of class Object>file://figures/system-browser.png|label=systemBrowser+
+!!!! Open the System Browser
+Open the Browser by selecting World Menu > System Browser.
+
++The System Browser showing the printString method of class Object>file://figures/system-browser.png|width=100|label=systemBrowser+
 
 We can see a Systen Browser in Figure *systemBrowser*. The title bar indicates that we are browsing the class Object and its method ==printString==. 
 
@@ -150,11 +191,11 @@ When the System Browser first opens, all panes are empty but the leftmost one. T
 
 When we select a package it causes the second pane to show a list of all of the classes in the selected package. When a class object is selected the remaining two panes will be filled with text. The third pane displays the protocols of the currently selected class. These are convenient groupings of related methods. If no protocol is selected you should see all methods in the fourth pane.
 
--Select the ""printing"" protocol.
+!!!! Select the ""printing"" protocol
 
 You may have to scroll down to find it. You can also type pr when the fourth column as the focus. Now you will see in the fourth pane only methods related to printing.
 
--Select the ""printString"" method.
+!!!! Select the ""printString"" method
 
 Now we see in the bottom pane the source code of the printString method, shared by all objects in the system (except those that override it).
 
@@ -164,37 +205,58 @@ There are several ways to find a class in Pharo.  The first, as we have just see
 
 A second way is to send the ""browse"" message to the class, asking it to open a browser on itself.  Suppose we want to browse the class ""Boolean"".
 
--Type ""Boolean browse"" into a workspace and ""do it"".
+!!!!Using the message ==browse==
+Type ""Boolean browse"" into a workspace and ""do it"".
 
-A browser will open on the Boolean class. There is also a keyboard shortcut CMD-b (browse) that you can use in any tool where you find a class name; select the name and type CMD-b.
+A browser will open on the Boolean class. 
 
-- Use the keyboard shortcut to browse the class ""Boolean"".
+!!!!Using CMD-B to browse
+Use the keyboard shortcut to browse the class ""Boolean"".
+There is also a keyboard shortcut CMD-b (browse) that you can use in any tool where you find a class name; select the name and type CMD-b.
+
 
 Notice that when the Boolean class is selected but no protocol or method is selected, instead of the source code of a method, we see a class definition. This is nothing more than an ordinary message that is sent to the parent class, asking it to create a subclass. Here we see that the class Object is being asked to create a subclass named Boolean with no instance variables, class variables or ''pool dictionaries'', and to put the class Boolean} in the Kernel-Objects category. If you click on the ""comments"" button  at the bottom of the class pane, you can see the class comment  in a dedicated pane.
 
-@@todo put a screenshot with the Boolean class
+@@todo TODO: put a screenshot with the Boolean class
+
+
 
 
 Often, the fastest way to find a class is to search for it by name. For example, suppose that you are looking for some unknown class that represents dates and times.
 
-Put the mouse in the package pane of the browser and type CMD-f, or select
+In the System Browser, place the mouse in the package pane of the browser and type CMD-f, or select
 find class (f) by right clicking inside the package pane.  Type "time" in the dialog box and accept it.
 
 You will be presented with a list of classes whose names contain "time". Choose one, say, Time, and the browser will show it, along with a class comment that suggests other classes that might be useful.  If you want to browse one of the others, select its name (in any text pane), and type CMD-b.
 
 Note that if you type the complete (and correctly capitalized) name of a class in the find dialog, the browser will go directly to that class without showing you the list of options.
 
+!!!! Using Spotlight
+Pressing Shift and Enter will bring Spotlight, a simple but powerfull tool to find classes and methods. Figure *spotlight* shows that we look for ==Point==. The system proposes
+us several possibilities. 
+
++Spotlight>file://figures/spotlight.png|width=50|label=spotlight+
+
+!!!! Using the Finder
+You can also open the Finder that is available from the Tools menu and type part of the name of the class. It is less efficient than using Spotlight or the SystemBrowser as explained above.
+The Finder is more powerful for other queries as we will show later.
+
+
 !!Finding methods
 
 Sometimes you can guess the name of a method, or at least part of the name of a method, more easily than the name of a class. For example, if you are interested in the current time, you might expect that there would be a method called "now", or containing "now" as a substring. But where might it be? The ""method finder"" can help you.
 
-Select World Menu -> Tools -> Method finder. Type "now" in the top left pane, and ""accept"" it (or just press the RETURN key).
+Select World Menu -> Tools -> Method finder. Type "now" in the top left pane, and ""accept"" it (or just press the RETURN key). You should get a situation similar to the one of Figure *finder*.
 
 The method finder will display a list of all the method names that contain the substring "now". To scroll to now itself, move the cursor to the list and type "n"; this trick works in all scrolling windows. Select "now" and the right-hand pane shows you the classes that define a method with this name. Selecting any one of them will open a browser on it.
 
-+The method finder showing all classes defining a method named now.>file://figures/finder.png+
++The method finder showing all classes defining a method named now.>file://figures/finder.png|width=80|label=finder+
 
 At other times you may have a good idea that a method exists, but will have no idea what it might be called. The method finder can still help! For example, suppose that you would like to find a method that turns a string into upper case, for example, it would translate 'eureka' into 'EUREKA'. We can give the inputs and expected output of a method and the Finder will try to find it for you.
+
+
+!!!!Using examples
+There is a really powerful functionality of the Finder, it is that you can ive the receiver, arguments and expected result and the finder tries to find the corresponding message.
 
 - In the Finder, select the examples mode using the second combo-box. 
 
