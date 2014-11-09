@@ -20,23 +20,28 @@ The ''sources'' file and the VM can be read-only , they can be shared between di
 
 !!Install Pharo
 
-Pharo does not need to install anything in your system as its perfectly capable of running as stand alone. We recommend that you use the image provided on the *Pharo by Example>http://pharobyexample.org/* web page or to refer to the download page of the Pharo web site *http://www.pharo.org/download* and to take the distribution for your OS.
+Pharo does not need to install anything in your system as its perfectly capable of running as stand alone. We recommend that you use the image provided 
+on the *Pharo by Example>http://pharobyexample.org/* web page or to refer to the download page of the Pharo web site *http://www.pharo.org/download* and to take the distribution for your OS.
+The current version of this book has been adapted to be in sync with the version 30 of Pharo, therefore you can use this version with this book.
 
-Only thing you need to do is download Pharo30 from the Pharo website *http://www.pharo.org/>http://www.pharo.org/*. Depending on your platform download the appropriate zip file, uncompress it in a directory of your choice and now you are ready to launch Pharo. In case of Ubuntu there is the extra option of installing Pharo via the Pharo PPA.
+Only thing you need to do is download Pharo30 from the Pharo website *http://www.pharo.org/>http://www.pharo.org/*. 
+Depending on your platform download the appropriate zip file, uncompress it in a directory of your choice and now you are ready to launch Pharo. 
+In case of Ubuntu there is the extra option of installing Pharo via the Pharo PPA.
 
 !!Launch Pharo
 
-To start Pharo, do whatever your operating system expects: drag the ''.image'' file onto the icon of the virtual machine, or double-click the ''.image'' file, or at the command line type the name of the virtual machine followed by the path to the ''.image'' file. 
-(When you have multiple VMs installed on your machine the operating system may not automatically pick the right one; in this case it is safer to drag and drop the image onto the virtual ma- chine, or to use the command line.)
+To start Pharo, do whatever your operating system expects: drag the ''.image'' file onto the icon of the virtual machine, or double-click the ''.image'' file, or 
+at the command line type the name of the virtual machine followed by the path to the ''.image'' file. 
+(When you have multiple VMs installed on your machine the operating system may not automatically pick the right one; in this case it is safer to drag and 
+drop the image onto the virtual machine, or to use the command line.)
 
-@@todo TODO: we should revisit this! Introduce the launcher
-
--On MacOS, double click the Pharo image or drag and drop it on the VM that you have unziped when you downloaded Pharo. 
+Basically 
+-On MacOS, double click the Pharo image file or drag and drop it on the VM that you have unziped when you downloaded Pharo. 
 -On Windows, enter the uncompressed Pharo folder and double click the Pharo.exe. 
 -On Linux, it is possible to launch Pharo from the terminal passing the image file as first parameter. 
 
-Once Pharo is running, you should see a single large window, possibly containing some open workspace windows (see Figure *worldMenu*). You might notice a menu bar, but Pharo mainly makes use of context-dependent pop-up menus.
-
+Once Pharo is running, you should see a single large window, possibly containing some open workspace windows (see Figure *worldMenu*). 
+You might notice a menu bar, but Pharo mainly makes use of context-dependent pop-up menus.
 
 +Pharo30 window with World Menu activated>file://figures/world-menu.png|width=100|label=worldMenu+
 
@@ -44,12 +49,20 @@ Once Pharo is running, you should see a single large window, possibly containing
 
 Left clicking anywhere to the background of the Pharo window will display the World Menu. World Menu contains many of the Pharo tools, utilities and settings.
 
+You will see a list of several of the core tools in Pharo, including the class browser and the workspace. We will encounter most of them in the coming chapters.
+
+!!!! Three interactions
+
+Pharo offers three ways to interact with the system using a mouse or other pointing device.
 
 
-You will see a list of several of the core tools in Pharo, including the browser and the workspace. We will encounter most of them in the coming chapters.
+- ""click"": this is the most often used mouse button, and is normally equivalent to clicking a single-mouse button without any modifier key; click on the background of the Pharo window to bring up the “World” menu (Figure *worldMenu*).
+- ""action-click"": this is the next most used button; it is used to bring up a contextual menu, that is, a menu that offers different sets of actions depending on where the mouse is pointing; see Figure *pharotutorial*. If you do not have a multi-button mouse, then normally you will configure the control modifier key to action-click with the mouse button.
+- ""meta-click"": Finally,youmaymeta-clickonanyobjectdisplayedintheimage to activate the “morphic halo”, an array of handles that are used to perform operations on the on-screen objects themselves, such as inspecting or resizing them; see Figure *halos*. If you let the mouse linger over a handle, a help balloon will explain its function. In Pharo, how you meta-click depends on your operating system: either you must hold SHIFT ctrl or SHIFT option while clicking.
 
+%+Action Click brings the contextual menu.>file://figures/operating.png|width=80|label=operating+
 
-@@todo ToDo: harvest a bit more from the original version. 
++Shift and Enter Clicking brings the Halos.>file://figures/halos.png|width=80|label=halos+
 
 !!Sending messages
 
@@ -327,7 +340,7 @@ When you get to a green bar, it's a good idea to save your work and take a break
 This chapter has introduced you to the Pharo environment and shown you how to use some of the major tools, such as the browser, the method finder, and the test runner. You have also seen a little of Pharo's syntax, even though you may not understand it all yet.
 
 -A running Pharo system consists of a ''virtual machine'', a ''sources file'', and ''image and changes'' files. Only these last two change, as they record a snapshot of the running system.
--When you restore a Pharo image, you will find yourself in exactly the same state , with the same running objects , that you had when you last saved that image.
+-When you restore a Pharo image, you will find yourself in exactly the same state, (i.e., with exactly the same running objects) that you had when you last saved that image.
 -You click on the Pharo background to bring up the ""World menu"" and launch various tools.
 -A ""workspace"" is a tool for writing and evaluating snippets of code. You can also use it to store arbitrary text.
 -You can use keyboard shortcuts on text in the workspace, or any other tool, to evaluate code. The most important of these are do it (CMD-d), print it (CMD-p), inspect it (CMD-i), explore it (CMD-I) and browse it (CMD-b).
