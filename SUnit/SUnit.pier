@@ -5,7 +5,9 @@
 %=================================================================
 !!Introduction
 
-SUnit is a minimal yet powerful framework that supports the creation and deployment of tests. As might be guessed from its name, the design of SUnit focussed on ''Unit Tests'', but in fact it can be used for integration tests and functional tests as well. Sunit was originally developed by Kent Beck and subsequently extended by Joseph Pelrine and others to incorporate the notion of a resource, which we will describe in
+SUnit is a minimal yet powerful framework that supports the creation and deployment of tests.
+As might be guessed from its name, the design of SUnit focussed on ''Unit Tests'', but in fact it can be used for integration tests and functional tests as well.
+Sunit was originally developed by Kent Beck and subsequently extended by Joseph Pelrine and others to incorporate the notion of a resource, which we will describe in Section 7.6.
 
 
 %%%%
@@ -21,18 +23,15 @@ SUnit is a minimal yet powerful framework that supports the creation and deploym
 %\index{Pelrine, Joseph}
 %\seeindex{resource}{test, resource}
 %
-%The interest in testing and \ind{Test Driven Development}
-%is not limited to \pharo or \st.
-%Automated testing has become a hallmark of the \ind{Agile software development} movement, and any
-%software developer concerned with improving software quality would do well to adopt it.
-%Indeed, developers in many languages have come to appreciate
-%the power of unit testing, and versions of
-%\xUnit{}  now exist for many languages, including \ind{Java}, \ind{Python}, \ind{Perl}, .Net and \ind{Oracle}.
+The interest in testing and Test Driven Development is not limited to Pharo or Smalltalk.
+Automated testing has become a hallmark of the \ind{Agile software development} movement, and any software developer concerned with improving software quality would do well to adopt it.
+Indeed, developers in many languages have come to appreciate the power of unit testing, and versions of
+''xUnit'' now exist for many languages, including Java, Python, Perl, .Net and Oracle.
 %\seeindex{Matrix!free will}{Oracle} % sorry, couldn't resist
 %%  OSCAR: There was a broken citation here for the xprogramming web site
 %% I could not figure out what it was supposed to refer to.
-%This chapter describes \SUnit~3.3 (the current version as of this writing); the official web site of \sunit is
-%\url{sunit.sourceforge.net}, where updates can be found.
+This chapter describes SUnit 3.3 (the current version as of this writing); the official web site of SUnit is
+sunit.sourceforge.net, where updates can be found.
 %\index{xUnit}
 %\index{Net@.Net}
 %
