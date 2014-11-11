@@ -40,5 +40,9 @@ Finally, we look at the implementation of SUnit, so that you can understand how 
 
 
 
-
 ###2\. Why testing is important
+
+Unfortunately, many developers believe that tests are a waste of their time\.
+
+
+###3\. What makes a good test?

@@ -43,12 +43,10 @@ In this chapter we start by discussing why we test, and what makes a good test.
 We then present a series of small examples showing how to use SUnit.
 Finally, we look at the implementation of SUnit, so that you can understand how Smalltalk uses the power of reflection in supporting its tools.
 
-%%=================================================================
-
 !!Why testing is important
 %\seclabel{why}
-%
-%Unfortunately, many developers believe that tests are a waste of their time.
+
+Unfortunately, many developers believe that tests are a waste of their time.
 %After all, \emph{they} do not write bugs\,---\,only \emph{other} programmers do that.
 %Most of us have said, at some time or other:
 %``I would write tests if I had more time.''
@@ -93,7 +91,7 @@ Finally, we look at the implementation of SUnit, so that you can understand how 
 %As soon as you uncover the bug, write a test that exposes it, run the test, and watch it fail.
 %Now you can start to fix the bug: the test will tell you when you are done.
 %%=================================================================
-%\section{What makes a good test?}
+!!What makes a good test?
 %
 %Writing good tests is a skill that can be learned most easily by
 %practicing.  Let us look at the properties that tests should have to
