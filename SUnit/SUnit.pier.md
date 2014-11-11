@@ -28,7 +28,16 @@ In traditional Smalltalk development, the programmer would write tests in a work
 Sometimes a test would be incorporated as a comment at the head of the method that it exercised, or tests that needed some set up would be included as example methods in the class\.
 The problem with these practices is that tests in a workspace are not available to other programmers who modify the code; comments and example methods are better in this respect, but there is still no easy way to keep track of them and to run them automatically\.
 Tests that are not run do not help you to find bugs\!
-Moreover, an example method does not inform the reader of the expected result:
+Moreover, an example method does not inform the reader of the expected result: you can run the example and see the \- perhaps surprising \- result, but you will not know if the observed behaviour is correct\.
+
+SUnit is valuable because it allows us to write tests that are self\-checking: the test itself defines what the correct result should be\.
+It also helps us to organize tests into groups, to describe the context in which the tests must run, and to run a group of tests automatically\.
+In less than two minutes you can write tests using SUnit, so instead of writing small code snippets in a workspace, we encourage you to use SUnit and get all the advantages of stored and automatically executable tests\.
+
+In this chapter we start by discussing why we test, and what makes a good test\.
+We then present a series of small examples showing how to use SUnit\.
+Finally, we look at the implementation of SUnit, so that you can understand how Smalltalk uses the power of reflection in supporting its tools\.
+
 
 
 
