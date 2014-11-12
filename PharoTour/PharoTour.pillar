@@ -123,7 +123,8 @@ In addition if you need to store objects you can use several systems such as Fue
 # Close all open windows. 
 # Open a transcript and a workspace. (The transcript can be opened from the World > Tools ... submenu.)
 # Position and resize the transcript and workspace windows so that the workspace just overlaps the transcript.
-You can resize windows  by dragging one of the corners.
+
+You can resize windows by dragging one of the corners.
 
 At any time only one window is active; it is in front and has its border highlighted.
 
