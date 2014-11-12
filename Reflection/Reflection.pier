@@ -1,0 +1,846 @@
+!Reflection
+@cha:reflection
+
+
+
+
+Smalltalk is a reflective programming language.
+In a nutshell, this means that programs are able to ''reflect'' on their own execution and structure.
+More technically, this means that the ''metaobjects'' of the runtime system can be ''reified'' as ordinary objects, which can be queried and inspected.
+The metaobjects in Smalltalk are classes, metaclasses, method dictionaries, compiled methods, the run-time stack, and so on.
+This form of reflection is also called ''introspection'', and is supported by many modern programming languages.
+
++Reification and reflection.>file://figures/reflect.png|label=fig:reflect+
+
+Conversely, it is possible in Smalltalk to modify reified metaobjects and ''reflect'' these changes back to the runtime system (see Figure *fig:reflect*).
+This is also called ''intercession'', and is supported mainly by dynamic programming languages, and only to a very limited degree by static languages.
+
+A program that manipulates other programs (or even itself) is a ''metaprogram''.
+For a programming language to be reflective, it should support both introspection and intercession.
+Introspection is the ability to ''examine'' the data structures that define the language, such as objects, classes, methods and the execution stack.
+Intercession is the ability to ''modify'' these structures, in other words to change the language semantics and the behavior of a program from within the program itself.
+''Structural reflection'' is about examining and modifying the structures of the run-time system, and ''behavioural reflection'' is about modifying the interpretation of these structures.
+
+In this chapter we will focus mainly on structural reflection.
+We will explore many practical examples illustrating how Smalltalk supports introspection and metaprogramming.
+
+!!Introspection
+
+
+Using the inspector, you can look at an object, change the values of its instance variables, and even send messages to it.
+
+@@todo Evaluate the following code in a workspace:
+[[[
+w := Workspace new.
+w openLabel: 'My Workspace'.
+w inspect
+]]]
+
+This will open a second workspace and an inspector.
+The inspector shows the internal state of this new workspace, listing its instance variables in the left part (==dependents==, ==contents==, ==bindings==...) and the value of the selected instance variable in the right part.
+The ==contents== instance variable represents whatever the workspace is displaying in its text area, so if you select it, the right part will show an empty string.
+
++Inspecting a ==Workspace==.>file://figures/workspaceInspector.png|label=fig:workspaceInspector+
+
+@@todo Now type =='hello'== in place of that empty string, then ''accept'' it.
+The value of the ==contents== variable will change, but the workspace window will not notice it, so it does not redisplay itself.
+To trigger the window refresh, evaluate ==self contentsChanged== in the lower part of the inspector.
+
+!!!Accessing instance variables
+
+
+How does the inspector work?
+In Smalltalk, all instance variables are protected.
+In theory, it is impossible to access them from another object if the class doesn't define any accessor.
+In practice, the inspector can access instance variables without needing accessors, because it uses the reflective abilities of Smalltalk.
+In Smalltalk, classes define instance variables either by name or by numeric indices.
+The inspector uses methods defined by the ==Object== class to access them: ==instVarAt: index== and ==instVarNamed: aString== can be used to get the value of the instance variable at position ==index== or identified by ==aString==, respectively; to assign new values to these instance variables, it uses ==instVarAt:put:== and ==instVarNamed:put:==.
+
+For instance, you can change the value of the ==w== binding of the first workspace by evaluating:
+[[[
+w instVarNamed: 'contents' put: 'howdy!'; contentsChanged
+]]]
+
+@@important ''Caveat: Although these methods are useful for building development tools, using them to develop conventional applications is a bad idea: these reflective methods break the encapsulation boundary of your objects and can therefore make your code much harder to understand and maintain.''
+
+Both ==instVarAt:== and ==instVarAt:put:== are primitive methods, meaning that they are implemented as primitive operations of the Pharo virtual machine.
+If you consult the code of these methods, you will see the special pragma syntax ==<primitive: N>== where ==N== is an integer.
+
+
+[[[
+Object>>>instVarAt: index 
+	"Primitive. Answer a fixed variable in an object. ..."
+	!""<primitive: 73>""!
+	"Access beyond fixed variables."
+	^self basicAt: index - self class instSize		
+]]]
+
+Typically, the code after the primitive invocation is not executed.
+It is executed only if the primitive fails. In this specific case, if we try to access a variable that does not exist, then the code following the primitive will be tried.
+This also allows the debugger to be started on primitive methods.
+Although it is possible to modify the code of primitive methods, beware that this can be risky business for the stability of your Pharo system.
+
++Displaying all instance variables of a ==Workspace==.>file://figures/allInstanceVariables.png|label=fig:allInstanceVariables+
+
+Figure *fig:allInstanceVariables* shows how to display the values of the instance variables of an arbitrary instance (==w==) of class ==Workspace==.
+The method ==allInstVarNames== returns all the names of the instance variables of a given class.
+
+In the same spirit, it is possible to gather instances that have specific properties.
+For instance, to get all instances of class ==SketchMorph== whose instance variable ==owner== is set to the world morph (''i.e.'', images currently displayed), try this expression:
+[[[
+SketchMorph allInstances select: [:c | (c instVarNamed: 'owner') isWorldMorph]
+]]]
+
+!!!Iterating over instance variables
+
+Let us consider the message ==instanceVariableValues==, which returns a collection of all values of instance variables defined by this class, excluding the inherited instance variables.
+
+For instance:
+
+[[[
+(1@2) instanceVariableValues -> an OrderedCollection(1 2)
+]]]
+
+The method is implemented in ==Object== as follows:
+
+[[[
+Object>>>instanceVariableValues
+	"Answer a collection whose elements are the values of those instance variables of the receiver which were added by the receiver's class."	
+	| c |
+	c := OrderedCollection new.
+	self class superclass instSize + 1
+		to: self class instSize
+		do: [ :i | c add: (self instVarAt: i)].
+	^ c
+]]]
+
+This method iterates over the indices of instance variables that the class defines, starting just after the last index used by the superclasses.
+(The method ==instSize== returns the number of all named instance variables that a class defines.)
+
+!!!Querying classes and interfaces
+
+
+The development tools in Pharo (code browser, debugger, inspector...) all use the reflective features we have seen so far.
+
+Here are a few other messages that might be useful to build development tools:
+
+==isKindOf: aClass== returns true if the receiver is instance of ==aClass== or of one of its superclasses.
+For instance:
+[[[
+1.5 class                     --> Float
+1.5 isKindOf: Number --> true
+1.5 isKindOf: Integer   --> false
+]]]
+
+
+
+==respondsTo: aSymbol== returns true if the receiver has a method whose selector is ==aSymbol==.
+For instance:
+
+[[[
+1.5 respondsTo: #floor      --> true    "since Number implements floor"
+1.5 floor                            --> 1
+Exception respondsTo: #, --> true    "exception classes can be grouped"
+]]]
+
+
+@@important ''Caveat: Although these features are especially useful for defining development tools, they are normally not appropriate for typical applications.
+Asking an object for its class, or querying it to discover which messages it understands, are typical signs of design problems, since they violate the principle of encapsulation.
+Development tools, however, are not normal applications, since their domain is that of software itself. As such these tools have a right to dig deep into the internal details of code.''
+
+
+!!!Code metrics
+
+
+Let's see how we can use Smalltalk's introspection features to quickly extract some code metrics.
+Code metrics measure such aspects as the depth of the inheritance hierarchy, the number of direct or indirect subclasses, the number of methods or of instance variables in each class, or the number of locally defined methods or instance variables.
+Here are a few metrics for the class ==Morph==, which is the superclass of all graphical objects in Pharo, revealing that it is a huge class, and that it is at the root of a huge hierarchy. Maybe it needs some refactoring! 
+
+
+
+
+
+
+
+
+
+[[[
+Morph allSuperclasses size.  -->       2 "inheritance depth"
+Morph allSelectors size.        --> 1378 "number of methods"
+Morph allInstVarNames size. -->      6 "number of instance variables"
+Morph selectors size.             -->  998 "number of new methods"
+Morph instVarNames size.     -->      6 "number of new variables"
+Morph subclasses size.          -->    45 "direct subclasses"
+Morph allSubclasses size.      -->  326 "total subclasses"
+Morph linesOfCode.               --> 5968 "total lines of codeBANG"
+]]]
+
+One of the most interesting metrics in the domain of object-oriented languages is the number of methods that extend methods inherited from the superclass.
+This informs us about the relation between the class and its superclasses.
+In the next sections we will see how to exploit our knowledge of the runtime structure to answer such questions.
+
+!!Browsing code
+
+
+In Smalltalk, everything is an object. In particular, classes are objects that provide useful features for navigating through their instances.
+Most of the messages we will look at now are implemented in ==Behavior==, so they are understood by all classes.
+
+As we saw previously, you can obtain an instance of a given class by sending it the message ==#someInstance==.
+
+[[[
+Point someInstance --> 0@0
+]]]
+
+You can also gather all the instances with ==#allInstances==, or the number of alive instances in memory with ==#instanceCount==.
+
+
+
+
+
+[[[
+ByteString allInstances        --> #('collection' 'position'  ...)
+ByteString instanceCount    --> 104565
+String allSubInstances size -->  101675
+]]]
+
+These features can be very useful when debugging an application, because you can ask a class to enumerate those of its methods exhibiting specific properties.
+-==whichSelectorsAccess:== returns the list of all selectors of methods that read or write the instance variable named by the argument
+-==whichSelectorsStoreInto:== returns the selectors of methods that modify the value of an instance variable
+-==whichSelectorsReferTo:== returns the selectors of methods that send a given message
+-==crossReference== associates each message with the set of methods that send it.
+
+
+[[[
+Point whichSelectorsAccess: 'x'    --> an IdentitySet(#'\\' #= #scaleBy: ...)
+Point whichSelectorsStoreInto: 'x' --> an IdentitySet(#setX:setY: ...)
+Point whichSelectorsReferTo: #+  --> an IdentitySet(#rotateBy:about: ...)
+Point crossReference --> an Array(
+		an Array('*' an IdentitySet(#rotateBy:about: ...))
+		an Array('+' an IdentitySet(#rotateBy:about: ...))
+		...)
+]]]
+
+The following messages take inheritance into account:
+-==whichClassIncludesSelector:== returns the superclass that implements the given message
+-==unreferencedInstanceVariables== returns the list of instance variables that are neither used in the receiver class nor any of its subclasses
+
+
+[[[
+Rectangle whichClassIncludesSelector: #inspect --> Object
+Rectangle unreferencedInstanceVariables            --> #()
+]]]
+
+==SystemNavigation== is a facade that supports various useful methods for querying and browsing the source code of the system.
+==SystemNavigation== ==default== returns an instance you can use to navigate the system.
+For example:
+
+
+[[[
+SystemNavigation default allClassesImplementing: #yourself --> {Object}
+]]]
+
+The following messages should also be self-explanatory:
+
+
+
+
+[[[
+SystemNavigation default allSentMessages size          --> 24930
+SystemNavigation default allUnsentMessages size      --> 6431
+SystemNavigation default allUnimplementedCalls size --> 270
+]]]
+
+Note that messages implemented but not sent are not necessarily useless, since they may be sent implicitly (''e.g.'', using ==perform:==).
+Messages sent but not implemented, however, are more problematic, because the methods sending these messages will fail at runtime.
+They may be a sign of unfinished implementation, obsolete APIs, or missing libraries.
+
+
+==SystemNavigation default allCallsOn: #Point== returns all messages sent explicitly to ==Point== as a receiver.
+
+All these features are integrated in the programming environment of Pharo, in particular in the code browsers.
+As you are surely already aware, there are convenient keyboard shortcuts for browsing all i__m__plementors (==m==) and se__n__ders (==n==) of a given message.
+What is perhaps not so well known is that there are many such pre-packaged queries implemented as methods of the ==SystemNavigation== class in the ==browsing== protocol.
+For example, you can programmatically browse all implementors of the message ==ifTrue:== by evaluating:
+
+[[[
+SystemNavigation default browseAllImplementorsOf: #ifTrue:
+]]]
+
++Browse all implementations of ==#ifTrue:==.>file://figures/implementors.png|label=fig:implementors+
+
+Particularly useful are the methods ==browseAllSelect:== and ==browseMethodsWithSourceString:==.  Here are two different ways to browse all methods in the system that perform super sends (the first way is rather brute force; the second way is better and eliminates some false positives):
+
+
+[[[
+SystemNavigation default browseMethodsWithSourceString: 'super'.
+SystemNavigation default browseAllSelect: [:method | method sendsToSuper ].
+]]]
+
+!!Classes, method dictionaries and methods
+
+
+Since classes are objects, we can inspect or explore them just like any other object.
+
+
+@@todo Evaluate ==Point explore==.
+
+In Figure *fig:CompiledMethod*, the explorer shows the structure of class ==Point==.
+You can see that the class stores its methods in a dictionary, indexing them by their selector.
+The selector ==#*== points to the decompiled bytecode of ==Point>>>*==.
+
++Explorer class ==Point== and the bytecode of its ==#*== method.>file://figures/CompiledMethod.png|label=fig:CompiledMethod+
+
+Let us consider the relationship between classes and methods.
+In Figure *fig:MethodsAsObjects* we see that classes and metaclasses have the common superclass ==Behavior==. This is where ==new== is defined, amongst other key methods for classes.
+Every class has a method dictionary, which maps method selectors to compiled methods.
+Each compiled method knows the class in which it is installed.
+In Figure *fig:CompiledMethod* we can even see that this is stored in an association in ==literal5==.
+
++Classes, method dictionaries and compiled methods>file://figures/MethodsAsObjects.png|label=fig:MethodsAsObjects+
+
+We can exploit the relationships between classes and methods to pose queries about the system.
+For example, to discover which methods are newly introduced in a given class, ''i.e.'', do not override superclass methods, we can navigate from the class to the method dictionary as follows:
+
+[[[
+[:aClass| aClass methodDict keys select: [:aMethod |
+  (aClass superclass canUnderstand: aMethod) not ]] value: SmallInteger
+  --> an IdentitySet(#threeDigitName #printStringBase:nDigits: ...)
+]]]
+
+A compiled method does not simply store the bytecode of a method.
+It is also an object that provides numerous useful methods for querying the system.
+One such method is ==isAbstract== (which tells if the method sends ==subclassResponsibility==).
+We can use it to identify all the abstract methods of an abstract class
+
+[[[
+[:aClass| aClass methodDict keys select: [:aMethod |
+  (aClass>>aMethod) isAbstract ]] value: Number
+  --> an IdentitySet(#storeOn:base: #printOn:base: #+ #- #* #/ ...)
+]]]
+Note that this code sends the ==>>== message to a class to obtain the compiled method for a given selector.
+
+
+To browse the super-sends within a given hierarchy, for example within the Collections hierarchy, we can pose a more sophisticated query:
+[[[
+class := Collection.
+SystemNavigation default
+  browseMessageList: (class withAllSubclasses gather: [:each |
+    each methodDict associations
+      select: [:assoc | assoc value sendsToSuper]
+      thenCollect: [:assoc | MethodReference class: each selector: assoc key]])
+  name: 'Supersends of ' , class name , ' and its subclasses'
+]]]
+Note how we navigate from classes to method dictionaries to compiled methods to identify the methods we are interested in.
+A ==MethodReference== is a lightweight proxy for a compiled method that is used by many tools.
+There is a convenience method ==CompiledMethod>>methodReference== to return the method reference for a compiled method.
+[[[
+(Object>>#=) methodReference methodSymbol --> #=
+]]]
+
+!!Browsing environments
+
+
+Although ==SystemNavigation== offers some useful ways to programmatically query and browse system code, there is a better way.  The Refactoring Browser, which is integrated into Pharo, provides both interactive and programmatic ways to pose complex queries.
+
+Suppose we are interested to discover which methods in the ==Collection== hierarchy send a message to ==super== which is different from the method's selector.
+This is normally considered to be a bad code smell, since such a ==super==-send should normally be replaced by a ==self==-send. (Think about it — you only ''need'' ==super== to extend a method you are overriding; all other inherited methods can be accessed by sending to ==self==!)
+
+The refactoring browser provides us with an elegant way to restrict our query to just the classes and methods we are interested in.
+
+@@todo Open a browser on the class ==Collection==.
+action-click on the class name and select ==refactoring scope>subclasses with==.
+This will open a new Browser Environment on just the ==Collection== hierarchy.
+Within this restricted scope select ==refactoring scope>super-sends== to open a new environment with all methods that perform super-sends within the ==Collection== hierarchy.
+Now click on any method and select ==refactor>code critics==.
+Navigate to ==Lint checks>Possible bugs>Sends different super message== and action-click to select ==browse==.
+
+In Figure *fig:sendDifferentSuper* we can see that 19 such methods have been found within the ==Collection== hierarchy, including ==Collection>>>printNameOn:==, which sends ==super printOn:==.
++Finding methods that send a different super message.>file://figures/sendDifferentSuper.png|label=fig:sendDifferentSuper+
+
+Browser environments can also be created programmatically.
+Here, for example, we create a new ==BrowserEnvironment== for ==Collection== and its subclasses, select the super-sending methods, and open the resulting environment.
+
+[[[
+((BrowserEnvironment new forClasses: (Collection withAllSubclasses))
+	selectMethods: [:method | method sendsToSuper])
+	label: 'Collection methods sending super';
+	open.
+]]]
+
+Note how this is considerably more compact than the earlier, equivalent example using ==SystemNavigation==.
+
+Finally, we can find just those methods that send a different super message programmatically as follows:
+
+[[[
+((BrowserEnvironment new forClasses: (Collection withAllSubclasses))
+	selectMethods: [:method | 
+		method sendsToSuper
+		and: [(method parseTree superMessages includes: method selector) not]])
+	label: 'Collection methods sending different super';
+	open
+]]]
+Here we ask each compiled method for its (Refactoring Browser) parse tree, in order to find out whether the super messages differ from the method's selector.
+Have a look at the ==querying== protocol of the class ==RBProgramNode== to see some the things we can ask of parse trees.
+
+!!Accessing the run-time context
+
+
+We have seen how Smalltalk's reflective capabilities let us query and explore objects, classes and methods.  But what about the run-time environment?
+
+!!!Method contexts
+
+
+In fact, the run-time context of an executing method is in the virtual machine — it is not in the image at all!
+On the other hand, the debugger obviously has access to this information, and we can happily explore the run-time context, just like any other object.
+How is this possible?
+
+Actually, there is nothing magical about the debugger.
+The secret is the pseudo-variable ==thisContext==, which we have encountered only in passing before.
+Whenever ==thisContext== is referred to in a running method, the entire run-time context of that method is reified and made available to the image as a series of chained ==MethodContext== objects.
+
+We can easily experiment with this mechanism ourselves.
+
+@@todo Change the definition of ==Integer>>>factorial== by inserting the underlined expression as shown below:
+
+
+[[[
+Integer>>>factorial
+	"Answer the factorial of the receiver."
+	self = 0 ifTrue: [!__thisContext explore. self halt.__! ^ 1].
+	self > 0 ifTrue: [^ self * (self - 1) factorial].
+	self error: 'Not valid for negative integers'
+]]]
+
+@@todo Now evaluate ==3 factorial== in a workspace. You should obtain both a debugger window and an explorer, as shown in Figure *fig:exploringThisContext*.
+
++Exploring ==thisContext==.>file://figures/exploringThisContext.png|label=fig:exploringThisContext+
+
+Welcome to the poor-man's debugger!
+If you now browse the class of the explored object (''i.e.'', by evaluating ==self browse== in the bottom pane of the explorer) you will discover that it is an instance of the class ==MethodContext==, as is each ==sender== in the chain.
+
+==thisContext== is not intended to be used for day-to-day programming, but it is essential for implementing tools like debuggers, and for accessing information about the call stack.
+You can evaluate the following expression to discover which methods make use of ==thisContext==:
+
+[[[
+SystemNavigation default browseMethodsWithSourceString: 'thisContext'
+]]]
+
+As it turns out, one of the most common applications is to discover the sender of a message.
+Here is a typical application:
+[[[
+Object>>>subclassResponsibility
+	"This message sets up a framework for the behavior of the class' subclasses.
+	Announce that the subclass should have implemented this message."
+
+	self error: 'My subclass should have overridden ', thisContext sender selector printString
+]]]
+
+By convention, methods in Smalltalk that send ==self subclassResponsibility== are considered to be abstract.  But how does ==Object>>subclassResponsibility== provide a useful error message indicating which abstract method has been invoked?  Very simply, by asking ==thisContext== for the sender.
+
+
+
+
+!!!Intelligent breakpoints
+
+
+
+The Smalltalk way to set a breakpoint is to evaluate ==self halt== at an interesting point in a method.  This will cause ==thisContext== to be reified, and a debugger window will open at the breakpoint.
+Unfortunately this poses problems for methods that are intensively used in the system.
+
+Suppose, for instance, that we want to explore the execution of ==OrderedCollection>>>add:==.
+Setting a breakpoint in this method is problematic.
+
+@@todo Take a ''fresh'' image and set the following breakpoint:
+
+[[[
+OrderedCollection>>>add: newObject
+	!__self halt.__!
+	^self addLast: newObject
+]]]
+
+Notice how your image immediately freezes!  We do not even get a debugger window.
+The problem is clear once we understand that (i) ==OrderedCollection>>>add:== is used by many parts of the system, so the breakpoint is triggered very soon after we accept the change, but (ii) ''the debugger itself'' sends ==add:== to an instance of ==OrderedCollection==, preventing the debugger from opening!
+What we need is a way to ''conditionally halt'' only if we are in a context of interest.
+This is exactly what ==Object>>haltIf:== offers.
+
+Suppose now that we only want to halt if ==add:== is sent from, say, the context of ==OrderedCollectionTest>>>testAdd==.
+
+@@todo Fire up a fresh image again, and set the following breakpoint:
+[[[
+OrderedCollection>>>add: newObject
+	!__self haltIf: #testAdd.__!
+	^self addLast: newObject
+]]]
+
+This time the image does not freeze. Try running the ==OrderedCollectionTest==.
+(You can find it in the ==CollectionsTests-Sequenceable== category.)
+
+How does this work?  Let's have a look at ==Object>>haltIf:==:
+[[[
+Object>>>haltIf: condition
+	| cntxt |
+	condition isSymbol ifTrue: [
+		"only halt if a method with selector symbol is in callchain"
+		cntxt := thisContext.
+		[cntxt sender isNil] whileFalse: [
+			cntxt := cntxt sender. 
+			(cntxt selector = condition) ifTrue: [Halt signal]. ].
+		^self.
+	].
+	...
+]]]
+
+Starting from ==thisContext==, ==haltIf:== goes up through the execution stack, checking if the name of the calling method is the same as the one passed as parameter.
+If this is the case, then it raises an exception which, by default, summons the debugger.
+
+It is also possible to supply a boolean or a boolean block as an argument to ==haltIf:==, but these cases are straightforward and do not make use of ==thisContext==.
+
+!!Intercepting messages not understood
+
+@sec:msgnotunderstood
+
+
+So far we have used the reflective features of Smalltalk mainly to query and explore objects, classes, methods and the run-time stack. Now we will look at how to use our knowledge of the Smalltalk system structure to intercept messages and modify behaviour at run-time.
+
+When an object receives a message, it first looks in the method dictionary of its class for a corresponding method to respond to the message.
+If no such method exists, it will continue looking up the class hierarchy, until it reaches ==Object==. If still no method is found for that message, the object will ''send itself'' the message ==doesNotUnderstand:== with the message selector as its argument.
+The process then starts all over again, until ==Object>>doesNotUnderstand:== is found, and the debugger is launched.
+
+But what if ==doesNotUnderstand:== is overridden by one of the subclasses of ==Object== in the lookup path?
+As it turns out, this is a convenient way of realizing certain kinds of very dynamic behaviour. An object that does not understand a message can, by overriding ==doesNotUnderstand:==, fall back to an alternative strategy for responding to that message.
+
+Two very common applications of this technique are (1) to implement lightweight proxies for objects, and (2) to dynamically compile or load missing code.
+
+!!!Lightweight proxies
+
+
+In the first case, we introduce a ''minimal object'' to act as a proxy for an existing object.
+Since the proxy will implement virtually no methods of its own, any message sent to it will be trapped by ==doesNotUnderstand:==. By implementing this message, the proxy can then take special action before delegating the message to the real subject it is the proxy for.
+
+Let us have a look at how this may be implemented(You can also load ==PBE-Reflection== from *http://www.squeaksource.com/PharoByExample/*).
+
+We define a ==LoggingProxy== as follows:
+[[[
+ProtoObject subclass: #LoggingProxy
+	instanceVariableNames: 'subject invocationCount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'PBE-Reflection'
+]]]
+Note that we subclass ==ProtoObject== rather than ==Object== because we do not want our proxy to inherit over 400 methods (!) from ==Object==.
+
+[[[
+Object methodDict size --> 408
+]]]
+
+Our proxy has two instance variables: the ==subject== it is a proxy for, and a ==count== of the number of messages it has intercepted.
+We initialize the two instance variables and we provide an accessor for the message count.
+Initially the ==subject== variable points to the proxy object itself.
+[[[
+LoggingProxy>>>initialize
+	invocationCount := 0.
+	subject := self.
+]]]
+
+[[[
+LoggingProxy>>>invocationCount
+	^ invocationCount
+]]]
+
+We simply intercept all messages not understood, print them to the Transcript, update the message count, and forward the message to the real subject.
+[[[
+LoggingProxy>>>doesNotUnderstand: aMessage 
+	Transcript show: 'performing ', aMessage printString; cr.
+	invocationCount := invocationCount + 1.
+	^ aMessage sendTo: subject
+]]]
+
+Here comes a bit of magic.
+We create a new ==Point== object and a new ==LoggingProxy== object, and then we tell the proxy to ==become:== the point object:
+
+[[[
+point := 1@2.
+LoggingProxy new !__become:__! point.
+]]]
+
+This has the effect of swapping all references in the image to the point to now refer to the proxy, and vice versa. Most importantly, the proxy's ==subject== instance variable will now refer to the point!
+
+[[[
+point invocationCount --> 0
+point + (3@4)             --> 4@6
+point invocationCount --> 1
+]]]
+
+This works nicely in most cases, but there are some shortcomings:
+[[[
+point class --> LoggingProxy
+]]]
+Curiously, the method ==class== is not even implemented in ==ProtoObject== but in ==Object==, which ==LoggingProxy== does not inherit from!
+The answer to this riddle is that ==class== is never sent as a message but is directly answered by the virtual machine. ==yourself== is also never truly sent.
+
+Other messages that may be directly interpreted by the VM, depending on the receiver, include:
+
+==+- < > <= >= = ~= * / \ =\===
+==@ bitShift: // bitAnd: bitOr:==
+==at: at:put: size==
+==next nextPut: atEnd==
+==blockCopy: value value: do: new new: x y==.
+
+Selectors that are never sent, because they are inlined by the compiler and transformed to comparison and jump bytecodes:
+==ifTrue: ifFalse: ifTrue:ifFalse: ifFalse:ifTrue:==
+==and: or:==
+==whileFalse: whileTrue: whileFalse whileTrue==
+==to:do: to:by:do:==
+==caseOf: caseOf:otherwise:==
+==ifNil: ifNotNil:  ifNil:ifNotNil: ifNotNil:ifNil:==
+
+Attempts to send these messages to non-boolean objects can be intercepted and execution can be resumed with a valid boolean value by overriding ==mustBeBoolean== in the receiver or by catching the ==NonBooleanReceiver== exception.
+
+Even if we can ignore such special message sends, there is another fundamental problem which cannot be overcome by this approach: ==self==-sends cannot be intercepted:
+[[[
+point := 1@2.
+LoggingProxy new become: point.
+point invocationCount --> 0
+point rect: (3@4)        --> 1@2 corner: 3@4
+point invocationCount --> 1
+]]]
+
+Our proxy has been cheated out of two ==self==-sends in the ==rect:== method:
+[[[
+Point>>>rect: aPoint 
+	^ Rectangle  origin: (self min: aPoint) corner: (self max: aPoint)
+]]]
+
+Although messages can be intercepted by proxies using this technique, one should be aware of the inherent limitations of using a proxy.  In Section *sec:wrapper* we will see another, more general approach for intercepting messages.
+
+!!!Generating missing methods
+
+
+The other most common application of intercepting not understood messages is to dynamically load or generate the missing methods.
+Consider a very large library of classes with many methods.  Instead of loading the entire library, we could load a stub for each class in the library. The stubs know where to find the source code of all their methods.  The stubs simply trap all messages not understood, and dynamically load the missing methods on-demand.  At some point, this behaviour can be deactivated, and the loaded code can be saved as the minimal necessary subset for the client application.
+
+
+Let us look at a simple variant of this technique where we have a class that automatically adds accessors for its instance variables on-demand:
+
+[[[
+DynamicAcccessors>>>doesNotUnderstand: aMessage
+	| messageName |
+	messageName := aMessage selector asString.
+	(self class instVarNames includes: messageName)
+		ifTrue: [
+			self class compile: messageName, String cr, ' ^ ', messageName.
+			^ aMessage sendTo: self ].
+	^ super doesNotUnderstand: aMessage
+]]]
+Any message not understood is trapped here. If an instance variable with the same name as the message sent exists, then we ask our class to compile an accessor for that instance variables and we re-send the message.
+
+Suppose the class ==DynamicAccessors== has an (uninitialized) instance variable ==x== but no pre-defined accessor. Then the following will generate the accessor dynamically and retrieve the value:
+
+[[[
+myDA := DynamicAccessors new.
+myDA x --> nil
+]]]
+
+Let us step through what happens the first time the message ==x== is sent to our object (see Figure *fig:DynamicAccessors*).
+
++Dynamically creating accessors.>file://figures/DynamicAccessors.png|label=fig:DynamicAccessors+
+
+(1) We send ==x== to ==myDA==, (2) the message is looked up in the class, and (3) not found in the class hierarchy. (4) This causes ==self doesNotUnderstand: #x== to be sent back to the object, (5) triggering a new lookup. This time ==doesNotUnderstand:== is found immediately in ==DynamicAccessors==, (6) which asks its class to compile the string =='x ^ x'==. The ==compile== method is looked up (7), and (8) finally found in ==Behavior==, which (9-10) adds the new compiled method to the method dictionary of ==DynamicAccessors==. Finally, (11-13) the message is resent, and this time it is found.
+
+The same technique can be used to generate setters for instance variables, or other kinds of boilerplate code, such as visiting methods for a Visitor.
+
+Note the use of ==Object>>perform:== in step (13) which can be used to send messages that are composed at run-time:
+[[[
+5 perform: #factorial                                             --> 120
+6 perform: ('fac', 'torial') asSymbol                       --> 720
+4 perform: #max: withArguments: (Array with: 6) --> 6
+]]]
+
+!!Objects as method wrappers
+
+@sec:wrapper
+
+
+We have already seen that compiled methods are ordinary objects in Smalltalk, and they support a number of methods that allow the programmer to query the run-time system.
+What is perhaps a bit more surprising, is that ''any object'' can play the role of a compiled method. All it has to do is respond to the method ==run:with:in:== and a few other important messages.
+
+@@todo Define an empty class ==Demo==. Evaluate ==Demo new answer42== and notice how the usual ''Message Not Understood'' error is raised.
+
+Now we will install a plain Smalltalk object in the method dictionary of our ==Demo== class.
+
+@@todo Evaluate ==Demo methodDict at: #answer42 put: ObjectsAsMethodsExample new.==
+Now try again to print the result of ==Demo new answer42==. This time we get the answer ==42==.
+
+If we take look at the class ==ObjectsAsMethodsExample== we will find the following methods:
+
+[[[
+answer42
+	^42
+
+run: oldSelector with: arguments in: aReceiver
+	^self perform: oldSelector withArguments: arguments
+]]]
+
+When our ==Demo== instance receives the message ==answer42==, method lookup proceeds as usual, however the virtual machine will detect that in place of a compiled method, an ordinary Smalltalk object is trying to play this role.
+The VM will then send this object a new message ==run:with:in:== with the original method selector, arguments and receiver as arguments.
+Since ==ObjectsAsMethodsExample== implements this method, it intercepts the message and delegates it to itself.
+
+We can now remove the fake method as follows:
+[[[
+Demo methodDict removeKey: #answer42 ifAbsent: []
+]]]
+
+If we take a closer look at ==ObjectsAsMethodsExample==, we will see that its superclass also implements the methods ==flushcache==, ==methodClass:== and ==selector:==, but they are all empty.  These messages may be sent to a compiled method, so they need to be implemented by an object pretending to be a compiled method.  (==flushcache== is the most important method to be implemented; others may be required depending on whether the method is installed using ==Behavior>>addSelector:withMethod:== or directly using ==MethodDictionary>>at:put:==.)
+
+!!!Using method wrappers to perform test coverage
+
+
+Method wrappers are a well-known technique for intercepting messages .
+In the original implementation(http://www.squeaksource.com/MethodWrappers.html), a method wrapper is an instance of a subclass of ==CompiledMethod==. When installed, a method wrapper can perform special actions before or after invoking the original method.
+When uninstalled, the original method is returned to its rightful position in the method dictionary.
+
+In Pharo, method wrappers can be implemented more easily by implementing ==run:with:in:== instead of by subclassing ==CompiledMethod==. In fact, there exists a lightweight implementation of objects as method wrappers(http://www.squeaksource.com/ObjectsAsMethodsWrap.html), but it is not part of standard Pharo at the time of this writing.
+
+Nevertheless, the Pharo Test Runner uses precisely this technique to evaluate test coverage.
+Let's have a quick look at how it works.
+
+The entry point for test coverage is the method ==TestRunner>>runCoverage==:
+[[[
+TestRunner>>>runCoverage
+	| packages methods |
+	... "identify methods to check for coverage"
+	self collectCoverageFor: methods
+]]]
+
+The method ==TestRunner>>collectCoverageFor:== clearly illustrates the coverage checking algorithm:
+[[[
+TestRunner>>>collectCoverageFor: methods
+	| wrappers suite |
+	wrappers := methods collect: [ :each | TestCoverage on: each ].
+	suite := self
+		reset;
+		suiteAll.
+	[ wrappers do: [ :each | each install ].
+	  [ self runSuite: suite ] ensure: [ wrappers do: [ :each | each uninstall ] ] ] valueUnpreemptively.
+	wrappers := wrappers reject: [ :each | each hasRun ].
+	wrappers isEmpty 
+		ifTrue: 
+			[ UIManager default inform: 'Congratulations. Your tests cover all code under analysis.' ]
+		ifFalse: ...
+]]]
+A wrapper is created for each method to be checked, and each wrapper is installed.
+The tests are run, and all wrappers are uninstalled.
+Finally the user obtains feedback concerning the methods that have not been covered.
+
+How does the wrapper itself work?
+The ==TestCoverage== wrapper has three instance variables, ==hasRun==, ==reference== and ==method==.
+They are initialized as follows:
+[[[
+TestCoverage class>>>on: aMethodReference
+	^ self new initializeOn: aMethodReference
+
+TestCoverage>>>initializeOn: aMethodReference
+	hasRun := false.
+	reference := aMethodReference.
+	method := reference compiledMethod
+]]]
+
+The install and uninstall methods simply update the method dictionary in the obvious way:
+[[[
+TestCoverage>>>install
+	reference actualClass methodDictionary
+		at: reference methodSymbol
+		put: self
+
+TestCoverage>>>uninstall
+	reference actualClass methodDictionary
+		at: reference methodSymbol
+		put: method
+]]]
+
+and the ==run:with:in:== method simply updates the ==hasRun== variable, uninstalls the wrapper (since coverage has been verified), and resends the message to the original method
+[[[
+run: aSelector with: anArray in: aReceiver
+	self mark; uninstall.
+	^ aReceiver withArgs: anArray executeMethod: method
+
+mark
+	hasRun := true
+]]]
+(Have a look at ==ProtoObject>>withArgs:executeMethod:== to see how a method displaced from its method dictionary can be invoked.)
+
+That's all there is to it!
+
+Method wrappers can be used to perform any kind of suitable behaviour before or after the normal operation of a method.  Typical applications are instrumentation (collecting statistics about the calling patterns of methods), checking optional pre- and post-conditions, and memoization (optionally cacheing computed values of methods).
+
+!!Pragmas
+
+
+A ''pragma'' is an annotation that specifies data about a program, but is not involved in the execution of the program. Pragmas have no direct effect on the operation of the method they annotate.
+Pragmas have a number of uses, among them:
+-Information for the compiler: pragmas can be used by the compiler to make a method call a primitive function. This function has to be defined by the virtual machine or by an external plug-in.
+-Runtime processing: Some pragmas are available to be examined at runtime.
+
+
+Pragmas can be applied to a program's method declarations only. A method may declare one or more pragmas, and the pragmas have to be declared prior any Smalltalk statement. Each pragma is in effect a static message send with literal arguments.
+
+We briefly saw pragmas when we introduced primitives earlier in this chapter. A primitive is nothing more than a pragma declaration. 
+Consider ==<primitive: 73>== as contained in ==instVarAt:==. The pragma's selector is ==primitive:== and its arguments is an immediate literal value, ==73==. 
+
+The compiler is probably the bigger user of pragmas. SUnit is another tool that makes use of annotations. SUnit is able to estimate the coverage of an application from a test unit. One may want to exclude some methods from the coverage. This is the case of the ==documentation== method in ==SplitJointTest class==:
+
+[[[
+SplitJointTest class>>>documentation
+	<ignoreForCoverage>
+	"self showDocumentation"
+	
+	^ 'This package provides function.... "
+]]]
+
+By simply annotating a method with the pragma ==<ignoreForCoverage>== one can control the scope of the coverage.
+
+
+
+
+As instances of the class ==Pragma==, pragmas are first class objects. A compiled method answers to the message ==pragmas==. This method returns an array of pragmas. 
+
+[[[
+(SplitJoinTest class >> #showDocumentation) pragmas.
+  --> an Array(<ignoreForCoverage>)
+(Float>>#+) pragmas --> an Array(<primitive: 41>)
+]]]
+
+Methods defining a particular query may be retrieved from a class. The class side of ==SplitJoinTest== contains some methods annotated with ==<ignoreForCoverage>==:
+
+[[[
+Pragma allNamed: #ignoreForCoverage in: SplitJoinTest class  --> an Array(<ignoreForCoverage> <ignoreForCoverage> <ignoreForCoverage>)
+]]]
+
+A variant of ==allNamed:in:== may be found on the class side of ==Pragma==.
+
+A pragma knows in which method it is defined (using ==method==), the name of the method (==selector==), the class that contains the method (==methodClass==), its number of arguments (==numArgs==), about the literals the pragma has for arguments (==hasLiteral:== and ==hasLiteralSuchThat:==). 
+
+
+
+!!Chapter summary
+
+
+Reflection refers to the ability to query, examine and even modify the metaobjects of the run-time system as ordinary objects.
+
+-The Inspector uses ==instVarAt:== and related methods to query and modify ''private'' instance variables of objects.
+-Send ==Behavior>>>allInstances== to query instances of a class.
+-The messages ==class==, ==isKindOf:==, ==respondsTo:== etc. are useful for gathering metrics or building development tools, but they should be avoided in regular applications: they violate the encapsulation of objects and make your code harder to understand and maintain.
+-==SystemNavigation== is a utility class holding many useful queries for navigation and browsing the class hierarchy. For example, use ==SystemNavigation default browseMethodsWithSourceString: 'pharo'.== to find and browse all methods with a given source string. (Slow, but thorough!)
+-Every Smalltalk class points to an instance of ==MethodDictionary== which maps selectors to instances of ==CompiledMethod==. A compiled method knows its class, closing the loop.
+-==MethodReference== is a leightweight proxy for a compiled method, providing additional convenience methods, and used by many Smalltalk tools.
+-==BrowserEnvironment==, part of the Refactoring Browser infrastructure, offers a more refined interface than ==SystemNavigation== for querying the system, since the result of a query can be used as a the scope of a new query. Both GUI and programmatic interfaces are available.
+-==thisContext== is a pseudo-variable that reifies the run-time stack of the virtual machine. It is mainly used by the debugger to dynamically construct an interactive view of the stack. It is also especially useful for dynamically determining the sender of a message.
+-Intelligent breakpoints can be set using ==haltIf:==, taking a method selector as its argument. ==haltIf:== halts only if the named method occurs as a sender in the run-time stack.
+-A common way to intercept messages sent to a given target is to use a ''minimal object'' as a proxy for that target. The proxy implements as few methods as possible, and traps all message sends by implementing ==doesNotunderstand:==. It can then perform some additional action and then forward the message to the original target.
+-Send ==become:== to swap the references of two objects, such as a proxy and its target.
+-Beware, some messages, like ==class== and ==yourself== are never really sent, but are interpreted by the VM. Others, like ==+==, ==-== and ==ifTrue:== may be directly interpreted or inlined by the VM depending on the receiver.
+-Another typical use for overriding ==doesNotUnderstand:== is to lazily load or compile missing methods.
+-==doesNotUnderstand:== cannot trap ==self==-sends.
+-A more rigorous way to intercept messages is to use an object as a method wrapper. Such an object is installed in a method dictionary in place of a compiled method. It should implement ==run:with:in:== which is sent by the VM when it detects an ordinary object instead of a compiled method in the method dictionary. This technique is used by the SUnit Test Runner to collect coverage data.
+
+
