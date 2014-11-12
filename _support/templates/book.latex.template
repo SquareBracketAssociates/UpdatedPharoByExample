@@ -21,6 +21,7 @@
   {SmalltalkObjectModel/}
   {SUnit/}
   {Streams/}
+  {Seaside/}
 }
 %=================================================================
 \let\wholebook=\relax

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # This script is meant for the EnterprisePharo book. You can use it for other projects
 
