@@ -286,30 +286,64 @@ You can also use the method finder for methods with arguments; for example, if y
 
 The advent of Test Driven Development (TDD) has changed the way that we write code. The idea behind TDD is that we write a test that defines the desired behaviour of our code before we write the code itself. Only then do we write the code that satisfies the test.
 
-Suppose that our assignment is to write a method that "says something loudly and with emphasis". What exactly could that mean? What would be a good name for such a method? How can we make sure that programmers who may have to maintain our method in the future have an unambiguous description of what it should do? We can answer all of these questions by giving an example:
+Suppose that our assignment is to write a method that "says something loudly and with emphasis". What exactly could that mean? What would be a good name for such a method? How can we make sure that programmers who may have to maintain our method in the future have an unambiguous description of what it should do? We can answer all of these questions by giving an example.
 
-When we send the message shout to the string "Don't panic" the result should be "DON'T PANIC!".
+We will define a new method named ==shout== on the class ==String==. The idea is that this message should turn a string into its uppwercase version as shown below.
 
-To make this example into something that the system can use, we turn it into a test method:
+[[[
+'Don''t panic' shout
+--> 'DON''T PANIC!'
+]]]
+
+We turn this example into a test method on the class ==StringTest==. Here is its definition:
+
 [[[ lang=Smalltalk
 testShout
-  self assert: ('Don"t panic' shout = 'DON"T PANIC!')]]]
+	self assert: ('Don"t panic' shout = 'DON"T PANIC!')
+]]]
 
-How do we create a new method in Pharo? First, we have to decide which class the method should belong to. In this case, the shout method that we are testing will go in class String, so the corresponding test will, by convention, go in a class called ==StringTest==.
+The test checks that when you send the message ==shout== to a string it returns the expected string.
 
-- Open a browser on the class StringTest, and select an appropriate protocol for our method, in this case tests - converting . The highlighted text in the bottom pane is a template that reminds you what a Pharo method looks like. Delete this and enter the code mentioned earlier on: Just select by clicking either on the beginning or end of the text and start typing your method.
+!!! Defining a new test method
 
-Once you have typed the text into the browser, notice that the bottom pane is outlined in red. This is a reminder that the pane contains unsaved changes. So select accept (s) by right clicking in the bottom pane, or just type CMD-s, to compile and save your method.
+We will explain to you how you can define step by step a test method and a method that makes the test passing.
+
+
+How do we create a new method in Pharo? First, we have to decide which class the method should belong to. In this case, the ==shout== method that we are testing will go in class ==String==, so the corresponding test will, by convention, go in a class called ==StringTest==.
+
+
+
+First, open a browser on the class ==StringTest==, and select an appropriate protocol for our method, in this case =='tests - converting'==. The highlighted text in the bottom pane is a template that reminds you what a Pharo method looks like. Delete this and enter the code mentioned earlier on: Just select by clicking either on the beginning or end of the text and start typing your method.
+
+Once you have typed the text into the browser, notice that the corner is orange. This is a reminder that the pane contains unsaved changes. So select ==accept (s)== by right clicking in the bottom pane, or just type ==CMD-s==, to compile and save your method. You should get a situation similar to the one depcited in Figure *testshout*.
+
++Defined a test method in the class ==StringTest==.>file://figures/testshout-00.png|width=70|label=testshout+
+
+
+
+
+
+
++Preview.>file://figures/preview-1.png|width=70|label=preview-1+
+
++Preview.>file://figures/preview-2.png|width=70|label=preview-2+
+
++Preview.>file://figures/shouldBeImplemented-3.png|width=70|label=shouldBeImplemented-3+
+
++Preview.>file://figures/shoutInDebugger-4.png|width=70|label=shoutInDebugger-4+
 
 If this is the first time you have accepted any code in your image, you will likely be prompted to enter your name. Since many people have contributed code to the image, it is important to keep track of everyone who creates or modifies methods. Simply enter your first and last names, without any spaces, or separated by a dot.
 
-Because there is as yet no method called shout, the browser will ask you to confirm that this is the name that you really want - and it will suggest some other names that you might have intended . This can be quite useful if you have merely made a typing mistake, but in this case, we really do mean shout, since that is the method we are about to create, so we have to confirm this by selecting the first option from the menu of choices.
+Because there is as yet no method called ==shout==, the browser will ask you to confirm that this is the name that you really want - and it will suggest some other names that you might have intended . This can be quite useful if you have merely made a typing mistake, but in this case, we really do mean shout, since that is the method we are about to create, so we have to confirm this by selecting the first option from the menu of choices.
 
-- Run your newly created test: open the ""SUnit TestRunner"" from the World Menu.
+
+!!! Running your test method
+
+Run your newly created test: open the ""SUnit TestRunner"" from the World Menu.
 
 The leftmost two panes are a bit like the top panes in the browser. The left pane contains a list of categories, but it's restricted to those categories that contain test classes.
 
-- Select ""CollectionsTests-Text"" and the pane to the right will show all of the test classes in that category, which includes the class ""StringTest"". The names of the classes are already selected, so click Run Selected to run all these tests.
+Select ""CollectionsTests-Text"" and the pane to the right will show all of the test classes in that category, which includes the class ""StringTest"". The names of the classes are already selected, so click Run Selected to run all these tests.
 
 You should see a message like "Unknown selector...", which indicates that there was an error in running the tests. The list of tests that gave rise to errors is shown in the bottom right pane; as you can see, ==StringTest>>testShout== is the culprit. (Note that ==StringTest>>testShout== is the Pharo way of identifying the ==testShout== method of the ==StringTest== class.) If you click on that line of text, the erroneous test will run again, this time in such a way that you see the error happen: ==MessageNotUnderstood: ByteString>>shout==.
 
