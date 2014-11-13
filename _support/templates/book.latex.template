@@ -23,6 +23,7 @@
   {Streams/}
   {Seaside/}
   {Reflection/}
+  {Regex/}
 }
 %=================================================================
 \let\wholebook=\relax
