@@ -28,7 +28,7 @@ We will use regular expressions
 # to extract the title of each web page for the site map, and
 # to generate a relative path from the root directory of the web site to the HTML files it contains.
 
-After we complete the tutorial example, we will provide a more complete description of the Regex package, based largely on Vassili Bykov's documentation provided in the package.(The original documentation can be found on the class side of ==RxParser==.)
+After we complete the tutorial example, we will provide a more complete description of the Regex package, based largely on Vassili Bykov's documentation provided in the package. (The original documentation can be found on the class side of ==RxParser==.)
 
 
 !!Tutorial example — generating a site map
@@ -88,7 +88,7 @@ WebDir class>>onPath: path home: homePath
 So far so good.
 Now we would like to use regexes to find out which HTML files this web site contains.
 
-If we browse the ==FileDirectory== class, we find that the method ==fileNames== will list all the files in a directory. We want to select just those with the file extension ==.html==. The regex that we need is =='.\*\.html'==. The first dot will match any character except a newline:
+If we browse the ==FileDirectory== class, we find that the method ==fileNames== will list all the files in a directory. We want to select just those with the file extension ==.html==. The regex that we need is =='.\*\\.html'==. The first dot will match any character except a newline:
 
 [[[
 'x' matchesRegex: '.' --> true
@@ -231,7 +231,8 @@ Now you should see something like this on your test web site:
 
 
 Our next task is to extract the title of each HTML page.
-First we need a way to get at the contents of each page.  This is straightforward.
+First we need a way to get at the contents of each page.
+This is straightforward.
 
 @@todo Add the following method and try it out.
 
@@ -299,7 +300,7 @@ There are a couple of subtle points to notice here.
 First, HTML does not care whether tags are upper or lower case, so we must make our regex case insensitive by instantiating it with ==asRegexIgnoringCase==.
 
 Second, since dot matches any character ''except a newline'', the regex ==.\*<title>(.\*)</title>== will not work as expected if multiple lines appear before the title.
-The regex ==\w== matches any alphanumeric, and ==\W== will match any non-alphanumeric, so ==[\w\W]== will match any character ''including newlines''.
+The regex ==\\w== matches any alphanumeric, and ==\\W== will match any non-alphanumeric, so ==[\\w\\W]== will match any character ''including newlines''.
 (If we expect titles to possible contain newlines, we should play the same trick with the subexpression.)
 
 Now we can test our title extractor, and we should see something like this:
@@ -432,7 +433,7 @@ A regular expression followed by an asterisk matches any number (including 0) of
 
 The Kleene star has higher precedence than sequencing. A star applies to the
 shortest possible subexpression that precedes it. For example, ==ab\*==
-means ==a== followed by zero or more occurrences of ==b==, not ``zero or more
+means ==a== followed by zero or more occurrences of ==b==, not ''zero or more
 occurrences of ==ab=='':
 
 [[[
@@ -458,7 +459,7 @@ Two other useful operators similar to ==\*== are ==\+== and ==?==.
 'abbc' matchesRegex: 'ab?c' --> false    "too many b's"
 ]]]
 
-As we have seen, the characters ==\*==, ==\+==, ==?==, ==(==, and ==)== have special meaning within regular expressions. If we need to match any of them literally, it should be escaped by preceding it with a backslash ==\==. Thus, backslash is also special character, and needs to be escaped for a literal match. The same holds for all further special characters we will see.
+As we have seen, the characters ==\*==, ==\+==, ==?==, ==(==, and ==)== have special meaning within regular expressions. If we need to match any of them literally, it should be escaped by preceding it with a backslash ==\\ ==. Thus, backslash is also special character, and needs to be escaped for a literal match. The same holds for all further special characters we will see.
 
 [[[
 'ab*' matchesRegex: 'ab*'  --> false    "star in the right string is special"
@@ -524,8 +525,8 @@ Thus, empty and universal sets cannot be specified.
 !!!Character classes
 
 
-Regular expressions can also include the following backquote escapes to refer to popular classes of characters: ==\w== to match alphanumeric characters, ==\d== to match digits, and ==\s== to match whitespace.
-Their upper-case variants, ==\W==, ==\D== and ==\S==, match the complementary characters (non-alphanumerics, non-digits and non-whitespace).
+Regular expressions can also include the following backquote escapes to refer to popular classes of characters: ==\\w== to match alphanumeric characters, ==\\d== to match digits, and ==\\s== to match whitespace.
+Their upper-case variants, ==\\W==, ==\\D== and ==\\S==, match the complementary characters (non-alphanumerics, non-digits and non-whitespace).
 Here is a summary of the syntax seen so far:
 
 |! Syntax               |! What it represents
@@ -540,15 +541,15 @@ Here is a summary of the syntax seen so far:
 | ==[abcd]==		    | match choice of characters ==abcd==
 | ==[^abcd]==	        | match negated choice of characters
 | ==[0-9]==	    	    | match range of characters ==0== to ==9==
-| ==\w==        		| match alphanumeric
-| ==\W==        		| match non-alphanumeric
-| ==\d==        		| match digit
-| ==\D==        		| match non-digit
-| ==\s==        		| match space
-| ==\S==        		| match non-space
+| ==\\w==        		| match alphanumeric
+| ==\\W==        		| match non-alphanumeric
+| ==\\d==        		| match digit
+| ==\\D==        		| match non-digit
+| ==\\s==        		| match space
+| ==\\S==        		| match non-space
 
 As mentioned in the introduction, regular expressions are especially useful for validating user input, and character classes turn out to be especially useful for defining such regexes.
-For example, non-negative numbers can be matched with the regex ==\d\+==:
+For example, non-negative numbers can be matched with the regex ==\\d\+==:
 
 [[[
 '42' matchesRegex: '\d+' --> true
@@ -619,7 +620,7 @@ Note that these elements are components of the character classes, ''i.e.'', they
 
 The next primitive expression is unique to this Smalltalk implementation. A sequence of characters between colons is treated as a unary selector which is supposed to be understood by characters. A character matches such an expression if it answers true to a message with that selector. This allows a more readable and efficient way of specifying character classes. For example, ==[0-9]== is equivalent to ==:isDigit:==, but the latter is more efficient. Analogously to character sets, character classes can be negated: ==:CARETisDigit:== matches a character that answers ==false== to ==isDigit==, and is therefore equivalent to ==[CARET0-9]==.
 
-So far we have seen the following equivalent ways to write a regular expression that matches a non-empty string of digits: ==[0-9]\+==, ==\d\+==, ==[\d]\+==, ==[[:digit:]]\+==, ==:isDigit:\+==.
+So far we have seen the following equivalent ways to write a regular expression that matches a non-empty string of digits: ==[0-9]\+==, ==\\d\+==, ==[\\d]\+==, ==[[:digit:]]\+==, ==:isDigit:\+==.
 
 [[[
 '42' matchesRegex: '[0-9]+'      --> true
@@ -636,12 +637,12 @@ So far we have seen the following equivalent ways to write a regular expression 
 The last group of special primitive expressions shown next is used to match boundaries of strings.
 
 |! Syntax |! What it represents
-| ==\caret== | match an empty string at the beginning of a line
-| ==\$== | match an empty string at the end of a line
-| ==\b== | match an empty string at a word boundary
-| ==\B== | match an empty string not at a word boundary
-| ==\<== | match an empty string at the beginning of a word
-| ==\>== | match an empty string at the end of a word
+| ==CARET== | match an empty string at the beginning of a line
+| ==\\$== | match an empty string at the end of a line
+| ==\\b== | match an empty string at a word boundary
+| ==\\B== | match an empty string not at a word boundary
+| ==\\<== | match an empty string at the beginning of a word
+| ==\\>== | match an empty string at the end of a word
 
 [[[
 'hello world' matchesRegex: '.*\bw.*' --> true      "word boundary before w"
@@ -756,21 +757,23 @@ hex matchesIn: '8r52 = 16r2A'   --> an OrderedCollection('16r2A')
 !!!Matching
 
 
-A matcher understands these messages (all of them return ==true== to indicate successful match or search, and false otherwise):
+A matcher understands these messages (all of them return ==true== to indicate successful match or search, and ==false== otherwise):
 
-==matches: aString== -- true if the whole argument string (aString) matches.
+==matches: aString== — true if the whole argument string (==aString==) matches.
 
 [[[
 '\w+' asRegex matches: 'Krazy' --> true
 ]]]
 
-==matchesPrefix: aString== -- true if some prefix of the argument string (not necessarily the whole string) matches.
+==matchesPrefix: aString== — true if some prefix of the argument string (not necessarily the whole string) matches.
 
 [[[
 '\w+' asRegex matchesPrefix: 'Ignatz hates Krazy' --> true
 ]]]
 
-==search: aString== -- Search the string for the first occurrence of a matching substring. (Note that the first two methods only try matching from  the very beginning of the string). Using the above example with a  matcher for ==a\+==, this method would answer success given a string =='baaa'==, while the previous two would fail.
+==search: aString== — Search the string for the first occurrence of a matching substring.
+Note that the first two methods only try matching from  the very beginning of the string.
+Using the above example with a matcher for ==a\+==, this method would answer success given a string =='baaa'==, while the previous two would fail.
 
 [[[
 '\b[a-z]+\b' asRegex search: 'Ignatz hates Krazy' --> true    "finds 'hates'"
@@ -800,7 +803,7 @@ names matchesStreamPrefix: ignatz --> true
 After a successful match attempt, you can query which part of the original string has matched which part of the regex. A subexpression is a parenthesized part of a regular expression, or the whole expression. When a regular expression is compiled, its subexpressions are assigned indices starting from 1, depth-first, left-to-right.
 
 
-For example, the regex ==((\d\+)\s\*(\w\+))== has four subexpressions, including itself.
+For example, the regex ==((\\d\+)\\s\*(\\w\+))== has four subexpressions, including itself.
 
 [[[
 1:    ((\d+)\s*(\w+))    "the complete expression"
@@ -877,16 +880,16 @@ There are also the following methods for iterating over matches within streams:
 ==copyStream:to:replacingMatchesWith:== and
 ==copyStream:to:translatingMatchesUsing:==.
 
-[[[
-in := ReadStream on: '12 drummers, 11 pipers, 10 lords, 9 ladies, etc.'.
-out := WriteStream on: ''.
-numMatch := '\<\d+\>' asRegex.
-numMatch
-  copyStream: in
-  to: out
-  translatingMatchesUsing: [:each | each asNumber asFloat asString ].
-out close; contents --> '12.0 drummers, 11.0 pipers, 10.0 lords, 9.0 ladies, etc.'
-]]]
+% [[[
+% in := ReadStream on: '12 drummers, 11 pipers, 10 lords, 9 ladies, etc.'.
+% out := WriteStream on: ''.
+% numMatch := '\<\d+\>' asRegex.
+% numMatch
+%   copyStream: in
+%   to: out
+%   translatingMatchesUsing: [:each | each asNumber asFloat asString ].
+% out close; contents --> '12.0 drummers, 11.0 pipers, 10.0 lords, 9.0 ladies, etc.'
+% ]]]
 
 
 !!!Error Handling
