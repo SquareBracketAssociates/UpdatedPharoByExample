@@ -21,6 +21,7 @@
   {SmalltalkObjectModel/}
   {SUnit/}
   {Streams/}
+  {Morphic/}
   {Seaside/}
   {Reflection/}
   {Regex/}
