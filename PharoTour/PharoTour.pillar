@@ -178,7 +178,7 @@ Type ""self squared"" in the bottom panel of the inspector on ""7"" and ""print 
 
 +Inspecting an object>file://figures/inspector.png|width=80|label=inspector+
 
-Close the inspector. Type the expression [[[language=smalltalk Object]]] in a workspace and this time ""explore it"" (CMD-I, uppercased i)
+Close the inspector. Type the expression [[[language=smalltalk Object]]] in a workspace and this time ""explore it"" (CMD-SHIFT-i)
 
 This time you should see a window labelled ""Object"" containing the text ""root: Object"". Click on the triangle to open it up.
 
