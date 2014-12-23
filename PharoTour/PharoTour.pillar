@@ -149,9 +149,7 @@ Transcript show: 'hello world'; cr.]]]
 
 !!Keyboard shortcuts
 
-If you want  to evaluate an expression, you do not always have to right click. Instead, you can use keyboard shortcuts. These are the parenthesized expressions in the menu.  Depending on your platform, you may have to press one of the modifier keys which are control, alt and command. We will be focusing on the MacOS platform since this is the platform most Pharo developers use where command key (a.k.a CMD key) is the main modifier key, the similar key in Windows is Alt and so is in Linux  so each time you see something like CMD-d just replace with the appropriate modifier key depending on your OS.
-
-@@todo TODO: Test that alt is the modifier key for Linux
+If you want  to evaluate an expression, you do not always have to right click. Instead, you can use keyboard shortcuts. These are the parenthesized expressions in the menu.  Depending on your platform, you may have to press one of the modifier keys which are control, alt and command. We will be focusing on the MacOS platform since this is the platform most Pharo developers use; there the command key (a.k.a CMD key) is the main modifier key. The modifier key in Windows is Alt, and in Linux it is either Alt or Control. Each time you see something like CMD-d just replace with the appropriate modifier key depending on your OS.
 
 In addition to ""do it"", you might have noticed ""print it"", ""inspect it"" and ""explore it"". Let's have a quick look at each of these.
 
