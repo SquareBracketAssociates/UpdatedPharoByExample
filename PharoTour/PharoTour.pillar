@@ -172,7 +172,7 @@ We use the notation ""-->"" as a convention in this book to indicate that a part
 Delete the highlighted text "7" (Pharo should have selected it for you, so you can just press the delete key). Select ==3+4== again and this time ""inspect it"" ( CMD-i)
 
 
-Now you should see a new window, called an ''inspector'', with the heading SmallInteger: 7. The inspector is an extremely useful tool that will allow you to browse and interact with any object in the system. The title tells us that 7 is an instance of the class ''SmallInteger''. The left panel allows us to browse the instance variables of an object, the values of which are shown in the right panel.The bottom panel can be used to write expressions to send messages to the object.
+Now you should see a new window, called an ''inspector'', with the heading "SmallInteger". The inspector is an extremely useful tool that will allow you to browse and interact with any object in the system. The title tells us that 7 is an instance of the class ''SmallInteger''. The left panel allows us to browse the instance variables of an object, the values of which are shown in the right panel.The bottom panel can be used to write expressions to send messages to the object.
 
 Type ""self squared"" in the bottom panel of the inspector on ""7"" and ""print it"".
 
