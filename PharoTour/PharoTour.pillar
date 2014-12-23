@@ -201,7 +201,13 @@ We can see a Systen Browser in Figure *systemBrowser*. The title bar indicates t
 
 When the System Browser first opens, all panes are empty but the leftmost one. This first pane lists all known packages, which contain groups of related classes.
 
-When we select a package it causes the second pane to show a list of all of the classes in the selected package. When a class object is selected the remaining two panes will be filled with text. The third pane displays the protocols of the currently selected class. These are convenient groupings of related methods. If no protocol is selected you should see all methods in the fourth pane.
+!!!! Expand the "Kernal" package and select "Objects"
+
+When we select a package it causes the second pane to show a list of all of the classes in the selected package.
+
+!!!! Select the "Object" class
+
+When a class object is selected the remaining two panes will be filled with text. The third pane displays the protocols of the currently selected class. These are convenient groupings of related methods. If no protocol is selected you should see all methods in the fourth pane.
 
 !!!! Select the ""printing"" protocol
 
