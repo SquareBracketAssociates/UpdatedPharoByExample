@@ -130,18 +130,17 @@ Before going into the details of SUnit, we will show a step by step example.  We
 
 !!! Step 1: create the test class
 
-First you should create a new subclass of ==TestCase== called ==ExampleSetTest==.   Add two instance variables so that your new
+First you should create a new subclass of ==TestCase== called ==MyExampleSetTest==.   Add two instance variables so that your new
 class looks like this:
 
 [[[An Example Set Test class
-TestCase subclass: #ExampleSetTest
+TestCase subclass: #MyExampleSetTest
 	instanceVariableNames: 'full empty'
 	classVariableNames: ''
-	poolDictionaries: ''
 	category: 'MySetTest'
 ]]]
 	
-We will use the class ==ExampleSetTest== to group all the tests related to the class ==Set==.  It defines the context in which the tests will run.  Here the context is described by the two instance variables ==full== and ==empty== that we will use to represent a full and an empty set.
+We will use the class ==MyExampleSetTest== to group all the tests related to the class ==Set==.  It defines the context in which the tests will run.  Here the context is described by the two instance variables ==full== and ==empty== that we will use to represent a full and an empty set.
 
 The name of the class is not critical, but by convention it should end in ==Test==.
 If you define a class called ==Pattern== and call the corresponding test class ==PatternTest==, the two classes will be alphabetized together in the browser (assuming that they are in the same category).  It ''is'' critical that your class be a subclass of ==TestCase==.
@@ -155,7 +154,7 @@ Define the ==setUp== method as follows, to initialize the ==empty== variable to 
 refer to a set containing two elements. 
 
 [[[Setting up a fixture
-ExampleSetTest>>>setUp
+MyExampleSetTest>>>setUp
 	empty := Set new.
 	full := Set with: 5 with: 6
 ]]]
@@ -164,7 +163,7 @@ In testing jargon the context is called the ''fixture'' for the test.
 
 !!!Step 3: write some test methods
 
-Let's create some tests by defining some methods in the class ==ExampleSetTest==.
+Let's create some tests by defining some methods in the class ==MyExampleSetTest==.
 Each method represents one test; the name of the method should start with the string =='test''== so that SUnit will collect them into test suites.
 Test methods take no arguments.
 
@@ -174,7 +173,7 @@ message ==includes: 5== to a set containing 5 should return ==true==.  Clearly, 
 that the ==setUp== method has already run.
 
 [[[Testing set membership
-ExampleSetTest>>>testIncludes
+MyExampleSetTest>>>testIncludes
 	self assert: (full includes: 5).
 	self assert: (full includes: 6)
 ]]]
@@ -184,7 +183,7 @@ number of occurrences of~5 in ==full== set is equal to one, even if we
 add another element~5 to the set.
 
 [[[Testing occurrences
-ExampleSetTest>>>testOccurrences
+MyExampleSetTest>>>testOccurrences
 	self assert: (empty occurrencesOf: 0) = 0.
 	self assert: (full occurrencesOf: 5) = 1.
 	full add: 5.
@@ -195,7 +194,7 @@ ExampleSetTest>>>testOccurrences
 Finally, we test that the set no longer contains the element 5 after we have removed it.
 
 [[[Testing removal
-ExampleSetTest>>>testRemove
+MyExampleSetTest>>>testRemove
 	full remove: 5.
 	self assert: (full includes: 6).
 	self deny: (full includes: 5)
@@ -207,44 +206,34 @@ Note the use of the method ==TestCase>>deny:== to assert something that should n
 
 !!!Step 4: run the tests
 
-The easiest way to run the tests is directly from the browser.  Simply click on the icon of the package, class name, or on an individual test method, and select ''Run tests (t)''.
-The test methods will be flagged red or green, depending on whether they pass or not, and the class will be flagged fully or partially green or red depending on whether all, some or none of the tests pass.
+The easiest way to run the tests is directly from the browser.  Simply click on the icon of the package, class name, or on an individual test method, and select ''Run tests (t)'' or press the icon.
+The test methods will be flagged red or green, depending on whether they pass or not, and the class will be flagged fully or partially green or red depending on whether all, some or none of the tests pass (as shown in *browsertests*).
 
-%\begin{figure[tbh]
-%  \begin{center==
-%	\includegraphics[width=\linewidth]{browser-tests==
-%	\caption{Running SUnit tests from the browser==
-%	\figlabel{browser-tests==
-%  \end{center==
-%\end{figure
-%
++Running SUnit tests from the browser>file://figures/updatedbrowsertests.png|width=80|label=browsertests+ 
 
 You can also select sets of test suites to run, and obtain a more detailed log of the results using the SUnit Test Runner, which you can open by selecting ''World > Test Runner''.
 
-%The ''TestRunner==, shown in \figref{test-runner==, is designed to make it easy  to execute groups of tests.
-%The left-most pane lists all of the categories that contain test classes (\ie  subclasses of ==TestCase); when some of these categories are selected, the test classes that they contain appear in the pane to the right.
-%Abstract classes are italicized, and the test class hierarchy is shown by indentation, so subclasses of ==ClassTestCase are indented more than subclasses of ==TestCase.
-%
-%\begin{figure[tbh]
-%  \begin{center==
-%	\includegraphics[width=\linewidth]{test-runner==
-%	\caption{The \pharo SUnit Test Runner==
-%	\figlabel{test-runner==
-%  \end{center==
-%\end{figure
-%
+The ''TestRunner'', shown in *test-runner*, is designed to make it easy  to execute groups of tests.
+
+The left-most pane lists all of the categories that contain test classes (i.e.,  subclasses of ==TestCase==; when some of these categories are selected, the test classes that they contain appear in the pane to the right.
+Abstract classes are italicized, and the test class hierarchy is shown by indentation, so subclasses of ==ClassTestCase== are indented more than subclasses of ==TestCase==.
+
+
+
++Running SUnit tests from the browser>file://figures/updatedtestRunner.png|width=80|label=test-runner+ 
+
 
 
 
 Open a Test Runner, select the category ''MySetTest'', and click the Run Selected button.
 
-You can also run a single test by executing a ''print it'' on the following code: ==ExampleSetTest run: #testRemove==.
+You can also run a single test by executing a ''print it'' on the following code: ==MyExampleSetTest run: #testRemove==.
 
 We usually include an executable comment in our test methods that allows us to run them
 with a ''do it'' from the browser, as shown below.
 
 [[[Executable comments in test methods
-ExampleSetTest>>>testRemove
+MyExampleSetTest>>>testRemove
 	"self run: #testRemove"
 	full remove: 5.
 	self assert: (full includes: 6).
@@ -252,7 +241,7 @@ ExampleSetTest>>>testRemove
 ]]]
 
 
-Introduce a bug in ==ExampleSetTest>>testRemove== and run the tests again. For example, change ==5== to ==4==.
+Introduce a bug in ==MyExampleSetTest>>testRemove== and run the tests again. For example, change ==5== to ==4==.
 
 
 The tests that did not pass (if any) are listed in the right-hand panes of
@@ -260,9 +249,9 @@ the ''Test Runner''; if you want to debug one, to see why it failed, just click 
 Alternatively, you can execute the following expressions:
 
 [[[
-ExampleSetTest selector: #testRemove) debug
+MyExampleSetTest selector: #testRemove) debug
 
-ExampleSetTest debug: #testRemove
+MyExampleSetTest debug: #testRemove
 ]]]
 
 !!!Step 5: interpret the results
@@ -296,7 +285,7 @@ Next, SUnit provides two additional methods, ==TestCase>>should:raise:== and
 For example, you would use ==(self should: aBlock raise: anException)== to test that a particular exception is raised during the execution of ==aBlock==.  The method below illustrates the use of ==should:raise:==.
 	
 [[[Testing error raising
-	ExampleSetTest>>>testIllegal
+	MyExampleSetTest>>>testIllegal
 		self should: [ empty at: 5 ] raise: Error.
 		self should: [ empty at: 5 put: #zork ] raise: Error
 ]]]
@@ -305,30 +294,26 @@ Try running this test. Note that the first argument of the ==should:== and ==sho
 
 
 SUnit is portable: it can be used from all dialects of Smalltalk.  To make SUnit portable, its developers factored-out the dialect-dependent aspects.  The class method  ==TestResult class error== answers the system's error class in a dialect-independent fashion.
-%You can take advantage of this: if you want to write tests that will work in any dialect of \st, instead of
-%\mthref{ESTtestIllegal== you would write:
-%
-%\needlines{4==
-%\begin{method==[portabletestillegal]{Portable error handling==
-%ExampleSetTest>>>testIllegal
-%	self should: [empty at: 5] raise: TestResult error.
-%	self should: [empty at: 5 put: #zork] raise: TestResult error
-%\end{method==
-%
-%\dothis{Give it a try.==
-%
-%%---------------------------------------------------------
+You can take advantage of this and rewrite the previous method as follows: 
+
+[[[Portable error handling
+MyExampleSetTest>>>testIllegal
+	self should: [empty at: 5] raise: TestResult error.
+	self should: [empty at: 5 put: #zork] raise: TestResult error
+]]]	
+
 !!!Running a single test
-%Normally, you will run your tests using the Test Runner.
-%If you don't want to launch the Test Runner from the \menu{open\,\ldots== menu, you can execute ==TestRunner open== as a \menu{print it==.
-%
-%You can run a single test as follows.
-%
-%\begin{code{==
-%ExampleSetTest run: #testRemove --> 1 run, 1 passed, 0 failed, 0 errors
-%\end{code
-%
-%%---------------------------------------------------------
+
+Normally, you will run your tests using the Test Runner or using your code browser. 
+If you don't want to launch the Test Runner from the World menu, you can execute ==TestRunner open==.
+You can also run a single test as follows:
+
+[[[
+MyExampleSetTest run: #testRemove 
+--> 1 run, 1 passed, 0 failed, 0 errors
+]]]
+
+
 !!!Running all the tests in a test class
 %
 %Any subclass of ==TestCase responds to the message ==suite, which will build a test suite that contains all the
@@ -337,7 +322,7 @@ SUnit is portable: it can be used from all dialects of Smalltalk.  To make SUnit
 %For example:
 %
 %\begin{code{==
-%ExampleSetTest suite run --> 5 run, 5 passed, 0 failed, 0 errors
+%MyExampleSetTest suite run --> 5 run, 5 passed, 0 failed, 0 errors
 %\end{code
 %
 %%---------------------------------------------------------
