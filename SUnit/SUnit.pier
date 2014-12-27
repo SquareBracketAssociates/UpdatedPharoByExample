@@ -315,30 +315,26 @@ MyExampleSetTest run: #testRemove
 
 
 !!!Running all the tests in a test class
-%
-%Any subclass of ==TestCase responds to the message ==suite, which will build a test suite that contains all the
-%methods in the class whose names start with the string ''==test==''.
-%To run the tests in the suite, send it the message ==run==.
-%For example:
-%
-%\begin{code{==
-%MyExampleSetTest suite run --> 5 run, 5 passed, 0 failed, 0 errors
-%\end{code
-%
-%%---------------------------------------------------------
+
+Any subclass of ==TestCase== responds to the message ==suite==, which will build a test suite that contains all the methods in the class whose names start with the string ''==test==''.
+
+To run the tests in the suite, send it the message ==run==.
+For example:
+
+[[[
+MyExampleSetTest suite run --> 5 run, 5 passed, 0 failed, 0 errors
+]]]
+
 !!!Must I subclass TestCase?
-%
-%In \JUnit{== you can build a \clsind{TestSuite from an arbitrary class
-%containing ==test*== methods.  In \st you can do the same
-%but you will then have to create a suite by hand and your class will
-%have to implement all the essential ==TestCase methods like ==assert:==.
-%We recommend that you not try to do this.  The framework is there: use it.
-%%=================================================================
+
+In JUnit you can build a TestSuite from an arbitrary class containing ==test*== methods.  In SUnit you can do the same but you will then have to create a suite by hand and your class will
+have to implement all the essential ==TestCase== methods like ==assert:==. We, however,  recommend that you not try to do this.  The framework is there: use it.
+
 
 !!The SUnit framework
 
-%SUnit consists of four main classes: \clsind{TestCase,
-%\clsind{TestSuite, \clsind{TestResult==, and \clsind{TestResource, as shown in \figref{sunit-classes==.
+SUnit consists of four main classes: ==TestCase==,
+==TestSuite==, ==TestResult==, and ==TestResource, as shown in sunit-classes.
 %The notion of a ''test resource was introduced in SUnit 3.1 to represent a resource that is expensive to set-up but which can be used by
 %a whole series of tests.  A ==TestResource
 %specifies a ==setUp== method that is executed just once before a suite of tests;
@@ -464,20 +460,20 @@ MyExampleSetTest run: #testRemove
 %number of methods that allow the programmer to supply a description of the assertion.  The description is a ==String==; if the test case
 %fails, this string will be displayed by the test runner.  Of
 %course, this string can be constructed dynamically.
-%\begin{code{==
+[[[
 %| e |
 %e := 42.
 %self assert: e = 23
 %	description: 'expected 23, got ', e printString
-%\end{code
+]]]
 %
 %The relevant methods in ==TestCase are:
-%\begin{code{==
+[[[
 %#assert:description:
 %#deny:description:
 %#should:description:
 %#shouldnt:description:
-%\end{code
+]]]
 %\cmindex{TestCase{assert:description:==
 %\cmindex{TestCase{deny:description:==
 %\cmindex{TestCase{should:description:==
@@ -497,23 +493,23 @@ MyExampleSetTest run: #testRemove
 %powerful feature that uses the exception mechanisms offered
 %by \st.  To see what this can be used for, let's look at an
 %example. Consider the following test expression:
-%\begin{code{==
+[[[
 %aCollection do: [ :each | self assert: each even]
-%\end{code
+]]]
 %In this case, as soon as the test finds the first element of the collection that isn't
 %==even==, the test stops.
 %However, we would usually like to
 %continue, and see both how many elements, and which elements, aren't
 %==even==, and maybe also log this information.  You can do this
 %as follows:
-%\begin{code{==
+[[[
 %aCollection do:
 %	[:each |
 %	self
 %		assert: each even
 %		description: each printString , ' is not even'
 %		resumable: true]
-%\end{code
+]]]
 %This will print out a message on your logging stream for each element
 %that fails.  It doesn't accumulate failures, \ie if the assertion
 %fails 10~times in your test method, you'll still only see one failure.
@@ -764,7 +760,7 @@ Here is some advice on how to design tests.
 %%SharedOne suite run
 %%\end{script==
 %%we will obtain the following trace.
-%%\begin{code{==
+%[[[
 %%SharedOne>>>setUp
 %%SharedOne class>>>sharedSetUp
 %%SharedOne>>>testOne
@@ -774,7 +770,7 @@ Here is some advice on how to design tests.
 %%SharedOne>>>tearDown
 %%SharedOne class>>>sharedTearDown
 %%2 run, 2 passed, 0 failed, 0 errors
-%%\end{code
+%]]]
 %%You can see that the shared code is executed just once for both
 %%tests.
 %
