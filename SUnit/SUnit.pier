@@ -233,89 +233,78 @@ You can also select sets of test suites to run, and obtain a more detailed log o
 %  \end{center==
 %\end{figure
 %
-%\dothis{Open a Test Runner, select the category \menu{MySetTest==, and click the \button{Run Selected== button.==
-%
-%% ON: With OB, you don't need this.
-%%You can also run a single test by executing a \menu{print it== on the following code: ==ExampleSetTest run: #testRemove.
-%%We usually include an executable comment in our test methods that allows us to run them
-%%with a \menu{do it== from the browser, as shown in \mthref{ExampleSetTestTestRemoveii==.
-%
-%%\needlines{6==
-%%\begin{method==[ExampleSetTestTestRemoveii]{Executable comments in test methods==
-%%ExampleSetTest>>>testRemove
-%%	"self run: #testRemove"
-%%	full remove: 5.
-%%	self assert: (full includes: 6).
-%%	self deny: (full includes: 5)
-%%\end{method==
-%
-%\dothis{Introduce a bug in ==ExampleSetTest>>>testRemove and run the tests again. For example, change ==5== to ==4==.==
-%
-%The tests that did not pass (if any) are listed in the right-hand panes of
-%the ''Test Runner==;
-%if you want to debug one, to see why it failed, just click on the name.
-%%Alternatively, you can execute the following expressions:
-%%\begin{code{==
-%%(ExampleSetTest selector: #testRemove) debug
-%%\end{code
-%%or
-%%\begin{code{==
-%%ExampleSetTest debug: #testRemove
-%%\end{code
-%
-%%---------------------------------------------------------
+
+
+
+Open a Test Runner, select the category ''MySetTest'', and click the Run Selected button.
+
+You can also run a single test by executing a ''print it'' on the following code: ==ExampleSetTest run: #testRemove==.
+
+We usually include an executable comment in our test methods that allows us to run them
+with a ''do it'' from the browser, as shown below.
+
+[[[Executable comments in test methods
+ExampleSetTest>>>testRemove
+	"self run: #testRemove"
+	full remove: 5.
+	self assert: (full includes: 6).
+	self deny: (full includes: 5)
+]]]
+
+
+Introduce a bug in ==ExampleSetTest>>testRemove== and run the tests again. For example, change ==5== to ==4==.
+
+
+The tests that did not pass (if any) are listed in the right-hand panes of
+the ''Test Runner''; if you want to debug one, to see why it failed, just click on the name.
+Alternatively, you can execute the following expressions:
+
+[[[
+ExampleSetTest selector: #testRemove) debug
+
+ExampleSetTest debug: #testRemove
+]]]
+
 !!!Step 5: interpret the results
-%
-%The method \mthind{TestCase{assert:==\,, which is defined in the class
-%==TestCase, expects a boolean argument, usually the value of a tested expression.  When the argument is
-%true, the
-%test passes; when the argument is false, the test fails.
-%
-%There are actually three possible outcomes of a test.
-%The outcome that we hope for is that all of the assertions in the test are true, in which case the test passes.
-%In the test runner, when all of the tests pass, the bar at the top turns green.
-%However, there are also two kinds of thing that can go wrong when
-%you run a test.
-%Most obviously, one of the assertions can be false, causing the test to ''fail==.
-%However, it is also possible that some kind of error occurs during the execution of the test, such as a ''message not understood== error or an ''index out of bounds== error.
-%If an error occurs, the assertions in the test method may not have been executed at all,
-%so we can't say that the test has failed; nevertheless, something is clearly wrong!
-%In the {test runner==, failing tests cause the bar at the top to turn yellow, and are listed in the middle pane on the right, whereas erroneous tests cause the bar to turn red, and are listed in the bottom pane on the right.
-%
-%\dothis{Modify your tests to provoke both errors and failures.==
-%
-%%=================================================================
+
+The method ==TestCase>>assert:==, which is defined in the class ==TestCase==, expects a boolean argument, usually the value of a tested expression.  When the argument is
+true, the test passes; when the argument is false, the test fails.
+
+There are actually three possible outcomes of a test.
+The outcome that we hope for is that all of the assertions in the test are true, in which case the test passes. In the test runner, when all of the tests pass, the bar at the top turns green.
+However, there are also two kinds of thing that can go wrong when
+you run a test. Most obviously, one of the assertions can be false, causing the test to ''fail''.
+However, it is also possible that some kind of error occurs during the execution of the test, such as a ''message not understood'' error or an ''index out of bounds'' error.
+If an error occurs, the assertions in the test method may not have been executed at all,
+so we can't say that the test has failed; nevertheless, something is clearly wrong!
+In the ''test runner'', failing tests cause the bar at the top to turn yellow, and are listed in the middle pane on the right, whereas erroneous tests cause the bar to turn red, and are listed in the bottom pane on the right.
+
+Modify your tests to provoke both errors and failures.
 
 !!The SUnit cook book
-%This section will give you more details on how to use SUnit.  If you
-%have used another testing framework such as \JUnit\footnote{\url{http://junit.org====,
-%much of this will be familiar, since all these frameworks have their roots in SUnit.
-%Normally you will use SUnit's GUI to run tests, but there are
-%situations where you may not want to use it.
-%%---------------------------------------------------------
+This section will give you more details on how to use SUnit.  If you have used another testing framework such as JUnit,  much of this will be familiar, since all these frameworks have their roots in SUnit. Normally you will use SUnit's GUI to run tests, but there are
+situations where you may not want to use it.
+
 !!!Other assertions
-%In addition to ==assert:== and ==deny:==, there are several other methods that can be used to make assertions.
-%
-%First, \mthind{TestCase{assert:description:== and \mthind{TestCase{deny:description:== take a second argument which is a message string that can be used to describe the reason for the failure, if it is not obvious from the test itself.   These methods are described in~\secref{descriptionStrings==.
-%
-%Next, SUnit provides two additional methods, \mthind{TestCase{should:raise:== and
-%\mthind{TestCase{shouldnt:raise:== for testing exception propagation.
-%For example, you would use
-%==(self should: aBlock raise: anException)== to test that a particular exception is raised during the execution of ==aBlock==.  \Mthref{ESTtestIllegal==
-%illustrates the use of \mbox{==should:raise:==.==
-%
-%\dothis{Try running this test.==
-%Note that the first argument of the ==should:== and ==shouldnt:== methods is a \emphind{block== that ''contains== the expression to be evaluated.
-%
-%\begin{method==[ESTtestIllegal]{Testing error raising==
-%ExampleSetTest>>>testIllegal
-%	self should: [empty at: 5] raise: Error.
-%	self should: [empty at: 5 put: #zork] raise: Error
-%\end{method==
-%
-%SUnit is portable: it can be used from all dialects of \st.  To make
-%SUnit portable, its developers factored-out the dialect-dependent aspects.  The class method \cmind{TestResult class=={error== answers
-%the system's error class in a dialect-independent fashion.
+In addition to ==assert:== and ==deny:==, there are several other methods that can be used to make assertions.
+
+First, ==TestCase>>assert:description:== and ==TestCase>>deny:description:== take a second argument which is a message string that can be used to describe the reason for the failure, if it is not obvious from the test itself.   These methods are described in descriptionStrings.
+
+Next, SUnit provides two additional methods, ==TestCase>>should:raise:== and
+==TestCase>>shouldnt:raise:== for testing exception propagation.
+
+For example, you would use ==(self should: aBlock raise: anException)== to test that a particular exception is raised during the execution of ==aBlock==.  The method below illustrates the use of ==should:raise:==.
+	
+[[[Testing error raising
+	ExampleSetTest>>>testIllegal
+		self should: [ empty at: 5 ] raise: Error.
+		self should: [ empty at: 5 put: #zork ] raise: Error
+]]]
+
+Try running this test. Note that the first argument of the ==should:== and ==shouldnt:== methods is a block that contains the expression to be evaluated.
+
+
+SUnit is portable: it can be used from all dialects of Smalltalk.  To make SUnit portable, its developers factored-out the dialect-dependent aspects.  The class method  ==TestResult class error== answers the system's error class in a dialect-independent fashion.
 %You can take advantage of this: if you want to write tests that will work in any dialect of \st, instead of
 %\mthref{ESTtestIllegal== you would write:
 %
