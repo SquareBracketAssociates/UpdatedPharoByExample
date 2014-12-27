@@ -1124,7 +1124,7 @@ Here is some advice on how to design tests.
 
 This chapter explained why tests are an important investment in the future of your code.
 We explained in a step-by-step fashion how to define a few tests for the class ==Set==.
-Then we gave an overview of the core of the SUnit framework by presenting the classes ==TestCase, ==TestResult==, ==TestSuite==
+Then we gave an overview of the core of the SUnit framework by presenting the classes ==TestCase==, ==TestResult==, ==TestSuite==
 and ==TestResources==.  Finally we looked deep inside SUnit by following the execution of a test and a test suite.
 
 
