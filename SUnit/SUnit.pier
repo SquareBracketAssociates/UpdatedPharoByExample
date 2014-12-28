@@ -143,7 +143,7 @@ TestCase subclass: #MyExampleSetTest
 We will use the class ==MyExampleSetTest== to group all the tests related to the class ==Set==.  It defines the context in which the tests will run.  Here the context is described by the two instance variables ==full== and ==empty== that we will use to represent a full and an empty set.
 
 The name of the class is not critical, but by convention it should end in ==Test==.
-If you define a class called ==Pattern== and call the corresponding test class ==PatternTest==, the two classes will be alphabetized together in the browser (assuming that they are in the same category).  It ''is'' critical that your class be a subclass of ==TestCase==.
+If you define a class called ==Pattern== and call the corresponding test class ==PatternTest==, the two classes will be alphabetized together in the browser (assuming that they are in the same package).  It ''is'' critical that your class be a subclass of ==TestCase==.
 
 !!!Step 2: initialize the test context
 
@@ -179,8 +179,8 @@ MyExampleSetTest>>>testIncludes
 ]]]
 
 The second test, named ==testOccurrences==, verifies that the
-number of occurrences of~5 in ==full== set is equal to one, even if we
-add another element~5 to the set.
+number of occurrences of 5 in ==full== set is equal to one, even if we
+add another element 5 to the set.
 
 [[[Testing occurrences
 MyExampleSetTest>>>testOccurrences
@@ -225,7 +225,7 @@ Abstract classes are italicized, and the test class hierarchy is shown by indent
 
 
 
-Open a Test Runner, select the category ''MySetTest'', and click the Run Selected button.
+Open a Test Runner, select the package ''MySetTest'', and click the Run Selected button.
 
 You can also run a single test by executing a ''print it'' on the following code: ==MyExampleSetTest run: #testRemove==.
 
@@ -337,91 +337,77 @@ have to implement all the essential ==TestCase== methods like ==assert:==. We, h
 this is in distinction to the ==TestCase>>setUp== method, which is executed before
 each test.
 
-%\begin{figure[htb]
-%  \begin{center==
-%		{\includegraphics[width=0.8\textwidth]{sunit-classes====
-%	\caption{The four classes representing the core of SUnit==
-%	\figlabel{sunit-classes==
-%  \end{center==
-%\end{figure
-%
-%
-%%---------------------------------------------------------
-!!TestCase
+
++The four classes representing the core of SUni>file://figures/sunit-classes.png|width=80|label=sunit-classes+ 
+
+
+!!!TestCase
 
 
  ==TestCase== is an abstract class that is designed to be subclassed; each of its subclasses represents a group of tests that share a common context (that is, a test suite).
  Each test is run by creating a new instance of a subclass of ==TestCase==,
 running ==setUp==, running the test method itself, and then sending the ==tearDown==.
 
-The context is specified by instance variables of the subclass and by the specialization of the method ==setUp==, which initializes those instance variables. %Subclasses of ==TestCase== can also override method ==tearDown==, which is invoked after the execution of each test,
+The context is specified by instance variables of the subclass and by the specialization of the method ==setUp==, which initializes those instance variables. Subclasses of ==TestCase== can also override method ==tearDown==, which is invoked after the execution of each test,
 and can be used to release any objects allocated during ==setUp==.
 
-%%---------------------------------------------------------
-!!TestSuite
-%
-%Instances of the class \clsindmain{TestSuite contain a collection of test cases.  An
-%instance of ==TestSuite contains tests, and other test suites.
-%That is, a test suite contains sub-instances of
-%==TestCase and ==TestSuite.
-%Both individual \lct{TestCases and \lct{TestSuites understand the same protocol, so they can be treated in the same way; for example, both can be ==run==.
-%This is in fact an application of the composite
-%pattern in which ==TestSuite is the composite and the
-%==TestCases are the leaves\,---\,see \textit{Design Patterns== for more information on this pattern\cite{Gamm95a==.
-%%---------------------------------------------------------
-!!TestResult
-%
-%The class \clsindmain{TestResult== represents the results of a
-%==TestSuite execution.  It records the number of tests passed,
-%the number of tests failed, and the number of errors signalled.
-%
-%%---------------------------------------------------------
-!!TestResource
-%\seclabel{resource
-%
-%One of the important  features of a suite of tests is that they should be independent of each other: the failure of one test should not cause an avalanche of failures of other tests that depend upon it, nor should the order in which the tests are run matter.
-%Performing ==setUp== before each test and ==tearDown== afterwards helps to reinforce this independence.
-%
-%However, there are occasions where setting up the necessary context is just too time-consuming for it to be practical to do once before the execution of each test.
-%Moreover, if it is known that the test cases do not disrupt the resources used by the tests, then it is wasteful to set them up afresh for each test; it is sufficient to set them up once for each suite of tests.
-%Suppose, for example, that a suite of tests needs to query a database, or do some analysis on some compiled code.
-%In such cases, it may make sense to set up the database and open a connection to it, or to compile some source code, before any of the tests start to run.
-%
-%Where should we cache these resources, so that they can be shared by a suite of tests?
-%The instance variables of a particular ==TestCase sub-instance won't do, because such an instance persists only for the duration of a single test.
-%A global variable would work, but using too many global variables pollutes the name space, and the binding between the global and the tests that depend on it will not be explicit.
-%A better solution is to put the necessary resources in a singleton object of some class.
-%The class \clsindmain{TestResource exists to be subclassed by such resource classes.
-%Each subclass of \lct{TestResource understands the message  ==current==, which will answer a singleton instance of that subclass.
-%Methods ==setUp== and ==tearDown== should be overridden in the subclass to ensure that the resource is initialized and finalized.
-%
-%One thing remains: somehow, SUnit has to be told which resources are associated with which test suite.
-%A resource is associated
-%with a particular subclass of ==TestCase
-%by overriding the ''class== method ==resources==.
-%\ab{The set of resources attributed to each test is actually the closure of these resources under the resources message, but I think that we don't want to say that!==
-%By default, the resources of
-%a ==TestSuite are
-%the union of the resources of
-%the ==TestCases that it contains.
-%
-%Here is an example.
-%We define a subclass of ==TestResource called
-%==MyTestResource and we associate it with ==MyTestCase
-%by specializing the class method ==resources== to return an array
-%of the test classes that it will use.
-%
-%\needlines{8==
-%\begin{classdef==[mytestresource]{An example of a TestResource subclass==
-%TestResource subclass: #MyTestResource
-%	instanceVariableNames: ''
-%
-%MyTestCase class>>>resources
-%	"associate the resource with this class of test cases"
-%	^{ MyTestResource ==
-%\end{classdef==
-%
-%%\needlines{10==
+
+!!!TestSuite
+
+Instances of the class ==TestSuite== contain a collection of test cases.  An
+instance of ==TestSuite== contains tests, and other test suites.
+That is, a test suite contains sub-instances of
+==TestCase== and ==TestSuite==.
+
+Both individual test cases and  test suites understand the same protocol, so they can be treated in the same way; for example, both can be ==run==. This is in fact an application of the composite pattern in which ==TestSuite== is the composite and the test cases are the leaves.
+
+!!!TestResult
+
+The class ==TestResult== represents the results of a ==TestSuite== execution.  It records the number of tests passed, the number of tests failed, and the number of errors signalled.
+
+
+!!!TestResource
+@resource
+
+One of the important  features of a suite of tests is that they should be independent of each other: the failure of one test should not cause an avalanche of failures of other tests that depend upon it, nor should the order in which the tests are run matter.
+Performing ==setUp== before each test and ==tearDown== afterwards helps to reinforce this independence.
+
+
+However, there are occasions where setting up the necessary context is just too time-consuming for it to be practical to do once before the execution of each test.
+Moreover, if it is known that the test cases do not disrupt the resources used by the tests, then it is wasteful to set them up afresh for each test; it is sufficient to set them up once for each suite of tests.
+Suppose, for example, that a suite of tests needs to query a database, or do some analysis on some compiled code.
+In such cases, it may make sense to set up the database and open a connection to it, or to compile some source code, before any of the tests start to run.
+
+Where should we cache these resources, so that they can be shared by a suite of tests?
+The instance variables of a particular ==TestCase== sub-instance won't do, because such an instance persists only for the duration of a single test.
+A global variable would work, but using too many global variables pollutes the name space, and the binding between the global and the tests that depend on it will not be explicit.
+A better solution is to put the necessary resources in a singleton object of some class.
+The class ==TestResource== exists to be subclassed by such resource classes.
+Each subclass of ==TestResource== understands the message  ==current==, which will answer a singleton instance of that subclass.
+Methods ==setUp== and ==tearDown== should be overridden in the subclass to ensure that the resource is initialized and finalized.
+
+One thing remains: somehow, SUnit has to be told which resources are associated with which test suite.
+A resource is associated with a particular subclass of ==TestCase== by overriding the ''class'' method ==resources==.
+
+By default, the resources of a ==TestSuite are the union of the resources of
+the ==TestCases that it contains.
+
+Here is an example.
+We define a subclass of ==TestResource== called ==MyTestResource== and we associate it with ==MyTestCase== by specializing the class method ==resources== to return an array
+of the test classes that it will use.
+
+
+
+[[[An example of a TestResource subclass
+TestResource subclass: #MyTestResource
+	instanceVariableNames: ''
+
+MyTestCase class>>>resources
+	"associate the resource with this class of test cases"
+	^{ MyTestResource }
+]]]
+
+
 %%\begin{classdef==[mytestresource]{An example of a TestResource subclass==
 %%TestResource subclass: #MyTestResource
 %%	instanceVariableNames: ''
@@ -504,7 +490,7 @@ and can be used to release any objects allocated during ==setUp==.
 ]]]
 %This will print out a message on your logging stream for each element
 %that fails.  It doesn't accumulate failures, \ie if the assertion
-%fails 10~times in your test method, you'll still only see one failure.
+%fails 10 times in your test method, you'll still only see one failure.
 %All the other assertion methods that we have seen are not resumable;
 %==assert: p description: s== is equivalent to ==assert: p description: s resumable: false.
 %\cmindex{Collection=={do:==
@@ -1022,7 +1008,7 @@ Here is some advice on how to design tests.
 %%				yourself]
 %%\end{method==
 %%If you have made all the changes correctly, you should be able to run
-%%your tests and see the results shown in section~\ref{sec:extending==.
+%%your tests and see the results shown in section \ref{sec:extending==.
 %%
 %%\section{Exercise
 %
