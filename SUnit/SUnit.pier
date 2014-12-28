@@ -7,7 +7,7 @@ As might be guessed from its name, the design of SUnit focussed on ''Unit Tests'
 
 In this chapter we start by discussing why we test, and what makes a good test.
 We then present a series of small examples showing how to use SUnit.
-Finally, we look at the implementation of SUnit, so that you can understand how Smalltalk uses the power of reflection in supporting its tools.
+Finally, we look at the implementation of SUnit, so that you can understand how Smalltalk uses the power of reflection in supporting its tools. Note that the version documented in this chapter and used in Pharo is a modified version of SUnit3.3. In the future, Pharo may include version of SUnit4.0.
 
 
 %=================================================================
@@ -407,27 +407,67 @@ MyTestCase class>>>resources
 	^{ MyTestResource }
 ]]]
 
+!!!Exercise
 
-%%\begin{classdef==[mytestresource]{An example of a TestResource subclass==
-%%TestResource subclass: #MyTestResource
-%%	instanceVariableNames: ''
-%
-%%MyTestResource>>>setUp
-%%	"Set up resources here."
-%
-%%MyTestResource>>>tearDown
-%%	"Tear down resources here."
-%
-%%MyTestCase class>>>resources
-%%	"associate the resource with this class of test cases"
-%%	^{ MyTestResource ==
-%%\end{classdef==
-%
-%% \on{Do we really need the empty setUp and tearDown methods here?==
-%
-%%=================================================================
-%\section{Advanced features of SUnit==
-%In addition to ==TestResource, the current version of SUnit contains assertion
+Are you able to obtain the following trace, when executing a test suite?
+What you see if that a global set up is run before and after the sequence of tests
+
+[[[
+MyTestResource>>>setUp has run.
+MyTestCase>>>setUp has run.
+MyTestCase>>>testOne has run.
+MyTestCase>>>tearDown has run.
+MyTestCase>>>setUp has run.
+MyTestCase>>>testTwo has run.
+MyTestCase>>>tearDown has run.
+MyTestResource>>>tearDown has run.
+]]]
+
+
+Create new classes ==MyTestResource== and ==MyTestCase==
+which are subclasses of ==TestResource== and ==TestCase==
+respectively.  Add the appropriate methods so that the following
+messages are written to the ==Transcript== when you run your
+tests.
+
+
+
+You need to write the following six methods.
+
+[[[
+MyTestCase>>>setUp
+	Transcript
+	 	show: 'MyTestCase>>>setUp has run.'; cr
+
+MyTestCase>>>tearDown
+	Transcript
+		show: 'MyTestCase>>>tearDown has run.'; cr
+
+MyTestCase>>>testOne
+	Transcript
+		 show: 'MyTestCase>>>testOne has run.'; cr
+
+MyTestCase>>>testTwo
+	Transcript
+		show: 'MyTestCase>>>testTwo has run.'; cr
+
+MyTestCase class>>>resources
+	^ Array with: MyTestResource
+
+MyTestResource>>>setUp
+	Transcript
+		show: 'MyTestResource>>>setUp has run'; cr
+
+MyTestResource>>>tearDown
+	Transcript
+		show: 'MyTestResource>>>tearDown has run.'; cr	
+]]]
+
+
+
+
+!!Advanced features of SUnit
+In addition to ==TestResource==, the current version of SUnit contains assertion
 %description strings, logging support, and resumable test failures.
 %
 %%---------------------------------------------------------
@@ -719,355 +759,15 @@ Here is some advice on how to design tests.
 %  So, have a property in mind when you write a test.
 %\end{description==
 %
-!!Extending SUnit
-%%\seclabel{extending==
+
+%%%%
+%%%%
+%%%% For now I will not include how to extend SUnit because we have to review the code
+%%%% and make sure that this is working and worth because we can do it with resources
 
 
-%In this section we will explain how to extend SUnit so that it uses
-%%a ==setUp== and ==tearDown== that are shared by all of the
-%%tests in a ==TestCase subclass.  We will define a new sublass
-%%of ==TestCase called ==SharingSetUpTestCase, and a
-%%subclass of ==SharingSetUpTestCase called ==SharedOne.
-%%We will also need to define a new subclass of ==TestSuite
-%%called ==SharedSetUpTestSuite, and we will make some minor
-%%adjustments to ==TestCase.
-%
-%%Our tests will be in ==SharedOne.  When we execute
-%%\begin{script==
-%%Transcript clear.
-%%SharedOne suite run
-%%\end{script==
-%%we will obtain the following trace.
-%[[[
-%%SharedOne>>>setUp
-%%SharedOne class>>>sharedSetUp
-%%SharedOne>>>testOne
-%%SharedOne>>>tearDown
-%%SharedOne>>>setUp
-%%SharedOne>>>testTwo
-%%SharedOne>>>tearDown
-%%SharedOne class>>>sharedTearDown
-%%2 run, 2 passed, 0 failed, 0 errors
-%]]]
-%%You can see that the shared code is executed just once for both
-%%tests.
-%
-!!!SharedSetUpTestCase
-%
-%%The extension of the SUnit framework is based on the introduction
-%%of two classes: ==SharedSetUpTestCase and
-%%==SharedSetUpTestSuite.  The basic idea is to use a flag that
-%%is flushed (cleared) after a certain number of tests have been run.
-%%The class ==SharedSetUpTestCase defines one instance variable
-%%that indicates whether each test is run individually or in the context
-%%of a shared ==setUp== and ==tearDown==.  There are also two
-%%class instance variables.  One indicates the number of tests for which
-%%the shared ==setUp== should be in effect, and the other indicates
-%%whether the shared ==setUp== is in effect.
-%%\begin{method==[xxx]{xxx==
-%%SharedSetUpTestCase
-%%	superclass: TestCase
-%%	instanceVariableNames: 'runIndividually '
-%%	classInstanceVariableNames: 'numberOfTestsToTearDown
-%%								 sharedSetUp '
-%%\end{method==
-%%==suiteClass== is used by ==TestCase to determine the
-%%suite that is running.
-%%\begin{method==[xxx]{xxx==
-%%SharedSetUpTestCase class>>>suiteClass
-%%	^SharedSetUpTestSuite
-%%\end{method==
-%%\begin{method==[xxx]{xxx==
-%%SharedSetUpTestCase class>>>sharedSetUp
-%%	"A subclass should only override this hook to define
-%%	 a sharedSetUp"
-%%\end{method==
-%%\begin{method==[xxx]{xxx==
-%%SharedSetUpTestCase class>>>sharedTearDown
-%%	"Here we specify the teardown of the shared setup"
-%%\end{method==
-%%\begin{method==[xxx]{xxx==
-%%SharedSetUpTestCase class>>>flushSharedSetUp
-%%	sharedSetUp := nil
-%%\end{method==
-%%The ==SharedSetUpTestCase class is initialized with the number
-%%of tests for which the shared ==setUp== should be in effect.
-%%\begin{method==[xxx]{xxx==
-%%SharedSetUpTestCase class>>>armTestsToTearDown: aNumber
-%%	self flushSharedSetUp.
-%%	numberOfTestsToTearDown := aNumber.
-%%\end{method==
-%%Every time a test is run, the method ==anothertestHasBeenRun== is
-%%invoked.  Once the specified number of tests is reached the
-%%==sharedSetUp== is flushed and the ==sharedTearDown== is
-%%executed.
-%%\begin{method==[xxx]{xxx==
-%%SharedSetUpTestCase class>>>anotherTestHasBeenRun
-%%	"Everytimes a test is run this method is called,
-%%	 once all the tests of the suite
-%%	 are run the shared setup is reset"
-%%	numberOfTestsToTearDown := numberOfTestsToTearDown - 1.
-%%	numberOfTestsToTearDown isZero
-%%		ifTrue:
-%%			[self flushSharedSetUp.
-%%			self sharedTearDown]
-%%\end{method==
-%%When a test is run its ==setUp== is executed and it then it calls
-%%the class method ==privateSharedSetUp==.  This method will only
-%%invoke the ==sharedSetUp== if the ==sharedSetUp== test
-%%indicates that it hasn't been done yet.
-%%\begin{method==[xxx]{xxx==
-%%SharedSetUpTestCase class>>>privateSharedSetUp
-%%	sharedSetUp isNil
-%%		ifTrue:
-%%			[sharedSetUp := 1.
-%%			self sharedSetUp]
-%%\end{method==
-%%\begin{method==[xxx]{xxx==
-%%SharedSetUpTestCase>>>setUp
-%%	self class privateSharedSetUp
-%%\end{method==
-%%\begin{method==[xxx]{xxx==
-%%SharedSetUpTestCase>>>tearDown
-%%	self class anotherTestHasBeenRun
-%%\end{method==
-%%When a test case is created we assume that it will be run once.  We
-%%can change this later by invoking the method
-%%==executedFromASuite.
-%%\begin{method==[xxx]{xxx==
-%%SharedSetUpTestCase>>>setTestSelector: aSymbol
-%%	"Must do it this way because there is no initialize"
-%
-%%	runIndividually := true.
-%%	super setTestSelector: aSymbol
-%%\end{method==
-%%\begin{method==[xxx]{xxx==
-%%SharedSetUpTestCase>>>executedFromASuite
-%%	runIndividually := false
-%%\end{method==
-%%The methods responsible for test execution are then specialized as
-%%follows.
-%%\begin{method==[xxx]{xxx==
-%%runIndividually
-%%	^runIndividually
-%%\end{method==
-%%\begin{method==[xxx]{xxx==
-%%SharedSetUpTestCase>>>armTearDownCounter
-%%	self runIndividually
-%%		ifTrue: [self class armTestsToTearDown: 1]
-%%\end{method==
-%%\begin{method==[xxx]{xxx==
-%%SharedSetUpTestCase>>>runCaseAsFailure
-%%	self armTearDownCounter.
-%%	super runCaseAsFailure
-%%\end{method==
-%%\begin{method==[xxx]{xxx==
-%%SharedSetUpTestCase>>>runCase
-%%	self armTearDownCounter.
-%%	super runCase
-%%\end{method==
-%
-!!!SharedOne
-%
-%%==SharedOne is a new class which inherits from
-%%==SharingSetUpTestCase as follows.  We define two simple tests
-%%==testOne and ==testTwo==.
-%%\begin{method==[xxx]{xxx==
-%%SharedOne
-%%	superclass: SharingSetUpTestCase
-%%\end{method==
-%%\begin{method==[xxx]{xxx==
-%%SharedOne>>>testOne
-%%	Transcript
-%%		show: 'SharedOne>>>testOne';
-%%		cr
-%%\end{method==
-%%\begin{method==[xxx]{xxx==
-%%SharedOne>>>testTwo
-%%	Transcript
-%%		show: 'SharedOne>>>testTwo';
-%%		cr
-%%\end{method==
-%%Then we define the methods ==setUp== and ==tearDown== that
-%%will be executed before and after the execution of the tests exactly
-%%in the same way as with non sharing tests.  Note however, the fact
-%%that with the solution we will present we have to explicitly invoke
-%%the ==setUp== method and ==tearDown== of the superclass.
-%%\begin{method==[xxx]{xxx==
-%%SharedOne>>>setUp
-%%	Transcript
-%%		show: 'SharedOne>>>setUp';
-%%		cr.
-%%	super setUp
-%%\end{method==
-%%\begin{method==[xxx]{xxx==
-%%SharedOne>>>tearDown
-%%	Transcript
-%%		show: 'SharedOne>>>tearDown';
-%%		cr.
-%%	super tearDown
-%%\end{method==
-%%Finally, we define the methods ==sharedSetUp== and
-%%==sharedTearDown== that will be only executed once for the two
-%%tests.  Note that this solution assumes that the tests are not
-%%destructive to the shared fixture, but just query it.
-%%\begin{method==[xxx]{xxx==
-%%SharedOne class>>>sharedSetUp
-%%	Transcript
-%%		show: 'SharedOne class>>>sharedSetUp';
-%%		cr
-%%	"My set up here."
-%%\end{method==
-%%\begin{method==[xxx]{xxx==
-%%SharedOne class>>>sharedTearDown
-%%	Transcript
-%%		show: 'SharedOne class>>>sharedTearDown';
-%%		cr
-%%	"My tear down here."
-%%\end{method==
-%
-!!!SharedSetUpTestSuite
-%
-%%The ==SharedSetUpTestSuite defines just one instance variable
-%%==testCaseClass== and redefines the two methods necessary to run
-%%the test suite ==run:== and ==run==.
-%%==checkAndArmSharedSetUp== initializes the number of tests to run
-%%before the shared ==tearDown== is executed.
-%%\begin{method==[xxx]{xxx==
-%%SharedSetUpTestSuite
-%%	superclass: TestSuite
-%%	instanceVariableNames: 'testCaseClass'
-%%\end{method==
-%%\begin{method==[xxx]{xxx==
-%%SharedSetUpTestSuite>>>checkAndArmSharedSetUp
-%%	self tests isEmpty
-%%		ifFalse: [self tests first class
-%%				 armTestsToTearDown: self tests size]
-%%\end{method==
-%%\begin{method==[xxx]{xxx==
-%%SharedSetUpTestSuite>>>run: aResult
-%%	self checkAndArmSharedSetUp.
-%%	^super run: aResult
-%%\end{method==
-%%\begin{method==[xxx]{xxx==
-%%SharedSetUpTestSuite>>>run
-%%	self checkAndArmSharedSetUp.
-%%	^super run
-%%\end{method==
-%%Finally the method ==addTest:== is specialized so that it marks
-%%all its tests with the fact that they are executed in a
-%%==TestSuite and checks whether all its tests are from the same
-%%class to avoid inconsistency.
-%%\begin{method==[xxx]{xxx==
-%%SharedSetUpTestSuite>>>addTest: aTest
-%%	"Sharing a setup only works if the test case
-%%	composing the test suite are from
-%%	the same class so we test it"
-%
-%%	aTest executedFromASuite.
-%%	testCaseClass isNil
-%%		ifTrue: [testCaseClass := aTest class.
-%%				super addTest: aTest ]
-%%		ifFalse: [aTest class == testCaseClass
-%%				  ifFalse: [self error:
-%%						   'you cannot have test case of
-%%							different classes in
-%%							a SharingSetUpTestSuite'.]
-%%				  ifTrue: [super addTest: aTest]]
-%%\end{method==
-%
-%!!Changes to ==TestCase==
-%
-%%In order for the above changes to work, you must make
-%%==TestCase aware of your new test suite.
-%%\begin{method==[xxx]{xxx==
-%%TestCase class>>>buildSuite
-%%	| suite |
-%%	^self isAbstract
-%%		ifTrue:
-%%			[suite := self suiteClass new.
-%%			suite name: self name asString.
-%%			self allSubclasses
-%%				do: [:each |
-%%					each isAbstract
-%%						ifFalse: [suite addTest:
-%%						  each buildSuiteFromSelectors]].
-%%			suite]
-%%		ifFalse: [self buildSuiteFromSelectors]
-%%\end{method==
-%%\begin{method==[xxx]{xxx==
-%%TestCase class>>>buildSuiteFromMethods: testMethods
-%%	^testMethods
-%%		inject: ((self suiteClass new)
-%%				name: self name asString;
-%%				yourself)
-%%		into:
-%%			[:suite :selector |
-%%			suite
-%%				addTest: (self selector: selector);
-%%				yourself]
-%%\end{method==
-%%If you have made all the changes correctly, you should be able to run
-%%your tests and see the results shown in section \ref{sec:extending==.
-%%
-%%\section{Exercise
-%
-%%The previous section was designed to give you some insight into the
-%%workings of SUnit.  You can obtain the same effect by using SUnit's
-%%resources.
-%
-%%Create new classes ==MyTestResource and ==MyTestCase
-%%which are subclasses of ==TestResource and ==TestCase
-%%respectively.  Add the appropriate methods so that the following
-%%messages are written to the ==Transcript== when you run your
-%%tests.
-%
-%%\begin{method==[xxx]{xxx==
-%%MyTestResource>>>setUp has run.
-%%MyTestCase>>>setUp has run.
-%%MyTestCase>>>testOne has run.
-%%MyTestCase>>>tearDown has run.
-%%MyTestCase>>>setUp has run.
-%%MyTestCase>>>testTwo has run.
-%%MyTestCase>>>tearDown has run.
-%%MyTestResource>>>tearDown has run.
-%%\end{method==
-%
-%%% You need to write the following six methods.
-%
-%%% MyTestCase>>>setUp
-%%%	 Transcript
-%%%		 show: 'MyTestCase>>>setUp has run.';
-%%%		 cr
-%
-%%% MyTestCase>>>tearDown
-%%%	 Transcript
-%%%		 show: 'MyTestCase>>>tearDown has run.';
-%%%		 cr
-%
-%%% MyTestCase>>>testOne
-%%%	 Transcript
-%%%		 show: 'MyTestCase>>>testOne has run.';
-%%%		 cr
-%
-%%% MyTestCase>>>testTwo
-%%%	 Transcript
-%%%		 show: 'MyTestCase>>>testTwo has run.';
-%%%		 cr
-%
-%%% MyTestCase class>>>resources
-%%%	 ^Array with: MyTestResource
-%
-%%% MyTestResource>>>setUp
-%%%	 Transcript
-%%%		 show: 'MyTestResource>>>setUp has run';
-%%%		 cr
-%
-%%% MyTestResource>>>tearDown
-%%%	 Transcript
-%%%		 show: 'MyTestResource>>>tearDown has run.';
-%%%		 cr
-%%=================================================================
+
+
 !!Chapter summary
 
 This chapter explained why tests are an important investment in the future of your code.
