@@ -333,14 +333,10 @@ have to implement all the essential ==TestCase== methods like ==assert:==. We, h
 
 !!The SUnit framework
 
-SUnit consists of four main classes: ==TestCase==,
-==TestSuite==, ==TestResult==, and ==TestResource, as shown in sunit-classes.
-%The notion of a ''test resource was introduced in SUnit 3.1 to represent a resource that is expensive to set-up but which can be used by
-%a whole series of tests.  A ==TestResource
-%specifies a ==setUp== method that is executed just once before a suite of tests;
-%this is in distinction to the ==TestCase>>>setUp== method, which is executed before
-%each test.
-%
+ SUnit consists of four main classes: ==TestCase==, ==TestSuite==, ==TestResult==, and ==TestResource==, as shown in sunit-classes. The notion of a ''test resource'' represents a resource that is expensive to set-up but which can be used by a whole series of tests.  A ==TestResource== specifies a ==setUp== method that is executed just once before a suite of tests;
+this is in distinction to the ==TestCase>>setUp== method, which is executed before
+each test.
+
 %\begin{figure[htb]
 %  \begin{center==
 %		{\includegraphics[width=0.8\textwidth]{sunit-classes====
@@ -352,19 +348,15 @@ SUnit consists of four main classes: ==TestCase==,
 %
 %%---------------------------------------------------------
 !!TestCase
-%
-%\clsindmain{TestCase is an abstract class that is designed to be subclassed; each of its subclasses represents a group of tests that share a common context (that is, a test suite).
-%Each test is run by creating a new instance of a subclass of ==TestCase,
-%running \mthind{TestCase{setUp==, running the test method itself, and then running \mthind{TestCase{tearDown==.
-%
-%The context is specified
-%by instance variables of the subclass
-%and by the specialization of the method
-%==setUp==, which initializes those instance variables.
-%Subclasses of ==TestCase can also override method
-%==tearDown==, which is invoked after the execution of each test,
-%and can be used to release any objects
-%allocated during ==setUp==.
+
+
+ ==TestCase== is an abstract class that is designed to be subclassed; each of its subclasses represents a group of tests that share a common context (that is, a test suite).
+ Each test is run by creating a new instance of a subclass of ==TestCase==,
+running ==setUp==, running the test method itself, and then sending the ==tearDown==.
+
+The context is specified by instance variables of the subclass and by the specialization of the method ==setUp==, which initializes those instance variables. %Subclasses of ==TestCase== can also override method ==tearDown==, which is invoked after the execution of each test,
+and can be used to release any objects allocated during ==setUp==.
+
 %%---------------------------------------------------------
 !!TestSuite
 %
