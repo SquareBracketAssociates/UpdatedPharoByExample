@@ -3,7 +3,7 @@ INTRODUCTION
 ------------
 
 Pharo by Example is a practical tutorial for Pharo, a smalltalk-inspired programming language, IDE and live coding enviroment. This book is an updated version of the Pharo By Example for Pharo 1.4. This version focuses on the latest
-stable version of Pharo which at the time of writing is Pharo 3.
+stable version of Pharo which at the time of writing is Pharo 4.
 
 You find more info and more documentation about Pharo in the [pharo website](http://pharo.org/)
 
@@ -14,7 +14,7 @@ More info about contributing in this book can be found in the github repository 
 in the [CONTRIBUTING.md](https://github.com/SquareBracketAssociates/UpdatedPharoByExample/blob/master/CONTRIBUTING.md)
 file that you can view with any text editor/viewer.
 
-Any comment, suggestion, advice can be sent to the pharo-dev mailing list a link can be found in the [Get Help](http://pharo.org/get-help) section of the [pharo website](http://pharo.org/).
+Any comment, suggestion, advice can be sent to the pharo-dev mailing list a link can be found in the [Get Help](http://www.pharo.org/community) section of the [pharo website](http://www.pharo.org/).
 
 Other outputs of this book
 ---------------------------
