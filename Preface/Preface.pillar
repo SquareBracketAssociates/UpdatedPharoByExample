@@ -83,11 +83,11 @@ site: *http://www.pharoByExample.org>http://www.pharoByExample.org*.
 
 !!Acknowledgments
 
-We would first like to thank Alan Kay, Dan Ingalls and their team for making Squeak this amazing Smalltalk development environment available as an open-source project.
+We would first like to thank Alan Kay, Dan Ingalls and their team for making Squeak this amazing Smalltalk development environment available as an open-source project from which Pharo took roots.
 
 We would also like to thank Hilaire Fernandes and Serge Stinckwich who allowed us to translate parts of their columns on Smalltalk, and Damien Cassou 
 for contributing the chapter on streams. We especially thank Alexandre Bergel, Orla Greevy, Fabrizio Perin, Lukas Renggli, Jorge Ressia and Erwann Wernli for their detailed reviews.
 
 We thank the University of Bern, Switzerland, for graciously supporting this open-source project and for hosting the web site of this book.
 
-We also thank the Pharo community for their enthusiastic support of this book project. Thank for all the translations.
+We also thank the Pharo community for their enthusiastic support of this book project. Thank for all the translations of the first editions of Pharo by example. 
