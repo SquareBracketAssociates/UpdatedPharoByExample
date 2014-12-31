@@ -43,7 +43,7 @@
 \author{
         Originally by Andrew P. Black \quad St\'ephane Ducasse \\ \quad Oscar Nierstrasz \quad Damien Pollet\quad \\
        with Damien Cassou and Marcus Denker\\
-	   Updated by Kilon Alios, Damien Cassou and St\'ephane Ducasse}
+	   Updated by  Damien Cassou and St\'ephane Ducasse and Kilon Alios}
 \title{\Huge\bf Updated Pharo by Example}
 \isodate
 \date{\emph{Version of \today}}

@@ -5,18 +5,10 @@
 
 
 Pharo is a modern, open source, fully-featured dynamically-typed language inspired from the Smalltalk programming language and environment. 
-In 2008, Pharo was derived from Squeak (see Dan Ingalls et al., Back to the Future: The Story of Squeak, a Practical Smalltalk Written in Itself. 
-*Link>http://www.cosc.canterbury.ac.nz/~wolfgang/cosc205/squeak.html* ), a re-implementation of the classic Smalltalk-80 system. 
-Whereas Squeak was developed mainly as a platform for developing experimental educational software, Pharo strives to offer a lean, 
-open-source platform for professional software development, and a robust and stable platform for research and development into dynamic languages and environments. 
-Pharo serves as the reference implementation for the Seaside web development framework available at *http://www.seaside.st*.
+Pharo strives to offer a lean, open-source platform for professional software development, and a robust and stable platform for research and development into dynamic languages and environments. Pharo serves as the reference implementation for the Seaside web development framework available at *http://www.seaside.st*.
 
-Pharo resolves some licensing issues with Squeak. Unlike previous versions of Squeak, the Pharo core contains only code that has been contributed under the MIT license. 
-The Pharo project started in March 2008 and the first 1.0 beta version was released on July 31, 2009. The current version is Pharo 3.0 and it was released beginning of May 2014.
-Pharo 4.0 is in alpha development and its release is planned for April 2015.
-
-Although Pharo removes many packages from Squeak, it also includes numerous features that are optional in Squeak. For example, true type fonts are bundled 
-into Pharo. Pharo also includes support for true block closures. The user interfaces has been simplified and revised.
+Pharo core contains only code that has been contributed under the MIT license. 
+The Pharo project started in March 2008 and the first 1.0 beta version was released on July 31, 2009. The current version is Pharo 3.0 and it was released beginning of May 2014. Pharo 4.0 is in alpha development and its release is planned for April 2015.
 
 Pharo is highly portable - even its virtual machine is written entirely in Pharo, making it easy to debug, analyze, and change. 
 Pharo is the vehicle for a wide range of innovative projects from multimedia applications and educational platforms to commercial web development environments.
@@ -28,9 +20,8 @@ Pharo will favor small incremental changes but a multitude of them. The success 
 
 !!Who should read this book ?
 
-This book is based on *Squeak by Example>http://SqueakByExample.org*, an open-source introduction to Squeak written by the authors. 
-The book has been liberally adapted and revised to reflect the differences between Pharo and Squeak. This book presents the various aspects of Pharo, 
-starting with the basics, and proceeding to more advanced topics.
+This book is based on *Pharo by Example>http://www.pharobyexample.org*. 
+The book has been liberally adapted and revised to reflect the differences between Pharo 1.4 and Pharo 4.0. This book presents the various aspects of Pharo, starting with the basics, and proceeding to more advanced topics.
 
 This book will not teach you how to program. The reader should have some familiarity with programming languages. 
 Some background with object-oriented programming would be helpful.
@@ -92,14 +83,11 @@ site: *http://www.pharoByExample.org>http://www.pharoByExample.org*.
 
 !!Acknowledgments
 
-We would first like to thank the original developers of Squeak for making this amazing Smalltalk development environment available as an open-source project.
+We would first like to thank Alan Kay, Dan Ingalls and their team for making Squeak this amazing Smalltalk development environment available as an open-source project.
 
 We would also like to thank Hilaire Fernandes and Serge Stinckwich who allowed us to translate parts of their columns on Smalltalk, and Damien Cassou 
-for contributing the chapter on streams. We especially thank Alexandre Bergel, Orla Greevy, Fabrizio Perin, Lukas Renggli, Jorge Ressia and Erwann Wernli for their 
-detailed reviews.
+for contributing the chapter on streams. We especially thank Alexandre Bergel, Orla Greevy, Fabrizio Perin, Lukas Renggli, Jorge Ressia and Erwann Wernli for their detailed reviews.
 
 We thank the University of Bern, Switzerland, for graciously supporting this open-source project and for hosting the web site of this book.
-
-We also thank the Squeak community for informing us of the errors found in the first edition of this book.
 
 We also thank the Pharo community for their enthusiastic support of this book project. Thank for all the translations.
