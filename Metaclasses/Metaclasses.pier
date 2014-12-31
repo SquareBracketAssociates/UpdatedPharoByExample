@@ -76,7 +76,9 @@ The superclass of ==SortedCollection== is ==OrderedCollection==, and the supercl
 
 [[[
 SortedCollection superclass --> OrderedCollection
-OrderedCollection superclass                   --> SequenceableCollection
+OrderedCollection superclass --> SequenceableCollection
+SequenceableCollection --> Collection
+Collection --> Object
 ]]]
 
 
@@ -88,18 +90,18 @@ OrderedCollection superclass                   --> SequenceableCollection
 Everything happens by sending messagess (Rule 4), so we can deduce that ==withAll:== is a message to ==OrderedCollection==, ==class== and ==asSortedCollection== are messages sent to the ordered collection instance, and ==superclass== is a message to ==OrderedCollection== and ==SortedCollection==. The receiver in each case is an object, since everything is an object, but some of these objects are also classes.
 
 
-Method lookup follows the inheritance chain (Rule 5), so when we send the message ==class== to the result of ==Color blue alpha: 0.4==, the message is handled when the corresponding method is found in the class ==Object==, as shown in Figure *fig:classmessage*.
+Method lookup follows the inheritance chain (Rule 5), so when we send the message ==class== to the result of ==(OrderedCollection withAll: #(4 5 6 1 2 3)) asSortedCollection==, the message is handled when the corresponding method is found in the class ==Object==, as shown in Figure *fig:classmessage*.
 
-+Sending a message to a translucent color>file://figures/TranslucentClassMessage.png|label=fig:classmessage+
++Sending a message to a sorted collection>file://figures/SortedCollectionClassMessage.png|label=fig:classmessage+
 
 The figure captures the essence of the ''is-a'' relationship.
-Our translucent blue object ''is a'' ==TranslucentColor== instance, but we can also say that it ''is a'' ==Color== and that it ''is an'' ==Object==, since it responds to the messages defined in all of these classes.
+Our sortedCollection object ''is a'' ==SortedCollection== instance, but we can also say that it ''is a'' ==OrderedCollection== and that it ''is an'' ==Object==, since it responds to the messages defined in all of these classes.
 In fact, there is a message, ==isKindOf:==, that you can send to any object to find out if it is in an ''is a'' relationship with a given class:
 [[[
-translucentBlue := Color blue alpha: 0.4.
-translucentBlue isKindOf: TranslucentColor --> true
-translucentBlue isKindOf: Color                    --> true
-translucentBlue isKindOf: Object                  --> true
+sortedCollection := ((OrderedCollection withAll: #(4 5 6 1 2 3)) asSortedCollection.
+sortedCollection isKindOf: SortedCollection --> true
+sortedCollection isKindOf: OrderedCollection --> true
+sortedCollection isKindOf: Object                  --> true
 ]]]
 
 !!Every class is an instance of a metaclass
@@ -114,26 +116,26 @@ Metaclasses are automatically created when you define a class. We say that they 
 
 Whereas ordinary classes are named by global variables, metaclasses are anonymous.
 However, we can always refer to them through the class that is their instance.
-The class of ==Color==, for instance, is ==Color class==, and the class of ==Object== is ==Object class==:
+The class of ==SortedCollection==, for instance, is ==SortedCollection class==, and the class of ==Object== is ==Object class==:
 [[[
-Color class   --> Color class
+SortedCollection class   --> Color class
 Object class --> Object class
 ]]]
 
 
-Figure *fig:translucentmetaclasses* shows how each class is an instance of its (anonymous) metaclass.
+Figure *fig:translucentmetaclasses* shows how each class is an instance of its (anonymous) metaclass. Note that space reason we skip ==SequenceableCollection== and ==Collection== from the figures and explanation for now. It does not change anything to contents.
 
-+The metaclasses of Translucent and its superclasses>file://figures/TranslucentMetaclasses.png|label=fig:translucentmetaclasses+
++The metaclasses of SortedCollection and its superclasses>file://figures/SortedCollectionMetaclasses.png|label=fig:translucentmetaclasses+
 
 The fact that classes are also objects makes it easy for us to query them by sending messages. Let's have a look:
 
 [[[
-Color subclasses                           --> {TranslucentColor}
-TranslucentColor subclasses         --> #()
-TranslucentColor allSuperclasses  --> an OrderedCollection(Color Object ProtoObject)
-TranslucentColor instVarNames     --> #('alpha')
-TranslucentColor allInstVarNames --> #('rgb' 'cachedDepth' 'cachedBitPattern' 'alpha')
-TranslucentColor selectors             -->  an IdentitySet(#pixelWord32 #asNontranslucentColor #privateAlpha #pixelValueForDepth: #isOpaque #isTranslucentColor #storeOn: #pixelWordForDepth: #scaledPixelValue32 #alpha #bitPatternForDepth: #hash #isTransparent #isTranslucent #balancedPatternForDepth: #setRgb:alpha: #alpha: #storeArrayValuesOn:)
+OrderedCollection subclasses        --> {SortedCollection . ObjectFinalizerCollection . WeakOrderedCollection . OCLiteralList . GLMMultiValue}
+SortedCollection subclasses         --> #()
+SortedCollection allSuperclasses  --> an OrderedCollection(OrderedCollection SequenceableCollection Collection Object ProtoObject)
+SortedCollection instVarNames     --> #('sortBlock')
+SortedCollection allInstVarNames --> #('array' 'firstIndex' 'lastIndex' 'sortBlock')
+SortedCollection selectors             -->  #(#indexForInserting: #sort:to: #addAll: #reSort #sortBlock: #copyEmpty #addFirst: #insert:before: #defaultSort:to: #median #at:put: #add: #= #collect: #flatCollect: #sort: #join: #sortBlock)
 ]]]
 
 
@@ -144,22 +146,23 @@ TranslucentColor selectors             -->  an IdentitySet(#pixelWord32 #asNontr
 !!The metaclass hierarchy parallels the class hierarchy
 
 
-*rule:parallelhierarchy* says that the superclass of a metaclass cannot be an arbitrary class: it is constrained to be the metaclass of the superclass of the metaclass's unique instance.
+Rule 7 says that the superclass of a metaclass cannot be an arbitrary class: it is constrained to be the metaclass of the superclass of the metaclass's unique instance.
 
 [[[
-TranslucentColor class superclass --> Color class
-TranslucentColor superclass class --> Color class
+SortedCollection class superclass --> OrderedCollection class
+SortedCollection superclass class --> OrderedCollection class
 ]]]
 
 
-This is what we mean by the metaclass hierarchy being parallel to the class hierarchy;  Figure *fig:parallelHierarchies* shows how this works in the ==TranslucentColor== hierarchy.
+This is what we mean by the metaclass hierarchy being parallel to the class hierarchy;  Figure *fig:parallelHierarchies* shows how this works in the ==SortedCollection== hierarchy.
 
-+The metaclass hierarchy parallels the class hierarchy.>file://figures/TranslucentMetaclassHierarchy.png|label=fig:parallelHierarchies+
++The metaclass hierarchy parallels the class hierarchy.>file://figures/SortedCollectionMetaclassHierarchy.png|label=fig:parallelHierarchies+
 
 [[[
-TranslucentColor class                                     --> TranslucentColor class
-TranslucentColor class superclass                   --> Color class
-TranslucentColor class superclass superclass --> Object class
+SortedCollection class                                     --> SortedCollection class
+SortedCollection class superclass                   --> OrderedCollection class
+SortedCollection class superclass superclass --> SequenceableCollection class
+SortedCollection class superclass superclass superclass superclass--> Object class
 ]]]
 
 !!!!!Uniformity between Classes and Objects.
@@ -168,26 +171,26 @@ It is interesting to step back a moment and realize that there is no difference 
 In both cases the search for the corresponding method starts in the class of the receiver, and proceeds up the inheritance chain.
 
 Thus, messages sent to classes must follow the metaclass inheritance chain.
-Consider, for example, the method ==blue==, which is implemented on the class side of ==Color==.
-If we send the message ==blue== to ==TranslucentColor==, then it will be looked-up the same way as any other message.
-The lookup starts in ==TranslucentColor class==, and proceeds up the metaclass hierarchy until it is found in ==Color class== (see Figure *fig:metaclasslookup*).
+Consider, for example, the method ==withAll:==, which is implemented on the class side of ==Collection==.
+If we send the message ==withAll:== to ==OrderedCollection==, then it will be looked-up the same way as any other message.
+The lookup starts in ==OrderedCollection class==, and proceeds up the metaclass hierarchy until it is found in ==Collection class== (see Figure *fig:metaclasslookup*).
 
 [[[
-TranslucentColor blue --> Color blue
+(OrderedCollection withAll: #(4 5 6 1 2 3) --> an OrderedCollection (4 5 6 1 2 3) 
 ]]]
 
 Note that we get as a result an ordinary ==Color blue==, and not a translucent one — there is no magic!
 
-+Message lookup for classes is the same as for ordinary objects.>file://figures/TranslucentColorBlue.png|label=fig:metaclasslookup+
++Message lookup for classes is the same as for ordinary objects.>file://figures/InstanceMessage.png|label=fig:metaclasslookup+
 
-Thus we see that there is one uniform kind of method lookup in Smalltalk. Classes are just objects, and behave like any other objects. 
+Thus we see that there is one uniform kind of method lookup in Pharo. Classes are just objects, and behave like any other objects. 
 Classes have the power to create new instances only because classes happen to respond to the message ==new==, and because the method for ==new== knows how to create new instances.
 Normally, non-class objects do not understand this message, but if you have a good reason to do so, there is nothing stopping you from adding a ==new== method to a non-metaclass.
 
 Since classes are objects, we can also inspect them.
 
 
-@@todo Inspect ==Color blue== and ==Color==.
+@@todo Inspect ==(OrderedCollection withAll: #(4 5 6 1 2 3)== and ==OrderedCollection==.
 
 
 Notice that in one case you are inspecting an instance of ==Color== and in the other case the ==Color== class itself.  
