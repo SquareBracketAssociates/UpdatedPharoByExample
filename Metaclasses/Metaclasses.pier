@@ -190,39 +190,38 @@ Normally, non-class objects do not understand this message, but if you have a go
 Since classes are objects, we can also inspect them.
 
 
-@@todo Inspect ==(OrderedCollection withAll: #(4 5 6 1 2 3)== and ==OrderedCollection==.
+@@todo Inspect ==OrderedCollection withAll: #(4 5 6 1 2 3)== and ==OrderedCollection==.
 
 
-Notice that in one case you are inspecting an instance of ==Color== and in the other case the ==Color== class itself.  
+Notice that in one case you are inspecting an instance of ==OrderedCollection== and in the other case the ==OrderedCollection== class itself.  
 This can be a bit confusing, because the title bar of the inspector names the ''class'' of the object being inspected.
 
-The inspector on ==Color== allows you to see the superclass, instance variables, method dictionary, and so on, of the ==Color== class, as shown in Figure *fig:inspectingColor*.
+The inspector on ==OrderedCollection== allows you to see the superclass, instance variables, method dictionary, and so on, of the ==OrderedCollection== class, as shown in Figure *fig:inspectingColor*.
 
-+Classes are objects too.>file://figures/InspectingColor.png|label=fig:inspectingColor+
++Classes are objects too.>file://figures/InspectingOrderedCollection.png|label=fig:inspectingColor+
 
-!!Every metaclass Inherits from ==Class
- and ==Behavior====
+!!Every metaclass Inherits from ==Class== and ==Behavior==
 
 Every metaclass ''is-a'' class, hence inherits from ==Class==.
 ==Class== in turn inherits from its superclasses, ==ClassDescription== and ==Behavior==.
-Since everything in Smalltalk ''is-an'' object, these classes all inherit eventually from ==Object==.
+Since everything in Pharo ''is-an'' object, these classes all inherit eventually from ==Object==.
 We can see the complete picture in Figure *fig:inheritbehavior*.
 
-+Metaclasses inherit from ==Class== and ==Behavior==>file://figures/TranslucentBehavior.png|label=fig:inheritbehavior+
++Metaclasses inherit from ==Class== and ==Behavior==>file://figures/SortedCollectionBehavior.png|label=fig:inheritbehavior+
 
-!!!!!Where is ==new
- defined?==
+!!!!!Where is ==new== defined?
+
 To understand the importance of the fact that metaclasses inherit from ==Class== and ==Behavior==, it helps to ask where ==new== is defined and how it is found. When the message ==new== is sent to a class it is looked up in its metaclass chain and ultimately in its superclasses ==Class==, ==ClassDescription== and ==Behavior== as shown in Figure *fig:sendingnew*.
 
 The question ''''Where is ==new== defined?'''' is crucial. ==new== is first defined in the class ==Behavior==, and it can be redefined in its subclasses, including any of the metaclass of the classes we define, when this is necessary. Now when a message ==new== is sent to a class it is looked up, as usual, in the metaclass of this class, continuing up the superclass chain right up to the class ==Behavior==, if it has not been redefined along the way.
 
-Note that the result of sending ==TranslucentColor new== is an instance of ==TranslucentColor== and ''not'' of ==Behavior==, even though the method is looked-up in the class ==Behavior==!  ==new== always returns an instance of ==self==, the class that receives the message, even if it is implemented in another class.
+Note that the result of sending ==SortedCollection new== is an instance of ==SortedCollection== and ''not'' of ==Behavior==, even though the method is looked-up in the class ==Behavior==!  ==new== always returns an instance of ==self==, the class that receives the message, even if it is implemented in another class.
 
 [[[
-TranslucentColor new class --> TranslucentColor    "not Behavior!"
+SortedCollection new class --> SortedCollection    "not Behavior!"
 ]]]
 
-+==new== is an ordinary message looked up in the metaclass chain.>file://figures/TranslucentSendingNew.png|label=fig:sendingnew+
++==new== is an ordinary message looked up in the metaclass chain.>file://figures/SortedOrderedSendingNew.png|label=fig:sendingnew+
 
 A common mistake is to look for ==new== in the superclass of the receiving class. The same holds for ==new:==, the standard message to create an object of a given size.
 For example, ==Array new: 4== creates an array of 4 elements.
@@ -231,8 +230,8 @@ Instead you should look in ==Array class== and its superclasses, since that is w
 
 
 
-!!!!!Responsibilities of ==Behavior
-, ==ClassDescription== and ==Class==.==
+!!!!!Responsibilities of ==Behavior==, ==ClassDescription== and ==Class==.
+
 ==Behavior== provides the minimum state necessary for objects that have instances: this includes a superclass link, a method dictionary and the class format.  The class format is an integer that encodes the pointer/non-pointer distinction, compact/non-compact class distinction, and basic size of instances.
 ==Behavior== inherits from ==Object==, so it, and all of its subclasses, can behave like objects. 
 
@@ -259,8 +258,7 @@ It provides a class name, compilation methods, method storage, and instance vari
 It provides a concrete representation for class variable names and shared pool variables (==addClassVarName:==, ==addSharedPool:==, ==initialize==).
 Since a metaclass is a class for its sole instance (''i.e.'',, the non-meta class) and provides the service for the instance as a class, all metaclasses inherit ultimately from ==Class==.
 
-!!Every metaclass is an instance of ==Metaclass
-==
+!!Every metaclass is an instance of ==Metaclass==
 
 Metaclasses are objects too; they are instances of the class ==Metaclass== as shown in Figure *fig:metaclassclass*. The instances of class ==Metaclass== are the anonymous metaclasses, each of which 
 has exactly one instance, which is a class.
