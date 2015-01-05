@@ -7,25 +7,26 @@
         vmargin={.75in,1in},
         ignoreheadfoot
 ]{geometry}
-\input{_support/latex/common.tex}
+\input{../support/latex/common.tex}
+% \input{../support/latex/commonLuaTex.tex}
 \setboolean{lulu}{true}
 %=================================================================
 % Add the path for the figures of each chapter here:
 \graphicspath{
   {figures/}
-  {Preface}
-  {PharoTour/}
-  {FirstApplication/}
-  {SyntaxNutshell/}
-  {UnderstandingMessage/}
-  {SmalltalkObjectModel/}
-  {SUnit/}
-  {Streams/}
-  {Morphic/}
-  {Seaside/}
-  {Reflection/}
-  {Regex/}
-  {Metaclasses/}
+  {../Preface/}
+  {../PharoTour/}
+  {../FirstApplication/}
+  {../SyntaxNutshell/}
+  {../UnderstandingMessage/}
+  {../SmalltalkObjectModel/}
+  {../SUnit/}
+  {../Streams/}
+  {../Morphic/}
+  {../Seaside/}
+  {../Reflection/}
+  {../Regex/}
+  {../Metaclasses/}
 }
 %=================================================================
 \let\wholebook=\relax
