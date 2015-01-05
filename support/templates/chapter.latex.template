@@ -9,12 +9,13 @@
 		vmargin={.75in,1in},
 		ignoreheadfoot
 	]{geometry}
-	\input{../_support/latex/common.tex}
+	\input{../support/latex/common.tex}
+	% \input{../support/latex/commonLuaTex.tex}
 	\setboolean{lulu}{true}
 % --------------------------------------------
 % A4:
 %	\documentclass[a4paper,11pt,twoside]{book}
-%	\input{../_support/latex/common.tex}
+%	\input{../support/latex/common.tex}
 %	\usepackage{a4wide}
 % --------------------------------------------    \graphicspath{{figures/} {../figures/}}
 	\begin{document}

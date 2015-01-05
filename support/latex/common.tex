@@ -6,23 +6,12 @@
 % 2006-10-31 - Oscar code macros
 % ...
 
-%=============================================================
-% NB: documentclass must be set in main document.
-% Allows book to be generated in multiple formats.
-%=============================================================
-%:Packages
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}  %%%%%% really important to get the code directly in the text!
-\usepackage{lmodern}
-%\usepackage[scaled=0.85]{bookmanx} % needs another scale factor if used with \renewcommand{\sfdefault}{cmbr}
-\usepackage{palatino}
-\usepackage[scaled=0.9]{helvet}
-\usepackage[protrusion,expansion=false]{microtype}
-\usepackage{graphicx}
-\usepackage{theorem}
-\usepackage[english]{babel}
+\input{../support/latex/commonPdflatex.tex}
+% \input{../support/latex/commonLuaTex.tex}
+
 % ON: pdfsync breaks the use of p{width} for tabular columns!
 \ifdefined\usepdfsync\usepackage{pdfsync}\fi % Requires texlive 2007
+
 %=============================================================
 %:More packages
 %Stef should check which ones are used!
@@ -125,6 +114,7 @@
 \newcommand{\nnbb}[2]{\yellowbox{#1} \triangles{#2}}
 \newcommand{\fix}{\yellowbox{FIX!}}
 \newcommand{\here}{\yellowbox{CONTINUE HERE!}}
+
 % editor macros
 \newcommand{\apl}[1]{\nnbb{Alain}{#1}} % Alain
 \newcommand{\ab}[1]{\nnbb{Andrew}{#1}} % Black
@@ -431,6 +421,7 @@ Damien Pollet},
 % Normally use this for all in-line code:
 % \newcommand{\ct}{\lstinline[mathescape=false,backgroundcolor=\color{white},basicstyle={\sffamily\upshape}]}
 \newcommand{\ct}[1]{{\sffamily\textup{#1}}}
+% \newcommand{\ct}[1]{{\texttt{\textup{#1}}}}
 % apb 2007.8.28 added the \upshape declaration to avoid getting italicized code in \dothis{ } sections.
 % In-line code (latex enabled)
 % Use this only in special situations where \ct does not work
@@ -618,6 +609,7 @@ Damien Pollet},
 \setcounter{bottomnumber}{9}
 \setcounter{totalnumber}{20}
 \setcounter{dbltopnumber}{9}
+
 %=============================================================
 % Give information from each chapter's author
 \newcommand{\contact}[2]{\textbf{#1} \textsf{(#2)}}
@@ -657,3 +649,6 @@ Damien Pollet},
 \textbf{Note:}}{\vspace{0.3cm}\hrule\end{minipage}\end{center}}
 \newenvironment{todo}{\begin{center}\begin{minipage}{8cm}
 \textbf{Book Todo:}}{\end{minipage}\end{center}}
+
+\newenvironment{authorToDo}{\begin{center}\begin{minipage}{8cm}
+\textbf{SHOULD FIX:}}{\end{minipage}\end{center}}
