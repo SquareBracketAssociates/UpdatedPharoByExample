@@ -319,5 +319,5 @@ In Pharo, the angle bracket syntax is also used for method annotations called pr
 -Local variables are declared with vertical bars. Use ==:= == for assignment. ==\|x\| x := 1 ==
 -Expressions consist of message sends, cascades and assignments, possibly grouped with parentheses. Statements are expressions separated by periods.
 -Block closures are expressions enclosed in square brackets. Blocks may take arguments and can contain temporary variables. The expressions in the block are not evaluated until you send the block a value message with the correct number of arguments.[[[lang=Smalltalk
-[ :x | x + 2 ]value:4 --> 6]]]
+[ :x | x + 2 ] value: 4 --> 6]]]
 -There is no dedicated syntax for control constructs, just messages that conditionally evaluate blocks.
