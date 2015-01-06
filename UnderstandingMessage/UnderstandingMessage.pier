@@ -3,29 +3,33 @@
 @chapterUnderstandingMessage
 
 
-Although Smalltalk's message syntax is extremely simple, it is unconventional and can take some time getting used to.
+Although Pharo's message syntax is simple, it is unconventional and can take some time getting used to.
 This chapter offers some guidance to help you get acclimatized to this special syntax for sending messages.
 If you already feel comfortable with the syntax, you may choose to skip this chapter, or come back to it later.
 
 !!Identifying messages
 
 
- In Smalltalk, except for the syntactic elements listed in Chapter *chapterSyntaxNutshell* (\:= ^ . ; # () {} [ : | ]), everything is a message send. As in C\+\+, you can define operators like ==+== for your own classes, but all operators have the same precedence. Moreover, you cannot change the arity of a method. "-" is always a binary message; there is no way to have a unary ''==-=='' with a different overloading.
+ In Pharo, except for the syntactic elements listed in Chapter *chapterSyntaxNutshell* (\:= ^ . ; # () {} [ : | ]), everything is a message send. As in C\+\+, you can define operators like ==+== for your own classes, but all operators have the same precedence. Moreover, you cannot change the arity of a method. "-" is always a binary message; there is no way to have a unary ''==-=='' with a different overloading.
 
-In Smalltalk the order in which messages are sent is determined by the kind of message. There are just three kinds of messages: ""unary , binary, and keyword messages"". Unary messages are always sent first, then binary messages and finally keyword ones. As in most languages, parentheses can be used to change the order of evaluation. These rules make Smalltalk code as easy to read as possible. And most of the time you do not have to think about the rules.
+In Pharo the order in which messages are sent is determined by the kind of message. There are just three kinds of messages: ""unary , binary, and keyword messages"". Unary messages are always sent first, then binary messages and finally keyword ones. As in most languages, parentheses can be used to change the order of execution. These rules make Pharo code as easy to read as possible. And most of the time you do not have to think about the rules.
 
-As most computation in \st is done by message passing, correctly identifying messages is crucial. The following terminology will help us:
+As most computation in Pharo is done by message passing, correctly identifying messages is better to avoid future mistakes. The following terminology will help us:
 
 -A message is composed of the message ""selector"" and the optional message arguments.
 -A message is sent to a ""receiver"".
--The combination of a message and its receiver is called a ''message'' \emphsubind{message}{send} as shown in Figure *fig:firstScriptMessage*.
+-The combination of a message and its receiver is called a ''message send''  as shown in Figure *fig:firstScriptMessage*.
 
 
-+Two messages composed of a receiver, a method selector, and a set of arguments.\figlabel{firstScriptMessage>file://figures/message.png|label=fig:ellipse+
+
++Two message sends composed of a receiver, a method selector, and a set of arguments.>file://figures/message.png|width=80|label=fig:firstScriptMessage+
 
 
 A message is always sent to a receiver, which can be a single literal, a block or a variable or the result of evaluating another message.
-To help you identify the receiver of a message, we will underline it for you. We will also surround each message send with an ellipse and number message sends starting from the first one that will be sent to help you see the order in which messages are sent.
+
+To help you identify the receiver of a message, we will underline it for you. We will also surround each message send with an ellipse and number message sends starting from the first one that will be sent to help you see the order in which messages are sent as shown in Figure *fig:ellipse*.
+
++==aMorph color: Color yellow== is composed of two message sends: ==Color yelow== and ==aMorph color: Color yellow==.>file://figures/uKeyUnOne.png|width=60|label=fig:ellipse+
 
 
 Figure *fig:ellipse* represents two message sends, ==Color yellow== and ==aMorph color: Color yellow==, hence there are two ellipses. The message send ==Color yellow== is executed first so its ellipse is numbered ==1==.  There are two receivers: ==aMorph== which receives the message ==color: ...== and ==Color== which receives the message ==yellow==. Both receivers are underlined.
