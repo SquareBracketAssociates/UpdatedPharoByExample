@@ -1,9 +1,14 @@
-
 INTRODUCTION
 ------------
 
-Pharo by Example is a practical tutorial for Pharo, a smalltalk-inspired programming language, IDE and live coding enviroment. This book is an updated version of the Pharo By Example for Pharo 1.4. This version focuses on the latest
+Pharo by Example is a practical introduction book for Pharo, a smalltalk-inspired programming language, IDE and live coding enviroment. This book is an updated version of the Pharo By Example for Pharo 1.4. This version focuses on the latest
 stable version of Pharo which at the time of writing is Pharo 4.
+
+Current updated chapters are:
+- Syntax in a nutshell
+- SUnit
+- Metaclasses
+- Streams
 
 You find more info and more documentation about Pharo in the [pharo website](http://pharo.org/)
 

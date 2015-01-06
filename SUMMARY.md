@@ -1,6 +1,6 @@
 # Summary
 
-This is Pharo By Example , a practical tutorial for Pharo 3
+This is Pharo By Example, a practical tutorial for Pharo 4.0.
 
 * [Preface](Preface/Preface.pier.md)
 * [Chapter 1 - Pharo Tour](PharoTour/PharoTour.pier.md)
