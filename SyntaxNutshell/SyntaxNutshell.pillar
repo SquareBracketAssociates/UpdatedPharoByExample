@@ -4,7 +4,7 @@
 Pharo adopts a syntax very close to that of its ancestor Smalltalk. The syntax is designed so that program text can be read aloud as though it were a kind of pidgin English. The following method of the class ==Week== shows an example of the syntax. It checks whether ==DayNames== contains already the argument, i.e., if this the argument represents a correct day name. When this is the case it will assigns it to the variable ==StartDay==.
 
 
-[[[lang=Smalltalk
+[[[language=Smalltalk
 startDay: aSymbol
  
    (DayNames includes: aSymbol)
@@ -120,31 +120,31 @@ Unary message selectors consist of alphanumeric characters, and start with a low
 
 Binary message selectors consist of one or more characters from the following set:
 
-[[[ lang=Smalltalk
+[[[ language=Smalltalk
 + - / \ * ~ < > = @ % | & ? , ]]]
 
 Keyword message selectors consist of a series of alphanumeric keywords, where each keyword starts with a lower-case letter and ends with a colon.
 
 Unary messages have the highest precedence, then binary messages, and finally keyword messages, so:
 
-[[[lang=Smalltalk
+[[[language=Smalltalk
 2 raisedTo: 1 + 3 factorial --> 128]]]
 
 (First we send factorial to 3, then we send \+ 6 to 1, and finally we send raisedTo: 7 to 2.) Recall that we use the notation expression \-\-\> result to show the result of evaluating an expression.
 
 Precedence aside, evaluation is strictly from left to right, so
 
-[[[lang=Smalltalk
+[[[language=Smalltalk
 1 + 2 * 3 --> 9 ]]]
 
 not 7. Parentheses must be used to alter the order of evaluation:
 
-[[[lang=Smalltalk
+[[[language=Smalltalk
 1 + (2 * 3) --> 7 ]]]
 
 Message sends may be composed with periods and semi-colons. A period separated sequence of expressions causes each expression in the series to be evaluated as a ''statement'', one after the other.
 
-[[[lang=Smalltalk
+[[[language=Smalltalk
 Transcript cr.
 Transcript show: 'hello world'.
 Transcript cr]]]
@@ -153,7 +153,7 @@ This will send ==cr== to the ==Transcript== object, then send it ==show: 'hello 
 
 When a series of messages is being sent to the ''same'' receiver, then this can be expressed more succinctly as a ''cascade''. The receiver is specified just once, and the sequence of messages is separated by semi-colons:
 
-[[[lang=Smalltalk
+[[[language=Smalltalk
 Transcript
 	cr;
 	show: 'hello world';
@@ -169,7 +169,7 @@ Programs are developed one method at a time, in the context of a given class. (A
 
 Here is the method lineCount in the class String. (The usual convention is to refer to methods as ClassName\>\>methodName, so we call this method String\>\>lineCount.)
 
-[[[lang = Smalltalk
+[[[language=Smalltalk
 String >> lineCount
 	"Answer the number of lines represented by the receiver, where every cr adds one line."
 	| cr count |
@@ -194,12 +194,12 @@ Arguments and local variables should always start with lower case letters. Names
 
 Blocks provide a mechanism to defer the evaluation of expressions. A block is essentially an anonymous function. A block is evaluated by sending it the message value. The block answers the value of the last expression in its body, unless there is an explicit return (with ^), in which case it does not answer any value.
 
-[[[lang= Smalltalk
+[[[language=Smalltalk
 [ 1 + 2 ] value --> 3]]]
 
 Blocks may take parameters, each of which is declared with a leading colon. A vertical bar separates the parameter declaration(s) from the body of the block. To evaluate a block with one parameter, you must send it the message value: with one argument. A two-parameter block must be sent ==value:value:==, and so on, up to 4 arguments.
 
-[[[lang=Smalltalk
+[[[language=Smalltalk
 [ :x | 1 + x ] value:2 --> 3
 [ :x :y | x + y ] value: 1 value: 2 --> 3]]]
 
@@ -207,12 +207,12 @@ If you have a block with more than four parameters, you must use ==valueWithArgu
 
 Blocks may also declare local variables, which are surrounded by vertical bars, just like local variable declarations in a method. Locals are declared after any arguments:
 
-[[[lang=Smalltalk
+[[[language=Smalltalk
 [ :x :y || z | z := x + y. z ] value: 1 value: 2 --> 3]]]
 
 Blocks are actually lexical closures, since they can refer to variables of the surrounding environment. The following block refers to the variable x of its enclosing environment:
 
-[[[lang=Smalltalk
+[[[language=Smalltalk
 | x |
 x := 1.
 [ :y | x + y ] value: 2 --> 3]]]
@@ -225,35 +225,35 @@ Pharo offers no special syntax for control constructs. Instead, these are typica
 
 Conditionals are expressed by sending one of the messages ==ifTrue:==, ==ifFalse:== or ==ifTrue:ifFalse:== to the result of a boolean expression. See Chapter 8 for more about booleans.
 
-[[[lang=Smalltalk
+[[[language=Smalltalk
 (17 * 13 > 220)
 	ifTrue: [ 'bigger' ]
 	ifFalse: [ 'smaller' ] -->'bigger']]]
 
 Loops are typically expressed by sending messages to blocks, integers or collections. Since the exit condition for a loop may be repeatedly evaluated, it should be a block rather than a boolean value. Here is an example of a very procedural loop:
 
-[[[lang=Smalltalk
+[[[language=Smalltalk
 n := 1.
 [ n < 1000 ] whileTrue: [ n := n*2 ].
 n --> 1024]]]
 
  ==whileFalse:== reverses the exit condition.
 
-[[[lang=Smalltalk
+[[[language=Smalltalk
 n := 1.
 [ n > 1000 ] whileFalse: [ n := n*2 ].
 n --> 1024]]]
 
  ==timesRepeat:== offers a simple way to implement a fixed iteration:
 
-[[[lang=Smalltalk
+[[[language=Smalltalk
 n := 1.
 10 timesRepeat: [ n := n*2 ].
 n --> 1024]]]
 
 We can also send the message ==to:do:== to a number which then acts as the initial value of a loop counter. The two arguments are the upper bound, and a block that takes the current value of the loop counter as its argument:
 
-[[[lang=Smalltalk
+[[[language=Smalltalk
 result := String new.
 1 to: 10 do: [:n | result := result, n printString, ' '].
 result --> '12345678910']]]
@@ -262,25 +262,25 @@ result --> '12345678910']]]
 
 An ""Interval"" is a collection that lets one iterate over a sequence of numbers from the starting point to the end. ==1 to: 10== represents the interval from 1 to 10. Since it is a collection, we can send the message do: to it. The argument is a block that is evaluated for each element of the collection.
 
-[[[lang=Smalltalk
+[[[language=Smalltalk
 result := String new.
 (1 to: 10) do: [:n | result := result, n printString, ' '].
 result --> '12345678910']]]
 
  ==collect:== builds a new collection of the same size, transforming each element.
-[[[lang=Smalltalk
+[[[language=Smalltalk
 (1to:10) collect: [ :each | each * each ] --> #(149162536496481100)]]]
 
  ==select:== and ==reject:== build new collections, each containing a subset of the elements satisfying (or not) the boolean block condition. detect: returns the first element satisfying the condition. Don't forget that strings are also collections, so you can iterate over all the characters.
 
-[[[lang=Smalltalk
+[[[language=Smalltalk
 'hello there' select: [ :char | char isVowel ] --> 'eoee'
 'hello there' reject: [ :char | char isVowel ] --> 'hll thr'
 'hello there' detect: [ :char | char isVowel ] --> $e]]]
 
 Finally, you should be aware that collections also support a functional-style fold operator in the ==inject:into:== method. This lets you generate a cumulative result using an expression that starts with a seed value and injects each element of the collection. Sums and products are typical examples.
 
-[[[lang=Smalltalk
+[[[language=Smalltalk
 (1to:10) inject:0 into: [ :sum :each |sum + each] --> 55]]]
 
 This is equivalent to ==0\+\1\+2\+3\+4\+5\+6\+7\+8\+9\+10==.
@@ -297,7 +297,7 @@ Primitives are invoked with the syntax <primitive: aNumber>. A method that invok
 
 Here we see the code for ==SmallInteger>>+==. If the primitive fails, the expression ==super + aNumber== will be evaluated and returned.
 
-[[[lang=Smalltalk
+[[[language=Smalltalk
 + aNumber
 	"Primitive. Add the receiver to the argument and answer with the result
 	if it is a SmallInteger. Fail if the argument or the result is not a
@@ -318,6 +318,6 @@ In Pharo, the angle bracket syntax is also used for method annotations called pr
 -A cascaded message send is a sequence of messages sent to the same target, separated by semi-colons: ==OrderedCollection new add: #calvin; add: #hobbes; size== \-\-> 2
 -Local variables are declared with vertical bars. Use ==:= == for assignment. ==\|x\| x := 1 ==
 -Expressions consist of message sends, cascades and assignments, possibly grouped with parentheses. Statements are expressions separated by periods.
--Block closures are expressions enclosed in square brackets. Blocks may take arguments and can contain temporary variables. The expressions in the block are not evaluated until you send the block a value message with the correct number of arguments.[[[lang=Smalltalk
+-Block closures are expressions enclosed in square brackets. Blocks may take arguments and can contain temporary variables. The expressions in the block are not evaluated until you send the block a value message with the correct number of arguments.[[[
 [ :x | x + 2 ] value: 4 --> 6]]]
 -There is no dedicated syntax for control constructs, just messages that conditionally evaluate blocks.
