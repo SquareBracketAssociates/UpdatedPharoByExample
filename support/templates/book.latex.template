@@ -21,6 +21,7 @@
   {../UnderstandingMessage/}
   {../SmalltalkObjectModel/}
   {../SUnit/}
+  {../Collections/}
   {../Streams/}
   {../Morphic/}
   {../Seaside/}
