@@ -206,24 +206,19 @@ Note the use of the method ==TestCase>>deny:== to assert something that should n
 
 !!!Step 4: run the tests
 
-The easiest way to run the tests is directly from the browser.  Simply click on the icon of the package, class name, or on an individual test method, and select ''Run tests (t)'' or press the icon.
-The test methods will be flagged red or green, depending on whether they pass or not, and the class will be flagged fully or partially green or red depending on whether all, some or none of the tests pass (as shown in *browsertests*).
+The easiest way to run the tests is directly from the browser.  Simply click on the icon of the class name, or on an individual test method, and select ''Run tests (t)'' or press the icon.
+The test methods will be flagged green or red, depending on whether they pass or not (as shown in *browsertests*).
 
 +Running SUnit tests from the browser>file://figures/updatedbrowsertests.png|width=80|label=browsertests+ 
 
 You can also select sets of test suites to run, and obtain a more detailed log of the results using the SUnit Test Runner, which you can open by selecting ''World > Test Runner''.
 
-The ''TestRunner'', shown in *test-runner*, is designed to make it easy  to execute groups of tests.
+The ''TestRunner'', shown in *test-runner*, is designed to make it easy to execute groups of tests.
 
 The left-most pane lists all of the categories that contain test classes (i.e.,  subclasses of ==TestCase==; when some of these categories are selected, the test classes that they contain appear in the pane to the right.
-Abstract classes are italicized, and the test class hierarchy is shown by indentation, so subclasses of ==ClassTestCase== are indented more than subclasses of ==TestCase==.
+Abstract classes are italicized, and the test class hierarchy is shown by indentation, so subclasses of ==ClassTestCase== are indented more than subclasses of ==TestCase==. ==ClassTestCase== is a class offering utilities methods to compute test coverage.
 
-
-
-+Running SUnit tests from the browser>file://figures/updatedtestRunner.png|width=80|label=test-runner+ 
-
-
-
++Running SUnit tests using the ''TestRunner''>file://figures/updatedtestRunner.png|width=80|label=test-runner+ 
 
 Open a Test Runner, select the package ''MySetTest'', and click the Run Selected button.
 
@@ -241,8 +236,14 @@ MyExampleSetTest>>>testRemove
 ]]]
 
 
-Introduce a bug in ==MyExampleSetTest>>testRemove== and run the tests again. For example, change ==5== to ==4==.
+Introduce a bug in ==MyExampleSetTest>>testRemove== and run the tests again. For example, change ==6== to ==7== as 
 
+[[[Introducing a bug in a test
+MyExampleSetTest>>>testRemove
+	full remove: 5.
+	self assert: (full includes: 7).
+	self deny: (full includes: 5)
+]]]
 
 The tests that did not pass (if any) are listed in the right-hand panes of
 the ''Test Runner''; if you want to debug one, to see why it failed, just click on the name.
@@ -277,7 +278,7 @@ situations where you may not want to use it.
 !!!Other assertions
 In addition to ==assert:== and ==deny:==, there are several other methods that can be used to make assertions.
 
-First, ==TestCase>>assert:description:== and ==TestCase>>deny:description:== take a second argument which is a message string that can be used to describe the reason for the failure, if it is not obvious from the test itself.   These methods are described in descriptionStrings.
+First, ==TestCase>>assert:description:== and ==TestCase>>deny:description:== take a second argument which is a message string that can be used to describe the reason for the failure, if it is not obvious from the test itself.   These methods are described in Section *descriptionStrings*.
 
 Next, SUnit provides two additional methods, ==TestCase>>should:raise:== and
 ==TestCase>>shouldnt:raise:== for testing exception propagation.
@@ -333,12 +334,12 @@ have to implement all the essential ==TestCase== methods like ==assert:==. We, h
 
 !!The SUnit framework
 
- SUnit consists of four main classes: ==TestCase==, ==TestSuite==, ==TestResult==, and ==TestResource==, as shown in sunit-classes. The notion of a ''test resource'' represents a resource that is expensive to set-up but which can be used by a whole series of tests.  A ==TestResource== specifies a ==setUp== method that is executed just once before a suite of tests;
+ SUnit consists of four main classes: ==TestCase==, ==TestSuite==, ==TestResult==, and ==TestResource==, as shown in Figure *sunit-classes*. The notion of a ''test resource'' represents a resource that is expensive to set-up but which can be used by a whole series of tests.  A ==TestResource== specifies a ==setUp== method that is executed just once before a suite of tests;
 this is in distinction to the ==TestCase>>setUp== method, which is executed before
 each test.
 
 
-+The four classes representing the core of SUni>file://figures/sunit-classes.png|width=80|label=sunit-classes+ 
++The four classes representing the core of SUnit>file://figures/sunit-classes.png|width=80|label=sunit-classes+ 
 
 
 !!!TestCase
@@ -475,9 +476,8 @@ description strings, logging support, skipping tests and resumable test failures
 @descriptionStrings
 
 The ==TestCase== assertion protocol includes a number of methods that allow the programmer to supply a description of the assertion.  The description is a ==String==; if the test case
-fails, this string will be displayed by the test runner.  Of
+fails, this string will be displayed by the test runner.  Of course, this string can be constructed dynamically.
 
-course, this string can be constructed dynamically.
 [[[
 | e |
 e := 42.
@@ -498,7 +498,7 @@ shouldnt:description:
 
 In addition to ==assert:==, there is also ==assert:equals:== that offers a better report in case of error. ==assert:equals:== is using ==assert:description:==.
 
-For example the two following tests are equivalent, the second one will report that the value that the test is expecting. 
+For example the two following tests are equivalent, the second one will report that the value that the test is expecting. We suppose here that ==aDateAdnTime== is an instance variable of test class.
 [[[
 testAsDate
 	self assert: aDateAndTime asDate = ('February 29, 2004' asDate translateTo: 2 hours).	
@@ -519,7 +519,7 @@ The description strings described above may also be logged to a ==Stream== such 
 Sometimes in the middle of a development, you may want to skip a test instead of removing it or renaming it to stop to run it. You can simply invoke the ==TestCase== message ==skip== on your test case instance. For example the following test use it to define a  conditional test. 
 
 [[[
-OCCOmpuledMethodIntegrityTest>>testPragmas
+OCCompiledMethodIntegrityTest>>testPragmas
 
 		| newCompiledMethod originalCompiledMethod |	
 		(Smalltalk hasClassNamed: #Compiler) ifFalse: [ ^ self skip ].
@@ -551,7 +551,7 @@ This will print out a message on your logging stream for each element that fails
 The implementation of SUnit makes an interesting case study of a Pharo framework.
 Let's look at some key aspects of the implementation by following the execution of a test.
 
-!!Running one test
+!!!Running one test
 
 To execute one test, we evaluate the expression ==(aTestClass selector: aSymbol) run.==
 
