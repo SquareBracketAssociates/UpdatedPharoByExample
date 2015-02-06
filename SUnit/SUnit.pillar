@@ -133,7 +133,7 @@ Before going into the details of SUnit, we will show a step by step example.  We
 First you should create a new subclass of ==TestCase== called ==MyExampleSetTest==.   Add two instance variables so that your new
 class looks like this:
 
-[[[An Example Set Test class
+[[[label=exSet|caption=An Example Set Test class|language=Smalltalk 
 TestCase subclass: #MyExampleSetTest
 	instanceVariableNames: 'full empty'
 	classVariableNames: ''
@@ -153,7 +153,7 @@ The message ==TestCase>>setUp== defines the context in which the tests will run,
 Define the ==setUp== method as follows, to initialize the ==empty== variable to refer to an empty set and the ==full== variable to
 refer to a set containing two elements. 
 
-[[[Setting up a fixture
+[[[caption=Setting up a fixture|language=Smalltalk 
 MyExampleSetTest>>>setUp
 	empty := Set new.
 	full := Set with: 5 with: 6
@@ -689,7 +689,7 @@ Here is some advice on how to design tests.
 
 !!Chapter summary
 
-This chapter explained why tests are an important investment in the future of your code. We explained in a step-by-step fashion how to define a few tests for the class ==Set==. Then we gave an overview of the core of the SUnit framework by presenting the classes ==TestCase==, ==TestResult==, ==TestSuite== and ==TestResources==.  Finally we looked deep inside SUnit by following the execution of a test and a test suite.
+lThis chapter explained why tests are an important investment in the future of your code. We explained in a step-by-step fashion how to define a few tests for the class ==Set==. Then we gave an overview of the core of the SUnit framework by presenting the classes ==TestCase==, ==TestResult==, ==TestSuite== and ==TestResources==.  Finally we looked deep inside SUnit by following the execution of a test and a test suite.
 
 - To maximize their potential, unit tests should be fast, repeatable, independent of any direct human interaction and cover a single unit of functionality.
 - Tests for a class called ==MyClass== belong in a class classed ==MyClassTest==, which should be introduced as a subclass of ==TestCase==.
