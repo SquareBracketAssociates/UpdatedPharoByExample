@@ -4,7 +4,7 @@
 !!What is Pharo?
 
 
-Pharo is a modern, open source, fully-featured dynamically-typed language inspired by the Smalltalk programming language and environment. 
+Pharo is a modern, open-source, fully-featured dynamically-typed language inspired by the Smalltalk programming language and environment. 
 Pharo strives to offer a lean, open platform for professional software development, as well as a robust and stable platform for research and development into dynamic languages and environments. Pharo serves as the reference implementation for the Seaside web development framework available at *http://www.seaside.st*.
 
 Pharo core contains only code that has been contributed under the MIT license. 
@@ -61,11 +61,9 @@ The Pharo community is friendly and active. Here is a short list of resources th
 - *http://www.pharo.org>http://www.pharo.org* is the main web site of Pharo.
 - On IRC, you can find us on the freenode.net server, channel "pharo".
 - You can also ask questions on Stack Overflow, using the tags *pharo>http://stackoverflow.com/questions/tagged/pharo* and *smalltalk>http://stackoverflow.com/questions/tagged/smalltalk*.
-- *SmalltalkHub>http://www.smalltalkhub.com/* is the equivalent of SourceForge/Github for Pharo projects. Many extra packages and projects for Pharo live there.
+- SmalltalkHub (*http://www.smalltalkhub.com/>http://www.smalltalkhub.com/*) is the equivalent of SourceForge/Github for Pharo projects. Many extra packages and projects for Pharo live there.
 
 !!Examples and exercises
-
-We make use of two special conventions in this book.
 
 We have tried to provide as many examples as possible. In particular, there are many examples that show a fragment of code which can be evaluated. 
 We use the symbol ==-->== an expression and to indicate the result that you obtain when you select an expression and ""print it"":
@@ -76,10 +74,7 @@ We use the symbol ==-->== an expression and to indicate the result that you obta
 ]]]
 
 In case you want to play with these code snippets in Pharo, you can download a plain text file with all the example code from the book's web 
-site: *PharoByExample.org>http://www.pharoByExample.org*.
-
-@@todo by Kilon: I have removed the tooltip icon because I dont like the way it looks. Maybe Pillar should have syntax that deals with tooltips. I also removed the tooltip text but I will continue using the text of tooltips and integrate it inside the main text. SD: Please keep the text.
-
+site: *http://www.pharoByExample.org>http://www.pharoByExample.org*.
 
 !!Acknowledgments
 
@@ -88,6 +83,8 @@ We would first like to thank Alan Kay, Dan Ingalls and their team for making Squ
 We would also like to thank Hilaire Fernandes and Serge Stinckwich who allowed us to translate parts of their columns on Smalltalk, and Damien Cassou 
 for contributing the chapter on Streams. We especially thank Alexandre Bergel, Orla Greevy, Fabrizio Perin, Lukas Renggli, Jorge Ressia and Erwann Wernli for their detailed reviews.
 
-We thank the University of Bern, Switzerland, for graciously supporting this open source project and for hosting the web site of this book.
+We thank the University of Bern, Switzerland, for graciously supporting this open-source project and for hosting the web site of this book.
 
 We also thank the Pharo community for their enthusiastic support of this book project, as well as for all the translations of the first edition of "Pharo by Example".
+
+Finally we want to thank Inria for its steady and important financial support, and the RMoD team members for the constant energy pushing Pharo forward.
