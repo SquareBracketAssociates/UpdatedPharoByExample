@@ -16,13 +16,34 @@ This book is written in Pillar markup. If you are not familiar with it please ch
 
 ###Generating the book
 
-First of all you have to run `./download.sh` to obtain the Pillar executable that does all the job.
+First of all you have to run `./download.sh` to obtain the Pillar executable
+that does all the job.
 
-To generate your book execute `./compile.sh`. If you want to generate only one chapter, pass the file's path to the script: `./compile.sh Example/Example.pillar`. If you have `pdflatex` installed and available in your system's `PATH`, the script will also generate pdf files.
+To generate your book execute `./compile.sh`. If you want to generate only one
+chapter, pass the file's path to the script: `./compile.sh
+Example/Example.pillar`. If you have `pdflatex` installed and available in your
+system's `PATH`, the script will also generate pdf files.
+
+#### Installing `pdflatex` on Mac OS X
+If you're on a recent Mac OS X version, you will need to do the following:
+
+1. Download and install
+    [MacTeX](http://tug.org/mactex/) (the 2.4Gb **MacTeX.pkg** file)
+2. Manually ensure that `pdftex` (and other LaTeX-related binaries) are in your
+    system PATH. If, after installing the .pkg, the command `which pdftex` yields
+    an empty result, run the following in your terminal:
+
+    ```bash
+    echo /usr/texbin > TeX
+    sudo mv TeX /etc/paths.d
+    ```
 
 ###Adding a chapter
 
-To add a chapter create a directory for it (named, e.g., `Example`) and put there a `.pillar` file (named, e.g., `Example.pillar`) which will contain the chapter itself. Put images in the `figures` subdirectory of the new chapter directory.
+To add a chapter create a directory for it (named, e.g., `Example`) and put
+there a `.pillar` file (named, e.g., `Example.pillar`) which will contain the
+chapter itself. Put images in the `figures` subdirectory of the new chapter
+directory.
 
 Add your chapter to:
 
@@ -36,7 +57,8 @@ Add your chapter to:
 Tools
 -----
 
-There are mods/bundles/packages for text editors, that provide improvements for pillar files editing:
+There are mods/bundles/packages for text editors, that provide improvements for
+pillar files editing:
 
 * Emacs: [pillar-mode](https://github.com/pillar-markup/pillar-mode)
 * Vim: [vim-pillar](https://github.com/cdlm/vim-pillar)
