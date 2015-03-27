@@ -69,21 +69,11 @@ answer the  question “How does this work?” with "I don't care".
 
 This book is an open book in the following senses:
 
--The content of this book is released under the Creative Commons
-Attribution-ShareAlike (by-sa) license. In short, you are allowed to freely
-share and adapt this book, as long as you respect the conditions of the license
-available at the following URL
-*http://creativecommons.org/licenses/by-sa/3.0/>http://creativecommons.org/licenses/by-sa/3.0/*.
+-The content of this book is released under the Creative Commons Attribution-ShareAlike (by-sa) license. In short, you are allowed to freely share and adapt this book, as long as you respect the conditions of the license available at the following URL *http://creativecommons.org/licenses/by-sa/3.0/>http://creativecommons.org/licenses/by-sa/3.0/*.
 
--This book just describes the core of Pharo. We encourage others to contribute
-chapters on the parts of Pharo that we have not described. If you would like to
-participate in this effort, please contact us. We would like to see more books
-around Pharo!
+-This book just describes the core of Pharo. We encourage others to contribute chapters on the parts of Pharo that we have not described. If you would like to participate in this effort, please contact us. We would like to see more books around Pharo!
 
--It also possible to contribute directly to this book via Github. Just follow the
-instructions there and ask any question on the mailing list. You can find the
-Github repo at
-*https://github.com/SquareBracketAssociates/UpdatedPharoByExample>https://github.com/SquareBracketAssociates/UpdatedPharoByExample*
+-It also possible to contribute directly to this book via Github. Just follow the instructions there and ask any question on the mailing list. You can find the Github repo at *https://github.com/SquareBracketAssociates/UpdatedPharoByExample>https://github.com/SquareBracketAssociates/UpdatedPharoByExample*
 
 !!The Pharo community
 
