@@ -8,24 +8,24 @@ You can find more info and documentation about Pharo at [Pharo.org](http://pharo
 
 #### Chapter Progress
 
-Chapter | Status
-:-------|:------
-**[Preface](Preface/)** | Revised, copyedited
-1 - [Pharo Tour](PharoTour) | Needs revision (from 3.0 to 4.0)
-2 - [A First Application](FirstApplication/) | Needs revision
-3 - **[Syntax in a Nutshell](SyntaxNutshell/)** | Revised
-4 - **[Understanding Messages](UnderstandingMessage/)** | Revised
-5 - [The Smalltalk Object Model](SmalltalkObjectModel/) | In Progress
-6 - Environment | ?
-7 - **[SUnit](SUnit/)** | Revised
-8 - [Basic Classes](BasicClasses/) | Needs revision
-9 - [Collections](Collections/) | Needs revision
-10 - **[Streams](Streams/)** | Revised
-11 - [Morphic](Morphic/) | Needs revision
-12 - [Seaside](Seaside/) | Needs revision
-13 - **[Metaclasses](Metaclasses/)** | Revised
-14 - [Reflection](Reflection/) | Needs revision
-15 - [Regular Expressions](Regex/) | Needs revision
+Chapter | Status | Latest
+:-------|:-------|:------
+**[Preface](Preface/)** | Revised, copyedited | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Preface/Preface.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Preface/Preface.pillar.pdf)
+1 - [Pharo Tour](PharoTour) | Needs revision (from 3.0 to 4.0) | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/PharoTour/PharoTour.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/PharoTour/PharoTour.pillar.pdf)
+2 - [A First Application](FirstApplication/) | Needs revision | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/FirstApplication/FirstApplication.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/FirstApplication/FirstApplication.pillar.pdf)
+3 - **[Syntax in a Nutshell](SyntaxNutshell/)** | Revised | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/SyntaxNutshell/SyntaxNutshell.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/SyntaxNutshell/SyntaxNutshell.pillar.pdf)
+4 - **[Understanding Messages](UnderstandingMessage/)** | Revised | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/UnderstandingMessage/UnderstandingMessage.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/UnderstandingMessage/UnderstandingMessage.pillar.pdf)
+5 - [The Smalltalk Object Model](SmalltalkObjectModel/) | In Progress | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/SmalltalkObjectModel/SmalltalkObjectModel.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/SmalltalkObjectModel/SmalltalkObjectModel.pillar.pdf)
+6 - Environment | ? |
+7 - **[SUnit](SUnit/)** | Revised | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/SUnit/SUnit.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/SUnit/SUnit.pillar.pdf)
+8 - [Basic Classes](BasicClasses/) | Needs revision | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/BasicClasses/BasicClasses.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/BasicClasses/BasicClasses.pillar.pdf)
+9 - [Collections](Collections/) | Needs revision | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Collections/Collections.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Collections/Collections.pillar.pdf)
+10 - **[Streams](Streams/)** | Revised | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Streams/Streams.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Streams/Streams.pillar.pdf)
+11 - [Morphic](Morphic/) | Needs revision | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Morphic/Morphic.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Morphic/Morphic.pillar.pdf)
+12 - [Seaside](Seaside/) | Needs revision | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Seaside/Seaside.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Seaside/Seaside.pillar.pdf)
+13 - **[Metaclasses](Metaclasses/)** | Revised | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Metaclasses/Metaclasses.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Metaclasses/Metaclasses.pillar.pdf)
+14 - [Reflection](Reflection/) | Needs revision | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Reflection/Reflection.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Reflection/Reflection.pillar.pdf)
+15 - [Regular Expressions](Regex/) | Needs revision | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Regex/Regex.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Regex/Regex.pillar.pdf)
 
 ## Contributing to Updated Pharo By Example (vol 1)
 
