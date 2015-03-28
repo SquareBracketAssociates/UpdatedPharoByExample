@@ -2,30 +2,59 @@
 
 @cha:firstApp
 
-In this chapter, we will develop a simple game: *Lights Out>http://en.wikipedia.org/wiki/Lights_Out_(game)*. Along the way we will demonstrate most of the tools that Pharo programmers use to construct and debug their programs, and show how programs are exchanged with other developers. We will see the browser, the object inspector, the debugger and the Monticello package browser. Development in Smalltalk is efficient: you will find that you spend far more time actually writing code and far less managing the development process. This is partly because the Smalltalk language is very simple, and partly because the tools that make up the programming environment are very well integrated with the language.
+In this chapter, we will develop a simple game: *Lights
+Out>http://en.wikipedia.org/wiki/Lights_Out_(game)*. Along the way we will
+demonstrate most of the tools that Pharo programmers use to construct and debug
+their programs, and show how programs are exchanged with other developers. We
+will see the browser, the object inspector, the debugger and the Monticello
+package browser. Development in Smalltalk is efficient: you will find that you
+spend far more time actually writing code and far less managing the development
+process. This is partly because the Smalltalk language is very simple, and
+partly because the tools that make up the programming environment are very well
+integrated with the language.
 
 !!The Lights Out game
 
-To show you how to use Pharo's programming tools, we will build a simple game called Lights Out. The game board consists of rectangular array of light yellow cells. When you click on one of the cells with the mouse, the four surrounding cells turn blue. Click again, and they toggle back to light yellow. The object of the game is to turn blue as many cells as possible.
+To show you how to use Pharo's programming tools, we will build a simple game
+called Lights Out. The game board consists of rectangular array of light yellow
+cells. When you click on one of the cells with the mouse, the four surrounding
+cells turn blue. Click again, and they toggle back to light yellow. The object
+of the game is to turn blue as many cells as possible.
 
-The Lights Out game is made up of two kinds of objects: the game board itself, and 100 individual cell objects. The Pharo code to implement the game will contain two classes: one for the game and one for the cells. We will now show you how to define these classes using the Pharo programming tools.
+The Lights Out game is made up of two kinds of objects: the game board itself,
+and 100 individual cell objects. The Pharo code to implement the game will
+contain two classes: one for the game and one for the cells. We will now show
+you how to define these classes using the Pharo programming tools.
 
 !!Creating new Package
 
-We have already seen the browser in Chapter 1, where we learned how to navigate to classes and methods, and saw how to define new methods. Now we will see how to create packages, categories and classes.
+We have already seen the browser in Chapter 1, where we learned how to navigate
+to classes and methods, and saw how to define new methods. Now we will see how
+to create packages, categories and classes.
 
-Type the name of the new package (we will use PBE-LightsOut) in the dialog
-box and click ""accept"" (or just press the return key); the new package is created,and positioned alphabetically in the list of packages.
+Type the name of the new package (we will use PBE-LightsOut) in the dialog box
+and click ""accept"" (or just press the return key); the new package is
+created,and positioned alphabetically in the list of packages.
 
 !!Defining the class LOCell
 
-As yet there are of course no classes in the new package. However, the main editing pane displays a template to make it easy to create a new class
+As yet there are of course no classes in the new package. However, the main
+editing pane displays a template to make it easy to create a new class
 
-This template shows us a Smalltalk expression that sends a message to a class called Object, asking it to create a subclass called ""NameOfSubClass"". The new class has no variables, and should belong to the category ""PBE-LightsOut"".
+This template shows us a Smalltalk expression that sends a message to a class
+called Object, asking it to create a subclass called ""NameOfSubClass"". The new
+class has no variables, and should belong to the category ""PBE-LightsOut"".
 
 !!!On Categories and Packages
 
-Historically, Smalltalk only knows about categories, not packages. You may well ask, what is the difference ? A category is simply a collection of related classes in a Smalltalk image. A package is a collection of related classes and extension methods that may be versioned using the Monticello versioning tool. By convention, package names and category names are the same. For most purposes we do not care about the difference, but we will be careful to use the correct terminology in this book since there are points where the difference is crucial. We will learn more when we start working with Monticello.
+Historically, Smalltalk only knows about categories, not packages. You may well
+ask, what is the difference ? A category is simply a collection of related
+classes in a Smalltalk image. A package is a collection of related classes and
+extension methods that may be versioned using the Monticello versioning tool. By
+convention, package names and category names are the same. For most purposes we
+do not care about the difference, but we will be careful to use the correct
+terminology in this book since there are points where the difference is crucial.
+We will learn more when we start working with Monticello.
 
 !!!Creating a new class
 
@@ -46,22 +75,42 @@ instanceVariableNames: 'mouseAction'
 classVariableNames: '' poolDictionaries: ''
 category: 'PBE-LightsOut']]]
 
-This new definition consists of a Smalltalk expression that sends a message to the existing class SimpleSwitchMorph, asking it to create a subclass called LOCell. (Actually, since LOCell does not exist yet, we passed as an argument the symbol \#LOCell which stands for the name of the class to create.) We also tell it that instances of the new class should have a mouseAction instance variable, which we will use to define what action the cell should take if the mouse should click over it.
+This new definition consists of a Smalltalk expression that sends a message to
+the existing class SimpleSwitchMorph, asking it to create a subclass called
+LOCell. (Actually, since LOCell does not exist yet, we passed as an argument the
+symbol \#LOCell which stands for the name of the class to create.) We also tell
+it that instances of the new class should have a mouseAction instance variable,
+which we will use to define what action the cell should take if the mouse should
+click over it.
 
-At this point you still have not created anything. Note that the border of the class template pane has changed to red . This means that there are unsaved changes. To actually send this message, you must accept it.
+At this point you still have not created anything. Note that the border of the
+class template pane has changed to red . This means that there are unsaved
+changes. To actually send this message, you must accept it.
 
-Either right-click and select ""accept"", or use the shortcut CMD-s (for "save"). The message will be sent to ""SimpleSwitchMorph"", which will cause
-the new class to be compiled.
+Either right-click and select ""accept"", or use the shortcut CMD-s (for
+"save"). The message will be sent to ""SimpleSwitchMorph"", which will cause the
+new class to be compiled.
 
-
-Once the class definition is accepted, the class will be created and appear in the classes pane of the browser . The editing pane now shows the class definition, and a small pane below it will remind you to write a few words describing the purpose of the class. This is called a class comment, and it is quite important to write one that will give other programmers a high-level overview of the purpose of this class. Smalltalkers put a very high value on the readability of their code, and detailed comments in methods are unusual: the philosophy is that the code should speak for itself. (If it doesn't, you should refactor it until it does!) A class comment need not contain a detailed description of the class, but a few words describing its overall purpose are vital if programmers who come after you are to know whether to spend time looking at this class.
+Once the class definition is accepted, the class will be created and appear in
+the classes pane of the browser . The editing pane now shows the class
+definition, and a small pane below it will remind you to write a few words
+describing the purpose of the class. This is called a class comment, and it is
+quite important to write one that will give other programmers a high-level
+overview of the purpose of this class. Smalltalkers put a very high value on the
+readability of their code, and detailed comments in methods are unusual: the
+philosophy is that the code should speak for itself. (If it doesn't, you should
+refactor it until it does!) A class comment need not contain a detailed
+description of the class, but a few words describing its overall purpose are
+vital if programmers who come after you are to know whether to spend time
+looking at this class.
 
 !!Adding methods to a class
 
-
 Now let's add some methods to our class.
 
-Select the protocol \-\-all\-\- in the protocol pane.You will see a template for method creation in the editing pane. Select it, and replace it by the text of method :
+Select the protocol \-\-all\-\- in the protocol pane.You will see a template for
+method creation in the editing pane. Select it, and replace it by the text of
+method:
 
 [[[lang=Smalltalk
 
@@ -79,41 +128,78 @@ Note that the characters \'\' on line 3 are two separate single quotes with noth
 
 ""Accept"" this method definition.
 
-Notice that the method is called ""initialize"". The name is very significant! By convention, if a class defines a method named ""initialize"", it will be called right after the object is created. So, when we evaluate LOCell new, the message initialize will be sent automatically to this newly created object. Initialize methods are used to set up the state of objects, typically to set their instance variables; this is exactly what we are doing here.
+Notice that the method is called ""initialize"". The name is very significant!
+By convention, if a class defines a method named ""initialize"", it will be
+called right after the object is created. So, when we evaluate LOCell new, the
+message initialize will be sent automatically to this newly created object.
+Initialize methods are used to set up the state of objects, typically to set
+their instance variables; this is exactly what we are doing here.
 
-The first thing that this method does (line 2) is to execute the initialize method of its superclass, SimpleSwitchMorph. The idea here is that any inherited state will be properly initialized by the initialize method of the superclass. It is always a good idea to initialize inherited state by sending super initialize before doing anything else; we don't know exactly what SimpleSwitchMorph’s initialize method will do, and we don't care, but it's a fair bet that it will set up some instance variables to hold reasonable default values, so we had better call it, or we risk starting in an unclean state.
+The first thing that this method does (line 2) is to execute the initialize
+method of its superclass, SimpleSwitchMorph. The idea here is that any inherited
+state will be properly initialized by the initialize method of the superclass.
+It is always a good idea to initialize inherited state by sending super
+initialize before doing anything else; we don't know exactly what
+SimpleSwitchMorph’s initialize method will do, and we don't care, but it's a
+fair bet that it will set up some instance variables to hold reasonable default
+values, so we had better call it, or we risk starting in an unclean state.
 
-The rest of the method sets up the state of this object. Sending self label: \'\', for example, sets the label of this object to the empty string.
+The rest of the method sets up the state of this object. Sending self label: \'\',
+for example, sets the label of this object to the empty string.
 
-The expression 0\@0 corner: 16\@16 probably needs some explanation. 0\@0 represents a Point object with x and y coordinates both set to 0. In fact, 0\@0 sends the message @ to the number 0 with argument 0. The effect will be that the number 0 will ask the Point class to create a new instance with coordinates (0,0). Now we send this newly created point the message corner: 16\@16, which causes it to create a Rectangle with corners 0\@0 and 16\@16. This newly created rectangle will be assigned to the bounds variable, inherited from the superclass.
+The expression 0\@0 corner: 16\@16 probably needs some explanation. 0\@0
+represents a Point object with x and y coordinates both set to 0. In fact, 0\@0
+sends the message @ to the number 0 with argument 0. The effect will be that the
+number 0 will ask the Point class to create a new instance with coordinates
+(0,0). Now we send this newly created point the message corner: 16\@16, which
+causes it to create a Rectangle with corners 0\@0 and 16\@16. This newly created
+rectangle will be assigned to the bounds variable, inherited from the
+superclass.
 
-Note that the origin of the Pharo screen is the top left, and the y coordinate increases downwards.
+Note that the origin of the Pharo screen is the top left, and the y coordinate
+increases downwards.
 
-The rest of the method should be self-explanatory. Part of the art of writing good Smalltalk code is to pick good method names so that Smalltalk code can be read like a kind of pidgin English. You should be able to imagine the object talking to itself and saying \"Self use square corners!\", \"Self turn off\!\".
+The rest of the method should be self-explanatory. Part of the art of writing
+good Smalltalk code is to pick good method names so that Smalltalk code can be
+read like a kind of pidgin English. You should be able to imagine the object
+talking to itself and saying \"Self use square corners!\", \"Self turn off\!\".
 
 !!Inspecting an object
 
-You can test the effect of the code you have written by creating a new LOCell object and inspecting it.
+You can test the effect of the code you have written by creating a new LOCell
+object and inspecting it.
 
 Open a workspace. Type the expression LOCell new and ""inspect"" it .
 
-The left-hand pane of the inspector shows a list of instance variables; if you select one (try bounds), the value of the instance variable is shown in the right pane.
+The left-hand pane of the inspector shows a list of instance variables; if you
+select one (try bounds), the value of the instance variable is shown in the
+right pane.
 
-The bottom pane of the inspector is a mini-workspace. It's useful because in this workspace the pseudo-variable self is bound to the object selected.
+The bottom pane of the inspector is a mini-workspace. It's useful because in
+this workspace the pseudo-variable self is bound to the object selected.
 
-Select the LOCell at the root of the inspector window. Type the text self bounds: (200\@200 corner: 250\@250) in the bottom pane and ""do it"". The bounds variable should change in the inspector. Now type the text self openInWorld in the mini-workspace and ""do it"".
+Select the LOCell at the root of the inspector window. Type the text self
+bounds: (200\@200 corner: 250\@250) in the bottom pane and ""do it"". The bounds
+variable should change in the inspector. Now type the text self openInWorld in
+the mini-workspace and ""do it"".
 
-The cell should appear near the top left-hand corner of the screen, indeed, exactly where its bounds say that it should appear. Alt-Shift-Left click on the cell to bring up the morphic halo. Move the cell with the brown (next to top-right) handle and resize it with the yellow (bottom-right) handle. Notice how the bounds reported by the inspector also change. (You may have to left click
-refresh to see the new bounds value.)
-
+The cell should appear near the top left-hand corner of the screen, indeed,
+exactly where its bounds say that it should appear. Alt-Shift-Left click on the
+cell to bring up the morphic halo. Move the cell with the brown (next to
+top-right) handle and resize it with the yellow (bottom-right) handle. Notice
+how the bounds reported by the inspector also change. (You may have to left
+click refresh to see the new bounds value.)
 
 Delete the cell by clicking on the x in the pink handle.
 
 !!Defining the class LOGame
 
-Now let's create the other class that we need for the game, which we will call ""LOGame"".
+Now let's create the other class that we need for the game, which we will call
+""LOGame"".
 
-Make the class definition template visible in the browser main window.Do this by clicking on the package name. Edit the code so that it reads as follows, and accept it.
+Make the class definition template visible in the browser main window.Do this by
+clicking on the package name. Edit the code so that it reads as follows, and
+accept it.
 
 [[[lang=Smalltalk
 BorderedMorph subclass: #LOGame
@@ -121,9 +207,13 @@ instanceVariableNames: '' classVariableNames: ''
 poolDictionaries: ''
 category: 'PBE-LightsOut']]]
 
-Here we subclass BorderedMorph; Morph is the superclass of all of the graphical shapes in Pharo, and (surprise!) a BorderedMorph is a Morph with a border. We could also insert the names of the instance variables between the quotes on the second line, but for now, let's just leave that list empty.
+Here we subclass BorderedMorph; Morph is the superclass of all of the graphical
+shapes in Pharo, and (surprise!) a BorderedMorph is a Morph with a border. We
+could also insert the names of the instance variables between the quotes on the
+second line, but for now, let's just leave that list empty.
 
-Now let's define an initialize method for LOGame. Type the following into the browser as a method for LOGame and try to ""accept"" it.
+Now let's define an initialize method for LOGame. Type the following into the
+browser as a method for LOGame and try to ""accept"" it.
 
 [[[lang=Smalltalk
 initialize
@@ -136,58 +226,127 @@ initialize
  self bounds: (5@5 extent: ((width*n) @(height*n)) + (2 * self borderWidth)).
  cells := Matrix new: n tabulate: [ :i :j | self newCellAt: i at: j ].]]]
 
-Pharo will complain that it doesn't know the meaning of some of the terms. Pharo tells you that it doesn't know of a message cellsPerSide, and suggests a number of corrections, in case it was a spelling mistake.
+Pharo will complain that it doesn't know the meaning of some of the terms. Pharo
+tells you that it doesn't know of a message cellsPerSide, and suggests a number
+of corrections, in case it was a spelling mistake.
 
-But cellsPerSide is not a mistake \-\- it is just a method that we haven't yet defined \-\- we will do so in a minute or two.
+But cellsPerSide is not a mistake \-\- it is just a method that we haven't yet
+defined \-\- we will do so in a minute or two.
 
-So just select the first item from the menu, which confirms that we really meant cellsPerSide.
+So just select the first item from the menu, which confirms that we really meant
+cellsPerSide.
 
-Next, Pharo will complain that it doesn't know the meaning of cells. It offers you a number of ways of fixing this.
+Next, Pharo will complain that it doesn't know the meaning of cells. It offers
+you a number of ways of fixing this.
 
 Choose ""declare instance"" because we want cells to be an instance variable.
 
-Finally, Pharo will complain about the message ""newCellAt: at:"" sent on the last line; this is also not a mistake, so confirm that message too.
+Finally, Pharo will complain about the message ""newCellAt: at:"" sent on the
+last line; this is also not a mistake, so confirm that message too.
 
-If you now look at the class definition once again (which you can do by clicking on the ""instance"" button), you will see that the browser has modified it to include the instance variable cells.
+If you now look at the class definition once again (which you can do by clicking
+on the ""instance"" button), you will see that the browser has modified it to
+include the instance variable cells.
 
-Let's look at this initialize method. The line \| sampleCell width height n \| declares 4 temporary variables. They are called temporary variables because their scope and lifetime are limited to this method. Temporary variables with explanatory names are helpful in making code more readable. Smalltalk has no special syntax to distinguish constants and variables, and in fact all four of these "variables" are really constants. Lines 4\-7 define these constants.
+Let's look at this initialize method. The line \| sampleCell width height n \|
+declares 4 temporary variables. They are called temporary variables because
+their scope and lifetime are limited to this method. Temporary variables with
+explanatory names are helpful in making code more readable. Smalltalk has no
+special syntax to distinguish constants and variables, and in fact all four of
+these "variables" are really constants. Lines 4\-7 define these constants.
 
-How big should our game board be? Big enough to hold some integral number of cells, and big enough to draw a border around them. How many cells is the right number? 5? 10? 100? We don't know yet, and if we did, we would probably change our minds later. So we delegate the responsibility for knowing that number to another method, which we will call ""cellsPerSide"", and which we will write in a minute or two. It's because we are sending the cellsPerSide message before we define a method with that name that Pharo asked us to "confirm, correct, or cancel" when we accepted the method body for initialize. Don't be put off by this: it is actually good practice to write in terms of other methods that we haven't yet defined. Why? Well, it wasn't until we started writing the initialize method that we realized that we needed it, and at that point, we can give it a meaningful name, and move on, without interrupting our flow.
+How big should our game board be? Big enough to hold some integral number of
+cells, and big enough to draw a border around them. How many cells is the right
+number? 5? 10? 100? We don't know yet, and if we did, we would probably change
+our minds later. So we delegate the responsibility for knowing that number to
+another method, which we will call ""cellsPerSide"", and which we will write in
+a minute or two. It's because we are sending the cellsPerSide message before we
+define a method with that name that Pharo asked us to "confirm, correct, or
+cancel" when we accepted the method body for initialize. Don't be put off by
+this: it is actually good practice to write in terms of other methods that we
+haven't yet defined. Why? Well, it wasn't until we started writing the
+initialize method that we realized that we needed it, and at that point, we can
+give it a meaningful name, and move on, without interrupting our flow.
 
-The fourth line uses this method: the Smalltalk ""self cellsPerSide"" sends the message cellsPerSide to self, i.e., to this very object. The response, which will be the number of cells per side of the game board, is assigned to n.
+The fourth line uses this method: the Smalltalk ""self cellsPerSide"" sends the
+message cellsPerSide to self, i.e., to this very object. The response, which
+will be the number of cells per side of the game board, is assigned to n.
 
-The next three lines create a new LOCell object, and assign its width and height to the appropriate temporary variables.
+The next three lines create a new LOCell object, and assign its width and height
+to the appropriate temporary variables.
 
-Line 8 sets the bounds of the new object. Without worrying too much about the details just yet, just believe us that the expression in parentheses creates a square with its origin (i.e., its top-left corner) at the point (5,5) and its bottom-right corner far enough away to allow space for the right number of cells.
+Line 8 sets the bounds of the new object. Without worrying too much about the
+details just yet, just believe us that the expression in parentheses creates a
+square with its origin (i.e., its top-left corner) at the point (5,5) and its
+bottom-right corner far enough away to allow space for the right number of
+cells.
 
-The last line sets the LOGame object's instance variable cells to a newly created Matrix with the right number of rows and columns. We do this by sending the message ""new: tabulate:"" to the Matrix class (classes are objects too, so we can send them messages). We know that new: tabulate: takes two arguments because it has two colons (:) in its name. The arguments go right after the colons. If you are used to languages that put all of the arguments together inside parentheses, this may seem weird at first. Don't panic, it's only syntax! It turns out to be a very good syntax because the name of the method can be used to explain the roles of the arguments. For example, it is pretty clear that Matrix rows: 5 columns: 2 has 5 rows and 2 columns, and not 2 rows and 5 columns.
+The last line sets the LOGame object's instance variable cells to a newly
+created Matrix with the right number of rows and columns. We do this by sending
+the message ""new: tabulate:"" to the Matrix class (classes are objects too, so
+we can send them messages). We know that new: tabulate: takes two arguments
+because it has two colons (:) in its name. The arguments go right after the
+colons. If you are used to languages that put all of the arguments together
+inside parentheses, this may seem weird at first. Don't panic, it's only syntax!
+It turns out to be a very good syntax because the name of the method can be used
+to explain the roles of the arguments. For example, it is pretty clear that
+Matrix rows: 5 columns: 2 has 5 rows and 2 columns, and not 2 rows and 5
+columns.
 
-Matrix new: n tabulate: [ :i :j \| self newCellAt: i at: j ] creates a new n X n matrix and initializes its elements. The initial value of each element will depend on its coordinates. The (i,j)th element will be initialized to the result of evaluating self newCellAt: i at: j.
+Matrix new: n tabulate: [ :i :j \| self newCellAt: i at: j ] creates a new n X n
+matrix and initializes its elements. The initial value of each element will
+depend on its coordinates. The (i,j)th element will be initialized to the result
+of evaluating self newCellAt: i at: j.
 
 !!Organizing methods into protocols
 
-Before we define any more methods, let's take a quick look at the third pane at the top of the browser. In the same way that the first pane of the browser lets us categorize classes into packages so we are not overwhelmed by a very long list of class names in the second pane, so the third pane lets us categorize methods so that we are not overwhelmed by a very long list of method names in the fourth pane. These categories of methods are called "protocols".
+Before we define any more methods, let's take a quick look at the third pane at
+the top of the browser. In the same way that the first pane of the browser lets
+us categorize classes into packages so we are not overwhelmed by a very long
+list of class names in the second pane, so the third pane lets us categorize
+methods so that we are not overwhelmed by a very long list of method names in
+the fourth pane. These categories of methods are called "protocols".
 
-If there are only a few methods in a class, the extra level of hierarchy provided by protocols is not really necessary. This is why the browser also offers us the \-\-all\-\- virtual protocol, which, you will not be surprised to learn, contains all of the methods in the class.
+If there are only a few methods in a class, the extra level of hierarchy
+provided by protocols is not really necessary. This is why the browser also
+offers us the \-\-all\-\- virtual protocol, which, you will not be surprised to
+learn, contains all of the methods in the class.
 
-If you have followed along with this example, the third pane may well contain the protocol ""as yet unclassified"".
+If you have followed along with this example, the third pane may well contain
+the protocol ""as yet unclassified"".
 
-Right-click in the protocol pane and select ""various"" \-\-> ""categorize automatically"" to fix this, and move the initialize methods to a new protocol called ""initialization"".
+Right-click in the protocol pane and select ""various"" \-\-> ""categorize
+automatically"" to fix this, and move the initialize methods to a new protocol
+called ""initialization"".
 
-How does Pharo know that this is the right protocol ? Well, in general Pharo can't know, but in this case there is also an initialize method in a superclass, and Pharo assumes that our ""initialize"" method should go in the same category as the one that it overrides.
+How does Pharo know that this is the right protocol ? Well, in general Pharo
+can't know, but in this case there is also an initialize method in a superclass,
+and Pharo assumes that our ""initialize"" method should go in the same category
+as the one that it overrides.
 
-A typographic convention. Smalltalkers frequently use the notation ">>" to identify the class to which a method belongs, so, for example, the cellsPerSide method in class LOGame would be referred to as LOGame >> cellsPerSide. To indicate that this is not Smalltalk syntax, we will use the special symbol >> instead, so this method will appear in the text as LOGame >> cellsPerSide
+A typographic convention. Smalltalkers frequently use the notation ">>" to
+identify the class to which a method belongs, so, for example, the cellsPerSide
+method in class LOGame would be referred to as LOGame >> cellsPerSide. To
+indicate that this is not Smalltalk syntax, we will use the special symbol >>
+instead, so this method will appear in the text as LOGame >> cellsPerSide
 
-From now on, when we show a method in this book, we will write the name of the method in this form. Of course, when you actually type the code into the browser, you don't have to type the class name or the >> ; instead, you just make sure that the appropriate class is selected in the class pane.
+From now on, when we show a method in this book, we will write the name of the
+method in this form. Of course, when you actually type the code into the
+browser, you don't have to type the class name or the >> ; instead, you just
+make sure that the appropriate class is selected in the class pane.
 
-Now let's define the other two methods that are used by the LOGame >> initialize method. Both of them can go in the initialization protocol.
+Now let's define the other two methods that are used by the LOGame >> initialize
+method. Both of them can go in the initialization protocol.
 
 [[[lang=Smalltalk
 LOGame >> cellsPerSide
 "The number of cells along each side of the game"
 ^ 10]]]
 
-This method could hardly be simpler: it answers the constant 10. One advantage of representing constants as methods is that if the program evolves so that the constant then depends on some other features, the method can be changed to calculate this value.
+This method could hardly be simpler: it answers the constant 10. One advantage
+of representing constants as methods is that if the program evolves so that the
+constant then depends on some other features, the method can be changed to
+calculate this value.
 
 [[[lang=Smalltalk
 LOGame >> newCellAt: i at: j
@@ -202,9 +361,14 @@ c mouseAction: [self toggleNeighboursOfCellAt: i at: j]
 
 Add the methods LOGame >> cellsPerSide and LOGame >> newCellAt: at: .
 
-Confirm the spelling of the new selectors toggleNeighboursOfCellAt:at: and mouseAction:.
+Confirm the spelling of the new selectors toggleNeighboursOfCellAt:at: and
+mouseAction:.
 
-The method above answers a new LOCell, specialized to position (i, j) in the Matrix of cells. The last line defines the new cell's mouseAction to be the block [self toggleNeighboursOfCellAt: i at: j ]. In effect, this defines the callback behaviour to perform when the mouse is clicked. The corresponding method also needs to be defined.
+The method above answers a new LOCell, specialized to position (i, j) in the
+Matrix of cells. The last line defines the new cell's mouseAction to be the
+block [self toggleNeighboursOfCellAt: i at: j ]. In effect, this defines the
+callback behaviour to perform when the mouse is clicked. The corresponding
+method also needs to be defined.
 
 [[[lang=Smalltalk
 LOGame >> toggleNeighboursOfCellAt: i at: j
@@ -214,27 +378,47 @@ LOGame >> toggleNeighboursOfCellAt: i at: j
 (j < self cellsPerSide) ifTrue: [ (cells at: i at: j + 1) toggleState].
 ]]]
 
-The above method toggles the state of the four cells to the north, south, west and east of cell (i, j). The only complication is that the board is finite, so we have to make sure that a neighboring cell exists before we toggle its state.
+The above method toggles the state of the four cells to the north, south, west
+and east of cell (i, j). The only complication is that the board is finite, so
+we have to make sure that a neighboring cell exists before we toggle its state.
 
-Place this method in a new protocol called game logic. (Right-click in the protocol pane to add a new protocol.)
+Place this method in a new protocol called game logic. (Right-click in the
+protocol pane to add a new protocol.)
 
-To move the method, you can simply click on its name and drag it to the newly-created protocol.
+To move the method, you can simply click on its name and drag it to the
+newly-created protocol.
 
-To complete the Lights Out game, we need to define two more methods in class LOCell to handle mouse events.
+To complete the Lights Out game, we need to define two more methods in class
+LOCell to handle mouse events.
 
 [[[lang=Smalltalk
 LOCell >> mouseAction: aBlock
 ^ mouseAction := aBlock]]]
 
-The method above does nothing more than set the cell's mouseAction variable to the argument, and then answers the new value. Any method that changes the value of an instance variable in this way is called a setter method; a method that answers the current value of an instance variable is called a getter method.
+The method above does nothing more than set the cell's mouseAction variable to
+the argument, and then answers the new value. Any method that changes the value
+of an instance variable in this way is called a setter method; a method that
+answers the current value of an instance variable is called a getter method.
 
-If you are used to getters and setters in other programming languages, you might expect these methods to be called setmouseAction and getmouseAction. The Smalltalk convention is different. A getter always has the same name as the variable it gets, and a setter is named similarly, but with a trailing ":", hence mouseAction and mouseAction:.
+If you are used to getters and setters in other programming languages, you might
+expect these methods to be called setmouseAction and getmouseAction. The
+Smalltalk convention is different. A getter always has the same name as the
+variable it gets, and a setter is named similarly, but with a trailing ":",
+hence mouseAction and mouseAction:.
 
-Collectively, setters and getters are called accessor methods, and by convention they should be placed in the accessing protocol. In Smalltalk, all instance variables are private to the object that owns them, so the only way for another object to read or write those variables in the Smalltalk language is through accessor methods like this one.In fact, the instance variables can be accessed in subclasses too.
+Collectively, setters and getters are called accessor methods, and by convention
+they should be placed in the accessing protocol. In Smalltalk, all instance
+variables are private to the object that owns them, so the only way for another
+object to read or write those variables in the Smalltalk language is through
+accessor methods like this one.In fact, the instance variables can be accessed
+in subclasses too.
 
-Go to the class LOCell, define LOCell >> mouseAction: and put it in the accessing protocol.
+Go to the class LOCell, define LOCell >> mouseAction: and put it in the
+accessing protocol.
 
-Finally, we need to define a method mouseUp:; this will be called automatically by the GUI framework if the mouse button is released while the mouse is over this cell on the screen.
+Finally, we need to define a method mouseUp:; this will be called automatically
+by the GUI framework if the mouse button is released while the mouse is over
+this cell on the screen.
 
 [[[lang=Smalltalk
 LOCell >> mouseUp: anEvent
@@ -242,41 +426,72 @@ mouseAction value]]]
 
 Add the method LOCell >> mouseUp: and then ""categorize automatically"" methods.
 
-What this method does is to send the message value to the object stored in the instance variable mouseAction. Recall that in LOGame >> newCellAt: i at: j we assigned the following code fragment to mouseAction:
+What this method does is to send the message value to the object stored in the
+instance variable mouseAction. Recall that in LOGame >> newCellAt: i at: j we
+assigned the following code fragment to mouseAction:
 
 [self toggleNeighboursOfCellAt: i at: j ]
 
-Sending the value message causes this code fragment to be evaluated, and consequently the state of the cells will toggle.
+Sending the value message causes this code fragment to be evaluated, and
+consequently the state of the cells will toggle.
 
 !!Let's try our code
 
 That’s it: the Lights Out game is complete!
 
-If you have followed all of the steps, you should be able to play the game, consisting of just 2 classes and 7 methods.
+If you have followed all of the steps, you should be able to play the game,
+consisting of just 2 classes and 7 methods.
 
 In a workspace, type LOGame new openInWorld and ""do it"" .
 
-The game will open, and you should be able to click on the cells and see how it works.
+The game will open, and you should be able to click on the cells and see how it
+works.
 
-Well, so much for theory... When you click on a cell, a notifier window called the PreDebugWindow window appears with an error message! It says MessageNotUnderstood: LOGame >> toggleState.
+Well, so much for theory... When you click on a cell, a notifier window called
+the PreDebugWindow window appears with an error message! It says
+MessageNotUnderstood: LOGame >> toggleState.
 
-What happened ? To find out, let’s use one of Smalltalk’s more powerful tools: the debugger.
+What happened ? To find out, let’s use one of Smalltalk’s more powerful tools:
+the debugger.
 
 Click on the ""debug"" button in the notifer window.
 
-The debugger will appear. In the upper part of the debugger window you can see the execution stack, showing all the active methods; selecting any one of them will show, in the middle pane, the Smalltalk code being executed in that method, with the part that triggered the error highlighted.
+The debugger will appear. In the upper part of the debugger window you can see
+the execution stack, showing all the active methods; selecting any one of them
+will show, in the middle pane, the Smalltalk code being executed in that method,
+with the part that triggered the error highlighted.
 
 Click on the line labelled LOGame»toggleNeighboursOfCellAt: at: (near the top).
 
-The debugger will show you the execution context within this method where the error occurred.
+The debugger will show you the execution context within this method where the
+error occurred.
 
-At the bottom of the debugger are two small inspector windows. On the left, you can inspect the object that is the receiver of the message that caused the selected method to execute, so you can look here to see the values of the instance variables. On the right you can inspect an object that represents the currently executing method itself, so you can look here to see the values of the method's parameters and temporary variables.
+At the bottom of the debugger are two small inspector windows. On the left, you
+can inspect the object that is the receiver of the message that caused the
+selected method to execute, so you can look here to see the values of the
+instance variables. On the right you can inspect an object that represents the
+currently executing method itself, so you can look here to see the values of the
+method's parameters and temporary variables.
 
-Using the debugger, you can execute code step by step, inspect objects in parameters and local variables, evaluate code just as you can in a workspace, and, most surprisingly to those used to other debuggers, change the code while it is being debugged! Some Smalltalkers program in the debugger almost all the time, rather than in the browser. The advantage of this is that you see the method that you are writing as it will be executed, with real parameters in the actual execution context.
+Using the debugger, you can execute code step by step, inspect objects in
+parameters and local variables, evaluate code just as you can in a workspace,
+and, most surprisingly to those used to other debuggers, change the code while
+it is being debugged! Some Smalltalkers program in the debugger almost all the
+time, rather than in the browser. The advantage of this is that you see the
+method that you are writing as it will be executed, with real parameters in the
+actual execution context.
 
-In this case we can see in the first line of the top panel that the toggleState message has been sent to an instance of LOGame, while it should clearly have been an instance of LOCell. The problem is most likely with the initialization of the cells matrix. Browsing the code of LOGame >> initialize shows that cells is filled with the return values of newCellAt: at:, but when we look at that method, we see that there is no return statement there! By default, a method returns self, which in the case of newCellAt: at: is indeed an instance of LOGame.
+In this case we can see in the first line of the top panel that the toggleState
+message has been sent to an instance of LOGame, while it should clearly have
+been an instance of LOCell. The problem is most likely with the initialization
+of the cells matrix. Browsing the code of LOGame >> initialize shows that cells
+is filled with the return values of newCellAt: at:, but when we look at that
+method, we see that there is no return statement there! By default, a method
+returns self, which in the case of newCellAt: at: is indeed an instance of
+LOGame.
 
-Close the debugger window. Add the expression "^ c" to the end of the method LOGame >> newCellAt:at: so that it returns c.
+Close the debugger window. Add the expression "^ c" to the end of the method
+LOGame >> newCellAt:at: so that it returns c.
 
 [[[lang=Smalltalk
 LOGame >> newCellAt: i at: j
@@ -288,13 +503,22 @@ self addMorph: c.
 c position: ((i - 1) * c width) @ ((j - 1) * c height) + origin. c mouseAction: [self toggleNeighboursOfCellAt: i at: j].
 ^ c]]]
 
-Recall from Chapter 1 that the construct to return a value from a method in Smalltalk is ^, which you obtain by typing ^.
+Recall from Chapter 1 that the construct to return a value from a method in
+Smalltalk is ^, which you obtain by typing ^.
 
-Often, you can fix the code directly in the debugger window and click Proceed to continue running the application. In our case, because the bug was in the initialization of an object, rather than in the method that failed, the easiest thing to do is to close the debugger window, destroy the running instance of the game (with the halo), and create a new one.
+Often, you can fix the code directly in the debugger window and click Proceed to
+continue running the application. In our case, because the bug was in the
+initialization of an object, rather than in the method that failed, the easiest
+thing to do is to close the debugger window, destroy the running instance of the
+game (with the halo), and create a new one.
 
 Do: LOGame new openInWorld again.
 
-Now the game should work properly ... or nearly so. If we happen to move the mouse between clicking and releasing, then the cell the mouse is over will also be toggled. This turns out to be behavior that we inherit from SimpleSwitchMorph. We can fix this simply by overriding mouseMove: to do nothing:
+Now the game should work properly ... or nearly so. If we happen to move the
+mouse between clicking and releasing, then the cell the mouse is over will also
+be toggled. This turns out to be behavior that we inherit from
+SimpleSwitchMorph. We can fix this simply by overriding mouseMove: to do
+nothing:
 
 [[[lang=Smalltalk
 LOGame >> mouseMove: anEvent
@@ -305,47 +529,101 @@ Finally we are done!
 
 !!Saving and sharing Smalltalk code
 
-Now that you have the Lights Out game working, you probably want to save it somewhere so that you can share it with your friends. Of course, you can save your whole Pharo image, and show off your first program by running it, but your friends probably have their own code in their images, and don't want to give that up to use your image. What you need is a way of getting source code out of your Pharo image so that other programmers can bring it into theirs.
+Now that you have the Lights Out game working, you probably want to save it
+somewhere so that you can share it with your friends. Of course, you can save
+your whole Pharo image, and show off your first program by running it, but your
+friends probably have their own code in their images, and don't want to give
+that up to use your image. What you need is a way of getting source code out of
+your Pharo image so that other programmers can bring it into theirs.
 
-The simplest way of doing this is by filing out the code. The action-click menu in the Package pane will give you the option to various U\-\-> file out the whole of package PBE-LightsOut. The resulting file is more or less human readable, but is really intended for computers, not humans. You can email this file to your friends, and they can file it into their own Pharo images using the file list browser.
+The simplest way of doing this is by filing out the code. The action-click menu
+in the Package pane will give you the option to various U\-\-> file out the
+whole of package PBE-LightsOut. The resulting file is more or less human
+readable, but is really intended for computers, not humans. You can email this
+file to your friends, and they can file it into their own Pharo images using the
+file list browser.
 
-Right-click on the PBE-LightsOut package and various \-\-> file out the contents.
+Right-click on the PBE-LightsOut package and various \-\-> file out the
+contents.
 
-You should now find a file called "PBE-LightsOut.st" in the same folder on disk where your image is saved. Have a look at this file with a text editor.
+You should now find a file called "PBE-LightsOut.st" in the same folder on disk
+where your image is saved. Have a look at this file with a text editor.
 
-Open a fresh Pharo image and use the File Browser tool ( Tools... \-\-> File Browser ) to file in the PBE-LightsOut.st fileout. Verify that the game now works in the new image.
+Open a fresh Pharo image and use the File Browser tool ( Tools... \-\-> File
+Browser ) to file in the PBE-LightsOut.st fileout. Verify that the game now
+works in the new image.
 
 !!!Monticello packages
 
-Although fileouts are a convenient way of making a snapshot of the code you have written, they are decidedly "old school". Just as most open-source projects find it much more convenient to maintain their code in a repository using CVS4 or Subversion5, so Pharo programmers find it more convenient to manage their code using Monticello packages. These packages are represented as files with names ending in .mcz; they are actually zip-compressed bundles that contain the complete code of your package.
+Although fileouts are a convenient way of making a snapshot of the code you have
+written, they are decidedly "old school". Just as most open-source projects find
+it much more convenient to maintain their code in a repository using CVS4 or
+Subversion5, so Pharo programmers find it more convenient to manage their code
+using Monticello packages. These packages are represented as files with names
+ending in .mcz; they are actually zip-compressed bundles that contain the
+complete code of your package.
 
-Using the Monticello package browser, you can save packages to repositories on various types of server, including FTP and HTTP servers; you can also just write the packages to a repository in a local file system directory. A copy of your package is also always cached on your local hard-disk in the package-cache folder. Monticello lets you save multiple versions of your program, merge versions, go back to an old version, and browse the differences between versions. In fact, Monticello is a distributed revision control system; this means it allows developers to save their work on different places, not on a single repository as it is the case with CVS or Subversion.
+Using the Monticello package browser, you can save packages to repositories on
+various types of server, including FTP and HTTP servers; you can also just write
+the packages to a repository in a local file system directory. A copy of your
+package is also always cached on your local hard-disk in the package-cache
+folder. Monticello lets you save multiple versions of your program, merge
+versions, go back to an old version, and browse the differences between
+versions. In fact, Monticello is a distributed revision control system; this
+means it allows developers to save their work on different places, not on a
+single repository as it is the case with CVS or Subversion.
 
-You can also send a .mcz file by email. The recipient will have to place it in her package-cache folder; she will then be able to use Monticello to browse and load it.
+You can also send a .mcz file by email. The recipient will have to place it in
+her package-cache folder; she will then be able to use Monticello to browse and
+load it.
 
 Open the Monticello browser from the World menu.
 
-In the right-hand pane of the browser is a list of Monticello repositories, which will include all of the repositories from which code has been loaded into the image that you are using.
+In the right-hand pane of the browser is a list of Monticello repositories,
+which will include all of the repositories from which code has been loaded into
+the image that you are using.
 
-At the top of the list in the Monticello browser is a repository in a local directory called the package cache, which caches copies of the packages that you have loaded or published over the network. This local cache is really handy because it lets you keep your own local history; it also allows you to work in places where you do not have internet access, or where access is slow enough that you do not want to save to a remote repository very frequently.
+At the top of the list in the Monticello browser is a repository in a local
+directory called the package cache, which caches copies of the packages that you
+have loaded or published over the network. This local cache is really handy
+because it lets you keep your own local history; it also allows you to work in
+places where you do not have internet access, or where access is slow enough
+that you do not want to save to a remote repository very frequently.
 
 !!!Saving and loading code with Monticello
 
-On the left-hand side of the Monticello browser is a list of packages that have a version loaded into the image; packages that have been modified since they were loaded are marked with an asterisk. (These are sometimes referred to as dirty packages.) If you select a package, the list of repositories is restricted to just those repositories that contain a copy of the selected package.
+On the left-hand side of the Monticello browser is a list of packages that have
+a version loaded into the image; packages that have been modified since they
+were loaded are marked with an asterisk. (These are sometimes referred to as
+dirty packages.) If you select a package, the list of repositories is restricted
+to just those repositories that contain a copy of the selected package.
 
-Add the PBE-LightsOut package to your Monticello browser using the ""+ Package"" button and type PBE-LightsOut.
+Add the PBE-LightsOut package to your Monticello browser using the ""+ Package""
+button and type PBE-LightsOut.
 
 !!!SmalltalkHub: a Github for Pharo
 
-We think that the best way to save your code and share it is to create an account for your project on a SqueakSource server. SmalltalkHub is like GitHub: it is a web front-end to a HTTP Monticello server that lets you manage your projects. There is a public server at *http://www.smalltalkhub.com/>http://www.smalltalkhub.com/*.
+We think that the best way to save your code and share it is to create an
+account for your project on a SqueakSource server. SmalltalkHub is like GitHub:
+it is a web front-end to a HTTP Monticello server that lets you manage your
+projects. There is a public server at
+*http://www.smalltalkhub.com/>http://www.smalltalkhub.com/*.
 
-In order to be able to use SmalltalkHub you will need an account. Using the link provided go to the website with your internet browser. Just click on the ""Join"" link and follow the instructions to create a new account. Then ""login"" to your account.
+In order to be able to use SmalltalkHub you will need an account. Using the link
+provided go to the website with your internet browser. Just click on the
+""Join"" link and follow the instructions to create a new account. Then
+""login"" to your account.
 
-+Join and login at SmalltalkHub>file://figures/smalltalkhub-join.png|width=100|label=join+
++Join and login at
+SmalltalkHub>file://figures/smalltalkhub-join.png|width=100|label=join+
 
-Click on the ""+ New project"" to create a bew project. Fill in the information requested and click ""Register project"" button. You will be sent to your profile page, on the right side you will see the list of your projects and projects you watch by other coders. Click on the project you just created.
+Click on the ""+ New project"" to create a bew project. Fill in the information
+requested and click ""Register project"" button. You will be sent to your
+profile page, on the right side you will see the list of your projects and
+projects you watch by other coders. Click on the project you just created.
 
-Under ""Monticello registration"" title label you will see a box containg a smalltalk message similar to
+Under ""Monticello registration"" title label you will see a box containg a
+smalltalk message similar to
 
 [[[lang=Smalltalk
 MCHttpRepository
@@ -357,29 +635,49 @@ Copy those contents.
 
 Go back to Pharo.
 
-Once your project has been created on SmalltalkHub, you have to tell your Pharo system to use it.
+Once your project has been created on SmalltalkHub, you have to tell your Pharo
+system to use it.
 
-With the PBE-LightsOut package selected, click the ""+Repository"" button in the Monticello browser.
+With the PBE-LightsOut package selected, click the ""+Repository"" button in the
+Monticello browser.
 
-You will see a list of the different types of Repository that are available; to add a SqueakSource repository select HTTP . You will be presented with a dialog in which you can provide the necessary information about the server. You should paste the smalltalk message you have copied from SmalltalkHub . This message tells to Monticello where to find your project online. You can also provide your user name and password. If you do not, then Pharo will ask for them each time you try to save into your online repository at SmalltalkHub.
+You will see a list of the different types of Repository that are available; to
+add a SqueakSource repository select HTTP . You will be presented with a dialog
+in which you can provide the necessary information about the server. You should
+paste the smalltalk message you have copied from SmalltalkHub . This message
+tells to Monticello where to find your project online. You can also provide your
+user name and password. If you do not, then Pharo will ask for them each time
+you try to save into your online repository at SmalltalkHub.
 
+Once you have accepted , your new repository should be listed on the right-hand
+side of the Monticello browser.
 
-Once you have accepted , your new repository should be listed on the right-hand side of the Monticello browser.
+Click on the ""Save"" button to save a first version of your Lights Out game on
+SmalltalkHub
 
-Click on the ""Save"" button to save a first version of your Lights Out game on SmalltalkHub
-
-To load a package into your image, you must first select a particular version. You can do this in the repository browser, which you can open using the button or the right-click menu. Once you have selected a version, you can load it onto your image.
+To load a package into your image, you must first select a particular version.
+You can do this in the repository browser, which you can open using the button
+or the right-click menu. Once you have selected a version, you can load it onto
+your image.
 
 Open the PBE-LightsOut repository you have just saved.
 
-Monticello has many more capabilities, which will be discussed in depth in Chapter 6. You can also look at the on-line documentation for Monticello at *http://www.wiresong.ca/Monticello/>http://www.wiresong.ca/Monticello/*.
+Monticello has many more capabilities, which will be discussed in depth in
+Chapter 6. You can also look at the on-line documentation for Monticello at
+*http://www.wiresong.ca/Monticello/>http://www.wiresong.ca/Monticello/*.
 
-If you are already familiar with Git and Github there is a chapter about how to use Git and Github with Pharo in the online book Pharo for The Enterprise here *https://ci.inria.fr/pharo-contribution/job/PharoForTheEnterprise/lastSuccessfulBuild/artifact/>https://ci.inria.fr/pharo-contribution/job/PharoForTheEnterprise/lastSuccessfulBuild/artifact/*. If you have not done so already its recommended to download the entire book , ""EnterprisePharo.pdf"", because it contains a lot of valuable information about Pharo and its third party libraries.
+If you are already familiar with Git and Github there is a chapter about how to
+use Git and Github with Pharo in the online book Pharo for The Enterprise here
+*https://ci.inria.fr/pharo-contribution/job/PharoForTheEnterprise/lastSuccessfulBuild/artifact/>https://ci.inria.fr/pharo-contribution/job/PharoForTheEnterprise/lastSuccessfulBuild/artifact/*.
+If you have not done so already its recommended to download the entire book ,
+""EnterprisePharo.pdf"", because it contains a lot of valuable information about
+Pharo and its third party libraries.
 
 !!Chapter summary
 
-
-In this chapter you have seen how to create categories, classes and methods. You have see how to use the browser, the inspector, the debugger and the Monticello browser.
+In this chapter you have seen how to create categories, classes and methods. You
+have see how to use the browser, the inspector, the debugger and the Monticello
+browser.
 
 -Categories are groups of related classes.
 -A new class is created by sending a message to its superclass.
