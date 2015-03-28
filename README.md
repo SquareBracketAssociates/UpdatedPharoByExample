@@ -33,6 +33,15 @@ More info about contributing to this book can be found in the [CONTRIBUTING.md](
 
 Please send any comments, suggestions, or questions to the [pharo-dev](http://lists.pharo.org/mailman/listinfo/pharo-users_lists.pharo.org) mailing list (see also the [Get Help](http://www.pharo.org/community) section of [Pharo.org](http://www.pharo.org/)).
 
+### Style Guide
+Please keep in mind the following:
+
+* When possible, hard-wrap lines at 80 characters (e.g. `Meta-Q` in Emacs,
+    `Cmd-Alt-Q` in Atom). This is a common open-source documentation convention,
+    and helps with viewing GitHub-generated diffs.
+    However, due to Pillar limitations, ordered and unordered list elements must
+    be on a single line to be correctly parsed. Those can be left un-wrapped.
+
 ## Latest Builds
 
 The latest versions of *Updated Pharo by Example* can be found at the following sites:
