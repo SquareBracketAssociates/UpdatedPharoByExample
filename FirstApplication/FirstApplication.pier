@@ -124,7 +124,8 @@ onColor := Color paleBlue darker.
 self useSquareCorners.
 self turnOff]]]
 
-Note that the characters \'\' on line 3 are two separate single quotes with nothing between them, not a double quote! \'\' denotes the empty string.
+Note that the characters \'\' on line 3 are two separate single quotes with
+nothing between them, not a double quote! \'\' denotes the empty string.
 
 ""Accept"" this method definition.
 

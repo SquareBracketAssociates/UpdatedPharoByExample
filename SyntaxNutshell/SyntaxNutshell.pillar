@@ -1,22 +1,38 @@
 !Syntax in a nutshell
 @chapterSyntaxNutshell
 
-Pharo adopts a syntax very close to that of its ancestor Smalltalk. The syntax is designed so that program text can be read aloud as though it were a kind of pidgin English. The following method of the class ==Week== shows an example of the syntax. It checks whether ==DayNames== contains already the argument, i.e., if this the argument represents a correct day name. When this is the case it will assigns it to the variable ==StartDay==.
+Pharo adopts a syntax very close to that of its ancestor Smalltalk. The syntax
+is designed so that program text can be read aloud as though it were a kind of
+pidgin English. The following method of the class ==Week== shows an example of
+the syntax. It checks whether ==DayNames== contains already the argument, i.e.,
+if this the argument represents a correct day name. When this is the case it
+will assigns it to the variable ==StartDay==.
 
 
 [[[language=Smalltalk
 startDay: aSymbol
- 
+
    (DayNames includes: aSymbol)
       ifTrue: [ StartDay := aSymbol ]
       ifFalse: [ self error: aSymbol, ' is not a recognised day name' ]
 ]]]
 
-Pharo's syntax is minimal. Essentially there is syntax only for sending messages (i.e., expressions). Expressions are built up from a very small number of primitive elements (message sends, assignments, closures, return...). There are only 6 keywords, and there is no syntax for control structures or declaring new classes. Instead, nearly everything is achieved by sending messages to objects. For instance, instead of an if-then- else control structure,  conditionals are expressed as messages sent such as ==ifTrue:== to Boolean objects. New (sub-)classes are created by sending a message to their superclass.
+Pharo's syntax is minimal. Essentially there is syntax only for sending messages
+(i.e., expressions). Expressions are built up from a very small number of
+primitive elements (message sends, assignments, closures, return...). There are
+only 6 keywords, and there is no syntax for control structures or declaring new
+classes. Instead, nearly everything is achieved by sending messages to objects.
+For instance, instead of an if-then- else control structure,  conditionals are
+expressed as messages sent such as ==ifTrue:== to Boolean objects. New
+(sub-)classes are created by sending a message to their superclass.
 
 !! Syntactic elements
 
-Expressions are composed of the following building blocks: (i) six reserved keywords, or ''pseudo-variables'': ==self==, ==super==, ==nil==, ==true==, ==false==, and ==thisContext==, (ii) constant expressions for ''literal'' objects including numbers, characters, strings, symbols and arrays, (iii) variable declarations, (iv) assignments, (v) block closures, and (vi) messages.
+Expressions are composed of the following building blocks: (i) six reserved
+keywords, or ''pseudo-variables'': ==self==, ==super==, ==nil==, ==true==,
+==false==, and ==thisContext==, (ii) constant expressions for ''literal''
+objects including numbers, characters, strings, symbols and arrays, (iii)
+variable declarations, (iv) assignments, (v) block closures, and (vi) messages.
 
 We can see examples of the various syntactic elements in the Table below.
 
@@ -46,57 +62,102 @@ We can see examples of the various syntactic elements in the Table below.
 |==Transcript show: 'hello'; cr==| message cascade (==;==)
 
 
+""Local variables."" ==startPoint== is a variable name, or identifier. By
+convention, identifiers are composed of words in "camelCase" (i.e., each word
+except the first starting with an upper case letter). The first letter of an
+instance variable, method or block argument, or temporary variable must be lower
+case. This indicates to the reader that the variable has a private scope.
 
+""Shared variables."" Identifiers that start with upper case letters are global
+variables, class variables, pool dictionaries or class names. ==Transcript== is
+a global variable, an instance of the class ==TranscriptStream==.
 
-""Local variables."" ==startPoint== is a variable name, or identifier. By convention, identifiers are composed of words in "camelCase" (i.e., each word except the first starting with an upper case letter). The first letter of an instance variable, method or block argument, or temporary variable must be lower case. This indicates to the reader that the variable has a private scope.
+""The receiver."". ==self== is a keyword that refers to the object inside which
+the current method is executing. We call it "the receiver" because this object
+will normally have received the message that caused the method to execute.
+==self== is called a "pseudo-variable" since we cannot assign to it.
 
+""Integers."". In addition to ordinary decimal integers like 42, Pharo also
+provides a radix notation. ==2r101== is 101 in radix 2 (i.e., binary), which is
+equal to decimal 5.
 
+""Floating point numbers."" can be specified with their base-ten exponent:
+==2.4e7== is ==2.4 X 10^7==.
 
-""Shared variables."" Identifiers that start with upper case letters are global variables, class variables, pool dictionaries or class names. ==Transcript== is a global variable, an instance of the class ==TranscriptStream==.
+""Characters."" A dollar sign introduces a literal character: ==$a== is the
+literal for =='a'==. Instances of non-printing characters can be obtained by
+sending appropriately named messages to the ==Character== class, such as
+==Character space== and ==Character tab==.
 
-""The receiver."". ==self== is a keyword that refers to the object inside which the current method is executing. We call it "the receiver" because this object will normally have received the message that caused the method to execute. ==self== is called a "pseudo-variable" since we cannot assign to it.
+""Strings."" Single quotes ==' '== are used to define a literal string. If you
+want a string with a quote inside, just double the quote, as in =='G''day'==.
 
-""Integers."". In addition to ordinary decimal integers like 42, Pharo also provides a radix notation. ==2r101== is 101 in radix 2 (i.e., binary), which is equal to decimal 5.
+""Symbols."" are like Strings, in that they contain a sequence of characters.
+However, unlike a string, a literal symbol is guaranteed to be globally unique.
+There is only one ==Symbol== object ==#Hello== but there may be multiple
+==String== objects with the value =='Hello'==.
 
-""Floating point numbers."" can be specified with their base-ten exponent: ==2.4e7== is ==2.4 X 10^7==.
+""Compile-time arrays."" are defined by ==#( )==, surrounding space-separated
+literals. Everything within the parentheses must be a compile-time constant. For
+example, ==#(27 (true false) abc)== is a literal array of three elements: the
+integer 27, the compile-time array containing the two booleans, and the symbol
+==#abc==. (Note that this is the same as ==#(27 #(true false) #abc)==.)
 
-""Characters."" A dollar sign introduces a literal character: ==$a== is the literal for =='a'==. Instances of non-printing characters can be obtained by sending appropriately named messages to the ==Character== class, such as ==Character space== and ==Character tab==.
+""Run-time arrays."" Curly braces =={ }==  define a (dynamic) array at run-time.
+Elements are expressions separated by periods. So =={ 1. 2. 1 + 2 }== defines an
+array with elements 1, 2, and the result of evaluating ==1+2==.
 
-""Strings."" Single quotes ==' '== are used to define a literal string. If you want a string with a quote inside, just double the quote, as in =='G''day'==.
+""Comments."" are enclosed in double quotes \" \". "hello" is a comment, not a
+string, and is ignored by the Pharo compiler. Comments may span multiple lines.
 
-""Symbols."" are like Strings, in that they contain a sequence of characters. However, unlike a string, a literal symbol is guaranteed to be globally unique. There is only one ==Symbol== object ==#Hello== but there may be multiple ==String== objects with the value =='Hello'==.
-
-""Compile-time arrays."" are defined by ==#( )==, surrounding space-separated literals. Everything within the parentheses must be a compile-time constant. For example, ==#(27 (true false) abc)== is a literal array of three elements: the integer 27, the compile-time array containing the two booleans, and the symbol ==#abc==. (Note that this is the same as ==#(27 #(true false) #abc)==.)
-
-""Run-time arrays."" Curly braces =={ }==  define a (dynamic) array at run-time. Elements are expressions separated by periods. So =={ 1. 2. 1 + 2 }== defines an array with elements 1, 2, and the result of evaluating ==1+2==.
-
-""Comments."" are enclosed in double quotes \" \". "hello" is a comment, not a string, and is ignored by the Pharo compiler. Comments may span multiple lines.
-
-""Local variable definitions."" Vertical bars ==| |== enclose the declaration of one or more local variables in a method (and also in a block).
+""Local variable definitions."" Vertical bars ==| |== enclose the declaration of
+one or more local variables in a method (and also in a block).
 
 ""Assignment."" ==:= == assigns an object to a variable.
 
-""Blocks."" Square brackets ==[ ]== define a block, also known as a block closure or a lexical closure, which is a first-class object representing a function. As we shall see, blocks may take arguments (==[:i | ...]==) and can have local variables.
+""Blocks."" Square brackets ==[ ]== define a block, also known as a block
+closure or a lexical closure, which is a first-class object representing a
+function. As we shall see, blocks may take arguments (==[:i | ...]==) and can
+have local variables.
 
-""Primitives."" ==< primitive: ... >== denotes an invocation of a virtual machine primitive. ( ==< primitive: 1 >== is the VM primitive for ==SmallInteger== ) Any code following the primitive is executed only if the primitive fails. The same syntax is also used for method annotations.
+""Primitives."" ==< primitive: ... >== denotes an invocation of a virtual
+machine primitive. ( ==< primitive: 1 >== is the VM primitive for
+==SmallInteger== ) Any code following the primitive is executed only if the
+primitive fails. The same syntax is also used for method annotations.
 
-""Unary messages."" They consist of a single word (like ==factorial==) sent to a receiver (like 3).
+""Unary messages."" They consist of a single word (like ==factorial==) sent to a
+receiver (like 3).
 
-""Binary messages."" They are operators for example ==+== sent to a receiver and taking a single argument. In ==3 + 4==, the receiver is 3 and the argument is 4.
+""Binary messages."" They are operators for example ==+== sent to a receiver and
+taking a single argument. In ==3 + 4==, the receiver is 3 and the argument is 4.
 
-""Keyword messages."" They consist of multiple keywords (like ==raisedTo: modulo:==), each ending with a colon and taking a single argument. In the expression ==2 raisedTo: 6 modulo: 10==, the message selector ==raisedTo:modulo:== takes the two arguments 6 and 10, one following each colon. We send the message to the receiver 2.
+""Keyword messages."" They consist of multiple keywords (like ==raisedTo:
+modulo:==), each ending with a colon and taking a single argument. In the
+expression ==2 raisedTo: 6 modulo: 10==, the message selector
+==raisedTo:modulo:== takes the two arguments 6 and 10, one following each colon.
+We send the message to the receiver 2.
 
 ""Method return."" ==^== is used to ''return'' a value from a method.
 
-""Sequences of statements."" A period or full-stop (.) is the statement separator. Putting a period between two expressions turns them into independent statements.
+""Sequences of statements."" A period or full-stop (.) is the statement
+separator. Putting a period between two expressions turns them into independent
+statements.
 
-""Cascades."" Semicolons ( ==;== ) can be used to send a cascade of messages to a single receiver. In ==Transcript show: 'hello'; cr== we first send the keyword message ==show: 'hello'== to the receiver ==Transcript==, and then we send the unary message ==cr== to the same receiver.
+""Cascades."" Semicolons ( ==;== ) can be used to send a cascade of messages to
+a single receiver. In ==Transcript show: 'hello'; cr== we first send the keyword
+message ==show: 'hello'== to the receiver ==Transcript==, and then we send the
+unary message ==cr== to the same receiver.
 
-The classes ==Number==, ==Character==, ==String== and ==Boolean== are described in more detail in Chapter 8.
+The classes ==Number==, ==Character==, ==String== and ==Boolean== are described
+in more detail in Chapter 8.
 
 !!Pseudo-variables
 
-In Pharo, there are 6 reserved keywords, or pseudo-variables: ==nil==, ==true==, ==false==, ==self==, ==super==, and ==thisContext==. They are called pseudo-variables because they are predefined and cannot be assigned to. ==true==, ==false==, and ==nil== are constants while the values of ==self==, ==super==, and ==thisContext== vary dynamically as code is executed.
+In Pharo, there are 6 reserved keywords, or pseudo-variables: ==nil==, ==true==,
+==false==, ==self==, ==super==, and ==thisContext==. They are called
+pseudo-variables because they are predefined and cannot be assigned to.
+==true==, ==false==, and ==nil== are constants while the values of ==self==,
+==super==, and ==thisContext== vary dynamically as code is executed.
 
 - ==true== and ==false== are the unique instances of the Boolean classes ==True== and ==False==. See Chapter 8 for more details.
 
@@ -116,21 +177,27 @@ There are three kinds of messages in Pharo.
 #''Binary'' messages take exactly one argument. ==1 + 2== sends the message ==+== with argument 2 to the object 1.
 #''Keyword'' messages take an arbitrary number of arguments. ==2 raisedTo: 6 modulo: 10== sends the message consisting of the message selector ==raisedTo:modulo:== and the arguments 6 and 10 to the object 2.
 
-Unary message selectors consist of alphanumeric characters, and start with a lower case letter.
+Unary message selectors consist of alphanumeric characters, and start with a
+lower case letter.
 
-Binary message selectors consist of one or more characters from the following set:
+Binary message selectors consist of one or more characters from the following
+set:
 
 [[[ language=Smalltalk
 + - / \ * ~ < > = @ % | & ? , ]]]
 
-Keyword message selectors consist of a series of alphanumeric keywords, where each keyword starts with a lower-case letter and ends with a colon.
+Keyword message selectors consist of a series of alphanumeric keywords, where
+each keyword starts with a lower-case letter and ends with a colon.
 
-Unary messages have the highest precedence, then binary messages, and finally keyword messages, so:
+Unary messages have the highest precedence, then binary messages, and finally
+keyword messages, so:
 
 [[[language=Smalltalk
 2 raisedTo: 1 + 3 factorial --> 128]]]
 
-(First we send factorial to 3, then we send \+ 6 to 1, and finally we send raisedTo: 7 to 2.) Recall that we use the notation expression \-\-\> result to show the result of evaluating an expression.
+(First we send factorial to 3, then we send \+ 6 to 1, and finally we send
+raisedTo: 7 to 2.) Recall that we use the notation expression \-\-\> result to
+show the result of evaluating an expression.
 
 Precedence aside, evaluation is strictly from left to right, so
 
@@ -142,16 +209,21 @@ not 7. Parentheses must be used to alter the order of evaluation:
 [[[language=Smalltalk
 1 + (2 * 3) --> 7 ]]]
 
-Message sends may be composed with periods and semi-colons. A period separated sequence of expressions causes each expression in the series to be evaluated as a ''statement'', one after the other.
+Message sends may be composed with periods and semi-colons. A period separated
+sequence of expressions causes each expression in the series to be evaluated as
+a ''statement'', one after the other.
 
 [[[language=Smalltalk
 Transcript cr.
 Transcript show: 'hello world'.
 Transcript cr]]]
 
-This will send ==cr== to the ==Transcript== object, then send it ==show: 'hello world'==, and finally send it another ==cr==.
+This will send ==cr== to the ==Transcript== object, then send it ==show: 'hello
+world'==, and finally send it another ==cr==.
 
-When a series of messages is being sent to the ''same'' receiver, then this can be expressed more succinctly as a ''cascade''. The receiver is specified just once, and the sequence of messages is separated by semi-colons:
+When a series of messages is being sent to the ''same'' receiver, then this can
+be expressed more succinctly as a ''cascade''. The receiver is specified just
+once, and the sequence of messages is separated by semi-colons:
 
 [[[language=Smalltalk
 Transcript
@@ -163,11 +235,18 @@ This has precisely the same effect as the previous example.
 
 !!Method syntax
 
-Whereas expressions may be evaluated anywhere in Pharo (for example, in a workspace, in a debugger, or in a browser), methods are normally defined in a browser window, or in the debugger. (Methods can also be filed in from an external medium, but this is not the usual way to program in Pharo.)
+Whereas expressions may be evaluated anywhere in Pharo (for example, in a
+workspace, in a debugger, or in a browser), methods are normally defined in a
+browser window, or in the debugger. (Methods can also be filed in from an
+external medium, but this is not the usual way to program in Pharo.)
 
-Programs are developed one method at a time, in the context of a given class. (A class is defined by sending a message to an existing class, asking it to create a subclass, so there is no special syntax required for defining classes.)
+Programs are developed one method at a time, in the context of a given class. (A
+class is defined by sending a message to an existing class, asking it to create
+a subclass, so there is no special syntax required for defining classes.)
 
-Here is the method lineCount in the class String. (The usual convention is to refer to methods as ClassName\>\>methodName, so we call this method String\>\>lineCount.)
+Here is the method lineCount in the class String. (The usual convention is to
+refer to methods as ClassName\>\>methodName, so we call this method
+String\>\>lineCount.)
 
 [[[language=Smalltalk
 String >> lineCount
@@ -186,51 +265,80 @@ Syntactically, a method consists of:
 #declarations of local variables (i.e., ==cr== and ==count==); and
 #any number of expressions separated by dots; here there are four.
 
-The evaluation of any expression preceded by a ^ (typed as upper arrow which is shift \+ 6 for most keyboards) will cause the method to exit at that point, returning the value of that expression. A method that terminates without explicitly returning some expression will implicitly return self.
+The evaluation of any expression preceded by a ^ (typed as upper arrow which is
+shift \+ 6 for most keyboards) will cause the method to exit at that point,
+returning the value of that expression. A method that terminates without
+explicitly returning some expression will implicitly return self.
 
-Arguments and local variables should always start with lower case letters. Names starting with upper-case letters are assumed to be global variables. Class names, like ==Character==, for example, are simply global variables referring to the object representing that class.
+Arguments and local variables should always start with lower case letters. Names
+starting with upper-case letters are assumed to be global variables. Class
+names, like ==Character==, for example, are simply global variables referring to
+the object representing that class.
 
 !!Block syntax
 
-Blocks provide a mechanism to defer the evaluation of expressions. A block is essentially an anonymous function. A block is evaluated by sending it the message value. The block answers the value of the last expression in its body, unless there is an explicit return (with ^), in which case it does not answer any value.
+Blocks provide a mechanism to defer the evaluation of expressions. A block is
+essentially an anonymous function. A block is evaluated by sending it the
+message value. The block answers the value of the last expression in its body,
+unless there is an explicit return (with ^), in which case it does not answer
+any value.
 
 [[[language=Smalltalk
 [ 1 + 2 ] value --> 3]]]
 
-Blocks may take parameters, each of which is declared with a leading colon. A vertical bar separates the parameter declaration(s) from the body of the block. To evaluate a block with one parameter, you must send it the message value: with one argument. A two-parameter block must be sent ==value:value:==, and so on, up to 4 arguments.
+Blocks may take parameters, each of which is declared with a leading colon. A
+vertical bar separates the parameter declaration(s) from the body of the block.
+To evaluate a block with one parameter, you must send it the message value: with
+one argument. A two-parameter block must be sent ==value:value:==, and so on, up
+to 4 arguments.
 
 [[[language=Smalltalk
 [ :x | 1 + x ] value:2 --> 3
 [ :x :y | x + y ] value: 1 value: 2 --> 3]]]
 
-If you have a block with more than four parameters, you must use ==valueWithArguments:== and pass the arguments in an array. (A block with a large number of parameters is often a sign of a design problem.)
+If you have a block with more than four parameters, you must use
+==valueWithArguments:== and pass the arguments in an array. (A block with a
+large number of parameters is often a sign of a design problem.)
 
-Blocks may also declare local variables, which are surrounded by vertical bars, just like local variable declarations in a method. Locals are declared after any arguments:
+Blocks may also declare local variables, which are surrounded by vertical bars,
+just like local variable declarations in a method. Locals are declared after any
+arguments:
 
 [[[language=Smalltalk
 [ :x :y || z | z := x + y. z ] value: 1 value: 2 --> 3]]]
 
-Blocks are actually lexical closures, since they can refer to variables of the surrounding environment. The following block refers to the variable x of its enclosing environment:
+Blocks are actually lexical closures, since they can refer to variables of the
+surrounding environment. The following block refers to the variable x of its
+enclosing environment:
 
 [[[language=Smalltalk
 | x |
 x := 1.
 [ :y | x + y ] value: 2 --> 3]]]
 
-Blocks are instances of the class BlockClosure. This means that they are objects, so they can be assigned to variables and passed as arguments just like any other object.
+Blocks are instances of the class BlockClosure. This means that they are
+objects, so they can be assigned to variables and passed as arguments just like
+any other object.
 
 !!Conditionals and loops in a nutshell
 
-Pharo offers no special syntax for control constructs. Instead, these are typically expressed by sending messages to booleans, numbers and collections, with blocks as arguments.
+Pharo offers no special syntax for control constructs. Instead, these are
+typically expressed by sending messages to booleans, numbers and collections,
+with blocks as arguments.
 
-Conditionals are expressed by sending one of the messages ==ifTrue:==, ==ifFalse:== or ==ifTrue:ifFalse:== to the result of a boolean expression. See Chapter 8 for more about booleans.
+Conditionals are expressed by sending one of the messages ==ifTrue:==,
+==ifFalse:== or ==ifTrue:ifFalse:== to the result of a boolean expression. See
+Chapter 8 for more about booleans.
 
 [[[language=Smalltalk
 (17 * 13 > 220)
 	ifTrue: [ 'bigger' ]
 	ifFalse: [ 'smaller' ] -->'bigger']]]
 
-Loops are typically expressed by sending messages to blocks, integers or collections. Since the exit condition for a loop may be repeatedly evaluated, it should be a block rather than a boolean value. Here is an example of a very procedural loop:
+Loops are typically expressed by sending messages to blocks, integers or
+collections. Since the exit condition for a loop may be repeatedly evaluated, it
+should be a block rather than a boolean value. Here is an example of a very
+procedural loop:
 
 [[[language=Smalltalk
 n := 1.
@@ -251,34 +359,51 @@ n := 1.
 10 timesRepeat: [ n := n*2 ].
 n --> 1024]]]
 
-We can also send the message ==to:do:== to a number which then acts as the initial value of a loop counter. The two arguments are the upper bound, and a block that takes the current value of the loop counter as its argument:
+We can also send the message ==to:do:== to a number which then acts as the
+initial value of a loop counter. The two arguments are the upper bound, and a
+block that takes the current value of the loop counter as its argument:
 
 [[[language=Smalltalk
 result := String new.
 1 to: 10 do: [:n | result := result, n printString, ' '].
 result --> '12345678910']]]
 
-""High-Order Iterators."" Collections comprise a large number of different classes, many of which support the same protocol. The most important messages for iterating over collections include ==do:==, ==collect:==, ==select:==, ==reject:==, ==detect:== and ==inject:into:==. These messages define high-level iterators that allow one to write very compact code.
+""High-Order Iterators."" Collections comprise a large number of different
+classes, many of which support the same protocol. The most important messages
+for iterating over collections include ==do:==, ==collect:==, ==select:==,
+==reject:==, ==detect:== and ==inject:into:==. These messages define high-level
+iterators that allow one to write very compact code.
 
-An ""Interval"" is a collection that lets one iterate over a sequence of numbers from the starting point to the end. ==1 to: 10== represents the interval from 1 to 10. Since it is a collection, we can send the message do: to it. The argument is a block that is evaluated for each element of the collection.
+An ""Interval"" is a collection that lets one iterate over a sequence of numbers
+from the starting point to the end. ==1 to: 10== represents the interval from 1
+to 10. Since it is a collection, we can send the message do: to it. The argument
+is a block that is evaluated for each element of the collection.
 
 [[[language=Smalltalk
 result := String new.
 (1 to: 10) do: [:n | result := result, n printString, ' '].
 result --> '12345678910']]]
 
- ==collect:== builds a new collection of the same size, transforming each element.
+==collect:== builds a new collection of the same size, transforming each
+element.
+
 [[[language=Smalltalk
 (1to:10) collect: [ :each | each * each ] --> #(149162536496481100)]]]
 
- ==select:== and ==reject:== build new collections, each containing a subset of the elements satisfying (or not) the boolean block condition. detect: returns the first element satisfying the condition. Don't forget that strings are also collections, so you can iterate over all the characters.
+==select:== and ==reject:== build new collections, each containing a subset of
+the elements satisfying (or not) the boolean block condition. detect: returns
+the first element satisfying the condition. Don't forget that strings are also
+collections, so you can iterate over all the characters.
 
 [[[language=Smalltalk
 'hello there' select: [ :char | char isVowel ] --> 'eoee'
 'hello there' reject: [ :char | char isVowel ] --> 'hll thr'
 'hello there' detect: [ :char | char isVowel ] --> $e]]]
 
-Finally, you should be aware that collections also support a functional-style fold operator in the ==inject:into:== method. This lets you generate a cumulative result using an expression that starts with a seed value and injects each element of the collection. Sums and products are typical examples.
+Finally, you should be aware that collections also support a functional-style
+fold operator in the ==inject:into:== method. This lets you generate a
+cumulative result using an expression that starts with a seed value and injects
+each element of the collection. Sums and products are typical examples.
 
 [[[language=Smalltalk
 (1to:10) inject:0 into: [ :sum :each |sum + each] --> 55]]]
@@ -289,13 +414,21 @@ More about collections can be found in Chapter 9.
 
 !! Primitives and pragmas
 
-In Pharo everything is an object, and everything happens by sending messages. Nevertheless, at certain points we hit rock bottom. Certain objects can only get work done by invoking virtual machine primitives.
+In Pharo everything is an object, and everything happens by sending messages.
+Nevertheless, at certain points we hit rock bottom. Certain objects can only get
+work done by invoking virtual machine primitives.
 
-For example, the following are all implemented as primitives: memory allocation (==new==, ==new:==), bit manipulation (==bitAnd:==, ==bitOr:==, ==bitShift:==), pointer and integer arithmetic (\+, \-, \<, \>, \*, \/ , \ , \=, \=\=...), and array access (==at:==, ==at:put:==).
+For example, the following are all implemented as primitives: memory allocation
+(==new==, ==new:==), bit manipulation (==bitAnd:==, ==bitOr:==, ==bitShift:==),
+pointer and integer arithmetic (\+, \-, \<, \>, \*, \/ , \ , \=, \=\=...), and
+array access (==at:==, ==at:put:==).
 
-Primitives are invoked with the syntax <primitive: aNumber>. A method that invokes such a primitive may also include Smalltalk code, which will be evaluated only if the primitive fails.
+Primitives are invoked with the syntax <primitive: aNumber>. A method that
+invokes such a primitive may also include Smalltalk code, which will be
+evaluated only if the primitive fails.
 
-Here we see the code for ==SmallInteger>>+==. If the primitive fails, the expression ==super + aNumber== will be evaluated and returned.
+Here we see the code for ==SmallInteger>>+==. If the primitive fails, the
+expression ==super + aNumber== will be evaluated and returned.
 
 [[[language=Smalltalk
 + aNumber
@@ -306,7 +439,8 @@ Here we see the code for ==SmallInteger>>+==. If the primitive fails, the expres
 	<primitive: 1>
 	^ super + aNumber]]]
 
-In Pharo, the angle bracket syntax is also used for method annotations called pragmas.
+In Pharo, the angle bracket syntax is also used for method annotations called
+pragmas.
 
 !!Chapter summary
 -Pharo has (only) six reserved identifiers also called pseudo-variables: ==true==, ==false==, ==nil==, ==self==, ==super==, and ==thisContext==.
