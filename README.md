@@ -41,6 +41,9 @@ Please keep in mind the following:
     and helps with viewing GitHub-generated diffs.
     However, due to Pillar limitations, ordered and unordered list elements must
     be on a single line to be correctly parsed. Those can be left un-wrapped.
+* Only *one* space between sentences.
+* Avoid periods in section titles. (For example, this section is titled "Style Guide"
+    and not "Style Guide.")
 
 ## Latest Builds
 
