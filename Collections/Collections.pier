@@ -992,7 +992,7 @@ range copy do: [:aNumber | aNumber isPrime ifFalse: [ range remove: aNumber ] ].
 range --> an OrderedCollection(2 3 5 7 11 13 17 19)
 ]]]
 
-!!!!!Redefining both === and ==hash==
+!!!!!Redefining both ===== and ==hash==
 
 A difficult error to spot is when you redefine ===== but not ==hash==. The
 symptoms are that you will lose elements that you put in sets or other strange
