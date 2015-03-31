@@ -83,7 +83,7 @@ of a different class, namely ==SortedCollection==:
 
 [[[
 ((OrderedCollection withAll: #(4 5 6 1 2 3)) asSortedCollection class
-	--> SortedCollection
+	--> SortedCollection)
 ]]]
 
 By Rule 3, every class has a superclass. The superclass of ==SortedCollection==
@@ -125,7 +125,7 @@ there is a message, ==isKindOf:==, that you can send to any object to find out
 if it is in an ''is a'' relationship with a given class:
 
 [[[
-sortedCollection := ((OrderedCollection withAll: #(4 5 6 1 2 3)) asSortedCollection.
+sortedCollection := ((OrderedCollection withAll: #(4 5 6 1 2 3)) asSortedCollection).
 sortedCollection isKindOf: SortedCollection --> true
 sortedCollection isKindOf: OrderedCollection --> true
 sortedCollection isKindOf: Object                  --> true
