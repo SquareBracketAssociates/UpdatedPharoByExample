@@ -28,8 +28,20 @@ Chapter | Status | Latest
 15 - [Regular Expressions](Regex/) | Needs revision | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Regex/Regex.pier.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Regex/Regex.pier.pdf)
 
 ## Contributing to Updated Pharo By Example (vol 1)
+This book follows the
+[fork-and-pull](https://help.github.com/articles/using-pull-requests/#fork--pull)
+GitHub workflow for contributions:
 
-More info about contributing to this book can be found in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+1. Fork the repository
+2. For each addition, create a quick branch, prefixed with your initials. For
+    example: `git checkout -b dz_streams_syntax_fix`
+3. Make commits to that branch. When you're ready, make a
+    [Pull Request](https://help.github.com/articles/using-pull-requests/#sending-the-pull-request)
+4. The request will receive comments/corrections, and will be merged into the
+    main repo.
+
+More info about contributing to this book (including Pillar syntax, setting up
+LaTeX, etc) can be found in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
 Please send any comments, suggestions, or questions to the [pharo-dev](http://lists.pharo.org/mailman/listinfo/pharo-users_lists.pharo.org) mailing list (see also the [Get Help](http://www.pharo.org/community) section of [Pharo.org](http://www.pharo.org/)).
 
