@@ -9,102 +9,179 @@ In particular, you will fire up Pharo, learn about the different ways of
 interacting with the system, and discover some of the basic tools. You will also
 learn how to define a new method, create an object and send it messages.
 
+''Note:'' Most of the introductory material in this book will work with any
+Pharo version, so if you already have one installed, you may as well continue to
+use it. However, if you notice differences between the appearance or behaviour
+of your system and what is described here, do not be surprised.
+
 !!Getting started
 
 Pharo is available as a free download from
-*http://www.pharo.org>http://www.pharo.org*. There are three parts that you will
-need to download, consisting of four files.
+*http://pharo.org/download>http://pharo.org/download*. Click the button for your
+operating system to download the appropriate ==.zip== file. For example, the
+full Pharo 4.0 distribution for Mac OS X will be available at
+*http://files.pharo.org/platform/Pharo4.0-mac.zip>http://files.pharo.org/platform/Pharo4.0-mac.zip*.
 
-#The ''virtual machine'' (VM) is the only part of the system that is different for each operating system and processor. Pre-compiled virtual machines are available for all the major computing environments.(For example in case of Windows the VM for the selected platform is called Pharo.exe).
-#The ''sources'' file contains the source code for all of the parts of Pharo that don't change very frequently. In case of Pharo40 is called PharoV40.sources
-#The current ''system image'' is a snapshot of a running Pharo system, frozen in time. It consists of two files: an ''.image'' file, which contains the state of all of the objects in the system (including classes and methods, since they are objects too), and a ''.changes'' file, which contains a log of all of the changes to the source code of the system. Pharo40 comes with the files that are called ''pharo.image'' and ''pharo.changes''.
+Once that file is unzipped, it will contain everything you need to run
+Pharo (this includes the VM, the image, and the sources, as explained below).
 
-Most of the introductory material in this book will work with any version, so if
-you already have one installed, you may as well continue to use it. However, if
-you notice differences between the appearance or behaviour of your system and
-what is described here, do not be surprised.
+!!Installing Pharo
 
-As you work in Pharo, the image and changes files are modified, so you need to
-make sure that they are writable. Always keep these two files together. Never
+Pharo does not need to install anything in your system, as it's perfectly
+capable of running standalone. Depending on your platform, download the
+appropriate zip file, uncompress it in a directory of your choice and now you
+are ready to launch Pharo. In case of Ubuntu Linux, there is also the extra
+option of installing Pharo via the Pharo PPA.
+
+% Commenting this out until the one-click image for 4.0 is sorted out:
+%
+% We recommend that you use the image provided on the *Pharo by Example>http://pharobyexample.org/* web page or to refer to the download page of the Pharo web site *http://www.pharo.org/download* and to take the distribution for your OS.
+
+!!Pharo components
+
+Like many Smalltalk-derived systems, Pharo currently consists of three main
+components. Although you do not need to deal with them directly for the purposes
+of this book, it is important to understand the roles that they play.
+
+""1."" The ""image"" is a current snapshot of a running Pharo system, frozen in
+time. It consists of two files: an ''.image'' file, which contains the state of
+all of the objects in the system (including classes and methods, since they are
+objects too), and a ''.changes'' file, which contains the log of all of the
+changes to the source code of the system. For Pharo 4.0, these files are named
+==Pharo4.0.image== and ==Pharo4.0.changes==. These files are portable across
+operating systems, and can be copied and run on any appropriate virtual machine.
+
+""2."" The ""virtual machine"" (VM) is the only part of the system that is
+different for each operating system. Pre-compiled virtual machines are available
+for all major computing environments. (For example, on Windows, the VM file is
+named ==Pharo.exe==).
+
+""3."" The ""sources"" file contains the source code for all of the parts of
+Pharo that don't change very frequently. For Pharo 4.0, this file is named
+==PharoV40.sources==.
+
+As you work in Pharo, the image and changes files are modified (so you need to
+make sure that they are writable). Always keep these two files together. Never
 edit them directly with a text editor, as Pharo uses them to store the objects
 you work with and to log the changes you make to the source code. It is a good
 idea to keep a backup copy of the downloaded image and changes files so you can
 always start from a fresh image and reload your code.
 
-The ''sources'' file and the VM can be read-only , they can be shared between
+The ''sources'' file and the VM can be read-only, and can be shared between
 different users. All of these files can be placed in the same directory, but it
 is also possible to put the Virtual Machine and sources file in separate
 directory where everyone has access to them. Do whatever works best for your
 style of working and your operating system.
 
-!!Install Pharo
+!!Launching Pharo
 
-Pharo does not need to install anything in your system as its perfectly capable
-of running as stand alone. We recommend that you use the image provided  on the
-*Pharo by Example>http://pharobyexample.org/* web page or to refer to the
-download page of the Pharo web site *http://www.pharo.org/download* and to take
-the distribution for your OS. The current version of this book has been adapted
-to be in sync with the version 40 of Pharo, therefore you can use this version
-with this book.
+To start Pharo, double click on the Pharo executable (or, for more advanced
+users, drag and drop the ==.image== file onto the VM, or use the command line).
 
-Only thing you need to do is download Pharo40 from the Pharo website
-*http://www.pharo.org/>http://www.pharo.org/*.  Depending on your platform
-download the appropriate zip file, uncompress it in a directory of your choice
-and now you are ready to launch Pharo.  In case of Ubuntu there is the extra
-option of installing Pharo via the Pharo PPA.
+On ""Mac OS X"", double click the ==Pharo4.0.app== bundle in the unzipped download.
 
-!!Launch Pharo
+On ""Linux"", double click (or invoke from the command line) the ==pharo==
+executable bash script from the unzipped Pharo folder.
 
-To start Pharo, do whatever your operating system expects: drag the ''.image''
-file onto the icon of the virtual machine, or double-click the ''.image'' file,
-or  at the command line type the name of the virtual machine followed by the
-path to the ''.image'' file.  (When you have multiple VMs installed on your
-machine the operating system may not automatically pick the right one; in this
-case it is safer to drag and  drop the image onto the virtual machine, or to use
-the command line.)
+On ""Windows"", enter the unzipped Pharo folder and double click ==Pharo.exe==.
 
-Basically
--On MacOS, double click the Pharo image file or drag and drop it on the VM that you have unziped when you downloaded Pharo.
--On Windows, enter the uncompressed Pharo folder and double click the Pharo.exe.
--On Linux, it is possible to launch Pharo from the terminal passing the image file as first parameter.
+In general, Pharo tries to "do the right thing". If you double click on the VM,
+it looks for an image file in the default location. If you double click on an
+==.image== file, it tries to find the nearest VM to launch it with.
 
-Once Pharo is running, you should see a single large window, possibly containing
-some open workspace windows (see Figure *worldMenu*).  You might notice a menu
-bar, but Pharo mainly makes use of context-dependent pop-up menus.
+Once you have multiple VMs (or multiple images) installed on your
+machine, the operating system may no longer be able to guess the right one. In this
+case, it is safer to specify exactly which ones you meant to launch, either
+by dragging and dropping the image file onto the VM, or specifying the image on
+the command line (see the next section).
 
-+Pharo40 window with World Menu
-activated>file://figures/Pharo40.png|width=100|label=worldMenu+
+!!!Launching Pharo via the command line
+
+The general pattern for launching Pharo from a terminal is:
+
+[[[
+<Pharo executable> <path to Pharo image>
+]]]
+
+!!!!Linux command line
+
+For Linux, assuming that you're in the unzipped ==pharo4.0== folder:
+
+[[[
+./pharo shared/Pharo4.0.image
+]]]
+
+!!!!Mac OS X command line
+
+For Mac OS X, assuming that you're in the directory with the unzipped
+==Pharo4.0.app== bundle:
+
+[[[
+Pharo4.0.app/Contents/MacOS/Pharo Pharo4.0.app/Contents/Resources/Pharo4.0.image
+]]]
+
+Incidentally, to drag-and-drop images on Mac OS in Finder, you need to
+right-click on ==Pharo4.0.app== and select 'Show Package Contents'.
+
+!!!!Windows command line
+
+For Windows, assuming that you're in the unzipped ==Pharo4.0== folder:
+
+[[[
+Pharo.exe Pharo4.0.image
+]]]
 
 !!The World Menu
 
-Left clicking anywhere to the background of the Pharo window will display the
+Once Pharo is running, you should see a single large window, possibly containing
+some open workspace windows (see Figure *worldMenu*). You might notice a menu
+bar, but Pharo mainly makes use of context-dependent pop-up menus.
+
++Pharo 4.0 window with World Menu
+activated>file://figures/Pharo40.png|width=100|label=worldMenu+
+
+Left clicking anywhere on the background of the Pharo window will display the
 World Menu. World Menu contains many of the Pharo tools, utilities and settings.
 
-You will see a list of several of the core tools in Pharo, including the class
-browser and the workspace. We will encounter most of them in the coming
-chapters.
+You will see a list of several core tools in Pharo, including the class browser
+and the workspace. We will encounter most of them in the coming chapters.
 
-!!!! Three interactions
+!!!Interacting with Pharo
 
 Pharo offers three ways to interact with the system using a mouse or other
 pointing device.
 
+""click"": this is the most often used mouse button, and is normally equivalent
+to left-clicking (or clicking a single-mouse button without any modifier key).
+For example, click on the background of the Pharo window to bring up the “World”
+menu (Figure *worldMenu*).
 
-- ""click"": this is the most often used mouse button, and is normally equivalent to clicking a single-mouse button without any modifier key; click on the background of the Pharo window to bring up the “World” menu (Figure *worldMenu*).
-- ""action-click"": this is the next most used button; it is used to bring up a contextual menu, that is, a menu that offers different sets of actions depending on where the mouse is pointing; see Figure *pharotutorial*. If you do not have a multi-button mouse, then normally you will configure the control modifier key to action-click with the mouse button.
-- ""meta-click"": Finally,youmaymeta-clickonanyobjectdisplayedintheimage to activate the “morphic halo”, an array of handles that are used to perform operations on the on-screen objects themselves, such as inspecting or resizing them; see Figure *halos*. If you let the mouse linger over a handle, a help balloon will explain its function. In Pharo, how you meta-click depends on your operating system: either you must hold SHIFT ctrl or SHIFT option while clicking.
+""action-click"" (or right-click): this is the next most used button. It is used
+to bring up a contextual menu that offers different sets of actions depending on
+where the mouse is pointing (see Figure *pharotutorial*). If you do not have a
+multi-button mouse, then normally you will configure the control modifier key to
+action-click with the mouse button.
+
+""meta-click"": Finally, you may meta-click on any object displayed in the image
+to activate the "morphic halo", an array of handles that are used to perform
+operations on the on-screen objects themselves, such as inspecting or resizing
+them (see Figure *halos*). If you let the mouse linger over a handle, a help
+balloon will explain its function. In Pharo, how you meta-click depends on your
+operating system: either you must hold Shift-Ctrl or Shift-Option while
+clicking.
 
 %+Action Click brings the contextual menu.>file://figures/operating.png|width=80|label=operating+
 
-+Shift and Enter Clicking brings the
++Shift-Clicking brings the
 Halos.>file://figures/addHalo.png|width=80|label=halos+
 
 !!Sending messages
 
-Left click on open space to open the World Menu and then click on the
-"Workspace" menu option. The Workspace tool will open. We can use the Workspace
-to quickly execute Pharo code. Enter the following code in it then right click
-and select "do it"
+In the Pharo window, (left-)click on an open space to open the World Menu, and
+then select the "Playground" menu option. The Playground tool will open (you may
+recognize it as the "Workspace" tool, from previous versions of Pharo). We can
+use the Playground to quickly execute Pharo code. Enter the following code in
+it, then right click and select "do it":
 
 [[[language=smalltalk
 PharoTutorial go.]]]
@@ -121,40 +198,40 @@ will see later on how an object can understand a message.
  +PharoTutorial is a simple interactive tutorial to learn about Pharo>file://figures/ProfStef.png|width=80|label=ProfStef+
 
 If you talk to Pharoers for a while, you will quickly notice that they generally
-do not use expressions like "call an operation" or "invoke a method",  as coders
-do in other programming languages, but instead they will say "send a message".
-This reflects the idea that objects are  responsible for their own actions. You
-never tell an object what to do , instead you politely ask it to do something by
-sending it a message.  The object, not you, selects the appropriate method for
-responding to your message.
+do not use expressions like "call an operation" or "invoke a method", as
+developers do in other programming languages, but instead they will say "send a
+message". This reflects the idea that objects are responsible for their own
+actions. You never tell an object what to do, instead you politely ask it to do
+something by sending it a message. The object, and not the sender, selects the
+appropriate method for responding to your message.
 
-As a user you don't need to understand how each message works , the only thing
-you need to know is what the available messages are for the objects  that
-interest you. This way an object can hide its complexity and coding can be kept
+As a user you don't need to understand how each message works, the only thing
+you need to know is what the available messages are for the objects that
+interest you. This way an object can hide its complexity, and coding can be kept
 as simple as possible without losing flexibility.
 
 !!Saving, quitting and restarting a Pharo session
 
-We can exit Pharo at any point. You can close the Pharo window as you do any
+You can exit Pharo at any point. You can close the Pharo window as you do any
 other window of OS. Additionally you can trigger the World Menu and choose
 either "Save and quit" or "Quit".
 
 In any case Pharo will display a prompt to ask you about saving your image. If
-you do save your image and reopen it you will see that things are ''exactly''
+you do save your image and reopen it, you will see that things are ''exactly''
 as you left them. This happens because the image file is capable of storing any
 information (created objects, edited text, added methods... of course since they
-are all objects)  that Pharo has loaded to your memory so that nothing is lost
+are all objects) that Pharo has loaded to your memory so that nothing is lost
 on exit.
 
 When you start Pharo for the first time, the Pharo virtual machine loads the
-image file that you provide. This file contains a snapshot of a  large number of
+image file that you provide. This file contains a snapshot of a large number of
 objects, including a vast amount of pre-existing code and a large number of
-programming tools (all of which are objects).  As you work with Pharo, you will
+programming tools (all of which are objects). As you work with Pharo, you will
 send messages to these objects, you will create new objects, and some of these
-objects will die and their memory will  be reclaimed (i.e., garbage-collected).
+objects will die and their memory will be reclaimed (garbage-collected).
 
 When you quit Pharo, you will normally save a snapshot that contains all of your
-objects. If you save normally, you will overwrite your  old image file with the
+objects. If you save normally, you will overwrite your old image file with the
 new snapshot. Alternatively, you may save the image under a new name, as we just
 did.
 
@@ -164,21 +241,26 @@ the standard tools. Most of the time you do not need to worry about this file at
 all. As we shall see, however, the ''.changes'' file can be very useful for
 recovering from errors, or replaying lost changes. More about this later!
 
-You might think that the image is the key mechanism for storing and managing
-software projects, but you would be wrong. As we shall see very soon,  there are
+It may seem like the image is the key mechanism for storing and managing
+software projects, but that is not the case. As we shall see soon, there are
 much better tools for managing code and sharing software developed by teams.
-Images are very useful, but you should learn to be very  cavalier about creating
+Images are very useful, but you should learn to be very cavalier about creating
 and throwing away images, since tools like Monticello offer much better ways to
-manage versions and share code amongst developers. In addition if you need to
+manage versions and share code amongst developers. In addition, if you need to
 store objects you can use several systems such as Fuel (a fast object binary
 serializer), STON (a textual object serializer) or a database.
 
-!!Workspace and Transcripts
+!!Playground and Transcripts
 
-!!!!Let us start with some exercises:
-# Close all open windows.
-# Open a transcript and a workspace. (The transcript can be opened from the World > Tools ... submenu.)
-# Position and resize the transcript and workspace windows so that the workspace just overlaps the transcript.
+Let us start with some exercises:
+
+1. Close all open windows.
+
+2. Open a Transcript and a Playground/workspace. (The Transcript can be opened from the
+World > Tools ... submenu.)
+
+3. Position and resize the transcript and playground windows so that the
+playground just overlaps the transcript.
 
 You can resize windows by dragging one of the corners.
 
@@ -188,54 +270,61 @@ highlighted.
 The transcript is an object that is often used for logging system messages. It
 is a kind of "system console".
 
-Workspaces are useful for typing snippets of code that you would like to
-experiment with. You can also use workspaces simply for typing arbitrarily text
+Playgrounds are useful for typing snippets of code that you would like to
+experiment with. You can also use playgrounds simply for typing arbitrarily text
 that you would like to remember, such as to-do lists or instructions for anyone
-who will use your image. Workspaces are often used to hold documentation  about
+who will use your image. Playgrounds are often used to hold documentation about
 a captured image, as is the case with the standard image that we downloaded
 earlier (see Figure 1.2).
 
-Type the following text into the workspace:
+Type the following text into the playground:
 
 [[[language = Smalltalk
 Transcript show: 'hello world'; cr.]]]
 
-#Try double-clicking in the workspace at various points in the text you have just typed. Notice how an entire word, entire string, or the whole text is selected, depending on whether you click within a word, at the end of the string, or at the end of the entire expression. In particular, if you place the cursor at before the first character or after the last character and double-click you select the complete paragraph.
-#Select the text you have typed and right click and select ''do it (d)''. (d) indicates that you can use the shortcut CMD-d to get the same result.
-#Notice how the text "hello world" appears in the transcript window. Do it again.
+1. Try double-clicking at various points on the text you have just typed. Notice
+how an entire word, entire string, or all of the text is selected, depending on
+whether you click within a word, at the end of the string, or at the end of the
+entire expression. In particular, if you place the cursor before the first
+character or after the last character and double-click you select the complete
+paragraph.
+
+2. Select the text you have typed, right click and select ''do it (d)''. (d)
+indicates that you can use the shortcut CMD-d to get the same result.
+
+3. Notice how the text "hello world" appears in the transcript window. Do it
+again.
 
 +Executing an expresssion: displaying a string in the Transcript.>file://figures/HelloWorld_new.png|width=80|label=HelloWorld+
 
-
-
 !!Keyboard shortcuts
 
-If you want  to evaluate an expression, you do not always have to right click.
+If you want to evaluate an expression, you do not always have to right click.
 Instead, you can use keyboard shortcuts. These are the parenthesized expressions
-in the menu.  Depending on your platform, you may have to press one of the
-modifier keys which are control, alt and command. We will be focusing on the
-MacOS platform since this is the platform most Pharo developers use where
-command key (a.k.a CMD key) is the main modifier key, the similar key in Windows
-is Alt and so is in Linux  so each time you see something like CMD-d just
-replace with the appropriate modifier key depending on your OS.
+in the menu. Depending on your platform, you may have to press one of the
+modifier keys which are Control, Alt and Command. We will be focusing on the Mac
+OS platform since this is the platform most Pharo developers use, where the
+command key (a.k.a ==Cmd==) is the main modifier key. On Linux or Windows, the
+corresponding key is ==Alt==, so each time you see something like ==Cmd-d==,
+just replace it with the appropriate modifier key depending on your OS.
 
 @@todo TODO: Test that alt is the modifier key for Linux
 
 In addition to ""do it"", you might have noticed ""print it"", ""inspect it""
 and ""explore it"". Let's have a quick look at each of these.
 
-Type the expression ==3 + 4== into the workspace. Now ""do it"" with the
+Type the expression ==3 + 4== into the playground. Now ""do it"" with the
 keyboard shortcut.
 
 Do not be surprised if you saw nothing happen! What you just did is send the
-message ==+== with argument 4 to the number 3. Normally the result 7   have been
-computed and returned to you, but since the workspace did not know what to do
-with this answer, it simply threw the answer away.   If you want to see the
-result, you should ""print it"" instead. ""print it"" actually compiles the
-expression, executes it, sends the message ==printString== to  the result, and
+message ==+== with argument 4 to the number 3. Normally the resulting 7  would
+have been computed and returned to you, but since the playground did not know
+what to do with this answer, it simply threw the answer away. If you want to see
+the result, you should ""print it"" instead. ""print it"" actually compiles the
+expression, executes it, sends the message ==printString== to the result, and
 displays the resulting string.
 
-Select ==3+4== and ""print it"" (CMD-p).
+Select ==3+4== and ""print it"" (Cmd-p).
 
 This time we see the result we expect.
 
@@ -247,14 +336,14 @@ particular Pharo expression yields a given result when you ""print it"".
 
 Delete the highlighted text "7" (Pharo should have selected it for you, so you
 can just press the delete key). Select ==3+4== again and this time ""inspect
-it"" ( CMD-i)
+it"" (Cmd-i)
 
 Now you should see a new window, called an ''inspector'', with the heading
 SmallInteger: 7. The inspector is an extremely useful tool that will allow you
 to browse and interact with any object in the system. The title tells us that 7
 is an instance of the class ''SmallInteger''. The left panel allows us to browse
 the instance variables of an object, the values of which are shown in the right
-panel.The bottom panel can be used to write expressions to send messages to the
+panel. The bottom panel can be used to write expressions to send messages to the
 object.
 
 Type ""self squared"" in the bottom panel of the inspector on ""7"" and ""print
@@ -262,8 +351,8 @@ it"".
 
 +Inspecting an object>file://figures/inspector.png|width=80|label=inspector+
 
-Close the inspector. Type the expression Object in a workspace and this time
-""explore it"" (CMD-I, uppercased i)
+Close the inspector. Type the expression ==Object== in a playground and this
+time ""explore it"" (Cmd-I, that is, the uppercase i).
 
 This time you should see a window labelled ""Object"" containing the text
 ""root: Object"". Click on the triangle to open it up.
@@ -284,83 +373,89 @@ available for Pharo, but this is the basic one you will find in any image.
 @@todo TODO: factorial on number would be better. and should redo the screenshot
 
 !!!! Open the System Browser
+
 Open the Browser by selecting World Menu > System Browser.
 
 +The System Browser showing the printString method of class Object>file://figures/system-browser.png|width=100|label=systemBrowser+
 
-We can see a Systen Browser in Figure *systemBrowser*. The title bar indicates
+We can see a System Browser in Figure *systemBrowser*. The title bar indicates
 that we are browsing the class Object and its method ==printString==.
 
 When the System Browser first opens, all panes are empty but the leftmost one.
 This first pane lists all known packages, which contain groups of related
 classes.
 
-When we select a package it causes the second pane to show a list of all of the
-classes in the selected package. When a class object is selected the remaining
-two panes will be filled with text. The third pane displays the protocols of the
+When we select a package, it causes the second pane to show a list of all of the
+classes in the selected package. When a class is selected the remaining two
+panes will be filled with text. The third pane displays the protocols of the
 currently selected class. These are convenient groupings of related methods. If
 no protocol is selected you should see all methods in the fourth pane.
 
 !!!! Select the ""printing"" protocol
 
-You may have to scroll down to find it. You can also type pr when the fourth
-column as the focus. Now you will see in the fourth pane only methods related to
-printing.
+You may have to scroll down to find it. You can also click on the third pane and
+type ==pr==, to typeahead-find the ==printing== protocol. Now select it, and you
+will see in the fourth pane only methods related to printing.
 
 !!!! Select the ""printString"" method
 
-Now we see in the bottom pane the source code of the printString method, shared
-by all objects in the system (except those that override it).
+Now we see in the bottom pane the source code of the ==printString== method,
+shared by all objects in the system (except those that override it).
 
 !!Finding classes
 
-There are several ways to find a class in Pharo.  The first, as we have just
+There are several ways to find a class in Pharo. The first, as we have just
 seen above, is to know (or guess) what category it is in, and to navigate to it
 using the browser.
 
 A second way is to send the ""browse"" message to the class, asking it to open a
-browser on itself.  Suppose we want to browse the class ""Boolean"".
+browser on itself. Suppose we want to browse the class ""Boolean"".
 
 !!!!Using the message ==browse==
-Type ""Boolean browse"" into a workspace and ""do it"".
+
+Type ""Boolean browse"" into a playground and ""do it"".
 
 A browser will open on the Boolean class.
 
-!!!!Using CMD-B to browse
-Use the keyboard shortcut to browse the class ""Boolean"". There is also a
-keyboard shortcut CMD-b (browse) that you can use in any tool where you find a
-class name; select the name and type CMD-b.
+!!!!Using Cmd-b to browse
+
+There is also a keyboard shortcut ==Cmd-b== (browse) that you can use in any
+tool where you find a class name; select the name and press ==Cmd-b==. Use this
+keyboard shortcut to browse the class ""Boolean"".
 
 Notice that when the Boolean class is selected but no protocol or method is
 selected, instead of the source code of a method, we see a class definition.
 This is nothing more than an ordinary message that is sent to the parent class,
 asking it to create a subclass. Here we see that the class Object is being asked
 to create a subclass named Boolean with no instance variables, class variables
-or ''pool dictionaries'', and to put the class Boolean} in the Kernel-Objects
-category. If you click on the ""comments"" button  at the bottom of the class
-pane, you can see the class comment  in a dedicated pane.
+or ''pool dictionaries'', and to put the class Boolean in the Kernel-Objects
+category. If you click on the ""comments"" button at the bottom of the class
+pane, you can see the class comment in a dedicated pane.
 
 %@@todo TODO: put a screenshot with the Boolean class%
-+The Boolean class with the comments section>file://figures/Boolean.png|width=100|label=boolean+
+
++The Boolean class with the comments section
+>file://figures/Boolean.png|width=100|label=boolean+
 
 Often, the fastest way to find a class is to search for it by name. For example,
 suppose that you are looking for some unknown class that represents dates and
 times.
 
 In the System Browser, place the mouse in the package pane of the browser and
-type CMD-f, or select find class (f) by right clicking inside the package pane.
-Type "time" in the dialog box and accept it.
+type ==Cmd-f==, or select ==find class (f)== by right clicking inside the
+package pane. Type "time" in the dialog box and accept it.
 
 You will be presented with a list of classes whose names contain "time". Choose
-one, say, Time, and the browser will show it, along with a class comment that
-suggests other classes that might be useful.  If you want to browse one of the
-others, select its name (in any text pane), and type CMD-b.
+one (say, Time), and the browser will show it, along with a class comment that
+suggests other classes that might be useful. If you want to browse one of the
+others, select its name (in any text pane), and type ==Cmd-b==.
 
 Note that if you type the complete (and correctly capitalized) name of a class
 in the find dialog, the browser will go directly to that class without showing
 you the list of options.
 
 !!!! Using Spotlight
+
 Pressing Shift and Enter will bring Spotlight, a simple but powerfull tool to
 find classes and methods. Figure *spotlight* shows that we look for ==Point==.
 The system proposes us several possibilities.
@@ -368,11 +463,11 @@ The system proposes us several possibilities.
 +Spotlight>file://figures/spotlight.png|width=50|label=spotlight+
 
 !!!! Using the Finder
+
 You can also open the Finder that is available from the Tools menu and type part
 of the name of the class. It is less efficient than using Spotlight or the
 SystemBrowser as explained above. The Finder is more powerful for other queries
 as we will show later.
-
 
 !!Finding methods
 
@@ -402,8 +497,8 @@ case, for example, it would translate 'eureka' into 'EUREKA'. We can give the
 inputs and expected output of a method and the Finder will try to find it for
 you.
 
-
 !!!!Using examples
+
 There is a really powerful functionality of the Finder, it is that you can ive
 the receiver, arguments and expected result and the finder tries to find the
 corresponding message.
@@ -546,8 +641,8 @@ the newly-created method in the debugger, and then ""Proceed"" with the test.
 
 Now let's define the method that will make the test succeed!
 
-
-- Select class ==String== in the browser, select the converting protocol method, type the code of the method bellow over the method template, and ""accept"" it.
+Select class ==String== in the browser, select the converting protocol method,
+type the code of the method bellow over the method template, and ""accept"" it.
 
 [[[ lang= Smalltalk
 shout
@@ -579,6 +674,6 @@ not understand it all yet.
 -When you restore a Pharo image, you will find yourself in exactly the same state, (i.e., with exactly the same running objects) that you had when you last saved that image.
 -You click on the Pharo background to bring up the ""World menu"" and launch various tools.
 -A ""workspace"" is a tool for writing and evaluating snippets of code. You can also use it to store arbitrary text.
--You can use keyboard shortcuts on text in the workspace, or any other tool, to evaluate code. The most important of these are do it (CMD-d), print it (CMD-p), inspect it (CMD-i), explore it (CMD-I) and browse it (CMD-b).
+-You can use keyboard shortcuts on text in the workspace, or any other tool, to evaluate code. The most important of these are do it (==Cmd-d==), print it (==Cmd-p==), inspect it (==Cmd-i==), explore it (==Cmd-I==) and browse it (==Cmd-b==).
 -The ""browser"" is the main tool for browsing Pharo code and for developing new code.
 -The ""test runner"" is a tool for running unit tests. It also supports Test Driven Development.
