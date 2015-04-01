@@ -82,8 +82,8 @@ Interestingly, if we send the message ==asSortedCollection==, we get an instance
 of a different class, namely ==SortedCollection==:
 
 [[[
-((OrderedCollection withAll: #(4 5 6 1 2 3)) asSortedCollection class
-	--> SortedCollection)
+(OrderedCollection withAll: #(4 5 6 1 2 3)) asSortedCollection class
+	--> SortedCollection
 ]]]
 
 By Rule 3, every class has a superclass. The superclass of ==SortedCollection==
@@ -125,7 +125,7 @@ there is a message, ==isKindOf:==, that you can send to any object to find out
 if it is in an ''is a'' relationship with a given class:
 
 [[[
-sortedCollection := ((OrderedCollection withAll: #(4 5 6 1 2 3)) asSortedCollection).
+sortedCollection := (OrderedCollection withAll: #(4 5 6 1 2 3)) asSortedCollection.
 sortedCollection isKindOf: SortedCollection --> true
 sortedCollection isKindOf: OrderedCollection --> true
 sortedCollection isKindOf: Object                  --> true
@@ -213,7 +213,7 @@ metaclass hierarchy until it is found in ==Collection class== (see Figure
 *fig:metaclasslookup*).
 
 [[[
-(OrderedCollection withAll: #(4 5 6 1 2 3) --> an OrderedCollection (4 5 6 1 2 3)
+OrderedCollection withAll: #(4 5 6 1 2 3) --> an OrderedCollection (4 5 6 1 2 3)
 ]]]
 
 Note that we get as a result an ordinary ==Color blue==, and not a translucent
