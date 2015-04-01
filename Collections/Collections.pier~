@@ -771,7 +771,7 @@ res --> 'bob.joe.toto'
 
 Note that this code is not especially efficient since it creates intermediate
 strings and it would be better to use a write stream to buffer the result (see
-Chapter 10 : Streams):
+Chapter 10 : Streams): %*cha:streams*):%
 
 [[[
 String streamContents: [:stream | #('bob' 'joe' 'toto') asStringOn: stream delimiter: '.' ] --> 'bob.joe.toto'
