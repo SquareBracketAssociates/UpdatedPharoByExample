@@ -1,10 +1,8 @@
 language: pillar
 install:
-  - uname -a
   - sudo apt-get update
   - sudo apt-get install texlive-latex-base texlive-latex-recommended texlive-fonts-recommended texlive-latex-extra texlive-bibtex-extra
-  - sudo dpkg --add-architecture i386 || echo "That's ok"
-  - sudo apt-get install libc6-i386 || echo "That's ok"
+  - sudo apt-get install libc6-i386
  - ./download.sh
 
 script:
