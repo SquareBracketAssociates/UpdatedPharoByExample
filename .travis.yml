@@ -3,7 +3,7 @@ install:
   - sudo apt-get update
   - sudo apt-get install texlive-latex-base texlive-latex-recommended texlive-fonts-recommended texlive-latex-extra texlive-bibtex-extra
   - sudo apt-get install libc6-i386
- - ./download.sh
+  - ./download.sh
 
 script:
   - ./compile.sh
