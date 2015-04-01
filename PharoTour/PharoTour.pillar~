@@ -341,7 +341,6 @@ category. If you click on the ""comments"" button  at the bottom of the class
 pane, you can see the class comment  in a dedicated pane.
 
 %@@todo TODO: put a screenshot with the Boolean class%
-+The Boolean class with the comments section>file://figures/Boolean.png|width=100|label=boolean+
 
 Often, the fastest way to find a class is to search for it by name. For example,
 suppose that you are looking for some unknown class that represents dates and
