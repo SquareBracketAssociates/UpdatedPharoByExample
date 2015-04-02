@@ -23,11 +23,9 @@ are ''also'' in the ==Collections-Streams== categories. These 56 classes respond
 to 982 messages and define a total of 1609 methods!
 
 In this chapter we focus mainly on the subset of collection classes shown in
-Figure *fig:CollClassesTree*. Streams will be discussed separately in Chapter 10.
-%*cha:streams*.%
+Figure *fig:CollClassesTree*. Streams will be discussed separately in Chapter *cha:streams*.
 
-+Some of the key collection classes in
-Pharo.>file://figures/CollectionHierarchy.png|label=fig:CollClassesTree+
++Some of the key collection classes in Pharo.>file://figures/CollectionHierarchy.png|label=fig:CollClassesTree+
 
 !!The varieties of collections
 
@@ -119,12 +117,10 @@ same requests. Let us briefly survey some of the key differences:
 
 @sec:implementation
 
-*Some collection classes categorized by implementation technique.>file://figures/CollectionsByImpl|label=collsByImpl*
++Some collection classes categorized by implementation technique.>file://figures/CollectionsByImpl.png|width=100|label=collsByImpl+
 
 These categorizations by functionality are not our only concern; we must also
-consider how the collection classes are implemented. As shown in Figure 1.1
-% *fig:collsByImpl* %
-, five main implementation techniques are employed.
+consider how the collection classes are implemented. As shown in Figure *fig:collsByImpl* , five main implementation techniques are employed.
 
 - Arrays store their elements in the (indexable) instance variables of the collection object itself; as a consequence, arrays must be of a fixed size, but can be created with a single memory allocation.
 - ==OrderedCollections== and ==SortedCollections== store their elements in an array that is referenced by one of the instance variables of the collection. Consequently, the internal array can be replaced with a larger one if the collection grows beyond its storage capacity.
@@ -503,8 +499,7 @@ In contrast to an ==OrderedCollection==, a ==SortedCollection== maintains its
 elements in sort order. By default, a sorted collection uses the message ==<===
 to establish sort order, so it can sort instances of subclasses of the abstract
 class ==Magnitude==, which defines the protocol of comparable objects (==<==,
-=====, ==>==, ==>===, ==between:and:==...). (See Chapter 8 : Basic Classes)
-% (See Chapter *cha:basic*.) %
+=====, ==>==, ==>===, ==between:and:==...). (See Chapter *cha:basic*).
 
 You can create a ==SortedCollection== by creating a new instance and adding
 elements to it:
