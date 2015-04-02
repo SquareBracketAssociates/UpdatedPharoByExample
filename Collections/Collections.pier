@@ -23,11 +23,9 @@ are ''also'' in the ==Collections-Streams== categories. These 56 classes respond
 to 982 messages and define a total of 1609 methods!
 
 In this chapter we focus mainly on the subset of collection classes shown in
-Figure *fig:CollClassesTree*. Streams will be discussed separately in Chapter
-*cha:streams*.
+Figure *fig:CollClassesTree*. Streams will be discussed separately in Chapter *cha:streams*.
 
-+Some of the key collection classes in
-Pharo.>file://figures/CollectionHierarchy.png|label=fig:CollClassesTree+
++Some of the key collection classes in Pharo.>file://figures/CollectionHierarchy.png|label=fig:CollClassesTree+
 
 !!The varieties of collections
 
@@ -76,9 +74,11 @@ understand the ==testing== messages ==includes:==, ==isEmpty== and
 ==inject:into:== (which performs a left fold) and many more. It is the ubiquity
 of this protocol, as well as its variety, that makes it so powerful.
 
-Figure *fig:protocols* summarizes the standard protocols supported by most of
+% Figure *fig:protocols* %
+The table below summarizes the standard protocols supported by most of
 the classes in the collection hierarchy. These methods are defined, redefined,
 optimized or occasionally even forbidden by subclasses of ==Collection==.
+
 
 % \caption{Standard Collection protocols\figlabel{protocols}}
 
@@ -91,36 +91,36 @@ optimized or occasionally even forbidden by subclasses of ==Collection==.
 | ==converting==	|	==asBag==, ==asSet==, ==asOrderedCollection==, ==asSortedCollection==, ==asArray==, ==asSortedCollection:==
 | ==creation== | ==with:==, ==with:with:==, ==with:with:with:==, ==with:with:with:with:==, ==withAll:==
 
+
 Beyond this basic uniformity, there are many different kinds of collection
 either supporting different protocols, or providing different behaviour for the
 same requests. Let us briefly survey some of the key differences:
 
-;==Sequenceable:==
+;""Sequenceable:""
 :Instances of all subclasses of ==SequenceableCollection== start from a ==first== element and proceed in a well-defined order to a ==last== element. Instances of ==Set==, ==Bag== and ==Dictionary==, on the other hand, are not sequenceable.
-;==Sortable:==
+;""Sortable:""
 :A ==SortedCollection== maintains its elements in sort order.
-;==Indexable:==
-:Most sequenceable collections are also indexable, that is, elements can be retrieved with ==at:==. ==Array== is the familiar indexable data structure with a fixed size; ==anArray at: n== retrieves the $==n==^{th}$ element of ==anArray==, and ==anArray at: n put: v== changes the $==n==^{th}$ element to ==v==. ==LinkedList==s and ==SkipList==s are sequenceable but not indexable, that is, they understand ==first== and ==last==, but not ==at:==.
-;==Keyed:==
+;""Indexable:""
+:Most sequenceable collections are also indexable, that is, elements can be retrieved with ==at:==. ==Array== is the familiar indexable data structure with a fixed size; ==anArray at: n== retrieves the n^^th^^ element of ==anArray==, and ==anArray at: n put: v== changes the n^^th^^ element to ==v==. ==LinkedList==s and ==SkipList==s are sequenceable but not indexable, that is, they understand ==first== and ==last==, but not ==at:==.
+;""Keyed:""
 :Instances of ==Dictionary== and its subclasses are accessed by keys instead of indices.
-;==Mutable:==
+;""Mutable:""
 :Most collections are mutable, but ==Interval==s and ==Symbol==s are not. An ==Interval== is an immutable collection representing a range of ==Integer==s. For example, ==5 to: 16 by: 2== is an interval that contains the elements 5, 7, 9, 11, 13 and 15. It is indexable with ==at:==, but cannot be changed with ==at:put:==.
-;==Growable:==
+;""Growable:""
 :Instances of ==Interval== and ==Array== are always of a fixed size. Other kinds of collections (sorted collections, ordered collections, and linked lists) can grow after creation. The class ==OrderedCollection== is more general than ==Array==; the size of an ==OrderedCollection== grows on demand, and it has methods for ==addFirst:== and ==addLast:== as well as ==at:== and ==at:put:==.
-;==Accepts duplicates:==
+;""Accepts duplicates:""
 :A ==Set== will filter out duplicates, but a ==Bag== will not. ==Dictionary==, ==Set== and ==Bag== use the ==\=== method provided by the elements; the ==Identity== variants of these classes use the ==\=\=== method, which tests whether the arguments are the same object, and the ==Pluggable== variants use an arbitrary equivalence relation supplied by the creator of the collection.
-;==Heterogeneous:==
+;""Heterogeneous:""
 :Most collections will hold any kind of element. A ==String==, ==CharacterArray== or ==Symbol==, however, only holds ==Character==s. An ==Array== will hold any mix of objects, but a ==ByteArray== only holds \lct{Byte}s, an ==IntegerArray== only holds ==Integer==s and a ==FloatArray== only holds ==Float==s. A ==LinkedList== is constrained to hold elements that conform to the ==Link== > ==accessing== protocol.
 
 !!Implementations of collections
 
 @sec:implementation
 
-*Some collection classes categorized by implementation technique.>file://figures/CollectionsByImpl|label=collsByImpl*
++Some collection classes categorized by implementation technique.>file://figures/CollectionsByImpl.png|width=100|label=collsByImpl+
 
 These categorizations by functionality are not our only concern; we must also
-consider how the collection classes are implemented. As shown in Figure
-*fig:collsByImpl*, five main implementation techniques are employed.
+consider how the collection classes are implemented. As shown in Figure *fig:collsByImpl* , five main implementation techniques are employed.
 
 - Arrays store their elements in the (indexable) instance variables of the collection object itself; as a consequence, arrays must be of a fixed size, but can be created with a single memory allocation.
 - ==OrderedCollections== and ==SortedCollections== store their elements in an array that is referenced by one of the instance variables of the collection. Consequently, the internal array can be replaced with a larger one if the collection grows beyond its storage capacity.
@@ -471,7 +471,7 @@ You can also create sets using ==Set class>>newFrom:== or the conversion message
 { Color black. Color white. (Color red + Color blue + Color green) } asSet size --> 2
 ]]]
 
-Note that red + blue + green = white.
+Note that ""red"" ==+== ""blue"" ==+== ""green"" = ""white"".
 
 A ==Bag== is much like a ==Set== except that it does allow duplicates:
 
@@ -499,7 +499,7 @@ In contrast to an ==OrderedCollection==, a ==SortedCollection== maintains its
 elements in sort order. By default, a sorted collection uses the message ==<===
 to establish sort order, so it can sort instances of subclasses of the abstract
 class ==Magnitude==, which defines the protocol of comparable objects (==<==,
-=====, ==>==, ==>===, ==between:and:==...). (See Chapter *cha:basic*.)
+=====, ==>==, ==>===, ==between:and:==...). (See Chapter *cha:basic*).
 
 You can create a ==SortedCollection== by creating a new instance and adding
 elements to it:
@@ -713,16 +713,17 @@ difference.
 
 A symbol is similar to a string but is guaranteed to be globally unique.  For
 this reason symbols are preferred to strings as keys for dictionaries, in
-particular for instances of ==IdentityDictionary==. See also Chapter *cha:basic*
-for more about ==String== and ==Symbol==.
+particular for instances of ==IdentityDictionary==. 
+% See also Chapter *cha:basic*
+for more about ==String== and ==Symbol==. %
 
 !!Collection iterators
 
 @sec:iterators
 
 In Smalltalk loops and conditionals are simply messages sent to collections or
-other objects such as integers or blocks (see also Chapter *cha:syntax*). In
-addition to low-level messages such as ==to:do:== which evaluates a block with
+other objects such as integers or blocks (see also Chapter 3 : Syntax in a nutshell).
+In addition to low-level messages such as ==to:do:== which evaluates a block with
 an argument ranging from an initial to a final number, the Smalltalk collection
 hierarchy offers various high-level iterators. Using such iterators will make
 your code more robust and compact.
@@ -765,7 +766,7 @@ res --> 'bob.joe.toto'
 
 Note that this code is not especially efficient since it creates intermediate
 strings and it would be better to use a write stream to buffer the result (see
-Chapter *cha:streams*):
+Chapter 10 : Streams):
 
 [[[
 String streamContents: [:stream | #('bob' 'joe' 'toto') asStringOn: stream delimiter: '.' ] --> 'bob.joe.toto'
