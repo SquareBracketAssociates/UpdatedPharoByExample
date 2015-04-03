@@ -20,6 +20,7 @@
   {../SyntaxNutshell/}
   {../UnderstandingMessage/}
   {../SmalltalkObjectModel/}
+  {../Environment/}
   {../SUnit/}
   {../BasicClasses/}
   {../Collections/}
