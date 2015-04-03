@@ -22,7 +22,8 @@ are ''also'' in the ==Collections-Streams== categories. These 56 classes respond
 to 982 messages and define a total of 1609 methods!
 
 In this chapter we focus mainly on the subset of collection classes shown in
-Figure *fig:CollClassesTree*. Streams will be discussed separately in Chapter *cha:streams*.
+Figure *fig:CollClassesTree*. Streams will be discussed separately in
+Chapter *cha:streams*: Streams.
 
 +Some of the key collection classes in Pharo.>file://figures/CollectionHierarchy.png|label=fig:CollClassesTree+
 
@@ -498,7 +499,8 @@ In contrast to an ==OrderedCollection==, a ==SortedCollection== maintains its
 elements in sort order. By default, a sorted collection uses the message ==<===
 to establish sort order, so it can sort instances of subclasses of the abstract
 class ==Magnitude==, which defines the protocol of comparable objects (==<==,
-=====, ==>==, ==>===, ==between:and:==...). (See Chapter *cha:basic*).
+=====, ==>==, ==>===, ==between:and:==...).
+(See Chapter *cha:basicClasses*: Basic Classes).
 
 You can create a ==SortedCollection== by creating a new instance and adding
 elements to it:
@@ -712,14 +714,15 @@ difference.
 
 A symbol is similar to a string but is guaranteed to be globally unique.  For
 this reason symbols are preferred to strings as keys for dictionaries, in
-particular for instances of ==IdentityDictionary==.See also Chapter *cha:basic* for more about ==String== and ==Symbol==.
+particular for instances of ==IdentityDictionary==. See also
+Chapter *cha:basicClasses*: Basic Classes for more about ==String== and ==Symbol==.
 
 !!Collection iterators
 
 @sec:iterators
 
 In Smalltalk loops and conditionals are simply messages sent to collections or
-other objects such as integers or blocks (see also Chapter *cha:syntax*: Syntax in a nutshell).
+other objects such as integers or blocks (see also Chapter *cha:syntax*: Syntax in a Nutshell).
 In addition to low-level messages such as ==to:do:== which evaluates a block with
 an argument ranging from an initial to a final number, the Smalltalk collection
 hierarchy offers various high-level iterators. Using such iterators will make

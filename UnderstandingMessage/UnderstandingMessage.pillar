@@ -9,8 +9,8 @@ to it later.
 
 !!Identifying messages
 
-In Pharo, except for the syntactic elements listed in Chapter
-*chapterSyntaxNutshell* (\:= ^ . ; # () {} [ : | ]), everything is a message
+In Pharo, except for the syntactic elements listed in Chapter *cha:syntax*: Syntax in a Nutshell
+(\:= ^ . ; # () {} [ : | ]), everything is a message
 send. As in C\+\+, you can define operators like ==+== for your own classes, but
 all operators have the same precedence. Moreover, you cannot change the arity of
 a method. "-" is always a binary message; there is no way to have a unary

@@ -504,7 +504,7 @@ self addMorph: c.
 c position: ((i - 1) * c width) @ ((j - 1) * c height) + origin. c mouseAction: [self toggleNeighboursOfCellAt: i at: j].
 ^ c]]]
 
-Recall from Chapter 1 that the construct to return a value from a method in
+Recall from Chapter *cha:tour*: A Quick Tour of Pharo that the construct to return a value from a method in
 Smalltalk is ^, which you obtain by typing ^.
 
 Often, you can fix the code directly in the debugger window and click Proceed to
@@ -664,7 +664,8 @@ your image.
 Open the PBE-LightsOut repository you have just saved.
 
 Monticello has many more capabilities, which will be discussed in depth in
-Chapter 6. You can also look at the on-line documentation for Monticello at
+Chapter *cha:env*: The Pharo Environment. You can also look at the online 
+documentation for Monticello at
 *http://www.wiresong.ca/Monticello/>http://www.wiresong.ca/Monticello/*.
 
 If you are already familiar with Git and Github there is a chapter about how to

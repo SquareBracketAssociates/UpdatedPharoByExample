@@ -7,7 +7,7 @@ sending each other messages. This simplicity and uniformity, however, can be a
 source of difficulty for programmers used to other languages. In this chapter we
 present the core concepts of the Pharo object model; in particular we discuss
 the consequences of representing classes as objects. This will be extended in
-Chapter *cha:metaclass*.
+Chapter *cha:metaclasses*: Classes and Metaclasses.
 
 !!The rules of the model
 @sec:rules
@@ -90,7 +90,7 @@ instances are classes is called a ''metaclass''. Whenever you create a class,
 the system automatically creates a metaclass for you. The metaclass defines the
 structure and behavior of the class that is its instance. 99\%  of the time you
 will not need to think about metaclasses, and may happily ignore them. (We will
-have a closer look at metaclasses in Chapter 13)
+have a closer look at metaclasses in Chapter *cha:metaclasses*: Classes and Metaclasses.)
 
 !!!Instance variables
 
@@ -513,7 +513,7 @@ TAuthor>>>author
 ]]]
 
 Now we can use this trait in a class that already has its own superclass, for
-instance the ==LOGame== class that we defined in Chapter *cha:firstApp*. We
+instance the ==LOGame== class that we defined in Chapter *cha:firstApp*: A First Application. We
 simply modify the class creation template for ==LOGame== to include a ==uses:==
 keyword argument that specifies that ==TAuthor== should be used.
 
