@@ -1,6 +1,5 @@
 !Basic Classes
-
-@cha:basic
+@cha:basicClasses
 
 Most of the magic of Smalltalk is not in the language but in the class
 libraries. To program effectively with Smalltalk, you need to learn how the

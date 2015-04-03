@@ -1,5 +1,5 @@
 !Syntax in a nutshell
-@chapterSyntaxNutshell
+@cha:syntax
 
 Pharo adopts a syntax very close to that of its ancestor, Smalltalk. The syntax
 is designed so that program text can be read aloud as though it were a kind of

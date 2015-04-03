@@ -1,5 +1,4 @@
 !A first application
-
 @cha:firstApp
 
 In this chapter, we will develop a simple game: *Lights
@@ -28,7 +27,8 @@ you how to define these classes using the Pharo programming tools.
 
 !!Creating new Package
 
-We have already seen the browser in Chapter 1, where we learned how to navigate
+We have already seen the browser in Chapter *cha:tour*: A Quick Tour of Pharo,
+where we learned how to navigate
 to classes and methods, and saw how to define new methods. Now we will see how
 to create packages, categories and classes.
 

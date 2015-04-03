@@ -1,5 +1,5 @@
 !Understanding message syntax
-@chapterUnderstandingMessage
+@cha:messages
 
 Although Pharo's message syntax is simple, it is unconventional and can take
 some time getting used to. This chapter offers some guidance to help you get

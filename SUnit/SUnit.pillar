@@ -1,5 +1,5 @@
 !SUnit
-@chaSUnit
+@cha:sunit
 
 SUnit is a minimal yet powerful framework that supports the creation and
 deployment of tests. As might be guessed from its name, the design of SUnit
