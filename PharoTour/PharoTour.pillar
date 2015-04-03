@@ -226,8 +226,7 @@ and their memory will be reclaimed (garbage-collected).
 
 When you quit Pharo, you will normally save a snapshot that contains all of your
 objects. If you save normally, you will overwrite your old image file with the
-new snapshot. Alternatively, you may save the image under a new name, as we just
-did.
+new snapshot. Alternatively, you may save the image under a new name.
 
 As mentioned earlier, in addition to the ''.image'' file, there is also a
 ''.changes'' file. This file contains a log of all the changes to the source
