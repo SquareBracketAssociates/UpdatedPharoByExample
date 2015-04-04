@@ -1,4 +1,5 @@
 !A quick tour of Pharo
+@cha:tour
 
 In this chapter we will give you a high-level tour of Pharo to help you get
 comfortable with the environment. There will be plenty of opportunities to try
@@ -609,8 +610,7 @@ such a way that you see the error happen: ==MessageNotUnderstood:
 ByteString>>shout== (see Figure *messageNotUnderstood*).
 
 The window that opens with the error message is the Pharo debugger. We will look
-at the debugger and how to use it in Chapter 6: Environment.
-% Doing a literal reference to Chapter 6 for the moment, since there's no Ch 6 and so no relative reference id
+at the debugger and how to use it in Chapter *cha:env*: The Pharo Environment.
 
 +Pressing the Create button in the debugger prompts you to select which class to create the new method in>file://figures/preview-2.png|width=70|label=createPromptWhichClass+
 

@@ -1,7 +1,7 @@
 !Classes and metaclasses
 @cha:metaclasses
 
-As we saw in Chapter *cha:model*, in Pharo, everything is an object, and every
+As we saw in Chapter *cha:model*: The Pharo Object Model, in Pharo, everything is an object, and every
 object is an instance of a class. Classes are no exception: classes are objects,
 and class objects are instances of other classes. This object model captures the
 essence of object-oriented programming: it is lean, simple, elegant and uniform.
@@ -13,8 +13,8 @@ always understand why the situation is the way that it is.
 !!Rules for classes and metaclasses
 
 The Pharo object model is based on a limited number of concepts applied
-uniformly.  To refresh your memory, here are the rules of the object model that
-we explored in Chapter *cha:model*.
+uniformly. To refresh your memory, here are the rules of the object model that
+we explored in Chapter *cha:model*: The Pharo Object Model.
 
 ; Rule 1
 : Everything is an object.
@@ -41,7 +41,7 @@ its metaclass are two separate classes, even though the former is an instance of
 the latter.
 
 To properly explain classes and metaclasses, we need to extend the rules from
-Chapter *cha:model* with the following additional rules.
+Chapter *cha:model*: The Pharo Object Model with the following additional rules.
 
 ; Rule 6
 : Every class is an instance of a metaclass.
@@ -57,7 +57,7 @@ Chapter *cha:model* with the following additional rules.
 
 Together, these 10 rules complete Smalltalk's object model.
 
-We will first briefly revisit the 5 rules from Chapter *cha:model* with a small
+We will first briefly revisit the 5 rules from Chapter *cha:model*: The Pharo Object Model with a small
 example. Then we will take a closer look at the new rules, using the same
 example.
 

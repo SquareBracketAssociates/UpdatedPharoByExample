@@ -8,24 +8,24 @@ You can find more info and documentation about Pharo at [Pharo.org](http://pharo
 
 #### Chapter Progress
 
-Chapter | Status | Latest
-:-------|:-------|:------
-**[Preface](Preface/)** | Revised, copyedited | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Preface/Preface.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Preface/Preface.pillar.pdf)
-1 - [Pharo Tour](PharoTour) | Needs revision (from 3.0 to 4.0) | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/PharoTour/PharoTour.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/PharoTour/PharoTour.pillar.pdf)
-2 - [A First Application](FirstApplication/) | Needs revision | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/FirstApplication/FirstApplication.pier.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/FirstApplication/FirstApplication.pier.pdf)
-3 - **[Syntax in a Nutshell](SyntaxNutshell/)** | Revised | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/SyntaxNutshell/SyntaxNutshell.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/SyntaxNutshell/SyntaxNutshell.pillar.pdf)
-4 - **[Understanding Messages](UnderstandingMessage/)** | Revised | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/UnderstandingMessage/UnderstandingMessage.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/UnderstandingMessage/UnderstandingMessage.pillar.pdf)
-5 - [The Smalltalk Object Model](SmalltalkObjectModel/) | In Progress | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/SmalltalkObjectModel/SmalltalkObjectModel.pier.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/SmalltalkObjectModel/SmalltalkObjectModel.pier.pdf)
-6 - Environment | ? |
-7 - **[SUnit](SUnit/)** | Revised | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/SUnit/SUnit.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/SUnit/SUnit.pillar.pdf)
-8 - [Basic Classes](BasicClasses/) | Needs revision | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/BasicClasses/BasicClasses.pier.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/BasicClasses/BasicClasses.pier.pdf)
-9 - [Collections](Collections/) | Needs revision | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Collections/Collections.pier.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Collections/Collections.pier.pdf)
-10 - **[Streams](Streams/)** | Revised | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Streams/Streams.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Streams/Streams.pillar.pdf)
-11 - [Morphic](Morphic/) | Needs revision | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Morphic/Morphic.pier.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Morphic/Morphic.pier.pdf)
-12 - [Seaside](Seaside/) | Needs revision | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Seaside/Seaside.pier.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Seaside/Seaside.pier.pdf)
-13 - **[Metaclasses](Metaclasses/)** | Revised | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Metaclasses/Metaclasses.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Metaclasses/Metaclasses.pillar.pdf)
-14 - [Reflection](Reflection/) | Needs revision | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Reflection/Reflection.pier.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Reflection/Reflection.pier.pdf)
-15 - [Regular Expressions](Regex/) | Needs revision | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Regex/Regex.pier.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Regex/Regex.pier.pdf)
+Chapter | Status | Latest | Link reference |
+:-------|:-------|:-------|:----------------
+1 - **[Preface](Preface/)** | Revised, copyedited | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Preface/Preface.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Preface/Preface.pillar.pdf) |
+2 - **[Pharo Tour](PharoTour)** | Revised, copyedited | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/PharoTour/PharoTour.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/PharoTour/PharoTour.pillar.pdf) | `Chapter *cha:tour*: A Quick Tour of Pharo`
+3 - [A First Application](FirstApplication/) | Needs revision | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/FirstApplication/FirstApplication.pier.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/FirstApplication/FirstApplication.pier.pdf) | `Chapter *cha:firstApp*: A First Application`
+4- **[Syntax in a Nutshell](SyntaxNutshell/)** | Revised | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/SyntaxNutshell/SyntaxNutshell.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/SyntaxNutshell/SyntaxNutshell.pillar.pdf) | `Chapter *cha:syntax*: Syntax in a Nutshell`
+5 - **[Understanding Messages](UnderstandingMessage/)** | Revised | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/UnderstandingMessage/UnderstandingMessage.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/UnderstandingMessage/UnderstandingMessage.pillar.pdf) | `Chapter *cha:messages*: Understanding Message Syntax`
+6 - [The Pharo Object Model](SmalltalkObjectModel/) | In Progress | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/SmalltalkObjectModel/SmalltalkObjectModel.pier.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/SmalltalkObjectModel/SmalltalkObjectModel.pier.pdf) | `Chapter *cha:model*: The Pharo Object Model`
+7 - Environment | Needs to be ported | | `Chapter *cha:env*: The Pharo Environment`
+8 - **[SUnit](SUnit/)** | Revised | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/SUnit/SUnit.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/SUnit/SUnit.pillar.pdf) | `Chapter *cha:sunit*: SUnit`
+9 - [Basic Classes](BasicClasses/) | Needs revision | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/BasicClasses/BasicClasses.pier.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/BasicClasses/BasicClasses.pier.pdf) | `Chapter *cha:basicClasses*: Basic Classes`
+10 - [Collections](Collections/) | Needs revision | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Collections/Collections.pier.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Collections/Collections.pier.pdf) | `Chapter *cha:collections*: Collections`
+11 - **[Streams](Streams/)** | Revised | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Streams/Streams.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Streams/Streams.pillar.pdf) | `Chapter *cha:streams*: Streams`
+12 - [Morphic](Morphic/) | Needs revision | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Morphic/Morphic.pier.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Morphic/Morphic.pier.pdf) | `Chapter *cha:morphic*: Morphic`
+13 - [Seaside By Example](Seaside/) | Needs revision | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Seaside/Seaside.pier.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Seaside/Seaside.pier.pdf) | `Chapter *cha:seaside*: Seaside By Example`
+14 - **[Classes and Metaclasses](Metaclasses/)** | Revised | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Metaclasses/Metaclasses.pillar.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Metaclasses/Metaclasses.pillar.pdf) | `Chapter *cha:metaclasses*: Classes and Metaclasses`
+15 - [Reflection](Reflection/) | Needs revision | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Reflection/Reflection.pier.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Reflection/Reflection.pier.pdf) | `Chapter *cha:reflection*: Reflection`
+16 - [Regular Expressions in Pharo](Regex/) | Needs revision | [html](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Regex/Regex.pier.html) [pdf](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/Regex/Regex.pier.pdf) | `Chapter *cha:regex*: Regular Expressions in Pharo`
 
 ## Contributing to Updated Pharo By Example (vol 1)
 This book follows the
@@ -43,7 +43,19 @@ GitHub workflow for contributions:
 More info about contributing to this book (including Pillar syntax, setting up
 LaTeX, etc) can be found in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
-Please send any comments, suggestions, or questions to the [pharo-dev](http://lists.pharo.org/mailman/listinfo/pharo-users_lists.pharo.org) mailing list (see also the [Get Help](http://www.pharo.org/community) section of [Pharo.org](http://www.pharo.org/)).
+Please send any comments, suggestions, or questions to the [pharo-dev](http://lists.pharo.org/mailman/listinfo/pharo-users_lists.pharo.org)
+mailing list (see also the [Get Help](http://www.pharo.org/community) section of [Pharo.org](http://www.pharo.org/)).
+
+#### Reference Links to Other Chapters
+
+Whenever you refer to other chapters of the book, please use the Pillar internal
+link syntax and the chapter name. (The `cha:` in the id is to denote that it's
+a chapter, to differentiate from a section id.) For example:
+
+`Chapter *cha:tour*: A Quick Tour of Pharo`
+
+A list of chapter ref link code is provided, to easily copy and paste, in the
+Chapter Progress / table of contents above.
 
 ### Style Guide
 Please keep in mind the following:

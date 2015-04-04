@@ -1,4 +1,5 @@
 !Morphic
+@cha:morphic
 
 Morphic is the name given to Pharo's graphical interface. Morphic is written in
 Smalltalk, so it is fully portable between operating systems; as a consequence,
