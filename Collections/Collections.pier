@@ -16,9 +16,9 @@ class ==Stream== has 50 subclasses, but many of these (like ==Bitmap,==
 use in other parts of the system or in applications, and hence not categorized
 as ''Collections'' by the system organization. For the purposes of this chapter,
 we use the term ''Collection Hierarchy'' to mean ==Collection== and its 47
-subclasses that are ''also'' in the categories labelled ==Collections-*==. We
+subclasses that are ''also'' in the packages labelled ==Collections-*==. We
 use the term ''Stream Hierarchy'' to mean ==Stream== and its 9 subclasses that
-are ''also'' in the ==Collections-Streams== categories. These 56 classes respond
+are ''also'' in the ==Collections-Streams== packages. These 56 classes respond
 to 982 messages and define a total of 1609 methods!
 
 In this chapter we focus mainly on the subset of collection classes shown in

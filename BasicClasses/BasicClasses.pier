@@ -20,7 +20,7 @@ hierarchy. Actually, in Pharo the true root of the hierarchy is ==ProtoObject==,
 which is used to define minimal entities that masquerade as objects, but we can
 ignore this point for the time being.
 
-==Object== can be found in the ==Kernel-Objects== category. Astonishingly, there
+==Object== can be found in the ==Kernel-Objects== package. Astonishingly, there
 are some 400 methods to be found here (including extensions).  In other words,
 every class that you define will automatically provide these 400 methods,
 whether you know what they do or not. Note that some of the methods should be
@@ -38,7 +38,7 @@ several classes of objects that inherit from ==Object== that have special
 implementations (==SmallInteger== and ==UndefinedObject== for example) or the VM
 knows about and depends on the structure and layout of certain standard classes.
 
-If we begin to browse the method categories on the instance side of ==Object==
+If we begin to browse the method protocols on the instance side of ==Object==
 we start to see some of the key behaviour it provides.
 
 !!!Printing
@@ -479,7 +479,7 @@ portion of the Smalltalk class hierarchy.
 
 +The Number Hierarchy >file://figures/NumberHierarchy.png|label=fig:numbers+
 
-Numbers are found in the ==Kernel-Numbers== category. The abstract root of this
+Numbers are found in the ==Kernel-Numbers== package. The abstract root of this
 hierarchy is ==Magnitude==, which represents all kinds of classes supporting
 comparision operators. ==Number== adds various arithmetic and other operators as
 mostly abstract methods. ==Float== and ==Fraction== represent, respectively,
@@ -636,7 +636,7 @@ n --> 256
 
 !!Characters
 
-==Character== is defined in the ==Collections-Strings== category as a subclass
+==Character== is defined in the ==Collections-Strings== package as a subclass
 of ==Magnitude==. Printable characters are represented in Pharo as ==$<char>==.
 For example:
 
@@ -693,7 +693,7 @@ Character characterTable size                               --> 256
 
 !!Strings
 
-The ==String== class is also defined in the category ==Collections-Strings==.  A
+The ==String== class is also defined in the package ==Collections-Strings==. A
 ==String== is an indexed ==Collection== that holds only ==Characters==.
 
 +The String Hierarchy >file://figures/StringHierarchy.png|label=fig:strings+

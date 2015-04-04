@@ -247,8 +247,8 @@ of the results using the SUnit Test Runner, which you can open by selecting
 The ''TestRunner'', shown in *test-runner*, is designed to make it easy to
 execute groups of tests.
 
-The left-most pane lists all of the categories that contain test classes (i.e.,
-subclasses of ==TestCase==; when some of these categories are selected, the test
+The left-most pane lists all of the packages that contain test classes (i.e.,
+subclasses of ==TestCase==; when some of these packages are selected, the test
 classes that they contain appear in the pane to the right. Abstract classes are
 italicized, and the test class hierarchy is shown by indentation, so subclasses
 of ==ClassTestCase== are indented more than subclasses of ==TestCase==.

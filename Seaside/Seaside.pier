@@ -546,7 +546,7 @@ field.
 The same message is used twice more in this example, to cause the selection of a
 colour on the html form to update the ==color== variable, and to bind the result
 of the checkbox to the ==checked== variable. Many other examples can be found in
-the functional tests for Seaside. Have a look at the category
+the functional tests for Seaside. Have a look at the package
 ==Seaside-Tests-Functional==, or just point your browser to
 *http://localhost:8080/seaside/tests/alltests*. Select ==WAInputTest== and click
 on the ==Restart== button to see most of the features of forms.
@@ -783,7 +783,7 @@ A task is a component that subclasses ==WATask==. It does not render anything
 itself, but simply calls other components in a control flow defined by
 implementing the method ==go==.
 
-==WAConvenienceTest== is a simple example of a task defined in the category
+==WAConvenienceTest== is a simple example of a task defined in the package
 ==Seaside-Tests-Functional==. To see its effect, just point your browser to
 *http://localhost:8080/seaside/tests/alltests*, select ==WAConvenienceTest== and
 click ==Restart==.
@@ -1013,7 +1013,7 @@ button to call another component to display the detailed view.
 provides a button to answer back. It is a subclass of ==MyDisplay==.
 
 
-@@todo Define ==MyRPNWidget== in the category ==MyCalculator==.
+@@todo Define ==MyRPNWidget== in the package ==MyCalculator==.
 
 Define the common ==style== for the application.
 
