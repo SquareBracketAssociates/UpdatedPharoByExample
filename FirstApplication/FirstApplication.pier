@@ -227,7 +227,7 @@ initialize
  cells := Matrix new: n tabulate: [ :i :j | self newCellAt: i at: j ].]]]
 
 Pharo will complain that it doesn't know the meaning of some of the terms. It
-will tell you that it doesn't know of a message cellsPerSide, and suggest a number
+will tell you that it doesn't know of a message ==cellsPerSide==, and suggest a number
 of corrections, in case it was a spelling mistake.
 
 But ==cellsPerSide== is not a mistake; it is just a method that we haven't yet
@@ -239,14 +239,15 @@ So, select the first item from the menu, which confirms that we really meant
 Next, Pharo will complain that it doesn't know the meaning of ==cells==. It will offer
 you a number of ways to fix this.
 
-Choose ""declare instance"", because we want ==cells== to be an instance variable.
+Choose ""Declare new instance variable"", because we want ==cells== to be an
+instance variable.
 
 Finally, Pharo will complain about the message ==newCellAt: at:== sent on the
 last line; this is also not a mistake, so confirm that message too.
 
 If you now look at the class definition once again (which you can do by clicking
-on the ""instance"" button), you will see that the browser has modified it to
-include the instance variable ==cells==.
+the ""Class side"" checkbox below the class list pane), you will see that the
+browser has modified it to include the instance variable ==cells==.
 
 Let's look at this ==initialize== method. The line ==\| sampleCell width height n \|==
 declares 4 temporary variables. They are called temporary variables because
