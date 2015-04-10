@@ -495,7 +495,7 @@ Trait named: #TAuthor
     category: 'PBE-LightsOut'
 ]]]
 
-Here we define the trait ==TAuthor== in the category ==PBE-LightsOut==.This
+Here we define the trait ==TAuthor== in the package ==PBE-LightsOut==.This
 trait does not ''use'' any other existing traits.In general we can specify a
 ''trait composition expression'' of other traits to use as part of the ==uses:==
 keyword argument. Here we simply provide an empty array.

@@ -28,33 +28,34 @@ you how to define these classes using the Pharo programming tools.
 !!Creating a new Package
 
 We have already seen the browser in Chapter *cha:tour*: A Quick Tour of Pharo,
-where we learned how to navigate
-to classes and methods, and saw how to define new methods. Now we will see how
-to create packages, categories and classes.
+where we learned how to navigate to classes and methods, and saw how to define
+new methods. Now we will see how to create packages and classes.
 
-Type the name of the new package (we will use PBE-LightsOut) in the dialog box
-and click ""accept"" (or just press the return key). The new package is
+Right-click on the Package pane and select ==Add package...== from the menu.
+Type the name of the new package (we will use ==PBE-LightsOut==) in the dialog box
+and click ==OK== (or just press the return key). The new package is
 created, and positioned alphabetically in the list of packages.
 
-!!Defining the class LOCell
+!!Defining the class ==LOCell==
 
 At this point there are of course no classes in the new package. However, the main
 editing pane displays a template to make it easy to create a new class
 
 This template shows us a Smalltalk expression that sends a message to a class
 called ==Object==, asking it to create a subclass called ==NameOfSubClass==. The new
-class has no variables, and should belong to the category ==PBE-LightsOut==.
+class has no variables, and should belong to the category (package) ==PBE-LightsOut==.
 
-!!!On Categories and Packages
+!!!On categories vs. packages
 
-Historically, Smalltalk only knows about categories, not packages. You may well
-ask, what is the difference? A category is simply a collection of related
-classes in a Smalltalk image. A package is a collection of related classes and
-extension methods that may be versioned using the Monticello versioning tool. By
-convention, package names and category names are the same. For most purposes we
-do not care about the difference, but we will be careful to use the correct
-terminology in this book since there are points where the difference is crucial.
-We will learn more when we start working with Monticello.
+Historically, Pharo packages were implemented as "categories". With the newer
+versions of Pharo, the term ""category"" is being deprecated, and replaced
+exclusively by ""package"". However, the method for creating subclasses
+(explained in the next section) still refers to the class's package as
+==category:==. Aside from subclass creation, to maintain consistency, we will
+only use the term ""package"" in this book, to denote a collection or related
+classes (and extension methods to other, existing classes). The Pharo package is
+also what you will be using to version your source code using the Monticello
+versioning tool.
 
 !!!Creating a new class
 
@@ -304,7 +305,7 @@ the top of the browser. In the same way that the first pane of the browser lets
 us categorize classes into packages so we are not overwhelmed by a very long
 list of class names in the class pane, so the protocol pane lets us categorize
 methods so that we are not overwhelmed by a very long list of method names in
-the method pane. These categories of methods are called "protocols".
+the method pane. These groups of methods are called "protocols".
 
 If there are only a few methods in a class, the extra level of hierarchy
 provided by protocols is not really necessary. This is why the browser also
@@ -320,7 +321,7 @@ called ""initialization"".
 
 How does Pharo know that this is the right protocol? Well, in general Pharo
 can't know exactly, but in this case there is also an ==initialize== method in the superclass,
-and Pharo assumes that our ==initialize== method should go in the same category
+and Pharo assumes that our ==initialize== method should go in the same protocol
 as the one that it overrides.
 
 !!!!!A typographic convention. Smalltalkers frequently use the notation ==>>== to
@@ -676,17 +677,17 @@ Pharo and its third party libraries.
 
 !!Chapter summary
 
-In this chapter you have seen how to create categories, classes and methods. In
+In this chapter you have seen how to create packages, classes and methods. In
 addition, you have learned how to use the System browser, the inspector, the debugger and the Monticello
 browser.
 
--Categories are groups of related classes.
+-Packages are groups of related classes.
 -A new class is created by sending a message to its superclass.
--Protocols are groups of related methods.
+-Protocols are groups of related methods inside a class.
 -A new method is created or modified by editing its definition in the browser and then accepting the changes.
 -The inspector offers a simple, general-purpose GUI for inspecting and interacting with arbitrary objects.
 -The browser detects usage of undeclared methods and variables, and offers possible corrections.
 -The ==initialize== method is automatically executed after an object is created in Pharo. You can put any initialization code there.
 -The debugger provides a high-level GUI to inspect and modify the state of a running program.
--You can share source code by filing out a category.
+-You can share source code by filing out a package, class or method.
 -A better way to share code is to use Monticello to manage an external repository, for example defined as a SmalltalkHub project.

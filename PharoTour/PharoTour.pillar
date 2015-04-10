@@ -399,7 +399,7 @@ shared by all objects in the system (except those that override it).
 !!Finding classes
 
 There are several ways to find a class in Pharo. The first, as we have just
-seen above, is to know (or guess) what category it is in, and to navigate to it
+seen above, is to know (or guess) what package it is in, and to navigate to it
 using the browser.
 
 A second way is to send the ""browse"" message to the class, asking it to open a
@@ -423,7 +423,7 @@ This is nothing more than an ordinary message that is sent to the parent class,
 asking it to create a subclass. Here we see that the class Object is being asked
 to create a subclass named Boolean with no instance variables, class variables
 or ''pool dictionaries'', and to put the class Boolean in the Kernel-Objects
-category. If you click on the ""comments"" button at the bottom of the class
+package. If you click on the ""comments"" button at the bottom of the class
 pane, you can see the class comment in a dedicated pane.
 
 +The Boolean class with the comments section>file://figures/Boolean.png|width=100|label=boolean+
@@ -590,11 +590,11 @@ the first option from the menu of choices.
 Run your newly created test: open the ""Test Runner"" from the World Menu.
 
 The leftmost two panes are a bit like the top panes in the System Browser. The
-left pane contains a list of categories, but it's restricted to those categories
+left pane contains a list of packages, but it's restricted to those packages
 that contain test classes.
 
 Select ""CollectionsTests-Strings"", and the pane to the right will show all of
-the test classes in that category, which includes the class ""StringTest"". The
+the test classes in that package, which includes the class ""StringTest"". The
 names of the classes are already selected, so click Run Selected to run all
 these tests.
 

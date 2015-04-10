@@ -557,7 +557,7 @@ OrderedCollection>>>add: newObject
 ]]]
 
 This time the image does not freeze. Try running the ==OrderedCollectionTest==.
-(You can find it in the ==CollectionsTests-Sequenceable== category.)
+(You can find it in the ==CollectionsTests-Sequenceable== package.)
 
 How does this work?  Let's have a look at ==Object>>haltIf:==:
 
