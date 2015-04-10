@@ -252,9 +252,8 @@ browser has modified it to include the instance variable ==cells==.
 Let's look at this ==initialize== method. The line ==\| sampleCell width height n \|==
 declares 4 temporary variables. They are called temporary variables because
 their scope and lifetime are limited to this method. Temporary variables with
-explanatory names are helpful in making code more readable. Smalltalk has no
-special syntax to distinguish constants and variables, and in fact all four of
-these "variables" are really constants. Lines 4\-7 define these constants.
+explanatory names are helpful in making code more readable. Lines 4\-7 set the
+value of these variables.
 
 How big should our game board be? Big enough to hold some integral number of
 cells, and big enough to draw a border around them. How many cells is the right
