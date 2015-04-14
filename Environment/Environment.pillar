@@ -3,12 +3,12 @@
 
 The goal of this chapter is to show you how to develop programs in the Pharo
 programming environment. You have already seen how to define methods and classes
-using the browser; this chapter will show you more of the features of the
-browser, and introduce you to some of the other browsers.
+using the browser; this chapter will show you more of the its features,
+and introduce you to some of the other browsers.
 
 Of course, very occasionally you may find that your program does not work as you
 expect. Pharo has an excellent debugger, but like most powerful tools, it can be
-confusing on first use.  We will walk you through a debugging session and
+confusing on first use. We will walk you through a debugging session and
 demonstrate some of the features of the debugger.
 
 One of the unique features of Smalltalk is that while you are programming, you
@@ -19,25 +19,26 @@ change, live objects: the ''inspector'' and the ''explorer''.
 
 The consequence of programming in a world of live objects rather than with files
 and a text editor is that you have to do something explicit to export your
-program from your Smalltalk image. The old way of doing this, also supported by
-all Smalltalk dialects, is by creating a ''fileout'' or a ''change set'', which
+program from your Smalltalk image. The original way of doing this (supported by
+all Smalltalk dialects), is by creating a ''fileout'' or a ''change set'', which
 are essentially encoded text files that can be imported into another system. The
-new way of doing this in Pharo is to upload your code to a versioned repository
+preferred way of sharing code in Pharo is to upload it to a versioned repository
 on a server. This is done using a tool called Monticello, and is a much
 more powerful and effective way to work, especially when working in a team.
 
-!!Overview
+!!Pharo Environment Overview
 @sec:overview
 
 Smalltalk and modern graphical interfaces were developed together. Even before
 the first public release of Smalltalk in 1983, Smalltalk had a self-hosting
 graphical development environment, and all Smalltalk development was taking
-place in it. Let's start by looking at the main tools in Pharo.
+place in it. With this in mind, let's start by looking at the main
+tools in Pharo.
 
 The ==Browser== is the central development tool. You will use it to create,
 define, and organize your classes and methods. Using it you can also navigate
-through all the library classes: unlike other environments where the source code
-is stored in separate files, in Smalltalk all classes and methods are contained
+through all the library classes. Unlike other environments where the source code
+is stored in separate files, in Pharo all classes and methods are contained
 in the image.
 
 The ==Message Names== tool is used to look at all of the methods with a
@@ -49,24 +50,24 @@ what they ''do'' as well as what they are called.
 The ==Monticello Browser== is the starting point for loading code from, and
 saving code in, Monticello packages.
 
-The ==Process Browser== provides a view on all of the processes (threads)
+The ==Process Browser== provides a view of all of the processes (threads)
 executing in Smalltalk.
 
 The ==Test Runner== lets you run and debug SUnit tests, and is described in
-Chapter *cha:sunit*: SUnit.
+more detail in Chapter *cha:sunit*: SUnit.
 
 The ==Transcript== is a window on the ==Transcript== output stream, which is
 useful for writing log messages and has already been described in
 section *sec:transcript*.
 
-The ==Workspace== is a window into which you can type input. 	It can be used
-for any purpose, but is most often used for typing Smalltalk expressions and
-executing them as ==do it==s. The use of the workspace was also illustrated in
+The ==Playground== is a window into which you can type input. It can be used
+for any purpose, but is most often used for typing Pharo expressions and
+executing them via ==Do it==. The use of the playground was also illustrated in
 section *sec:transcript*.
 
 The ==Debugger== has an obvious role, but you will discover that it has a more
 central place compared to debuggers for other programming languages, because in
-Smalltalk you can ''program'' in the debugger.  The debugger is not
+Pharo you can ''program'' in the debugger. The debugger is not
 launched from a menu; it is normally entered by running a failing test, by
 typing ==CMD-.== to interrupt a running process, or by inserting a
 ==self halt== expression in code.
@@ -92,7 +93,7 @@ the right will then show all of the classes in that package.
 Similarly, if you select one of the classes in the second pane, say, ==Model==
 (see  Figure *fig:SystemBrowser1*), the third pane will show all of the
 ''protocols'' defined for that class, as well as a virtual protocol
-==\-\-all\-\-==, which is selected by default. Protocols are a way of
+==\-\-all\-\-==. Protocols are a way of
 categorizing methods; they make it easier to find and think about the behaviour
 of a class by breaking it up into smaller, conceptually coherent pieces. The
 fourth pane shows the names of all of the methods defined in the selected
@@ -104,41 +105,39 @@ should look like Figure *SystemBrowserMyDependents*.
 
 +Browser showing the ==myDependents== method in class ==Model==>file://figures/SystemBrowserMyDependents.png|label=SystemBrowserMyDependents+
 
-Unlike directories in the Mac OS X ''Finder'', the four top panes of the browser
+Unlike directories in a file browser, the four top panes of the browser
 are not quite equal. Whereas classes and methods are part of the Smalltalk
 language, packages and protocols are not: they are a convenience introduced by
 the browser to limit the amount of information that needs to be shown in each
-pane.  For example, if there were no protocols, the browser would have to show a
+pane. For example, if there were no protocols, the browser would have to show a
 list of all of the methods in the selected class; for many classes this list
 would be too large to navigate conveniently.
 
 Because of this, the way that you create a new package or a new protocol is
-different from the way that you create a new class or a new method.  To create a
-new package, right-click in the package pane and select ==new package==; to create
-a new protocol, right-click in the protocol pane and select ==new protocol==.
+different from the way that you create a new class or a new method. To create a
+new package, right-click in the package pane and select ==Add package...==.
+To create a new protocol, right-click in the protocol pane and select ==Add protocol...==.
 Enter the name of the new thing in the dialog, and you are done: there is
 nothing more to a package or a protocol than its name and its contents.
 
 +Browser showing the class-creation template>file://figures/SystemBrowserClassCreation.png|label=SystemBrowserClassCreation+
 
 In contrast, to create a new class or a new method, you will actually have to
-write some Smalltalk code.  If you click the currently selected package (in the
+write some Smalltalk code. If you click the currently selected package (in the
 left-most pane), the bottom browser pane will display a class creation template
-(Figure *SystemBrowserClassCreation*).  You create a new class by editing this
+(Figure *SystemBrowserClassCreation*). You create a new class by editing this
 template: replace ==Object== by the name of the existing class of which you wish
 to create a subclass, replace ==NameOfSubclass== by the name that you would like
 to give to your new subclass, and fill in the instance variable names if you
-know them.  The category for the new class is by default the category of the
-currently selected package(Recall that packages and categories are not
-exactly the same thing. We will look at the precise relationship in
-section *sec:packages)*, but you can change this too if you like.  If you already
-have the browser focussed on the class that you wish to subclass, you can get
+know them. The package for the new class is by default the
+currently selected package, but you can change this too if you like. If you already
+have the browser focused on the class that you wish to subclass, you can get
 the same template with slightly different initialization by right-clicking in
 the class pane, and selecting ==class templates... > subclass template==.
 You can also just edit the definition of an existing class, changing the class
-name to something new.  In all cases, when you accept the new definition, the
+name to something new. In all cases, when you accept the new definition, the
 new class (the one whose name follows the ==#==) is created (as is the
-corresponding metaclass).  Creating a class also creates a global variable that
+corresponding metaclass). Creating a class also creates a global variable that
 references the class, which is why you can refer to all of the existing classes
 by using their names.
 
@@ -147,8 +146,8 @@ Can you see why the name of the new class has to appear as a ==Symbol==
 created, code can refer to the class by using the name as an identifier
 (without the ==#==)?
 
-The process of creating a new method is similar.  First select the class in
-which you want the method to live, and then select a protocol.  The browser will
+The process of creating a new method is similar. First select the class in
+which you want the method to live, and then select a protocol. The browser will
 display a method-creation template, as shown in
 Figure *SystemBrowserMethodTemplate*, which you can fill-in or edit.
 
@@ -156,7 +155,7 @@ Figure *SystemBrowserMethodTemplate*, which you can fill-in or edit.
 
 !!!Navigating the code space
 
-The browser provides several tools for exploring and analysing code. These tools
+The browser provides several tools for exploring and analyzing code. These tools
 can be accessed by right-clicking in the various contextual menus, or, in the
 case of the most frequently used tools, by means of keyboard shortcuts.
 
@@ -169,9 +168,9 @@ typing, and another to browse around the system to see how things work. You can
 open a browser on a class named by any selected text using the ==CMD-b==
 keyboard shortcut.
 
-(do this) Try this: in a workspace window, type the name of a class (for
-instance ==Morph==), select it, and then press ==CMD-b. This trick is often
-useful; it works in any text window.==
+(do this) Try this: in a playground window, type the name of a class (for
+instance ==Morph==), select it, and then press ==CMD-b==. This trick is often
+useful; it works in any text window.
 
 !!!!Senders and implementors of a message
 @sec:sendersImplementors
@@ -182,7 +181,7 @@ on ==Morph==, click on the ==Morph>>drawOn:== method in the method pane;
 the body of ==drawOn:== displays in the bottom part of the browser. If you now
 select ==senders (n)== (Figure *SendersOfDrawOn*), a menu will appear with
 ==drawOn:== as the topmost item, and below it, all the messages that ==drawOn:==
-sends (Figure *SendersOfDrawOn2*).  Selecting an item in this menu will open a
+sends (Figure *SendersOfDrawOn2*). Selecting an item in this menu will open a
 browser with the list of all methods in the image that send the selected message
 (Figure *CanvasDraw*).
 
@@ -199,18 +198,18 @@ immediately bring up the senders of ==drawOn:==.==
 +The Senders Browser showing that the ==Canvas\>\>draw== method sends the ==drawOn:== message to its argument.>file://figures/CanvasDraw.png|label=CanvasDraw+
 
 If you look at the senders of ==drawOn:== in ==AtomMorph>>drawOn:==, you will
-see that it is a super send.  So we know that the method that
-will be executed will be in ==AtomMorph=='s superclass.  What class is that?
+see that it is a super send. So we know that the method that
+will be executed will be in ==AtomMorph=='s superclass. What class is that?
 Right-click ==browse > hierarchy implementors== and you will see that it is
 ==EllipseMorph==.
 
-Now look at the sixth sender in the list, ==Canvas>>draw==, shown in
+Now look at the sixth sender in the list, ==Canvas>>draw:==, shown in
 Figure *CanvasDraw*. You can see that this method sends ==drawOn:== to whatever
 object is passed to it as an argument, which could potentially be an instance of
 any class at all. Dataflow analysis can help figure out the class of the
 receiver of some messages, but in general, there is no simple way for the
 browser to know which message-sends might cause which methods to be executed.
-For this reason,  the ==senders== browser shows exactly what its name suggests:
+For this reason, the ==senders== browser shows exactly what its name suggests:
 all of the senders of the message with the chosen selector. The senders browser
 is nevertheless extremely useful when you need to understand how you can ''use''
 a method: it lets you navigate quickly through example uses. Since all of the
@@ -231,7 +230,7 @@ drawing itself on the screen.
 @sec:versions
 
 When you save a new version of a method, the old one is not
-lost.  Pharo keeps all of the old versions, and allows you to compare different
+lost. Pharo keeps all of the old versions, and allows you to compare different
 versions and to go back (==revert==) to an old version.
 
 +The versions browser showing two versions of the ==TheWorldMenu\>\>buildWorldMenu:== method>file://figures/Versions.png|label=Versions+
@@ -241,9 +240,9 @@ modifications made to the selected method. In Figure *Versions* we
 can see two versions of the ==buildWorldMenu:== method.
 
 The top pane displays one line for each version of the method, listing the
-initials of the programmer who wrote it, the date and time at which it was
+name of the programmer who wrote it, the date and time at which it was
 saved, the names of the class and the method, and the protocol in which it was
-defined.  The current (active) version is at the top of the list;  whichever
+defined. The current (active) version is at the top of the list; whichever
 version is selected is displayed in the bottom pane.
 
 % If the ==diffs== checkbox is selected, as it is in Figure *mouseUpVersions*, the display also shows the differences between the selected version and the one immediately older.
@@ -254,19 +253,19 @@ method and the current version, and for reverting to the selected version.
 % The ==prettyDiffs== checkbox is useful if there have been changes to layout: it pretty-prints both versions before differencing, so that the differences that are displayed exclude formatting changes.
 
 The existence of the versions browser means that you never have to worry about
-preserving code that you think might no longer be needed: just delete it.  If
+preserving code that you think might no longer be needed: just delete it. If
 you find that you ''do'' need it, you can always revert to the old version, or
 copy the needed code fragment out of the old version and paste it into a another
-method. Get into the habit of using versions;  ==commenting out== code that is
+method. Get into the habit of using versions; commenting out code that is
 no longer needed is a bad practice because it makes the current code harder to
 read. Smalltalkers rate code readability extremely highly.
 
 ''Hint:'' What if you delete a method entirely, and then decide that you want it
-back?  You can find the deletion in a change set, where you can ask to see
+back? You can find the deletion in a change set, where you can ask to see
 versions by right-clicking. The change set browser is described in
-section *sec:changeSet*
+section *sec:changeSet*.
 
-!!!!Method overridings
+!!!!Method inheritance and overriding
 @sec:overriding
 
 The inheritance browser displays all the methods overridden by the displayed
@@ -311,7 +310,7 @@ in turn, methods that send these accessors, and so on (Figure *chasingBrowser*).
 +A chasing browser for ==Morph==.>file://figures/chasingBrowser.png|label=chasingBrowser+
 
 % The menu also includes ==inst var defs==, which shows the subset of the instance variable references that assign to the variable.
-%Once you click on the button or select the menu item, you will be presented with a dialog that invites you to choose a variable from all of the variables defined in the current class, and all of the variables that it inherits.  The list is in inheritance order; it can often be useful to bring up this list just to remind yourself of the name of an instance variable.  If you click outside the list, it will go away and no variable browser will be created.
+%Once you click on the button or select the menu item, you will be presented with a dialog that invites you to choose a variable from all of the variables defined in the current class, and all of the variables that it inherits. The list is in inheritance order; it can often be useful to bring up this list just to remind yourself of the name of an instance variable. If you click outside the list, it will go away and no variable browser will be created.
 
 %Also available by right-clicking the class pane is ==class vars==, which opens an inspector showing the class variables of the current class ''and their values'', and ==class refs (N)== which displays a list of all of the methods that directly reference the current class.
 
@@ -320,11 +319,11 @@ in turn, methods that send these accessors, and so on (Figure *chasingBrowser*).
 
 The ==various > view...== menu item available by right-clicking in the
 method pane brings up the ==how to show== menu, which allows you to choose how
-the browser shows the selected method in the source pane.  Options include the
+the browser shows the selected method in the source pane. Options include the
 ==source== code, ==prettyPrint==ed source code, ==byteCode== and source code
 ==decompile==d from the byte codes.
 
-% The label on the button changes if you select one of the other modes.  There are other options too; if you let the mouse linger over the names, a help balloon will appear.  Try some of them.
+% The label on the button changes if you select one of the other modes. There are other options too; if you let the mouse linger over the names, a help balloon will appear. Try some of them.
 
 Note that selecting ==prettyPrint== in the ==how to show== menu is ''not'' the
 same as pretty printing a method before you save it (==pretty print
@@ -352,25 +351,24 @@ refactoring browser, but it can now be accessed from any browser.
 Many additional functions are available by right-clicking in the browser panes.
 Even if the labels on the menu items are the same, their ''meaning'' may be
 context dependent. For example, the package pane, the class pane, the protocol
-pane and the method pane all have a ==file out== menu item.  However, they do
-different things: the package pane's ==file out== menu files out the whole
-package, the class pane's ==file out== menu files-out the whole class, the
-protocol pane's ==file out== menu files out the whole protocol, and the method
-pane's ==file out== menu files-out just the displayed method.
+pane and the method pane all have a ==File out== menu item. However, they do
+different things: the package pane's ==File out== menu item files out the whole
+package, the class pane's item files-out the whole class, the
+protocol pane's item files out the whole protocol, and the method
+pane's item files-out just the displayed method.
 
 Although this may seem obvious, it can be a source of confusion for beginners.
 
-Possibly the most useful menu item is ==find class... (f)== in the package
-pane.  Although the categories are useful for the code that we are actively
-developing, most of us do not know the categorization of the whole system, and
-it is much faster to type ==CMD-f== followed by the first few characters of the
-name of a class than to guess which package it might be in.  ==recent
+Possibly the most useful menu item is ==Find class... (f,c)== in the package
+pane. Most of us do not know the package contents of the whole system, and
+it is much faster to type ==CMD-f CMD-c== followed by the first few characters of the
+name of a class than to guess which package it might be in. ==recent
 classes...== can also help you quickly go back to a class that you have
 browsed recently, even if you have forgotten its name.
 
 You can also search for a specific class or method by typing the name into the
-query box at the top left of the browser.  When you enter return, a query will
-be posed on the system, and the query results will be displayed.  Note that by
+query box at the top left of the browser. When you enter return, a query will
+be posed on the system, and the query results will be displayed. Note that by
 prefixing your query with ==#==, you can search for references to a class or
 senders of a message.
 
@@ -378,26 +376,26 @@ senders of a message.
 %In the class pane, there are two menu items ==find method== and ==find method wildcard...== that can be useful if you want to browse a particular method.
 
 If you are searching for a particular method of the selected class, it is often
-quicker to browse the ==\-\-all\-\-== protocol (which is the default), place
+quicker to browse the ==\-\-all\-\-== protocol, place
 the mouse in the method pane, and type the first letter of the name of the
 method that you are looking for. This will usually scroll the pane so that the
 sought-for method name is visible.
 
 (do this) Try both ways of navigating to ==OrderedCollection>>removeAt:==
 
-There are many other options available in the menus.  It pays to spend a few
+There are many other options available in the menus. It pays to spend a few
 minutes working with the browser and seeing what is there.
 
-(do this) Compare the result of ==Browse Protocol==, ==Browse Hierarchy==,  and
+(do this) Compare the result of ==Browse Protocol==, ==Browse Hierarchy==, and
 ==Show Hierarchy== in the class pane menu.
 
 !!!Browsing programmatically
 
 The class ==SystemNavigation== provides a number of utility methods that
 are useful for navigating around the system. Many of the functions offered by
-the classic browser are implemented by ==SystemNavigation==.
+the system browser are implemented by ==SystemNavigation==.
 
-(do this) Open a workspace and evaluate the following code to browse the senders
+(do this) Open a playground and evaluate the following code to browse the senders
 of ==drawOn:==:
 
 [[[language=Smalltalk
@@ -414,7 +412,7 @@ Because the development tools are objects, they are completely accessible from
 programs and you can develop your own tools or adapt the existing tools to your
 needs.
 
-The programmatic equivalent to the ==implementors== menu item is:
+The programmatic equivalent to the ==Implementors of...== menu item is:
 
 [[[language=Smalltalk
 SystemNavigation default browseAllImplementorsOf: #drawOn:
@@ -422,7 +420,6 @@ SystemNavigation default browseAllImplementorsOf: #drawOn:
 
 To learn more about what is available, explore the class ==SystemNavigation==
 with the browser.
-%Further navigation examples can be found in the FAQ.
 
 !!Monticello
 
@@ -472,11 +469,17 @@ precise, the rules for what goes in a package are as follows.
 A package named ==Foo== contains:
 
 @sec:packageRules
-""1."" All ''class definitions'' of classes in the category ==Foo==, or in categories with names starting with ==Foo-==.
 
-""2."" All ''methods'' in ''any class'' in protocols named ==*Foo== or ==*foo== (When performing this comparison, the case of the letters in the names is ignored.), or whose name starts with ==*Foo-== or ==*foo-==.
+""1."" All ''class definitions'' of classes in the category ==Foo==, or in
+categories with names starting with ==Foo-==.
 
-""3."" All ''methods'' in classes in the category ==Foo==, or in a category whose name starts with ==Foo-==, ''except'' for those methods in protocols whose names start with ==*==.
+""2."" All ''methods'' in ''any class'' in protocols named ==*Foo== or ==*foo==
+(When performing this comparison, the case of the letters in the names is
+ignored.), or whose name starts with ==*Foo-== or ==*foo-==.
+
+""3."" All ''methods'' in classes in the category ==Foo==, or in a category
+whose name starts with ==Foo-==, ''except'' for those methods in protocols whose
+names start with ==*==.
 
 A consequence of these rules is that each class definition and each method
 belongs to exactly one package. The ''except'' in the last rule has to be there
@@ -514,8 +517,8 @@ expression will answer a list of all subclasses of  ==Collection== that are
 !!!Basic Monticello
 
 Monticello is named after the mountaintop home of Thomas Jefferson, third
-president of the United States and author of the Statute of Virginia for
-Religious Freedom.  The name means ==little mountain== in Italian, and so it is
+president of the United States and author of the ''Statute of Virginia for
+Religious Freedom''. The name means ''little mountain'' in Italian, and so it is
 always pronounced with an Italian ==c==, which sounds like the ==ch== in chair:
 Mont-y'-che-llo.
 
@@ -526,21 +529,21 @@ buttons, as shown in Figure *freshMonticello*. The left-hand pane lists all of
 the packages that have been loaded into the image that you are running; the
 particular version of the package is shown in parentheses after the name.
 
-The right-hand pane lists all of the source-code repositories that Monticello
-knows about, usually because it has loaded code from them.  If you select a
+The right-hand pane lists all of the source code repositories that Monticello
+knows about, usually because it has loaded code from them. If you select a
 package in the left pane, the right pane is filtered to show only those
 repositories that contain versions of the selected package.
 
 One of the repositories is a directory named ''package-cache'', which is a
 sub-directory of the directory in which your image is running. When you load
 code from or write code to a remote repository, a copy is also saved in the
-package cache.  This can be useful if the network is not available and you need
-to access a package.  Also, if you are given a Monticello (.mcz) file directly,
+package cache. This can be useful if the network is not available and you need
+to access a package. Also, if you are given a Monticello (.mcz) file directly,
 for example as an email attachment, the most convenient way to access it is to
 place it in the package-cache directory.
 
 To add a new repository to the list, click the ==+Repository==, and choose
-the kind of repository from the pop-up menu.  Let's add an HTTP repository.
+the kind of repository from the pop-up menu. Let's add an HTTP repository.
 
 (do this) Open Monticello, click on ==+Repository==, and select ==HTTP==.
 Edit the dialog to read:
@@ -554,36 +557,39 @@ MCHttpRepository
 
 +A Repository browser.>file://figures/SqueakSource-PBE.png|label=SqueakSource:PBE+
 
-Then click on ==Open== to open a repository browser on this repository.
-You should see something like Figure *SqueakSource:PBE*.  On the left is a list
+Click on ==Open== to open a repository browser on this repository.
+You should see something like Figure *SqueakSource:PBE*. On the left is a list
 of all of the packages in the repository; if you select one, then the pane on
 the right will show all of the versions of the selected package in this
 repository.
 
 If you select one of the versions, you can ==Browse== it (without loading
 it into your image), ==Load== it, or look at the ==Changes== that will
-be made to your image by loading the selected version.  You can also make a
+be made to your image by loading the selected version. You can also make a
 ==Copy== of a version of a package, which you can then write to another
 repository.
 
 As you can see, the names of versions contain the name of the package, the
-initials of the author of the version, and a version number.  The version name
-is also the name of the file in the repository.  Never change these names;
-correct operation of Monticello depends on them!   Monticello version files are
+name of the author of the version, and a version number. The version name
+is also the name of the file in the repository. Never change these names;
+correct operation of Monticello depends on them! Monticello version files are
 just zip archives, and if you are curious you can unpack them with a zip tool,
 but the best way to look at their contents is using Monticello itself.
 
 To create a package with Monticello, you have to do two things: write some code,
 and tell Monticello about it.
 
-(do this) Create a package called ==PBE-Monticello==, and put a couple of classes in it, as shown in Figure *MCnewcategory*.  Also, create a method in an existing class, such as ==Object==, and put it in the same package as your classes \-\- see Figure *MCnewmethod*.
+(do this) Create a package called ==PBE-Monticello==, and put a couple of
+classes in it, as shown in Figure *MCnewcategory*. Also, create a method in an
+existing class, such as ==Object==, and put it in the same package as your
+classes \-\- see Figure *MCnewmethod*.
 
 +Two classes in the ==PBE== package.>file://figures/MCnewcategory.png|label=MCnewcategory+
 
 +An extension method that will also be in the ==PBE== package.>file://figures/MCnewmethod.png|label=MCnewmethod+
 
 To tell Monticello about your package, click on ==+Package==, and type the
-name of the package, in this case ==PBE==.  Monticello will add ==PBE== to its
+name of the package, in this case ==PBE==. Monticello will add ==PBE== to its
 list of packages; the package entry will be marked with an asterisk to show that
 the version in the image has not yet been written to any repository. Note that
 you now should have two packages in Monticello, one called ==PBE== and another
@@ -591,7 +597,7 @@ called ==PBE-Monticello==. That's alright because ==PBE== will contain
 ==PBE-Monticello==, and any other packages starting with ==PBE-==.
 
 Initially, the only repository associated with this package will be your package
-cache, as shown in Figure *MCPBE*.  That's OK: you can still save the code,
+cache, as shown in Figure *MCPBE*. That's OK: you can still save the code,
 which will cause it to be written to the package cache. Just click ==Save==
 and you will be invited to provide a log message for the version of the package
 that you are about to save, as shown in Figure *PBEon*; when you accept the
@@ -601,7 +607,7 @@ version number added.
 
 If you then make a change to the package \-\- say by adding a method to one of
 the classes \-\- the asterisk will re-appear, showing that you have unsaved
-changes.  If you open a repository browser on the package cache, you can select
+changes. If you open a repository browser on the package cache, you can select
 the saved version, and use ==Changes== and the other buttons. You can of
 course save the new version to the repository too; once you ==Refresh== the
 repository view, it should look like Figure *package-cache-browser*.
@@ -628,7 +634,7 @@ world readable but not world writable, so if you try and save there, you will
 see an error message. However, you can create your own repository on SqueakSource by
 using the web interface at *www.squeaksource.com>http://www.squeaksource.com*, and use this to
 save your work. This is especially useful as a mechanism to share your code with
-friends, or if you use multiple computers.
+others, or if you use multiple computers.
 
 +Adding a repository to the set of repositories associated with a package.>file://figures/MCaddToPackage.png|label=associateRepository+
 
@@ -642,19 +648,21 @@ package-cache browser.
 @sec:inspector
 
 One of the things that makes Pharo so different from many other programming
-environments is that it is provides you with a window onto a world of live
+environments is that it provides you with a window onto a world of live
 objects, not a world of static code. Any of those objects can be examined by the
-programmer, and even changed \-\- although some care is necessary when changing
-the basic objects that support the system. By all means experiment, but save
+programmer, and even modified (although some care is necessary when changing
+the basic objects that support the system). By all means experiment, but save
 your image first!
 
 !!!The Inspector
 
-(do this) As an illustration of what you can do with an inspector, type  ==TimeStamp now== in a workspace, and then right-click and choose ==inspect it==.
+(do this) As an illustration of what you can do with an inspector, type
+==TimeStamp now== in a workspace, and then right-click and choose ==Inspect
+it==.
 
 (It's not necessary to select the text before using the menu; if no text is
 selected, the menu operations work on the whole of the current line. You can
-also type ==CMD-i== for ''inspect it''.)
+also type ==CMD-i== for ''Inspect it''.)
 
 +Inspecting ==TimeStamp now==>file://figures/inspectTimeNow1.png|label=inspectTimeNow1+
 
@@ -675,14 +683,14 @@ It is useful because in this window, the pseudo-variable ==self== is bound to
 the object that you have selected in the left pane. So, if you ==inspect it== on
 ==self - TimeStamp today== in the workspace pane, the result will be a
 ==Duration== object that represents the time interval between midnight today and
-the instant at which you evaluated  ==TimeStamp now== and created the
+the instant at which you evaluated ==TimeStamp now== and created the
 ==TimeStamp== object that you are inspecting. You can also try evaluating
 ==TimeStamp now - self==; this will tell you how long you have spent reading
 this section of this book!
 
-In addition to ==self==, all the instance variables of the object are in scope
+In addition to ==self==, all the instance variables of the object are in-scope
 in the workspace pane, so you can use them in expressions or even assign to
-them.  For example, if you select the root object in the left pane and evaluate
+them. For example, if you select the root object in the left pane and evaluate
 ==jdn := jdn - 1== in the workspace pane, you will see that the value of the
 ==jdn== instance variable will indeed change, and the value of
 ==TimeStamp now - self== will increase by one day.
@@ -731,7 +739,7 @@ the compiles methods of this class (see Figure *ExploreObject*).
 
 %(do this) Open a browser, and meta-click five times on the method pane to bring-up the Morphic halo on the ==OBPluggableListMorph== that is used to represent the list of messages.
 %Click on the ''debug'' handle ==debugHandle== and select ==explore morph==
-%from the menu that appears.  This will open an Explorer on the ==OBPluggableListMorph== object that represents the method list on the screen.
+%from the menu that appears. This will open an Explorer on the ==OBPluggableListMorph== object that represents the method list on the screen.
 %Open the root object (by clicking in its triangle), open its ==submorphs==, and continue exploring the structure of the objects that underlie this Morph, as shown in Figure *explorePluggableListMorph*.
 %
 % +Exploring a ==PluggableListMorph==>file://figures/explorePluggableListMorph.png|label=explorePluggableListMorph+
@@ -739,15 +747,16 @@ the compiles methods of this class (see Figure *ExploreObject*).
 !!The Debugger
 @sec:debugger
 
-The debugger is arguably the most powerful tool in the Pharo tool suite.
-It is used not just for debugging, but also for writing new code. To demonstrate
-the debugger, let's start by creating a bug!
+The debugger is arguably the most powerful tool in the Pharo tool suite. It is
+used not just for debugging, but also for writing new code. To demonstrate the
+debugger, let's start by creating a bug!
 
 (do this) Using the browser, add the following method to the class ==String==:
 
 [[[language=Smalltalk|label=buggy|caption=A buggy method
 suffix
 	"assumes that I'm a file name, and answers my suffix, the part after the last dot"
+
 	| dot dotPosition |
 	dot := FileDirectory dot.
 	dotPosition := (self size to: 1 by: -1) detect: [ :i | (self at: i) = dot ].
@@ -755,8 +764,8 @@ suffix
 ]]]
 
 Of course, we are sure that such a trivial method will work, so instead of
-writing an SUnit test, we just type =='readme.txt' suffix== in a workspace and
-==print it (p)==. What a surprise!  Instead of getting the expected answer
+writing an SUnit test, we just type =='readme.txt' suffix== in a playground and
+==Print it (p)==. What a surprise! Instead of getting the expected answer
 =='txt'==, a ==PreDebugWindow== pops up, as shown in
 Figure *PreDebugWindow*.
 
@@ -778,7 +787,7 @@ information is encoded in the next line of the stack trace,
 
 To find out ''why'' the dot was not found, we need the debugger itself, so click
 on ==Debug==.
-%(do this) You can also open the debugger by clicking on any of the lines on the stack trace.  If you do this, the debugger will open already focussed on the corresponding method.
+%(do this) You can also open the debugger by clicking on any of the lines on the stack trace. If you do this, the debugger will open already focused on the corresponding method.
 
 The debugger is shown in Figure *debuggerDetectIfNone*; it looks intimidating at
 first, but it is quite easy to use. The title-bar and the top pane are very
@@ -788,7 +797,7 @@ stack trace, the corresponding method is shown in the pane below. It's important
 to realize that the execution that caused the error is still in your image, but
 in a suspended state. Each line of the stack trace represents a frame on the
 execution stack that contains all of the information necessary to continue the
-execution.  This includes all of the objects involved in the computation, with
+execution. This includes all of the objects involved in the computation, with
 their instance variables, and all of the temporary variables of the executing
 methods.
 
@@ -809,7 +818,6 @@ or select expressions in this pane and evaluate them. You can always ==cancel
 (l)== your changes using the menu or ==CMD-l==.
 % apb: that lower-case-L is in italics so that it doesn't look like a 1 or a |
 
-
 The inspector on the right shows the temporary variables of the current context.
 In Figure *debuggerDetectIfNone*, ==value== was sent to the parameter
 ==exceptionBlock==.
@@ -828,39 +836,43 @@ variable, or select the name of the variable and right-click to choose ==inspect
 (i)== or ==explore (I)==. This can be useful if you want to watch how a variable
 changes while you execute other code.
 
-
 Looking back at the method window, we see that we expected the penultimate line
 of the method to find ==dot== in the string =='readme.txt'==, and that execution
 should never have reached the final line. Pharo does not let us run an execution
 backwards, but it does let us start a method again, which works very well in
-code such as this that does not mutate objects, but instead creates new ones.
+code that does not mutate objects, but instead creates new ones.
 
-(do this) Click ==Restart==, and you will see that the locus of execution returns to the first statement of the current method.
-The blue highlight shows that the next message to be sent will be ==do:== (see Figure *RestartDetectIfNone*).
+(do this) Click ==Restart==, and you will see that the locus of execution
+returns to the first statement of the current method. The blue highlight shows
+that the next message to be sent will be ==do:== (see Figure
+*RestartDetectIfNone*).
 
 +The debugger after restarting the ==detect: ifNone:== method>file://figures/RestartDetectIfNone.png|label=RestartDetectIfNone+
 
 The ==Into== and ==Over== buttons give us two different ways to step
-through the execution.  If you click ==Over==, Pharo executes the current
+through the execution. If you click ==Over==, Pharo executes the current
 message-send (in this case the ==do:==) in one step, unless there is an error.
 So ==Over== will take us to the next message-send in the current method,
 which is ==value== \-\- this is exactly where we started, and not much help.
 What we need to do is to find out why the ==do:== is not finding the character
 that we are looking for.
 
-(do this) After clicking ==Over==, click ==Restart== to get back to the situation shown in Figure *RestartDetectIfNone.*
+(do this) After clicking ==Over==, click ==Restart== to get back to the
+situation shown in Figure *RestartDetectIfNone.*
 
-(do this) Click ==Into==; Pharo will go into the method corresponding to the highlighted message-send, in this case, ==Collection>>do:==.
+(do this) Click ==Into==; Pharo will go into the method corresponding to the
+highlighted message-send, in this case, ==Collection>>do:==.
 
-However, it turns out that this is not much help either: we can be fairly
-confident that ==Collection>>do:== is not broken.  The bug is much more likely
+However, it turns out that this is not much help either; we can be fairly
+confident that ==Collection>>do:== is not broken. The bug is much more likely
 to be in ''what'' we asked Pharo to do. ==Through== is the appropriate
 button to use in this case: we want to ignore the details of the ==do:== itself
 and focus on the execution of the argument block.
 
-(do this) Select the ==detect:ifNone:== method again and ==Restart== to get back to the state shown in Figure *RestartDetectIfNone.
-Now click on ==Through== a few times.  Select ==each== in the context window as you do so.
-You should see ==each== count down from ==10== as the ==do:== method executes.*
+(do this) Select the ==detect:ifNone:== method again and ==Restart== to get back
+to the state shown in Figure *RestartDetectIfNone*. Now click on ==Through== a
+few times. Select ==each== in the context window as you do so. You should see
+==each== count down from ==10== as the ==do:== method executes.
 
 When ==each== is ==7== we expect the ==ifTrue:== block to be executed, but it
 isn't. To see what is going wrong, go ==Into== the execution of ==value:==
@@ -887,7 +899,8 @@ character before starting to search for it.
 
 +Changing the ==suffix== method in the debugger: asking for confirmation of the exit from an inner block>file://figures/revertDialog.png|label=revertDialog+
 
-(do this) Change the code right in the debugger so that the assignment reads ==dot := FileDirectory dot first== and ==accept== the change.
+(do this) Change the code right in the debugger so that the assignment reads
+==dot := FileDirectory dot first== and accept the change.
 
 Because we are executing code inside a block that is inside a ==detect:==,
 several stack frames will have to be abandoned in order to make this change.
@@ -899,7 +912,7 @@ that we click ==yes==, will save (and compile) the new method.
 The evaluation of the expression =='readme.txt' suffix== will complete, and
 print the answer =='.txt'==.
 
-Is the answer correct?  Unfortunately, we can't say for sure.  Should the suffix
+Is the answer correct? Unfortunately, we can't say for sure. Should the suffix
 be ==.txt== or ==txt==? The method comment in ==suffix== is not very precise.
 The way to avoid this sort of problem is to write an SUnit test that
 defines the answer.
@@ -916,7 +929,7 @@ class ==StringTest== and run that test suite with SUnit, you can very quickly
 get back to debugging the error. SUnit opens the debugger on the failing
 assertion, but you need only go back down the stack one frame, ==Restart==
 the test and go ==Into== the ==suffix== method, and you can correct the
-error, as we are doing in Figure *fixOffByOne*. It is then only  a second of
+error, as we are doing in Figure *fixOffByOne*. It is then only a second of
 work to click on the ==Run Failures== button in the SUnit Test Runner, and
 confirm that the test now passes.
 
@@ -930,7 +943,7 @@ testSuffixFound
 	self assert: 'read.me.txt' suffix = 'txt'
 ]]]
 
-Why is this test better?  Because it tells the reader what the method should do
+Why is this test better? Because it tells the reader what the method should do
 if there is more than one dot in the target String.
 
 There are a few other ways to get into the debugger in addition to catching
@@ -939,12 +952,13 @@ loop, you can interrupt it and open a debugger on the computation by typing
 ==CMD-.== (that's a full stop or a period, depending  on where you learned
 English). (It is also useful to know that you can bring up an emergency
 debugger at any time by typing ==CMD-SHIFT-.==) You can also just edit
-the suspect code to insert ==self halt==. So, for example, we might edit the
+the suspect code to insert ==self halt.==. So, for example, we might edit the
 ==suffix== method to read as follows:
 
 [[[language=Smalltalk|label=suffix|caption=Inserting a ==halt== into the ==suffix== method.
 suffix
 	"assumes that I'm a file name, and answers my suffix, the part after the last dot"
+
 	| dot dotPosition |
 	dot := FileDirectory dot first.
 	dotPosition := (self size to: 1 by: -1) detect: [ :i | (self at: i) = dot ].
@@ -953,8 +967,8 @@ suffix
 ]]]
 
 When we run this method, the execution of the ==self halt== will bring up the
-pre-debugger, from where we can proceed, or go into the debugger and look
-at variables, step the computation, and edit the code.
+pre-debugger, from where we can either proceed, or go into the debugger (and
+from there look at variables, step through the computation, and edit the code).
 
 That's all there is to the debugger, but it's not all there is to the ==suffix==
 method. The initial bug should have made you realize that if there is no dot in
@@ -967,11 +981,12 @@ testSuffixNotFound
 	self assert: 'readme' suffix = ''
 ]]]
 
-(do this) Add ==testNoSuffix== to the test suite in class ==StringTest==, and watch the test raise an error.
-Enter the debugger by selecting the erroneous test in SUnit, and edit the code
-so that the test passes. The easiest and clearest way to do this is to replace
-the ==detect:== message by ==detect: ifNone:==, where  the second argument is a
-block that simply returns the string size.
+(do this) Add ==testNoSuffix== to the test suite in class ==StringTest==, and
+watch the test raise an error. Enter the debugger by selecting the erroneous
+test in SUnit, and edit the code so that the test passes. The easiest and
+clearest way to do this is to replace the ==detect:== message by
+==detect:ifNone:==, where  the second argument is a block that simply returns
+the string size.
 
 We will learn more about SUnit in Chapter *cha:sunit*: SUnit.
 
@@ -979,23 +994,23 @@ We will learn more about SUnit in Chapter *cha:sunit*: SUnit.
 
 !!The Process Browser
 
-Pharo is a multi-threaded system: there are many lightweight processes (also known
+Pharo is a multi-threaded system, and there are many lightweight processes (also known
 as threads) running concurrently in your image. In the future the Pharo virtual
-machine may take advantage of multiprocessors when they are available, but at
-present concurrency is implemented by time-slicing.
+machine may take advantage of multiple processors when they are available, but at
+present, concurrency is implemented by time-slicing.
 
 +The Process Browser>file://figures/processBrowser.png|label=processBrowser+
 
-The process browser is a cousin of the debugger that lets you
+The Process Browser is a cousin of the debugger that lets you
 look at the various processes running inside Pharo. Figure *processBrowser*
 shows a screenshot. The top-left pane lists all of the processes in Pharo, in
 priority order, from the timer interrupt watcher at priority 80 to the idle
 process at priority 10. Of course, on a uniprocessor, the only process that can
 be running when you look is the UI process; all others will be waiting for some
 kind of event.
-%:===> Process browser context menu is broken! ON: broken \-\- to be fixed!
+
 By default, the display of processes is static; it can be updated by
-right-clicking and selecting ==turn on auto-update (a)==
+right-clicking and selecting ==Turn on auto-update (a)==.
 
 If you select a process in the top-left pane, its stack trace is displayed in
 the top-right pane, just as with the debugger. If you select a stack frame, the
@@ -1026,32 +1041,32 @@ the message names browser has a button bar that can be used to open other
 browsers on the selected method or its class.
 
 !!Change sets and the Change Sorter
-@sec:env:changeSet
+@sec:changeSet
 
 Whenever you are working in Pharo, any changes that you make to methods and
-classes are recorded in a ==change set==. This includes creating new classes,
+classes are recorded in a ''change set''. This includes creating new classes,
 re-naming classes, changing categories, adding methods to existing
 classes \-\- just about everything of significance. However, arbitrary
-''doits'' are not included, so if, for example, you create a new global variable
-by assigning to it in a workspace, the variable creation will not make it into a
+''Do it''s are not included, so if, for example, you create a new global variable
+by assigning to it in a playground, the variable creation will not make it into a
 change set.
 
-At any time, many change sets exist, but only one of them \-\- ==ChangeSet
-current== \-\- is collecting the changes that are being made to the image. You
-can see which change set is current and can examine all of the change sets using
-the  change sorter, available by selecting ==World > Tools... > Change
+At any time, many change sets exist, but only one of them \-\-
+==ChangeSet current== \-\- is collecting the changes that are being made to the
+image. You can see which change set is current and can examine all of the change
+sets using the change sorter, available by selecting ==World > Tools... > Change
 Sorter==.
 
 +The Change Sorter>file://figures/changeSorter.png|label=changeSorter+
 
-Figure *changeSorter* shows this browser.  The title bar shows which change set
+Figure *changeSorter* shows this browser. The title bar shows which change set
 is current, and this change set is selected when the change sorter opens.
 
 Other change sets can be selected in the top-left pane; the right-click menu
 allows you to make a different change set current, or to create a new change
 set. The next pane lists all of the classes affected by the selected change set
 (with their categories). Selecting one of the classes displays the names of
-those of its methods that are also in the change set (''not'' all of the methods
+its methods that are also in the change set (''not'' all of the methods
 in the class) in the left central pane, and selecting a method name displays the
 method definition in the bottom pane. Note that the change sorter does ''not''
 show you whether the creation of the class itself is part of the change set,
@@ -1073,20 +1088,15 @@ You may be wondering why you should care about the composition of a change set.
 the answer is that change sets provide a simple mechanism for exporting code
 from Pharo to the file system, from where it can be imported into another Pharo
 image, or into another non-Pharo Smalltalk. Change set export is known as
-==filing-out==, and can be accomplished using the right-click menu on any change
+==Filing-out==, and can be accomplished using the right-click menu on any change
 set, class or method in either browser. Repeated file outs create new versions
 of the file, but change sets are not a versioning tool like Monticello: they do
 not keep track of dependencies.
 
 Before the advent of Monticello, change sets were the main means for exchanging
-code between smalltalkers. They have the advantage of simplicity (the file out
+code between Smalltalkers. They have the advantage of simplicity (the file out
 is just a text file, although we ''don't'' recommend that you try to edit them
 with a text editor), and a degree of portability.
-%It's also quite easy to create a change set that makes changes to many different,
-% unrelated parts of the system \-\- something that Monticello is not yet equipped to do.
-%AB: Or is it?
-%ON: you mean something different than extensions to foreign packages using the
-% *package protocol notation?
 
 The main drawback of change sets, compared to Monticello packages, is that
 they do not support the notion of dependencies. A filed-out change set is a set
@@ -1109,7 +1119,7 @@ permits Monticello to warn you about conflicts (when two packages require
 contradictory final states) and to offer to load a series of packages in
 dependency order.
 
-In spite of these shortcomings, change sets still have their uses; in
+In spite of these shortcomings, change sets still have their uses. In
 particular, you may find change sets on the Internet that you want to look at
 and perhaps use. So, having filed out a change set using the change sorter, we
 will now tell you how to file one in. This requires the use of another tool, the
@@ -1120,32 +1130,32 @@ file list browser.
 +A file list browser>file://figures/fileList.png|label=fileList+
 
 The file list browser is in fact a general-purpose tool for browsing the
-file system (and also FTP servers) from Pharo. You can open it from the
+file system (as well as FTP servers) from Pharo. You can open it from the
 ==World > Tools... > File Browser== menu. What you see of course
 depends on the contents of your local file system, but a typical view is shown
 in Figure *fileList*.
 
-When you first open a file list browser it will be focussed on the current
+When you first open a file list browser it will be focused on the current
 directory, that is, the one from which you started Pharo. The title bar shows
-the path to this directory. The larger pane on the left-hand side can be used to
+the directory name. The larger pane on the left-hand side can be used to
 navigate the file system in the conventional way. When a directory is selected,
 the files that it contains (but not the directories) are displayed on the right.
 This list of files can be filtered by entering a Unix-style pattern in the small
 box at the top-left of the window. Initially, this pattern is ==*==, which
 matches all file names, but you can type a different string there and accept it,
-changing the pattern.  (Note that a ==*== is implicitly prepended and appended
+changing the pattern. (Note that a ==*== is implicitly prepended and appended
 to the pattern that you type.) The sort order of the files can be changed using
 the ==name==, ==date== and ==size== buttons. The rest of the
 buttons depend on the name of the file selected in the browser. In
 Figure *fileList*, the file name has the suffix ==.cs==, so the browser assumes
 that it is a change set, and provides buttons to ==install== it (which
 ''files it in'' to a new change set whose name is derived from the name of
-the file),  to browse the ==changes== in the file, to examine the
-==code== in the file, and to ==filein== the code into the ''current''
+the file), to browse the ==changes== in the file, to examine the
+==code== in the file, and to ==File in== the code into the ''current''
 change set. You might think that the ==conflicts== button would tell you
 about changes in the change set that conflicted with existing code in the image,
 but it doesn't.
-% AB: Does anyone know what it does do?  I've never found it useful.
+% AB: Does anyone know what it does do? I've never found it useful.
 % ON: I tried it and found that it complained about linefeeds.
 Instead it just checks for potential problems in the file that might indicate that the
 file cannot properly be loaded (such as the presence of linefeeds).
@@ -1154,8 +1164,8 @@ file cannot properly be loaded (such as the presence of linefeeds).
 
 Because the choice of buttons to display depends on the file's ''name'', and not
 on its contents, sometimes the button that you want won't be on the screen.
-However, the full set of options is always available from the right-click ==more
-...== menu, so you can easily work around this problem.
+However, the full set of options is always available from the right-click
+==more...== menu, so you can easily work around this problem.
 
 The ==code== button is perhaps the most useful for working with change
 sets; it opens a browser on the contents of the change set file; an example is
@@ -1239,18 +1249,17 @@ files back in cleanly.
 In order to develop effectively with Pharo, it is important to invest some
 effort into learning the tools available in the environment.
 
-- The standard ''browser'' is your main interface for browsing existing categories, classes, method protocols and methods, and for defining new ones.
-- The browser offers several useful buttons to directly jump to senders or implementors of a message, versions of a method, and so on.
-- There exist several different browsers (such as the OmniBrowser and the Refactoring Browser), and several specialized browsers (such as the hierarchy browser) which provide different views of classes and methods.
+- The standard ''browser'' is your main interface for browsing existing packages, classes, method protocols and methods, and for defining new ones.
+- The browser offers several useful shortcuts to directly jump to senders or implementors of a message, versions of a method, and so on.
 - From any of the tools, you can highlight the name of a class or a method and immediately jump to a browser by using the keyboard shortcut ==CMD-b==.
 - You can also browse the Pharo system programmatically by sending messages to ==SystemNavigation default==.
 - ''Monticello'' is a tool for exporting, importing, versioning and sharing packages of classes and methods.
-- A Monticello package consists of a category, subcategories, and related methods protocols in other categories.
+- A Monticello package consists of classes, and related methods in other packages.
 - The ''inspector'' and the ''explorer'' are two tools that are useful for exploring and interacting with live objects in your image.
 - You can even inspect tools by meta-clicking to bring up their morphic halo and selecting the debug handle.
 - The ''debugger'' is a tool that not only lets you inspect the run-time stack of your program when an error is raised, but it also enables you to interact with all of the objects of your application, including the source code. In many cases you can modify your source code from the debugger and continue executing. The debugger is especially effective as a tool to support test-first development in tandem with SUnit (Chapter *cha:sunit*: SUnit).
 - The ''process browser'' lets you monitor, query and interact with the processes current running in your image.
 - The ''method finder'' and the ''message names browser'' are two tools for locating methods. The first is more useful when you are not sure of the name, but you know the expected behaviour. The second offers a more advanced browsing interface when you know at least a fragment of the name.
 - ''Change sets'' are automatically generated logs of all changes to the source code of your image. They have largely been superseded by Monticello as a means to store and exchange versions of your source code, but are still useful, especially for recovering from catastrophic failures, however rare these may be.
-- The ''file list browser'' is a tool for browsing the file system. It also allows you to ==filein== source code from the file system.
+- The ''file list browser'' is a tool for browsing the file system. It also allows you to ==File in== source code from the file system.
 - In case your image crashes before you could save it or backup your source code with Monticello, you can always recover your most recent changes using a ''change list browser''. You can then select the changes you want to replay and file them into the most recent copy of your image.
