@@ -130,7 +130,7 @@ this ideal: in particular, if a change breaks the initialization of an object,
 or the set-up of a test, it is likely to cause all of the tests to fail.
 
 Several software development methodologies such as ''eXtreme Programming'' and
-Test-Driven Development (TDD)  advocate writing tests before writing code. This
+Test-Driven Development (TDD) advocate writing tests before writing code. This
 may seem to go against our deep instincts as software developers. All we can say
 is: go ahead and try it. We have found that writing the tests before the code
 helps us to know what we want to code, helps us know when we are done, and helps
@@ -303,7 +303,7 @@ The tests that did not pass (if any) are listed in the right-hand panes of the
 the name. Alternatively, you can execute one of the following expressions:
 
 [[[
-MyExampleSetTest selector: #testRemove) debug
+(MyExampleSetTest selector: #testRemove) debug
 
 MyExampleSetTest debug: #testRemove
 ]]]
@@ -365,7 +365,7 @@ Try running this test. Note that the first argument of the ==should:== and
 
 SUnit is portable: it can be used from all dialects of Smalltalk. To make SUnit
 portable, its developers factored out the dialect-dependent aspects. The class
-method  ==TestResult class error== answers the system's error class in a
+method ==TestResult class error== answers the system's error class in a
 dialect-independent fashion. You can take advantage of this and rewrite the
 previous method as follows:
 
@@ -478,7 +478,7 @@ name space, and the binding between the global and the tests that depend on it
 will not be explicit. A better solution is to put the necessary resources in a
 singleton object of some class. The class ==TestResource== exists to be
 subclassed by such resource classes. Each subclass of ==TestResource==
-understands the message  ==current==, which will answer a singleton instance of
+understands the message ==current==, which will answer a singleton instance of
 that subclass. Methods ==setUp== and ==tearDown== should be overridden in the
 subclass to ensure that the resource is initialized and finalized.
 
@@ -601,7 +601,7 @@ testAsDate
 	self assert: aDateAndTime asDate = ('February 29, 2004' asDate translateTo: 2 hours).
 
 testAsDate
-	self assert: aDateAndTime asDate equals:  ('February 29, 2004' asDate translateTo: 2 hours).
+	self assert: aDateAndTime asDate equals: ('February 29, 2004' asDate translateTo: 2 hours).
 ]]]
 
 !!!Logging support
@@ -701,7 +701,7 @@ TestResult>>runCase: aTestCase
 	[
 	aTestCase announce: TestCaseStarted withResult: self.
 	aTestCase runCase.
-	aTestCase announce: TestCaseEnded  withResult: self.
+	aTestCase announce: TestCaseEnded withResult: self.
 	self addPass: aTestCase]
 		on: self class failure , self class skip, self class warning, self class error
 		do: [:ex | ex sunitAnnounce: aTestCase toResult: self]
@@ -748,7 +748,7 @@ TestSuite>>run: aResult
 		ensure: [ self tearDown ]
 
 TestSuite>>setUp
-	self resources  do: [ :each |
+	self resources do: [ :each |
 				each isAvailable ifFalse: [ each signalInitializationError ]
 
 TestSuite>>tearDown
@@ -767,7 +767,7 @@ initialized and the message ==setUp== is sent to a test resource.
 
 [[[caption=Test resource availability
 TestResource class>>isAvailable
-	"This is (and must be) a lazy method. If my current has a value, an attempt to make me available has already been made:  trust its result. If not, try to make me available."
+	"This is (and must be) a lazy method. If my current has a value, an attempt to make me available has already been made: trust its result. If not, try to make me available."
 
 	current ifNil: [self makeAvailable].
 	^self isAlreadyAvailable
