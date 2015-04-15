@@ -111,7 +111,7 @@ dot will match any character except a newline:
 [[[
 'x' matchesRegex: '.' --> true
 ' ' matchesRegex: '.'  --> true
-Character cr asString matchesRegex: '.' --> false
+Character cr asString matchesRegex: '.' --> true
 ]]]
 
 The ==\*== (known as the ''Kleene star'', after Stephen Kleene, who invented it)
