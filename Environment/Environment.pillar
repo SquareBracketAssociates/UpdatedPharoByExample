@@ -91,7 +91,7 @@ the right will then show all of the classes in that package.
 +Browser with the class ==Model== selected>file://figures/SystemBrowser1.png|label=fig:SystemBrowser1+
 
 Similarly, if you select one of the classes in the second pane, say, ==Model==
-(see  Figure *fig:SystemBrowser1*), the third pane will show all of the
+(see Figure *fig:SystemBrowser1*), the third pane will show all of the
 ''protocols'' defined for that class, as well as a virtual protocol
 ==\-\-all\-\-==. Protocols are a way of
 categorizing methods; they make it easier to find and think about the behaviour
@@ -329,7 +329,7 @@ Note that selecting ==prettyPrint== in the ==how to show== menu is ''not'' the
 same as pretty printing a method before you save it (==pretty print
 (r)== is the first menu item in the method pane, or half-way down in the code
 pane.). The menu controls only how the browser displays, and has no effect on
-the code stored in the system. You can verify this  by opening two browsers, and
+the code stored in the system. You can verify this by opening two browsers, and
 selecting ==prettyPrint== in one and ==source== in the other. In fact, focussing
 two browsers on the same method and selecting ==byteCode== in one and
 ==decompile== in another is a good way to learn about the Pharo virtual
@@ -511,7 +511,7 @@ conventions were based on those already in use, it is possible to use
 work with it.
 
 (do this) Print ==(PackageInfo named: 'Collections') externalSubclasses==; this
-expression will answer a list of all subclasses of  ==Collection== that are
+expression will answer a list of all subclasses of ==Collection== that are
 ''not'' in the ==Collections== package.
 
 !!!Basic Monticello
@@ -696,7 +696,7 @@ them. For example, if you select the root object in the left pane and evaluate
 ==TimeStamp now - self== will increase by one day.
 
 % ON: Does not work anymore
-%You can change instance variables directly by selecting them, replacing the old value in the right-hand  pane by a Pharo expression, and accepting.
+%You can change instance variables directly by selecting them, replacing the old value in the right-hand pane by a Pharo expression, and accepting.
 %Pharo will evaluate the expression and assign the result to the instance variable.
 
 There are special variants of the inspector for Dictionaries,
@@ -887,7 +887,7 @@ Figure *dotIsAString*. It looks at first that we have gone ''back'' to the
 %ON: does not work any more! the debugger does not know about block variables!
 %If you select ==i== in the context inspector, you can see its current value, which should be ==7== if you have been following along.
 %You can then select the corresponding element of ==self== from the ==self==-inspector.
-%In  Figure *dotIsAString* you can see that element ==7== of the string is character 46, which is indeed a dot.
+%In Figure *dotIsAString* you can see that element ==7== of the string is character 46, which is indeed a dot.
 If you select ==dot== in the context inspector, you will see that its value is =='.'==.
 And now you see why they are not equal: the seventh character of
 =='readme.txt'== is of course a ==Character==, while ==dot== is a ==String==.
@@ -949,7 +949,7 @@ if there is more than one dot in the target String.
 There are a few other ways to get into the debugger in addition to catching
 errors and assertion failures. If you execute code that goes into an infinite
 loop, you can interrupt it and open a debugger on the computation by typing
-==CMD-.== (that's a full stop or a period, depending  on where you learned
+==CMD-.== (that's a full stop or a period, depending on where you learned
 English). (It is also useful to know that you can bring up an emergency
 debugger at any time by typing ==CMD-SHIFT-.==) You can also just edit
 the suspect code to insert ==self halt.==. So, for example, we might edit the
@@ -985,7 +985,7 @@ testSuffixNotFound
 watch the test raise an error. Enter the debugger by selecting the erroneous
 test in SUnit, and edit the code so that the test passes. The easiest and
 clearest way to do this is to replace the ==detect:== message by
-==detect:ifNone:==, where  the second argument is a block that simply returns
+==detect:ifNone:==, where the second argument is a block that simply returns
 the string size.
 
 We will learn more about SUnit in Chapter *cha:sunit*: SUnit.
