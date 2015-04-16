@@ -584,11 +584,11 @@ syntax seen so far:
 | ==a==				    | literal match of character ==a==
 | ==.==				    | match any char (except newline)
 | ==(...)==	            | group subexpression
-| ==\\==                | escape the following special character
+| ==\\x==                | escape the following special character where 'x' can be 'w','s','d','W','S','D'
 | ==\*==			    | Kleene star — match previous regex zero or more times
 | ==\+==			    | match previous regex one or more times
 | ==?==				    | match previous regex zero times or once
-| ==|==				    | match choice of left and right regex
+| ==\|==				    | match choice of left and right regex
 | ==[abcd]==		    | match choice of characters ==abcd==
 | ==[^abcd]==	        | match negated choice of characters
 | ==[0-9]==	    	    | match range of characters ==0== to ==9==
