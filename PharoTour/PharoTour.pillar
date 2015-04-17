@@ -553,7 +553,7 @@ in a class called ==StringTest==.
 First, open a browser on the class ==StringTest==, and select an appropriate
 protocol for our method, in this case =='tests - converting'==. The highlighted
 text in the bottom pane is a template that reminds you what a Pharo method looks
-like. Delete this template code (remember, you can either click on the beginnigg
+like. Delete this template code (remember, you can either click on the beginning
 or the end of the text, or press ==CMD-a==, to "Select All"), and start typing
 your method. We can turn our "Don't Panic" code example into the test method
 itself:
