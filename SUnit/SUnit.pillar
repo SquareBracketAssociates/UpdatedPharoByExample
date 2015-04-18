@@ -81,15 +81,6 @@ the context in which your functionality will run, the way it will
 interact with the client code, and the expected results.
 Your code will improve. Try it.
 
-The culture of tests has always been present in the Smalltalk
-community because after writing a method, we would write a small
-expression to test it. This practice supports the extremely tight
-incremental development cycle promoted by Pharo. However, doing
-so does not bring the maximum benefit from testing because the tests
-are not saved and run automatically. Moreover it often happens that
-the context of the tests is left unspecified so the reader has to
-interpret the results and assess if they are right or wrong.
-
 We cannot test all aspects of any realistic application. Covering a complete
 application is simply impossible and should not be the goal of testing. Even
 with a good test suite some bugs will still creep into the application, where
