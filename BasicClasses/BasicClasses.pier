@@ -20,11 +20,15 @@ hierarchy. Actually, in Pharo the true root of the hierarchy is ==ProtoObject==,
 which is used to define minimal entities that masquerade as objects, but we can
 ignore this point for the time being.
 
-==Object== can be found in the ==Kernel== package. Astonishingly, there
-are some 400 methods to be found here (including extensions). In other words,
-every class that you define will automatically provide these 400 methods,
-whether you know what they do or not. Note that some of the methods should be
-removed and new versions of Pharo may remove some of the superfluous methods.
+==Object== can be found in the ==Kernel== package. There are almost 400 methods
+to be found here (in other words, every class that you define will automatically
+provide all those methods). ''Note:'' You can count the number of methods in
+a class, yourself, like so:
+
+[[[
+Object selectors size         "Count the instance methods in Object"
+Object class selectors size   "Count the class-side methods"
+]]]
 
 The class comment for the ==Object== states:
 
