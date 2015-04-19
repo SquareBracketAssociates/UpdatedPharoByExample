@@ -268,8 +268,8 @@ button.
 You can also run a single test (and print the usual pass/fail result summary) by executing a
 ''Print it'' on the following code: ==MyExampleSetTest run: #testRemove==.
 
-We usually include an executable comment in our test methods that allows us to
-run them with a ''do it'' from the browser, as shown below.
+Some people include an executable comment in their test methods that allows
+running a test method with a ''Do it'' from the browser, as shown below.
 
 [[[caption=Executable comments in test methods
 MyExampleSetTest>>>testRemove
