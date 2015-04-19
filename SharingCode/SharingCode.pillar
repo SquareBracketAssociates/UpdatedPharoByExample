@@ -1,0 +1,446 @@
+!Sharing Code and Source Control
+@cha:sharingCode
+
+The consequence of programming in a world of live objects rather than with files
+and a text editor is that you have to do something explicit to export your
+program from your Pharo image. The original way of doing this (supported by
+all Smalltalk dialects), is by creating a ''fileout'' or a ''change set'', which
+are essentially encoded text files that can be imported into another system. The
+preferred way of sharing code in Pharo is to upload it to a versioned repository
+on a server. This is done using a tool called Monticello, and is a much
+more powerful and effective way to work, especially when working in a team.
+
+!!Monticello
+
+We gave you a quick overview of Monticello, Pharo's packaging tool, in
+section *sec:Monticello*. However, Monticello has many more features than were
+discussed there. Because Monticello manages ''packages'', before telling you
+more about Monticello, it's important that we first explain exactly what a
+package is.
+
+!!!Packages: declarative categorization of Pharo code
+@sec:packages
+
+We have pointed out earlier, in section *sec:categoriesPackages* that packages are
+more or less equivalent to categories. Now we will see exactly what the
+relationship is. The package system is a simple, lightweight way of organizing
+Smalltalk source code that exploits a simple naming convention for categories
+and protocols.
+
+Let's explain this using an example. Suppose that you are developing a framework
+named to facilitate the use of relational databases from Pharo. You have decided
+to call your framework ==PharoLink==, and have created a series of categories to
+contain all of the classes that you have written. That is, category
+=='PharoLink-Connections'== contains ==OracleConnection MySQLConnection
+PostgresConnection== and category =='PharoLink-Model'== contains ==DBTable DBRow
+DBQuery==, and so on. However, not all of your code will reside in these
+classes. For example, you may also have a series of methods to convert objects
+into an SQL-friendly format:
+
+[[[language=Smalltalk
+Object>>asSQL
+String>>asSQL
+Date>>asSQL
+]]]
+
+These methods belong in the same package as the classes in the categories
+==PharoLink-Connections== and ==PharoLink-Model==. But clearly the whole of
+class ==Object== does not belong in your package! So you need a way of putting
+certain ''methods'' in a package, even though the rest of the class is in
+another package.
+
+The way that you do this is by placing those methods in a protocol (of
+==Object==, ==String==, ==Date==, and so on) named ==*PharoLink== (note the
+initial asterisk). The combination of the ==PharoLink-...== categories and
+the ==*PharoLink== protocols form a package named ==PharoLink==. To be
+precise, the rules for what goes in a package are as follows.
+
+A package named ==Foo== contains:
+
+@sec:packageRules
+
+""1."" All ''class definitions'' of classes in the category ==Foo==, or in
+categories with names starting with ==Foo-==.
+
+""2."" All ''methods'' in ''any class'' in protocols named ==*Foo== or ==*foo==
+(When performing this comparison, the case of the letters in the names is
+ignored.), or whose name starts with ==*Foo-== or ==*foo-==.
+
+""3."" All ''methods'' in classes in the category ==Foo==, or in a category
+whose name starts with ==Foo-==, ''except'' for those methods in protocols whose
+names start with ==*==.
+
+A consequence of these rules is that each class definition and each method
+belongs to exactly one package. The ''except'' in the last rule has to be there
+because those methods must belong to other packages. The reason for ignoring
+case in rule *sec:extensions* is that, by convention, protocol names are
+typically (but not necessarily) lower case (and may include spaces), while
+category names use CamelCase (and don't include spaces).
+
+The class ==PackageInfo== implements these rules, and one way to get a feel for
+them is to experiment with this class.
+
+(do this) Evalute the following expression in a workspace:
+
+[[[language=Smalltalk
+mc := PackageInfo named: 'Monticello'
+]]]
+
+It is now possible to introspect on this package. For example, printing ==mc
+classes== in the workspace pane will return the long list of classes that make
+up the Monticello package. ==mc coreMethods== will return a list of
+==MethodReference==s for all of the methods in those classes. ==mc
+extensionMethods== is perhaps one of the most interesting queries: it will
+return a list of all methods contained in the ==Monticello== package but not
+contained within a ==Monticello== class.
+
+Packages are a relatively new addition to Pharo, but since the package naming
+conventions were based on those already in use, it is possible to use
+==PackageInfo== to analyze older code that has not been explicitly adapted to
+work with it.
+
+(do this) Print ==(PackageInfo named: 'Collections') externalSubclasses==; this
+expression will answer a list of all subclasses of ==Collection== that are
+''not'' in the ==Collections== package.
+
+!!!Basic Monticello
+
+Monticello is named after the mountaintop home of Thomas Jefferson, third
+president of the United States and author of the ''Statute of Virginia for
+Religious Freedom''. The name means ''little mountain'' in Italian, and so it is
+always pronounced with an Italian ==c==, which sounds like the ==ch== in chair:
+Mont-y'-che-llo.
+
++The Monticello browser.>file://figures/freshMonticello.png|label=freshMonticello+
+
+When you open the Monticello browser, you will see two list panes and a row of
+buttons, as shown in Figure *freshMonticello*. The left-hand pane lists all of
+the packages that have been loaded into the image that you are running; the
+particular version of the package is shown in parentheses after the name.
+
+The right-hand pane lists all of the source code repositories that Monticello
+knows about, usually because it has loaded code from them. If you select a
+package in the left pane, the right pane is filtered to show only those
+repositories that contain versions of the selected package.
+
+One of the repositories is a directory named ''package-cache'', which is a
+sub-directory of the directory in which your image is running. When you load
+code from or write code to a remote repository, a copy is also saved in the
+package cache. This can be useful if the network is not available and you need
+to access a package. Also, if you are given a Monticello (.mcz) file directly,
+for example as an email attachment, the most convenient way to access it is to
+place it in the package-cache directory.
+
+To add a new repository to the list, click the ==+Repository==, and choose
+the kind of repository from the pop-up menu. Let's add an HTTP repository.
+
+(do this) Open Monticello, click on ==+Repository==, and select ==HTTP==.
+Edit the dialog to read:
+
+[[[language=Smalltalk
+MCHttpRepository
+	location: 'http://squeaksource.com/PharoByExample'
+	user: ''
+	password: ''
+]]]
+
++A Repository browser.>file://figures/SqueakSource-PBE.png|label=SqueakSource:PBE+
+
+Click on ==Open== to open a repository browser on this repository.
+You should see something like Figure *SqueakSource:PBE*. On the left is a list
+of all of the packages in the repository; if you select one, then the pane on
+the right will show all of the versions of the selected package in this
+repository.
+
+If you select one of the versions, you can ==Browse== it (without loading
+it into your image), ==Load== it, or look at the ==Changes== that will
+be made to your image by loading the selected version. You can also make a
+==Copy== of a version of a package, which you can then write to another
+repository.
+
+As you can see, the names of versions contain the name of the package, the
+name of the author of the version, and a version number. The version name
+is also the name of the file in the repository. Never change these names;
+correct operation of Monticello depends on them! Monticello version files are
+just zip archives, and if you are curious you can unpack them with a zip tool,
+but the best way to look at their contents is using Monticello itself.
+
+To create a package with Monticello, you have to do two things: write some code,
+and tell Monticello about it.
+
+(do this) Create a package called ==PBE-Monticello==, and put a couple of
+classes in it, as shown in Figure *MCnewcategory*. Also, create a method in an
+existing class, such as ==Object==, and put it in the same package as your
+classes \-\- see Figure *MCnewmethod*.
+
++Two classes in the ==PBE== package.>file://figures/MCnewcategory.png|label=MCnewcategory+
+
++An extension method that will also be in the ==PBE== package.>file://figures/MCnewmethod.png|label=MCnewmethod+
+
+To tell Monticello about your package, click on ==+Package==, and type the
+name of the package, in this case ==PBE==. Monticello will add ==PBE== to its
+list of packages; the package entry will be marked with an asterisk to show that
+the version in the image has not yet been written to any repository. Note that
+you now should have two packages in Monticello, one called ==PBE== and another
+called ==PBE-Monticello==. That's alright because ==PBE== will contain
+==PBE-Monticello==, and any other packages starting with ==PBE-==.
+
+Initially, the only repository associated with this package will be your package
+cache, as shown in Figure *MCPBE*. That's OK: you can still save the code,
+which will cause it to be written to the package cache. Just click ==Save==
+and you will be invited to provide a log message for the version of the package
+that you are about to save, as shown in Figure *PBEon*; when you accept the
+message, Monticello will save your package. To indicate this, the asterisk
+decorating the name in Monticello's package pane will be removed, and the
+version number added.
+
+If you then make a change to the package \-\- say by adding a method to one of
+the classes \-\- the asterisk will re-appear, showing that you have unsaved
+changes. If you open a repository browser on the package cache, you can select
+the saved version, and use ==Changes== and the other buttons. You can of
+course save the new version to the repository too; once you ==Refresh== the
+repository view, it should look like Figure *package-cache-browser*.
+
++Two classes in the ==PBE== package.>file://figures/MCnewcategory.png|label=MCnewcategory+
+
++The as-yet-unsaved PBE package in Monticello.>file://figures/MCPBE.png|label=MCPBE+
+
++Providing a log message for a new version of a package.>file://figures/PBEon.png|label=PBEon+
+
++Two versions of our package are now in the package cache.>file://figures/package-cache-browser.png|label=package-cache-browser+
+
+To save the new package to a repository other than the package cache, you need
+to first make sure that Monticello knows about the repository, adding it if
+necessary. Then you can use the ==Copy== in the package-cache repository
+browser, and select the repository to which the package should be copied. You
+can also associate the desired repository with the package by right-clicking on
+the repository and selecting ==add to package...==, as shown in
+Figure *associateRepository*. Once the package knows about a repository, you can
+save a new version by selecting the repository and the package in the Monticello
+Browser, and clicking ==Save==. Of course, you must have permission to
+write to a repository. The ==PharoByExample== repository on SqueakSource is
+world readable but not world writable, so if you try and save there, you will
+see an error message. However, you can create your own repository on SqueakSource by
+using the web interface at *www.squeaksource.com>http://www.squeaksource.com*, and use this to
+save your work. This is especially useful as a mechanism to share your code with
+others, or if you use multiple computers.
+
++Adding a repository to the set of repositories associated with a package.>file://figures/MCaddToPackage.png|label=associateRepository+
+
+If you do try and save to a repository where you don't have write permission, a
+version will nevertheless be written to the package-cache. So you can recover by
+editing the repository information (right-click in the Monticello Browser) or
+choosing a different repository, and then using ==Copy== from the
+package-cache browser.
+
+!!Change sets and the Change Sorter
+@sec:changeSet
+
+Whenever you are working in Pharo, any changes that you make to methods and
+classes are recorded in a ''change set''. This includes creating new classes,
+re-naming classes, changing categories, adding methods to existing
+classes \-\- just about everything of significance. However, arbitrary
+''Do it''s are not included, so if, for example, you create a new global variable
+by assigning to it in a playground, the variable creation will not make it into a
+change set.
+
+At any time, many change sets exist, but only one of them \-\-
+==ChangeSet current== \-\- is collecting the changes that are being made to the
+image. You can see which change set is current and can examine all of the change
+sets using the change sorter, available by selecting ==World > Tools... > Change
+Sorter==.
+
++The Change Sorter>file://figures/changeSorter.png|label=changeSorter+
+
+Figure *changeSorter* shows this browser. The title bar shows which change set
+is current, and this change set is selected when the change sorter opens.
+
+Other change sets can be selected in the top-left pane; the right-click menu
+allows you to make a different change set current, or to create a new change
+set. The next pane lists all of the classes affected by the selected change set
+(with their categories). Selecting one of the classes displays the names of
+its methods that are also in the change set (''not'' all of the methods
+in the class) in the left central pane, and selecting a method name displays the
+method definition in the bottom pane. Note that the change sorter does ''not''
+show you whether the creation of the class itself is part of the change set,
+although this information is stored in the object structure that is used to
+represent the change set.
+
+The change sorter also lets you delete classes and methods from the change set
+using the right-click menu on the corresponding items.
+%  However, for more elaborate editing of change sets, you should use a second tool, the change sorter, available by selecting ==World>==open... >dual change sorter, which is shown in Figure *changeSorter*.
+% The change sorter is essentially two change set browsers side by side; each side can focus on a different change set, class, or method.
+
+The change sorter allows you to simultaneously view two change sets, one on the
+left hand side and the other on the right. This layout supports the change
+sorter's main feature, which is the ability to move or copy changes from one
+change set to another, as shown by the right-click menu in Figure *changeSorter*.
+It is also possible to copy individual methods from one side to the other.
+
+You may be wondering why you should care about the composition of a change set.
+the answer is that change sets provide a simple mechanism for exporting code
+from Pharo to the file system, from where it can be imported into another Pharo
+image, or into another non-Pharo Smalltalk. Change set export is known as
+==Filing-out==, and can be accomplished using the right-click menu on any change
+set, class or method in either browser. Repeated file outs create new versions
+of the file, but change sets are not a versioning tool like Monticello: they do
+not keep track of dependencies.
+
+Before the advent of Monticello, change sets were the main means for exchanging
+code between Smalltalkers. They have the advantage of simplicity (the file out
+is just a text file, although we ''don't'' recommend that you try to edit them
+with a text editor), and a degree of portability.
+
+The main drawback of change sets, compared to Monticello packages, is that
+they do not support the notion of dependencies. A filed-out change set is a set
+of ''actions'' that change any image into which it is loaded. To successfully
+load a change set requires that the image be in an appropriate state. For
+example, the change set might contain an action to add a method to a class; this
+can only be accomplished if the class is already defined in the image.
+Similarly, the change set might rename or re-categorize a class, which obviously
+will only work if the class is present in the image; methods may use instance
+variables that were declared when they were filed out, but which do not exist in
+the image into which they are imported. The problem is that change sets do not
+explicitly describe the conditions under which they can be filed in: the file in
+process just hopes for the best, usually resulting in a cryptic error message
+and a stack trace when things go wrong. Even if the file in works, one change
+set might silently undo a change made by another change set.
+
+In contrast, Monticello packages represent code in a declarative fashion: they
+describe the state of the image should be in after they have been loaded. This
+permits Monticello to warn you about conflicts (when two packages require
+contradictory final states) and to offer to load a series of packages in
+dependency order.
+
+In spite of these shortcomings, change sets still have their uses. In
+particular, you may find change sets on the Internet that you want to look at
+and perhaps use. So, having filed out a change set using the change sorter, we
+will now tell you how to file one in. This requires the use of another tool, the
+file list browser.
+
+!!The File List Browser
+
++A file list browser>file://figures/fileList.png|label=fileList+
+
+The file list browser is in fact a general-purpose tool for browsing the
+file system (as well as FTP servers) from Pharo. You can open it from the
+==World > Tools... > File Browser== menu. What you see of course
+depends on the contents of your local file system, but a typical view is shown
+in Figure *fileList*.
+
+When you first open a file list browser it will be focused on the current
+directory, that is, the one from which you started Pharo. The title bar shows
+the directory name. The larger pane on the left-hand side can be used to
+navigate the file system in the conventional way. When a directory is selected,
+the files that it contains (but not the directories) are displayed on the right.
+This list of files can be filtered by entering a Unix-style pattern in the small
+box at the top-left of the window. Initially, this pattern is ==*==, which
+matches all file names, but you can type a different string there and accept it,
+changing the pattern. (Note that a ==*== is implicitly prepended and appended
+to the pattern that you type.) The sort order of the files can be changed using
+the ==name==, ==date== and ==size== buttons. The rest of the
+buttons depend on the name of the file selected in the browser. In
+Figure *fileList*, the file name has the suffix ==.cs==, so the browser assumes
+that it is a change set, and provides buttons to ==install== it (which
+''files it in'' to a new change set whose name is derived from the name of
+the file), to browse the ==changes== in the file, to examine the
+==code== in the file, and to ==File in== the code into the ''current''
+change set. You might think that the ==conflicts== button would tell you
+about changes in the change set that conflicted with existing code in the image,
+but it doesn't.
+% AB: Does anyone know what it does do? I've never found it useful.
+% ON: I tried it and found that it complained about linefeeds.
+Instead it just checks for potential problems in the file that might indicate that the
+file cannot properly be loaded (such as the presence of linefeeds).
+
++A File Contents Browser>file://figures/fileContentsBrowser.png|label=fileContentsBrowser+
+
+Because the choice of buttons to display depends on the file's ''name'', and not
+on its contents, sometimes the button that you want won't be on the screen.
+However, the full set of options is always available from the right-click
+==more...== menu, so you can easily work around this problem.
+
+The ==code== button is perhaps the most useful for working with change
+sets; it opens a browser on the contents of the change set file; an example is
+shown in Figure *fileContentsBrowser*. The file contents browser is similar to
+the browser except that it does not show categories, just classes, protocols and
+methods. For each class, the browser will tell you whether the class already
+exists in the system and whether it is defined in the file (but ''not'' whether
+the definitions are identical). It will show the methods in each class, and (as
+shown in Figure *fileContentsBrowser*) will show you the differences between the
+current version and the version in the file. Contextual menu items in each of
+the top four panes will also let you file in the whole of the change set, or the
+corresponding class, protocol or method.
+
+!!In Smalltalk, you can't lose code
+@sec:cantLoseCode
+
+It is quite possible to crash Pharo: as an experimental system, Pharo lets you
+change anything, including things that are vital to make Pharo work!
+
+(do this) To maliciously crash Pharo, try ==Object become: nil==.
+
+The good news is that you need never lose any work, even if you crash and go
+back to the last saved version of your image, which might be hours old. This is
+because all of the code that you executed is saved in the ''.changes'' file. All
+of it! This includes one liners that you evaluate in a workspace, as well as
+code that you add to a class while programming.
+
+So here are the instructions on how to get your code back. There is no need to
+read this until you need it. However, when you do need it, you'll find it here
+waiting for you.
+
+In the worst case, you can use a text editor on the ''.changes'' file, but since
+it is many megabytes in size, this can be slow and is not recommended. Pharo
+offers you better ways.
+
+!!!How to get your code back
+
+Restart Pharo from the most recent snapshot, and select
+==World > Tools... > Recover lost changes==.
+
+[[[language=Smalltalk
+Smalltalk recover: 10000.
+ChangeList browseRecentLog.
+ChangeList browseRecent: 2000.
+]]]
+
+This will give you the opportunity to decide how far back in history you wish to
+browse. Normally, it's sufficient to browse changes as far back as the last
+snapshot. (You can get much the same effect by editing ==ChangeList
+browseRecent: 2000== so that the number ==2000== becomes something else, using
+trial and error.)
+
+One you have a ''recent changes'' browser, showing, say, changes back as far as
+your last snapshot, you will have a list of everything that you have done to
+Pharo during that time. You can delete items from this list using the right-click
+menu. When you are satisfied, you can file-in what is left, thus incorporating
+the changes into your new image. It's a good idea to start a new change set,
+using the ordinary change set browser, before you do the file in, so that all of
+your recovered code will be in a new change set. You can then file out this
+change set.
+
+One useful thing to do in the ''recent changes'' browser is to ==remove doIts==.
+Usually, you won't want to file in (and thus re-execute) doIts.
+However, there is an exception.
+Creating a class shows up as a ==doIt==.
+
+''Before you can file in the methods for a class, the class must exist.'' So, if
+you have created any new classes, ''first'' file-in the class creation doIts,
+then ==remove doIts== and file in the methods.
+
+% Maybe mention that class renames are not logged and completely screw up the
+%  change-set mechanism. (p. 174)
+
+When I am finished with the recovery, I like to file out my new change set, quit
+Pharo without saving the image, restart, and make sure that the new change set
+files back in cleanly.
+% section cantLoseCode (end)
+
+!!Chapter summary
+
+- ''Monticello'' is a tool for exporting, importing, versioning and sharing packages of classes and methods.
+- A Monticello package consists of classes, and related methods in other packages.
+- ''Change sets'' are automatically generated logs of all changes to the source code of your image. They have largely been superseded by Monticello as a means to store and exchange versions of your source code, but are still useful, especially for recovering from catastrophic failures, however rare these may be.
+- The ''file list browser'' is a tool for browsing the file system. It also allows you to ==File in== source code from the file system.
+- In case your image crashes before you could save it or backup your source code with Monticello, you can always recover your most recent changes using a ''change list browser''. You can then select the changes you want to replay and file them into the most recent copy of your image.

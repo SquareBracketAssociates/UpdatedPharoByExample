@@ -21,6 +21,7 @@
   {../UnderstandingMessage/}
   {../SmalltalkObjectModel/}
   {../Environment/}
+  {../SharingCode/}
   {../SUnit/}
   {../BasicClasses/}
   {../Collections/}
