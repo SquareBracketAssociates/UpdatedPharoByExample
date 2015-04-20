@@ -217,45 +217,6 @@ shouldn't be all that surprising that so many classes implement this method:
 ==drawOn:== is the message that is understood by every object that is capable of
 drawing itself on the screen.
 
-!!!!Versions of a method
-@sec:versions
-
-When you save a new version of a method, the old one is not
-lost. Pharo keeps all of the old versions, and allows you to compare different
-versions and to go back (==revert==) to an old version.
-
-+The versions browser showing two versions of the ==TheWorldMenu\>\>buildWorldMenu:== method>file://figures/Versions.png|label=Versions+
-
-The ==browse > versions (v)== menu item gives access to the successive
-modifications made to the selected method. In Figure *Versions* we
-can see two versions of the ==buildWorldMenu:== method.
-
-The top pane displays one line for each version of the method, listing the
-name of the programmer who wrote it, the date and time at which it was
-saved, the names of the class and the method, and the protocol in which it was
-defined. The current (active) version is at the top of the list; whichever
-version is selected is displayed in the bottom pane.
-
-% If the ==diffs== checkbox is selected, as it is in Figure *mouseUpVersions*, the display also shows the differences between the selected version and the one immediately older.
-
-Buttons are also provided for displaying the differences between the selected
-method and the current version, and for reverting to the selected version.
-
-% The ==prettyDiffs== checkbox is useful if there have been changes to layout: it pretty-prints both versions before differencing, so that the differences that are displayed exclude formatting changes.
-
-The existence of the versions browser means that you never have to worry about
-preserving code that you think might no longer be needed: just delete it. If
-you find that you ''do'' need it, you can always revert to the old version, or
-copy the needed code fragment out of the old version and paste it into a another
-method. Get into the habit of using versions; commenting out code that is
-no longer needed is a bad practice because it makes the current code harder to
-read. Smalltalkers rate code readability extremely highly.
-
-''Hint:'' What if you delete a method entirely, and then decide that you want it
-back? You can find the deletion in a change set, where you can ask to see
-versions by right-clicking. The change set browser is described in
-section *sec:changeSet*.
-
 !!!!Method inheritance and overriding
 @sec:overriding
 
