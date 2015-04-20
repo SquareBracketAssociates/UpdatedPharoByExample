@@ -19,7 +19,7 @@
   {../FirstApplication/}
   {../SyntaxNutshell/}
   {../UnderstandingMessage/}
-  {../SmalltalkObjectModel/}
+  {../PharoObjectModel/}
   {../Environment/}
   {../SharingCode/}
   {../SUnit/}
