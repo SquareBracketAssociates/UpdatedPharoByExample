@@ -262,7 +262,7 @@ You can resize windows by dragging one of the corners.
 At any time only one window is active; it is in front and has its border
 highlighted.
 
-The transcript is an object that is often used for logging system messages. It
+The Transcript is an object that is often used for logging system messages. It
 is a kind of "system console".
 
 Playgrounds are useful for typing snippets of code that you would like to
@@ -283,7 +283,7 @@ entire expression. In particular, if you place the cursor before the first
 character or after the last character and double-click you select the complete
 paragraph.
 
-2. Select the text you have typed, right click and select ''do it (d)''. ==(d)==
+2. Select the text you have typed, right click and select ''Do it (d)''. ==(d)==
 indicates that you can use the shortcut ==CMD-d== to get the same result.
 
 3. Notice how the text "hello world" appears in the transcript window. Do it

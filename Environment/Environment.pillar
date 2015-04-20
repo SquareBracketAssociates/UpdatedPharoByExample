@@ -48,13 +48,12 @@ The ==Test Runner== lets you run and debug SUnit tests, and is described in
 more detail in Chapter *cha:sunit*: SUnit.
 
 The ==Transcript== is a window on the ==Transcript== output stream, which is
-useful for writing log messages and has already been described in
-section *sec:transcript*.
+useful for writing log messages.
 
 The ==Playground== is a window into which you can type input. It can be used
 for any purpose, but is most often used for typing Pharo expressions and
-executing them via ==Do it==. The use of the playground was also illustrated in
-section *sec:transcript*.
+executing them via ==Do it==. We have already briefly encountered the Playground
+(and the Transcript) in Chapter *cha:tour*: A Quick Tour of Pharo.
 
 The ==Debugger== has an obvious role, but you will discover that it has a more
 central place compared to debuggers for other programming languages, because in
