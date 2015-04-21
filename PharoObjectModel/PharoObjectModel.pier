@@ -1,11 +1,11 @@
 !The Pharo object model
 @cha:model
 
-The Pharo's programming model is heavily inspired from the one of Smalltalk. It
+The Pharo programming model is heavily inspired by that of Smalltalk. It
 is simple and uniform: everything is an object, and objects communicate only by
 sending each other messages. This simplicity and uniformity, however, can be a
 source of difficulty for programmers used to other languages. In this chapter we
-present the core concepts of the Pharo object model; in particular we discuss
+present the core concepts of the Pharo object model. In particular we discuss
 the consequences of representing classes as objects. This will be extended in
 Chapter *cha:metaclasses*: Classes and Metaclasses.
 
@@ -15,11 +15,15 @@ Chapter *cha:metaclasses*: Classes and Metaclasses.
 The object model is based on a set of simple rules that are applied
 ''uniformly''. The rules are as follows:
 
-- ""Rule 1"". Everything is an object.
-- ""Rule 2"". Every object is an instance of a class.
-- ""Rule 3"". Every class has a superclass.
-- ""Rule 4"". Everything happens by sending messages.
-- ""Rule 5"". Method lookup follows the inheritance chain.
+""Rule 1"". Everything is an object.
+
+""Rule 2"". Every object is an instance of a class.
+
+""Rule 3"". Every class has a superclass.
+
+""Rule 4"". Everything happens by sending messages.
+
+""Rule 5"". Method lookup follows the inheritance chain.
 
 Let us look at each of these rules in some detail.
 
@@ -47,16 +51,17 @@ objects too.
 
 @@important Classes are objects too.
 
-
 Furthermore, classes are not second-class objects: they are really first-class
 objects that you can send messages to, inspect, and so on. This means that Pharo
 is a truly reflective system, which gives a great deal of expressive power to
 developers.
 
-Deep in the implementation of Pharo, there are three different kinds of objects.
-There are (1) ordinary objects with instance variables that are passed by
-references, there are (2) ''small integers'' that are passed by value, and there
-are (3) indexable objects like arrays that hold a contiguous portion of memory.
+Deep in the implementation of Pharo, there are three different kinds of objects:
+
+# ordinary objects with instance variables that are passed by references
+# ''small integers'' that are passed by value
+# indexable objects like arrays that hold a contiguous portion of memory
+
 The beauty of Pharo is that you normally don't need to care about the
 differences between these three kinds of object.
 
@@ -90,7 +95,8 @@ instances are classes is called a ''metaclass''. Whenever you create a class,
 the system automatically creates a metaclass for you. The metaclass defines the
 structure and behavior of the class that is its instance. 99\%  of the time you
 will not need to think about metaclasses, and may happily ignore them. (We will
-have a closer look at metaclasses in Chapter *cha:metaclasses*: Classes and Metaclasses.)
+have a closer look at metaclasses in Chapter *cha:metaclasses*: Classes and
+Metaclasses.)
 
 !!!Instance variables
 
@@ -101,9 +107,9 @@ happens to be of the same class. We say that the ''encapsulation boundary'' of
 objects in Java and C\+\+ is the class, whereas in Pharo it is the instance.
 
 In Pharo, two instances of the same class cannot access each other's instance
-variables unless the class defines ''accessor methods''.There is no language
+variables unless the class defines ''accessor methods''. There is no language
 syntax that provides direct access to the instance variables of any other
-object.(Actually, a mechanism called reflection does provide a way to ask
+object. (Actually, a mechanism called reflection does provide a way to ask
 another object for the values of its instance variables; meta-programming is
 intended for writing tools like the object inspector, whose sole purpose is to
 look inside other objects.)
@@ -111,20 +117,21 @@ look inside other objects.)
 Instance variables can be accessed by name in any of the instance methods of the
 class that defines them, and also in the methods defined in its subclasses. This
 means that Pharo instance variables are similar to ''protected'' variables in
-C++ and Java. However, we prefer to say that they are private, because it is
+C\+\+ and Java. However, we prefer to say that they are private, because it is
 considered bad style in Pharo to access an instance variable directly from a
 subclass.
 
-!!!!Example
+!!!!Instance encapsulation example
 
 Method ==Point>>dist:== computes the distance between the receiver and another
 point. The instance variables ==x== and ==y== of the receiver are accessed
-directly by the method body.  However, the instance variables of the other point
+directly by the method body. However, the instance variables of the other point
 must be accessed by sending it the messages ==x== and ==y==.
 
-[[[label=distance|caption=distance between two points|language=Smalltalk
+[[[label=distance|caption=Distance between two points|language=Smalltalk
 Point>>>dist: aPoint
     "Answer the distance between aPoint and the receiver."
+
     | dx dy |
     dx := aPoint x - x.
     dy :=  aPoint y - y.
@@ -138,9 +145,9 @@ Point>>>dist: aPoint
 
 The key reason to prefer instance-based encapsulation to class-based
 encapsulation is that it enables different implementations of the same
-abstraction to coexist. For example, method ==point>>>dist:==, need not know or
+abstraction to coexist. For example, method ==point>>dist:==, need not know or
 care whether the argument ==aPoint== is an instance of the same class as the
-receiver.  The argument object might be represented in polar coordinates, or as
+receiver. The argument object might be represented in polar coordinates, or as
 a record in a database, or on another computer in a distributed system; as long
 as it can respond to the messages ==x== and ==y==, the code in *distance* will
 still work.
@@ -153,7 +160,7 @@ example, =='accessing'== for all accessor methods, and =='initialization'== for
 establishing a consistent initial state for the object. The protocol ==private==
 is sometimes used to group methods that should not be seen from outside.
 Nothing, however, prevents you from sending a message that is implemented by
-such a ''private'' method.
+such a "private" method.
 
 Methods can access all instance variables of the object. Some developers prefer
 to access instance variables only through accessors. This practice has some
@@ -173,42 +180,41 @@ instance of the latter. However, this is largely irrelevant to you as a
 programmer: you are concerned with defining the behavior of your objects and the
 classes that create them.
 
-+Browsing a class and its
-metaclass>file://figures/Color-Buttons.png|label=fig:Buttons|width=90+
++Browsing a class and its metaclass>file://figures/colorInstanceClassSide.png|label=fig:colorInstanceClassSide|width=90+
 
-For this reason, the browser  helps you to browse both class and metaclass as if
-they were a single thing with two ''sides'': the ''instance side'' and the
-''class side'', as shown in Figure *fig:Buttons*. Clicking on the ""instance""
-button browses the class ==Color==, ''i.e.'', you browse the methods that are
-executed when messages are sent to an instance of ==Color==, like the blue
-color. Pressing the ==class== button browses the class ==Color class==,
-''i.e.'', you see the methods that will be executed when messages are sent to
-the class ==Color== itself. For example, ==Color blue== sends the message
-==blue== to the class ==Color==. You will therefore find the method ==blue==
-defined on the class side of ==Color==, not on the instance side.
+For this reason, the browser helps you to browse both class and metaclass as if
+they were a single thing with two "sides": the ''instance side'' and the ''class
+side'', as shown in Figure *fig:colorInstanceClassSide*. By default, when you
+select a class in the browser, you're browsing the ''instance'' side (i.e., the
+methods that are executed when messages are sent to an ''instance'' of
+==Color==). Clicking on the ""Class side"" checkbox (located under the class
+pane) switches you over to the ''class side'' (the methods that will be executed
+when messages are sent to the ''class'' ==Color== itself).
+
+For example, ==Color blue== sends the message ==blue== to the class ==Color==.
+You will therefore find the method ==blue== defined on the class side of
+==Color==, not on the instance side.
 
 [[[
-aColor := Color blue.               "Class side method blue"
+aColor := Color blue.      "Class-side method blue (convenient instance creation method)"
 aColor
-	--> Color blue
+	--> Color blue   "Color instances are self-evaluating"
 aColor red
-	--> 0.0         "Instance side accessor method red"
+	--> 0.0          "Instance-side accessor method red (returns the red RGB value)"
 aColor blue
-	--> 1.0        "Instance side accessor method blue"
+	--> 1.0          "Instance-side accessor method blue (returns the blue RGB value)"
 ]]]
 
 You define a class by filling in the template proposed on the instance side.
 When you accept this template, the system creates not just the class that you
-defined, but also the corresponding metaclass. You can browse the metaclass by
-clicking on the ""class"" button. The only part of the metaclass creation
-template that makes sense for you to edit directly is the list of instance
-variable names.
+defined, but also the corresponding metaclass (which you can then edit by clicking
+on the ""Class side"" checkbox). The only part of the metaclass creation
+template that makes sense for you to edit directly is the list of the metaclass's
+instance variable names.
 
-Once a class has been created, clicking the ""instance"" button lets you edit
-and browse the methods that will be possessed by instances of that class (and of
-its subclasses). For example, we can see in Figure *fig:Buttons* that the method
-==hue== is defined on instances of the class ==Color==. In contrast, the ""
-button"" lets you browse and edit the metaclass (in this case ==Color class==).
+Once a class has been created, browsing its instance side (""Class side""
+checkbox un-checked) lets you edit and browse the methods that will be possessed
+by instances of that class (and of its subclasses).
 
 !!!Class methods
 
@@ -230,7 +236,7 @@ the effects.
 For those familiar with Java and C\+\+,  class methods may seem similar to
 static methods. However, the uniformity of Pharo means that they are somewhat
 different: whereas Java static methods are really just statically-resolved
-procedures, Smalltalk class methods are dynamically-dispatched methods.  This
+procedures, Smalltalk class methods are dynamically-dispatched methods. This
 means that inheritance, overriding and super-sends work for class methods in
 Smalltalk, whereas they don't work for static methods in Java.
 
@@ -376,14 +382,14 @@ of creating a new one.
 Note that the instance creation code inside the conditional in *uniqueInstance*
 is written as ==self new== and not as ==WebServer new==. What is the difference?
 Since the ==uniqueInstance== method is defined in ==WebServer class==, you might
-think that they were the same.    And indeed, until someone creates a subclass
-of ==WebServer==, they are the same.  But suppose that ==ReliableWebServer== is
-a subclass of ==WebServer==, and inherits the ==uniqueInstance== method.  We
+think that they were the same. And indeed, until someone creates a subclass
+of ==WebServer==, they are the same. But suppose that ==ReliableWebServer== is
+a subclass of ==WebServer==, and inherits the ==uniqueInstance== method. We
 would clearly expect ==ReliableWebServer uniqueInstance== to answer a
 ==ReliableWebServer==:. Using ""self"" ensures that this will happen, since it
 will be bound to the respective class. Note also that ==WebServer== and
 ==ReliableWebServer== will each have their own class instance variable called
-==uniqueInstance==.  These two variables will of course have different values.
+==uniqueInstance==. These two variables will of course have different values.
 
 !!Every class has a superclass
 
@@ -404,7 +410,7 @@ Traditionally the root of the Smalltalk inheritance hierarchy is the class
 ==Object== (since everything is an object). In Pharo, the root is actually a
 class called ==ProtoObject==, but you will normally not pay any attention to
 this class. ==ProtoObject== encapsulates the minimal set of messages that all
-objects ''must'' have.  However, most classes inherit from ==Object==, which
+objects ''must'' have. However, most classes inherit from ==Object==, which
 defines many additional messages that almost all objects ought to understand and
 respond to. Unless you have a very good reason to do otherwise, when creating
 application classes you should normally subclass ==Object==, or one of its
@@ -469,7 +475,7 @@ The same is true of the other comparison methods.
 
 ==Character== is a subclass of ==Magnitude==; it overrides the
 ==Object>>subclassResponsibility== method for ==<== with its own version of ==<==
-(see \mthref{CharacterLessThan}).  ==Character== also defines methods ===== and
+(see \mthref{CharacterLessThan}). ==Character== also defines methods ===== and
 ==hash==; it inherits from ==Magnitude== the methods ==>===, ==<===, ==~=== and
 others.
 
@@ -534,7 +540,7 @@ LOGame new author --> 'on'
 ]]]
 
 Trait composition expressions may combine multiple traits using the ==+==
-operator. In case of conflicts (''i.e.'', if multiple traits define methods with
+operator. In case of conflicts (i.e., if multiple traits define methods with
 the same name), these conflicts can be resolved by explicitly removing these
 methods (with ==-==), or by redefining these methods in the class or trait that
 you are defining.It is also possible to ''alias'' methods (with ==@==),
@@ -596,7 +602,7 @@ added to the browsers.
 
 % ''Nearly'' everything in Smalltalk happens by sending messages.
 % At some point action must take place:
-% -''Variable declarations'' are not message sends.  In fact, variable declarations are not even executable.  Declaring a variable just causes space to be allocated for an object reference.
+% -''Variable declarations'' are not message sends. In fact, variable declarations are not even executable.  Declaring a variable just causes space to be allocated for an object reference.
 % -''Assignments'' are not message sends.  An assignment to a variable causes that variable name to be freshly bound in the scope of its definition.
 % -''Returns'' are not message sends.  A return simply causes the computed result to be returned to the sender.
 % -''Primitives'' are not message sends.  They are implemented in the virtual machine.
@@ -844,7 +850,7 @@ added to the browsers.
 
 % Now we will look at an aspect of Smalltalk that is not so easily covered by our five rules: shared variables.
 
-% Smalltalk provides three kinds of shared variables: (1) ''globally'' shared variables; (2) variables shared between instances and classes (''class variables''), and (3) variables shared amongst a group of  classes (''pool variables'').  The names of all of these shared variables start with a capital letter, to warn us that they are indeed shared between multiple objects.
+% Smalltalk provides three kinds of shared variables: (1) ''globally'' shared variables; (2) variables shared between instances and classes (''class variables''), and (3) variables shared amongst a group of  classes (''pool variables''). The names of all of these shared variables start with a capital letter, to warn us that they are indeed shared between multiple objects.
 
 
 
@@ -912,7 +918,7 @@ added to the browsers.
 % \end{figure}
 
 % In Figure *fig:privateSharedVar* we see that ==rgb== and ==cachedDepth== are instance variables of ==Color==, hence only accessible to instances of ==Color==.
-% We also see that ==superclass==, ==subclass==, ==methodDict== and so on are class instance variables, ''i.e.'', instance variables only accessible to the ==Color== class.
+% We also see that ==superclass==, ==subclass==, ==methodDict== and so on are class instance variables, i.e., instance variables only accessible to the ==Color== class.
 
 % But we can also see something new: ==ColorNames== and ==CachedColormaps== are ''class variables'' defined for ==Color==.
 % The capitalization of these variables gives us a hint that they are shared.
@@ -975,7 +981,7 @@ added to the browsers.
 % A class that accesses a pool variable must mention the pool in its class definition.
 % For example, the class ==Text==
 % indicates that it is using the pool dictionary ==TextConstants==, which contains all the text constants such as ==CR== and ==LF==.
-% This dictionary has a key ==#CR== that is bound to the value ==Character cr==, ''i.e.'', the carriage return character.
+% This dictionary has a key ==#CR== that is bound to the value ==Character cr==, i.e., the carriage return character.
 
 
 % \begin{classdef}[textpooldict]{Pool dictionaries in the ==Text== class}
@@ -986,7 +992,7 @@ added to the browsers.
 %         category: 'Collections-Text'
 % \end{classdef}
 
-% This allows methods of the class ==Text== to access the keys of the dictionary in the method body ''directly'', ''i.e.'', by using variable syntax rather than an explicit dictionary lookup.
+% This allows methods of the class ==Text== to access the keys of the dictionary in the method body ''directly'', i.e., by using variable syntax rather than an explicit dictionary lookup.
 % For example, we can write the following method.
 
 % \begin{method}[texttestcr]{Text>>testCR}
