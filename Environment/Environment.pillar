@@ -165,56 +165,113 @@ useful; it works in any text window.
 !!!!Senders and implementors of a message
 @sec:sendersImplementors
 
-Right-clicking ==browse... > senders (n)== in the method pane will bring
-up a list of all methods that may use the selected method. With the browser open
-on ==Morph==, click on the ==Morph>>drawOn:== method in the method pane;
-the body of ==drawOn:== displays in the bottom part of the browser. If you now
-select ==senders (n)== (Figure *SendersOfDrawOn*), a menu will appear with
-==drawOn:== as the topmost item, and below it, all the messages that ==drawOn:==
-sends (Figure *SendersOfDrawOn2*). Selecting an item in this menu will open a
-browser with the list of all methods in the image that send the selected message
+While writing new code, refactoring existing code, or while trying to learn how
+to use unfamiliar libraries, you will frequently want to know the senders and
+implementors of various messages.
+
+!!!!!Message senders
+
+There are several ways of discovering where in the codebase a message is used,
+by listing its senders:
+
+""1."" ''From the method pane.'' Select a method in the method pane of the
+browser. You can then right-click on it and select ==Senders of...(b,n)== in the
+context menu. Alternatively, you can also use the shortcut ==CMD-b CMD-n== to do
+the same thing (that's what the ==b,n== in the menu item stands for). To help
+remember this shortcut, think: ""b""rowse se""n""ders.
+
+""2."" ''From the code pane.'' Highlight a particular message in the source
+code. This can be done in a code pane of a browser, in a Playground window, or
+in any text window. If you want to find the senders of a keyword message, you
+highlight all of the keywords in the message, including arguments. Then, you can
+right-click on the highlited selector and choose ==Code search... > senders of
+it (n)==. Alternatively, you can use the shortcut ==CMD-n== instead of
+right-clicking.
+
++The ==Senders Of...(b,n)== menu item>file://figures/SendersOfDrawOn.png|label=SendersOfDrawOn+
+
+""3."" ''Using Spotter.'' Bring up a particular method in Spotter (press
+==SHIFT-Enter== to bring up the Spotter search box, type in the message
+selector, arrow down to a particular Implementor of that message, and press
+==CMD-right arrow== to focus the search on it.) A list of Senders now appears in
+the search results. Only a handful of senders are shown by default, but you can
+view the full list by clicking on the arrow next to the Senders category (or
+arrow down to the Senders list and expand it by pressing ==CMD-SHIFT-right
+arrow==).
+
+Let's try some of these in action.
+
+Open a browser on the ==Morph== class, select the ==Morph>>drawOn:== method in
+the method pane. If you now press ==CMD-b CMD-n== (or right-click in the method
+pane and select ==Senders of...== (Figure *SendersOfDrawOn*)), a browser will
+open with the list of all methods in the image that send the selected message
 (Figure *CanvasDraw*).
-
-+The ==senders (n)== menu item.>file://figures/SendersOfDrawOn.png|label=SendersOfDrawOn+
-
-+Choose senders of which message.>file://figures/SendersOfDrawOn2.png|label=SendersOfDrawOn2+
-
-The ==n== in ==senders (n)== tells you that the keyboard shortcut for finding
-the senders of a message is ==CMD-n==. This will work in ''any'' text window.
-
-(do this) Select the text ==drawOn:== in the code pane and press ==CMD-n to
-immediately bring up the senders of ==drawOn:==.==
 
 +The Senders Browser showing that the ==Canvas\>\>draw== method sends the ==drawOn:== message to its argument.>file://figures/CanvasDraw.png|label=CanvasDraw+
 
-If you look at the senders of ==drawOn:== in ==AtomMorph>>drawOn:==, you will
-see that it is a super send. So we know that the method that
-will be executed will be in ==AtomMorph=='s superclass. What class is that?
-Right-click ==browse > hierarchy implementors== and you will see that it is
-==EllipseMorph==.
+Now look at the third sender on the list, ==Canvas>>draw:==. You can see that
+this method sends ==drawOn:== to whatever object is passed to it as an argument,
+which could potentially be an instance of any class at all. Dataflow analysis
+can help figure out the class of the receiver of some messages, but in general,
+there is no simple way for the browser to know which message-sends might cause
+which methods to be executed. For this reason, the ==Senders== browser shows
+exactly what its name suggests: all of the senders of the message with the
+chosen selector. The senders browser is nevertheless extremely useful when you
+need to understand how you can ''use'' a method: it lets you navigate quickly
+through example uses. Since all of the methods with the same selector should be
+used in the same way, all of the uses of a given message ought to be similar.
 
-Now look at the sixth sender in the list, ==Canvas>>draw:==, shown in
-Figure *CanvasDraw*. You can see that this method sends ==drawOn:== to whatever
-object is passed to it as an argument, which could potentially be an instance of
-any class at all. Dataflow analysis can help figure out the class of the
-receiver of some messages, but in general, there is no simple way for the
-browser to know which message-sends might cause which methods to be executed.
-For this reason, the ==senders== browser shows exactly what its name suggests:
-all of the senders of the message with the chosen selector. The senders browser
-is nevertheless extremely useful when you need to understand how you can ''use''
-a method: it lets you navigate quickly through example uses. Since all of the
-methods with the same selector ought to be used in the same way, all of the uses
-of a given message ought to be similar.
+(do this) Switch to the ==Dictionary== class in the browser (remember, you can
+right-click in the package or class pane and select ==Find class...==, or just
+use the ==CMD-f CMD-c== shortcut), and select the ==addAll:== method in the
+method pane.
 
-The implementors browser works in a similar way, but instead of listing the
-senders of a message, it lists all of the classes that implement a method with
-the same selector. To see this, select ==drawOn:== in the method pane and
-select ==browse > implementors (m)== (or select the ==drawOn:== text in the
-code pane and press ==CMD-m==). You should get a method list window showing a
-scrolling list of the 90-odd classes that implement a ==drawOn:== method. It
+Looking at the source code, suppose you wanted to see all of the senders of the
+==at: key put: value== message. You can simply highlight the whole message send,
+and press ==CMD-n== (or right-click and select
+==Code Search > senders of it (n)==), to bring up the list of senders (see
+Figure *SendersOfAddAll*).
+
++Finding senders of a keyword message in the code pane>file://figures/SendersOfAddAll.png|label=SendersOfAddAll+
+
+!!!!!Message implementors
+
+Similarly, you may come across a message, and want to see how it's implemented.
+This is what the ==Implementors== browser is for. It works in the same way as
+the Senders browser, but instead lists all of the classes that implement a
+method with the same selector.
+
+""1."" ''From the method pane.'' Select a method in the method pane. You can
+then bring up the Implementors browser by right-clicking on the method and
+selecting ==Implementors of...(b,m)== in the context menu (or use the shortcut
+==CMD-b CMD-m==). To help remember this shortcut, think:
+""b""rowse i""m""plementors.
+
+""2."" ''From the code pane.'' Highlight a particular message in the source
+code (or any text window). If you want to find the implementors of a keyword message, you
+highlight all of the keywords in the message. Then, you can
+right-click on the highlited selector and choose ==Code search... > implementors of
+it (m)== from the menu (or just use the shortcut ==CMD-n==).
+
+""3."" ''Using Spotter.'' Bring up a method in Spotter (press ==SHIFT-Enter== to
+bring up the Spotter search box, and start typing the message selector). The
+Implementors category will show up in the search results, showing the first
+handful of implementors. To see the full list, click on the arrow to the right
+of Implementors category (or arrow down to Implementors and press
+==SHIFT-CMD-right arrow==).
+
+Try this out: Press ==SHIFT-Enter== and type ==drawOn:== in the Spotter search
+box. You should see a list showing 5 out of 100 implementors of that method. It
 shouldn't be all that surprising that so many classes implement this method:
 ==drawOn:== is the message that is understood by every object that is capable of
 drawing itself on the screen.
+
+Notice that if you only typed ==drawOn== and left out the colon (==:==), the
+number of implementors in the search results is larger. This is because
+Spotter is doing a partial search, and including any methods that have 'drawOn'
+in the name, such as ==drawOn:offset:==, ==drawOnAthensCanvas:==, and so on.
+This is useful for when you want to find a method but can only remember a part
+of its name.
 
 !!!!Method inheritance and overriding
 @sec:overriding
