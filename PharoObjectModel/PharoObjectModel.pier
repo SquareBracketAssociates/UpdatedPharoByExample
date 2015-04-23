@@ -334,7 +334,7 @@ the same static variable.
 !!!Example: Defining a Singleton.
 
 The Singleton pattern provides a typical example of the use of class instance
-variables and class methods.Imagine that we would like to implement a class
+variables and class methods. Imagine that we would like to implement a class
 ==WebServer== and use the Singleton pattern to ensure that it has only one
 instance.
 
@@ -357,12 +357,12 @@ WebServer class
     instanceVariableNames: 'uniqueInstance'
 ]]]
 
-The consequence of this is that the class ==WebServer== now has another instance
-variable,in addition to the variables that it inherits, such as ==superclass==
+The consequence of this is that the ''class'' ==WebServer== now has another instance
+variable, in addition to the variables that it inherits, such as ==superclass==
 and ==methodDict==.
 
 We can now define a class method named ==uniqueInstance== as shown in
-\mthref{uniqueInstance}. This method first checks whether ==uniqueInstance== has
+*uniqueInstance*. This method first checks whether ==uniqueInstance== has
 been initialized. If it has not, the method creates an instance and assigns it
 to the class instance variable ==uniqueInstance==. Finally the value of
 ==uniqueInstance== is returned. Since ==uniqueInstance== is a class instance
@@ -382,14 +382,15 @@ of creating a new one.
 Note that the instance creation code inside the conditional in *uniqueInstance*
 is written as ==self new== and not as ==WebServer new==. What is the difference?
 Since the ==uniqueInstance== method is defined in ==WebServer class==, you might
-think that they were the same. And indeed, until someone creates a subclass
+think that there is no difference. And indeed, until someone creates a subclass
 of ==WebServer==, they are the same. But suppose that ==ReliableWebServer== is
 a subclass of ==WebServer==, and inherits the ==uniqueInstance== method. We
-would clearly expect ==ReliableWebServer uniqueInstance== to answer a
-==ReliableWebServer==:. Using ""self"" ensures that this will happen, since it
-will be bound to the respective class. Note also that ==WebServer== and
-==ReliableWebServer== will each have their own class instance variable called
-==uniqueInstance==. These two variables will of course have different values.
+can clearly expect ==ReliableWebServer uniqueInstance== to answer a
+==ReliableWebServer==. Using ""self"" ensures that this will happen, since ==self==
+will be bound to the respective receiver, here the classes ==WebServer== and ==ReliableWebServer==. 
+
+Note also that ==WebServer== and ==ReliableWebServer== will each have a different value 
+for their ==uniqueInstance== instance variable. 
 
 !!Every class has a superclass
 
