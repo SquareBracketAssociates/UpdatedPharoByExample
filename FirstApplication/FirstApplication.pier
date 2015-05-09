@@ -69,7 +69,7 @@ Modify the class creation template as follows:
 
 The result should look like this:
 
-[[[lang=Smalltalk
+[[[language=smalltalk
 SimpleSwitchMorph subclass: #LOCell
 	instanceVariableNames: 'mouseAction'
 	classVariableNames: ''
@@ -98,7 +98,7 @@ new class to be compiled.
 
 Once the class definition is accepted, the class will be created and appear in
 the class pane of the browser (see Figure *pannelAtNewClass*). The editing pane now shows the class
-definition. You can click on "Comments" and a small pane below it will remind you to write a few words
+definition. You can click on ==Comments== and a small pane below it will remind you to write a few words
 describing the purpose of the class. This is called a class comment, and it is
 quite important to write one that will give other programmers a high-level
 overview of the purpose of this class. Smalltalkers put a very high value on the
@@ -113,23 +113,24 @@ looking at this class.
 
 Now let's add some methods to our class.
 
-Select the protocol \-\-all\-\- in the protocol pane. You will see a template for
+Select the protocol ==no messages== in the protocol pane. You will see a template for
 method creation in the editing pane. Select the template text, and replace it by the following:
 
-[[[lang=Smalltalk
+[[[language=smalltalk|lineNumber=true
 initialize
-super initialize.
-self label: ''.
-self borderWidth: 2.
-bounds := 0@0 corner: 16@16.
-offColor := Color paleYellow.
-onColor := Color paleBlue darker.
-self useSquareCorners.
-self turnOff
+	super initialize.
+	self label: ''.
+	self borderWidth: 2.
+	bounds := 0 @ 0 corner: 16 @ 16.
+	offColor := Color paleYellow.
+	onColor := Color paleBlue darker.
+	self useSquareCorners.
+	self turnOff
 ]]]
 
 Note that the characters \'\' on line 3 are two separate single quotes with
 nothing between them, not a double quote! \'\' denotes the empty string.
+En other way to create an empty string is == String new. ==
 
 ""Accept"" this method definition.
 
@@ -139,6 +140,8 @@ called right after the object is created. So, when we evaluate ==LOCell new==, t
 message initialize will be sent automatically to this newly created object.
 Initialize methods are used to set up the state of objects, typically to set
 their instance variables; this is exactly what we are doing here.
+
++The newly-created method initialize>file://figures/createMethod.png|width=100|label=createMethod+
 
 The first thing that this method does (line 2) is to execute the ==initialize==
 method of its superclass, ==SimpleSwitchMorph==. The idea here is that any inherited
@@ -168,6 +171,12 @@ The rest of the method should be self-explanatory. Part of the art of writing
 good Smalltalk code is to pick good method names so that the code can be
 read like a kind of pidgin English. You should be able to imagine the object
 talking to itself and saying \"Self, use square corners!\", \"Self, turn off\!\".
+
++The method initialize into the pane>file://figures/initialize.png|width=50|label=initilaze+
+
+You can also notice that there is a little green arrow near to your method (see Figure *initialize*).
+This mean the method exist in the super class and is override in the class.
+
 
 !!Inspecting an object
 
