@@ -12,6 +12,8 @@ their programs, and show how programs are exchanged with other developers. We
 will see the browser, the object inspector, the debugger and the Monticello
 package browser.
 
++The Lights Out game board>file://figures/gameLO.png|width=30|label=gameLO+
+
 !!The Lights Out game
 
 To show you how to use Pharo's programming tools, we will build a simple game
@@ -486,14 +488,16 @@ That’s it: the Lights Out game is complete!
 If you have followed all of the steps, you should be able to play the game,
 consisting of just 2 classes and 7 methods.
 
-In a workspace, type ==LOGame new openInWorld== and ""do it"" .
+In a Playground, type ==LOGame new openInWorld== and ""do it"" .
 
 The game will open, and you should be able to click on the cells and see how it
 works.
 
 Well, so much for theory... When you click on a cell, a notifier window called
-the PreDebugWindow window appears with an error message! It says
+the PreDebugWindow window appears with an error message like we see on Figure *doesNotUnderstood*! It says
 ==MessageNotUnderstood: LOGame >> toggleState==.
+
++There is a bug in our game when a cell is clicked!>file://figures/doesNotUnderstood.png|width=100|label=doesNotUnderstood+
 
 What happened? To find out, let’s use one of Smalltalk’s more powerful tools:
 the debugger.
@@ -508,17 +512,19 @@ with the part that triggered the error highlighted.
 Click on the line labeled ==LOGame >> toggleNeighboursOfCellAt: at:== (near the top).
 
 The debugger will show you the execution context within this method where the
-error occurred.
+error occurred (see Figure *debuggerHighlight*).
 
-At the bottom of the debugger are two small inspector windows. On the left, you
++ The debugger, with the method toggleNeighboursOfCell:at: selected>file://figures/debuggerHighlight.png|width=100|label=debuggerHighlight+
+
+At the bottom of the debugger are two small inspector windows. On the right, you
 can inspect the object that is the receiver of the message that caused the
 selected method to execute, so you can look here to see the values of the
-instance variables. On the right you can inspect an object that represents the
+instance variables. On the left you can inspect an object that represents the
 currently executing method itself, so you can look here to see the values of the
 method's parameters and temporary variables.
 
 Using the debugger, you can execute code step by step, inspect objects in
-parameters and local variables, evaluate code just as you can in a workspace,
+parameters and local variables, evaluate code just as you can in a playground,
 and, most surprisingly to those used to other debuggers, change the code while
 it is being debugged! Some Smalltalkers program in the debugger almost all the
 time, rather than in the browser. The advantage of this is that you see the
@@ -537,15 +543,18 @@ returns ==self==, which in the case of ==newCellAt: at:== is indeed an instance 
 Close the debugger window. Add the expression ==^ c== to the end of the method
 ==LOGame >> newCellAt:at:== so that it returns ==c==.
 
-[[[lang=Smalltalk
+[[[language=smalltalk
 LOGame >> newCellAt: i at: j
-"Create a cell for position (i,j) and add it to my on-screen representation at the appropriate screen position. Answer the new cell"
-| c origin |
-c := LOCell new.
-origin := self innerBounds origin.
-self addMorph: c.
-c position: ((i - 1) * c width) @ ((j - 1) * c height) + origin. c mouseAction: [self toggleNeighboursOfCellAt: i at: j].
-^ c]]]
+	"Create a cell for position (i,j) and add it to my on-screen representation at the appropriate screen position. Answer the new cell"
+
+	| c origin |
+	c := LOCell new.
+	origin := self innerBounds origin.
+	self addMorph: c.
+	c position: ((i - 1) * c width) @ ((j - 1) * c height) + origin.
+	c mouseAction: [ self toggleNeighboursOfCellAt: i at: j ].
+	^ c
+]]]
 
 Recall from Chapter *cha:tour*: A Quick Tour of Pharo that the syntax to return a value from a method in
 Smalltalk is ==^==.
@@ -564,7 +573,7 @@ be toggled. This turns out to be behavior that we inherit from
 ==SimpleSwitchMorph==. We can fix this simply by overriding ==mouseMove:== to do
 nothing:
 
-[[[lang=Smalltalk
+[[[language=smalltalk
 LOGame >> mouseMove: anEvent
 ]]]
 
