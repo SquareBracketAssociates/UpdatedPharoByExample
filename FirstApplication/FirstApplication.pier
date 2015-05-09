@@ -183,19 +183,26 @@ This mean the method exist in the super class and is override in the class.
 You can test the effect of the code you have written by creating a new ==LOCell==
 object and inspecting it.
 
-Open a workspace. Type the expression ==LOCell new== and ""inspect"" it .
+Open a ==Playground==. Type the expression ==LOCell new== and ""inspect"" it.
 
-The left-hand pane of the inspector shows a list of instance variables; if you
-select one (try ==bounds==), the value of the instance variable is shown in the
-right pane.
++The inspector used to examine a LOCell object>file://figures/inspectLOCell.png|width=100|label=inspectLOCell+
 
-The bottom pane of the inspector is a mini-workspace. It's useful because in
-this workspace the pseudo-variable ==self== is bound to the object selected.
+The left-hand column of the inspector shows a list of instance variables and
+the value of the instance variable is shown in the right column (see Figure *inspectLOCell*).
 
-Select the ==LOCell== at the root of the inspector window. Type the text
-==self bounds: (200\@200 corner: 250\@250)== in the bottom pane and ""do it"". The ==bounds==
++The inspector when we click on an instance variable>file://figures/inspectBounds.png|width=100|label=inspectBounds+
+
+If you click on an instance variable the inspector will open a new pane with the detail of the instance variable (see Figure *inspectBounds*).
+
+The bottom pane of the inspector is a mini-playground. It's useful because in
+this playground the pseudo-variable ==self== is bound to the object selected.
+
+Go to that Playground at the bottom of the pane and type the text
+==self bounds: (200\@200 corner: 250\@250)== ""do it"". Click on the ==update== button at the top right of the pane (see Figure *updateInspector*). The ==bounds==
 variable should change in the inspector. Now type the text ==self openInWorld== in
-the mini-workspace and ""do it"".
+the mini-playground and ""do it"".
+
++Update inspector button>file://figures/updateInspector.png|width=20|label=updateInspector+
 
 The cell should appear near the top left-hand corner of the screen, indeed,
 exactly where its bounds say that it should appear. Meta-click on the
@@ -203,6 +210,8 @@ cell to bring up the Morphic halo. Move the cell with the brown (next to
 top-right) handle and resize it with the yellow (bottom-right) handle. Notice
 how the bounds reported by the inspector also change. (You may have to
 click refresh to see the new bounds value.)
+
++An LOCell open in world>file://figures/LOCellOpenInWorld.png|width=100|label=LOCellOpenInWorld+
 
 Delete the cell by clicking on the ==x== in the pink handle.
 
