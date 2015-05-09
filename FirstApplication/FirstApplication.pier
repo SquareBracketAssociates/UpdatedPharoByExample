@@ -71,9 +71,10 @@ The result should look like this:
 
 [[[lang=Smalltalk
 SimpleSwitchMorph subclass: #LOCell
-instanceVariableNames: 'mouseAction'
-classVariableNames: '' poolDictionaries: ''
-category: 'PBE-LightsOut']]]
+	instanceVariableNames: 'mouseAction'
+	classVariableNames: ''
+	category: 'PBE-LightsOut'
+]]]
 
 This new definition consists of a Smalltalk expression that sends a message to
 the existing class ==SimpleSwitchMorph==, asking it to create a subclass called
@@ -83,17 +84,21 @@ it that instances of the new class should have a ==mouseAction== instance variab
 which we will use to define what action the cell should take if the mouse should
 click on it.
 
-At this point you still have not created anything. Note that the border of the
-class template pane has changed to red. This means that there are unsaved
++The class-creation Template>file://figures/createClass.png|width=75|label=createClass+
+
+At this point you still have not created anything. Note that the top right of the panel changed to orange (see Figure *createClass*). This means that there are unsaved
 changes. To actually send this subclass message, you must save (accept) the source code.
+
 
 Either right-click and select ""accept"", or use the shortcut CMD-s (for
 "save"). The message will be sent to ""SimpleSwitchMorph"", which will cause the
 new class to be compiled.
 
++The newly-created class LOCell>file://figures/pannelAtNewClass.png|width=100|label=pannelAtNewClass+
+
 Once the class definition is accepted, the class will be created and appear in
-the class pane of the browser. The editing pane now shows the class
-definition, and a small pane below it will remind you to write a few words
+the class pane of the browser (see Figure *pannelAtNewClass*). The editing pane now shows the class
+definition. You can click on "Comments" and a small pane below it will remind you to write a few words
 describing the purpose of the class. This is called a class comment, and it is
 quite important to write one that will give other programmers a high-level
 overview of the purpose of this class. Smalltalkers put a very high value on the
