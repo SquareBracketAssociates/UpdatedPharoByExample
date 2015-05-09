@@ -1,3 +1,5 @@
+%Think to add picture for : then end result
+
 !A first application
 @cha:firstApp
 
@@ -27,7 +29,7 @@ We have already seen the browser in Chapter *cha:tour*: A Quick Tour of Pharo,
 where we learned how to navigate to classes and methods, and saw how to define
 new methods. Now we will see how to create packages and classes.
 
-Right-click on the Package pane and select ==Add package...== from the menu.
+Right-click on the Package pane and select ==Add package...== from the menu (see Figure *createPackage*).
 Type the name of the new package (we will use ==PBE-LightsOut==) in the dialog box
 and click ==OK== (or just press the return key). The new package is
 created, and positioned alphabetically in the list of packages.
@@ -35,11 +37,13 @@ created, and positioned alphabetically in the list of packages.
 !!Defining the class ==LOCell==
 
 At this point there are of course no classes in the new package. However, the main
-editing pane displays a template to make it easy to create a new class
+editing pane displays a template to make it easy to create a new class (see Figure *createPackage*).
 
 This template shows us a Smalltalk expression that sends a message to a class
 called ==Object==, asking it to create a subclass called ==NameOfSubClass==. The new
 class has no variables, and should belong to the category (package) ==PBE-LightsOut==.
+
++Create a Package and class template>file://figures/createPackageFull.png|width=100|label=createPackage+
 
 !!!On categories vs. packages
 
