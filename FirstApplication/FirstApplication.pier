@@ -1,7 +1,3 @@
-%Think to add picture for the end result line 14
-%Maybe a chapter about "code into the debugger"
-%Add caption and label to the scripts
-
 !A first application
 @cha:firstApp
 
@@ -73,7 +69,7 @@ Modify the class creation template as follows:
 
 The result should look like this:
 
-[[[language=smalltalk
+[[[language=smalltalk|caption=Defining the classLOCell|label=SptClassLOCell
 SimpleSwitchMorph subclass: #LOCell
 	instanceVariableNames: 'mouseAction'
 	classVariableNames: ''
@@ -120,7 +116,7 @@ Now let's add some methods to our class.
 Select the protocol ==no messages== in the protocol pane. You will see a template for
 method creation in the editing pane. Select the template text, and replace it by the following:
 
-[[[language=smalltalk|lineNumber=true
+[[[language=smalltalk|lineNumber=true|caption=Initializing instance of LOCell|label=SptInitLOCell
 initialize
 	super initialize.
 	self label: ''.
@@ -176,7 +172,7 @@ good Smalltalk code is to pick good method names so that the code can be
 read like a kind of pidgin English. You should be able to imagine the object
 talking to itself and saying \"Self, use square corners!\", \"Self, turn off\!\".
 
-+The method initialize into the pane>file://figures/initialize.png|width=50|label=initilaze+
++The method initialize into the pane>file://figures/initialize.png|width=50|label=initialize+
 
 You can also notice that there is a little green arrow near to your method (see Figure *initialize*).
 This mean the method exist in the super class and is override in the class.
@@ -228,7 +224,7 @@ Make the class definition template visible in the browser main window. Do this b
 clicking on the package name. Edit the code so that it reads as follows, and
 accept it.
 
-[[[language=smalltalk
+[[[language=smalltalk|caption=Defining the LOGame class|label=SptDefineLOGame
 BorderedMorph subclass: #LOGame
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -243,7 +239,7 @@ second line, but for now, let's just leave that list empty.
 Now let's define an ==initialize== method for ==LOGame==. Type the following into the
 browser as a method for ==LOGame== and try to ""accept"" it.
 
-[[[language=smalltalk|lineNumber=true
+[[[language=smalltalk|lineNumber=true|caption=Initialize the game|label=SptInitiGame
 initialize
 	| sampleCell width height n |
 	super initialize.
@@ -373,7 +369,7 @@ make sure that the appropriate class is selected in the class pane.
 Now let's define the other two methods that are used by ==LOGame >> initialize==.
 Both of them can go in the ==initialization== protocol.
 
-[[[language=smalltalk
+[[[language=smalltalk|caption=A constant method|label=SptCellsPerSide
 LOGame >> cellsPerSide
 	"The number of cells along each side of the game"
 
@@ -385,10 +381,10 @@ of representing constants as methods is that if the program evolves so that the
 constant then depends on some other features, the method can be changed to
 calculate this value.
 As you can see there are some tabulation and empty lines. In order to keep the 
-same convention you can use ==CMD + Shift + f== shortcut. This will format 
-your method.
+same convention you can Right-Click on the method edit area and Click on 
+==format== use ==CMD + Shift + f== shortcut. This will format your method.
 
-[[[language=smalltalk
+[[[language=smalltalk|caption=An initialization helper method|label=SptNewCellAt
 LOGame >> newCellAt: i at: j
 	"Create a cell for position (i,j) and add it to my on-screen representation at the appropriate screen position. Answer the new cell"
 
@@ -408,7 +404,7 @@ block ==[self toggleNeighboursOfCellAt: i at: j ]==. In effect, this defines the
 callback behaviour to perform when the mouse is clicked. The corresponding
 method also needs to be defined.
 
-[[[language=smalltalk|caption=The callback method
+[[[language=smalltalk|caption=The callback method|label=SptToggle
 LOGame >> toggleNeighboursOfCellAt: i at: j
 	i > 1
 		ifTrue: [ (cells at: i - 1 at: j) toggleState ].
@@ -435,7 +431,7 @@ newly-created protocol (see Figure *dropProtocol*).
 To complete the Lights Out game, we need to define two more methods in class
 ==LOCell== to handle mouse events.
 
-[[[language=smalltalk
+[[[language=smalltalk|caption=A typical setter method|label=SptTypicalSetter
 LOCell >> mouseAction: aBlock
 	^ mouseAction := aBlock
 ]]]
@@ -465,7 +461,7 @@ Finally, we need to define a method ==mouseUp:==. This will be called automatica
 by the GUI framework if the mouse button is released while the cursor is over
 this cell on the screen.
 
-[[[language=smalltalk
+[[[language=smalltalk|caption=An event handler|label=SptMouseUp
 LOCell >> mouseUp: anEvent
 	mouseAction value
 ]]]
@@ -514,7 +510,7 @@ Click on the line labeled ==LOGame >> toggleNeighboursOfCellAt: at:== (near the 
 The debugger will show you the execution context within this method where the
 error occurred (see Figure *debuggerHighlight*).
 
-+ The debugger, with the method toggleNeighboursOfCell:at: selected>file://figures/debuggerHighlight.png|width=100|label=debuggerHighlight+
++ The debugger, with the method toggleNeighboursOfCell:at: selected>file://figures/debuggerHighlight.png|width=85|label=debuggerHighlight+
 
 At the bottom of the debugger are two small inspector windows. On the right, you
 can inspect the object that is the receiver of the message that caused the
@@ -543,7 +539,7 @@ returns ==self==, which in the case of ==newCellAt: at:== is indeed an instance 
 Close the debugger window. Add the expression ==^ c== to the end of the method
 ==LOGame >> newCellAt:at:== so that it returns ==c==.
 
-[[[language=smalltalk
+[[[language=smalltalk|caption=Fixing the bug.|label=SptBugFix
 LOGame >> newCellAt: i at: j
 	"Create a cell for position (i,j) and add it to my on-screen representation at the appropriate screen position. Answer the new cell"
 
@@ -573,7 +569,7 @@ be toggled. This turns out to be behavior that we inherit from
 ==SimpleSwitchMorph==. We can fix this simply by overriding ==mouseMove:== to do
 nothing:
 
-[[[language=smalltalk
+[[[language=smalltalk|caption=Overriding mouse move actions|label=SptMouseMove
 LOGame >> mouseMove: anEvent
 ]]]
 
@@ -635,7 +631,7 @@ load it.
 
 Open the Monticello browser from the World menu (see Figure *monticiello*).
 
-+Monticiello browser >file://figures/monticiello.png|width=100|label=monticiello+
++Monticiello browser>file://figures/monticiello.png|width=100|label=monticiello+
 
 In the right-hand pane of the browser is a list of Monticello repositories,
 which will include all of the repositories from which code has been loaded into
@@ -682,11 +678,11 @@ projects you watch by other coders. Click on the project you just created.
 Under ""Monticello registration"" title label you will see a box containg a
 smalltalk message similar to
 
-[[[lang=Smalltalk
+[[[lang=Smalltalk|caption=A repository pattern|label=SptRepositoryPattern
 MCHttpRepository
     location: 'http://www.smalltalkhub.com/mc/UserName/ProjectName/main'
-    user: ''
-    password: '' ]]]
+    user: 'YourName'
+    password: 'Optionnal_YourPassword' ]]]
 
 Copy those contents.
 
