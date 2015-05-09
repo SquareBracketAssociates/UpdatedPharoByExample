@@ -596,13 +596,17 @@ file to your friends, and they can file it into their own Pharo images using the
 file list browser.
 
 Right-click on the ==PBE-LightsOut== package and file out the
-contents.
+contents (see Figure *fileOut*).
+
++File Out our PBE-LightsOut>file://figures/fileOut.png|width=75|label=fileOut+
 
 You should now find a file named ==PBE-LightsOut.st== in the same folder on disk
 where your image is saved. Have a look at this file with a text editor.
 
-Open a fresh Pharo image and use the File Browser tool ( Tools... \-\-> File
-Browser ) to file in the ==PBE-LightsOut.st== fileout. Verify that the game now
++Import your code with the file browser>file://figures/fileBrowser.png|width=100|label=fileBrowser+
+
+Open a fresh Pharo image and use the File Browser tool ( ==Tools \-\-> File
+Browser== ) to file in the ==PBE-LightsOut.st== fileout (see Figure *fileBrowser*) and ==fileIn==. Verify that the game now
 works in the new image.
 
 !!!Monticello packages
@@ -629,7 +633,9 @@ You can also send a ==.mcz== file by email. The recipient will have to place it 
 her ==package-cache== folder; she will then be able to use Monticello to browse and
 load it.
 
-Open the Monticello browser from the World menu.
+Open the Monticello browser from the World menu (see Figure *monticiello*).
+
++Monticiello browser >file://figures/monticiello.png|width=100|label=monticiello+
 
 In the right-hand pane of the browser is a list of Monticello repositories,
 which will include all of the repositories from which code has been loaded into
@@ -693,18 +699,23 @@ With the ==PBE-LightsOut== package selected, click the ""+Repository"" button in
 Monticello browser.
 
 You will see a list of the different Repository types that are available. To
-add a SmalltalkHub repository select ==HTTP==. You will be presented with a dialog
+add a SmalltalkHub repository select ==smalltalkhub.com==. You will be presented with a dialog
 in which you can provide the necessary information about the server. You should
-paste the code snippet you have copied from SmalltalkHub. This message
+paste the code snippet you have copied from SmalltalkHub (see Figure *createRepository*). This message
 tells to Monticello where to find your project online. You can also provide your
 user name and password. If you do not, then Pharo will ask for them each time
 you try to save into your online repository at SmalltalkHub.
+
++Create your first repository on smalltalkHub>file://figures/createRepository.png|width=100|label=createRepository+
 
 Once you have accepted, your new repository should be listed on the right-hand
 side of the Monticello browser.
 
 Click on the ""Save"" button to save a first version of your Lights Out game on
-SmalltalkHub.
+SmalltalkHub. Don't forget to put a comment for you, or others, have an idea 
+of what contains your commit for the future (see Figure *firstCommit*).
+
++Do your first commit>file://figures/firstCommit.png|width=60|label=firstCommit+ 
 
 To load a package into your image, you must first select a particular version.
 You can do this in the repository browser, which you can open using the button
@@ -736,7 +747,7 @@ browser.
 -Protocols are groups of related methods inside a class.
 -A new method is created or modified by editing its definition in the browser and then accepting the changes.
 -The inspector offers a simple, general-purpose GUI for inspecting and interacting with arbitrary objects.
--The browser detects usage of undeclared methods and variables, and offers possible corrections.
+-The browser detects usage of undeclared variables, and offers possible corrections.
 -The ==initialize== method is automatically executed after an object is created in Pharo. You can put any initialization code there.
 -The debugger provides a high-level GUI to inspect and modify the state of a running program.
 -You can share source code by filing out a package, class or method.
