@@ -224,11 +224,12 @@ Make the class definition template visible in the browser main window. Do this b
 clicking on the package name. Edit the code so that it reads as follows, and
 accept it.
 
-[[[lang=Smalltalk
+[[[language=smalltalk
 BorderedMorph subclass: #LOGame
-instanceVariableNames: '' classVariableNames: ''
-poolDictionaries: ''
-category: 'PBE-LightsOut']]]
+	instanceVariableNames: ''
+	classVariableNames: ''
+	category: 'PBE-LightsOut'
+]]]
 
 Here we subclass ==BorderedMorph==. ==Morph== is the superclass of all of the graphical
 shapes in Pharo, and (unsurprisingly) a ==BorderedMorph== is a ==Morph== with a border. We
@@ -238,41 +239,46 @@ second line, but for now, let's just leave that list empty.
 Now let's define an ==initialize== method for ==LOGame==. Type the following into the
 browser as a method for ==LOGame== and try to ""accept"" it.
 
-[[[lang=Smalltalk
+[[[language=smalltalk|lineNumber=true
 initialize
- | sampleCell width height n |
- super initialize.
- n := self cellsPerSide.
- sampleCell := LOCell new.
- width := sampleCell width.
- height := sampleCell height.
- self bounds: (5@5 extent: ((width*n) @(height*n)) + (2 * self borderWidth)).
- cells := Matrix new: n tabulate: [ :i :j | self newCellAt: i at: j ].]]]
+	| sampleCell width height n |
+	super initialize.
+	n := self cellsPerSide.
+	sampleCell := LOCell new.
+	width := sampleCell width.
+	height := sampleCell height.
+	self bounds: (5 @ 5 extent: (width * n) @ (height * n) + (2 * self borderWidth)).
+	cells := Matrix new: n tabulate: [ :i :j | self newCellAt: i at: j ]
+]]]
 
-Pharo will complain that it doesn't know the meaning of some of the terms. It
-will tell you that it doesn't know of a message ==cellsPerSide==, and suggest a number
-of corrections, in case it was a spelling mistake.
-
-But ==cellsPerSide== is not a mistake; it is just a method that we haven't yet
-defined. We will do so, shortly.
-
-So, select the first item from the menu, which confirms that we really meant
-==cellsPerSide==.
-
-Next, Pharo will complain that it doesn't know the meaning of ==cells==. It will offer
+Pharo will complain that it doesn't know the meaning of ==cells== (see Figure *doesntKnowCell*). It will offer
 you a number of ways to fix this.
+
++Declaring a new instance variable>file://figures/doesntKnowCell.png|width=75|label=doesntKnowCell+
 
 Choose ""Declare new instance variable"", because we want ==cells== to be an
 instance variable.
 
-Finally, Pharo will complain about the message ==newCellAt: at:== sent on the
-last line; this is also not a mistake, so confirm that message too.
+At this stage if you open a ==Playground== and type ==LOGame new== and ""do it""
+Pharo will complain that it doesn't know the meaning of some of the terms (see Figure *doesntKnowCellsPerSide*). It
+will tell you that it doesn't know of a message ==cellsPerSide==, and will open a debugger.
+
++Pharo  detecting  an  un-known selector>file://figures/doesntKnowCellsPerSide.png|width=100|label=doesntKnowCellsPerSide+
+
+But ==cellsPerSide== is not a mistake; it is just a method that we haven't yet
+defined. We will do so, shortly.
+
++Define CellsPerSide methods>file://figures/defineCellsPerSide.png|width=100|label=defineCellsPerSide+
+
+So, click on ==Create==, select ""LOGame"", the class which will contains the method,
+click on ""ok"" (see Figure *defineCellsPerSide*). Here you can write your method. But for now we'll let this method like this.
+We'll see this method later.
 
 If you now look at the class definition once again (which you can do by clicking
-the ""Class side"" checkbox below the class list pane), you will see that the
+on ""LOGame"" on the second pane), you will see that the
 browser has modified it to include the instance variable ==cells==.
 
-Let's look at this ==initialize== method. The line ==\| sampleCell width height n \|==
+Let's look at this ==initialize== method. At line 2, ==\| sampleCell width height n \|== ,
 declares 4 temporary variables. They are called temporary variables because
 their scope and lifetime are limited to this method. Temporary variables with
 explanatory names are helpful in making code more readable. Lines 4\-7 set the
@@ -283,13 +289,11 @@ cells, and big enough to draw a border around them. How many cells is the right
 number? 5? 10? 100? We don't know yet, and if we did, we would probably change
 our minds later. So we delegate the responsibility for knowing that number to
 another method, which we will name ==cellsPerSide==, and which we will write in
-a minute or two. Because we are sending the ==cellsPerSide== message before we
-actually implement it, Pharo asked us to "confirm, correct, or
-cancel" when we accepted the method body for ==initialize==. Don't be put off by
-this: it is actually good practice to code by referring to other methods that we
-haven't yet defined. Why? Well, it wasn't until we started writing the
-==initialize== method that we realized that we needed it. And at that point, we can
-give it a meaningful name, and move on, without interrupting our flow.
+a minute or two. Don't be put off by this: it is actually good practice to 
+code by referring to other methods that we haven't yet defined. 
+Why? Well, it wasn't until we started writing the ==initialize== method 
+that we realized that we needed it. And at that point, we can give it a 
+meaningful name, and move on, without interrupting our flow.
 
 The fourth line uses this method, ==n := self cellsPerSide.== sends the
 message ==cellsPerSide== to ==self==, i.e., to this very object. The response, which
