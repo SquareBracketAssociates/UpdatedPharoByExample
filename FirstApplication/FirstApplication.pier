@@ -1,4 +1,6 @@
-%Think to add picture for : then end result
+%Think to add picture for the end result line 14
+%Maybe a chapter about "code into the debugger"
+%Add caption and label to the scripts
 
 !A first application
 @cha:firstApp
@@ -339,12 +341,14 @@ provided by protocols is not really necessary. This is why the browser also
 offers us the ==\-\-all\-\-== virtual protocol, which, you will not be surprised to
 learn, contains all of the methods in the class.
 
++Automatically categorize all uncategorized methods>file://figures/categorizeProtocols.png|width=100|label=categorizeProtocoles+
+
 If you have followed along with this example, the protocol pane may well contain
 the protocol ""as yet unclassified"".
 
-Right-click in the protocol pane and select ""various"" \-\-> ""categorize
-automatically"" to fix this, and move the ==initialize== method to a new protocol
-called ""initialization"".
+Right-click in the protocol pane and select ""categorize all uncatogorized"" 
+to fix this, and move the ==initialize== method to a new protocol called 
+""initialization"" (see Figure *categorizeProtocoles*).
 
 How does Pharo know that this is the right protocol? Well, in general Pharo
 can't know exactly, but in this case there is also an ==initialize== method in the superclass,
@@ -367,32 +371,34 @@ make sure that the appropriate class is selected in the class pane.
 Now let's define the other two methods that are used by ==LOGame >> initialize==.
 Both of them can go in the ==initialization== protocol.
 
-[[[lang=Smalltalk
+[[[language=smalltalk
 LOGame >> cellsPerSide
-"The number of cells along each side of the game"
-^ 10]]]
+	"The number of cells along each side of the game"
+
+	^ 10
+]]]
 
 This method could hardly be simpler: it answers the constant 10. One advantage
 of representing constants as methods is that if the program evolves so that the
 constant then depends on some other features, the method can be changed to
 calculate this value.
+As you can see there are some tabulation and empty lines. In order to keep the 
+same convention you can use ==CMD + Shift + f== shortcut. This will format 
+your method.
 
-[[[lang=Smalltalk
+[[[language=smalltalk
 LOGame >> newCellAt: i at: j
-"Create a cell for position (i,j) and add it to my on-screen representation at the appropriate screen position. Answer the new cell"
-| c origin |
-c := LOCell new.
-origin := self innerBounds origin.
-self addMorph: c.
-c position: ((i - 1) * c width) @ ((j - 1) * c height) + origin.
-c mouseAction: [self toggleNeighboursOfCellAt: i at: j]
+	"Create a cell for position (i,j) and add it to my on-screen representation at the appropriate screen position. Answer the new cell"
+
+	| c origin |
+	c := LOCell new.
+	origin := self innerBounds origin.
+	self addMorph: c.
+	c position: ((i - 1) * c width) @ ((j - 1) * c height) + origin.
+	c mouseAction: [ self toggleNeighboursOfCellAt: i at: j ]
 ]]]
 
 Add the methods ==LOGame >> cellsPerSide== and ==LOGame >> newCellAt: at:==.
-
-Confirm the spelling of the new selectors (again, referring to methods we
-have not yet implemented), ==toggleNeighboursOfCellAt:at:== and
-==mouseAction:==.
 
 The method defined above answers a new ==LOCell==, initialized to position (i, j) in the
 Matrix of cells. The last line defines the new cell's ==mouseAction== to be the
@@ -400,12 +406,16 @@ block ==[self toggleNeighboursOfCellAt: i at: j ]==. In effect, this defines the
 callback behaviour to perform when the mouse is clicked. The corresponding
 method also needs to be defined.
 
-[[[lang=Smalltalk
+[[[language=smalltalk|caption=The callback method
 LOGame >> toggleNeighboursOfCellAt: i at: j
-(i > 1) ifTrue: [ (cells at: i - 1 at: j ) toggleState].
-(i < self cellsPerSide) ifTrue: [ (cells at: i + 1 at: j) toggleState].
-(j > 1) ifTrue: [ (cells at: i at: j - 1) toggleState].
-(j < self cellsPerSide) ifTrue: [ (cells at: i at: j + 1) toggleState].
+	i > 1
+		ifTrue: [ (cells at: i - 1 at: j) toggleState ].
+	i < self cellsPerSide
+		ifTrue: [ (cells at: i + 1 at: j) toggleState ].
+	j > 1
+		ifTrue: [ (cells at: i at: j - 1) toggleState ].
+	j < self cellsPerSide
+		ifTrue: [ (cells at: i at: j + 1) toggleState ]
 ]]]
 
 The above method toggles the state of the four cells to the north, south, west
@@ -416,14 +426,17 @@ Place this method in a new protocol called ==game logic==. (Right-click in the
 protocol pane to add a new protocol.)
 
 To move (re-classify) the method, you can simply click on its name and drag it to the
-newly-created protocol.
+newly-created protocol (see Figure *dropProtocol*).
+
++Drag a method to a protocol>file://figures/dropProtocol.png|width=100|label=dropProtocol+
 
 To complete the Lights Out game, we need to define two more methods in class
 ==LOCell== to handle mouse events.
 
-[[[lang=Smalltalk
+[[[language=smalltalk
 LOCell >> mouseAction: aBlock
-^ mouseAction := aBlock]]]
+	^ mouseAction := aBlock
+]]]
 
 The method above does nothing more than set the cell's ==mouseAction== variable to
 the argument, and then answers the new value. Any method that changes the value
@@ -450,9 +463,10 @@ Finally, we need to define a method ==mouseUp:==. This will be called automatica
 by the GUI framework if the mouse button is released while the cursor is over
 this cell on the screen.
 
-[[[lang=Smalltalk
+[[[language=smalltalk
 LOCell >> mouseUp: anEvent
-mouseAction value]]]
+	mouseAction value
+]]]
 
 Add the method ==LOCell >> mouseUp:== and then ""categorize automatically"" methods.
 
