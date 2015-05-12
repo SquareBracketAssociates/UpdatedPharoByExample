@@ -26,17 +26,15 @@ graphical development environment, and all Smalltalk development was taking
 place in it. With this in mind, let's start by looking at the main
 tools in Pharo.
 
-The ==Browser== is the central development tool. You will use it to create,
-define, and organize your classes and methods. Using it you can also navigate
-through all the library classes. Unlike other environments where the source code
-is stored in separate files, in Pharo all classes and methods are contained
-in the image.
+The ==System Browser== is the central development tool. You will use it to 
+create, define, and organize your classes and methods. Using it you can also 
+navigate through all the library classes. Unlike other environments where the 
+source code is stored in separate files, in Pharo all classes and methods are 
+contained in the image.
 
-The ==Message Names== tool is used to look at all of the methods with a
-particular selector, or with a selector containing a substring.
-
-The ==Method Finder== tool will also let you find methods, but according to
-what they ''do'' as well as what they are called.
+The ==Finder== tool will let you find methods, classes, pragmas... You can look 
+for a method's name, a class name, some source code, a pragma's name or even an 
+example!
 
 The ==Monticello Browser== is the starting point for loading code from, and
 saving code in, Monticello packages.
@@ -60,15 +58,18 @@ central place compared to debuggers for other programming languages, because in
 Pharo you can ''program'' in the debugger. The debugger is not
 launched from a menu; it is normally entered by running a failing test, by
 typing ==CMD-.== to interrupt a running process, or by inserting a
-==self halt== expression in code.
+==Halt now== expression in code.
+
+% THINK ABOUT : add documentation about the Versionner, Kommiter, Configuration 
+% Browser etc... 
 
 !!The Browser
 @sec:browser
 
 +The Browser.>file://figures/SystemBrowser.png|label=fig:SystemBrowser+
 
-Many different class browsers have been developed over the years for Pharo. Pharo
-simplifies this story by offering a single browser that integrates various
+Many different class browsers have been developed over the years for Pharo. 
+Pharo simplifies this story by offering a single browser that integrates various
 views. Figure *fig:SystemBrowser* shows the browser as it appears when you first
 open it.
 
@@ -78,22 +79,22 @@ mode provide a view of the files on the disk. The leftmost pane lists
 ''packages'' of classes; select one (say ==Kernel==) and the pane immediately to
 the right will then show all of the classes in that package.
 
-+Browser with the class ==Model== selected>file://figures/SystemBrowser1.png|label=fig:SystemBrowser1+
++Browser with the class ==Boolean== selected>file://figures/SystemBrowser1.png|label=fig:SystemBrowser1+
 
-Similarly, if you select one of the classes in the second pane, say, ==Model==
+Similarly, if you select one of the classes in the second pane, say, ==Boolean==
 (see Figure *fig:SystemBrowser1*), the third pane will show all of the
 ''protocols'' defined for that class, as well as a virtual protocol
-==\-\-all\-\-==. Protocols are a way of
-categorizing methods; they make it easier to find and think about the behaviour
-of a class by breaking it up into smaller, conceptually coherent pieces. The
-fourth pane shows the names of all of the methods defined in the selected
-protocol. If you then select a method name, the source code of the corresponding
-method appears in the large pane at the bottom of the browser, where you can
-view it, edit it, and save the edited version. If you select class ==Model==,
-protocol ==dependents== and the method ==myDependents==, the browser
-should look like Figure *SystemBrowserMyDependents*.
+==\-\-all\-\-==. Protocols are a way of categorizing methods; they make it 
+easier to find and think about the behaviour of a class by breaking it up into 
+smaller, conceptually coherent pieces. The fourth pane shows the names of all of
+the methods defined in the selected protocol. If you then select a method name, 
+the source code of the corresponding method appears in the large pane at the 
+bottom of the browser, where you can view it, edit it, and save the edited 
+version. If you select class ==Boolean==, protocol ==controlling== and the 
+method ==and:==, the browser should look like Figure 
+*SystemBrowserAnd*.
 
-+Browser showing the ==myDependents== method in class ==Model==>file://figures/SystemBrowserMyDependents.png|label=SystemBrowserMyDependents+
++Browser showing the ==And:== method in class ==Boolean==>file://figures/SystemBrowserAnd.png|label=SystemBrowserAnd+
 
 Unlike directories in a file browser, the four top panes of the browser
 are not quite equal. Whereas classes and methods are part of the Smalltalk
@@ -106,9 +107,10 @@ would be too large to navigate conveniently.
 Because of this, the way that you create a new package or a new protocol is
 different from the way that you create a new class or a new method. To create a
 new package, right-click in the package pane and select ==Add package...==.
-To create a new protocol, right-click in the protocol pane and select ==Add protocol...==.
-Enter the name of the new thing in the dialog, and you are done: there is
-nothing more to a package or a protocol than its name and its contents.
+To create a new protocol, right-click in the protocol pane and select 
+==Add protocol...==. Enter the name of the new thing in the dialog, and you are 
+done: there is nothing more to a package or a protocol than its name and its 
+contents.
 
 +Browser showing the class-creation template>file://figures/SystemBrowserClassCreation.png|label=SystemBrowserClassCreation+
 
@@ -119,21 +121,20 @@ left-most pane), the bottom browser pane will display a class creation template
 template: replace ==Object== by the name of the existing class of which you wish
 to create a subclass, replace ==NameOfSubclass== by the name that you would like
 to give to your new subclass, and fill in the instance variable names if you
-know them. The package for the new class is by default the
-currently selected package, but you can change this too if you like. If you already
-have the browser focused on the class that you wish to subclass, you can get
-the same template with slightly different initialization by right-clicking in
-the class pane, and selecting ==class templates... > subclass template==.
-You can also just edit the definition of an existing class, changing the class
-name to something new. In all cases, when you accept the new definition, the
-new class (the one whose name follows the ==#==) is created (as is the
-corresponding metaclass). Creating a class also creates a global variable that
-references the class, which is why you can refer to all of the existing classes
-by using their names.
+know them. The package for the new class is by default the currently selected 
+package, but you can change this too if you like. If you already have the 
+browser focused on the class that you wish to subclass, you can get the same 
+template with slightly different initialization by right-clicking in the class 
+pane, and selecting ==Add Class==. You can also just edit the definition of an 
+existing class, changing the class name to something new. In all cases, when you
+accept the new definition, the new class (the one whose name follows the ==#==) 
+is created (as is the corresponding metaclass). Creating a class also creates a 
+global variable that references the class, which is why you can refer to all of 
+the existing classes by using their names.
 
 Can you see why the name of the new class has to appear as a ==Symbol==
-(i.e., prefixed with ==#==) in the class creation template, but after the class is
-created, code can refer to the class by using the name as an identifier
+(i.e., prefixed with ==#==) in the class creation template, but after the class 
+is created, code can refer to the class by using the name as an identifier
 (without the ==#==)?
 
 The process of creating a new method is similar. First select the class in
