@@ -296,7 +296,7 @@ of overridden methods (see Figure *MorphInheritanceOverriding*).
 By default, the browser presents a list of packages in the leftmost pane.
 However it is possible to switch to a class hierarchy view. Simply select a
 particular class of interest, such as ==ImageMorph== and then click on the
-==Hierarchy== button. You will then see in the left-most pane a class hierarchy
+==Hierarchy== button. You will then see in the second pane a class hierarchy
 displaying all superclasses and subclasses of the selected class. The second
 pane lists the packages implementing methods of the selected class.
 When you are into the Hirarchy Browser you cannot change of class. To be able to
