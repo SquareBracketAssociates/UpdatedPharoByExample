@@ -695,7 +695,7 @@ loop, you can interrupt it and open a debugger on the computation by typing
 ==CMD-.== (that's a full stop or a period, depending on where you learned
 English). (It is also useful to know that you can bring up an emergency
 debugger at any time by typing ==CMD-SHIFT-.==) You can also just edit
-the suspect code to insert ==Halt now.== or ==1halt.==. So, for example, we 
+the suspect code to insert ==Halt now.==. So, for example, we 
 might edit the ==suffix== method to read as follows:
 
 [[[language=Smalltalk|label=suffix|caption=Inserting a ==halt== into the ==suffix== method.
