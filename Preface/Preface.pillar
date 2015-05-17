@@ -94,7 +94,7 @@ many examples that show a fragment of code which can be evaluated. We use the
 symbol ==-->== an expression and to indicate the result that you obtain when you
 select an expression and ""print it"":
 
-[[[label=script1|caption=Small example|language=Smalltalk
+[[[label=mth:script1|caption=Small example|language=Smalltalk
 3 + 4
 	--> 7 "if you select 3+4 and 'print it', you will see 7"
 ]]]
