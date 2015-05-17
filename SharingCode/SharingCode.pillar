@@ -13,7 +13,7 @@ more powerful and effective way to work, especially when working in a team.
 !!Monticello
 
 We gave you a quick overview of Monticello, Pharo's packaging tool, in
-section *sec:Monticello*. However, Monticello has many more features than were
+chapter *cha:firstApplication*. However, Monticello has many more features than were
 discussed there. Because Monticello manages ''packages'', before telling you
 more about Monticello, it's important that we first explain exactly what a
 package is.
@@ -21,7 +21,7 @@ package is.
 !!!Packages: declarative categorization of Pharo code
 @sec:packages
 
-We have pointed out earlier, in section *sec:categoriesPackages* that packages are
+We have pointed out earlier, in chapter *cha:firstApplication* that packages are
 more or less equivalent to categories. Now we will see exactly what the
 relationship is. The package system is a simple, lightweight way of organizing
 Smalltalk source code that exploits a simple naming convention for categories

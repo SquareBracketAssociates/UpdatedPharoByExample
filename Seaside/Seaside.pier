@@ -623,7 +623,7 @@ td {
 '
 ]]]
 
-Figure *fig:democss* illustrates a simple style sheet for the rendering demo
+Script *mth:democss* illustrates a simple style sheet for the rendering demo
 shown earlier in Figure *fig:RenderingDemo*. The first rule specifies a
 preference for the fonts to use for the ==body== of the web page. The next few
 rules specify properties of second-level headings (==h2==), tables (==table==),
@@ -730,7 +730,7 @@ convenience methods to save you the trouble of writing components like
 *fig:dialogs*. We can see these convenience methods being used within
 ==SeasideDialogDemo>>>renderContentOn:==
 
-+Some standard dialogs>file://figures/dialogs|label=fig:dialogs+
++Some standard dialogs>file://figures/dialogs-flat.png|label=fig:dialogs+
 
 The message ==request:== performs a call to a component that will let you edit a
 text field. The component answers the edited string. An optional label and
@@ -824,7 +824,7 @@ WAConvenienceTest>>>informCheese
 
 The generated dialogues are shown in Figure *fig:chooseCheese*.
 
-+A simple task>file://figures/chooseCheese|label=fig:chooseCheese+
++A simple task>file://figures/chooseCheese-flat.png|label=fig:chooseCheese+
 
 !!!Transactions
 
@@ -953,7 +953,7 @@ the stack. The calculator with the two display options is shown in Figure
 *fig:stackMachine*.
 
 +RPN calculator and its stack
-machine>file://figures/stackMachine|label=fig:stackMachine+
+machine>file://figures/stackMachine-flat.png|label=fig:stackMachine+
 
 We begin by implementing the stack machine and its tests.
 
@@ -1341,7 +1341,7 @@ MyCalculator class>>>initialize
 ]]]
 
 +Seaside AJAX processing (simplified)
->file://figures/ajax-processing|label=fig:ajax-processing+
+>file://figures/ajax-processing.png|label=fig:ajax-processing+
 
 @@todo Try the revised application. Note that the feedback is much more natural. In particular, a new URL is not generated with each keystroke.
 

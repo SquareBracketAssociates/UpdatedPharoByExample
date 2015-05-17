@@ -643,7 +643,7 @@ What we need to do is to find out why the ==do:== is not finding the character
 that we are looking for.
 
 (do this) After clicking ==Over==, click ==Restart== to get back to the
-situation shown in Figure *fig:RestartDetectIfNone.*
+situation shown in Figure *fig:RestartDetectIfNone*.
 
 (do this) Click ==Into==; Pharo will go into the method corresponding to the
 highlighted message-send, in this case, ==Collection>>do:==.
