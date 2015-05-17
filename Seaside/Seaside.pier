@@ -51,7 +51,7 @@ and recompile and extend applications while the server is running.
 !!Getting started
 
 The easiest way to get started is to download the ''Seaside One-Click
-Experience'' from the Seaside web site(*http://seaside.st*). This is a
+Experience'' from the Seaside web site( *http://seaside.st* ). This is a
 prepackaged version of Seaside 2.8 for Mac OSX, Linux and Windows. The same web
 site lists many pointers to additional resources, including documentation and
 tutorials. Be warned, however, that Seaside has evolved considerably over the
@@ -362,7 +362,7 @@ package ==PBE-SeasideDemo== in the project
 ==SeasideHtmlDemo==, ==SeasideFormDemo==, ==SeasideEditCallDemo== and
 ==SeasideDialogDemo==, as shown in method *mth:renderdemo*.
 
-[[[label=renderdemo
+[[[label=mth:renderdemo
 SeasideDemo>>>renderContentOn: html
 	html heading: 'Rendering Demo'.
 	html heading
@@ -590,7 +590,7 @@ format given XHTML elements. Each rule consists of two parts. There is a
 ''selector'' that specifies which XHTML elements the rule applies to, and there
 is a ''declaration'' which sets a number of attributes for that element.
 
-[[[label=democss|caption===SeasideDemoWidget== common style sheet.
+[[[label=mth:democss|caption===SeasideDemoWidget== common style sheet.
 
 SeasideDemoWidget>>>style
 	^ '
