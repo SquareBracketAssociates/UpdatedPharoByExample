@@ -24,8 +24,7 @@ this is that you can detach a menu item and keep it as a button.
 
 @@todo Bring up the world menu. meta-click once on the world menu to bring up its morphic halo (Recall that you should set ==halosEnabled== in the Preferences browser. Alternatively, you can evaluate ==Preferences enable: #halosEnabled== in a workspace.), then meta-click again on the menu item you want to detach to bring up its halo.  Now drag that item elsewhere on the screen by grabbing the black handle *file://grabhandle|width=1em*, as shown in Figure *fig:detachingMenu*.
 
-+Detaching a morph, here the ==Workspace== menu item, to make it an independent
-button. >file://figures/detachingMenu.png|label=fig:detachingMenu+
++Detaching a morph, here the ==Workspace== menu item, to make it an independent button. >file://figures/detachingMenu.png|label=fig:detachingMenu+
 
 All of the objects that you see on the screen when you run Pharo are ''Morphs'',
 that is, they are instances of subclasses of class ==Morph==. ==Morph== itself
@@ -130,8 +129,7 @@ containing morph. There are many  methods available to position a morph; browse
 the ==geometry== protocol of class ==Morph== to see for yourself. For example,
 to center the star inside joe, execute ==star== ==center:== ==joe center==.
 
-*The star is contained inside joe, the translucent blue morph.
->file://figures/joeStar|label=fig:joeStar*
++The star is contained inside joe, the translucent blue morph. >file://figures/joeStar.png|label=fig:joeStar+
 
 If you now try to grab the star with the mouse, you will find that you actually
 grab joe, and the two morphs move together: the star is ''embedded'' inside joe.
@@ -165,7 +163,7 @@ Morph subclass: #CrossMorph
 
 We can define the ==drawOn:== method like this:
 
-[[[label=firstDrawOn|caption={Drawing a ==CrossMorph==.
+[[[label=mth:firstDrawOn|caption={Drawing a ==CrossMorph==.
 drawOn: aCanvas
 	| crossHeight crossWidth horizontalBar verticalBar |
 	crossHeight := self height / 3.0 .
@@ -176,8 +174,7 @@ drawOn: aCanvas
 	aCanvas fillRectangle: verticalBar color: self color
 ]]]
 
-*A ==CrossMorph== with its halo; you can resize it as you
-wish.>file://figures/NewCross|label=cross*
++A ==CrossMorph== with its halo; you can resize it as you wish.>file://figures/NewCross.png|label=fig:cross+
 
 Sending the ==bounds== message to a morph answers its bounding box, which is an
 instance of ==Rectangle==.  Rectangles understand many messages that create
@@ -198,7 +195,7 @@ cross shape, we need to override the ==containsPoint:== method.
 
 @@todo Define the following method in class ==CrossMorph==:
 
-[[[label=firstContains|caption=Shaping the sensitive zone of the ==CrossMorph==.
+[[[label=mth:firstContains|caption=Shaping the sensitive zone of the ==CrossMorph==.
 containsPoint: aPoint
 	| crossHeight crossWidth horizontalBar verticalBar |
 	crossHeight := self height / 3.0.
@@ -257,11 +254,9 @@ matter when we fill the cross with an opaque colour, but the bug becomes
 apparent immediately if we draw a semi-transparent cross, as shown in Figure
 *fig:overdrawBug*.
 
-*The center of the cross is filled twice with the colour.
->file://figures/overdrawBug|label=overdrawBug|width=0.48*
++The center of the cross is filled twice with the colour. >file://figures/overdrawBug.png|label=fig:overdrawBug|width=0.48+
 
-*The cross-shaped morph, showing a row of unfilled pixels.
->file://figures/bug|label=bug|width=0.48*
++The cross-shaped morph, showing a row of unfilled pixels. >file://figures/bug|label=fig:bug|width=0.48+
 
 @@todo Execute the following code in  a workspace, line by line:
 
@@ -337,7 +332,7 @@ Suppose that when we click on the cross, we want to change the color of the
 cross to red, and when we action-click on it, we want to change the color to
 yellow. This can be accomplished by method *mth:mouseDown*.
 
-[[[caption=Reacting to mouse clicks by changing the morph's color.|label=mouseDown
+[[[caption=Reacting to mouse clicks by changing the morph's color.|label=mth:mouseDown
 CrossMorph>>>mouseDown: anEvent
 	anEvent redButtonPressed "click"
 		ifTrue: [self color: Color red].
@@ -353,8 +348,8 @@ timely fashion.
 Note also that once the morph handles mouse events, you can no longer grab it
 with the mouse and move it. Instead you have to use the halo: meta-click on the
 morph to make the halo appear and grab either the brown move handle
-*file://movehandle|width=1em* or the black pickup handle
-*file://grabhandle|width=1em* at the top of the morph.
++file://movehandle|width=1em+ or the black pickup handle
++file://grabhandle|width=1em+ at the top of the morph.
 
 The ==anEvent== argument of ==mouseDown:== is an instance of ==MouseEvent,==
 which is a subclass of ==MorphicEvent==. ==MouseEvent== defines the
@@ -395,7 +390,7 @@ CrossMorph>>>mouseLeave: anEvent
 	anEvent hand newKeyboardFocus: nil
 ]]]
 
-[[[label=handleKeystroke|caption=Receiving and handling keyboard events.
+[[[label=mth:handleKeystroke|caption=Receiving and handling keyboard events.
 CrossMorph>>>handleKeystroke: anEvent
 	| keyValue |
 	keyValue := anEvent keyValue.
@@ -444,7 +439,7 @@ CrossMorph>>>step
 ]]]
 
 To start things off, you can open an inspector on a ==CrossMorph== (using the
-debug handle *file://debughandle|width=1em* in the morphic halo), type ==self
+debug handle +file://debughandle|width=1em+ in the morphic halo), type ==self
 startStepping== in the small workspace pane at the bottom, and  ==do it==.
 Alternatively, you can modify the ==handleKeystroke:== method so that you can
 use the ==+== and ==-== keys to start and stop stepping.
@@ -468,8 +463,8 @@ returns the string entered by the user (Figure *fig:dialogName*).
 UIManager default request: 'What''s your name?' initialAnswer: 'no name'
 ]]]
 
-*An input dialog.>file://figures/dialog|label=dialogName|width=0.8*
-*Pop-up menu.>file://figures/popup|width=0.8|label=fig:popup*
++An input dialog.>file://figures/dialog.png|label=fig:dialogName|width=0.8+
++Pop-up menu.>file://figures/popup.png|width=0.8|label=fig:popup+
 
 To display a popup menu, use one of the various ==chooseFrom:== methods (Figure
 *fig:popup*):
@@ -600,7 +595,7 @@ Let's design a morph to roll a die(NB: One die, two dice.). Clicking on it will
 display the values of all sides of the die in a quick loop, and another click
 will stop the animation.
 
-*The die in Morphic.>file://figures/die|width=0.65|label=fig:dialogDie*
++The die in Morphic.>file://figures/die.png|width=0.65|label=fig:dialogDie+
 
 @@todo Define the die as a subclass of ==BorderedMorph== instead of ==Morph==, because we will make use of the border.
 
@@ -795,8 +790,8 @@ DieMorph>>>drawOn: aCanvas
 
 That's all you need to do!
 
-*The die displayed with alpha-transparency.
->file://figures/multiMorphs|width=0.7|label=fig:multiMorphs*
++The die displayed with alpha-transparency.
+>file://figures/multiMorphs.png|width=0.7|label=fig:multiMorphs+
 
 !!Chapter summary
 
