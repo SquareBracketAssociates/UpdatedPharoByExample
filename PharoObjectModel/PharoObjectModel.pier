@@ -128,7 +128,7 @@ point. The instance variables ==x== and ==y== of the receiver are accessed
 directly by the method body. However, the instance variables of the other point
 must be accessed by sending it the messages ==x== and ==y==.
 
-[[[label=distance|caption=Distance between two points|language=Smalltalk
+[[[label=mth:distance|caption=Distance between two points|language=Smalltalk
 Point>>>dist: aPoint
     "Answer the distance between aPoint and the receiver."
 
@@ -149,7 +149,7 @@ abstraction to coexist. For example, method ==point>>dist:==, need not know or
 care whether the argument ==aPoint== is an instance of the same class as the
 receiver. The argument object might be represented in polar coordinates, or as
 a record in a database, or on another computer in a distributed system; as long
-as it can respond to the messages ==x== and ==y==, the code in *distance* will
+as it can respond to the messages ==x== and ==y==, the code in *mth:distance* will
 still work.
 
 !!!Methods
@@ -367,13 +367,13 @@ variable, in addition to the variables that it inherits, such as ==superclass==
 and ==methodDict==.
 
 We can now define a class method named ==uniqueInstance== as shown in
-*uniqueInstance*. This method first checks whether ==uniqueInstance== has
+*mth:uniqueInstance*. This method first checks whether ==uniqueInstance== has
 been initialized. If it has not, the method creates an instance and assigns it
 to the class instance variable ==uniqueInstance==. Finally the value of
 ==uniqueInstance== is returned. Since ==uniqueInstance== is a class instance
 variable, this method can directly access it.
 
-[[[label=uniqueInstance|caption=uniqueInstance (on the class side)|language=Smalltalk
+[[[label=mth:uniqueInstance|caption=uniqueInstance (on the class side)|language=Smalltalk
 WebServer class>>>uniqueInstance
      uniqueInstance ifNil: [uniqueInstance := self new].
      ^ uniqueInstance
@@ -384,7 +384,7 @@ class ==WebServer== will be created and assigned to the ==uniqueInstance==
 variable.The next time, the previously created instance will be returned instead
 of creating a new one.
 
-Note that the instance creation code inside the conditional in *uniqueInstance*
+Note that the instance creation code inside the conditional in *mth:uniqueInstance*
 is written as ==self new== and not as ==WebServer new==. What is the difference?
 Since the ==uniqueInstance== method is defined in ==WebServer class==, you might
 think that there is no difference. And indeed, until someone creates a subclass
@@ -463,7 +463,7 @@ others for comparing objects. Such methods are inherited by subclasses. The
 method ==Magnitude>><== is abstract and defined as shown in
 \mthref{MagnitudeLessThan}.
 
-[[[label=MagnitudeLessThan|caption= Magnitude\>\>\>\<|language=Smalltalk
+[[[label=mth:MagnitudeLessThan|caption= Magnitude\>\>\>\<|language=Smalltalk
 Magnitude>>>< aMagnitude
     "Answer whether the receiver is less than the argument."
     ^self subclassResponsibility
@@ -471,7 +471,7 @@ Magnitude>>>< aMagnitude
 
 By contrast, the method \>\= is concrete; it is defined in terms of ==<==:
 
-[[[label=Magnitude>=|caption= Magnitude \>\> \>\=|language=Smalltalk
+[[[label=mth:Magnitude>=|caption= Magnitude \>\> \>\=|language=Smalltalk
 >= aMagnitude
     "Answer whether the receiver is greater than or equal to the argument."
     ^(self < aMagnitude) not
@@ -485,7 +485,7 @@ The same is true of the other comparison methods.
 ==hash==; it inherits from ==Magnitude== the methods ==>===, ==<===, ==~=== and
 others.
 
-[[[label=CharacterLessThan|caption=Character\>\>\<\=|language=Smalltalk
+[[[label=mth:CharacterLessThan|caption=Character\>\>\<\=|language=Smalltalk
 Character>>>< aCharacter
     "Answer true if the receiver's value < aCharacter's value."
     ^self asciiValue < aCharacter asciiValue
@@ -501,7 +501,7 @@ classes.
 To define a new trait, simply replace the subclass creation template by a
 message to the class ==Trait==.
 
-[[[label=tauthor|caption=Defining a new trait|
+[[[label=mth:tauthor|caption=Defining a new trait|
 Trait named: #TAuthor
     uses: { }
     category: 'PBE-LightsOut'
@@ -518,7 +518,7 @@ they occur in the hierarchy.
 
 We might do this as follows:
 
-[[[label=author|caption=An author method|lang=Smalltalk
+[[[label=mth:author|caption=An author method|lang=Smalltalk
 TAuthor>>>author
     "Returns author initials"
     ^ 'on'    "oscar nierstrasz"
@@ -529,7 +529,7 @@ instance the ==LOGame== class that we defined in Chapter *cha:firstApp*: A First
 simply modify the class creation template for ==LOGame== to include a ==uses:==
 keyword argument that specifies that ==TAuthor== should be used.
 
-[[[label=sbegamewithtrait|caption=Using a trait
+[[[label=mth:sbegamewithtrait|caption=Using a trait
 BorderedMorph subclass: #LOGame
     uses: TAuthor
     instanceVariableNames: 'cells'
@@ -555,7 +555,7 @@ providing a new name for them.
 Traits are used in the system kernel. One good example is the class ==Behavior==.
 
 
-[[[label=behaviorwithtraits|caption= Behavior  defined using traits
+[[[label=mth:behaviorwithtraits|caption= Behavior  defined using traits
 Object subclass: #Behavior
     uses: TPureBehavior @ {#basicAddTraitSelector:withMethod:->#addTraitSelector:withMethod:}
     instanceVariableNames: 'superclass methodDict format'
