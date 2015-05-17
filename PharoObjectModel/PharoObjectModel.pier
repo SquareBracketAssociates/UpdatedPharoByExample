@@ -258,7 +258,7 @@ own ==count== variable, so subclass instances would be counted separately.
 ""Example: class instance variables are not shared with subclasses.""
 
 Suppose we define classes ==Dog== and ==Hyena==, where ==Hyena== inherits the
-class instance variable ==count== from ==Dog==.
+class instance variable ==count== from ==Dog==. 
 
 [[[caption=Dogs and Hyenas|language=Smalltalk
 Object subclass: #Dog
@@ -266,15 +266,20 @@ Object subclass: #Dog
     classVariableNames: ''
     poolDictionaries: ''
     category: 'PBE-CIV'
-
-Dog class
-    instanceVariableNames: 'count'
-
+	
 Dog subclass: #Hyena
     instanceVariableNames: ''
     classVariableNames: ''
     poolDictionaries: ''
-    category: 'PBE-CIV'
+    category: 'PBE-CIV'	
+]]]
+
+Suppose that the class ==Dog== itself defines an class instance variable named ==count==.
+Note that we tare talking about an instance variable describing classes and not instances. Here the instance variable ==count== will represent the number of created instances. 
+
+[[[caption=Dog class |language=Smalltalk	
+Dog class
+    instanceVariableNames: 'count'
 ]]]
 
 Now suppose we define class methods for ==Dog== to initialize its ==count== to
