@@ -219,46 +219,50 @@ by instances of that class (and of its subclasses).
 !!!Class methods
 
 Class methods can be quite useful; browse ==Color class== for some good
-examples.You will see that there are two kinds of method defined on a class:
-those that create instances of the class, like ==Color class>>blue== and those
-that perform a utility function, like ==Color class>>showColorCube==. This is
+examples. You will see that there are two kinds of methods defined on a class:
+''instance creation methods'', like ==Color class>>blue==, and those that perform
+a utility function, like ==Dictionary class>>removeUnreferencedKeys==. This is
 typical, although you will occasionally find class methods used in other ways.
 
 It is convenient to place utility methods on the class side because they can be
 executed without having to create any additional objects first. Indeed, many of
 them will contain a comment designed to make it easy to execute them.
 
-Browse method ==Color class>>>showColorCube==, double-click just inside the
-quotes on the comment =="Color showColorCube"== and type CMD\-D. You will see
-the effect of executing this method. Select World > restore display (r) to undo
-the effects.
+% Commenting out for the moment: showColorCube is no longer in the image.
+% TODO: create a different example
+%Browse method ==Color class>>showColorCube==, double-click just inside the
+%quotes on the comment =="Color showColorCube"== and press ==CMD-d==. You will
+%see the effect of executing this method. Select
+%==World > System > Restore display (r)== to undo the effects.
 
-For those familiar with Java and C\+\+,  class methods may seem similar to
-static methods. However, the uniformity of Pharo means that they are somewhat
-different: whereas Java static methods are really just statically-resolved
-procedures, Smalltalk class methods are dynamically-dispatched methods. This
-means that inheritance, overriding and super-sends work for class methods in
-Smalltalk, whereas they don't work for static methods in Java.
+For those familiar with Java and C\+\+, class methods may seem similar to static
+methods. However, the uniformity of the Pharo object model (where classes are
+just regular objects) means that they are somewhat different: whereas Java
+static methods are really just statically-resolved procedures, Pharo class
+methods are dynamically-dispatched methods. This means that inheritance,
+overriding and super-sends work for class methods in Pharo, whereas they don't
+work for static methods in Java.
 
 !!!Class instance variables
 
 With ordinary instance variables, all the instances of a class have the same set
-of variable names, and the instances of its subclasses inherit those names;
-however, each instance has its own private set of values.The story is exactly
-the same with class instance variables: each class has its own private class
-instance variables.A subclass will inherit those class instance variables, ''but
-it has its own private copies of those variables''. Just as objects don't share
-instance variables, neither do classes and their subclasses share class instance
-variables.
+of variable names (though each instance has its own private set of values), and
+the instances of its subclasses inherit those names. The story is exactly the
+same with class instance variables: each class has its own private class
+instance variables. A subclass will inherit those class instance variables,
+''but the subclass will have its own private copies of those variables''. Just
+as objects don't share instance variables, neither do classes and their
+subclasses share class instance variables.
 
-You could use a class instance variable called ==count== to keep track of how
-many instances you create of a given class. However, any subclass would have its
-own ==count== variable, so subclass instances would be counted separately.
+For example, you could use a class instance variable called ==count== to keep
+track of how many instances you create of a given class. However, any subclass
+would have its own ==count== variable, so subclass instances would be counted
+separately.
 
-""Example: class instance variables are not shared with subclasses.""
+!!!!Example: Class instance variables and subclasses
 
-Suppose we define classes ==Dog== and ==Hyena==, where ==Hyena== inherits the
-class instance variable ==count== from ==Dog==. 
+Suppose we define the class ==Dog==, and its subclass ==Hyena==. ==Hyena==
+will naturally inherit the class instance variable ==count== from ==Dog==.
 
 [[[caption=Dogs and Hyenas|language=Smalltalk
 Object subclass: #Dog
@@ -266,20 +270,15 @@ Object subclass: #Dog
     classVariableNames: ''
     poolDictionaries: ''
     category: 'PBE-CIV'
-	
+
+Dog class
+    instanceVariableNames: 'count'
+
 Dog subclass: #Hyena
     instanceVariableNames: ''
     classVariableNames: ''
     poolDictionaries: ''
-    category: 'PBE-CIV'	
-]]]
-
-Suppose that the class ==Dog== itself defines an class instance variable named ==count==.
-Note that we tare talking about an instance variable describing classes and not instances. Here the instance variable ==count== will represent the number of created instances. 
-
-[[[caption=Dog class |language=Smalltalk	
-Dog class
-    instanceVariableNames: 'count'
+    category: 'PBE-CIV'
 ]]]
 
 Now suppose we define class methods for ==Dog== to initialize its ==count== to
@@ -297,56 +296,66 @@ Dog class>>>count
     ^ count
 ]]]
 
-Now when we create a new ==Dog== its count is incremented, and so is that of
-every ==Hyena==, but they are counted separately:
+Now when we create a new ==Dog==, its count is incremented, and so is that of
+every ==Hyena== (but the hyenas are counted separately).
+
+''Side note:'' Notice the use of ==initialize== on the classes, in the following
+code. In Pharo, when you instantiate an object such as ==Dog new==,
+==initialize== is called automatically as part of the ==new== message send (you
+can see for yourself by browsing ==Behavior new==). But with classes, simply
+defining them does not automatically call ==initialize==, and so we have to call
+it explicitly here. See also the discussion about lazy initialization, below.
 
 [[[
 Dog initialize.
 Hyena initialize.
-Dog count     --> 0
-Hyena count --> 0
-Dog new.
-Dog count     --> 1
-Dog new.
-Dog count     --> 2
-Hyena new.
-Hyena count --> 1
+Dog count      --> 0
+Hyena count    --> 0
+
+aDog := Dog new.
+Dog count      --> 1  "Incremented"
+Hyena count    --> 0  "Still the same"
 ]]]
 
-Note also that class instance variables are private to a class in exactly the
-same way that instance variables are private to the instance. Since classes and
-their instances are different objects, this has the following immediate
-consequences:
+Class instance variables are private to a class in exactly the same way that
+instance variables are private to the instance. Since classes and their
+instances are different objects, this has the following consequences:
 
--A class does not have access to the instance variables of its own instances.
--An instance of a class does not have access to the class instance variables of its class.
+""1."" A class does not have access to the instance variables of its own
+instances. So, the class ==Color== does not have access to the variables of an
+object instantiated from it, ==aColorRed==. In other words, just because a class
+was used to create an instance (using ==new== or a helper instance creation
+method like ==Color red==), it doesn't give ''the class'' any special direct
+access to that instance's variables. The class instead has to go through the
+accessor methods (a public interface) just like any other object.
+
+""2."" The reverse is also true: an ''instance'' of a class does not have access
+to the class instance variables of its class. In our example above, ==aDog==
+(an individual instance) does not have direct access to the ==count== variable
+of the ==Dog== class (except, again, through an accessor method).
 
 @@important A class does not have access to the instance variables of its own instances. An instance of a class does not have access to the class instance variables of its class.
 
 For this reason, instance initialization methods must always be defined on the
-instance side, the class side has no access to instance variables, so cannot
+instance side, the class side has no access to instance variables, and so cannot
 initialize them! All that the class can do is to send initialization messages,
-possibly using accessors, to newly created instances.
-
-Similarly, instances can only access class instance variables indirectly, by
-sending accessor messages to their class.
+using accessors, to newly created instances.
 
 Java has nothing equivalent to class instance variables. Java and C++ static
 variables are more like Smalltalk class variables, which we will discuss in
 Section *sec:classVars*: all of the subclasses and all of their instances share
 the same static variable.
 
-!!!Example: Defining a Singleton.
+!!!!Example: Defining a Singleton
 
 The Singleton pattern provides a typical example of the use of class instance
 variables and class methods. Imagine that we would like to implement a class
-==WebServer== and use the Singleton pattern to ensure that it has only one
+==WebServer==, and to use the Singleton pattern to ensure that it has only one
 instance.
 
-Clicking on the ""instance"" button in the browser, we define the class
-==WebServer== as follow.
+We define the class ==WebServer== as follow.
 
-[[[caption=A singleton class|language=Smalltalk
+[[[caption=A sample singleton class, ==WebServer==|language=Smalltalk
 Object subclass: #WebServer
     instanceVariableNames: 'sessions'
     classVariableNames: ''
@@ -354,35 +363,37 @@ Object subclass: #WebServer
     category: 'Web'
 ]]]
 
-Then, clicking on the ""class"" button, we add the instance variable
-==uniqueInstance== to the class side.
+Then, clicking on the ""Class side"" checkbox, we add the (class) instance
+variable ==uniqueInstance==.
 
 [[[caption=The class side of the singleton class|language=Smalltalk
 WebServer class
     instanceVariableNames: 'uniqueInstance'
 ]]]
 
-The consequence of this is that the ''class'' ==WebServer== now has another instance
-variable, in addition to the variables that it inherits, such as ==superclass==
-and ==methodDict==.
+As a result, the ''class'' ==WebServer== now has a new instance variable
+(in addition to the variables that it inherits from ==Object==, such as
+==superclass== and ==methodDict==).
 
-We can now define a class method named ==uniqueInstance== as shown in
-*uniqueInstance*. This method first checks whether ==uniqueInstance== has
-been initialized. If it has not, the method creates an instance and assigns it
-to the class instance variable ==uniqueInstance==. Finally the value of
-==uniqueInstance== is returned. Since ==uniqueInstance== is a class instance
-variable, this method can directly access it.
+We can now define a class method named ==uniqueInstance==, as shown below. This
+method first checks whether ==uniqueInstance== has been initialized. If it has
+not, the method creates an instance and assigns it to the class instance
+variable ==uniqueInstance==. Finally the value of ==uniqueInstance== is
+returned. Since ==uniqueInstance== is a class instance variable, this method can
+directly access it.
 
-[[[label=uniqueInstance|caption=uniqueInstance (on the class side)|language=Smalltalk
+[[[label=uniqueInstance|caption=Class-side accessor method ==uniqueInstance==|language=Smalltalk
 WebServer class>>>uniqueInstance
-     uniqueInstance ifNil: [uniqueInstance := self new].
+     uniqueInstance ifNil: [ uniqueInstance := self new ].
      ^ uniqueInstance
 ]]]
 
 The first time that ==WebServer uniqueInstance== is executed, an instance of the
 class ==WebServer== will be created and assigned to the ==uniqueInstance==
-variable.The next time, the previously created instance will be returned instead
-of creating a new one.
+variable. The next time, the previously created instance will be returned
+instead of creating a new one. (This pattern, checking if a variable is nil
+in an accessor method, and initializing its value if it is nil, is called
+''lazy initialization'').
 
 Note that the instance creation code inside the conditional in *uniqueInstance*
 is written as ==self new== and not as ==WebServer new==. What is the difference?
@@ -390,12 +401,30 @@ Since the ==uniqueInstance== method is defined in ==WebServer class==, you might
 think that there is no difference. And indeed, until someone creates a subclass
 of ==WebServer==, they are the same. But suppose that ==ReliableWebServer== is
 a subclass of ==WebServer==, and inherits the ==uniqueInstance== method. We
-can clearly expect ==ReliableWebServer uniqueInstance== to answer a
-==ReliableWebServer==. Using ""self"" ensures that this will happen, since ==self==
-will be bound to the respective receiver, here the classes ==WebServer== and ==ReliableWebServer==. 
+would clearly expect ==ReliableWebServer uniqueInstance== to answer a
+==ReliableWebServer==. Using ==self== ensures that this will happen, since
+==self== will be bound to the respective receiver, here the classes
+==WebServer== and ==ReliableWebServer==. Note also that ==WebServer== and
+==ReliableWebServer== will each have a different value for their
+==uniqueInstance== instance variable.
 
-Note also that ==WebServer== and ==ReliableWebServer== will each have a different value 
-for their ==uniqueInstance== instance variable. 
+!!!!A note on lazy initialization
+
+''Do not over-use the lazy initialization pattern.'' The setting of initial
+values for instances of objects generally belongs in the ==initialize== method.
+Putting initialization calls only in ==initialize== helps from a readability
+perspective \-\- you don't have to hunt through all the accessor methods to see
+what the initial values are. Although it may be tempting to instead initialize
+instance variables in their respective accessor methods (using ==ifNil:==
+checks), avoid this unless you have a good reason.
+
+For example, in our ==uniqueInstance== method above, we used lazy initialization
+because users wont't typically expect to call ==WebServer initialize==. Instead,
+they expect the class to be "ready" to return new unique instances. Because of
+this, lazy initialization makes sense. Similarly, if a variable is expensive to
+initialize (opening a database connection or a network socket, for example),
+you will sometimes choose to delay that initialization until you actually need
+it.
 
 !!Every class has a superclass
 
