@@ -154,7 +154,7 @@ First you should create a new subclass of ==TestCase== called
 ==MyExampleSetTest==. Add two instance variables so that your new class looks
 like this:
 
-[[[label=exSet|caption=An Example Set Test class|language=Smalltalk
+[[[label=mth:exSet|caption=An Example Set Test class|language=Smalltalk
 TestCase subclass: #MyExampleSetTest
 	instanceVariableNames: 'full empty'
 	classVariableNames: ''
@@ -239,16 +239,16 @@ not be true. ==aTest deny: anExpression== is equivalent to
 The easiest way to run the tests is directly from the browser. Simply click on
 the icon of the class name, or on an individual test method, and select ''Run
 tests (t)'' or press the icon. The test methods will be flagged green or red,
-depending on whether they pass or not (as shown in *browsertests*).
+depending on whether they pass or not (as shown in *fig:browsertests*).
 
 +Running SUnit tests from the
-browser>file://figures/updatedbrowsertests.png|width=80|label=browsertests+
+browser>file://figures/updatedbrowsertests.png|width=80|label=fig:browsertests+
 
 You can also select sets of test suites to run, and obtain a more detailed log
 of the results using the SUnit Test Runner, which you can open by selecting
 ==World > Test Runner==.
 
-The ''Test Runner'', shown in Figure *test-runner*, is designed to make it easy to
+The ''Test Runner'', shown in Figure *fig:test-runner*, is designed to make it easy to
 execute groups of tests.
 
 The left-most pane lists all of the packages that contain test classes (i.e.,
@@ -260,7 +260,7 @@ of ==ClassTestCase== are indented more than subclasses of ==TestCase==.
 coverage.
 
 +Running SUnit tests using the
-''TestRunner''>file://figures/updatedtestRunner.png|width=80|label=test-runner+
+''TestRunner''>file://figures/updatedtestRunner.png|width=80|label=fig:test-runner+
 
 Open a Test Runner, select the package ''MySetTest'', and click the ==Run Selected==
 button.
@@ -400,7 +400,7 @@ The framework is there: use it.
 !!The SUnit framework
 
 SUnit consists of four main classes: ==TestCase==, ==TestSuite==,
-==TestResult==, and ==TestResource==, as shown in Figure *sunit-classes*. The
+==TestResult==, and ==TestResource==, as shown in Figure *fig:sunit-classes*. The
 notion of a ''test resource'' represents a resource that is expensive to set-up
 but which can be used by a whole series of tests. A ==TestResource== specifies
 a ==setUp== method that is executed just once before a suite of tests; this is
@@ -408,7 +408,7 @@ in distinction to the ==TestCase>>setUp== method, which is executed before each
 test.
 
 +The four classes representing the core of
-SUnit>file://figures/sunit-classes.png|width=80|label=sunit-classes+
+SUnit>file://figures/sunit-classes.png|width=80|label=fig:sunit-classes+
 
 !!!TestCase
 
@@ -659,11 +659,11 @@ execution of a test.
 To execute one test, we evaluate the expression ==(aTestClass selector: aSymbol)
 run.==
 
-+Running one test>file://figures/sunit-scenario.png|width=60|label=sunit-scenario+
++Running one test>file://figures/sunit-scenario.png|width=60|label=fig:sunit-scenario+
 
 The method ==TestCase>>run== creates an instance of ==TestResult== that will
 accumulate the results of the test, then it sends itself the message
-==TestCase>>run:== (See Figure *sunit-scenario*).
+==TestCase>>run:== (See Figure *fig:sunit-scenario*).
 
 [[[
 TestCase>>run

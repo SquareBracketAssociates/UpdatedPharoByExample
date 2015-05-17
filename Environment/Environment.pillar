@@ -91,9 +91,9 @@ protocol. If you then select a method name, the source code of the corresponding
 method appears in the large pane at the bottom of the browser, where you can
 view it, edit it, and save the edited version. If you select class ==Model==,
 protocol ==dependents== and the method ==myDependents==, the browser
-should look like Figure *SystemBrowserMyDependents*.
+should look like Figure *fig:SystemBrowserMyDependents*.
 
-+Browser showing the ==myDependents== method in class ==Model==>file://figures/SystemBrowserMyDependents.png|label=SystemBrowserMyDependents+
++Browser showing the ==myDependents== method in class ==Model==>file://figures/SystemBrowserMyDependents.png|label=fig:SystemBrowserMyDependents+
 
 Unlike directories in a file browser, the four top panes of the browser
 are not quite equal. Whereas classes and methods are part of the Smalltalk
@@ -110,12 +110,12 @@ To create a new protocol, right-click in the protocol pane and select ==Add prot
 Enter the name of the new thing in the dialog, and you are done: there is
 nothing more to a package or a protocol than its name and its contents.
 
-+Browser showing the class-creation template>file://figures/SystemBrowserClassCreation.png|label=SystemBrowserClassCreation+
++Browser showing the class-creation template>file://figures/SystemBrowserClassCreation.png|label=fig:SystemBrowserClassCreation+
 
 In contrast, to create a new class or a new method, you will actually have to
 write some Smalltalk code. If you click the currently selected package (in the
 left-most pane), the bottom browser pane will display a class creation template
-(Figure *SystemBrowserClassCreation*). You create a new class by editing this
+(Figure *fig:SystemBrowserClassCreation*). You create a new class by editing this
 template: replace ==Object== by the name of the existing class of which you wish
 to create a subclass, replace ==NameOfSubclass== by the name that you would like
 to give to your new subclass, and fill in the instance variable names if you
@@ -139,9 +139,9 @@ created, code can refer to the class by using the name as an identifier
 The process of creating a new method is similar. First select the class in
 which you want the method to live, and then select a protocol. The browser will
 display a method-creation template, as shown in
-Figure *SystemBrowserMethodTemplate*, which you can fill-in or edit.
+Figure *fig:SystemBrowserMethodTemplate*, which you can fill-in or edit.
 
-+Browser showing the method-creation template>file://figures/SystemBrowserMethodTemplate.png|label=SystemBrowserMethodTemplate+
++Browser showing the method-creation template>file://figures/SystemBrowserMethodTemplate.png|label=fig:SystemBrowserMethodTemplate+
 
 !!!Navigating the code space
 
@@ -188,7 +188,7 @@ right-click on the highlited selector and choose ==Code search... > senders of
 it (n)==. Alternatively, you can use the shortcut ==CMD-n== instead of
 right-clicking.
 
-+The ==Senders Of...(b,n)== menu item>file://figures/SendersOfDrawOn.png|label=SendersOfDrawOn+
++The ==Senders Of...(b,n)== menu item>file://figures/SendersOfDrawOn.png|label=fig:SendersOfDrawOn+
 
 ""3."" ''Using Spotter.'' Bring up a particular method in Spotter (press
 ==SHIFT-Enter== to bring up the Spotter search box, type in the message
@@ -203,11 +203,11 @@ Let's try some of these in action.
 
 Open a browser on the ==Morph== class, select the ==Morph>>drawOn:== method in
 the method pane. If you now press ==CMD-b CMD-n== (or right-click in the method
-pane and select ==Senders of...== (Figure *SendersOfDrawOn*)), a browser will
+pane and select ==Senders of...== (Figure *fig:SendersOfDrawOn*)), a browser will
 open with the list of all methods in the image that send the selected message
-(Figure *CanvasDraw*).
+(Figure *fig:CanvasDraw*).
 
-+The Senders Browser showing that the ==Canvas\>\>draw== method sends the ==drawOn:== message to its argument.>file://figures/CanvasDraw.png|label=CanvasDraw+
++The Senders Browser showing that the ==Canvas\>\>draw== method sends the ==drawOn:== message to its argument.>file://figures/CanvasDraw.png|label=fig:CanvasDraw+
 
 Now look at the third sender on the list, ==Canvas>>draw:==. You can see that
 this method sends ==drawOn:== to whatever object is passed to it as an argument,
@@ -230,9 +230,9 @@ Looking at the source code, suppose you wanted to see all of the senders of the
 ==at: key put: value== message. You can simply highlight the whole message send,
 and press ==CMD-n== (or right-click and select
 ==Code Search > senders of it (n)==), to bring up the list of senders (see
-Figure *SendersOfAddAll*).
+Figure *fig:SendersOfAddAll*).
 
-+Finding senders of a keyword message in the code pane>file://figures/SendersOfAddAll.png|label=SendersOfAddAll+
++Finding senders of a keyword message in the code pane>file://figures/SendersOfAddAll.png|label=fig:SendersOfAddAll+
 
 !!!!!Message implementors
 
@@ -279,14 +279,14 @@ of its name.
 The inheritance browser displays all the methods overridden by the displayed
 method. To see how it works, select the ==ImageMorph>>drawOn:== method in the
 browser. Note the triangular icons next to the method name
-(Figure *OBInheritanceOverriding*). The upward-pointing triangle tells you that
+(Figure *fig:OBInheritanceOverriding*). The upward-pointing triangle tells you that
 ==ImageMorph>>drawOn:== overrides an inherited method (i.e., ==Morph>>drawOn:==),
 and the downward-pointing triangle tells you that it is overridden by
 subclasses. (You can also click on the icons to navigate to these methods.) Now
 select ==browse > inheritance==. The inheritance browser shows you the hierarchy
-of overridden methods (see Figure *OBInheritanceOverriding*).
+of overridden methods (see Figure *fig:OBInheritanceOverriding*).
 
-+==ImageMorph\>\>drawOn:== and the methods that it overrides. The siblings of the selected methods are shown in the scrolling lists.>file://figures/OBInheritanceOverriding.png|label=OBInheritanceOverriding+
++==ImageMorph\>\>drawOn:== and the methods that it overrides. The siblings of the selected methods are shown in the scrolling lists.>file://figures/OBInheritanceOverriding.png|label=fig:OBInheritanceOverriding+
 
 !!!!The Hierarchy view
 @sec:hierarchy
@@ -301,10 +301,10 @@ pane lists the packages implementing methods of the selected class.
 %browser can also be opened by using the ==browse hierarchy== menu item in the class pane.
 %The hierarchy browser is similar to the browser, but instead of displaying the categories and the classes in each category, it shows a single list of classes, indented to represent inheritance.
 %The category of the selected class is displayed in the small annotation pane at the top of the browser.
-In Figure *hierarchyBrowser*, the hierarchy browser reveals that the
+In Figure *fig:hierarchyBrowser*, the hierarchy browser reveals that the
 direct superclass of ==ImageMorph== is ==Morph==.
 
-+A hierarchy view of ==ImageMorph==.>file://figures/hierarchyBrowser.png|label=hierarchyBrowser+
++A hierarchy view of ==ImageMorph==.>file://figures/hierarchyBrowser.png|label=fig:hierarchyBrowser+
 
 !!!!Finding variable references
 @sec:variables
@@ -313,9 +313,9 @@ By right-clicking on a class in the class pane, and selecting ==browse > chase
 variables==, you can find out where an instance variable or a class variable is
 used. You will be presented with a ''chasing browser'' that will allow you to
 walk through the accessors of all instance variables and class variables, and,
-in turn, methods that send these accessors, and so on (Figure *chasingBrowser*).
+in turn, methods that send these accessors, and so on (Figure *fig:chasingBrowser*).
 
-+A chasing browser for ==Morph==.>file://figures/chasingBrowser.png|label=chasingBrowser+
++A chasing browser for ==Morph==.>file://figures/chasingBrowser.png|label=fig:chasingBrowser+
 
 % The menu also includes ==inst var defs==, which shows the subset of the instance variable references that assign to the variable.
 %Once you click on the button or select the menu item, you will be presented with a dialog that invites you to choose a variable from all of the variables defined in the current class, and all of the variables that it inherits. The list is in inheritance order; it can often be useful to bring up this list just to remind yourself of the name of an instance variable. If you click outside the list, it will go away and no variable browser will be created.
@@ -347,12 +347,12 @@ machine's byte-coded instruction set.
 
 The contextual menus offer a large number of standard refactorings. Simply
 right-click in any of the four panes to see the currently available refactoring
-operations. See Figure *refactoring*.
+operations. See Figure *fig:refactoring*.
 
 Refactoring was formerly available only in a special browser called the
 refactoring browser, but it can now be accessed from any browser.
 
-+Refactoring operations.>file://figures/refactoring.png|label=refactoring+
++Refactoring operations.>file://figures/refactoring.png|label=fig:refactoring+
 
 !!!The browser menus
 
@@ -449,9 +449,9 @@ it==.
 selected, the menu operations work on the whole of the current line. You can
 also type ==CMD-i== for ''Inspect it''.)
 
-+Inspecting ==TimeStamp now==>file://figures/inspectTimeNow1.png|label=inspectTimeNow1+
++Inspecting ==TimeStamp now==>file://figures/inspectTimeNow1.png|label=fig:inspectTimeNow1+
 
-A window like that shown in Figure *inspectTimeNow1* will appear. This is an
+A window like that shown in Figure *fig:inspectTimeNow1* will appear. This is an
 inspector, and can be thought of as a window onto the internals of a particular
 object \-\- in this case, the particular instance of ==TimeStamp==
 that was created when you evaluated the expression ==TimeStamp now==. The title
@@ -494,15 +494,15 @@ The ''object explorer'' is conceptually similar to the inspector, but presents
 its information in a different way. To see the difference, we'll ''explore'' the
 same object that we were just inspecting.
 
-+Exploring ==TimeStamp now==>file://figures/exploreTimeStampNow.png|label=exploreTimeStampNow+
++Exploring ==TimeStamp now==>file://figures/exploreTimeStampNow.png|label=fig:exploreTimeStampNow+
 
-+Exploring the instance variables>file://figures/exploreTimeStampNow2.png|label=exploreTimeStampNow2+
++Exploring the instance variables>file://figures/exploreTimeStampNow2.png|label=fig:exploreTimeStampNow2+
 
 (do this) Select ==self== in the inspector's left-hand pane, then right-click and choose ==explore (I)==.
 
-The explorer window looks like Figure *exploreTimeStampNow*. If you click
+The explorer window looks like Figure *fig:exploreTimeStampNow*. If you click
 on the small triangle next to ==root==, the view will change to
-Figure *exploreTimeStampNow2*, which shows the instance variables of object that
+Figure *fig:exploreTimeStampNow2*, which shows the instance variables of object that
 you are exploring. Click on the triangle next to ==offset==, and you will see
 ''its'' instance variables. The explorer is really useful when you need to
 explore a complex hierarchic structure, hence the name.
@@ -518,16 +518,16 @@ structure of objects.
 (do this) Evaluate ==Object explore== in a workspace.
 This is the object that represents the class ==Object== in Pharo. Note that you
 can navigate directly to the objects representing the method dictionary and even
-the compiles methods of this class (see Figure *ExploreObject*).
+the compiles methods of this class (see Figure *fig:ExploreObject*).
 
-+Exploring a ==Object==>file://figures/ExploreObject.png|label=ExploreObject+
++Exploring a ==Object==>file://figures/ExploreObject.png|label=fig:ExploreObject+
 
 %(do this) Open a browser, and meta-click five times on the method pane to bring-up the Morphic halo on the ==OBPluggableListMorph== that is used to represent the list of messages.
 %Click on the ''debug'' handle ==debugHandle== and select ==explore morph==
 %from the menu that appears. This will open an Explorer on the ==OBPluggableListMorph== object that represents the method list on the screen.
-%Open the root object (by clicking in its triangle), open its ==submorphs==, and continue exploring the structure of the objects that underlie this Morph, as shown in Figure *explorePluggableListMorph*.
+%Open the root object (by clicking in its triangle), open its ==submorphs==, and continue exploring the structure of the objects that underlie this Morph, as shown in Figure *fig:explorePluggableListMorph*.
 %
-% +Exploring a ==PluggableListMorph==>file://figures/explorePluggableListMorph.png|label=explorePluggableListMorph+
+% +Exploring a ==PluggableListMorph==>file://figures/explorePluggableListMorph.png|label=fig:explorePluggableListMorph+
 
 !!The Debugger
 @sec:debugger
@@ -538,7 +538,7 @@ debugger, let's start by creating a bug!
 
 (do this) Using the browser, add the following method to the class ==String==:
 
-[[[language=Smalltalk|label=buggy|caption=A buggy method
+[[[language=Smalltalk|label=mth:buggy|caption=A buggy method
 suffix
 	"assumes that I'm a file name, and answers my suffix, the part after the last dot"
 
@@ -552,9 +552,9 @@ Of course, we are sure that such a trivial method will work, so instead of
 writing an SUnit test, we just type =='readme.txt' suffix== in a playground and
 ==Print it (p)==. What a surprise! Instead of getting the expected answer
 =='txt'==, a ==PreDebugWindow== pops up, as shown in
-Figure *PreDebugWindow*.
+Figure *fig:PreDebugWindow*.
 
-+A ==PreDebugWindow== notifies us of a bug.>file://figures/PreDebugWindow.png|label=PreDebugWindow+
++A ==PreDebugWindow== notifies us of a bug.>file://figures/PreDebugWindow.png|label=fig:PreDebugWindow+
 
 The ==PreDebugWindow== has a title-bar that tells us what error occurred, and
 shows us a ''stack trace'' of the messages that led up to the error.
@@ -568,13 +568,13 @@ information is encoded in the next line of the stack trace,
 ==suffix== sent ==detect:==... and eventually ==detect:ifNone== sent
 ==errorNotFound==.
 
-+The debugger.>file://figures/debuggerDetectIfNone.png|label=debuggerDetectIfNone+
++The debugger.>file://figures/debuggerDetectIfNone.png|label=fig:debuggerDetectIfNone+
 
 To find out ''why'' the dot was not found, we need the debugger itself, so click
 on ==Debug==.
 %(do this) You can also open the debugger by clicking on any of the lines on the stack trace. If you do this, the debugger will open already focused on the corresponding method.
 
-The debugger is shown in Figure *debuggerDetectIfNone*; it looks intimidating at
+The debugger is shown in Figure *fig:debuggerDetectIfNone*; it looks intimidating at
 first, but it is quite easy to use. The title-bar and the top pane are very
 similar to those that we saw in the ==PreDebugWindow==. However, the debugger
 combines the stack trace with a method browser, so when you select a line in the
@@ -586,7 +586,7 @@ execution. This includes all of the objects involved in the computation, with
 their instance variables, and all of the temporary variables of the executing
 methods.
 
-In Figure *debuggerDetectIfNone* we have selected the ==detect:ifNone:== method
+In Figure *fig:debuggerDetectIfNone* we have selected the ==detect:ifNone:== method
 in the top pane. The method body is displayed in the center pane; the blue
 highlight around the message ==value== shows that the current method has sent
 the message ==value== and is waiting for an answer.
@@ -604,7 +604,7 @@ or select expressions in this pane and evaluate them. You can always ==cancel
 % apb: that lower-case-L is in italics so that it doesn't look like a 1 or a |
 
 The inspector on the right shows the temporary variables of the current context.
-In Figure *debuggerDetectIfNone*, ==value== was sent to the parameter
+In Figure *fig:debuggerDetectIfNone*, ==value== was sent to the parameter
 ==exceptionBlock==.
 
 %(do this) To see the current value of this parameter, click on ==exceptionBlock== in the context inspector.
@@ -630,9 +630,9 @@ code that does not mutate objects, but instead creates new ones.
 (do this) Click ==Restart==, and you will see that the locus of execution
 returns to the first statement of the current method. The blue highlight shows
 that the next message to be sent will be ==do:== (see Figure
-*RestartDetectIfNone*).
+*fig:RestartDetectIfNone*).
 
-+The debugger after restarting the ==detect: ifNone:== method>file://figures/RestartDetectIfNone.png|label=RestartDetectIfNone+
++The debugger after restarting the ==detect: ifNone:== method>file://figures/RestartDetectIfNone.png|label=fig:RestartDetectIfNone+
 
 The ==Into== and ==Over== buttons give us two different ways to step
 through the execution. If you click ==Over==, Pharo executes the current
@@ -643,7 +643,7 @@ What we need to do is to find out why the ==do:== is not finding the character
 that we are looking for.
 
 (do this) After clicking ==Over==, click ==Restart== to get back to the
-situation shown in Figure *RestartDetectIfNone.*
+situation shown in Figure *fig:RestartDetectIfNone*.
 
 (do this) Click ==Into==; Pharo will go into the method corresponding to the
 highlighted message-send, in this case, ==Collection>>do:==.
@@ -655,41 +655,41 @@ button to use in this case: we want to ignore the details of the ==do:== itself
 and focus on the execution of the argument block.
 
 (do this) Select the ==detect:ifNone:== method again and ==Restart== to get back
-to the state shown in Figure *RestartDetectIfNone*. Now click on ==Through== a
+to the state shown in Figure *fig:RestartDetectIfNone*. Now click on ==Through== a
 few times. Select ==each== in the context window as you do so. You should see
 ==each== count down from ==10== as the ==do:== method executes.
 
 When ==each== is ==7== we expect the ==ifTrue:== block to be executed, but it
 isn't. To see what is going wrong, go ==Into== the execution of ==value:==
-as illustrated in Figure *steppingIntoValue*.
+as illustrated in Figure *fig:steppingIntoValue*.
 
-+The debugger after stepping ==Through== the ==do:== method several times.>file://figures/steppingIntoValue.png|label=steppingIntoValue+
++The debugger after stepping ==Through== the ==do:== method several times.>file://figures/steppingIntoValue.png|label=fig:steppingIntoValue+
 
 After clicking ==Into==, we find ourselves in the position shown in
-Figure *dotIsAString*. It looks at first that we have gone ''back'' to the
+Figure *fig:dotIsAString*. It looks at first that we have gone ''back'' to the
 ==suffix== method, but this is because we are now executing the block that
 ==suffix== provided as argument to ==detect:==.
 %ON: does not work any more! the debugger does not know about block variables!
 %If you select ==i== in the context inspector, you can see its current value, which should be ==7== if you have been following along.
 %You can then select the corresponding element of ==self== from the ==self==-inspector.
-%In Figure *dotIsAString* you can see that element ==7== of the string is character 46, which is indeed a dot.
+%In Figure *fig:dotIsAString* you can see that element ==7== of the string is character 46, which is indeed a dot.
 If you select ==dot== in the context inspector, you will see that its value is =='.'==.
 And now you see why they are not equal: the seventh character of
 =='readme.txt'== is of course a ==Character==, while ==dot== is a ==String==.
 
-+The debugger showing why =='readme.txt' at: 7== is not equal to ==dot==>file://figures/dotIsAString.png|label=dotIsAString+
++The debugger showing why =='readme.txt' at: 7== is not equal to ==dot==>file://figures/dotIsAString.png|label=fig:dotIsAString+
 
 Now that we see the bug, the fix is obvious: we have to convert ==dot== to a
 character before starting to search for it.
 
-+Changing the ==suffix== method in the debugger: asking for confirmation of the exit from an inner block>file://figures/revertDialog.png|label=revertDialog+
++Changing the ==suffix== method in the debugger: asking for confirmation of the exit from an inner block>file://figures/revertDialog.png|label=fig:revertDialog+
 
 (do this) Change the code right in the debugger so that the assignment reads
 ==dot := FileDirectory dot first== and accept the change.
 
 Because we are executing code inside a block that is inside a ==detect:==,
 several stack frames will have to be abandoned in order to make this change.
-Pharo asks us if this is what we want (see Figure *revertDialog*), and, assuming
+Pharo asks us if this is what we want (see Figure *fig:revertDialog*), and, assuming
 that we click ==yes==, will save (and compile) the new method.
 
 %(do this) Click ==Restart== and then ==Proceed==; the debugger window will vanish, and the evaluation of the expression =='readme.txt' suffix== will complete, and print the answer =='.txt'==
@@ -702,7 +702,7 @@ be ==.txt== or ==txt==? The method comment in ==suffix== is not very precise.
 The way to avoid this sort of problem is to write an SUnit test that
 defines the answer.
 
-[[[language=Smalltalk|label=testSuffix|caption=A simple test for the ==suffix== method
+[[[language=Smalltalk|label=mth:testSuffix|caption=A simple test for the ==suffix== method
 testSuffixFound
 	self assert: 'readme.txt' suffix = 'txt'
 ]]]
@@ -714,15 +714,15 @@ class ==StringTest== and run that test suite with SUnit, you can very quickly
 get back to debugging the error. SUnit opens the debugger on the failing
 assertion, but you need only go back down the stack one frame, ==Restart==
 the test and go ==Into== the ==suffix== method, and you can correct the
-error, as we are doing in Figure *fixOffByOne*. It is then only a second of
+error, as we are doing in Figure *fig:fixOffByOne*. It is then only a second of
 work to click on the ==Run Failures== button in the SUnit Test Runner, and
 confirm that the test now passes.
 
-+Changing the ==suffix== method in the debugger: fixing the off-by-one error after an SUnit assertion failure>file://figures/fixOffByOne.png|label=fixOffByOne+
++Changing the ==suffix== method in the debugger: fixing the off-by-one error after an SUnit assertion failure>file://figures/fixOffByOne.png|label=fig:fixOffByOne+
 
 Here is a better test:
 
-[[[language=Smalltalk|label=testSuffix2|caption=A better test for the ==suffix== method
+[[[language=Smalltalk|label=mth:testSuffix2|caption=A better test for the ==suffix== method
 testSuffixFound
 	self assert: 'readme.txt' suffix = 'txt'.
 	self assert: 'read.me.txt' suffix = 'txt'
@@ -740,7 +740,7 @@ debugger at any time by typing ==CMD-SHIFT-.==) You can also just edit
 the suspect code to insert ==self halt.==. So, for example, we might edit the
 ==suffix== method to read as follows:
 
-[[[language=Smalltalk|label=suffix|caption=Inserting a ==halt== into the ==suffix== method.
+[[[language=Smalltalk|label=mth:suffix|caption=Inserting a ==halt== into the ==suffix== method.
 suffix
 	"assumes that I'm a file name, and answers my suffix, the part after the last dot"
 
@@ -761,7 +761,7 @@ the target string, the ==suffix== method will raise an error. This isn't the
 behaviour that we want, so let's add a second test to specify what should happen
 in this case.
 
-[[[language=Smalltalk|label=testNoSuffix|caption=A second test for the ==suffix== method: the target has no suffix
+[[[language=Smalltalk|label=mth:testNoSuffix|caption=A second test for the ==suffix== method: the target has no suffix
 testSuffixNotFound
 	self assert: 'readme' suffix = ''
 ]]]
@@ -784,10 +784,10 @@ as threads) running concurrently in your image. In the future the Pharo virtual
 machine may take advantage of multiple processors when they are available, but at
 present, concurrency is implemented by time-slicing.
 
-+The Process Browser>file://figures/processBrowser.png|label=processBrowser+
++The Process Browser>file://figures/processBrowser.png|label=fig:processBrowser+
 
 The Process Browser is a cousin of the debugger that lets you
-look at the various processes running inside Pharo. Figure *processBrowser*
+look at the various processes running inside Pharo. Figure *fig:processBrowser*
 shows a screenshot. The top-left pane lists all of the processes in Pharo, in
 priority order, from the timer interrupt watcher at priority 80 to the idle
 process at priority 10. Of course, on a uniprocessor, the only process that can
@@ -814,12 +814,12 @@ section *sec:methodFinder*; you can use it to find methods by name or by
 functionality. However, to look at the body of a method, the method finder opens
 a new browser. This can quickly become overwhelming.
 
-+The message names browser showing all methods containing the substring ==random== in their selectors.>file://figures/methodNamesRandom.png|label=methodNamesRandom+
++The message names browser showing all methods containing the substring ==random== in their selectors.>file://figures/methodNamesRandom.png|label=fig:methodNamesRandom+
 
 The ''message names'' browser has more limited search functionality: you type a
 fragment of a message selector in the search box, and the browser lists all
 methods that contain that fragment in their names, as shown in
-Figure *methodNamesRandom*. However, it is a full-fledged browser: if you select
+Figure *fig:methodNamesRandom*. However, it is a full-fledged browser: if you select
 one of the names in the left pane, all of the methods with that name are listed
 in the right pane, and can be browsed in the bottom pane. As with the browser,
 the message names browser has a button bar that can be used to open other
