@@ -117,7 +117,7 @@ same requests. Let us briefly survey some of the key differences:
 
 @sec:implementation
 
-+Some collection classes categorized by implementation technique.>file://figures/CollectionsByImpl.png|width=100|label=collsByImpl+
++Some collection classes categorized by implementation technique.>file://figures/CollectionsByImpl.png|width=100|label=fig:collsByImpl+
 
 These categorizations by functionality are not our only concern; we must also
 consider how the collection classes are implemented. As shown in Figure *fig:collsByImpl* , five main implementation techniques are employed.
