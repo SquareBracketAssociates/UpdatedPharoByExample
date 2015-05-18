@@ -13,7 +13,7 @@ more powerful and effective way to work, especially when working in a team.
 !!Monticello
 
 We gave you a quick overview of Monticello, Pharo's packaging tool, in
-section *sec:Monticello*. However, Monticello has many more features than were
+chapter *cha:firstApplication*. However, Monticello has many more features than were
 discussed there. Because Monticello manages ''packages'', before telling you
 more about Monticello, it's important that we first explain exactly what a
 package is.
@@ -21,7 +21,7 @@ package is.
 !!!Packages: declarative categorization of Pharo code
 @sec:packages
 
-We have pointed out earlier, in section *sec:categoriesPackages* that packages are
+We have pointed out earlier, in chapter *cha:firstApplication* that packages are
 more or less equivalent to categories. Now we will see exactly what the
 relationship is. The package system is a simple, lightweight way of organizing
 Smalltalk source code that exploits a simple naming convention for categories
@@ -111,10 +111,10 @@ Religious Freedom''. The name means ''little mountain'' in Italian, and so it is
 always pronounced with an Italian ==c==, which sounds like the ==ch== in chair:
 Mont-y'-che-llo.
 
-+The Monticello browser.>file://figures/freshMonticello.png|label=freshMonticello+
++The Monticello browser.>file://figures/freshMonticello.png|label=fig:freshMonticello+
 
 When you open the Monticello browser, you will see two list panes and a row of
-buttons, as shown in Figure *freshMonticello*. The left-hand pane lists all of
+buttons, as shown in Figure *fig:freshMonticello*. The left-hand pane lists all of
 the packages that have been loaded into the image that you are running; the
 particular version of the package is shown in parentheses after the name.
 
@@ -144,10 +144,10 @@ MCHttpRepository
 	password: ''
 ]]]
 
-+A Repository browser.>file://figures/SqueakSource-PBE.png|label=SqueakSource:PBE+
++A Repository browser.>file://figures/SqueakSource-PBE.png|label=fig:SqueakSource:PBE+
 
 Click on ==Open== to open a repository browser on this repository.
-You should see something like Figure *SqueakSource:PBE*. On the left is a list
+You should see something like Figure *fig:SqueakSource:PBE*. On the left is a list
 of all of the packages in the repository; if you select one, then the pane on
 the right will show all of the versions of the selected package in this
 repository.
@@ -169,13 +169,13 @@ To create a package with Monticello, you have to do two things: write some code,
 and tell Monticello about it.
 
 (do this) Create a package called ==PBE-Monticello==, and put a couple of
-classes in it, as shown in Figure *MCnewcategory*. Also, create a method in an
+classes in it, as shown in Figure *fig:MCnewcategory*. Also, create a method in an
 existing class, such as ==Object==, and put it in the same package as your
-classes \-\- see Figure *MCnewmethod*.
+classes \-\- see Figure *fig:MCnewmethod*.
 
-+Two classes in the ==PBE== package.>file://figures/MCnewcategory.png|label=MCnewcategory+
++Two classes in the ==PBE== package.>file://figures/MCnewcategory.png|label=fig:MCnewcategory+
 
-+An extension method that will also be in the ==PBE== package.>file://figures/MCnewmethod.png|label=MCnewmethod+
++An extension method that will also be in the ==PBE== package.>file://figures/MCnewmethod.png|label=fig:MCnewmethod+
 
 To tell Monticello about your package, click on ==+Package==, and type the
 name of the package, in this case ==PBE==. Monticello will add ==PBE== to its
@@ -186,10 +186,10 @@ called ==PBE-Monticello==. That's alright because ==PBE== will contain
 ==PBE-Monticello==, and any other packages starting with ==PBE-==.
 
 Initially, the only repository associated with this package will be your package
-cache, as shown in Figure *MCPBE*. That's OK: you can still save the code,
+cache, as shown in Figure *fig:MCPBE*. That's OK: you can still save the code,
 which will cause it to be written to the package cache. Just click ==Save==
 and you will be invited to provide a log message for the version of the package
-that you are about to save, as shown in Figure *PBEon*; when you accept the
+that you are about to save, as shown in Figure *fig:PBEon*; when you accept the
 message, Monticello will save your package. To indicate this, the asterisk
 decorating the name in Monticello's package pane will be removed, and the
 version number added.
@@ -199,15 +199,13 @@ the classes \-\- the asterisk will re-appear, showing that you have unsaved
 changes. If you open a repository browser on the package cache, you can select
 the saved version, and use ==Changes== and the other buttons. You can of
 course save the new version to the repository too; once you ==Refresh== the
-repository view, it should look like Figure *package-cache-browser*.
+repository view, it should look like Figure *fig:package-cache-browser*.
 
-+Two classes in the ==PBE== package.>file://figures/MCnewcategory.png|label=MCnewcategory+
++The as-yet-unsaved PBE package in Monticello.>file://figures/MCPBE.png|label=fig:MCPBE+
 
-+The as-yet-unsaved PBE package in Monticello.>file://figures/MCPBE.png|label=MCPBE+
++Providing a log message for a new version of a package.>file://figures/PBEon.png|label=fig:PBEon+
 
-+Providing a log message for a new version of a package.>file://figures/PBEon.png|label=PBEon+
-
-+Two versions of our package are now in the package cache.>file://figures/package-cache-browser.png|label=package-cache-browser+
++Two versions of our package are now in the package cache.>file://figures/package-cache-browser.png|label=fig:package-cache-browser+
 
 To save the new package to a repository other than the package cache, you need
 to first make sure that Monticello knows about the repository, adding it if
@@ -215,7 +213,7 @@ necessary. Then you can use the ==Copy== in the package-cache repository
 browser, and select the repository to which the package should be copied. You
 can also associate the desired repository with the package by right-clicking on
 the repository and selecting ==add to package...==, as shown in
-Figure *associateRepository*. Once the package knows about a repository, you can
+Figure *fig:associateRepository*. Once the package knows about a repository, you can
 save a new version by selecting the repository and the package in the Monticello
 Browser, and clicking ==Save==. Of course, you must have permission to
 write to a repository. The ==PharoByExample== repository on SqueakSource is
@@ -225,7 +223,7 @@ using the web interface at *www.squeaksource.com>http://www.squeaksource.com*, a
 save your work. This is especially useful as a mechanism to share your code with
 others, or if you use multiple computers.
 
-+Adding a repository to the set of repositories associated with a package.>file://figures/MCaddToPackage.png|label=associateRepository+
++Adding a repository to the set of repositories associated with a package.>file://figures/MCaddToPackage.png|label=fig:associateRepository+
 
 If you do try and save to a repository where you don't have write permission, a
 version will nevertheless be written to the package-cache. So you can recover by
@@ -242,10 +240,10 @@ When you save a new version of a method, the old one is not
 lost. Pharo keeps all of the old versions, and allows you to compare different
 versions and to go back (==revert==) to an old version.
 
-+The versions browser showing two versions of the ==TheWorldMenu\>\>buildWorldMenu:== method>file://figures/Versions.png|label=Versions+
++The versions browser showing two versions of the ==TheWorldMenu\>\>buildWorldMenu:== method>file://figures/Versions.png|label=fig:Versions+
 
 The ==browse > versions (v)== menu item gives access to the successive
-modifications made to the selected method. In Figure *Versions* we
+modifications made to the selected method. In Figure *fig:Versions* we
 can see two versions of the ==buildWorldMenu:== method.
 
 The top pane displays one line for each version of the method, listing the
@@ -254,7 +252,7 @@ saved, the names of the class and the method, and the protocol in which it was
 defined. The current (active) version is at the top of the list; whichever
 version is selected is displayed in the bottom pane.
 
-% If the ==diffs== checkbox is selected, as it is in Figure *mouseUpVersions*, the display also shows the differences between the selected version and the one immediately older.
+% If the ==diffs== checkbox is selected, as it is in Figure *fig:mouseUpVersions*, the display also shows the differences between the selected version and the one immediately older.
 
 Buttons are also provided for displaying the differences between the selected
 method and the current version, and for reverting to the selected version.
@@ -291,9 +289,9 @@ image. You can see which change set is current and can examine all of the change
 sets using the change sorter, available by selecting ==World > Tools... > Change
 Sorter==.
 
-+The Change Sorter>file://figures/changeSorter.png|label=changeSorter+
++The Change Sorter>file://figures/changeSorter.png|label=fig:changeSorter+
 
-Figure *changeSorter* shows this browser. The title bar shows which change set
+Figure *fig:changeSorter* shows this browser. The title bar shows which change set
 is current, and this change set is selected when the change sorter opens.
 
 Other change sets can be selected in the top-left pane; the right-click menu
@@ -315,7 +313,7 @@ using the right-click menu on the corresponding items.
 The change sorter allows you to simultaneously view two change sets, one on the
 left hand side and the other on the right. This layout supports the change
 sorter's main feature, which is the ability to move or copy changes from one
-change set to another, as shown by the right-click menu in Figure *changeSorter*.
+change set to another, as shown by the right-click menu in Figure *fig:changeSorter*.
 It is also possible to copy individual methods from one side to the other.
 
 You may be wondering why you should care about the composition of a change set.
@@ -361,13 +359,13 @@ file list browser.
 
 !!The File List Browser
 
-+A file list browser>file://figures/fileList.png|label=fileList+
++A file list browser>file://figures/fileList.png|label=fig:fileList+
 
 The file list browser is in fact a general-purpose tool for browsing the
 file system (as well as FTP servers) from Pharo. You can open it from the
 ==World > Tools... > File Browser== menu. What you see of course
 depends on the contents of your local file system, but a typical view is shown
-in Figure *fileList*.
+in Figure *fig:fileList*.
 
 When you first open a file list browser it will be focused on the current
 directory, that is, the one from which you started Pharo. The title bar shows
@@ -381,7 +379,7 @@ changing the pattern. (Note that a ==*== is implicitly prepended and appended
 to the pattern that you type.) The sort order of the files can be changed using
 the ==name==, ==date== and ==size== buttons. The rest of the
 buttons depend on the name of the file selected in the browser. In
-Figure *fileList*, the file name has the suffix ==.cs==, so the browser assumes
+Figure *fig:fileList*, the file name has the suffix ==.cs==, so the browser assumes
 that it is a change set, and provides buttons to ==install== it (which
 ''files it in'' to a new change set whose name is derived from the name of
 the file), to browse the ==changes== in the file, to examine the
@@ -394,7 +392,7 @@ but it doesn't.
 Instead it just checks for potential problems in the file that might indicate that the
 file cannot properly be loaded (such as the presence of linefeeds).
 
-+A File Contents Browser>file://figures/fileContentsBrowser.png|label=fileContentsBrowser+
++A File Contents Browser>file://figures/fileContentsBrowser.png|label=fig:fileContentsBrowser+
 
 Because the choice of buttons to display depends on the file's ''name'', and not
 on its contents, sometimes the button that you want won't be on the screen.
@@ -403,12 +401,12 @@ However, the full set of options is always available from the right-click
 
 The ==code== button is perhaps the most useful for working with change
 sets; it opens a browser on the contents of the change set file; an example is
-shown in Figure *fileContentsBrowser*. The file contents browser is similar to
+shown in Figure *fig:fileContentsBrowser*. The file contents browser is similar to
 the browser except that it does not show categories, just classes, protocols and
 methods. For each class, the browser will tell you whether the class already
 exists in the system and whether it is defined in the file (but ''not'' whether
 the definitions are identical). It will show the methods in each class, and (as
-shown in Figure *fileContentsBrowser*) will show you the differences between the
+shown in Figure *fig:fileContentsBrowser*) will show you the differences between the
 current version and the version in the file. Contextual menu items in each of
 the top four panes will also let you file in the whole of the change set, or the
 corresponding class, protocol or method.

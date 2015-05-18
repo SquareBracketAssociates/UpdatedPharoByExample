@@ -131,10 +131,10 @@ Pharo.exe Pharo4.0.image
 !!The World Menu
 
 Once Pharo is running, you should see a single large window, possibly containing
-some open workspace windows (see Figure *worldMenu*). You might notice a menu
+some open workspace windows (see Figure *fig:worldMenu*). You might notice a menu
 bar, but Pharo mainly makes use of context-dependent pop-up menus.
 
-+Pharo 4.0 window with World Menu activated>file://figures/Pharo40.png|width=100|label=worldMenu+
++Pharo 4.0 window with World Menu activated>file://figures/Pharo40.png|width=100|label=fig:worldMenu+
 
 Clicking anywhere on the background of the Pharo window will display the
 World Menu. World Menu contains many of the Pharo tools, utilities and settings.
@@ -150,25 +150,25 @@ pointing device.
 ""click"" (or left-click): this is the most often used mouse button, and is normally equivalent
 to left-clicking (or clicking a single-mouse button without any modifier key).
 For example, click on the background of the Pharo window to bring up the “World”
-menu (Figure *worldMenu*).
+menu (Figure *fig:worldMenu*).
 
 ""action-click"" (or right-click): this is the next most used button. It is used
 to bring up a contextual menu that offers different sets of actions depending on
-where the mouse is pointing (see Figure *pharotutorial*). If you do not have a
+where the mouse is pointing (see Figure *fig:pharotutorial*). If you do not have a
 multi-button mouse, then normally you will configure the control modifier key to
 action-click with the mouse button.
 
 ""meta-click"": Finally, you may meta-click on any object displayed in the image
 to activate the "morphic halo", an array of handles that are used to perform
 operations on the on-screen objects themselves, such as inspecting or resizing
-them (see Figure *halos*). If you let the mouse linger over a handle, a help
+them (see Figure *fig:halos*). If you let the mouse linger over a handle, a help
 balloon will explain its function. In Pharo, how you meta-click depends on your
 operating system: either you must hold Shift-Ctrl or Shift-Option (on Mac OS X)
 while clicking.
 
-%+Action Click brings the contextual menu.>file://figures/operating.png|width=80|label=operating+
+%+Action Click brings the contextual menu.>file://figures/operating.png|width=80|label=fig:operating+
 
-+Meta-Clicking brings the Halos>file://figures/addHalo.png|width=80|label=halos+
++Meta-Clicking brings the Halos>file://figures/addHalo.png|width=80|label=fig:halos+
 
 !!Sending messages
 
@@ -181,16 +181,16 @@ it, then right click and select "do it":
 [[[language=smalltalk
 PharoTutorial go.]]]
 
-+Executing an expression is simple with the "do it" menu item.>file://figures/PharoTutorialOption.png|width=70|label=pharotutorial+
++Executing an expression is simple with the "do it" menu item.>file://figures/PharoTutorialOption.png|width=70|label=fig:pharotutorial+
 
 This expression will trigger the Pharo tutorial (as shown in Figure
-*ProfStef*). It is a simple and interactive tutorial that will teach you
+*fig:ProfStef*). It is a simple and interactive tutorial that will teach you
 the basics of Pharo. You have just sent your first message. Pharo is based on
 the concept of sending messages to objects. The Pharo objects are like your
 soldiers ready to obey once you send them a message they can understand. We
 will see how an object can understand a message, later on.
 
-+PharoTutorial is a simple interactive tutorial to learn about Pharo>file://figures/ProfStef.png|width=80|label=ProfStef+
++PharoTutorial is a simple interactive tutorial to learn about Pharo>file://figures/ProfStef.png|width=80|label=fig:ProfStef+
 
 If you talk to Pharoers for a while, you will notice that they generally do not
 use expressions like "call an operation" or "invoke a method", as developers do
@@ -289,7 +289,7 @@ indicates that you can use the shortcut ==CMD-d== to get the same result.
 3. Notice how the text "hello world" appears in the transcript window. Do it
 again.
 
-+Executing an expresssion: displaying a string in the Transcript.>file://figures/HelloWorld_new.png|width=80|label=HelloWorld+
++Executing an expresssion: displaying a string in the Transcript.>file://figures/HelloWorld_new.png|width=80|label=fig:HelloWorld+
 
 !!Keyboard shortcuts
 
@@ -343,7 +343,7 @@ object.
 Type ""self squared"" in the bottom panel of the inspector on ""7"" and ""print
 it"".
 
-+Inspecting an object>file://figures/inspector.png|width=80|label=inspector+
++Inspecting an object>file://figures/inspector.png|width=80|label=fig:inspector+
 
 Close the inspector. Type the expression ==Object== in a playground and this
 time ""explore it"" (==CMD-I==, that is, the uppercase i, or ==CMD-SHIFT-i==).
@@ -351,7 +351,7 @@ time ""explore it"" (==CMD-I==, that is, the uppercase i, or ==CMD-SHIFT-i==).
 This time you should see a window labelled ""Object"" containing the text
 ""root: Object"". Click on the triangle to open it up.
 
-+Exploring Object>file://figures/explorer.png|width=60|label=explorer+
++Exploring Object>file://figures/explorer.png|width=60|label=fig:explorer+
 
 The explorer is similar to the inspector, but it offers a tree view of a complex
 object. In this case the object we are looking at is the ""Object"" class. We
@@ -370,9 +370,9 @@ available for Pharo, but this is the basic one you will find in any image.
 
 Open the Browser by selecting World Menu > System Browser.
 
-+The System Browser showing the printString method of class Object>file://figures/system-browser.png|width=100|label=systemBrowser+
++The System Browser showing the printString method of class Object>file://figures/system-browser.png|width=100|label=fig:systemBrowser+
 
-We can see a System Browser in Figure *systemBrowser*. The title bar indicates
+We can see a System Browser in Figure *fig:systemBrowser*. The title bar indicates
 that we are browsing the class Object and its method ==printString==.
 
 When a new System Browser window first opens, all panes are empty but the
@@ -426,7 +426,7 @@ or ''pool dictionaries'', and to put the class Boolean in the Kernel-Objects
 package. If you click on the ""comments"" button at the bottom of the class
 pane, you can see the class comment in a dedicated pane.
 
-+The Boolean class with the comments section>file://figures/Boolean.png|width=100|label=boolean+
++The Boolean class with the comments section>file://figures/Boolean.png|width=100|label=fig:boolean+
 
 !!!!Find class in System Browser
 
@@ -450,10 +450,10 @@ you the list of options.
 !!!!Using Spotlight
 
 Pressing Shift and Enter will bring Spotlight, a simple but powerfull tool to
-find classes and methods. Figure *spotlight* shows that we look for ==Point==.
+find classes and methods. Figure *fig:spotlight* shows that we look for ==Point==.
 The system proposes us several possibilities.
 
-+Spotlight>file://figures/spotlight.png|width=50|label=spotlight+
++Spotlight>file://figures/spotlight.png|width=50|label=fig:spotlight+
 
 !!!!Using the Finder
 
@@ -472,7 +472,7 @@ can help you.
 
 Select World Menu -> Tools -> Method finder. Type "now" in the top left pane,
 and ""accept"" it (or just press the RETURN key). You should get a situation
-similar to the one of Figure *finder*.
+similar to the one of Figure *fig:finder*.
 
 The method finder will display a list of all the method names that contain the
 substring "now". To scroll to now itself, move the cursor to the list and type
@@ -481,7 +481,7 @@ right-hand pane shows you the classes that define a method with this name.
 Selecting any one of them will open a browser on it.
 
 +The method finder showing all classes defining a method named
-now.>file://figures/finder.png|width=80|label=finder+
+now.>file://figures/finder.png|width=80|label=fig:finder+
 
 At other times you may have a good idea that a method exists, but will have no
 idea what it might be called. The method finder can still help! For example,
@@ -567,10 +567,10 @@ Once you have typed the text into the browser, notice that the corner is orange.
 This is a reminder that the pane contains unsaved changes. So, select ==accept
 (s)== by right clicking in the bottom pane, or just type ==CMD-s==, to compile
 and save your method. You should see a situation similar to the one depicted in
-Figure *testshout*.
+Figure *fig:testshout*.
 
 +Defining a test method in the class
-==StringTest==.>file://figures/testshout-00.png|width=70|label=testshout+
+==StringTest==.>file://figures/testshout-00.png|width=70|label=fig:testshout+
 
 If this is the first time you have accepted any code in your image, you will
 likely be prompted to enter your name. Since many people have contributed code
@@ -598,7 +598,7 @@ the test classes in that package, which includes the class ""StringTest"". The
 names of the classes are already selected, so click Run Selected to run all
 these tests.
 
-+Failed test - Message not Understood>file://figures/preview-1.png|width=70|label=messageNotUnderstood+
++Failed test - Message not Understood>file://figures/preview-1.png|width=70|label=fig:messageNotUnderstood+
 
 You should see the upper right pane turn red, which indicates that there was an
 error in running the tests. The list of tests that gave rise to errors is shown
@@ -607,12 +607,12 @@ culprit. (Note that ==StringTest>>testShout== is the Pharo way of identifying
 the ==testShout== method of the ==StringTest== class.) If you click on that
 method in the bottom right pane, the erroneous test will run again, this time in
 such a way that you see the error happen: ==MessageNotUnderstood:
-ByteString>>shout== (see Figure *messageNotUnderstood*).
+ByteString>>shout== (see Figure *fig:messageNotUnderstood*).
 
 The window that opens with the error message is the Pharo debugger. We will look
 at the debugger and how to use it in Chapter *cha:env*: The Pharo Environment.
 
-+Pressing the Create button in the debugger prompts you to select which class to create the new method in>file://figures/preview-2.png|width=70|label=createPromptWhichClass+
++Pressing the Create button in the debugger prompts you to select which class to create the new method in>file://figures/preview-2.png|width=70|label=fig:createPromptWhichClass+
 
 !!!Implementing the test method
 
@@ -623,16 +623,16 @@ confirms that we have set up the testing machinery correctly and that the new
 test is actually being run. Once you have seen the error, you can ""Abandon""
 the running test, which will close the debugger window.
 
-+You can implement methods in the debugger itself, via the Create button.>file://figures/shouldBeImplemented-3.png|width=70|label=shoutShouldBeImplemented+
++You can implement methods in the debugger itself, via the Create button.>file://figures/shouldBeImplemented-3.png|width=70|label=fig:shoutShouldBeImplemented+
 
-+The newly created ==shout== method.>file://figures/shoutInDebugger-4.png|width=70|label=shoutInDebugger+
++The newly created ==shout== method.>file://figures/shoutInDebugger-4.png|width=70|label=fig:shoutInDebugger+
 
 Instead of pressing ""Abandon"", you can define the missing method using the
 ""Create"" button right in the debugger. This will prompt you to select a class
-in which to define the new method (see Figure *createPromptWhichClass*), then
+in which to define the new method (see Figure *fig:createPromptWhichClass*), then
 prompt you to select a protocol for that method, and finally take you to a code
 editor window in the debugger, in which you can edit the code for this new
-method (see Figure *shoutShouldBeImplemented*). When you've finished
+method (see Figure *fig:shoutShouldBeImplemented*). When you've finished
 implementing the method, you can press ""Proceed"" and continue with the tests.
 Note that ""Proceed"" simply continues on running the test suite, and does not
 re-run the failed method.
