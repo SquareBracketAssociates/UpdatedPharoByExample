@@ -382,7 +382,7 @@ constant then depends on some other features, the method can be changed to
 calculate this value.
 As you can see there are some tabulation and empty lines. In order to keep the 
 same convention you can Right-Click on the method edit area and Click on 
-==format== use ==CMD-Shift-f== shortcut. This will format your method.
+==format== use ==CMD-Shift-u== shortcut. This will format your method.
 
 [[[language=smalltalk|caption=An initialization helper method|label=mth:NewCellAt
 LOGame >> newCellAt: i at: j
