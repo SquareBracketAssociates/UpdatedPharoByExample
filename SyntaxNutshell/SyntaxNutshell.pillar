@@ -153,7 +153,8 @@ message ==show: 'hello'== to the receiver ==Transcript==, and then we send the
 unary message ==cr== to the same receiver.
 
 The classes ==Number==, ==Character==, ==String== and ==Boolean== are described
-in more detail in Chapter *cha:basicClasses*: Basic Classes.
+in more detail in Chapter 
+*: Basic Classes>../BasicClasses/BasicClasses.pier@cha:basicClasses*.
 
 !!Pseudo-variables
 
@@ -163,11 +164,11 @@ pseudo-variables because they are predefined and cannot be assigned to.
 ==true==, ==false==, and ==nil== are constants, while the values of ==self==,
 ==super==, and ==thisContext== vary dynamically as code is executed.
 
-- ==true== and ==false== are the unique instances of the Boolean classes ==True== and ==False==. See Chapter *cha:basicClasses*: Basic Classes for more details.
+- ==true== and ==false== are the unique instances of the Boolean classes ==True== and ==False==. See Chapter *: Basic Classes>../BasicClasses/BasicClasses.pier@cha:basicClasses* for more details.
 
 - ==self== always refers to the receiver of the currently executing method.
 
-- ==super== also refers to the receiver of the current method, but when you send a message to ==super==, the method-lookup changes so that it starts from the superclass of the class containing the method that uses ==super==. For further details see Chapter *cha:model*: The Pharo Object Model.
+- ==super== also refers to the receiver of the current method, but when you send a message to ==super==, the method-lookup changes so that it starts from the superclass of the class containing the method that uses ==super==. For further details see Chapter *: The Pharo Object Model>../PharoObjectModel/PharoObjectModel.pier@cha:model*.
 
 - ==nil== is the undefined object. It is the unique instance of the class ==UndefinedObject==. Instance variables, class variables and local variables are initialized to ==nil==.
 
@@ -333,7 +334,8 @@ with blocks as arguments.
 
 Conditionals are expressed by sending one of the messages ==ifTrue:==,
 ==ifFalse:== or ==ifTrue:ifFalse:== to the result of a boolean expression. See
-Chapter *cha:basicClasses*: Basic Classes, for more about booleans.
+Chapter *: Basic Classes>../BasicClasses/BasicClasses.pier@cha:basicClasses*, 
+for more about booleans.
 
 [[[language=Smalltalk
 (17 * 13 > 220)
@@ -423,7 +425,8 @@ element of the collection. Sums and products are typical examples.
 
 This is equivalent to ==0\+\1\+2\+3\+4\+5\+6\+7\+8\+9\+10==.
 
-More about collections can be found in Chapter *cha:collections*: Collections.
+More about collections can be found in Chapter 
+*: Collections>../Collections/Collections.pier@cha:collections*.
 
 !! Primitives and pragmas
 
