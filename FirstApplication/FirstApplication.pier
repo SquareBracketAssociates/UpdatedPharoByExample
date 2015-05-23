@@ -24,6 +24,7 @@ contain two classes: one for the game and one for the cells. We will now show
 you how to define these classes using the Pharo programming tools.
 
 !!Creating a new Package
+@fstApp:Packages
 
 We have already seen the browser in Chapter 
 *: A Quick Tour of Pharo>../PharoTour/PharoTour.pillar@cha:tour* where we 
@@ -612,6 +613,7 @@ Browser== ) to file in the ==PBE-LightsOut.st== fileout (see Figure *@fig:fileBr
 works in the new image.
 
 !!!Monticello packages
+@fstApp:Monticiello
 
 Although fileouts are a convenient way of making a snapshot of the code you have
 written, they are decidedly "old school". Just as most open-source projects find
