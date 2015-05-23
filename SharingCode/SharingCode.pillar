@@ -73,7 +73,7 @@ names start with ==*==.
 A consequence of these rules is that each class definition and each method
 belongs to exactly one package. The ''except'' in the last rule has to be there
 because those methods must belong to other packages. The reason for ignoring
-case in rule *@sec:extensions* is that, by convention, protocol names are
+case in rule 2 is that, by convention, protocol names are
 typically (but not necessarily) lower case (and may include spaces), while
 category names use CamelCase (and don't include spaces).
 

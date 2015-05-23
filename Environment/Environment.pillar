@@ -337,7 +337,7 @@ created. If you click on a variable, ==bounds== for example, a
 
 You have the possibility to show the bytecode of a method. Click-right on your
 method and click on ==Toggle Bytecodes== to do that or use the shortcut
-==CMD + B + B== (see Figure *@fig:ByteCode*). Use the same shortcut to come back to
+==CMD \+ B \+ B== (see Figure *@fig:ByteCode*). Use the same shortcut to come back to
 the normal view.
 
 +Bytecode of ImageMorph\>\>#DrawOn: >file://figures/ByteCode.png|label=fig:ByteCode+

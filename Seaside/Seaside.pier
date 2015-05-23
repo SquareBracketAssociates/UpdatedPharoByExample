@@ -220,7 +220,7 @@ We are almost done!
 @@todo Point your web browser at *http://localhost:8080/seaside/config*, add a new entry point called ''hello'', and set its root component to be ==WAHelloWorld==.
 
 Now point your browser to *http://localhost:8080/seaside/hello*. That's it!  You
-should see a web page like Figure *fig:WAHelloWorld*.
+should see a web page like Figure *@fig:WAHelloWorld*.
 
 +''Hello World'' in
 Seaside>file://figures/WAHelloWorld.png|label=fig:WAHelloWorld+
@@ -950,7 +950,7 @@ simple stack machine as its underlying model. Furthermore, the Seaside interface
 will let us toggle between two displays — one which just shows us the current
 value on top of the stack, and the other which shows us the complete state of
 the stack. The calculator with the two display options is shown in Figure
-*fig:stackMachine*.
+*@fig:stackMachine*.
 
 +RPN calculator and its stack
 machine>file://figures/stackMachine-flat.png|label=fig:stackMachine+
