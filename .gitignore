@@ -7,12 +7,6 @@
 *.toc
 *.url
 *.synctex.gz
-*.pier.pdf
-*.pier.tex
-*.pier.html
-*.pillar.pdf
-*.pillar.tex
-*.pillar.html
 /crash.dmp
 .DS_Store
 /Pharo.changes
@@ -30,6 +24,14 @@ files/
 /PharoByExample.tex
 /UpdatedPharoByExample.tex
 /book-result/
+*.html
+*.md
+*.pdf
+*.tex
+stderr
+stdout
+stdin
+play-cache/
 
 # Emacs
 \#*#
