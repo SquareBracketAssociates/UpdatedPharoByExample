@@ -69,9 +69,9 @@ you for a new name and password.
 
 @@todo Start the Seaside server and direct a web browser to *http://localhost:8080/seaside/*.
 
-You should see a web page that looks like Figure *fig:seasideStartup*.
+You should see a web page that looks like Figure *@fig:seasideStartup*.
 
-@@todo Navigate to the ==examples>counter== page. (Figure *fig:counter*)
+@@todo Navigate to the ==examples>counter== page. (Figure *@fig:counter*)
 
 +The counter.>file://figures/counter.png|label=fig:counter+
 
@@ -82,7 +82,7 @@ incremented or decremented by clicking on the __++__ and __– –__ links.
 Use your browser's ''back'' button to go back to a previous state, and then click on __++__ again.
 Notice how the counter is correctly incremented with respect to the currently displayed state, rather than the state that the counter was in when you started using the ''back'' button.
 
-Notice the toolbar at the bottom of the web page in Figure *fig:seasideStartup*.
+Notice the toolbar at the bottom of the web page in Figure *@fig:seasideStartup*.
 Seaside supports a notion of ''sessions'' to keep track of the state of the
 application for different users. ==New Session== will start a new session on the
 counter application. ==Configure== allows you to configure the settings of your
@@ -102,7 +102,7 @@ from the Pharo image, or directly from the web interface using halos.
 
 +Halos>file://figures/counterHalos.png|label=fig:counterHalos+
 
-@@todo Select ==Toggle Halos==. You should see a web page like Figure *fig:counterHalos*.
+@@todo Select ==Toggle Halos==. You should see a web page like Figure *@fig:counterHalos*.
 
 At the top left the text ==WACounter== tells us the class of the Seaside
 component that implements the behavior of this web page. Next to this are three
@@ -127,7 +127,7 @@ the ordinary Pharo development tools in the server image.
 @@todo Using the object inspector link in the web browser, open an inspector on the underlying Smalltalk counter object and evaluate ==self halt==.
 
 The web page will stop loading. Now switch to the Seaside image. You should see
-a pre-debugger window (Figure *fig:haltingCounter*) showing a ==WACounter==
+a pre-debugger window (Figure *@fig:haltingCounter*) showing a ==WACounter==
 object executing a ==halt==. Examine this execution in the debugger, and then
 ==Proceed==. Go back to the web browser and notice that the counter application
 is running again.
@@ -160,7 +160,7 @@ configuration change.
 Supply the login and password (==admin== and ==seaside== by default). Select
 __Configure__ next to ''examples.'' Under the heading ''Add entry point'', enter
 the new name ''counter2'' for the type ''Application'' and click on ==Add== (see
-Figure *fig:counter2*). On the next screen, set the ''Root Component'' to
+Figure *@fig:counter2*). On the next screen, set the ''Root Component'' to
 ==WACounter==, then click ==Save== and ==Close==. Now we have a new counter
 installed at *http://localhost:8080/seaside/examples/counter2*. Use the same
 configuration interface to remove this entry point.
@@ -190,7 +190,7 @@ components. Let's take a closer look at how Seaside works by implementing the
 ''Hello World'' component.
 
 Every Seaside component should inherit directly or indirectly from
-==WAComponent==, as shown in Figure *fig:WACounter*.
+==WAComponent==, as shown in Figure *@fig:WACounter*.
 
 @@todo Define a subclass of ==WAComponent== called ==WAHelloWorld==.
 
@@ -239,7 +239,7 @@ the instance side.>file://figures/WACounter.png|label=fig:WACounter+
 The class ==WACounter== is a standalone application, so ==WACounter class== must
 answer ==true== to the  ==canBeRoot== message. It must also register itself as
 an application; this is done in its class-side ==initialize== method, as shown
-in Figure *fig:WACounter*.
+in Figure *@fig:WACounter*.
 
 ==WACounter== defines two methods, ==increase== and ==decrease==, which will be
 triggered from the __++__ and __– –__ links on the web page. It also defines an
@@ -283,14 +283,14 @@ prior value.
 !!Rendering XHTML
 
 The purpose of a web application is to create, or ''render'', web pages.  As we
-mentioned in Section *sec:components*, each Seaside component is responsible for
+mentioned in Section *@sec:components*, each Seaside component is responsible for
 rendering itself. So, lets start our exploration of rendering by seeing how the
 counter component renders itself.
 
 !!!Rendering the Counter
 
 The rendering of the counter is relatively straightforward; the code is shown in
-Figure *fig:WACounter*. The current value of the counter is displayed as an
+Figure *@fig:WACounter*. The current value of the counter is displayed as an
 XHTML heading, and the increment and decrement operations are implemented as
 html anchors (that is, links) with callbacks to blocks that will send
 ==increase== and ==decrease== to the counter object.
@@ -300,7 +300,7 @@ do, let's have a quick look at the multi-counter.
 
 !!!From Counter to MultiCounter
 
-==WAMultiCounter==, shown in Figure *fig:WAMultiCounter* is also a standalone
+==WAMultiCounter==, shown in Figure *@fig:WAMultiCounter* is also a standalone
 application, so it overrides ==canBeRoot== to answer ==true==. In addition, it
 is a ''composite'' component, so Seaside requires it to declare its children by
 implementing a method ==children== that answers an array of all the components
@@ -333,7 +333,7 @@ html render: 1.              "render any object"
 The message ==render: anyObject== can be sent to an html canvas to render
 ==anyObject==; it is normally used to render subcomponents.  ==anyObject== will
 itself be sent the message ==renderContentOn:== this is what happens in the
-multi-counter (see Figure *fig:WAMultiCounter*).
+multi-counter (see Figure *@fig:WAMultiCounter*).
 
 !!!Using Brushes
 @sec:brushes
@@ -354,13 +354,13 @@ html horizontalRule.
 
 +RenderingDemo>file://figures/RenderingDemo.png|label=fig:RenderingDemo+
 
-In Figure *fig:RenderingDemo* we can see the output of many of the basic brushes
-offered by Seaside.(The source code for method *mth:renderdemo* is in the
+In Figure *@fig:RenderingDemo* we can see the output of many of the basic brushes
+offered by Seaside.(The source code for method *@mth:renderdemo* is in the
 package ==PBE-SeasideDemo== in the project
 *http://www.squeaksource.com/PharoByExample*.) The root component
 ==SeasideDemo== simply renders its subcomponents, which are instances of
 ==SeasideHtmlDemo==, ==SeasideFormDemo==, ==SeasideEditCallDemo== and
-==SeasideDialogDemo==, as shown in method *mth:renderdemo*.
+==SeasideDialogDemo==, as shown in method *@mth:renderdemo*.
 
 [[[label=mth:renderdemo
 SeasideDemo>>>renderContentOn: html
@@ -390,10 +390,10 @@ Many of the available brushes can be used in these two ways.
 
 @@important If you send a cascade of messages to a brush including the message ==with:==, then ==with:== should be the ''final'' message.  ==with:==  both sets the content and renders the result.
 
-In method *mth:renderdemo*, the first heading is at level 1, since this is the
+In method *@mth:renderdemo*, the first heading is at level 1, since this is the
 default. We explicitly set the level of the second heading to 2. The
 subcomponent is rendered as an XHTML ''div'' with the CSS class
-''subcomponent''. (More on CSS in Section *sec:css*.) Also note that the
+''subcomponent''. (More on CSS in Section *@sec:css*.) Also note that the
 argument to the ==with:== keyword message need not be a literal string: it can
 be another component, or even — as in the next example — a block containing
 further rendering actions.
@@ -460,7 +460,7 @@ The next example shows how we can specify CSS ''div''s and ''span''s with
 ''class'' or ''id'' attributes. Of course, the messages ==class:== and ==id:==
 can also be sent to the other brushes, not just to ''div''s and ''span''s. The
 method ==SeasideDemoWidget>>>style== defines how these XHTML elements should be
-displayed (see Section *sec:css*).
+displayed (see Section *@sec:css*).
 
 [[[
 SeasideHtmlDemo>>>renderDivsAndSpansOn: html
@@ -500,7 +500,7 @@ application!
 !!!Forms
 
 Forms are rendered just like the other examples that we have already seen. Here
-is the code for the ==SeasideFormDemo== component in Figure *fig:RenderingDemo*.
+is the code for the ==SeasideFormDemo== component in Figure *@fig:RenderingDemo*.
 
 [[[
 SeasideFormDemo>>>renderContentOn: html
@@ -623,8 +623,8 @@ td {
 '
 ]]]
 
-Script *mth:democss* illustrates a simple style sheet for the rendering demo
-shown earlier in Figure *fig:RenderingDemo*. The first rule specifies a
+Script *@mth:democss* illustrates a simple style sheet for the rendering demo
+shown earlier in Figure *@fig:RenderingDemo*. The first rule specifies a
 preference for the fonts to use for the ==body== of the web page. The next few
 rules specify properties of second-level headings (==h2==), tables (==table==),
 and table data (==td==).
@@ -673,7 +673,7 @@ control flow. There are basically two mechanisms that you can use:
 Call and answer are used to realize simple dialogues.
 
 There is a trivial example of ==call:== and ==answer:== in the rendering demo of
-Figure *fig:RenderingDemo*. The component ==SeasideEditCallDemo== displays a
+Figure *@fig:RenderingDemo*. The component ==SeasideEditCallDemo== displays a
 text field and an ''edit'' link. The callback for the edit link calls a new
 instance of ==SeasideEditAnswerDemo== initialized to the value of the text
 field. The callback also updates this text field to the result which is sent as
@@ -727,7 +727,7 @@ steps).
 Since certain call–answer dialogues are very common, Seaside provides some
 convenience methods to save you the trouble of writing components like
 ==SeasideEditAnswerDemo==. The generated dialogues are shown in Figure
-*fig:dialogs*. We can see these convenience methods being used within
+*@fig:dialogs*. We can see these convenience methods being used within
 ==SeasideDialogDemo>>>renderContentOn:==
 
 +Some standard dialogs>file://figures/dialogs-flat.png|label=fig:dialogs+
@@ -822,13 +822,13 @@ WAConvenienceTest>>>informCheese
 	self inform: 'Your favorite cheese is ', cheese, '.'
 ]]]
 
-The generated dialogues are shown in Figure *fig:chooseCheese*.
+The generated dialogues are shown in Figure *@fig:chooseCheese*.
 
 +A simple task>file://figures/chooseCheese-flat.png|label=fig:chooseCheese+
 
 !!!Transactions
 
-We saw in Section *sec:backtracking* that Seaside can keep track of the
+We saw in Section *@sec:backtracking* that Seaside can keep track of the
 correspondence between the state of components and individual web pages by
 having components register their state for backtracking: all that a component
 need do is implement the method ==states== to answer an array of all the objects
@@ -1345,7 +1345,7 @@ MyCalculator class>>>initialize
 
 @@todo Try the revised application. Note that the feedback is much more natural. In particular, a new URL is not generated with each keystroke.
 
-You may well ask, ''yes, but how does this work?'' Figure *fig:ajax-processing*
+You may well ask, ''yes, but how does this work?'' Figure *@fig:ajax-processing*
 shows how the RPN applications would both without and with AJAX. Basically AJAX
 short-circuits the rendering to ''only'' update the display component.
 Javascript is responsible both for triggering the request and updating the
