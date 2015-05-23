@@ -14,7 +14,7 @@ represented as two sequences of elements: a past element sequence and a future
 element sequence. The stream is positioned between the two sequences.
 Understanding this model is important since all stream operations in Smalltalk
 rely on it. For this reason, most of the ==Stream== classes are subclasses of
-==PositionableStream==. *fig:_abcde* presents a stream which contains five
+==PositionableStream==. *@fig:_abcde* presents a stream which contains five
 characters. This stream is in its original position, ''i.e.'', there is no
 element in the past. You can go back to this position using the message
 ==PositionableStream>>reset==.
@@ -25,14 +25,14 @@ beginning.>file://figures/_abcdeStef.png|label=fig:_abcde+
 Reading an element conceptually means removing the first element of the future
 element sequence  and putting it after the last element in the past element
 sequence. After having read one element using the message ==next==, the state of
-your stream is that shown in *fig:a_bcde*.
+your stream is that shown in *@fig:a_bcde*.
 
 +The same stream after the execution of the method ==next==: the character ==a==
 is ''in the past'' whereas ==b==, ==c==, ==d== and ==e== are ''in the
 future''.>file://figures/a_bcdeStef.png|label=fig:a_bcde+
 
 Writing an element means replacing the first element of the future sequence by
-the new one and moving it to the past. *fig:ax_cde* shows the state of the same
+the new one and moving it to the past. *@fig:ax_cde* shows the state of the same
 stream after having written an ==x== using the message ==Stream>>nextPut:==
 ==anElement==.
 
@@ -171,7 +171,7 @@ current position using ==PositionableStream>>position==. Please remember that a
 stream is not positioned on an element, but between two elements. The index
 corresponding to the beginning of the stream is 0.
 
-You can obtain the state of the stream depicted in *fig:ab_cde* with the
+You can obtain the state of the stream depicted in *@fig:ab_cde* with the
 following code:
 
 [[[
@@ -342,7 +342,7 @@ String streamContents: [ :tempStream |
 It's possible to use a stream to access a collection for reading and writing at
 the same time. Imagine you want to create an ==History== class which will manage
 backward and forward buttons in a web browser. A history would react as in
-figures from *fig:emptyStream* to *fig:page4*.
+figures from *@fig:emptyStream* to *@fig:page4*.
 
 +A new history is empty. Nothing is displayed in the web
 browser.>file://figures/emptyStef.png|label=fig:emptyStream+
@@ -567,7 +567,7 @@ FileStream
 	]
 ]]]
 
-This creates a 4x4 checkerboard as shown in *fig:checkerboard4x4*.
+This creates a 4x4 checkerboard as shown in *@fig:checkerboard4x4*.
 
 +A 4x4 checkerboard you can draw using binary
 streams.>file://figures/checkerboard4x4.png|label=fig:checkerboard4x4+
