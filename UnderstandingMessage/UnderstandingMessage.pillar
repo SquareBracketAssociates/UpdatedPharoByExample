@@ -9,7 +9,7 @@ to it later.
 
 !!Identifying messages
 
-In Pharo, except for the syntactic elements listed in Chapter *cha:syntax*: Syntax in a Nutshell
+In Pharo, except for the syntactic elements listed in Chapter *: Syntax in a Nutshell>../SyntaxNutshell/SyntaxNutshell.pillar@cha:syntax*
 (==\:= ^ . ; # () {} [ : | ]==), everything is a message
 send. As in C\+\+, you can define operators like ==+== for your own classes, but
 all operators have the same precedence. Moreover, you cannot change the arity of
@@ -29,7 +29,7 @@ us:
 
 - A message is composed of the message ""selector"" and the optional message arguments.
 - A message is sent to a ""receiver"".
-- The combination of a message and its receiver is called a ''message send'' as shown in Figure *fig:firstScriptMessage*.
+- The combination of a message and its receiver is called a ''message send'' as shown in Figure *@fig:firstScriptMessage*.
 
 +Two message sends composed of a receiver, a method selector, and a set of arguments.>file://figures/message.png|width=80|label=fig:firstScriptMessage+
 
@@ -38,13 +38,13 @@ or a variable or the result of evaluating another message.
 
 To help you identify the receiver of a message, we will underline it for you. We
 will also surround each message send with an ellipse, and number the message sends
-starting from the first one to help you see the send order in Figure *fig:ellipse*.
+starting from the first one to help you see the send order in Figure *@fig:ellipse*.
 
 +==aMorph color: Color yellow== is composed of two message sends: ==Color
 yelow== and ==aMorph color: Color
 yellow==.>file://figures/uKeyUnOne.png|width=40|label=fig:ellipse+
 
-Figure *fig:ellipse* represents two message sends, ==Color yellow== and ==aMorph
+Figure *@fig:ellipse* represents two message sends, ==Color yellow== and ==aMorph
 color: Color yellow==, hence there are two ellipses. The message send ==Color
 yellow== is executed first, so its ellipse is numbered ==1==. There are two
 receivers: 1) ==aMorph== which receives the message ==color: ...== and 2) ==Color==
@@ -170,7 +170,7 @@ be composed in an elegant way.
 
 These rules lead to a very natural reading order. If you want to be sure
 that your messages are sent in the order that you want, you can always add more
-parentheses, as shown in Figure *fig:uKeyUn*. In this figure, the message
+parentheses, as shown in Figure *@fig:uKeyUn*. In this figure, the message
 ==yellow== is an unary message and the message ==color:== a keyword message,
 therefore the message send ==Color yellow== is sent first. However as message
 sends in parentheses are sent first, putting (unnecessary) parentheses around
@@ -236,8 +236,8 @@ In the message ==aPen color: Color yellow==, there is one ''unary'' message
 ==yellow== sent to the class ==Color== and a ''keyword'' message ==color:== sent
 to ==aPen==. Unary messages are sent first so the message send ==Color yellow==
 is sent (1). This returns a color object which is passed as argument of the
-message ==aPen color: aColor== (2) as shown in Script *mth:decColor*. Figure
-*fig:uKeyUn* shows graphically how messages are sent.
+message ==aPen color: aColor== (2) as shown in Script *@mth:decColor*. Figure
+*@fig:uKeyUn* shows graphically how messages are sent.
 
 [[[label=mth:decColor|caption=Decomposing the evaluation of aPen color: Color yellow|language=Smalltalk
         aPen color: Color yellow
@@ -252,7 +252,7 @@ a ''keyword'' message ==go:==. Binary messages are sent prior to keyword
 messages so ==100 + 20== is sent first (1): the message ==+ 20== is sent to the
 object ==100== and returns the number ==120==. Then the message ==aPen go: 120==
 is sent with ==120== as argument (2). The following example shows how the
-message send is executed (Script *mth:decColor2*)
+message send is executed (Script *@mth:decColor2*)
 
 [[[label=mth:decColor2|caption=Decomposing aPen go: 100 + 20|language=Smalltalk
       aPen go: 100 + 20
@@ -270,7 +270,7 @@ messages>file://figures/uKeyBin.png|width=30|label=fig:uKeyBin+
 !!!!!Example 3.
 As an exercise we let you decompose the evaluation of the message ==Pen new go:
 100 + 20== which is composed of one unary, one keyword and one binary message
-(see Figure *fig:unKeyBin*).
+(see Figure *@fig:unKeyBin*).
 
 !!!Parentheses first
 Parenthesised messages are sent prior to other messages.
@@ -299,7 +299,7 @@ Here we need the parentheses to force sending ==lowMajorScaleOn:== before
 !!!!!Example 4.
 The message ==(65@325 extent: 134@100) center== returns the center of a
 rectangle whose top left point is (65, 325) and whose size is 134x100. Script
-*mth:decExtent* shows how the message is decomposed and sent. First the message
+*@mth:decExtent* shows how the message is decomposed and sent. First the message
 between parentheses is sent. It contains two binary messages, ==65@325== and
 ==134@100==, that are sent first and return points, and a keyword message
 ==extent:== which is then sent and returns a rectangle. Finally the unary
@@ -328,7 +328,7 @@ down>file://figures/ucompoUn.png|width=45|label=fig:unaryMessages+
 Now we know how messages of different kinds or priorities are handled. The final
 question to be addressed is how messages with the same priority are sent. They
 are sent from the left to the right. Note that you already saw this behaviour in
-Script *mth:decExtent* where the two point creation messages (==@==) were sent
+Script *@mth:decExtent* where the two point creation messages (==@==) were sent
 first.
 
 @@important ''Rule three''. When the messages are of the same kind, the order of evaluation is from left to right.
@@ -337,7 +337,7 @@ first.
 In the message sends ==Pen new down== all messages are unary messages, so the
 leftmost one, ==Pen new==, is sent first. This returns a newly created pen to
 which the second message ==down== is sent, as shown in Figure
-*fig:unaryMessages*.
+*@fig:unaryMessages*.
 
 !!!Arithmetic inconsistencies
 
@@ -365,7 +365,7 @@ In the message sends ==20 + 2 * 5==, there are only binary messages ==+== and ==
 However in Pharo there is no special priority for the operations ==+== and ==*==.
 They are just binary messages, hence ==*== does not have priority over ==+==.
 Here the leftmost message ==+== is sent first, and then the ==*== is sent to
-the result as shown in Script *mth:decomposing* and Figure *fig:wrongcompo*.
+the result as shown in Script *@mth:decomposing* and Figure *@fig:wrongcompo*.
 
 [[[label=mth:decomposing|caption=Decomposing 20 + 2 * 5|language=Smalltalk
 "As there is no priority among binary messages, the leftmost message + is evaluated first
@@ -383,8 +383,8 @@ but ==110==. This result is perhaps unexpected but follows directly from the
 rules used to send messages. This is the price to pay for the simplicity of the
 Pharo model. To get the correct result, we should use parentheses. When messages
 are enclosed in parentheses, they are evaluated first. Hence the message send
-==20 + (2 * 5)== returns the result as shown by Script *mth:decomposing2* and Figure
-*fig:okcompo*.
+==20 + (2 * 5)== returns the result as shown by Script *@mth:decomposing2* and Figure
+*@fig:okcompo*.
 
 [[[label=mth:decomposing2|caption=Decomposing 20 + (2 * 5)|language=Smalltalk
 "The messages surrounded by parentheses are evaluated first therefore * is sent prior to + which produces the correct behaviour."
@@ -476,7 +476,7 @@ parentheses. The basic principle is that you should use ==[ ]== when you do not
 know how many times, potentially zero, an expression should be evaluated.
 ==[ expression ]== will create a block closure (an object, as always) from
 ==expression==, which may be evaluated zero or more times,
-depending on the context. (Recall from Chapter *cha:syntax*: Syntax in a Nutshell
+depending on the context. (Recall from Chapter *: Syntax in a Nutshell>../SyntaxNutshell/SyntaxNutshell.pillar@cha:syntax*
 that an expression can either be a message
 send, a variable, a literal, an assignment or a block.)
 
