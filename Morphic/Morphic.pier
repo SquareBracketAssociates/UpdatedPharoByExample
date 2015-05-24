@@ -126,22 +126,22 @@ container morph.
 
 @@todo Try adding a morph to another one:
 
-[[[
-star := StarMorph new color: Color yellow.
-joe addMorph: star.
-star position: joe position.
+[[[language=smalltalk|caption=Create a Balloon inside Joe|label=spt:balloonCreation
+balloon := BalloonMorph new color: Color yellow.
+joe addMorph: balloon.
+balloon position: joe position.
 ]]]
 
-The last line positions the star at the same coordinates as joe. Notice that the
+The last line positions the balloon at the same coordinates as joe. Notice that the
 coordinates of the contained morph are still relative to the screen, not to the
 containing morph. There are many  methods available to position a morph; browse
 the ==geometry== protocol of class ==Morph== to see for yourself. For example,
-to center the star inside joe, execute ==star== ==center:== ==joe center==.
+to center the balloon inside joe, execute ==balloon center: joe center==.
 
-+The star is contained inside joe, the translucent blue morph. >file://figures/joeStar.png|label=fig:joeStar+
++The balloon is contained inside joe, the translucent orange morph. >file://figures/joeStar.png|label=fig:joeStar+
 
-If you now try to grab the star with the mouse, you will find that you actually
-grab joe, and the two morphs move together: the star is ''embedded'' inside joe.
+If you now try to grab the balloon with the mouse, you will find that you actually
+grab joe, and the two morphs move together: the balloon is ''embedded'' inside joe.
 It is possible to embed more morphs inside joe. In addition to doing this
 programmatically, you can also embed morphs by direct manipulation.
 
