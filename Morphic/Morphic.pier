@@ -79,14 +79,14 @@ are those of the smallest rectangular ''box'' that surrounds them, which is
 known as the morph's bounding box, or just its ''bounds''. The ==position==
 method returns a ==Point== that describes the location of the morph's upper left
 corner (or the upper left corner of its bounding box). The origin of the
-coordinate system is the screen's upper left corner, with $y$ coordinates
-increasing ''down'' the screen and $x$ coordinates increasing to the right. The
+coordinate system is the screen's upper left corner, with ''y'' coordinates
+increasing ''down'' the screen and ''x'' coordinates increasing to the right. The
 ==extent== method also returns a point, but this point specifies the width and
 height of the morph rather than a location.
 
-@@todo Type the following code into a workspace and ==do it==:
+@@todo Type the following code into a playground and ==do it==:
 
-[[[
+[[[lanuage=smalltalk|caption=Creation of two Color Morph|label=spt:joeAndBill
 joe := Morph new color: Color blue.
 joe openInWorld.
 bill := Morph new color: Color red .
@@ -94,9 +94,11 @@ bill openInWorld.
 ]]]
 
 Then type ==joe position== and ==print it==. To move joe, execute ==joe
-position: (joe position + (10@3))== repeatedly.
+position: (joe position + (10@3))== repeatedly (see Figure *@fig:moveJoe*).
 
-It is possible to do a similar thing with size. ==joe== ==extent== answers joe's
++ Bill and Joe after 10 move>file://figures/moveJoe.png|width=75|label=fig:moveJoe+
+
+It is possible to do a similar thing with size. ==joe extent== answers joe's
 size; to have joe grow, execute ==joe extent: (joe extent * 1.1)==. To change
 the color of a morph, send it the ==color:== message with the desired ==Color==
 object as argument, for instance, ==joe color: Color orange==. To add
@@ -104,12 +106,15 @@ transparency, try ==joe color: (Color orange alpha: 0.5)==.
 
 @@todo To make bill follow joe, you can repeatedly execute this code:
 
-[[[
+[[[language=smalltalk|caption=Make bill follow joe|label=spt:billfollowJoe
 bill position: (joe position + (100@0))
 ]]]
-
 If you move joe using the mouse and then execute this code, bill will move so
 that it is 100 pixels to the right of joe.
+
+You can see the result on Figure *@fig:joeAndBillResult*
+
++ Bill follow Joe>file://figures/joeAndBillResult.png|width=75|label=fig:joeAndBillResult+
 
 !!Composing morphs
 
