@@ -582,7 +582,7 @@ DroppedMorph>>#initialize
 Now we can specify what the dropped morph should do when it is rejected by the
 receiver; here it will stay attached to the mouse pointer:
 
-[[[language=smalltalk|caption=Reacting when the morph was dropped but rejected|label=rejectDropMorph
+[[[language=smalltalk|caption=Reacting when the morph was dropped but rejected|label=rejectDropMorph|label=spt:
 DroppedMorph>>#rejectDropMorphEvent: anEvent
 	| h |
 	h := anEvent hand.
@@ -609,15 +609,15 @@ The green morph is rejected and therefore stays attached to the mouse pointer.
 
 !!A complete example
 
-Let's design a morph to roll a die(NB: One die, two dice.). Clicking on it will
+Let's design a morph to roll a die (NB: One die, two dice). Clicking on it will
 display the values of all sides of the die in a quick loop, and another click
 will stop the animation.
 
-+The die in Morphic.>file://figures/die.png|width=0.65|label=fig:dialogDie+
++The die in Morphic>file://figures/die.png|width=30|label=fig:dialogDie+
 
 @@todo Define the die as a subclass of ==BorderedMorph== instead of ==Morph==, because we will make use of the border.
 
-[[[caption=Defining the die morph
+[[[language=smalltalk|caption=Defining the die morph|label=spt:classDie
 BorderedMorph subclass: #DieMorph
 	instanceVariableNames: 'faces dieValue isStopped'
 	classVariableNames: ''
@@ -631,19 +631,22 @@ currently displayed, and ==isStopped== is true if the die animation has stopped
 running. To create a die instance, we define the ==faces: n== method on the
 ''class'' side of ==DieMorph== to create a new die with ==n== faces.
 
-[[[caption=Creating a new die with the number of faces we like.
-DieMorph class>>>faces: aNumber
+[[[language=smalltalk|caption=Creating a new die with the number of faces we like|label=spt:facesClass
+DieMorph class>>#faces: aNumber
 	^ self new faces: aNumber
 ]]]
 
 The ==initialize== method is defined on the instance side in the usual way;
 remember that ==new== sends ==initialize== to the newly-created instance.
 
-[[[caption=Initializing instances of ==DieMorph==.
-DieMorph>>>initialize
+[[[language=smalltalk|caption=Initializing instances of ==DieMorph==|label=spt:initializeDie
+DieMorph>>#initialize
 	super initialize.
 	self extent: 50 @ 50.
-	self useGradientFill; borderWidth: 2; useRoundedCorners.
+	self
+		useGradientFill;
+		borderWidth: 2;
+		useRoundedCorners.
 	self setBorderStyle: #complexRaised.
 	self fillStyle direction: self extent.
 	self color: Color green.
@@ -657,13 +660,12 @@ a thick border with a raised effect, rounded corners, and a color gradient on
 the visible face. We define the instance method ==faces:== to check for a valid
 parameter as follows:
 
-[[[caption=Setting the number of faces of the die.
-DieMorph>>>faces: aNumber
+[[[language=smalltalk|caption=Setting the number of faces of the die|label=spt:numberOfFaces
+DieMorph>>#faces: aNumber
 	"Set the number of faces"
-	(aNumber isInteger
-			and: [aNumber > 0]
-			and: [aNumber <= 9])
-		ifTrue: [faces := aNumber]
+
+	((aNumber isInteger and: [ aNumber > 0 ]) and: [ aNumber <= 9 ])
+		ifTrue: [ faces := aNumber ]
 ]]]
 
 It may be good to review the order in which the messages are sent when a die is
@@ -678,24 +680,24 @@ created. For instance, if we start by evaluating ==DieMorph faces: 9==:
 Before defining ==drawOn:==, we need a few methods to place the dots on the
 displayed face:
 
-[[[caption=Nine methods for placing points on the faces of the die.
-DieMorph>>>face1
-	^{0.5@0.5}
-DieMorph>>>face2
+[[[language=smalltalk|caption=Nine methods for placing points on the faces of the die|label=spt:placeDots
+DieMorph>>#face1
+	^ {(0.5 @ 0.5)}
+DieMorph>>#face2
 	^{0.25@0.25 . 0.75@0.75}
-DieMorph>>>face3
+DieMorph>>#face3
 	^{0.25@0.25 . 0.75@0.75 . 0.5@0.5}
-DieMorph>>>face4
+DieMorph>>#face4
 	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75}
-DieMorph>>>face5
+DieMorph>>#face5
 	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.5@0.5}
-DieMorph>>>face6
+DieMorph>>#face6
 	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.25@0.5 . 0.75@0.5}
-DieMorph>>>face7
+DieMorph>>#face7
 	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.25@0.5 . 0.75@0.5 . 0.5@0.5}
-DieMorph >>>face8
+DieMorph >>#face8
 	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.25@0.5 . 0.75@0.5 . 0.5@0.5 . 0.5@0.25}
-DieMorph >>>face9
+DieMorph >>#face9
 	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.25@0.5 . 0.75@0.5 . 0.5@0.5 . 0.5@0.25 . 0.5@0.75}
 ]]]
 
@@ -706,8 +708,8 @@ place the actual dots.
 The ==drawOn:== method does two things: it draws the die background with the
 ==super==-send, and then draws the dots.
 
-[[[caption=Drawing the die morph.
-DieMorph>>>drawOn: aCanvas
+[[[language=smalltalk|caption=Drawing the die morph|label=spt:drawOnDie
+DieMorph>>#drawOn: aCanvas
 	super drawOn: aCanvas.
 	(self perform: ('face' , dieValue asString) asSymbol)
 		do: [:aPoint | self drawDotOn: aCanvas at: aPoint]
@@ -721,8 +723,8 @@ message for each coordinate. To call the correct ==faceX== method, we use the
 dieValue asString) asSymbol==. You will encounter this use of ==perform:== quite
 regularly.
 
-[[[caption=Drawing a single dot on a face.
-DieMorph>>>drawDotOn: aCanvas at: aPoint
+[[[language=smalltalk|caption=Drawing a single dot on a face|label=spt:drawDotOn
+DieMorph>>#drawDotOn: aCanvas at: aPoint
 	aCanvas
 		fillOval: (Rectangle
 			center: self position + (self extent * aPoint)
@@ -730,35 +732,38 @@ DieMorph>>>drawDotOn: aCanvas at: aPoint
 		color: Color black
 ]]]
 
-Since the coordinates are normalized to the $[0{:}1]$ interval, we scale them to
+Since the coordinates are normalized to the ''[0:1]'' interval, we scale them to
 the dimensions of our die: ==self extent * aPoint==.
 
-@@todo We can already create a die instance from a workspace:
+@@todo We can already create a die instance from a playground (see result on Figure *@fig:die6*):
 
-[[[
+[[[language=smalltalk|caption=Create a Die 6|label=spt:die6
 (DieMorph faces: 6) openInWorld.
 ]]]
 
-To change the displayed face, we create an accessor that we can use as ==myDie
-dieValue: 4==:
++ A new die 6 with ==(DieMorph faces: 6) openInWorld==>file://figures/die6.png|width=30|label=fig:die6+
 
-[[[caption=Setting the current value of the die.
-DieMorph>>>dieValue: aNumber
-	(aNumber isInteger
-			and: [aNumber > 0]
-			and: [aNumber <= faces])
-		ifTrue:
-			[dieValue := aNumber.
-			self changed]
+To change the displayed face, we create an accessor that we can use as ==myDie
+dieValue: 5==:
+
+
+[[[language=smalltalk|caption=Setting the current value of the die|label=spt:dieValue
+DieMorph>>#dieValue: aNumber
+	((aNumber isInteger and: [ aNumber > 0 ]) and: [ aNumber <= faces ])
+		ifTrue: [ 
+			dieValue := aNumber.
+			self changed ]
 ]]]
+
++ Result of ==(DieMorph faces: 6) openInWorld; dieValue: 5==>file://figures/die.png|width=30|label=fig:dieValue5+
 
 Now we will use the animation system to show quickly all the faces:
 
-[[[caption=Animating the die.
-DieMorph>>>stepTime
+[[[language=smalltalk|caption=Animating the die|label=spt:stepDie
+DieMorph>>#stepTime
 	^ 100
 
-DieMorph>>>step
+DieMorph>>#step
 	isStopped ifFalse: [self dieValue: (1 to: faces) atRandom]
 ]]]
 
@@ -767,11 +772,11 @@ Now the die is rolling!
 To start or stop the animation by clicking, we will use what we learned
 previously about mouse events. First, activate the reception of mouse events:
 
-[[[caption=Handling mouse clicks to start and stop the animation.
-DieMorph>>>handlesMouseDown: anEvent
+[[[language=smalltalk|caption=Handling mouse clicks to start and stop the animation|label=spt:handleMouseDie
+DieMorph>>#handlesMouseDown: anEvent
 	^ true
 
-DieMorph>>>mouseDown: anEvent
+DieMorph>>#mouseDown: anEvent
 	anEvent redButtonPressed
 		ifTrue: [isStopped := isStopped not]
 ]]]
@@ -797,8 +802,8 @@ canvas into another.
 
 @@todo To use a canvas with a 0.5 alpha-transparency in ==DieMorph==, redefine ==drawOn:== like this:
 
-[[[caption=Drawing a translucent die.
-DieMorph>>>drawOn: aCanvas
+[[[language=smalltalk|caption=Drawing a translucent die|label=spt:translucentDie
+DieMorph>>#drawOn: aCanvas
 	| theCanvas |
 	theCanvas := aCanvas asAlphaBlendingCanvas: 0.5.
 	super drawOn: theCanvas.
@@ -808,8 +813,7 @@ DieMorph>>>drawOn: aCanvas
 
 That's all you need to do!
 
-+The die displayed with alpha-transparency.
->file://figures/multiMorphs.png|width=0.7|label=fig:multiMorphs+
++The die displayed with alpha-transparency>file://figures/multiMorphs.png|width=30|label=fig:multiMorphs+
 
 !!Chapter summary
 
