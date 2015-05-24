@@ -239,7 +239,7 @@ not be true. ==aTest deny: anExpression== is equivalent to
 The easiest way to run the tests is directly from the browser. Simply click on
 the icon of the class name, or on an individual test method, and select ''Run
 tests (t)'' or press the icon. The test methods will be flagged green or red,
-depending on whether they pass or not (as shown in *fig:browsertests*).
+depending on whether they pass or not (as shown in *@fig:browsertests*).
 
 +Running SUnit tests from the
 browser>file://figures/updatedbrowsertests.png|width=80|label=fig:browsertests+
@@ -248,7 +248,7 @@ You can also select sets of test suites to run, and obtain a more detailed log
 of the results using the SUnit Test Runner, which you can open by selecting
 ==World > Test Runner==.
 
-The ''Test Runner'', shown in Figure *fig:test-runner*, is designed to make it easy to
+The ''Test Runner'', shown in Figure *@fig:test-runner*, is designed to make it easy to
 execute groups of tests.
 
 The left-most pane lists all of the packages that contain test classes (i.e.,
@@ -336,7 +336,7 @@ can be used to make assertions.
 First, ==TestCase>>assert:description:== and ==TestCase>>deny:description:==
 take a second argument which is a message string that can be used to describe
 the reason for the failure, if it is not obvious from the test itself. These
-methods are described in Section *sec:descriptionStrings*.
+methods are described in Section *@sec:descriptionStrings*.
 
 Next, SUnit provides two additional methods, ==TestCase>>should:raise:== and
 ==TestCase>>shouldnt:raise:== for testing exception propagation.
@@ -400,7 +400,7 @@ The framework is there: use it.
 !!The SUnit framework
 
 SUnit consists of four main classes: ==TestCase==, ==TestSuite==,
-==TestResult==, and ==TestResource==, as shown in Figure *fig:sunit-classes*. The
+==TestResult==, and ==TestResource==, as shown in Figure *@fig:sunit-classes*. The
 notion of a ''test resource'' represents a resource that is expensive to set-up
 but which can be used by a whole series of tests. A ==TestResource== specifies
 a ==setUp== method that is executed just once before a suite of tests; this is
@@ -663,7 +663,7 @@ run.==
 
 The method ==TestCase>>run== creates an instance of ==TestResult== that will
 accumulate the results of the test, then it sends itself the message
-==TestCase>>run:== (See Figure *fig:sunit-scenario*).
+==TestCase>>run:== (See Figure *@fig:sunit-scenario*).
 
 [[[
 TestCase>>run

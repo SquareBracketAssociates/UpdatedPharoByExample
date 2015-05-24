@@ -12,7 +12,7 @@ methods, the run-time stack, and so on. This form of reflection is also called
 +Reification and reflection.>file://figures/reflect.png|label=fig:reflect+
 
 Conversely, it is possible in Smalltalk to modify reified metaobjects and
-''reflect'' these changes back to the runtime system (see Figure *fig:reflect*).
+''reflect'' these changes back to the runtime system (see Figure *@fig:reflect*).
 This is also called ''intercession'', and is supported mainly by dynamic
 programming languages, and only to a very limited degree by static languages.
 
@@ -104,7 +104,7 @@ this can be risky business for the stability of your Pharo system.
 +Displaying all instance variables of a ==Workspace==.
 >file://figures/allInstanceVariables.png|label=fig:allInstanceVariables+
 
-Figure *fig:allInstanceVariables* shows how to display the values of the
+Figure *@fig:allInstanceVariables* shows how to display the values of the
 instance variables of an arbitrary instance (==w==) of class ==Workspace==. The
 method ==allInstVarNames== returns all the names of the instance variables of a
 given class.
@@ -320,7 +320,7 @@ Since classes are objects, we can inspect or explore them just like any other ob
 
 @@todo Evaluate ==Point explore==.
 
-In Figure *fig:CompiledMethod*, the explorer shows the structure of class
+In Figure *@fig:CompiledMethod*, the explorer shows the structure of class
 ==Point==. You can see that the class stores its methods in a dictionary,
 indexing them by their selector. The selector ==#*== points to the decompiled
 bytecode of ==Point>>>*==.
@@ -329,11 +329,11 @@ bytecode of ==Point>>>*==.
 >file://figures/CompiledMethod.png|label=fig:CompiledMethod+
 
 Let us consider the relationship between classes and methods. In Figure
-*fig:MethodsAsObjects* we see that classes and metaclasses have the common
+*@fig:MethodsAsObjects* we see that classes and metaclasses have the common
 superclass ==Behavior==. This is where ==new== is defined, amongst other key
 methods for classes. Every class has a method dictionary, which maps method
 selectors to compiled methods. Each compiled method knows the class in which it
-is installed. In Figure *fig:CompiledMethod* we can even see that this is stored
+is installed. In Figure *@fig:CompiledMethod* we can even see that this is stored
 in an association in ==literal5==.
 
 +Classes, method dictionaries and compiled methods
@@ -415,7 +415,7 @@ new environment with all methods that perform super-sends within the
 critics==. Navigate to ==Lint checks>Possible bugs>Sends different super
 message== and action-click to select ==browse==.
 
-In Figure *fig:sendDifferentSuper* we can see that 19 such methods have been
+In Figure *@fig:sendDifferentSuper* we can see that 19 such methods have been
 found within the ==Collection== hierarchy, including
 ==Collection>>>printNameOn:==, which sends ==super printOn:==. +Finding methods
 that send a different super
@@ -482,7 +482,7 @@ Integer>>>factorial
 	self error: 'Not valid for negative integers'
 ]]]
 
-@@todo Now evaluate ==3 factorial== in a workspace. You should obtain both a debugger window and an explorer, as shown in Figure *fig:exploringThisContext*.
+@@todo Now evaluate ==3 factorial== in a workspace. You should obtain both a debugger window and an explorer, as shown in Figure *@fig:exploringThisContext*.
 
 +Exploring ==thisContext==.
 >file://figures/exploringThisContext.png|label=fig:exploringThisContext+
@@ -737,7 +737,7 @@ Point>>>rect: aPoint
 ]]]
 
 Although messages can be intercepted by proxies using this technique, one should
-be aware of the inherent limitations of using a proxy.  In Section *sec:wrapper*
+be aware of the inherent limitations of using a proxy.  In Section *@sec:wrapper*
 we will see another, more general approach for intercepting messages.
 
 !!!Generating missing methods
@@ -779,7 +779,7 @@ myDA x --> nil
 ]]]
 
 Let us step through what happens the first time the message ==x== is sent to our
-object (see Figure *fig:DynamicAccessors*).
+object (see Figure *@fig:DynamicAccessors*).
 
 +Dynamically creating accessors.
 >file://figures/DynamicAccessors.png|label=fig:DynamicAccessors+

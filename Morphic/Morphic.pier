@@ -22,7 +22,7 @@ is always able to respond to user actions: information on the screen is
 continuously updated as the world that it describes changes. A simple example of
 this is that you can detach a menu item and keep it as a button.
 
-@@todo Bring up the world menu. meta-click once on the world menu to bring up its morphic halo (Recall that you should set ==halosEnabled== in the Preferences browser. Alternatively, you can evaluate ==Preferences enable: #halosEnabled== in a workspace.), then meta-click again on the menu item you want to detach to bring up its halo.  Now drag that item elsewhere on the screen by grabbing the black handle *file://grabhandle|width=1em*, as shown in Figure *fig:detachingMenu*.
+@@todo Bring up the world menu. meta-click once on the world menu to bring up its morphic halo (Recall that you should set ==halosEnabled== in the Preferences browser. Alternatively, you can evaluate ==Preferences enable: #halosEnabled== in a workspace.), then meta-click again on the menu item you want to detach to bring up its halo.  Now drag that item elsewhere on the screen by grabbing the black handle *file://grabhandle|width=1em*, as shown in Figure *@fig:detachingMenu*.
 
 +Detaching a morph, here the ==Workspace== menu item, to make it an independent button. >file://figures/detachingMenu.png|label=fig:detachingMenu+
 
@@ -184,7 +184,7 @@ then another rectangle with reduced width.
 
 @@todo To test your new morph, execute ==CrossMorph new== ==openInWorld==.
 
-The result should look something like Figure *fig:cross*. However, you will
+The result should look something like Figure *@fig:cross*. However, you will
 notice that the sensitive zone — where you can click to grab the morph — is
 still the whole bounding box.  Let's fix this.
 
@@ -211,8 +211,8 @@ points for which ==containsPoint:== answers ==true== are the same ones that will
 be colored in by ==drawOn==. Notice how we leverage the ==containsPoint:==
 method in class ==Rectangle== to do the hard work.
 
-There are two problems with the code in methods *mth:firstDrawOn* and
-*mth:firstContains*. The most obvious is that we have duplicated code. This is a
+There are two problems with the code in methods *@mth:firstDrawOn* and
+*@mth:firstContains*. The most obvious is that we have duplicated code. This is a
 cardinal error: if we find that we need to change the way that
 ==horizonatalBar== or ==verticalBar== are calculated, we are quite likely to
 forget to change one of the two occurrences. The solution is to factor out these
@@ -252,7 +252,7 @@ have noticed the second problem: the area in the center of the cross, which is
 under both the horizontal and the vertical bars, is drawn twice. This doesn't
 matter when we fill the cross with an opaque colour, but the bug becomes
 apparent immediately if we draw a semi-transparent cross, as shown in Figure
-*fig:overdrawBug*.
+*@fig:overdrawBug*.
 
 +The center of the cross is filled twice with the colour. >file://figures/overdrawBug.png|label=fig:overdrawBug|width=0.48+
 
@@ -281,7 +281,7 @@ drawOn: aCanvas
 
 This code seems to work, but if you try it on some crosses and resize them, you
 may notice that at some sizes, a one-pixel wide line separates the bottom of the
-cross from the remainder, as shown in Figure *fig:bug*. This is due to rounding:
+cross from the remainder, as shown in Figure *@fig:bug*. This is due to rounding:
 when the size of the rectangle to be filled is not an integer, ==fillRectangle:
 color:== seems to round inconsistently, leaving one row of pixels unfilled. We
 can work around this by rounding explicitly when we calculate the sizes of the
@@ -330,7 +330,7 @@ CrossMorph>>>handlesMouseDown: anEvent
 
 Suppose that when we click on the cross, we want to change the color of the
 cross to red, and when we action-click on it, we want to change the color to
-yellow. This can be accomplished by method *mth:mouseDown*.
+yellow. This can be accomplished by method *@mth:mouseDown*.
 
 [[[caption=Reacting to mouse clicks by changing the morph's color.|label=mth:mouseDown
 CrossMorph>>>mouseDown: anEvent
@@ -408,7 +408,7 @@ We have written this method so that you can move the morph using the arrow keys.
 Note that when the mouse is no longer over the morph, the ==handleKeystroke:==
 message is not sent, so the morph stops responding to keyboard commands. To
 discover the key values, you can open a Transcript window and add ==Transcript==
-==show: anEvent keyValue== to method *mth:handleKeystroke*. The ==anEvent==
+==show: anEvent keyValue== to method *@mth:handleKeystroke*. The ==anEvent==
 argument of ==handleKeystroke:== is an instance of ==KeyboardEvent==, another
 subclass of ==MorphicEvent==. Browse this class to learn more about keyboard
 events.
@@ -444,7 +444,7 @@ startStepping== in the small workspace pane at the bottom, and  ==do it==.
 Alternatively, you can modify the ==handleKeystroke:== method so that you can
 use the ==+== and ==-== keys to start and stop stepping.
 
-@@todo Add the following code to method *mth:handleKeystroke*:
+@@todo Add the following code to method *@mth:handleKeystroke*:
 
 [[[
 	keyValue = $+ asciiValue
@@ -457,7 +457,7 @@ use the ==+== and ==-== keys to start and stop stepping.
 
 To prompt the user for input, the ==UIManager== class provides a large number of
 ready-to-use dialog boxes. For instance, the ==request:initialAnswer:== method
-returns the string entered by the user (Figure *fig:dialogName*).
+returns the string entered by the user (Figure *@fig:dialogName*).
 
 [[[
 UIManager default request: 'What''s your name?' initialAnswer: 'no name'
@@ -467,7 +467,7 @@ UIManager default request: 'What''s your name?' initialAnswer: 'no name'
 +Pop-up menu.>file://figures/popup.png|width=0.8|label=fig:popup+
 
 To display a popup menu, use one of the various ==chooseFrom:== methods (Figure
-*fig:popup*):
+*@fig:popup*):
 
 [[[
 UIManager default

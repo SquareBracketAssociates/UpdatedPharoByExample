@@ -22,8 +22,8 @@ are ''also'' in the ==Collections-Streams== packages. These 56 classes respond
 to 982 messages and define a total of 1609 methods!
 
 In this chapter we focus mainly on the subset of collection classes shown in
-Figure *fig:CollClassesTree*. Streams will be discussed separately in
-Chapter *cha:streams*: Streams.
+Figure *@fig:CollClassesTree*. Streams will be discussed separately in
+Chapter *: Streams>../Streams/Streams.pillar@cha:streams*.
 
 +Some of the key collection classes in Pharo.>file://figures/CollectionHierarchy.png|label=fig:CollClassesTree+
 
@@ -74,7 +74,7 @@ understand the ==testing== messages ==includes:==, ==isEmpty== and
 ==inject:into:== (which performs a left fold) and many more. It is the ubiquity
 of this protocol, as well as its variety, that makes it so powerful.
 
-% Figure *fig:protocols* %
+% Figure *@fig:protocols* %
 The table below summarizes the standard protocols supported by most of
 the classes in the collection hierarchy. These methods are defined, redefined,
 optimized or occasionally even forbidden by subclasses of ==Collection==.
@@ -120,7 +120,7 @@ same requests. Let us briefly survey some of the key differences:
 +Some collection classes categorized by implementation technique.>file://figures/CollectionsByImpl.png|width=100|label=fig:collsByImpl+
 
 These categorizations by functionality are not our only concern; we must also
-consider how the collection classes are implemented. As shown in Figure *fig:collsByImpl* , five main implementation techniques are employed.
+consider how the collection classes are implemented. As shown in Figure *@fig:collsByImpl* , five main implementation techniques are employed.
 
 - Arrays store their elements in the (indexable) instance variables of the collection object itself; as a consequence, arrays must be of a fixed size, but can be created with a single memory allocation.
 - ==OrderedCollections== and ==SortedCollections== store their elements in an array that is referenced by one of the instance variables of the collection. Consequently, the internal array can be replaced with a larger one if the collection grows beyond its storage capacity.
@@ -491,7 +491,7 @@ work for all kinds of collections!
 ]]]
 
 As we explain below, elements of a set are accessed using iterators (see Section
-*sec:iterators*).
+*@sec:iterators*).
 
 !!!SortedCollection
 
@@ -500,7 +500,7 @@ elements in sort order. By default, a sorted collection uses the message ==<===
 to establish sort order, so it can sort instances of subclasses of the abstract
 class ==Magnitude==, which defines the protocol of comparable objects (==<==,
 =====, ==>==, ==>===, ==between:and:==...).
-(See Chapter *cha:basicClasses*: Basic Classes).
+(See Chapter *: Basic Classes>../BasicClasses/BasicClasses.pier@cha:basicClasses*).
 
 You can create a ==SortedCollection== by creating a new instance and adding
 elements to it:
@@ -715,14 +715,14 @@ difference.
 A symbol is similar to a string but is guaranteed to be globally unique.  For
 this reason symbols are preferred to strings as keys for dictionaries, in
 particular for instances of ==IdentityDictionary==. See also
-Chapter *cha:basicClasses*: Basic Classes for more about ==String== and ==Symbol==.
+Chapter *: Basic Classes>../BasicClasses/BasicClasses.pier@cha:basicClasses* for more about ==String== and ==Symbol==.
 
 !!Collection iterators
 
 @sec:iterators
 
 In Smalltalk loops and conditionals are simply messages sent to collections or
-other objects such as integers or blocks (see also Chapter *cha:syntax*: Syntax in a Nutshell).
+other objects such as integers or blocks (see also Chapter *: Syntax in a Nutshell>../SyntaxNutshell/SyntaxNutshell.pillar@cha:syntax*).
 In addition to low-level messages such as ==to:do:== which evaluates a block with
 an argument ranging from an initial to a final number, the Smalltalk collection
 hierarchy offers various high-level iterators. Using such iterators will make
@@ -766,7 +766,7 @@ res --> 'bob.joe.toto'
 
 Note that this code is not especially efficient since it creates intermediate
 strings and it would be better to use a write stream to buffer the result (see
-Chapter *cha:streams*: Streams):
+Chapter *: Streams>../Streams/Streams.pillar@cha:streams*):
 
 [[[
 String streamContents: [:stream | #('bob' 'joe' 'toto') asStringOn: stream delimiter: '.' ] --> 'bob.joe.toto'

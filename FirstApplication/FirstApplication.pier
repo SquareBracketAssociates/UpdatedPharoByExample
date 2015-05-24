@@ -24,24 +24,29 @@ contain two classes: one for the game and one for the cells. We will now show
 you how to define these classes using the Pharo programming tools.
 
 !!Creating a new Package
+@fstApp:Packages
 
-We have already seen the browser in Chapter *cha:tour*: A Quick Tour of Pharo,
-where we learned how to navigate to classes and methods, and saw how to define
-new methods. Now we will see how to create packages and classes.
+We have already seen the browser in Chapter 
+*: A Quick Tour of Pharo>../PharoTour/PharoTour.pillar@cha:tour* where we 
+learned how to navigate to classes and methods, and saw how to define new 
+methods. Now we will see how to create packages and classes.
 
-Right-click on the Package pane and select ==Add package...== from the menu (see Figure *fig:createPackage*).
-Type the name of the new package (we will use ==PBE-LightsOut==) in the dialog box
-and click ==OK== (or just press the return key). The new package is
-created, and positioned alphabetically in the list of packages.
+Right-click on the Package pane and select ==Add package...== from the menu 
+(see Figure *@fig:createPackage*). Type the name of the new package (we will use
+==PBE-LightsOut==) in the dialog box and click ==OK== (or just press the return 
+key). The new package is created, and positioned alphabetically in the list of 
+packages.
 
 !!Defining the class ==LOCell==
 
-At this point there are of course no classes in the new package. However, the main
-editing pane displays a template to make it easy to create a new class (see Figure *fig:createPackage*).
+At this point there are of course no classes in the new package. However, the 
+main editing pane displays a template to make it easy to create a new class (see
+Figure *@fig:createPackage*).
 
 This template shows us a Smalltalk expression that sends a message to a class
-called ==Object==, asking it to create a subclass called ==NameOfSubClass==. The new
-class has no variables, and should belong to the category (package) ==PBE-LightsOut==.
+called ==Object==, asking it to create a subclass called ==NameOfSubClass==. The
+new class has no variables, and should belong to the category (package) 
+==PBE-LightsOut==.
 
 +Create a Package and class template>file://figures/createPackageFull.png|width=100|label=fig:createPackage+
 
@@ -78,36 +83,38 @@ SimpleSwitchMorph subclass: #LOCell
 
 This new definition consists of a Smalltalk expression that sends a message to
 the existing class ==SimpleSwitchMorph==, asking it to create a subclass called
-==LOCell==. (Actually, since ==LOCell== does not exist yet, we passed the
-symbol ==\#LOCell== as an argument, representing the name of the class to create.) We also tell
-it that instances of the new class should have a ==mouseAction== instance variable,
-which we will use to define what action the cell should take if the mouse should
-click on it.
+==LOCell==. (Actually, since ==LOCell== does not exist yet, we passed the symbol
+==\#LOCell== as an argument, representing the name of the class to create.) We 
+also tell it that instances of the new class should have a ==mouseAction== 
+instance variable, which we will use to define what action the cell should take 
+if the mouse should click on it.
 
 +The class-creation Template>file://figures/createClass.png|width=75|label=fig:createClass+
 
-At this point you still have not created anything. Note that the top right of the panel changed to orange (see Figure *fig:createClass*). This means that there are unsaved
-changes. To actually send this subclass message, you must save (accept) the source code.
+At this point you still have not created anything. Note that the top right of 
+the panel changed to orange (see Figure *@fig:createClass*). This means that 
+there are unsaved changes. To actually send this subclass message, you must save
+(accept) the source code.
 
 
-Either right-click and select ""accept"", or use the shortcut CMD-s (for
-"save"). The message will be sent to ""SimpleSwitchMorph"", which will cause the
-new class to be compiled.
+Either right-click and select ""accept"", or use the shortcut CMD-s (for "save")
+. The message will be sent to ""SimpleSwitchMorph"", which will cause the new 
+class to be compiled.
 
 +The newly-created class LOCell>file://figures/pannelAtNewClass.png|width=100|label=fig:pannelAtNewClass+
 
 Once the class definition is accepted, the class will be created and appear in
-the class pane of the browser (see Figure *fig:pannelAtNewClass*). The editing pane now shows the class
-definition. You can click on ==Comments== and a small pane below it will remind you to write a few words
-describing the purpose of the class. This is called a class comment, and it is
-quite important to write one that will give other programmers a high-level
-overview of the purpose of this class. Smalltalkers put a very high value on the
-readability of their code, and detailed comments in methods are unusual: the
-philosophy is that the code should speak for itself. (If it doesn't, you should
-refactor it until it does!) A class comment need not contain a detailed
-description of the class, but a few words describing its overall purpose are
-vital if programmers who come after you are to know whether to spend time
-looking at this class.
+the class pane of the browser (see Figure *@fig:pannelAtNewClass*). The editing 
+pane now shows the class definition. You can click on ==Comments== and a small 
+pane below it will remind you to write a few words describing the purpose of the
+class. This is called a class comment, and it is quite important to write one 
+that will give other programmers a high-level overview of the purpose of this 
+class. Smalltalkers put a very high value on the readability of their code, and 
+detailed comments in methods are unusual: the philosophy is that the code should
+speak for itself. (If it doesn't, you should refactor it until it does!) A class
+comment need not contain a detailed description of the class, but a few words 
+describing its overall purpose are vital if programmers who come after you are 
+to know whether to spend time looking at this class.
 
 !!Adding methods to a class
 
@@ -174,7 +181,7 @@ talking to itself and saying \"Self, use square corners!\", \"Self, turn off\!\"
 
 +The method initialize into the pane>file://figures/initialize.png|width=50|label=fig:initialize+
 
-You can also notice that there is a little green arrow near to your method (see Figure *fig:initialize*).
+You can also notice that there is a little green arrow near to your method (see Figure *@fig:initialize*).
 This mean the method exist in the super class and is override in the class.
 
 
@@ -188,17 +195,17 @@ Open a ==Playground==. Type the expression ==LOCell new== and ""inspect"" it.
 +The inspector used to examine a LOCell object>file://figures/inspectLOCell.png|width=100|label=fig:inspectLOCell+
 
 The left-hand column of the inspector shows a list of instance variables and
-the value of the instance variable is shown in the right column (see Figure *fig:inspectLOCell*).
+the value of the instance variable is shown in the right column (see Figure *@fig:inspectLOCell*).
 
 +The inspector when we click on an instance variable>file://figures/inspectBounds.png|width=100|label=fig:inspectBounds+
 
-If you click on an instance variable the inspector will open a new pane with the detail of the instance variable (see Figure *fig:inspectBounds*).
+If you click on an instance variable the inspector will open a new pane with the detail of the instance variable (see Figure *@fig:inspectBounds*).
 
 The bottom pane of the inspector is a mini-playground. It's useful because in
 this playground the pseudo-variable ==self== is bound to the object selected.
 
 Go to that Playground at the bottom of the pane and type the text
-==self bounds: (200\@200 corner: 250\@250)== ""do it"". Click on the ==update== button at the top right of the pane (see Figure *fig:updateInspector*). The ==bounds==
+==self bounds: (200\@200 corner: 250\@250)== ""do it"". Click on the ==update== button at the top right of the pane (see Figure *@fig:updateInspector*). The ==bounds==
 variable should change in the inspector. Now type the text ==self openInWorld== in
 the mini-playground and ""do it"".
 
@@ -251,7 +258,7 @@ initialize
 	cells := Matrix new: n tabulate: [ :i :j | self newCellAt: i at: j ]
 ]]]
 
-Pharo will complain that it doesn't know the meaning of ==cells== (see Figure *fig:doesntKnowCell*). It will offer
+Pharo will complain that it doesn't know the meaning of ==cells== (see Figure *@fig:doesntKnowCell*). It will offer
 you a number of ways to fix this.
 
 +Declaring a new instance variable>file://figures/doesntKnowCell.png|width=75|label=fig:doesntKnowCell+
@@ -260,7 +267,7 @@ Choose ""Declare new instance variable"", because we want ==cells== to be an
 instance variable.
 
 At this stage if you open a ==Playground== and type ==LOGame new== and ""do it""
-Pharo will complain that it doesn't know the meaning of some of the terms (see Figure *fig:doesntKnowCellsPerSide*). It
+Pharo will complain that it doesn't know the meaning of some of the terms (see Figure *@fig:doesntKnowCellsPerSide*). It
 will tell you that it doesn't know of a message ==cellsPerSide==, and will open a debugger.
 
 +Pharo  detecting  an  un-known selector>file://figures/doesntKnowCellsPerSide.png|width=100|label=fig:doesntKnowCellsPerSide+
@@ -271,7 +278,7 @@ defined. We will do so, shortly.
 +Define CellsPerSide methods>file://figures/defineCellsPerSide.png|width=100|label=fig:defineCellsPerSide+
 
 So, click on ==Create==, select ""LOGame"", the class which will contains the method,
-click on ""ok"" (see Figure *fig:defineCellsPerSide*). Here you can write your method. But for now we'll let this method like this.
+click on ""ok"" (see Figure *@fig:defineCellsPerSide*). Here you can write your method. But for now we'll let this method like this.
 We'll see this method later.
 
 If you now look at the class definition once again (which you can do by clicking
@@ -346,7 +353,7 @@ the protocol ""as yet unclassified"".
 
 Right-click in the protocol pane and select ""categorize all uncatogorized"" 
 to fix this, and move the ==initialize== method to a new protocol called 
-""initialization"" (see Figure *fig:categorizeProtocoles*).
+""initialization"" (see Figure *@fig:categorizeProtocoles*).
 
 How does Pharo know that this is the right protocol? Well, in general Pharo
 can't know exactly, but in this case there is also an ==initialize== method in the superclass,
@@ -382,7 +389,7 @@ constant then depends on some other features, the method can be changed to
 calculate this value.
 As you can see there are some tabulation and empty lines. In order to keep the 
 same convention you can Right-Click on the method edit area and Click on 
-==format== use ==CMD-Shift-f== shortcut. This will format your method.
+==format== use ==CMD-Shift-u== shortcut. This will format your method.
 
 [[[language=smalltalk|caption=An initialization helper method|label=mth:NewCellAt
 LOGame >> newCellAt: i at: j
@@ -424,7 +431,7 @@ Place this method in a new protocol called ==game logic==. (Right-click in the
 protocol pane to add a new protocol.)
 
 To move (re-classify) the method, you can simply click on its name and drag it to the
-newly-created protocol (see Figure *fig:dropProtocol*).
+newly-created protocol (see Figure *@fig:dropProtocol*).
 
 +Drag a method to a protocol>file://figures/dropProtocol.png|width=100|label=fig:dropProtocol+
 
@@ -490,7 +497,7 @@ The game will open, and you should be able to click on the cells and see how it
 works.
 
 Well, so much for theory... When you click on a cell, a notifier window called
-the PreDebugWindow window appears with an error message like we see on Figure *fig:doesNotUnderstood*! It says
+the PreDebugWindow window appears with an error message like we see on Figure *@fig:doesNotUnderstood*! It says
 ==MessageNotUnderstood: LOGame >> toggleState==.
 
 +There is a bug in our game when a cell is clicked!>file://figures/doesNotUnderstood.png|width=100|label=fig:doesNotUnderstood+
@@ -508,7 +515,7 @@ with the part that triggered the error highlighted.
 Click on the line labeled ==LOGame >> toggleNeighboursOfCellAt: at:== (near the top).
 
 The debugger will show you the execution context within this method where the
-error occurred (see Figure *fig:debuggerHighlight*).
+error occurred (see Figure *@fig:debuggerHighlight*).
 
 + The debugger, with the method toggleNeighboursOfCell:at: selected>file://figures/debuggerHighlight.png|width=85|label=fig:debuggerHighlight+
 
@@ -552,7 +559,7 @@ LOGame >> newCellAt: i at: j
 	^ c
 ]]]
 
-Recall from Chapter *cha:tour*: A Quick Tour of Pharo that the syntax to return a value from a method in
+Recall from Chapter *: A Quick Tour of Pharo>../PharoTour/PharoTour.pillar@cha:tour* that the syntax to return a value from a method in
 Smalltalk is ==^==.
 
 Often, you can fix the code directly in the debugger window and click Proceed to
@@ -592,7 +599,7 @@ file to your friends, and they can file it into their own Pharo images using the
 file list browser.
 
 Right-click on the ==PBE-LightsOut== package and file out the
-contents (see Figure *fig:fileOut*).
+contents (see Figure *@fig:fileOut*).
 
 +File Out our PBE-LightsOut>file://figures/fileOut.png|width=75|label=fig:fileOut+
 
@@ -602,10 +609,11 @@ where your image is saved. Have a look at this file with a text editor.
 +Import your code with the file browser>file://figures/fileBrowser.png|width=100|label=fig:fileBrowser+
 
 Open a fresh Pharo image and use the File Browser tool ( ==Tools \-\-> File
-Browser== ) to file in the ==PBE-LightsOut.st== fileout (see Figure *fig:fileBrowser*) and ==fileIn==. Verify that the game now
+Browser== ) to file in the ==PBE-LightsOut.st== fileout (see Figure *@fig:fileBrowser*) and ==fileIn==. Verify that the game now
 works in the new image.
 
 !!!Monticello packages
+@fstApp:Monticiello
 
 Although fileouts are a convenient way of making a snapshot of the code you have
 written, they are decidedly "old school". Just as most open-source projects find
@@ -629,7 +637,7 @@ You can also send a ==.mcz== file by email. The recipient will have to place it 
 her ==package-cache== folder; she will then be able to use Monticello to browse and
 load it.
 
-Open the Monticello browser from the World menu (see Figure *fig:monticiello*).
+Open the Monticello browser from the World menu (see Figure *@fig:monticiello*).
 
 +Monticiello browser>file://figures/monticiello.png|width=100|label=fig:monticiello+
 
@@ -697,7 +705,7 @@ Monticello browser.
 You will see a list of the different Repository types that are available. To
 add a SmalltalkHub repository select ==smalltalkhub.com==. You will be presented with a dialog
 in which you can provide the necessary information about the server. You should
-paste the code snippet you have copied from SmalltalkHub (see Figure *fig:createRepository*). This message
+paste the code snippet you have copied from SmalltalkHub (see Figure *@fig:createRepository*). This message
 tells to Monticello where to find your project online. You can also provide your
 user name and password. If you do not, then Pharo will ask for them each time
 you try to save into your online repository at SmalltalkHub.
@@ -709,7 +717,7 @@ side of the Monticello browser.
 
 Click on the ""Save"" button to save a first version of your Lights Out game on
 SmalltalkHub. Don't forget to put a comment for you, or others, have an idea 
-of what contains your commit for the future (see Figure *fig:firstCommit*).
+of what contains your commit for the future (see Figure *@fig:firstCommit*).
 
 +Do your first commit>file://figures/firstCommit.png|width=60|label=fig:firstCommit+ 
 
@@ -721,7 +729,7 @@ your image.
 Open the ==PBE-LightsOut== repository you have just saved.
 
 Monticello has many more capabilities, which will be discussed in depth in
-Chapter *cha:env*: The Pharo Environment. You can also look at the online
+Chapter *: The Pharo Environment>../Environment/Environment.pillar@cha:env* . You can also look at the online
 documentation for Monticello at
 *http://www.wiresong.ca/Monticello/>http://www.wiresong.ca/Monticello/*.
 

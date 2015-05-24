@@ -7,7 +7,7 @@ sending each other messages. This simplicity and uniformity, however, can be a
 source of difficulty for programmers used to other languages. In this chapter we
 present the core concepts of the Pharo object model. In particular we discuss
 the consequences of representing classes as objects. This will be extended in
-Chapter *cha:metaclasses*: Classes and Metaclasses.
+Chapter *: Classes and Metaclasses>../Metaclasses/Metaclasses.pillar@cha:metaclasses*.
 
 !!The rules of the model
 @sec:rules
@@ -95,8 +95,7 @@ instances are classes is called a ''metaclass''. Whenever you create a class,
 the system automatically creates a metaclass for you. The metaclass defines the
 structure and behavior of the class that is its instance. 99\%  of the time you
 will not need to think about metaclasses, and may happily ignore them. (We will
-have a closer look at metaclasses in Chapter *cha:metaclasses*: Classes and
-Metaclasses.)
+have a closer look at metaclasses in Chapter *: Classes and Metaclasses>../Metaclasses/Metaclasses.pillar@cha:metaclasses*.)
 
 !!!Instance variables
 
@@ -149,7 +148,7 @@ abstraction to coexist. For example, method ==point>>dist:==, need not know or
 care whether the argument ==aPoint== is an instance of the same class as the
 receiver. The argument object might be represented in polar coordinates, or as
 a record in a database, or on another computer in a distributed system; as long
-as it can respond to the messages ==x== and ==y==, the code in *mth:distance* will
+as it can respond to the messages ==x== and ==y==, the code in *@mth:distance* will
 still work.
 
 !!!Methods
@@ -184,7 +183,7 @@ classes that create them.
 
 For this reason, the browser helps you to browse both class and metaclass as if
 they were a single thing with two "sides": the ''instance side'' and the ''class
-side'', as shown in Figure *fig:colorInstanceClassSide*. By default, when you
+side'', as shown in Figure *@fig:colorInstanceClassSide*. By default, when you
 select a class in the browser, you're browsing the ''instance'' side (i.e., the
 methods that are executed when messages are sent to an ''instance'' of
 ==Color==). Clicking on the ""Class side"" checkbox (located under the class
@@ -343,7 +342,7 @@ using accessors, to newly created instances.
 
 Java has nothing equivalent to class instance variables. Java and C++ static
 variables are more like Smalltalk class variables, which we will discuss in
-Section *sec:classVars*: all of the subclasses and all of their instances share
+Section *@sec:classVars*: all of the subclasses and all of their instances share
 the same static variable.
 
 !!!!Example: Defining a Singleton
@@ -395,7 +394,7 @@ instead of creating a new one. (This pattern, checking if a variable is nil
 in an accessor method, and initializing its value if it is nil, is called
 ''lazy initialization'').
 
-Note that the instance creation code inside the conditional in *mth:uniqueInstance*
+Note that the instance creation code inside the conditional in *@mth:uniqueInstance*
 is written as ==self new== and not as ==WebServer new==. What is the difference?
 Since the ==uniqueInstance== method is defined in ==WebServer class==, you might
 think that there is no difference. And indeed, until someone creates a subclass
@@ -554,7 +553,7 @@ TAuthor>>>author
 ]]]
 
 Now we can use this trait in a class that already has its own superclass, for
-instance the ==LOGame== class that we defined in Chapter *cha:firstApp*: A First Application. We
+instance the ==LOGame== class that we defined in Chapter *: A First Application>../FirstApplication/FirstApplicatioin.pier@cha:firstApp*. We
 simply modify the class creation template for ==LOGame== to include a ==uses:==
 keyword argument that specifies that ==TAuthor== should be used.
 
@@ -696,7 +695,7 @@ added to the browsers.
 
 
 % In contrast, if we send the message ==openInWorld== to ==anEllipse==, the method is not immediately found, since the class ==EllipseMorph== does not implement ==openInWorld==.
-% The search therefore continues in the superclass, ==BorderedMorph==, and so on, until an ==openInWorld== method is found in the class ==Morph== (see Figure *fig:openInWorldLookup*).
+% The search therefore continues in the superclass, ==BorderedMorph==, and so on, until an ==openInWorld== method is found in the class ==Morph== (see Figure *@fig:openInWorldLookup*).
 
 % \begin{method}[openInWorld]{An inherited method}
 % Morph>>>openInWorld
@@ -749,7 +748,7 @@ added to the browsers.
 % !!!Overriding and extension
 
 
-% If we look again at the ==EllipseMorph== class hierarchy in Figure *fig:openInWorldLookup*, we see that the classes ==Morph== and \mbox{==EllipseMorph==} both implement ==defaultColor==.
+% If we look again at the ==EllipseMorph== class hierarchy in Figure *@fig:openInWorldLookup*, we see that the classes ==Morph== and \mbox{==EllipseMorph==} both implement ==defaultColor==.
 % In fact, if we open a new morph (==Morph new openInWorld==) we see that we get a blue morph, whereas an ellipse will be yellow by default.
 
 
@@ -804,7 +803,7 @@ added to the browsers.
 
 % How exactly is this result obtained through a combination of \self and \super sends?
 % First, ==anEllipse constructorString== will cause the method ==constructorString== to be found in the class ==Morph==,
-% as shown in Figure *fig:constructorStringLookup*.
+% as shown in Figure *@fig:constructorStringLookup*.
 
 % \begin{figure}[htb]
 % \begin{center}
@@ -823,7 +822,7 @@ added to the browsers.
 % The method ==Morph>>constructorString== performs a \self send of ==printConstructorOn:indent:==.
 % This message is also looked up, starting in the class ==EllipseMorph==, and found in ==Morph==.
 % This method in turn does a \self send of ==printConstructorOn:indent:nodeDict:==, which does a \self send of ==fullPrintOn:==.
-% Once again, ==fullPrintOn:== is looked up starting in the class ==EllipseMorph==, and ==BorderedMorph>>fullPrintOn:== is found in ==BorderedMorph== (see Figure *fig:constructorStringLookup* once again).
+% Once again, ==fullPrintOn:== is looked up starting in the class ==EllipseMorph==, and ==BorderedMorph>>fullPrintOn:== is found in ==BorderedMorph== (see Figure *@fig:constructorStringLookup* once again).
 % What is critical to notice is that the \self send causes the method lookup to start again in the class of the receiver, namely the class of ==anEllipse==.
 
 % @@important A \self send triggers a ''dynamic method lookup starting in the class of the receiver.''
@@ -846,7 +845,7 @@ added to the browsers.
 
 % @@important A \super send triggers a ''static method lookup starting in the superclass of the class of the method performing the \super send.''
 
-% If you think carefully about \super send and Figure *fig:constructorStringLookup*, you will realize that \super bindings are static: all that matters is the class in which the text of the \super send is found.
+% If you think carefully about \super send and Figure *@fig:constructorStringLookup*, you will realize that \super bindings are static: all that matters is the class in which the text of the \super send is found.
 % By contrast, the meaning of \self is dynamic: it always represents the receiver of the currently executing message. This means that  ''all''  messages sent to \self are looked-up by starting in the receiver's class.
 
 % !!!Message not understood
@@ -858,7 +857,7 @@ added to the browsers.
 % Suppose we send the message ==foo== to our ellipse.
 % First the normal method lookup would go through the inheritance chain all the way up to ==Object== (or rather ==ProtoObject==) looking for this method.
 % When this method is not found, the virtual machine will cause the object to send ==self doesNotUnderstand: #foo==.
-% (See Figure *fig:fooNotFound*.)
+% (See Figure *@fig:fooNotFound*.)
 
 % \begin{figure}[htb]
 % \begin{center}
@@ -939,7 +938,7 @@ added to the browsers.
 % This is possible using ''class variables''.
 % The term class variable indicates that the lifetime of the variable is the same as that of the class. However, what the
 % term does not convey is that these variables are shared amongst all the instances of a class as well as the class itself,
-% as shown in Figure *fig:privateSharedVar*.
+% as shown in Figure *@fig:privateSharedVar*.
 % Indeed, a better name would have been ''shared variables'' since this expresses more clearly their role, and also warns of the danger of using them, particularly if they are modified.
 
 % \begin{figure}[htb]
@@ -952,7 +951,7 @@ added to the browsers.
 % \end{center}
 % \end{figure}
 
-% In Figure *fig:privateSharedVar* we see that ==rgb== and ==cachedDepth== are instance variables of ==Color==, hence only accessible to instances of ==Color==.
+% In Figure *@fig:privateSharedVar* we see that ==rgb== and ==cachedDepth== are instance variables of ==Color==, hence only accessible to instances of ==Color==.
 % We also see that ==superclass==, ==subclass==, ==methodDict== and so on are class instance variables, i.e., instance variables only accessible to the ==Color== class.
 
 % But we can also see something new: ==ColorNames== and ==CachedColormaps== are ''class variables'' defined for ==Color==.
@@ -972,7 +971,7 @@ added to the browsers.
 %         category: 'Graphics-Primitives'
 % \end{classdef}
 
-% The class variable ==ColorNames== is an array containing the name of frequently-used colors. This array is shared by all the instances of ==Color== and its subclass ==TranslucentColor==. It is accessible from all the instance and class methods. % (see Figure *fig:ClassVarAccess2*).
+% The class variable ==ColorNames== is an array containing the name of frequently-used colors. This array is shared by all the instances of ==Color== and its subclass ==TranslucentColor==. It is accessible from all the instance and class methods. % (see Figure *@fig:ClassVarAccess2*).
 
 % ==ColorNames== is initialized once in ==Color class>>initializeNames==, but it is accessed from instances of ==Color==.
 % The method ==Color>>name== uses the variable to find the name of a color.

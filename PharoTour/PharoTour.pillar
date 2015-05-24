@@ -131,7 +131,7 @@ Pharo.exe Pharo4.0.image
 !!The World Menu
 
 Once Pharo is running, you should see a single large window, possibly containing
-some open workspace windows (see Figure *fig:worldMenu*). You might notice a menu
+some open workspace windows (see Figure *@fig:worldMenu*). You might notice a menu
 bar, but Pharo mainly makes use of context-dependent pop-up menus.
 
 +Pharo 4.0 window with World Menu activated>file://figures/Pharo40.png|width=100|label=fig:worldMenu+
@@ -150,18 +150,18 @@ pointing device.
 ""click"" (or left-click): this is the most often used mouse button, and is normally equivalent
 to left-clicking (or clicking a single-mouse button without any modifier key).
 For example, click on the background of the Pharo window to bring up the “World”
-menu (Figure *fig:worldMenu*).
+menu (Figure *@fig:worldMenu*).
 
 ""action-click"" (or right-click): this is the next most used button. It is used
 to bring up a contextual menu that offers different sets of actions depending on
-where the mouse is pointing (see Figure *fig:pharotutorial*). If you do not have a
+where the mouse is pointing (see Figure *@fig:pharotutorial*). If you do not have a
 multi-button mouse, then normally you will configure the control modifier key to
 action-click with the mouse button.
 
 ""meta-click"": Finally, you may meta-click on any object displayed in the image
 to activate the "morphic halo", an array of handles that are used to perform
 operations on the on-screen objects themselves, such as inspecting or resizing
-them (see Figure *fig:halos*). If you let the mouse linger over a handle, a help
+them (see Figure *@fig:halos*). If you let the mouse linger over a handle, a help
 balloon will explain its function. In Pharo, how you meta-click depends on your
 operating system: either you must hold Shift-Ctrl or Shift-Option (on Mac OS X)
 while clicking.
@@ -184,7 +184,7 @@ PharoTutorial go.]]]
 +Executing an expression is simple with the "do it" menu item.>file://figures/PharoTutorialOption.png|width=70|label=fig:pharotutorial+
 
 This expression will trigger the Pharo tutorial (as shown in Figure
-*fig:ProfStef*). It is a simple and interactive tutorial that will teach you
+*@fig:ProfStef*). It is a simple and interactive tutorial that will teach you
 the basics of Pharo. You have just sent your first message. Pharo is based on
 the concept of sending messages to objects. The Pharo objects are like your
 soldiers ready to obey once you send them a message they can understand. We
@@ -372,7 +372,7 @@ Open the Browser by selecting World Menu > System Browser.
 
 +The System Browser showing the printString method of class Object>file://figures/system-browser.png|width=100|label=fig:systemBrowser+
 
-We can see a System Browser in Figure *fig:systemBrowser*. The title bar indicates
+We can see a System Browser in Figure *@fig:systemBrowser*. The title bar indicates
 that we are browsing the class Object and its method ==printString==.
 
 When a new System Browser window first opens, all panes are empty but the
@@ -450,7 +450,7 @@ you the list of options.
 !!!!Using Spotlight
 
 Pressing Shift and Enter will bring Spotlight, a simple but powerfull tool to
-find classes and methods. Figure *fig:spotlight* shows that we look for ==Point==.
+find classes and methods. Figure *@fig:spotlight* shows that we look for ==Point==.
 The system proposes us several possibilities.
 
 +Spotlight>file://figures/spotlight.png|width=50|label=fig:spotlight+
@@ -472,7 +472,7 @@ can help you.
 
 Select World Menu -> Tools -> Method finder. Type "now" in the top left pane,
 and ""accept"" it (or just press the RETURN key). You should get a situation
-similar to the one of Figure *fig:finder*.
+similar to the one of Figure *@fig:finder*.
 
 The method finder will display a list of all the method names that contain the
 substring "now". To scroll to now itself, move the cursor to the list and type
@@ -567,7 +567,7 @@ Once you have typed the text into the browser, notice that the corner is orange.
 This is a reminder that the pane contains unsaved changes. So, select ==accept
 (s)== by right clicking in the bottom pane, or just type ==CMD-s==, to compile
 and save your method. You should see a situation similar to the one depicted in
-Figure *fig:testshout*.
+Figure *@fig:testshout*.
 
 +Defining a test method in the class
 ==StringTest==.>file://figures/testshout-00.png|width=70|label=fig:testshout+
@@ -607,10 +607,10 @@ culprit. (Note that ==StringTest>>testShout== is the Pharo way of identifying
 the ==testShout== method of the ==StringTest== class.) If you click on that
 method in the bottom right pane, the erroneous test will run again, this time in
 such a way that you see the error happen: ==MessageNotUnderstood:
-ByteString>>shout== (see Figure *fig:messageNotUnderstood*).
+ByteString>>shout== (see Figure *@fig:messageNotUnderstood*).
 
 The window that opens with the error message is the Pharo debugger. We will look
-at the debugger and how to use it in Chapter *cha:env*: The Pharo Environment.
+at the debugger and how to use it in Chapter *: The Pharo Environment>../Environment/Environment.pillar@cha:env*.
 
 +Pressing the Create button in the debugger prompts you to select which class to create the new method in>file://figures/preview-2.png|width=70|label=fig:createPromptWhichClass+
 
@@ -629,10 +629,10 @@ the running test, which will close the debugger window.
 
 Instead of pressing ""Abandon"", you can define the missing method using the
 ""Create"" button right in the debugger. This will prompt you to select a class
-in which to define the new method (see Figure *fig:createPromptWhichClass*), then
+in which to define the new method (see Figure *@fig:createPromptWhichClass*), then
 prompt you to select a protocol for that method, and finally take you to a code
 editor window in the debugger, in which you can edit the code for this new
-method (see Figure *fig:shoutShouldBeImplemented*). When you've finished
+method (see Figure *@fig:shoutShouldBeImplemented*). When you've finished
 implementing the method, you can press ""Proceed"" and continue with the tests.
 Note that ""Proceed"" simply continues on running the test suite, and does not
 re-run the failed method.

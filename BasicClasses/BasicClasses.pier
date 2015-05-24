@@ -250,7 +250,7 @@ Conversely, you can ask if an object is an instance of a specific class:
 
 Since Pharo is written in itself, you can really navigate through its
 structure using the right combination of superclass and class messages (see
-Chapter *cha:metaclasses*: Classes and Metaclasses).
+Chapter *: Classes and Metaclasses>../Metaclasses/Metaclasses.pillar@cha:metaclasses*).
 
 !!!!!==isKindOf:==
 
@@ -364,7 +364,7 @@ The most important method here is ==halt==. In order to set a breakpoint in a
 method, simply insert the message send ==self halt.== at some point in the body
 of the method. When this message is sent, execution will be interrupted and a
 debugger will open to this point in your program. (See
-Chapter *cha:env*: The Pharo Environment for more details about the debugger.)
+Chapter *: The Pharo Environment>../Environment/Environment.pillar@cha:env* for more details about the debugger.)
 
 The next most important message is ==assert:==, which takes a block as its
 argument. If the block evaluates to ==true==, execution continues. Otherwise an
@@ -383,7 +383,7 @@ Stack>>>pop
 ]]]
 
 Do not confuse ==Object>>assert:== with ==TestCase>>assert:==, which occurs in
-the SUnit testing framework (see Chapter *cha:sunit*: SUnit). While the former expects
+the SUnit testing framework (see Chapter *: SUnit>../SUnit/SUnit.pillar@cha:sunit*). While the former expects
 a block as its argument (actually, it will take any argument that understands
 ==value==, including a ==Boolean==), the latter expects a ==Boolean==. Although
 both are useful for debugging, they each serve a very different purpose.
@@ -644,7 +644,7 @@ Large integers are similarly converted back to small integers when appropriate.
 As in most programming languages, integers can be useful for specifying
 iterative behaviour. There is a dedicated method ==timesRepeat:== for
 evaluating a block repeatedly. We have already seen a similar example in
-Chapter *cha:syntax*: Syntax in a Nutshell.
+Chapter *: Syntax in a Nutshell>../SyntaxNutshell/SyntaxNutshell.pillar@cha:syntax*.
 
 [[[
 n := 2.
@@ -764,7 +764,7 @@ usual ==comparing== methods, ==<==, ===== and so on. In addition,
 ]]]
 
 Regular expressions will be discussed in more detail in
-Chapter *cha:regex*: Regular Expressions in Pharo.
+Chapter *: Regular Expressions in Pharo>../Regex/Regex.pier@cha:regex*.
 
 Strings support a rather large number of conversion methods. Many of these are
 shortcut constructor methods for other classes, such as ==asDate==,
@@ -772,7 +772,7 @@ shortcut constructor methods for other classes, such as ==asDate==,
 converting a string to another string, such as ==capitalized== and
 ==translateToLowercase==.
 
-For more on strings and collections, see Chapter *cha:collections*: Collections.
+For more on strings and collections, see Chapter *: Collections>../Collections/Collections.pier@cha:collections*.
 
 !!Booleans
 
