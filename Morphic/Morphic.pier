@@ -138,7 +138,7 @@ containing morph. There are many  methods available to position a morph; browse
 the ==geometry== protocol of class ==Morph== to see for yourself. For example,
 to center the balloon inside joe, execute ==balloon center: joe center==.
 
-+The balloon is contained inside joe, the translucent orange morph. >file://figures/joeStar.png|label=fig:joeStar+
++The balloon is contained inside joe, the translucent orange morph>file://figures/joeStar.png|width=30|label=fig:joeStar+
 
 If you now try to grab the balloon with the mouse, you will find that you actually
 grab joe, and the two morphs move together: the balloon is ''embedded'' inside joe.
@@ -162,7 +162,7 @@ morph.
 
 @@todo Using the browser, define a new class ==CrossMorph== inheriting from ==Morph==:
 
-[[[caption=Defining ==CrossMorph==
+[[[language=smalltalk|caption=Defining ==CrossMorph==|label=spt:defineCrossMorph
 Morph subclass: #CrossMorph
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -172,18 +172,18 @@ Morph subclass: #CrossMorph
 
 We can define the ==drawOn:== method like this:
 
-[[[label=mth:firstDrawOn|caption={Drawing a ==CrossMorph==.
+[[[language=smalltalk|caption=Drawing a ==CrossMorph==|label=spt:firstDrawOn
 drawOn: aCanvas
 	| crossHeight crossWidth horizontalBar verticalBar |
-	crossHeight := self height / 3.0 .
-	crossWidth := self width / 3.0 .
+	crossHeight := self height / 3.0.
+	crossWidth := self width / 3.0.
 	horizontalBar := self bounds insetBy: 0 @ crossHeight.
 	verticalBar := self bounds insetBy: crossWidth @ 0.
 	aCanvas fillRectangle: horizontalBar color: self color.
 	aCanvas fillRectangle: verticalBar color: self color
 ]]]
 
-+A ==CrossMorph== with its halo; you can resize it as you wish.>file://figures/NewCross.png|label=fig:cross+
++A ==CrossMorph== with its halo; you can resize it as you wish.>file://figures/NewCross.png|width=30|label=fig:cross+
 
 Sending the ==bounds== message to a morph answers its bounding box, which is an
 instance of ==Rectangle==.  Rectangles understand many messages that create
@@ -191,7 +191,7 @@ other rectangles of related geometry; here we use the ==insetBy:== message with
 a point as its argument to create first a rectangle with reduced height, and
 then another rectangle with reduced width.
 
-@@todo To test your new morph, execute ==CrossMorph new== ==openInWorld==.
+@@todo To test your new morph, execute ==CrossMorph new openInWorld==.
 
 The result should look something like Figure *@fig:cross*. However, you will
 notice that the sensitive zone — where you can click to grab the morph — is
@@ -204,15 +204,14 @@ cross shape, we need to override the ==containsPoint:== method.
 
 @@todo Define the following method in class ==CrossMorph==:
 
-[[[label=mth:firstContains|caption=Shaping the sensitive zone of the ==CrossMorph==.
+[[[language=smalltalk|caption=Shaping the sensitive zone of the ==CrossMorph==|label=spt:firstContains
 containsPoint: aPoint
 	| crossHeight crossWidth horizontalBar verticalBar |
 	crossHeight := self height / 3.0.
 	crossWidth := self width / 3.0.
 	horizontalBar := self bounds insetBy: 0 @ crossHeight.
 	verticalBar := self bounds insetBy: crossWidth @ 0.
-	^ (horizontalBar containsPoint: aPoint)
-		or: [verticalBar containsPoint: aPoint]
+	^ (horizontalBar containsPoint: aPoint) or: [ verticalBar containsPoint: aPoint ]
 ]]]
 
 This method uses the same logic as ==drawOn:==, so we can be confident that the
@@ -220,21 +219,21 @@ points for which ==containsPoint:== answers ==true== are the same ones that will
 be colored in by ==drawOn==. Notice how we leverage the ==containsPoint:==
 method in class ==Rectangle== to do the hard work.
 
-There are two problems with the code in methods *@mth:firstDrawOn* and
-*@mth:firstContains*. The most obvious is that we have duplicated code. This is a
+There are two problems with the code in methods *@spt:firstDrawOn* and
+*@spt:firstContains*. The most obvious is that we have duplicated code. This is a
 cardinal error: if we find that we need to change the way that
 ==horizonatalBar== or ==verticalBar== are calculated, we are quite likely to
 forget to change one of the two occurrences. The solution is to factor out these
 calculations into two new methods, which we put in the ==private== protocol:
 
-[[[caption===horizontalBar==.
+[[[language=smalltalk|caption===horizontalBar==|label=spt:horizontalBar
 horizontalBar
 	| crossHeight |
 	crossHeight := self height / 3.0.
 	^ self bounds insetBy: 0 @ crossHeight
 ]]]
 
-[[[caption===verticalBar==.
+[[[language=smalltalk|caption===verticalBar==|label=spt:verticalBar
 verticalBar
 	| crossWidth |
 	crossWidth := self width / 3.0.
@@ -243,16 +242,15 @@ verticalBar
 
 We can then define both ==drawOn:== and ==containsPoint:== using these methods:
 
-[[[caption=Refactored ==CrossMorph>>>drawOn:==.
+[[[language=smalltalk|caption=Refactored ==CrossMorph>>>drawOn:==|label=spt:refactorDrawOn
 drawOn: aCanvas
 	aCanvas fillRectangle: self horizontalBar color: self color.
 	aCanvas fillRectangle: self verticalBar color: self color
 ]]]
 
-[[[caption=Refactored ==CrossMorph>>>containsPoint:==.
+[[[language=smalltalk|caption=Refactored ==CrossMorph>>>containsPoint:==|label=spt:refactorContainsPoint
 containsPoint: aPoint
-	^ (self horizontalBar containsPoint: aPoint)
-		or: [self verticalBar containsPoint: aPoint]
+	^ (self horizontalBar containsPoint: aPoint) or: [ self verticalBar containsPoint: aPoint ]
 ]]]
 
 This code is much simpler to understand, largely because we have given
@@ -263,16 +261,16 @@ matter when we fill the cross with an opaque colour, but the bug becomes
 apparent immediately if we draw a semi-transparent cross, as shown in Figure
 *@fig:overdrawBug*.
 
-+The center of the cross is filled twice with the colour. >file://figures/overdrawBug.png|label=fig:overdrawBug|width=0.48+
++The center of the cross is filled twice with the colour. >file://figures/overdrawBug.png|width=40|label=fig:overdrawBug+
 
-+The cross-shaped morph, showing a row of unfilled pixels. >file://figures/bug|label=fig:bug|width=0.48+
++The cross-shaped morph, showing a row of unfilled pixels. >file://figures/onePixelLineBug.png|width=40|label=fig:onePixelLineBug+
 
-@@todo Execute the following code in  a workspace, line by line:
+@@todo Execute the following code in  a playground, line by line:
 
-[[[
-m := CrossMorph new bounds: (0@0 corner: 300@300).
-m openInWorld.
-m color: (Color blue alpha: 0.3).
+[[[language=smalltalk|caption=Use this code to show a bug|label=spt:overdrawBug
+CrossMorph new openInWorld; 
+bounds: (0@0 corner: 200@200);
+color: (Color blue alpha: 0.4)
 ]]]
 
 The fix is to divide the vertical bar into three pieces, and to fill only the
@@ -280,30 +278,30 @@ top and bottom. Once again we find a method in class ==Rectangle== that does the
 hard work for us: ==r1 areasOutside: r2== answers an array of rectangles
 comprising the parts of ==r1== outside ==r2==. Here is the revised code:
 
-[[[caption=The revised ==drawOn:== method, which fills the center of the cross once.
+[[[language=smalltalk|caption=The revised ==CrossMorph>>#drawOn:== method, which fills the center of the cross once|label=spt:correctionOfBug
 drawOn: aCanvas
 	| topAndBottom |
 	aCanvas fillRectangle: self horizontalBar color: self color.
 	topAndBottom := self verticalBar areasOutside: self horizontalBar.
-	topAndBottom do: [ :each | aCanvas fillRectangle: each color: self color]
+	topAndBottom do: [ :each | aCanvas fillRectangle: each color: self color ]
 ]]]
 
 This code seems to work, but if you try it on some crosses and resize them, you
 may notice that at some sizes, a one-pixel wide line separates the bottom of the
-cross from the remainder, as shown in Figure *@fig:bug*. This is due to rounding:
+cross from the remainder, as shown in Figure *@fig:onePixelLineBug*. This is due to rounding:
 when the size of the rectangle to be filled is not an integer, ==fillRectangle:
 color:== seems to round inconsistently, leaving one row of pixels unfilled. We
 can work around this by rounding explicitly when we calculate the sizes of the
 bars.
 
-[[[caption===CrossMorph>>>horizontalBar== with explicit rounding.
+[[[language=smalltalk|caption===CrossMorph>>>horizontalBar== with explicit rounding|label=spt:improveHorizontalBar
 horizontalBar
 	| crossHeight |
 	crossHeight := (self height / 3.0) rounded.
 	^ self bounds insetBy: 0 @ crossHeight
 ]]]
 
-[[[caption===CrossMorph>>>verticalBar== with explicit rounding.
+[[[language=smalltalk|caption===CrossMorph>>>verticalBar== with explicit rounding|label=spt:improveVerticalBar
 verticalBar
 	| crossWidth |
 	crossWidth := (self width / 3.0) rounded.
@@ -332,21 +330,21 @@ all crossMorphs answer ==true== to the ==handlesMouseDown:== message.
 
 @@todo Add this method to ==CrossMorph==:
 
-[[[caption=Declaring that ==CrossMorph== will react to mouse clicks.
-CrossMorph>>>handlesMouseDown: anEvent
-	^true
+[[[language=smalltalk|caption=Declaring that ==CrossMorph== will react to mouse clicks|label=spt:mouseEvent
+CrossMorph>>#handlesMouseDown: anEvent
+	^ true
 ]]]
 
 Suppose that when we click on the cross, we want to change the color of the
 cross to red, and when we action-click on it, we want to change the color to
-yellow. This can be accomplished by method *@mth:mouseDown*.
+yellow. This can be accomplished by method *@spt:mouseDown*.
 
-[[[caption=Reacting to mouse clicks by changing the morph's color.|label=mth:mouseDown
-CrossMorph>>>mouseDown: anEvent
-	anEvent redButtonPressed "click"
-		ifTrue: [self color: Color red].
-	anEvent yellowButtonPressed "action-click"
-		ifTrue: [self color: Color yellow].
+[[[language=smalltalk|caption=Reacting to mouse clicks by changing the morph's color|label=spt:mouseDown
+CrossMorph>>#mouseDown: anEvent
+	anEvent redButtonPressed
+		ifTrue: [ self color: Color red ].	"click"
+	anEvent yellowButtonPressed
+		ifTrue: [ self color: Color yellow ].	"action-click"
 	self changed
 ]]]
 
@@ -357,8 +355,12 @@ timely fashion.
 Note also that once the morph handles mouse events, you can no longer grab it
 with the mouse and move it. Instead you have to use the halo: meta-click on the
 morph to make the halo appear and grab either the brown move handle
-+file://movehandle|width=1em+ or the black pickup handle
-+file://grabhandle|width=1em+ at the top of the morph.
+(see Figure *@fig:moveHandle*) or the black pickup handle
+(see Figure *@fig:grabHandle2*) at the top of the morph.
+
++Move Handle button>file://figures/movehandle.png|width=3|label=fig:moveHandle+
+
++Grab Handle button>file://figures/grabhandle.png|width=3|label=fig:grabHandle2+
 
 The ==anEvent== argument of ==mouseDown:== is an instance of ==MouseEvent,==
 which is a subclass of ==MorphicEvent==. ==MouseEvent== defines the
@@ -378,8 +380,9 @@ arrange to be notified when the mouse is over the morph. This will happen if our
 morph answers ==true== to the ==handlesMouseOver:== message
 
 @@todo Declare that ==CrossMorph== will react when it is under the mouse pointer.
-[[[caption=We want to handle ''mouse over'' events.}
-CrossMorph>>>handlesMouseOver: anEvent
+
+[[[language=smalltalk|caption=We want to handle ''mouse over'' events|label=spt:mouseEventDeclaration
+CrossMorph>>#handlesMouseOver: anEvent
 	^true
 ]]]
 
@@ -389,18 +392,18 @@ When the mouse pointer enters or leaves the morph, the ==mouseEnter:== and
 
 @@todo Define two methods so that ==CrossMorph== catches and releases the keyboard focus, and a third method to actually handle the keystrokes.
 
-[[[caption=Getting the keyboard focus when the mouse enters the morph.
-CrossMorph>>>mouseEnter: anEvent
+[[[language=smalltalk|caption=Getting the keyboard focus when the mouse enters the morph|label=spt:gettingFocus
+CrossMorph>>#mouseEnter: anEvent
 	anEvent hand newKeyboardFocus: self
 ]]]
 
-[[[caption=Handing back the focus when the pointer goes away.
-CrossMorph>>>mouseLeave: anEvent
+[[[language=smalltalk|caption=Handing back the focus when the pointer goes away|label=spt:givebackFocus
+CrossMorph>>#mouseLeave: anEvent
 	anEvent hand newKeyboardFocus: nil
 ]]]
 
-[[[label=mth:handleKeystroke|caption=Receiving and handling keyboard events.
-CrossMorph>>>handleKeystroke: anEvent
+[[[language=smalltalk|label=spt:handleKeystroke|caption=Receiving and handling keyboard events
+CrossMorph>>#handleKeystroke: anEvent
 	| keyValue |
 	keyValue := anEvent keyValue.
 	keyValue = 30	 "up arrow"
@@ -417,7 +420,7 @@ We have written this method so that you can move the morph using the arrow keys.
 Note that when the mouse is no longer over the morph, the ==handleKeystroke:==
 message is not sent, so the morph stops responding to keyboard commands. To
 discover the key values, you can open a Transcript window and add ==Transcript==
-==show: anEvent keyValue== to method *@mth:handleKeystroke*. The ==anEvent==
+==show: anEvent keyValue== to method *@spt:handleKeystroke*. The ==anEvent==
 argument of ==handleKeystroke:== is an instance of ==KeyboardEvent==, another
 subclass of ==MorphicEvent==. Browse this class to learn more about keyboard
 events.
@@ -426,8 +429,8 @@ events.
 
 Morphic provides a simple animation system with two main methods: ==step== is
 sent to a morph at regular intervals of time, while ==stepTime== specifies the
-time in milliseconds between ==step==s.==stepTime== is actually the ''minimum''
-time between \ct{step}s.   If you ask for a ==stepTime== of 1 ms, don't be
+time in milliseconds between ==steps==.==stepTime== is actually the ''minimum''
+time between ==steps==. If you ask for a ==stepTime== of 1 ms, don't be
 surprised if Pharo is too busy to step your morph that often. In addition,
 ==startStepping== turns on the stepping mechanism, while ==stopStepping== turns
 it off again;  ==isStepping== can be used to find out whether a morph is
@@ -435,27 +438,29 @@ currently being stepped.
 
 @@todo Make ==CrossMorph== blink by defining these methods as follows:
 
-[[[caption=Defining the animation time interval.
-CrossMorph>>>stepTime
+[[[language=smalltalk|caption=Defining the animation time interval|label=spt:animationTime
+CrossMorph>>#stepTime
 	^ 100
 ]]]
 
-[[[caption=Making a step in the animation.
-CrossMorph>>>step
+[[[language=smalltalk|caption=Making a step in the animation|label=spt:stepInMorph
+CrossMorph>>#step
 	(self color diff: Color black) < 0.1
 		ifTrue: [self color: Color red]
 		ifFalse: [self color: self color darker]
 ]]]
 
-To start things off, you can open an inspector on a ==CrossMorph== (using the
-debug handle +file://debughandle|width=1em+ in the morphic halo), type ==self
+To start things off, you can open an inspector on a ==CrossMorph== using the
+debug handle (see Figure *@fig:debugHandle*) in the morphic halo, type ==self
 startStepping== in the small workspace pane at the bottom, and  ==do it==.
 Alternatively, you can modify the ==handleKeystroke:== method so that you can
 use the ==+== and ==-== keys to start and stop stepping.
 
-@@todo Add the following code to method *@mth:handleKeystroke*:
++The debug handle button>file://figures/debugHandle.png|width=3|label=fig:debugHandle+
 
-[[[
+@@todo Add the following code to method *@spt:handleKeystroke*:
+
+[[[language=smalltalk|caption=Add the beginning and the end of the steps|label=spt:startStopSteps
 	keyValue = $+ asciiValue
 		ifTrue: [self startStepping].
 	keyValue = $- asciiValue
@@ -478,7 +483,7 @@ UIManager default request: 'What''s your name?' initialAnswer: 'no name'
 To display a popup menu, use one of the various ==chooseFrom:== methods (Figure
 *@fig:popup*):
 
-[[[
+[[[language=smalltalk|
 UIManager default
 	chooseFrom: #('circle' 'oval' 'square' 'rectangle' 'triangle')
 	lines: #(2 4) message: 'Choose a shape'
