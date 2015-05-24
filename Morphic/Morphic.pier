@@ -22,9 +22,11 @@ is always able to respond to user actions: information on the screen is
 continuously updated as the world that it describes changes. A simple example of
 this is that you can detach a menu item and keep it as a button.
 
-@@todo Bring up the world menu. meta-click once on the world menu to bring up its morphic halo (Recall that you should set ==halosEnabled== in the Preferences browser. Alternatively, you can evaluate ==Preferences enable: #halosEnabled== in a workspace.), then meta-click again on the menu item you want to detach to bring up its halo.  Now drag that item elsewhere on the screen by grabbing the black handle *file://grabhandle|width=1em*, as shown in Figure *@fig:detachingMenu*.
+@@todo Bring up the world menu (by a Click in world) and meta-click once on the world menu to bring up its morphic halo (Recall that you should set ==halosEnabled== in the Preferences browser. Alternatively, you can evaluate ==Preferences enable: #halosEnabled== in a Playground.), then meta-click again on the menu item you want to detach to bring up its halo.  Now drag that item elsewhere on the screen by grabbing the black handle (see Figure *@fig:grabHandle*), as shown in Figure *@fig:detachingMenu*.
 
-+Detaching a morph, here the ==Workspace== menu item, to make it an independent button. >file://figures/detachingMenu.png|label=fig:detachingMenu+
++The grab handle>file://figures/grabhandle.png|width=3|label=fig:grabHandle+
+
++Detaching a morph, here the ==Playground== menu item, to make it an independent button. >file://figures/detachingMenu.png|width=20|label=fig:detachingMenu+
 
 All of the objects that you see on the screen when you run Pharo are ''Morphs'',
 that is, they are instances of subclasses of class ==Morph==. ==Morph== itself
@@ -33,10 +35,10 @@ implement interesting behaviour with little code. You can create a morph to
 represent any object, although how good a representation you get depends on the
 object!
 
-@@todo To create a morph to represent a string object, execute the following code in a workspace.
+@@todo To create a morph to represent a string object, execute the following code in a Playground.
 % , one line at a time.}
 
-[[[
+[[[language=smalltalk|caption=Creation of a String Morph|label=spt:stringMorph
 'Morph' asMorph openInWorld
 ]]]
 
@@ -54,13 +56,15 @@ that we get a coloured rectangle instead.
 
 @@todo Open a browser on the ==Color== class and add the following method to it:
 
-[[[caption=Getting a morph for an instance of ==Color==
+[[[language=smalltalk|caption=Getting a morph for an instance of ==Color==|label=spt:asMorphInColor
 Color>>>asMorph
 	^ Morph new color: self
 ]]]
 
-Now execute ==Color orange asMorph== ==openInWorld== in a workspace. Instead of
-the string-like morph, you get an orange rectangle!
+Now execute ==Color orange asMorph openInWorld== in a Playground. Instead of
+the string-like morph, you get an orange rectangle! (see Figure *@fig:colorOrange*)
+
++==Color orange asMorph openInWorld== with our new method>file://figures/colorOrange.png|width=75|label=fig:colorOrange+
 
 !!Manipulating morphs
 
