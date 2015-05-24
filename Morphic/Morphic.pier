@@ -473,17 +473,17 @@ To prompt the user for input, the ==UIManager== class provides a large number of
 ready-to-use dialog boxes. For instance, the ==request:initialAnswer:== method
 returns the string entered by the user (Figure *@fig:dialogName*).
 
-[[[
+[[[language=smalltalk|caption=Use the UIManager|label=spt:uimanager
 UIManager default request: 'What''s your name?' initialAnswer: 'no name'
 ]]]
 
-+An input dialog.>file://figures/dialog.png|label=fig:dialogName|width=0.8+
-+Pop-up menu.>file://figures/popup.png|width=0.8|label=fig:popup+
++An input dialog>file://figures/dialog.png|label=fig:dialogName|width=70+
++Pop-up menu>file://figures/popup.png|width=70|label=fig:popup+
 
 To display a popup menu, use one of the various ==chooseFrom:== methods (Figure
 *@fig:popup*):
 
-[[[language=smalltalk|
+[[[language=smalltalk|caption=Use the UIManager to open a popup|label=spt:popup
 UIManager default
 	chooseFrom: #('circle' 'oval' 'square' 'rectangle' 'triangle')
 	lines: #(2 4) message: 'Choose a shape'
@@ -500,7 +500,7 @@ should be blue. If it is rejected, the dropped morph decides what to do.
 
 @@todo Let's first define the receiver morph:
 
-[[[caption=Defining a morph on which we can drop other morphs
+[[[language=smalltalk|caption=Defining a morph on which we can drop other morphs|label=spt:receiverMorph
 Morph subclass: #ReceiverMorph
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -510,8 +510,8 @@ Morph subclass: #ReceiverMorph
 
 @@todo Now define the initialization method in the usual way:
 
-[[[caption=Initializing ==ReceiverMorph==.
-ReceiverMorph>>>initialize
+[[[language=smalltalk|caption=Initializing ==ReceiverMorph==|label=spt:initializeReceiverMorph
+ReceiverMorph>>#initialize
 	super initialize.
 	color := Color red.
 	bounds := 0 @ 0 extent: 200 @ 200
@@ -527,8 +527,8 @@ it likes the morph onto which it is being dropped; it is sent the message
 ==wantsToBeDroppedInto:==.  The default implementation of  this method (in class
 ==Morph==) answers ==true==.
 
-[[[caption=Accept dropped morphs based on their color.
-ReceiverMorph>>>wantsDroppedMorph: aMorph event: anEvent
+[[[language=smalltalk|caption=Accept dropped morphs based on their color|label=spt:acceptDropMorph
+ReceiverMorph>>#wantsDroppedMorph: aMorph event: anEvent
 	^ aMorph color = Color blue
 ]]]
 
@@ -539,20 +539,22 @@ for the dropped morph to go back to its original position.  This can be achieved
 by the receiver answering ==true== to the message ==repelsMorph:event:== when it
 doesn't want the dropped morph:
 
-[[[caption=Changing the behaviour of the dropped morph when it is rejected.
-ReceiverMorph>>>repelsMorph: aMorph event: ev
-	^ (self wantsDroppedMorph: aMorph event: ev) not
+[[[language=smalltalk|caption=Changing the behaviour of the dropped morph when it is rejected|label=spt:repelsMorph
+ReceiverMorph>>#repelsMorph: aMorph event: anEvent
+	^ (self wantsDroppedMorph: aMorph event: anEvent) not
 ]]]
 
 That's all we need as far as the receiver is concerned.
 
-@@todo Create instances of ==ReceiverMorph== and ==EllipseMorph== in a
-workspace:
+@@todo Create instances of ==ReceiverMorph== and ==EllipseMorph== in a playground:
 
-[[[
-ReceiverMorph new openInWorld.
+[[[language=smalltalk|caption=Create an instance of ReceiverMorph|label=spt:createReceiverMorph
+ReceiverMorph new openInWorld; 
+    bounds: (100@100 corner: 200@200).
 EllipseMorph new openInWorld.
 ]]]
+
++ A ''ReceiverMorph'' and an ''EllipseMorph''>file://figures/receiverMorph.png|width=100|label=fig:receiverMorph+ 
 
 Try to drag-and-drop the yellow ==EllipseMorph== onto the receiver. It will be
 rejected and sent back to its initial position.
@@ -562,7 +564,7 @@ rejected and sent back to its initial position.
 Let's create a specific subclass of ==Morph==, named ==DroppedMorph==, so we can
 experiment a bit more:
 
-[[[caption=Defining a morph we can drag-and-drop onto ==ReceiverMorph==
+[[[language=smalltalk|caption=Defining a morph we can drag-and-drop onto ==ReceiverMorph==|label=spt:DragDropMorph
 Morph subclass: #DroppedMorph
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -570,22 +572,21 @@ Morph subclass: #DroppedMorph
 	category: 'PBE-Morphic'
 ]]]
 
-[[[caption=Initializing ==DroppedMorph==.
-DroppedMorph>>>initialize
+[[[language=smalltalk|caption=Initializing ==DroppedMorph==|label=spt:initializeDropMorph
+DroppedMorph>>#initialize
 	super initialize.
 	color := Color blue.
-	self position: 250@100
+	self position: 250 @ 100
 ]]]
 
 Now we can specify what the dropped morph should do when it is rejected by the
 receiver; here it will stay attached to the mouse pointer:
 
-[[[caption=Reacting when the morph was dropped but rejected.
-DroppedMorph>>>rejectDropMorphEvent: anEvent
+[[[language=smalltalk|caption=Reacting when the morph was dropped but rejected|label=rejectDropMorph
+DroppedMorph>>#rejectDropMorphEvent: anEvent
 	| h |
 	h := anEvent hand.
-	WorldState
-		addDeferredUIMessage: [h grabMorph: self].
+	WorldState addDeferredUIMessage: [ h grabMorph: self ].
 	anEvent wasHandled: true
 ]]]
 
@@ -595,11 +596,14 @@ tell the ==World== that the hand should grab ==self==, the rejected morph.
 
 @@todo Create two instances of ==DroppedMorph==, and then drag-and-drop them onto the receiver.
 
-[[[
+[[[language=smalltalk|caption=Open a now DroppedMorph|label=spt:newDroppedMorph
 ReceiverMorph new openInWorld.
-(DroppedMorph new color: Color blue) openInWorld.
+morph := (DroppedMorph new color: Color blue) openInWorld.
+morph position: (morph position + (70@0)).
 (DroppedMorph new color: Color green) openInWorld.
 ]]]
+
++Creation of DroppedMorph and ReceiverMorph>file://figures/droppedMorph.png|width=70|label=fig:droppedMorph+
 
 The green morph is rejected and therefore stays attached to the mouse pointer.
 
