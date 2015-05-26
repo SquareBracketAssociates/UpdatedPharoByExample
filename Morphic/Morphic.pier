@@ -358,7 +358,7 @@ morph to make the halo appear and grab either the brown move handle
 (see Figure *@fig:moveHandle*) or the black pickup handle
 (see Figure *@fig:grabHandle2*) at the top of the morph.
 
-+Move Handle button>file://figures/movehandle.png|width=3|label=fig:moveHandle+
++Move Handle button>file://figures/moveHandle.png|width=3|label=fig:moveHandle+
 
 +Grab Handle button>file://figures/grabhandle.png|width=3|label=fig:grabHandle2+
 
