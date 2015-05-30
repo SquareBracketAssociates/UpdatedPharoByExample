@@ -741,6 +741,7 @@ TestSuite>>run: aResult
 TestSuite>>setUp
 	self resources do: [ :each |
 				each isAvailable ifFalse: [ each signalInitializationError ]
+		].
 
 TestSuite>>tearDown
 	self resourceClass resetResources: self resources
