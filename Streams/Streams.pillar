@@ -20,7 +20,7 @@ element in the past. You can go back to this position using the message
 ==PositionableStream>>reset==.
 
 +A stream positioned at its
-beginning.>file://figures/_abcdeStef.png|label=fig:_abcde+
+beginning.>file://figures/_abcdeStef.png|width=100|label=fig:_abcde+
 
 Reading an element conceptually means removing the first element of the future
 element sequence  and putting it after the last element in the past element
@@ -29,7 +29,7 @@ your stream is that shown in *@fig:a_bcde*.
 
 +The same stream after the execution of the method ==next==: the character ==a==
 is ''in the past'' whereas ==b==, ==c==, ==d== and ==e== are ''in the
-future''.>file://figures/a_bcdeStef.png|label=fig:a_bcde+
+future''.>file://figures/a_bcdeStef.png|width=100|label=fig:a_bcde+
 
 Writing an element means replacing the first element of the future sequence by
 the new one and moving it to the past. *@fig:ax_cde* shows the state of the same
@@ -37,7 +37,7 @@ stream after having written an ==x== using the message ==Stream>>nextPut:==
 ==anElement==.
 
 +The same stream after having written an
-==x==.>file://figures/ax_cdeStef.png|label=fig:ax_cde+
+==x==.>file://figures/ax_cdeStef.png|width=100|label=fig:ax_cde+
 
 !!Streams vs. collections
 
@@ -180,7 +180,7 @@ stream position: 2.
 stream peek --> $c
 ]]]
 
-+A stream at position 2>file://figures/ab_cdeStef.png|label=fig:ab_cde+
++A stream at position 2>file://figures/ab_cdeStef.png|width=100|label=fig:ab_cde+
 
 To position the stream at the beginning or the end, you can use
 ==PositionableStream>>reset== or ==PositionableStream>>setToEnd==.
@@ -345,24 +345,24 @@ backward and forward buttons in a web browser. A history would react as in
 figures from *@fig:emptyStream* to *@fig:page4*.
 
 +A new history is empty. Nothing is displayed in the web
-browser.>file://figures/emptyStef.png|label=fig:emptyStream+
+browser.>file://figures/emptyStef.png|width=100|label=fig:emptyStream+
 
-+The user opens to page 1.>file://figures/page1Stef.png|label=fig:page1+
-
-+The user clicks on a link to page
-2.>file://figures/page2Stef.png|label=fig:page2+
++The user opens to page 1.>file://figures/page1Stef.png|width=100|label=fig:page1+
 
 +The user clicks on a link to page
-3.>file://figures/page3Stef.png|label=fig:page3+
+2.>file://figures/page2Stef.png|width=100|label=fig:page2+
+
++The user clicks on a link to page
+3.>file://figures/page3Stef.png|width=100|label=fig:page3+
 
 +The user clicks on the back button. He is now viewing page 2
-again.>file://figures/page2_Stef.png|label=fig:page2_+
+again.>file://figures/page2_Stef.png|width=100|label=fig:page2_+
 
 +The user clicks again the back button. Page 1 is now
-displayed.>file://figures/page1_Stef.png|label=fig:page1_+
+displayed.>file://figures/page1_Stef.png|width=100|label=fig:page1_+
 
 +From page 1, the user clicks on a link to page 4. The history forgets pages 2
-and 3.>file://figures/page4Stef.png|label=fig:page4+
+and 3.>file://figures/page4Stef.png|width=100|label=fig:page4+
 This behaviour can be implemented using a ==ReadWriteStream==.
 
 [[[
@@ -570,7 +570,7 @@ FileStream
 This creates a 4x4 checkerboard as shown in *@fig:checkerboard4x4*.
 
 +A 4x4 checkerboard you can draw using binary
-streams.>file://figures/checkerboard4x4.png|label=fig:checkerboard4x4+
+streams.>file://figures/checkerboard4x4.png|width=25|label=fig:checkerboard4x4+
 
 !!Chapter summary
 
