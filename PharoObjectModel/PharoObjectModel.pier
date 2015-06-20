@@ -283,7 +283,7 @@ Dog subclass: #Hyena
 Now suppose we define class methods for ==Dog== to initialize its ==count== to
 ==0==, and to increment it when new instances are created:
 
-[[[caption=Keeping count of new dogs|language=Smalltalk
+[[[caption=Keeping count of new dogs|label=scr:dogCount|language=smalltalk
 Dog class>>>initialize
     count := 0.
 
@@ -305,7 +305,7 @@ can see for yourself by browsing ==Behavior new==). But with classes, simply
 defining them does not automatically call ==initialize==, and so we have to call
 it explicitly here. See also the discussion about lazy initialization, below.
 
-[[[
+[[[label=scr:dogCount2|language=smalltalk
 Dog initialize.
 Hyena initialize.
 Dog count      --> 0
@@ -1073,13 +1073,17 @@ accessible from all the instance and class methods.
 % The method ==Color>>name== uses the variable to find the name of a color.
 % Since most colors do not have names, it was thought inappropriate to add an instance variable ==name== to every color.
 
-% !!!!Class initialization
+!!!!Class initialization
 
+The presence of class variables raises the question: how do we initialize them?
 
-% The presence of class variables raises the question: how do we initialize them?
-% One solution is lazy initialization.
-% This can be done by introducing an accessor method which, when executed, initializes the variable if it has not yet been initialized. This implies that we must use the accessor all the time and never use the class variable directly. This furthermore imposes the cost of the accessor send and the initialization test.
-% It also arguably defeats the point of using a class variable, since in fact it is no longer shared.
+One solution is lazy initialization (discussed earlier in this chapter). This
+can be done by introducing an accessor method which, when executed, initializes
+the variable if it has not yet been initialized. This implies that we must use
+the accessor all the time and never use the class variable directly. This
+furthermore imposes the cost of the accessor send and the initialization test.
+It also arguably defeats the point of using a class variable, since in fact it
+is no longer shared.
 
 % \begin{method}[colorclasscolornames]{Color class>>colorNames}
 % Color class>>>colorNames
@@ -1087,60 +1091,67 @@ accessible from all the instance and class methods.
 %     ^ ColorNames
 % \end{method}
 
+Another solution is to override the class method ==initialize== (we've seen this
+before in Scripts *@scr:dogCount* and *@scr:dogCount2*).
 
-% Another solution is to override the class method ==initialize==.
+[[[label=scr:colorClassInit|caption=Initializing the ==Color== class|language=smalltalk
+Color class>>>initialize
+    ...
+    self initializeColorRegistry.
+    ...
+]]]
 
+If you adopt this solution, you will need to remember to invoke the
+==initialize== method after you define it (by evaluating ==Color initialize==).
+Although class side ==initialize== methods are executed automatically when code
+is loaded into memory (from a Monticello repository, for example),  they are
+''not'' executed automatically when they are first typed into the browser and
+compiled, or when they are edited and re-compiled.
 
-% \begin{method}[colorclassinit]{Color class>>initialize}
-% Color class>>>initialize
-%     !\ldots!
-%     self initializeNames
-% \end{method}
+!!!Pool variables
 
+Pool variables are variables that are shared between several classes that may
+not be related by inheritance. Pool variables were originally stored in pool
+dictionaries; now they should be defined as class variables of dedicated classes
+(subclasses of ==SharedPool==). Our advice is to avoid them; you will need them
+only in rare and specific circumstances. Our goal here is therefore to explain
+pool variables just enough so that you can understand them when you are reading
+code.
 
+A class that accesses a pool variable must mention the pool in its class
+definition. For example, the class ==Text== indicates that it is using the pool
+dictionary ==TextConstants==, which contains all the text constants such as
+==CR== and ==LF==. This dictionary has a key ==#CR== that is bound to the value
+==Character cr==, i.e., the carriage return character.
 
-% If you adopt this solution, you need to remember to invoke the ==initialize== method after you define it, ''e.g.'', by evaluating ==Color initialize==.
-% Although class side ==initialize== methods are executed automatically when code is loaded into memory, they are ''not'' executed automatically when they are first typed into the browser and compiled, or when they are edited and re-compiled.
+[[[label=scr:textPoolDict|caption=Pool dictionaries in the ==Text== class|language=smalltalk
+ArrayedCollection subclass: #Text
+        instanceVariableNames: 'string runs'
+        classVariableNames: ''
+        poolDictionaries: 'TextConstants'
+        category: 'Collections-Text'
+]]]
 
-% !!!Pool variables
+This allows methods of the class ==Text== to access the ''keys'' of the dictionary
+in the method body ''directly'', i.e., by using variable syntax rather than an
+explicit dictionary lookup. For example, we can write the following method.
 
-% Pool variables are variables that are shared between several classes that may not be related by inheritance.
-% Pool variables were originally stored in pool dictionaries; now they should be defined as class variables of dedicated classes (subclasses of SharedPool). Our advice is to avoid them; you will need them only in rare and specific circumstances.
-% Our goal here is therefore to explain pool variables just enough so that you can understand them when you are reading code.
+[[[label=scr:textTestCR|caption===Text>>testCR==|language=smalltalk
+Text>>>testCR
+    ^ CR == Character cr
+]]]
 
-% A class that accesses a pool variable must mention the pool in its class definition.
-% For example, the class ==Text==
-% indicates that it is using the pool dictionary ==TextConstants==, which contains all the text constants such as ==CR== and ==LF==.
-% This dictionary has a key ==#CR== that is bound to the value ==Character cr==, i.e., the carriage return character.
+Once again, we recommend that you avoid the use of pool variables and pool
+dictionaries.
 
+!!Chapter summary
 
-% \begin{classdef}[textpooldict]{Pool dictionaries in the ==Text== class}
-% ArrayedCollection subclass: #Text
-%         instanceVariableNames: 'string runs'
-%         classVariableNames: ''
-%         !""poolDictionaries: 'TextConstants'""!
-%         category: 'Collections-Text'
-% \end{classdef}
+The object model of Pharo is both simple and uniform.
+Everything is an object, and pretty much everything happens by sending messages.
 
-% This allows methods of the class ==Text== to access the keys of the dictionary in the method body ''directly'', i.e., by using variable syntax rather than an explicit dictionary lookup.
-% For example, we can write the following method.
-
-% \begin{method}[texttestcr]{Text>>testCR}
-% Text>>>testCR
-%       ^ CR == Character cr
-% \end{method}
-
-% Once again,  we recommend that you avoid the use of pool variables and pool dictionaries.
-
-% !!Chapter summary
-
-
-% The object model of Pharo is both simple and uniform.
-% Everything is an object, and pretty much everything happens by sending messages.
-
-% -Everything is an object. Primitive entities like integers are objects, but also classes are first-class objects.
-% -Every object is an instance of a class. Classes define the structure of their instances via ''private'' instance variables and the behaviour of their instances via ''public'' methods. Each class is the unique instance of its metaclass. Class variables are private variables shared by the class and all the instances of the class. Classes cannot directly access instance variables of their instances, and instances cannot access instance variables of their class. Accessors must be defined if this is needed.
-% -Every class has a superclass. The root of the single inheritance hierarchy is ==ProtoObject==. Classes you define, however, should normally inherit from ==Object== or its subclasses. There is no syntax for defining abstract classes. An abstract class is simply a class with an abstract method\,---\,one whose implementation consists of the expression ==self subclassResponsibility==. Although Pharo supports only single inheritance, it is easy to share implementations of methods by packaging them as ''traits''.
-% -Everything happens by sending messages. We do not ''call methods'', we ''send messages''. The receiver then chooses its own method for responding to the message.
-% -Method lookup follows the inheritance chain; ==self== sends are dynamic and start the method lookup again in the class of the receiver, whereas ==super== sends are static, and start in the superclass of class in which the ==super== send is written.
-% -There are three kinds of shared variables. Global variables are accessible everywhere in the system. Class variables are shared between a class, its subclasses and its instances. Pool variables are shared between a selected set of classes. You should avoid shared variables as much as possible.
+-Everything is an object. Primitive entities like integers are objects, but also classes are first-class objects.
+-Every object is an instance of a class. Classes define the structure of their instances via ''private'' instance variables and the behaviour of their instances via ''public'' methods. Each class is the unique instance of its metaclass. Class variables are private variables shared by the class and all the instances of the class. Classes cannot directly access instance variables of their instances, and instances cannot access instance variables of their class. Accessors must be defined if this is needed.
+-Every class has a superclass. The root of the single inheritance hierarchy is ==ProtoObject==. Classes you define, however, should normally inherit from ==Object== or its subclasses. There is no syntax for defining abstract classes. An abstract class is simply a class with an abstract method (one whose implementation consists of the expression ==self subclassResponsibility==). Although Pharo supports only single inheritance, it is easy to share implementations of methods by packaging them as ''traits''.
+-Everything happens by sending messages. We do not ''call methods'', we ''send messages''. The receiver then chooses its own method for responding to the message.
+-Method lookup follows the inheritance chain; ==self== sends are dynamic and start the method lookup again in the class of the receiver, whereas ==super== sends are static, and start in the superclass of class in which the ==super== send is written.
+-There are three kinds of shared variables. Global variables are accessible everywhere in the system. Class variables are shared between a class, its subclasses and its instances. Pool variables are shared between a selected set of classes. You should avoid shared variables as much as possible.
