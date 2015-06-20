@@ -729,8 +729,7 @@ In contrast, if we send the message ==openInWorld== to ==anEllipse==, the method
 is not immediately found, since the class ==EllipseMorph== does not implement
 ==openInWorld==. The search therefore continues in the superclass,
 ==BorderedMorph==, and so on, until an ==openInWorld== method is found in the
-class ==Morph==.
-% (see Figure *@fig:openInWorldLookup*).
+class ==Morph== (see Figure *@fig:openInWorldLookup*).
 
 [[[label=scr:openInWorld|caption=An inherited method|language=smalltalk
 Morph>>>openInWorld
@@ -739,12 +738,7 @@ Morph>>>openInWorld
      self openInWorld: self currentWorld
 ]]]
 
-% \begin{figure}[htb]
-% \begin{center}
-%     {\includegraphics[width=0.8\textwidth]{openInWorldLookup}}
-% \caption{Method lookup follows the inheritance hierarchy.\figlabel{openInWorldLookup}}
-% \end{center}
-% \end{figure}
++Method lookup follows the inheritance hierarchy>file://figures/openInWorldLookup.png|width=8|label=fig:openInWorldLookup+
 
 !!!Returning self
 
@@ -785,233 +779,295 @@ return value'':
 
 ''"Return a value only when you intend for the sender to use the value."''
 
-% !!!Overriding and extension
+!!!Overriding and extension
+
+If we look again at the ==EllipseMorph== class hierarchy in Figure
+*@fig:openInWorldLookup*, we see that the classes ==Morph== and ==EllipseMorph==
+both implement ==defaultColor==. In fact, if we open a new morph (==Morph new
+openInWorld==) we see that we get a blue morph, whereas an ellipse will be
+yellow by default.
+
+We say that ==EllipseMorph== ''overrides'' the ==defaultColor== method that it
+inherits from ==Morph==. The inherited method no longer exists from the point of
+view of ==anEllipse==.
+
+Sometimes we do not want to override inherited methods, but rather ''extend''
+them with some new functionality, that is, we would like to be able to invoke
+the overridden method ''in addition to'' the new functionality we are defining
+in the subclass. In Pharo, as in many object-oriented languages that support
+single inheritance, this can be done with the help of ==super== sends.
+
+The most important application of this mechanism is in the ==initialize==
+method. Whenever a new instance of a class is initialized, it is critical to
+also initialize any inherited instance variables.
+
+However, the knowledge of how to do this is already captured in the
+==initialize== methods of each of the superclass in the inheritance chain. The
+subclass has no business even trying to initialize inherited instance variables!
+
+It is therefore good practice whenever implementing an initialize method to send
+==super initialize== before performing any further initialization:
+
+[[[label=scr:morphinit|caption=Super initialize|language=smalltalk
+BorderedMorph>>>initialize
+    "initialize the state of the receiver"
+
+    super initialize.
+    self borderInitialize
+]]]
+
+@@important An ==initialize method should always start by sending
+==super initialize==.==
+
+!!!Self sends and super sends
+
+We need ==super== sends to compose inherited behaviour that would otherwise be
+overridden. The usual way to compose methods, whether inherited or not, however,
+is by means of ==self== sends.
+
+How do ==self== sends differ from ==super== sends? Like ==self==, ==super==
+represents the receiver of the message. The only thing that changes is the
+method lookup. Instead of lookup starting in the class of the receiver, it
+starts in the superclass of the class of the method where the ==super== send
+occurs.
+
+Note that ==super== is ''not'' the superclass! It is a common and natural
+mistake to think this. It is also a mistake to think that lookup starts in the
+superclass of the receiver. We shall see with the following example precisely
+how this works.
+
+Consider the message ==constructorString==, which we can send to any morph:
+
+[[[
+anEllipse constructorString
+    --> '(EllipseMorph newBounds: (0@0 corner: 50@40) color: Color yellow)'
+]]]
 
+The return value is a string that can be evaluated to recreate the morph.
 
-% If we look again at the ==EllipseMorph== class hierarchy in Figure *@fig:openInWorldLookup*, we see that the classes ==Morph== and \mbox{==EllipseMorph==} both implement ==defaultColor==.
-% In fact, if we open a new morph (==Morph new openInWorld==) we see that we get a blue morph, whereas an ellipse will be yellow by default.
+How exactly is this result obtained through a combination of ==self== and
+==super== sends? First, ==anEllipse constructorString== will cause the method
+==constructorString== to be found in the class ==Morph==, as shown in Figure
+*@fig:constructorStringLookup*.
 
++==self== and ==super== sends>file://figures/constructorStringLookup.png|label=fig:constructorStringLookup|width=80+
 
+[[[label=scr:constructorString|caption=A ==self== send|language=smalltalk
+Morph>>>constructorString
+    ^ String streamContents: [:s | self printConstructorOn: s indent: 0].
+]]]
 
+The method ==Morph>>constructorString== performs a ==self== send of
+==printConstructorOn:indent:==. This message is also looked up, starting in the
+class ==EllipseMorph==, and found in ==Morph==. This method in turn does a
+==self== send of ==printConstructorOn:indent:nodeDict:==, which does a ==self==
+send of ==fullPrintOn:==. Once again, ==fullPrintOn:== is looked up starting in
+the class ==EllipseMorph==, and ==BorderedMorph>>fullPrintOn:== is found in
+==BorderedMorph== (see Figure *@fig:constructorStringLookup* once again). What
+is critical to notice is that the ==self== send causes the method lookup to
+start again in the class of the receiver, namely the class of ==anEllipse==.
 
+@@important A ==self== send triggers a ''dynamic method lookup starting in the class of the receiver.''
 
-% We say that ==EllipseMorph== ''overrides'' the ==defaultColor== method that it inherits from ==Morph==.
-% The inherited method no longer exists from the point of view of ==anEllipse==.
+[[[label=scr:fullPrintOn|caption=Combining ==super== and ==self== sends|language=smalltalk
+BorderedMorph>>>fullPrintOn: aStream
+    aStream nextPutAll: '('.
+    !""super fullPrintOn: aStream.""!
+    aStream nextPutAll: ') setBorderWidth: '; print: borderWidth;
+        nextPutAll: ' borderColor: ' , (self colorString: borderColor)
+]]]
 
-% Sometimes we do not want to override inherited methods, but rather ''extend'' them with some new functionality, that is, we would like to be able to invoke the overridden method ''in addition to'' the new functionality we are defining in the subclass.
-% In Smalltalk, as in many object-oriented languages that support single inheritance, this can be done with the help of \super sends.
+At this point, ==BorderedMorph>>fullPrintOn:== does a ==super== send to extend
+the ==fullPrintOn:== behaviour it inherits from its superclass. Because this is
+a ==super== send, the lookup now starts in the superclass of the class where the
+==super== send occurs, namely in ==Morph==. We then immediately find and
+evaluate ==Morph>>fullPrintOn:==.
 
-% The most important application of this mechanism is in the ==initialize== method.
-% Whenever a new instance of a class is initialized, it is critical to also initialize any inherited instance variables.
-% However, the knowledge of how to do this is already captured in the ==initialize== methods of each of the superclass in the inheritance chain.
-% The subclass has no business even trying to initialize inherited instance variables!
+Note that the ==super== lookup did not start in the superclass of the receiver.
+This would have caused lookup to start from ==BorderedMorph==, resulting in an
+infinite loop!
 
-% It is therefore good practice whenever implementing an initialize method to send ==super initialize== before performing any further initialization:
+@@important A ==super== send triggers a ''static method lookup starting in the superclass of the class of the method performing the ==super== send.''
 
+If you think carefully about ==super== send and Figure
+*@fig:constructorStringLookup*, you will realize that ==super== bindings are
+static: all that matters is the class in which the text of the ==super== send is
+found. By contrast, the meaning of ==self== is dynamic: it always represents the
+receiver of the currently executing message. This means that  ''all''  messages
+sent to ==self== are looked-up by starting in the receiver's class.
 
+!!!Message not understood
 
-% \begin{method}[morphinit]{Super initialize}
-% BorderedMorph>>>initialize
-%     "initialize the state of the receiver"
-%     super initialize.
-%     self borderInitialize
-% \end{method}
+What happens if the method we are looking for is not found?
 
-% @@important An ==initialize method should always start by sending ==super initialize==.==
+Suppose we send the message ==foo== to our ellipse. First the normal method
+lookup would go through the inheritance chain all the way up to ==Object== (or
+rather ==ProtoObject==) looking for this method. When this method is not found,
+the virtual machine will cause the object to send ==self doesNotUnderstand:
+#foo==. (See Figure *@fig:fooNotFound*.)
 
-% !!!Self sends and super sends
++Message ==foo== is not understood>file://figures/fooNotFound.png|label=fig:fooNotFound|width=80+
 
+Now, this is a perfectly ordinary, dynamic message send, so the lookup starts
+again from the class ==EllipseMorph==, but this time searching for the method
+==doesNotUnderstand:==. As it turns out, ==Object== implements
+==doesNotUnderstand:==. This method will create a new ==MessageNotUnderstood==
+object which is capable of starting a Debugger in the current execution context.
 
-% We need \super sends to compose inherited behaviour that would otherwise be overridden.
-% The usual way to compose methods, whether inherited or not, however, is by means of ==self== sends.
+Why do we take this convoluted path to handle such an obvious error? Well, this
+offers developers an easy way to intercept such errors and take alternative
+action. One could easily override the method ==Object>doesNotUnderstand:== in
+any subclass of ==Object== and  provide a different way of handling the error.
 
-% How do ==self== sends differ from \super sends?
-% Like ==self==, \super represents the receiver of the message.
-% The only thing that changes is the method lookup.
-% Instead of lookup starting in the class of the receiver, it starts in the superclass of the class of the method where the \super send occurs.
+In fact, this can be an easy way to implement automatic delegation of messages
+from one object to another. A ==Delegator== object could simply delegate all
+messages it does not understand to another object whose responsibility it is to
+handle them, or raise an error itself!
 
-% Note that \super is ''not'' the superclass!
-% It is a common and natural mistake to think this.
-% It is also a mistake to think that lookup starts in the superclass of the receiver.
-% We shall see with the following example precisely how this works.
+!!Shared variables
 
-% Consider the message ==constructorString==, which we can send to any morph:
-% [[[
-% anEllipse constructorString --> '(EllipseMorph newBounds: (0@0 corner: 50@40) color: Color yellow)'
-% ]]]
-% The return value is a string that can be evaluated to recreate the morph.
+Now we will look at an aspect of Pharo that is not so easily covered by our five
+rules: shared variables.
 
-% How exactly is this result obtained through a combination of ==self== and \super sends?
-% First, ==anEllipse constructorString== will cause the method ==constructorString== to be found in the class ==Morph==,
-% as shown in Figure *@fig:constructorStringLookup*.
+Pharo provides three kinds of shared variables:
 
-% \begin{figure}[htb]
-% \begin{center}
-% \ifluluelse
-%     {\includegraphics[width=\textwidth]{constructorStringLookup}}
-%     {\includegraphics[width=0.8\textwidth]{constructorStringLookup}}
-% \caption{==self== and \super sends\figlabel{constructorStringLookup}}
-% \end{center}
-% \end{figure}
+""1."" ''Globally'' shared variables
 
+""2."" ''Class variables'': variables shared between instances and classes. (Not
+to be confused with class instance variables, discussed earlier).
 
-% \begin{method}[constructorString]{A ==self== send}
-% Morph>>>constructorString
-%     ^ String streamContents: [:s | self printConstructorOn: s indent: 0].
-% \end{method}
-% The method ==Morph>>constructorString== performs a ==self== send of ==printConstructorOn:indent:==.
-% This message is also looked up, starting in the class ==EllipseMorph==, and found in ==Morph==.
-% This method in turn does a ==self== send of ==printConstructorOn:indent:nodeDict:==, which does a ==self== send of ==fullPrintOn:==.
-% Once again, ==fullPrintOn:== is looked up starting in the class ==EllipseMorph==, and ==BorderedMorph>>fullPrintOn:== is found in ==BorderedMorph== (see Figure *@fig:constructorStringLookup* once again).
-% What is critical to notice is that the ==self== send causes the method lookup to start again in the class of the receiver, namely the class of ==anEllipse==.
+""3."" ''Pool variables'': variables shared amongst a group of classes
 
-% @@important A ==self== send triggers a ''dynamic method lookup starting in the class of the receiver.''
+The names of all of these shared variables start with a capital letter, to warn
+us that they are indeed shared between multiple objects.
 
+!!!Global variables
 
-% \begin{method}[fullPrintOn]{Combining \super and ==self== sends}
-% BorderedMorph>>>fullPrintOn: aStream
-%     aStream nextPutAll: '('.
-%     !""super fullPrintOn: aStream.""!
-%     aStream nextPutAll: ') setBorderWidth: '; print: borderWidth;
-%         nextPutAll: ' borderColor: ' , (self colorString: borderColor)
-% \end{method}
-% At this point, ==BorderedMorph>>>fullPrintOn:== does a \super send to extend the
-% ==fullPrintOn:== behaviour it inherits from its superclass.
-% Because this is a \super send, the lookup now starts in the superclass of the class where the \super send occurs, namely in ==Morph==.
-% We then immediately find and evaluate ==Morph>>>fullPrintOn:==.
+In Pharo, all global variables are stored in a namespace called ==Smalltalk==,
+which is implemented as an instance of the class ==SystemDictionary==. Global
+variables are accessible everywhere. Every class is named by a global variable.
+In addition, a few globals are used to name special or commonly useful objects.
 
-% Note that the \super lookup did not start in the superclass of the receiver.
-% This would have caused lookup to start from ==BorderedMorph==, resulting in an infinite loop!
+The variable ==Transcript== names an instance of ==TranscriptStream==, a stream
+that writes to a scrolling window. The following code displays some information
+and then goes to the next line in the ==Transcript==.
 
-% @@important A \super send triggers a ''static method lookup starting in the superclass of the class of the method performing the \super send.''
+[[[
+Transcript show: 'Pharo is fun and powerful' ; cr
+]]]
 
-% If you think carefully about \super send and Figure *@fig:constructorStringLookup*, you will realize that \super bindings are static: all that matters is the class in which the text of the \super send is found.
-% By contrast, the meaning of ==self== is dynamic: it always represents the receiver of the currently executing message. This means that  ''all''  messages sent to ==self== are looked-up by starting in the receiver's class.
+Before you ==Do it==, open a transcript by selecting ==World > Tools... >
+Transcript==.
 
-% !!!Message not understood
-
-
-% What happens if the method we are looking for is not found?
-
-
-% Suppose we send the message ==foo== to our ellipse.
-% First the normal method lookup would go through the inheritance chain all the way up to ==Object== (or rather ==ProtoObject==) looking for this method.
-% When this method is not found, the virtual machine will cause the object to send ==self doesNotUnderstand: #foo==.
-% (See Figure *@fig:fooNotFound*.)
-
-% \begin{figure}[htb]
-% \begin{center}
-% \ifluluelse
-%     {\includegraphics[width=\textwidth]{fooNotFound}}
-%     {\includegraphics[width=0.8\textwidth]{fooNotFound}}
-% \caption{Message ==foo== is not understood\figlabel{fooNotFound}}
-% \end{center}
-% \end{figure}
-
-% Now, this is a perfectly ordinary, dynamic message send, so the lookup starts again from the class ==EllipseMorph==, but this time searching for the method ==doesNotUnderstand:==.
-% As it turns out, ==Object== implements ==doesNotUnderstand:==.
-% This method will create a new ==MessageNotUnderstood== object which is capable of starting a Debugger in the current execution context.
-
-% Why do we take this convoluted path to handle such an obvious error?
-% Well, this offers developers an easy way to intercept such errors and take alternative action.
-% One could easily override the method ==Object>>doesNotUnderstand:== in any subclass of ==Object== and  provide a different way of handling the error.
-
-% In fact, this can be an easy way to implement automatic delegation of messages from one object to another.
-% A ==Delegator== object could simply delegate all messages it does not understand to another object whose responsibility it is to handle them, or raise an error itself!
-
-% !!Shared variables
-
-
-% Now we will look at an aspect of Smalltalk that is not so easily covered by our five rules: shared variables.
-
-% Smalltalk provides three kinds of shared variables: (1) ''globally'' shared variables; (2) variables shared between instances and classes (''class variables''), and (3) variables shared amongst a group of  classes (''pool variables''). The names of all of these shared variables start with a capital letter, to warn us that they are indeed shared between multiple objects.
-
-
-
-
-% !!!Global variables
-
-% In Pharo, all global variables are stored in a namespace called ==Smalltalk==, which is implemented as an instance of the class ==SystemDictionary==.
-% Global variables are accessible everywhere.
-% Every class is named by a global variable; in addition, a few globals are used to name special or commonly useful objects.
-
-% The variable ==Transcript== names an instance of ==TranscriptStream==, a stream that writes to a scrolling window.
-% The following code displays some information and then goes to the next line in the ==Transcript==.
-
-% [[[
-% Transcript show: 'Pharo is fun and powerful' ; cr
-% ]]]
-
-
-% Before you \menu{do it}, open a transcript by selecting \menu{World \go Tools \ldots \go Transcript}.
-
-% \hint{Writing to the Transcript is slow, especially when the transcript window is open.
-% So, if you experience some sluggishness and are writing to the Transcript, think about collapsing it.}
-
-% !!!!Other useful global variables
-
-
-% -==Smalltalk== is the instance of ==SystemDictionary== that defines all of the globals\,---\,including ==Smalltalk== itself. The keys to this dictionary are the symbols that name the global objects in Smalltalk code. So, for example, \begin{code}{@TEST} Smalltalk at: #Boolean --> Boolean \end{code} Since ==Smalltalk== is itself a global variable, \begin{code}{} Smalltalk at: #Smalltalk-->a SystemDictionary(lots of globals)} \end{code} and \begin{code}{@TEST} (Smalltalk at: #Smalltalk) == Smalltalk --> true \end{code}
-% -==Sensor== is an instance of ==EventSensor==, and represents input to Pharo. For example, ==Sensor keyboard== answers the next character input on the keyboard, and ==Sensor leftShiftDown== answers ==true== if the left shift key is being held down, while ==Sensor mousePoint== answers a ==Point== indicating the current mouse location.
-% -==World== is an instance of ==PasteUpMorph== that represents the screen. ==World bounds== answers a rectangle that defines the whole screen space; all Morphs on the screen are submorphs of ==World==.
-% -==ActiveHand== is the current instance of ==HandMorph==, the graphical representation of the cursor. ==ActiveHand=='s submorphs hold anything being dragged by the mouse.
-% -==Undeclared== is another dictionary\,---\,it contains all the undeclared variables. If you write a method that references an undeclared variable, the browser will normally prompt you to declare it, for example, as a global or as an instance variable of the class. However, if you later delete the declaration, the code will then reference an undeclared variable. Inspecting ==Undeclared== can sometimes help explain strange behaviour!
-% -==SystemOrganization== is an instance of ==SystemOrganizer==: it records the organization of classes into packages. More precisely, it categorizes the ''names'' of classes, so
-
-
-% [[[
-% SystemOrganization categoryOfElement: #Magnitude --> #'Kernel-Numbers'
-% ]]]
-
-% Current practice is to strictly limit the use of global variables; it is usually better to use class instance variables or class variables, and to provide class methods to access them. Indeed, if Pharo were to be implemented from scratch today, most of the global variables that are not classes would be replaced by singletons.
-
-% The usual way to define a global is just to \menu{do it} on an assignment to a capitalized but undeclared identifier. The parser will then offer to declare the global for you. If you want to define a global programmatically, just execute ==Smalltalk at: #AGlobalName put: nil==. To remove it, execute ==Smalltalk removeKey: #AGlobalName==.
-
-
-% !!!Class variables
-
-% @sec:classVars
-
-
-% Sometimes we need to share some data amongst all the instances of a
-% class and the class itself.
-% This is possible using ''class variables''.
-% The term class variable indicates that the lifetime of the variable is the same as that of the class. However, what the
-% term does not convey is that these variables are shared amongst all the instances of a class as well as the class itself,
-% as shown in Figure *@fig:privateSharedVar*.
-% Indeed, a better name would have been ''shared variables'' since this expresses more clearly their role, and also warns of the danger of using them, particularly if they are modified.
-
-% \begin{figure}[htb]
-% \begin{center}
-% \ifluluelse
-%     {\includegraphics[width=\textwidth]{privateSharedVarColor}}
-%     {\includegraphics[width=0.7\textwidth]{privateSharedVarColor}}
-% \caption{Instance and class methods accessing different
-% variables.\figlabel{privateSharedVar}}
-% \end{center}
-% \end{figure}
-
-% In Figure *@fig:privateSharedVar* we see that ==rgb== and ==cachedDepth== are instance variables of ==Color==, hence only accessible to instances of ==Color==.
-% We also see that ==superclass==, ==subclass==, ==methodDict== and so on are class instance variables, i.e., instance variables only accessible to the ==Color== class.
-
-% But we can also see something new: ==ColorNames== and ==CachedColormaps== are ''class variables'' defined for ==Color==.
-% The capitalization of these variables gives us a hint that they are shared.
-% In fact, not only may all instances of ==Color== access these shared variables, but also the ==Color== class itself, ''and any of its subclasses''.
-% Both instance methods and class methods can access these shared variables.
-
-
-% A class variable is declared in the class definition template.
-% For example, the class ==Color== defines a large number of class variables to speed up color creation; its definition is shown below (\clsref{Color}).
-
-% \begin{classdef}[Color]{Color and its class variables}
-% Object subclass: #Color
-%         instanceVariableNames: 'rgb cachedDepth cachedBitPattern'
-%         classVariableNames: 'Black Blue BlueShift Brown CachedColormaps ColorChart ColorNames ComponentMask ComponentMax Cyan DarkGray Gray GrayToIndexMap Green GreenShift HalfComponentMask HighLightBitmaps IndexedColors LightBlue LightBrown LightCyan LightGray LightGreen LightMagenta LightOrange LightRed LightYellow Magenta MaskingMap Orange PaleBlue PaleBuff PaleGreen PaleMagenta PaleOrange PalePeach PaleRed PaleTan PaleYellow PureBlue PureCyan PureGreen PureMagenta PureRed PureYellow RandomStream Red RedShift TranslucentPatterns Transparent VeryDarkGray VeryLightGray VeryPaleRed VeryVeryDarkGray VeryVeryLightGray White Yellow'
-%         poolDictionaries: ''
-%         category: 'Graphics-Primitives'
-% \end{classdef}
-
-% The class variable ==ColorNames== is an array containing the name of frequently-used colors. This array is shared by all the instances of ==Color== and its subclass ==TranslucentColor==. It is accessible from all the instance and class methods. % (see Figure *@fig:ClassVarAccess2*).
+''Hint:'' Writing to the ==Transcript== is slow, especially when the transcript
+window is open. So, if you experience some sluggishness and are writing to the
+Transcript, think about collapsing it.
+
+!!!!Other useful global variables
+
+""==Smalltalk=="" is the instance of ==SystemDictionary== that defines all of
+the globals (including ==Smalltalk== itself). The keys to this dictionary are
+the symbols that name the global objects in Pharo code. So, for example:
+
+[[[language=smalltalk
+Smalltalk at: #Boolean --> Boolean
+]]]
+
+Since ==Smalltalk== is itself a global variable:
+
+[[[language=smalltalk
+Smalltalk at: #Smalltalk  --> a SystemDictionary(lots of globals)
+
+(Smalltalk at: #Smalltalk) == Smalltalk   --> true
+]]]
+
+""==Sensor=="" is an instance of ==EventSensor==, and represents input to Pharo.
+For example, ==Sensor keyboard== answers the next character input on the
+keyboard, and ==Sensor leftShiftDown== answers ==true== if the left shift key is
+being held down, while ==Sensor mousePoint== answers a ==Point== indicating the
+current mouse location.
+
+""==World=="" is an instance of ==PasteUpMorph== that represents the screen.
+==World bounds== answers a rectangle that defines the whole screen space; all
+Morphs on the screen are submorphs of ==World==.
+
+""==ActiveHand=="" is the current instance of ==HandMorph==, the graphical
+representation of the cursor. ==ActiveHand=='s submorphs hold anything being
+dragged by the mouse.
+
+""==Undeclared=="" is another dictionary, which contains all the undeclared
+variables. If you write a method that references an undeclared variable, the
+browser will normally prompt you to declare it, for example as a global or as an
+instance variable of the class. However, if you later delete the declaration,
+the code will then reference an undeclared variable. Inspecting ==Undeclared==
+can sometimes help explain strange behaviour!
+
+""==SystemOrganization=="" is an instance of ==SystemOrganizer==: it records the
+organization of classes into packages. More precisely, it categorizes the
+''names'' of classes, so that:
+
+[[[
+SystemOrganization categoryOfElement: #Magnitude --> #'Kernel-Numbers'
+]]]
+
+!!!!Using globals in your code
+
+Current practice is to strictly limit the use of global variables. It is usually
+better to use class instance variables or class variables, and to provide class
+methods to access them. Indeed, if Pharo were to be implemented from scratch
+today, most of the global variables that are not classes would be replaced by
+singletons.
+
+The usual way to define a global is just to perform ==Do it== on an assignment
+to a capitalized but undeclared identifier. The parser will then offer to
+declare the global for you. If you want to define a global programmatically,
+just execute ==Smalltalk at: #AGlobalName put: nil==. To remove it, execute
+==Smalltalk removeKey: #AGlobalName==.
+
+!!!Class variables
+@sec:classVars
+
+Sometimes we need to share some data amongst all the instances of a class and
+the class itself. This is possible using ''class variables''. The term class
+variable indicates that the lifetime of the variable is the same as that of the
+class. However, what the term does not convey is that these variables are shared
+amongst all the instances of a class as well as the class itself, as shown in
+Figure *@fig:privateSharedVar*. Indeed, a better name would have been ''shared
+variables'' since this expresses more clearly their role, and also warns of the
+danger of using them, particularly if they are modified.
+
++Instance and class methods accessing different variables>file://figures/privateSharedVarColor.png|label=fig:privateSharedVar|width=70+
+
+In Figure *@fig:privateSharedVar* we see that ==rgb== and ==cachedDepth== are
+instance variables of ==Color==, hence only accessible to instances of
+==Color==. We also see that ==superclass==, ==subclass==, ==methodDict== and so
+on are class instance variables, i.e., instance variables only accessible to the
+==Color== class.
+
+But we can also see something new: ==ColorNames== and ==CachedColormaps== are
+''class variables'' defined for ==Color==. The capitalization of these variables
+gives us a hint that they are shared. In fact, not only may all instances of
+==Color== access these shared variables, but also the ==Color== class itself,
+''and any of its subclasses''. Both instance methods and class methods can
+access these shared variables.
+
+A class variable is declared in the class definition template. For example, the
+class ==Color== defines a large number of class variables to speed up color
+creation; its definition is shown below, in Script *@scr:classDefColor*.
+
+[[[label=scr:classDefColor|caption=Color and its class variables|language=smalltalk
+Object subclass: #Color
+	instanceVariableNames: 'rgb cachedDepth cachedBitPattern alpha'
+	classVariableNames: 'BlueShift CachedColormaps ColorRegistry ComponentMask
+    ComponentMax GrayToIndexMap GreenShift HalfComponentMask IndexedColors
+    MaskingMap RandomStream RedShift'
+	category: 'Graphics-Primitives'
+]]]
+
+The class variable ==ColorRegistry== is an instance of ==IdentityDictionary==
+containing the frequently-used colors, referenced by name. This dictionary is
+shared by all the instances of ==Color==, as well as the class itself. It is
+accessible from all the instance and class methods.
 
 % ==ColorNames== is initialized once in ==Color class>>initializeNames==, but it is accessed from instances of ==Color==.
 % The method ==Color>>name== uses the variable to find the name of a color.
@@ -1086,5 +1142,5 @@ return value'':
 % -Every object is an instance of a class. Classes define the structure of their instances via ''private'' instance variables and the behaviour of their instances via ''public'' methods. Each class is the unique instance of its metaclass. Class variables are private variables shared by the class and all the instances of the class. Classes cannot directly access instance variables of their instances, and instances cannot access instance variables of their class. Accessors must be defined if this is needed.
 % -Every class has a superclass. The root of the single inheritance hierarchy is ==ProtoObject==. Classes you define, however, should normally inherit from ==Object== or its subclasses. There is no syntax for defining abstract classes. An abstract class is simply a class with an abstract method\,---\,one whose implementation consists of the expression ==self subclassResponsibility==. Although Pharo supports only single inheritance, it is easy to share implementations of methods by packaging them as ''traits''.
 % -Everything happens by sending messages. We do not ''call methods'', we ''send messages''. The receiver then chooses its own method for responding to the message.
-% -Method lookup follows the inheritance chain; ==self== sends are dynamic and start the method lookup again in the class of the receiver, whereas \super sends are static, and start in the superclass of class in which the \super send is written.
+% -Method lookup follows the inheritance chain; ==self== sends are dynamic and start the method lookup again in the class of the receiver, whereas ==super== sends are static, and start in the superclass of class in which the ==super== send is written.
 % -There are three kinds of shared variables. Global variables are accessible everywhere in the system. Class variables are shared between a class, its subclasses and its instances. Pool variables are shared between a selected set of classes. You should avoid shared variables as much as possible.
