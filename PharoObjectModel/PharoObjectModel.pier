@@ -263,7 +263,7 @@ separately.
 Suppose we define the class ==Dog==, and its subclass ==Hyena==. ==Hyena==
 will naturally inherit the class instance variable ==count== from ==Dog==.
 
-[[[caption=Dogs and Hyenas|language=Smalltalk
+[[[caption=Dogs and Hyenas|language=smalltalk
 Object subclass: #Dog
     instanceVariableNames: ''
     classVariableNames: ''
@@ -354,7 +354,7 @@ instance.
 
 We define the class ==WebServer== as follow.
 
-[[[caption=A sample singleton class, ==WebServer==|language=Smalltalk
+[[[caption=A sample singleton class, ==WebServer==|language=smalltalk
 Object subclass: #WebServer
     instanceVariableNames: 'sessions'
     classVariableNames: ''
@@ -365,7 +365,7 @@ Object subclass: #WebServer
 Then, clicking on the ""Class side"" checkbox, we add the (class) instance
 variable ==uniqueInstance==.
 
-[[[caption=The class side of the singleton class|language=Smalltalk
+[[[caption=The class side of the singleton class|language=smalltalk
 WebServer class
     instanceVariableNames: 'uniqueInstance'
 ]]]
@@ -381,7 +381,7 @@ variable ==uniqueInstance==. Finally the value of ==uniqueInstance== is
 returned. Since ==uniqueInstance== is a class instance variable, this method can
 directly access it.
 
-[[[label=scr:uniqueInstance|caption=Class-side accessor method ==uniqueInstance==|language=Smalltalk
+[[[label=scr:uniqueInstance|caption=Class-side accessor method ==uniqueInstance==|language=smalltalk
 WebServer class>>>uniqueInstance
      uniqueInstance ifNil: [ uniqueInstance := self new ].
      ^ uniqueInstance
@@ -816,8 +816,7 @@ BorderedMorph>>>initialize
     self borderInitialize
 ]]]
 
-@@important An ==initialize method should always start by sending
-==super initialize==.==
+@@important An ==initialize== method should always start by sending ==super initialize==.
 
 !!!Self sends and super sends
 
@@ -872,7 +871,7 @@ start again in the class of the receiver, namely the class of ==anEllipse==.
 [[[label=scr:fullPrintOn|caption=Combining ==super== and ==self== sends|language=smalltalk
 BorderedMorph>>>fullPrintOn: aStream
     aStream nextPutAll: '('.
-    !""super fullPrintOn: aStream.""!
+    super fullPrintOn: aStream.
     aStream nextPutAll: ') setBorderWidth: '; print: borderWidth;
         nextPutAll: ' borderColor: ' , (self colorString: borderColor)
 ]]]
@@ -887,7 +886,7 @@ Note that the ==super== lookup did not start in the superclass of the receiver.
 This would have caused lookup to start from ==BorderedMorph==, resulting in an
 infinite loop!
 
-@@important A ==super== send triggers a ''static method lookup starting in the superclass of the class of the method performing the ==super== send.''
+@@important A ==super== send triggers a ''static method lookup'' starting in the superclass of the class of the method performing the ==super== send.
 
 If you think carefully about ==super== send and Figure
 *@fig:constructorStringLookup*, you will realize that ==super== bindings are
@@ -916,7 +915,7 @@ object which is capable of starting a Debugger in the current execution context.
 
 Why do we take this convoluted path to handle such an obvious error? Well, this
 offers developers an easy way to intercept such errors and take alternative
-action. One could easily override the method ==Object>doesNotUnderstand:== in
+action. One could easily override the method ==Object>>doesNotUnderstand:== in
 any subclass of ==Object== and  provide a different way of handling the error.
 
 In fact, this can be an easy way to implement automatic delegation of messages
@@ -1012,7 +1011,7 @@ SystemOrganization categoryOfElement: #Magnitude --> #'Kernel-Numbers'
 
 !!!!Using globals in your code
 
-Current practice is to strictly limit the use of global variables. It is usually
+The recommended practice is to strictly limit the use of global variables. It is usually
 better to use class instance variables or class variables, and to provide class
 methods to access them. Indeed, if Pharo were to be implemented from scratch
 today, most of the global variables that are not classes would be replaced by
@@ -1044,7 +1043,7 @@ instance variables of ==Color==, hence only accessible to instances of
 on are class instance variables, i.e., instance variables only accessible to the
 ==Color== class.
 
-But we can also see something new: ==ColorNames== and ==CachedColormaps== are
+But we can also see something new: ==ColorRegistry== and ==CachedColormaps== are
 ''class variables'' defined for ==Color==. The capitalization of these variables
 gives us a hint that they are shared. In fact, not only may all instances of
 ==Color== access these shared variables, but also the ==Color== class itself,
