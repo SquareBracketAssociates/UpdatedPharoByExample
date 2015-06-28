@@ -14,7 +14,7 @@ represented as two sequences of elements: a past element sequence and a future
 element sequence. The stream is positioned between the two sequences.
 Understanding this model is important since all stream operations in Smalltalk
 rely on it. For this reason, most of the ==Stream== classes are subclasses of
-==PositionableStream==. *@fig:_abcde* presents a stream which contains five
+==PositionableStream==. Figure *@fig:_abcde* presents a stream which contains five
 characters. This stream is in its original position, i.e., there is no
 element in the past. You can go back to this position using the message
 ==PositionableStream>>reset==.
@@ -25,16 +25,16 @@ beginning.>file://figures/_abcdeStef.png|width=100|label=fig:_abcde+
 Reading an element conceptually means removing the first element of the future
 element sequence  and putting it after the last element in the past element
 sequence. After having read one element using the message ==next==, the state of
-your stream is that shown in *@fig:a_bcde*.
+your stream is that shown in Figure *@fig:a_bcde*.
 
 +The same stream after the execution of the method ==next==: the character ==a==
 is ''in the past'' whereas ==b==, ==c==, ==d== and ==e== are ''in the
 future''.>file://figures/a_bcdeStef.png|width=100|label=fig:a_bcde+
 
 Writing an element means replacing the first element of the future sequence by
-the new one and moving it to the past. *@fig:ax_cde* shows the state of the same
-stream after having written an ==x== using the message ==Stream>>nextPut:==
-==anElement==.
+the new one and moving it to the past. Figure *@fig:ax_cde* shows the state of
+the same stream after having written an ==x== using the message
+==Stream>>nextPut:== ==anElement==.
 
 +The same stream after having written an
 ==x==.>file://figures/ax_cdeStef.png|width=100|label=fig:ax_cde+
@@ -43,7 +43,7 @@ stream after having written an ==x== using the message ==Stream>>nextPut:==
 
 The collection protocol supports the storage, removal and enumeration of the
 elements of a collection, but does not allow these operations to be
-intermingled.  For example, if the elements of an ==OrderedCollection== are
+intermingled. For example, if the elements of an ==OrderedCollection== are
 processed by a ==OrderedCollection>>do:== method, it is not possible to add or
 remove elements from inside the ==do:== block. Nor does the collection protocol
 offer ways to iterate over two collections at the same time, choosing which
@@ -74,16 +74,6 @@ w contents. -->  'ab'
 
 It is also possible to create ==ReadWriteStream==s that support both the reading
 and writing protocols.
-
-The main problem with ==WriteStream== and ==ReadWriteStream== is that they only
-support arrays and strings in Pharo. This is currently being changed by the
-development of a new library named Nile, but for now if you try to stream over
-another kind of collection, you will get an error:
-
-[[[
-w := WriteStream on: (OrderedCollection new: 20).
-w nextPut: 12. -->  raises an error
-]]]
 
 Streams are not only meant for collections, they can be used for files or
 sockets too. The following example creates a file named ==test.txt==, writes two
