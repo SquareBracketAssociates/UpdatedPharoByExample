@@ -15,7 +15,7 @@ element sequence. The stream is positioned between the two sequences.
 Understanding this model is important since all stream operations in Smalltalk
 rely on it. For this reason, most of the ==Stream== classes are subclasses of
 ==PositionableStream==. *@fig:_abcde* presents a stream which contains five
-characters. This stream is in its original position, ''i.e.'', there is no
+characters. This stream is in its original position, i.e., there is no
 element in the past. You can go back to this position using the message
 ==PositionableStream>>reset==.
 
@@ -244,7 +244,7 @@ result. -->   an OrderedCollection(1 1 2 3 4 4 5 9 10 11 12 13 13 14 15)
 
 We have already seen how to read a collection by iterating over its elements
 using a ==ReadStream==. We'll now learn how to create collections using
-==ai=={WriteStream}{}s.
+==WriteStream==s.
 
 ==WriteStream==s are useful for appending a lot of data to a collection at
 various locations. They are often used to construct strings that are based on
@@ -281,9 +281,9 @@ string := String streamContents:
 string. -->   '#(1 2 3) size = 3'
 ]]]
 
-The method ==SequenceableCollection class>>streamContents:== @sec:streamContents
-creates a collection and a stream on that collection for you. It then executes
-the block you gave passing the stream as a parameter. When the block ends,
+The method ==SequenceableCollection class>>streamContents:== creates a
+collection and a stream on that collection for you. It then executes the block
+you gave passing the stream as a parameter. When the block ends,
 ==streamContents:== returns the content of the collection.
 
 The following ==WriteStream== methods are especially useful in this context:
@@ -301,7 +301,7 @@ stream like ==WriteStream>>space==, ==WriteStream>>tab== and ==WriteStream>>cr==
 ensures that the last character in the stream is a space; if the last character
 isn't a space it adds one.
 
-!!!!!About Concatenation.
+!!!!!About Concatenation
 
 Using ==WriteStream>>nextPut:== and ==WriteStream>>nextPutAll:== on a
 ==WriteStream== is often the best way to concatenate characters. Using the comma
@@ -329,7 +329,7 @@ which must be collected. Using a stream instead of string concatenation is a
 well-known optimization.
 
 In fact, you can use ==SequenceableCollection class>>streamContents:==
-(mentioned on page \pageref{sec:streamContents}) to help you do this:
+(mentioned earlier) to help you do this:
 
 [[[
 String streamContents: [ :tempStream |
