@@ -96,7 +96,7 @@ the command line (see the next section).
 
 The general pattern for launching Pharo from a terminal is:
 
-[[[
+[[[caption=Launching pattern|label=src:launchingPattern
 <Pharo executable> <path to Pharo image>
 ]]]
 
@@ -104,7 +104,7 @@ The general pattern for launching Pharo from a terminal is:
 
 For Linux, assuming that you're in the unzipped ==pharo4.0== folder:
 
-[[[
+[[[caption=Launching Pharo from Linux|label=src:launchingFromLinux
 ./pharo shared/Pharo4.0.image
 ]]]
 
@@ -113,7 +113,7 @@ For Linux, assuming that you're in the unzipped ==pharo4.0== folder:
 For Mac OS X, assuming that you're in the directory with the unzipped
 ==Pharo4.0.app== bundle:
 
-[[[
+[[[caption=Launching Pharo from Mac OS X|label=src:launchingFromMac
 Pharo4.0.app/Contents/MacOS/Pharo Pharo4.0.app/Contents/Resources/Pharo4.0.image
 ]]]
 
@@ -124,7 +124,7 @@ right-click on ==Pharo4.0.app== and select 'Show Package Contents'.
 
 For Windows, assuming that you're in the unzipped ==Pharo4.0== folder:
 
-[[[
+[[[caption=Launching Pharo from Windows|label=src:launchingFromWindows
 Pharo.exe Pharo4.0.image
 ]]]
 
@@ -149,12 +149,12 @@ pointing device.
 
 ""click"" (or left-click): this is the most often used mouse button, and is normally equivalent
 to left-clicking (or clicking a single-mouse button without any modifier key).
-For example, click on the background of the Pharo window to bring up the “World”
+For example, click on the background of the Pharo window to bring up the ''World''
 menu (Figure *@fig:worldMenu*).
 
 ""action-click"" (or right-click): this is the next most used button. It is used
 to bring up a contextual menu that offers different sets of actions depending on
-where the mouse is pointing (see Figure *@fig:pharotutorial*). If you do not have a
+where the mouse is pointing (see Figure *@fig:operating*). If you do not have a
 multi-button mouse, then normally you will configure the control modifier key to
 action-click with the mouse button.
 
@@ -163,25 +163,26 @@ to activate the "morphic halo", an array of handles that are used to perform
 operations on the on-screen objects themselves, such as inspecting or resizing
 them (see Figure *@fig:halos*). If you let the mouse linger over a handle, a help
 balloon will explain its function. In Pharo, how you meta-click depends on your
-operating system: either you must hold Shift-Ctrl or Shift-Option (on Mac OS X)
-while clicking.
+operating system: either you must hold ==Shift-Ctrl== (on Windows or Linux) or 
+==Shift-Option== (on Mac OS X) while clicking.
 
-%+Action Click brings the contextual menu.>file://figures/operating.png|width=80|label=fig:operating+
++Action Click brings the contextual menu.>file://figures/operating.png|width=60|label=fig:operating+
 
-+Meta-Clicking brings the Halos>file://figures/addHalo.png|width=80|label=fig:halos+
++Meta-Clicking brings the Halos>file://figures/addHalo.png|width=60|label=fig:halos+
 
 !!Sending messages
 
 In the Pharo window, click on an open space to open the World Menu, and
-then select the "Playground" menu option. The Playground tool will open (you may
-recognize it as the "Workspace" tool, from previous versions of Pharo). We can
+then select the ''Playground'' menu option. The Playground tool will open (you may
+recognize it as the ''Workspace'' tool, from previous versions of Pharo). We can
 use the Playground to quickly execute Pharo code. Enter the following code in
-it, then right click and select "do it":
+it, then right click and select ==do it==:
 
-[[[language=smalltalk
-PharoTutorial go.]]]
+[[[language=smalltalk|caption=Open the Pharo Tutorial from the ==Playground==.|label=src:pharoTutorial
+	PharoTutorial go.
+]]]
 
-+Executing an expression is simple with the "do it" menu item.>file://figures/PharoTutorialOption.png|width=70|label=fig:pharotutorial+
++Executing an expression is simple with the "do it" menu item.>file://figures/PharoTutorialOption.png|width=60|label=fig:pharotutorial+
 
 This expression will trigger the Pharo tutorial (as shown in Figure
 *@fig:ProfStef*). It is a simple and interactive tutorial that will teach you
@@ -190,7 +191,7 @@ the concept of sending messages to objects. The Pharo objects are like your
 soldiers ready to obey once you send them a message they can understand. We
 will see how an object can understand a message, later on.
 
-+PharoTutorial is a simple interactive tutorial to learn about Pharo>file://figures/ProfStef.png|width=80|label=fig:ProfStef+
++PharoTutorial is a simple interactive tutorial to learn about Pharo>file://figures/ProfStef.png|width=60|label=fig:ProfStef+
 
 If you talk to Pharoers for a while, you will notice that they generally do not
 use expressions like "call an operation" or "invoke a method", as developers do
@@ -209,7 +210,7 @@ as simple as possible without losing flexibility.
 
 You can exit Pharo at any point, by closing the Pharo window as you do any other
 application window. Additionally you can use the World Menu and select either
-"Save and quit" or "Quit".
+==Save and quit== or ==Quit==.
 
 In any case Pharo will display a prompt to ask you about saving your image. If
 you do save your image and reopen it, you will see that things are ''exactly''
@@ -240,32 +241,28 @@ It may seem like the image is the key mechanism for storing and managing
 software projects, but that is not the case. As we shall see soon, there are
 much better tools for managing code and sharing software developed by teams.
 Images are very useful, but you should learn to be very cavalier about creating
-and throwing away images, since tools like Monticello offer much better ways to
+and throwing away images, since tools like ==Monticello== offer much better ways to
 manage versions and share code amongst developers. In addition, if you need to
-store objects you can use several systems such as Fuel (a fast object binary
-serializer), STON (a textual object serializer) or a database.
+store objects you can use several systems such as ==Fuel== (a fast object binary
+serializer), ==STON== (a textual object serializer) or a database.
 
 !!Playground and Transcripts
 
 Let us start with some exercises:
 
-1. Close all open windows.
-
-2. Open a Transcript and a Playground/workspace. (The Transcript can be opened from the
-==World > Tools > ...== submenu.)
-
-3. Position and resize the transcript and playground windows so that the
-playground just overlaps the transcript.
+# Close all open windows.
+# Open a Transcript and a Playground/workspace. (The Transcript can be opened from the ==World > Tools > ...== submenu.)
+# Position and resize the transcript and playground windows so that the playground just overlaps the transcript.
 
 You can resize windows by dragging one of the corners.
 
 At any time only one window is active; it is in front and has its border
 highlighted.
 
-The Transcript is an object that is often used for logging system messages. It
-is a kind of "system console".
+The ==Transcript== is an object that is often used for logging system messages. It
+is a kind of ''system console''.
 
-Playgrounds are useful for typing snippets of code that you would like to
+==Playgrounds== are useful for typing snippets of code that you would like to
 experiment with. You can also use playgrounds simply for typing arbitrarily text
 that you would like to remember, such as to-do lists or instructions for anyone
 who will use your image. Playgrounds are often used to hold documentation about
@@ -273,21 +270,13 @@ a captured image, as well.
 
 Type the following text into the playground:
 
-[[[language = Smalltalk
-Transcript show: 'hello world'; cr.]]]
+[[[language=smalltalk|caption=Hello World in a Transcript|label=src:helloWorld
+	Transcript show: 'hello world'; cr.
+]]]
 
-1. Try double-clicking at various points on the text you have just typed. Notice
-how an entire word, entire string, or all of the text is selected, depending on
-whether you click within a word, at the end of the string, or at the end of the
-entire expression. In particular, if you place the cursor before the first
-character or after the last character and double-click you select the complete
-paragraph.
-
-2. Select the text you have typed, right click and select ''Do it (d)''. ==(d)==
-indicates that you can use the shortcut ==CMD-d== to get the same result.
-
-3. Notice how the text "hello world" appears in the transcript window. Do it
-again.
+# Try double-clicking at various points on the text you have just typed. Notice how an entire word, entire string, or all of the text is selected, depending on whether you click within a word, at the end of the string, or at the end of the entire expression. In particular, if you place the cursor before the first character or after the last character and double-click you select the complete paragraph.
+#Select the text you have typed, right click and select ''Do it (d)''. ==(d)== indicates that you can use the shortcut ==CMD-d== to get the same result.
+#Notice how the text "hello world" appears in the transcript window. Do it again.
 
 +Executing an expresssion: displaying a string in the Transcript.>file://figures/HelloWorld_new.png|width=80|label=fig:HelloWorld+
 
