@@ -45,20 +45,63 @@ More info about contributing to this book (including Pillar syntax, setting up
 LaTeX, etc) can be found in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
 Please send any comments, suggestions, or questions to the [pharo-dev](http://lists.pharo.org/mailman/listinfo/pharo-users_lists.pharo.org)
-mailing list (see also the [Get Help](http://www.pharo.org/community) section of [Pharo.org](http://www.pharo.org/)).
+mailing list (see also the [Get Help](http://www.pharo.org/community) section of
+[Pharo.org](http://www.pharo.org/)).
 
-#### Reference Links to Other Chapters
+## Style Guide
+
+This book is written in Pillar markup. If you are not familiar with it please check the [pillar-documentation](https://github.com/pillar-markup/pillar-documentation).
+See also:
+
+* [Documenting your Project with Pillar](https://ci.inria.fr/pharo-contribution/job/EnterprisePharoBook/lastSuccessfulBuild/artifact/PillarChap/Pillar.html) chapter of Enterprise Pharo
+* [Pillar Syntax Cheat Sheet](http://www.cheatography.com/benjaminvanryseghem/cheat-sheets/pillar/)
+* [CONTRIBUTING.md](CONTRIBUTING.md)
+
+### Images
+Images (screenshots and diagrams) use Pillar image syntax:
+
+`+`Image caption`>file://figures/`filename`.png|width=80|label=fig:`label`+`
+
+For example:
+
+```
++A stream positioned at its beginning.>file://figures/abcde.png|width=100|label=fig:abcde+
+```
+
+* The `width` parameter is required (percentage of the screen).
+* Place the files in the `figures` directory of the chapter they are in.
+* The label should begin with `fig:`
+* When taking screenshots (PNG format), please compress them (you can use
+[TinyPNG](https://tinypng.com/) for easy and lossless compression)
+
+To reference an image: `Figure *@fig:abcde*`  (renders to Figure 3.8, for
+example).
+
+### Scripts and Code Blocks
+For scripts, method definitions and other code blocks:
+
+```
+[[[language=smalltalk|caption=Hello World in a Transcript|label=src:helloWorld
+	Transcript show: 'hello world'; cr.
+]]]
+```
+
+Note that the label starts with `src:`.
+
+To reference code blocks, use `Script *@scr:helloWorld*` (similar to Figures).
+
+### Chapter and Section Reference Links
 
 Whenever you refer to other chapters of the book, please use the Pillar internal
 link syntax and the chapter name. (The `cha:` in the id is to denote that it's
 a chapter, to differentiate from a section id.) For example:
 
-`Chapter *cha:tour*: A Quick Tour of Pharo`
+`Chapter 8: *Seaside By Example>../Seaside/Seaside.pier@cha:seaside*`
 
 A list of chapter ref link code is provided, to easily copy and paste, in the
 Chapter Progress / table of contents above.
 
-### Style Guide
+### General Style Guidelines
 Please keep in mind the following:
 
 * When possible, hard-wrap lines at 80 characters (e.g. `Meta-Q` in Emacs,

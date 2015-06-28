@@ -12,12 +12,6 @@ This book is continuously built on an [Inria Jenkins server](https://ci.inria.fr
 How to write a book
 -------------------
 
-This book is written in Pillar markup. If you are not familiar with it please check the [pillar-documentation](https://github.com/pillar-markup/pillar-documentation).
-See also:
-
-* [Documenting your Project with Pillar](https://ci.inria.fr/pharo-contribution/job/EnterprisePharoBook/lastSuccessfulBuild/artifact/PillarChap/Pillar.html) chapter of Enterprise Pharo
-* [Pillar Syntax Cheat Sheet](http://www.cheatography.com/benjaminvanryseghem/cheat-sheets/pillar/)
-
 ###Generating the book
 
 First of all you have to run `./download.sh` to obtain the Pillar executable
