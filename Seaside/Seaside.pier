@@ -355,14 +355,14 @@ html horizontalRule.
 +RenderingDemo>file://figures/RenderingDemo.png|label=fig:RenderingDemo+
 
 In Figure *@fig:RenderingDemo* we can see the output of many of the basic brushes
-offered by Seaside.(The source code for method *@mth:renderdemo* is in the
+offered by Seaside.(The source code for method *@scr:renderdemo* is in the
 package ==PBE-SeasideDemo== in the project
 *http://www.squeaksource.com/PharoByExample*.) The root component
 ==SeasideDemo== simply renders its subcomponents, which are instances of
 ==SeasideHtmlDemo==, ==SeasideFormDemo==, ==SeasideEditCallDemo== and
-==SeasideDialogDemo==, as shown in method *@mth:renderdemo*.
+==SeasideDialogDemo==, as shown in method *@scr:renderdemo*.
 
-[[[label=mth:renderdemo
+[[[label=scr:renderdemo
 SeasideDemo>>>renderContentOn: html
 	html heading: 'Rendering Demo'.
 	html heading
@@ -390,7 +390,7 @@ Many of the available brushes can be used in these two ways.
 
 @@important If you send a cascade of messages to a brush including the message ==with:==, then ==with:== should be the ''final'' message.  ==with:==  both sets the content and renders the result.
 
-In method *@mth:renderdemo*, the first heading is at level 1, since this is the
+In method *@scr:renderdemo*, the first heading is at level 1, since this is the
 default. We explicitly set the level of the second heading to 2. The
 subcomponent is rendered as an XHTML ''div'' with the CSS class
 ''subcomponent''. (More on CSS in Section *@sec:css*.) Also note that the
@@ -590,7 +590,7 @@ format given XHTML elements. Each rule consists of two parts. There is a
 ''selector'' that specifies which XHTML elements the rule applies to, and there
 is a ''declaration'' which sets a number of attributes for that element.
 
-[[[label=mth:democss|caption===SeasideDemoWidget== common style sheet.
+[[[label=scr:democss|caption===SeasideDemoWidget== common style sheet.
 
 SeasideDemoWidget>>>style
 	^ '
@@ -623,7 +623,7 @@ td {
 '
 ]]]
 
-Script *@mth:democss* illustrates a simple style sheet for the rendering demo
+Script *@scr:democss* illustrates a simple style sheet for the rendering demo
 shown earlier in Figure *@fig:RenderingDemo*. The first rule specifies a
 preference for the fonts to use for the ==body== of the web page. The next few
 rules specify properties of second-level headings (==h2==), tables (==table==),

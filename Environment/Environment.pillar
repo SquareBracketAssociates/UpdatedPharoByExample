@@ -497,7 +497,7 @@ debugger, let's start by creating a bug!
 
 (do this) Using the browser, add the following method to the class ==String==:
 
-[[[language=Smalltalk|label=mth:buggy|caption=A buggy method
+[[[language=Smalltalk|label=scr:buggy|caption=A buggy method
 suffix
 	"assumes that I'm a file name, and answers my suffix, the part after the last dot"
 
@@ -660,7 +660,7 @@ be ==.txt== or ==txt==? The method comment in ==suffix== is not very precise.
 The way to avoid this sort of problem is to write an SUnit test that
 defines the answer.
 
-[[[language=Smalltalk|label=mth:testSuffix|caption=A simple test for the ==suffix== method
+[[[language=Smalltalk|label=scr:testSuffix|caption=A simple test for the ==suffix== method
 testSuffixFound
 	self assert: 'readme.txt' suffix = 'txt'
 ]]]
@@ -680,7 +680,7 @@ confirm that the test now passes.
 
 Here is a better test:
 
-[[[language=Smalltalk|label=mth:testSuffix2|caption=A better test for the ==suffix== method
+[[[language=Smalltalk|label=scr:testSuffix2|caption=A better test for the ==suffix== method
 testSuffixFound
 	self assert: 'readme.txt' suffix = 'txt'.
 	self assert: 'read.me.txt' suffix = 'txt'
@@ -698,7 +698,7 @@ debugger at any time by typing ==CMD-SHIFT-.==) You can also just edit
 the suspect code to insert ==Halt now.==. So, for example, we
 might edit the ==suffix== method to read as follows:
 
-[[[language=Smalltalk|label=mth:suffix|caption=Inserting a ==halt== into the ==suffix== method.
+[[[language=Smalltalk|label=scr:suffix|caption=Inserting a ==halt== into the ==suffix== method.
 suffix
 	"assumes that I'm a file name, and answers my suffix, the part after the last dot"
 
@@ -719,7 +719,7 @@ the target string, the ==suffix== method will raise an error. This isn't the
 behaviour that we want, so let's add a second test to specify what should happen
 in this case.
 
-[[[language=Smalltalk|label=mth:testNoSuffix|caption=A second test for the ==suffix== method: the target has no suffix
+[[[language=Smalltalk|label=scr:testNoSuffix|caption=A second test for the ==suffix== method: the target has no suffix
 testSuffixNotFound
 	self assert: 'readme' suffix = ''
 ]]]

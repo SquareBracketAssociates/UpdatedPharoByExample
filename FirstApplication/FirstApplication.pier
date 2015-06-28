@@ -26,26 +26,26 @@ you how to define these classes using the Pharo programming tools.
 !!Creating a new Package
 @fstApp:Packages
 
-We have already seen the browser in Chapter 
-*: A Quick Tour of Pharo>../PharoTour/PharoTour.pillar@cha:tour* where we 
-learned how to navigate to classes and methods, and saw how to define new 
+We have already seen the browser in Chapter
+*: A Quick Tour of Pharo>../PharoTour/PharoTour.pillar@cha:tour* where we
+learned how to navigate to classes and methods, and saw how to define new
 methods. Now we will see how to create packages and classes.
 
-Right-click on the Package pane and select ==Add package...== from the menu 
+Right-click on the Package pane and select ==Add package...== from the menu
 (see Figure *@fig:createPackage*). Type the name of the new package (we will use
-==PBE-LightsOut==) in the dialog box and click ==OK== (or just press the return 
-key). The new package is created, and positioned alphabetically in the list of 
+==PBE-LightsOut==) in the dialog box and click ==OK== (or just press the return
+key). The new package is created, and positioned alphabetically in the list of
 packages.
 
 !!Defining the class ==LOCell==
 
-At this point there are of course no classes in the new package. However, the 
+At this point there are of course no classes in the new package. However, the
 main editing pane displays a template to make it easy to create a new class (see
 Figure *@fig:createPackage*).
 
 This template shows us a Smalltalk expression that sends a message to a class
 called ==Object==, asking it to create a subclass called ==NameOfSubClass==. The
-new class has no variables, and should belong to the category (package) 
+new class has no variables, and should belong to the category (package)
 ==PBE-LightsOut==.
 
 +Create a Package and class template>file://figures/createPackageFull.png|width=100|label=fig:createPackage+
@@ -74,7 +74,7 @@ Modify the class creation template as follows:
 
 The result should look like this:
 
-[[[language=smalltalk|caption=Defining the classLOCell|label=mth:ClassLOCell
+[[[language=smalltalk|caption=Defining the classLOCell|label=scr:ClassLOCell
 SimpleSwitchMorph subclass: #LOCell
 	instanceVariableNames: 'mouseAction'
 	classVariableNames: ''
@@ -84,36 +84,36 @@ SimpleSwitchMorph subclass: #LOCell
 This new definition consists of a Smalltalk expression that sends a message to
 the existing class ==SimpleSwitchMorph==, asking it to create a subclass called
 ==LOCell==. (Actually, since ==LOCell== does not exist yet, we passed the symbol
-==\#LOCell== as an argument, representing the name of the class to create.) We 
-also tell it that instances of the new class should have a ==mouseAction== 
-instance variable, which we will use to define what action the cell should take 
+==\#LOCell== as an argument, representing the name of the class to create.) We
+also tell it that instances of the new class should have a ==mouseAction==
+instance variable, which we will use to define what action the cell should take
 if the mouse should click on it.
 
 +The class-creation Template>file://figures/createClass.png|width=75|label=fig:createClass+
 
-At this point you still have not created anything. Note that the top right of 
-the panel changed to orange (see Figure *@fig:createClass*). This means that 
+At this point you still have not created anything. Note that the top right of
+the panel changed to orange (see Figure *@fig:createClass*). This means that
 there are unsaved changes. To actually send this subclass message, you must save
 (accept) the source code.
 
 
 Either right-click and select ""accept"", or use the shortcut CMD-s (for "save")
-. The message will be sent to ""SimpleSwitchMorph"", which will cause the new 
+. The message will be sent to ""SimpleSwitchMorph"", which will cause the new
 class to be compiled.
 
 +The newly-created class LOCell>file://figures/pannelAtNewClass.png|width=100|label=fig:pannelAtNewClass+
 
 Once the class definition is accepted, the class will be created and appear in
-the class pane of the browser (see Figure *@fig:pannelAtNewClass*). The editing 
-pane now shows the class definition. You can click on ==Comments== and a small 
+the class pane of the browser (see Figure *@fig:pannelAtNewClass*). The editing
+pane now shows the class definition. You can click on ==Comments== and a small
 pane below it will remind you to write a few words describing the purpose of the
-class. This is called a class comment, and it is quite important to write one 
-that will give other programmers a high-level overview of the purpose of this 
-class. Smalltalkers put a very high value on the readability of their code, and 
+class. This is called a class comment, and it is quite important to write one
+that will give other programmers a high-level overview of the purpose of this
+class. Smalltalkers put a very high value on the readability of their code, and
 detailed comments in methods are unusual: the philosophy is that the code should
 speak for itself. (If it doesn't, you should refactor it until it does!) A class
-comment need not contain a detailed description of the class, but a few words 
-describing its overall purpose are vital if programmers who come after you are 
+comment need not contain a detailed description of the class, but a few words
+describing its overall purpose are vital if programmers who come after you are
 to know whether to spend time looking at this class.
 
 !!Adding methods to a class
@@ -123,7 +123,7 @@ Now let's add some methods to our class.
 Select the protocol ==no messages== in the protocol pane. You will see a template for
 method creation in the editing pane. Select the template text, and replace it by the following:
 
-[[[language=smalltalk|lineNumber=true|caption=Initializing instance of LOCell|label=mth:InitLOCell
+[[[language=smalltalk|lineNumber=true|caption=Initializing instance of LOCell|label=scr:InitLOCell
 initialize
 	super initialize.
 	self label: ''.
@@ -231,7 +231,7 @@ Make the class definition template visible in the browser main window. Do this b
 clicking on the package name. Edit the code so that it reads as follows, and
 accept it.
 
-[[[language=smalltalk|caption=Defining the LOGame class|label=mth:DefineLOGame
+[[[language=smalltalk|caption=Defining the LOGame class|label=scr:DefineLOGame
 BorderedMorph subclass: #LOGame
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -246,7 +246,7 @@ second line, but for now, let's just leave that list empty.
 Now let's define an ==initialize== method for ==LOGame==. Type the following into the
 browser as a method for ==LOGame== and try to ""accept"" it.
 
-[[[language=smalltalk|lineNumber=true|caption=Initialize the game|label=mth:InitiGame
+[[[language=smalltalk|lineNumber=true|caption=Initialize the game|label=scr:InitiGame
 initialize
 	| sampleCell width height n |
 	super initialize.
@@ -296,10 +296,10 @@ cells, and big enough to draw a border around them. How many cells is the right
 number? 5? 10? 100? We don't know yet, and if we did, we would probably change
 our minds later. So we delegate the responsibility for knowing that number to
 another method, which we will name ==cellsPerSide==, and which we will write in
-a minute or two. Don't be put off by this: it is actually good practice to 
-code by referring to other methods that we haven't yet defined. 
-Why? Well, it wasn't until we started writing the ==initialize== method 
-that we realized that we needed it. And at that point, we can give it a 
+a minute or two. Don't be put off by this: it is actually good practice to
+code by referring to other methods that we haven't yet defined.
+Why? Well, it wasn't until we started writing the ==initialize== method
+that we realized that we needed it. And at that point, we can give it a
 meaningful name, and move on, without interrupting our flow.
 
 The fourth line uses this method, ==n := self cellsPerSide.== sends the
@@ -351,8 +351,8 @@ learn, contains all of the methods in the class.
 If you have followed along with this example, the protocol pane may well contain
 the protocol ""as yet unclassified"".
 
-Right-click in the protocol pane and select ""categorize all uncatogorized"" 
-to fix this, and move the ==initialize== method to a new protocol called 
+Right-click in the protocol pane and select ""categorize all uncatogorized""
+to fix this, and move the ==initialize== method to a new protocol called
 ""initialization"" (see Figure *@fig:categorizeProtocoles*).
 
 How does Pharo know that this is the right protocol? Well, in general Pharo
@@ -376,7 +376,7 @@ make sure that the appropriate class is selected in the class pane.
 Now let's define the other two methods that are used by ==LOGame >> initialize==.
 Both of them can go in the ==initialization== protocol.
 
-[[[language=smalltalk|caption=A constant method|label=mth:CellsPerSide
+[[[language=smalltalk|caption=A constant method|label=scr:CellsPerSide
 LOGame >> cellsPerSide
 	"The number of cells along each side of the game"
 
@@ -387,11 +387,11 @@ This method could hardly be simpler: it answers the constant 10. One advantage
 of representing constants as methods is that if the program evolves so that the
 constant then depends on some other features, the method can be changed to
 calculate this value.
-As you can see there are some tabulation and empty lines. In order to keep the 
+As you can see there are some tabulation and empty lines. In order to keep the
 same convention you can Right-Click on the method edit area and Click on 
 ==format== use ==CMD-Shift-u== shortcut. This will format your method.
 
-[[[language=smalltalk|caption=An initialization helper method|label=mth:NewCellAt
+[[[language=smalltalk|caption=An initialization helper method|label=scr:NewCellAt
 LOGame >> newCellAt: i at: j
 	"Create a cell for position (i,j) and add it to my on-screen representation at the appropriate screen position. Answer the new cell"
 
@@ -411,7 +411,7 @@ block ==[self toggleNeighboursOfCellAt: i at: j ]==. In effect, this defines the
 callback behaviour to perform when the mouse is clicked. The corresponding
 method also needs to be defined.
 
-[[[language=smalltalk|caption=The callback method|label=mth:Toggle
+[[[language=smalltalk|caption=The callback method|label=scr:Toggle
 LOGame >> toggleNeighboursOfCellAt: i at: j
 	i > 1
 		ifTrue: [ (cells at: i - 1 at: j) toggleState ].
@@ -438,7 +438,7 @@ newly-created protocol (see Figure *@fig:dropProtocol*).
 To complete the Lights Out game, we need to define two more methods in class
 ==LOCell== to handle mouse events.
 
-[[[language=smalltalk|caption=A typical setter method|label=mth:TypicalSetter
+[[[language=smalltalk|caption=A typical setter method|label=scr:TypicalSetter
 LOCell >> mouseAction: aBlock
 	^ mouseAction := aBlock
 ]]]
@@ -468,7 +468,7 @@ Finally, we need to define a method ==mouseUp:==. This will be called automatica
 by the GUI framework if the mouse button is released while the cursor is over
 this cell on the screen.
 
-[[[language=smalltalk|caption=An event handler|label=mth:MouseUp
+[[[language=smalltalk|caption=An event handler|label=scr:MouseUp
 LOCell >> mouseUp: anEvent
 	mouseAction value
 ]]]
@@ -546,7 +546,7 @@ returns ==self==, which in the case of ==newCellAt: at:== is indeed an instance 
 Close the debugger window. Add the expression ==^ c== to the end of the method
 ==LOGame >> newCellAt:at:== so that it returns ==c==.
 
-[[[language=smalltalk|caption=Fixing the bug.|label=mth:BugFix
+[[[language=smalltalk|caption=Fixing the bug.|label=scr:BugFix
 LOGame >> newCellAt: i at: j
 	"Create a cell for position (i,j) and add it to my on-screen representation at the appropriate screen position. Answer the new cell"
 
@@ -576,7 +576,7 @@ be toggled. This turns out to be behavior that we inherit from
 ==SimpleSwitchMorph==. We can fix this simply by overriding ==mouseMove:== to do
 nothing:
 
-[[[language=smalltalk|caption=Overriding mouse move actions|label=mth:MouseMove
+[[[language=smalltalk|caption=Overriding mouse move actions|label=scr:MouseMove
 LOGame >> mouseMove: anEvent
 ]]]
 
@@ -686,7 +686,7 @@ projects you watch by other coders. Click on the project you just created.
 Under ""Monticello registration"" title label you will see a box containg a
 smalltalk message similar to
 
-[[[lang=Smalltalk|caption=A repository pattern|label=mth:RepositoryPattern
+[[[lang=Smalltalk|caption=A repository pattern|label=scr:RepositoryPattern
 MCHttpRepository
     location: 'http://www.smalltalkhub.com/mc/UserName/ProjectName/main'
     user: 'YourName'
@@ -716,10 +716,10 @@ Once you have accepted, your new repository should be listed on the right-hand
 side of the Monticello browser.
 
 Click on the ""Save"" button to save a first version of your Lights Out game on
-SmalltalkHub. Don't forget to put a comment for you, or others, have an idea 
+SmalltalkHub. Don't forget to put a comment for you, or others, have an idea
 of what contains your commit for the future (see Figure *@fig:firstCommit*).
 
-+Do your first commit>file://figures/firstCommit.png|width=60|label=fig:firstCommit+ 
++Do your first commit>file://figures/firstCommit.png|width=60|label=fig:firstCommit+
 
 To load a package into your image, you must first select a particular version.
 You can do this in the repository browser, which you can open using the button

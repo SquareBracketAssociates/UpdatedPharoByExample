@@ -236,10 +236,10 @@ In the message ==aPen color: Color yellow==, there is one ''unary'' message
 ==yellow== sent to the class ==Color== and a ''keyword'' message ==color:== sent
 to ==aPen==. Unary messages are sent first so the message send ==Color yellow==
 is sent (1). This returns a color object which is passed as argument of the
-message ==aPen color: aColor== (2) as shown in Script *@mth:decColor*. Figure
+message ==aPen color: aColor== (2) as shown in Script *@scr:decColor*. Figure
 *@fig:uKeyUn* shows graphically how messages are sent.
 
-[[[label=mth:decColor|caption=Decomposing the evaluation of aPen color: Color yellow|language=Smalltalk
+[[[label=scr:decColor|caption=Decomposing the evaluation of aPen color: Color yellow|language=Smalltalk
         aPen color: Color yellow
 (1)                       Color yellow        "unary message is sent first"
                         --> aColor
@@ -252,9 +252,9 @@ a ''keyword'' message ==go:==. Binary messages are sent prior to keyword
 messages so ==100 + 20== is sent first (1): the message ==+ 20== is sent to the
 object ==100== and returns the number ==120==. Then the message ==aPen go: 120==
 is sent with ==120== as argument (2). The following example shows how the
-message send is executed (Script *@mth:decColor2*)
+message send is executed (Script *@scr:decColor2*)
 
-[[[label=mth:decColor2|caption=Decomposing aPen go: 100 + 20|language=Smalltalk
+[[[label=scr:decColor2|caption=Decomposing aPen go: 100 + 20|language=Smalltalk
       aPen go: 100 + 20
 (1)                 100 + 20           "binary message first"
                    -->   120
@@ -299,7 +299,7 @@ Here we need the parentheses to force sending ==lowMajorScaleOn:== before
 !!!!!Example 4.
 The message ==(65@325 extent: 134@100) center== returns the center of a
 rectangle whose top left point is (65, 325) and whose size is 134x100. Script
-*@mth:decExtent* shows how the message is decomposed and sent. First the message
+*@scr:decExtent* shows how the message is decomposed and sent. First the message
 between parentheses is sent. It contains two binary messages, ==65@325== and
 ==134@100==, that are sent first and return points, and a keyword message
 ==extent:== which is then sent and returns a rectangle. Finally the unary
@@ -310,7 +310,7 @@ the message without parentheses would lead to an error because the object
 +Decomposing Pen new
 down>file://figures/ucompoUn.png|width=45|label=fig:unaryMessages+
 
-[[[label=mth:decExtent|caption=Example of Parentheses.|language=Smalltalk
+[[[label=scr:decExtent|caption=Example of Parentheses.|language=Smalltalk
 
       (65@325 extent: 134@100) center
 (1)   65@325                                                    "binary"
@@ -328,7 +328,7 @@ down>file://figures/ucompoUn.png|width=45|label=fig:unaryMessages+
 Now we know how messages of different kinds or priorities are handled. The final
 question to be addressed is how messages with the same priority are sent. They
 are sent from the left to the right. Note that you already saw this behaviour in
-Script *@mth:decExtent* where the two point creation messages (==@==) were sent
+Script *@scr:decExtent* where the two point creation messages (==@==) were sent
 first.
 
 @@important ''Rule three''. When the messages are of the same kind, the order of evaluation is from left to right.
@@ -365,9 +365,9 @@ In the message sends ==20 + 2 * 5==, there are only binary messages ==+== and ==
 However in Pharo there is no special priority for the operations ==+== and ==*==.
 They are just binary messages, hence ==*== does not have priority over ==+==.
 Here the leftmost message ==+== is sent first, and then the ==*== is sent to
-the result as shown in Script *@mth:decomposing* and Figure *@fig:wrongcompo*.
+the result as shown in Script *@scr:decomposing* and Figure *@fig:wrongcompo*.
 
-[[[label=mth:decomposing|caption=Decomposing 20 + 2 * 5|language=Smalltalk
+[[[label=scr:decomposing|caption=Decomposing 20 + 2 * 5|language=Smalltalk
 "As there is no priority among binary messages, the leftmost message + is evaluated first
 even if by the rules of arithmetic the * should be sent first."
 
@@ -383,10 +383,10 @@ but ==110==. This result is perhaps unexpected but follows directly from the
 rules used to send messages. This is the price to pay for the simplicity of the
 Pharo model. To get the correct result, we should use parentheses. When messages
 are enclosed in parentheses, they are evaluated first. Hence the message send
-==20 + (2 * 5)== returns the result as shown by Script *@mth:decomposing2* and Figure
+==20 + (2 * 5)== returns the result as shown by Script *@scr:decomposing2* and Figure
 *@fig:okcompo*.
 
-[[[label=mth:decomposing2|caption=Decomposing 20 + (2 * 5)|language=Smalltalk
+[[[label=scr:decomposing2|caption=Decomposing 20 + (2 * 5)|language=Smalltalk
 "The messages surrounded by parentheses are evaluated first therefore * is sent prior to + which produces the correct behaviour."
 
 20 + (2 * 5)

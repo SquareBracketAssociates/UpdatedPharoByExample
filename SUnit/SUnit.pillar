@@ -154,7 +154,7 @@ First you should create a new subclass of ==TestCase== called
 ==MyExampleSetTest==. Add two instance variables so that your new class looks
 like this:
 
-[[[label=mth:exSet|caption=An Example Set Test class|language=Smalltalk
+[[[label=scr:exSet|caption=An Example Set Test class|language=Smalltalk
 TestCase subclass: #MyExampleSetTest
 	instanceVariableNames: 'full empty'
 	classVariableNames: ''
