@@ -307,7 +307,7 @@ ordCol add: 'Seaside'; add: 'SmalltalkHub'; addFirst: 'Monticello'.
 ordCol --> an OrderedCollection('Monticello' 'Seaside' 'SmalltalkHub')
 ]]]
 
-!!!!!Removing Elements.
+!!!!!Removing Elements
 
 The method ==remove:== ==anObject== removes the first occurrence of an object
 from the collection. If the collection does not include such an object, it
@@ -385,13 +385,10 @@ is to use as key an object whose ===== method has been redefined but not its
 ==hash== method. Both methods are used in the implementation of dictionary and
 when comparing objects.
 
-The class ==Dictionary== clearly illustrates that the collection hierarchy is
-based on subclassing and not subtyping. Even though ==Dictionary== is a
-subclass of ==Set==, we would normally not want to use a ==Dictionary== where a
-==Set== is expected. In its implementation, however, a ==Dictionary== can
-be seen as consisting of a set of associations (key value) created using
-the message ==->==. We can create a ==Dictionary== from a collection of
-associations, or we may convert a dictionary to an array of associations.
+In its implementation, a ==Dictionary== can be seen as consisting of a set of
+associations (key value) created using the message ==->==. We can create a
+==Dictionary== from a collection of associations, or we may convert a dictionary
+to an array of associations.
 
 [[[
 colors := Dictionary newFrom: { #blue->Color blue . #red->Color red . #yellow->Color yellow }.
