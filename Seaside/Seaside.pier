@@ -1,15 +1,16 @@
 !Seaside by Example
 @cha:seaside
 
-Seaside is a framework for building web applications in Smalltalk. It was
-originally developed by Avi Bryant  in 2002; once mastered, Seaside makes web
-applications almost as easy to write as desktop applications.
+Seaside is a framework for building web applications in Smalltalk, originally
+developed by Avi Bryant and Julian Fitzell in 2002. Once mastered, Seaside makes
+web applications almost as easy to write as desktop applications.
 
-Two of the better known applications built with Seaside are
-SqueakSource(*http://SqueakSource.com*) and Dabble DB(*http://DabbleDB.com*).
+SmalltalkHub(*http://SmalltalkHub.com*) itself is written using Seaside, as was
+the original SqueakSource(*http://SqueakSource.com*).
+
 Seaside is unusual in that it is thoroughly object-oriented: there are no XHTML
 templates, no complicated control flows through web pages, and no encoding of
-state in URLs. Instead, you just send messages to objects.  What a nice idea!
+state in URLs. Instead, you just send messages to objects. What a nice idea!
 
 !!Why do we need Seaside?
 
@@ -26,7 +27,7 @@ often cumbersome, and multiple control flows can be difficult or impossible to
 express.
 
 Seaside is a component-based framework that makes web development easier in
-several ways. First,  control flow can be expressed naturally using message
+several ways. First, control flow can be expressed naturally using message
 sends. Seaside keeps track of which web page corresponds to which point in the
 execution of the web application. This means that the browser's ''back'' button
 works correctly.
@@ -40,8 +41,8 @@ is managed automatically for you.
 
 Third, web pages are built up from nested components, each of which can support
 its own, independent control flow. There are no XHTML templates — instead valid
-XHTML is generated programmatically using a simple Smalltalk protocol. Seaside
-supports Cascading Style Sheets (CSS), so content and layout are cleanly
+XHTML is generated programmatically using a simple Smalltalk-based protocol.
+Seaside supports Cascading Style Sheets (CSS), so content and layout are cleanly
 separated.
 
 Finally, Seaside provides a convenient web-based development interface, making
@@ -78,9 +79,11 @@ You should see a web page that looks like Figure *@fig:seasideStartup*.
 This page is a small Seaside application: it displays a counter that can be
 incremented or decremented by clicking on the __++__ and __– –__ links.
 
-@@todo Play with the counter by clicking on these links.
-Use your browser's ''back'' button to go back to a previous state, and then click on __++__ again.
-Notice how the counter is correctly incremented with respect to the currently displayed state, rather than the state that the counter was in when you started using the ''back'' button.
+(do this) Play with the counter by clicking on these links. Use your browser's
+''back'' button to go back to a previous state, and then click on __++__ again.
+Notice how the counter is correctly incremented with respect to the currently
+displayed state, rather than the state that the counter was in when you started
+using the ''back'' button.
 
 Notice the toolbar at the bottom of the web page in Figure *@fig:seasideStartup*.
 Seaside supports a notion of ''sessions'' to keep track of the state of the
@@ -255,7 +258,7 @@ instance side: ==states== should answer an array containing all the objects to
 be tracked. In this case, the ==WACounter== object adds itself to Seaside's
 table of backtrackable objects by returning ==Array with: self==.
 
-!!!!!''Caveat''
+!!!!!Caveat
 
 There is a subtle but important point to watch for when declaring objects for
 backtracking. Seaside tracks state by making a ''copy'' of all the objects
@@ -631,9 +634,9 @@ and table data (==td==).
 
 The remaining rules have selectors that will match XHTML elements that have the
 given ''class'' or ''id'' attributes. CSS selectors for class attributes start
-with a ''==.=='' and those for id attributes with ''==#==''. The main difference
+with a ==.== and those for id attributes with ==#==. The main difference
 between class and id attributes is that many elements may have the same class,
-but only one element may have a given id (''i.e.'', an ''identifier''). So,
+but only one element may have a given id (i.e., an ''identifier''). So,
 whereas a class attribute, such as ==highlight==, may occur multiple times on
 any page, an id must identify a ''unique'' element on the page, such as a
 particular menu, the modified date, or author. Note that a particular XHTML
@@ -645,7 +648,7 @@ only match an XHTML element if it is both a div ''and'' it has a class attribute
 equal to ''subcomponent''.
 
 It is also possible to specify nested elements, though this is seldom necessary.
-For example, the selector ''==p span=='' will match a span within a paragraph
+For example, the selector ==p span== will match a span within a paragraph
 but not within a div.
 
 There are numerous books and web sites to help you learn CSS. For a dramatic
@@ -658,15 +661,16 @@ be rendered in radically different ways simply by changing the CSS style sheet.
 Seaside makes it particularly easy to design web applications with non-trivial
 control flow. There are basically two mechanisms that you can use:
 
--A component can ''call'' another component by sending ==caller call: callee==.
--The caller is temporarily replaced by the callee, until the callee returns
--control by sending ==answer:==. The caller is usually ==self==, but could also
--be any other currently visible component. A workflow can be defined as a
--''task''. This is a special kind of component that subclasses ==WATask==
--(instead of ==WAComponent==). @sec:task Instead of defining
--==renderContentOn:==, it defines no content of its own, but rather defines a
--==go== method that sends a series of ==call:== messages to activate various
--subcomponents in turn.
+""1."" A component can ''call'' another component by sending ==caller call:
+callee==. The caller is temporarily replaced by the callee, until the callee
+returns control by sending ==answer:==. The caller is usually ==self==, but
+could also be any other currently visible component.
+
+""2."" A workflow can be defined as a ''task''. This is a special kind of
+component that subclasses ==WATask== (instead of ==WAComponent==).
+Instead of defining ==renderContentOn:==, it defines no content of its own, but
+rather defines a ==go== method that sends a series of ==call:== messages to
+activate various subcomponents in turn.
 
 !!!Call and answer
 
@@ -778,6 +782,7 @@ A few further convenience methods, such as ==chooseFrom:caption:==, are defined
 in the ==convenience== protocol of ==WAComponent==.
 
 !!!Tasks
+@sec:tasks
 
 A task is a component that subclasses ==WATask==. It does not render anything
 itself, but simply calls other components in a control flow defined by
@@ -1364,7 +1369,7 @@ return false
 For more advanced examples, have a further look at
 *http://localhost:8080/seaside/tests/scriptaculous*.
 
-!!!!!''Hints''
+!!!!Hints
 
 In case of server side problems use the Smalltalk debugger. In case of client
 side problems use FireFox (*http://www.mozilla.com*) with the JavaScript
