@@ -2,7 +2,7 @@
 
 !!What is Pharo?
 
-Pharo is a modern, open-source, fully-featured dynamically-typed language
+Pharo is a modern, open-source, dynamically-typed language
 inspired by the Smalltalk programming language and environment.  Pharo strives
 to offer a lean, open platform for professional software development, as well as
 a robust and stable platform for research and development into dynamic languages
@@ -14,26 +14,30 @@ The Pharo project started in March 2008, and the first 1.0 beta version was
 released on July 31, 2009. The current version is Pharo 4.0, released in April
 2015. Pharo 5.0 is in alpha development.
 
-Pharo is highly portable - even its virtual machine is written entirely in
-Pharo, making it easy to debug, analyze, and change.  Pharo is the vehicle for a
+Pharo is highly portable. Its virtual machine is written entirely in
+a subset of Smalltalk, making it easy to simulate, debug, analyze, and change
+from within Pharo itself.  Pharo is the vehicle for a
 wide range of innovative projects, from multimedia applications and educational
 platforms to commercial web development environments.
 
-There is an important principle behind Pharo: Pharo should not just be a copy of
-the past, but reinvent Smalltalk. We realize that Big Bang style approaches
-rarely succeed.  Pharo will instead favor evolutionary and incremental changes.
-We want to be able to experiment with important new features and libraries.
-Evolution means that Pharo accepts mistakes and is not aiming for the next
-perfect solution in one big step - even if we would love it.  Pharo will favor
-small incremental changes, but a multitude of them. The success of Pharo depends
-on the contributions of its community.
+There is an important principle behind Pharo. Pharo should not just be a copy of
+the past, but reinvent Smalltalk. However we realize that Big Bang style approaches
+rarely succeed.  Pharo instead favors evolutionary and incremental changes.
+Rather than leaping for the final perfect solution in one big step,
+a multitude of small changes keeps even the bleeding edge relatively stable
+while experimenting with important new features and libraries.
+This facilitates rapid feedback and contributions from the community, 
+on which Pharo depends for its success. You can make impact on Pharo.
+
 
 !!Who should read this book?
 
-This book is based on *Pharo by Example>http://www.pharobyexample.org*.  It has
-been liberally adapted and revised to reflect the differences between Pharo 1.4
-and Pharo 4.0. This book presents the various aspects of Pharo, starting with
-the basics, and proceeding to more advanced topics.
+The previous revision of this book was based on Pharo 1.4.  
+This revision has been liberally updated to align with Pharo 4.0.
+Various aspects of Pharo are presented, starting with
+the basics then proceeding to intermediate topics. 
+Advanced topics are presented in "Deep into Pharo", a book on the internals of Pharo
+that is freely available at *http://www.deepintopharo.org*
 
 This book will not teach you how to program. The reader should have some
 familiarity with programming languages.  Some background with object-oriented
@@ -51,8 +55,6 @@ There are numerous other *books on Smalltalk freely available on the
 web>http://stephane.ducasse.free.fr/FreeBooks.html* but none of  these focuses
 specifically on Pharo.
 
-"Deep into Pharo" is a new book on the internals of Pharo. It is freely
-available at *http://www.deepintopharo.org*
 
 !!A word of advice
 
@@ -83,16 +85,14 @@ that you may find useful:
 - *http://www.pharo.org>http://www.pharo.org* is the main web site of Pharo.
 - On IRC, you can find us on the freenode.net server, channel "pharo".
 - You can also ask questions on Stack Overflow, using the tags *pharo>http://stackoverflow.com/questions/tagged/pharo* and *smalltalk>http://stackoverflow.com/questions/tagged/smalltalk*.
-- SmalltalkHub (*http://www.smalltalkhub.com/>http://www.smalltalkhub.com/*)
-is the equivalent of SourceForge/Github for Pharo projects. Many extra packages
-and projects for Pharo live there.
+- SmalltalkHub (*http://www.smalltalkhub.com/>http://www.smalltalkhub.com/*) is the equivalent of SourceForge/Github for Pharo projects. Many extra packages and projects for Pharo live there.
 
 !!Examples and exercises
 
 We have tried to provide as many examples as possible. In particular, there are
 many examples that show a fragment of code which can be evaluated. We use the
-symbol ==-->== an expression and to indicate the result that you obtain when you
-select an expression and ""print it"":
+symbol ==-->== to indicate the result you obtain when you
+select an expression and from its context menu choose ""print it"": 
 
 [[[label=scr:script1|caption=Small example|language=Smalltalk
 3 + 4
@@ -100,13 +100,16 @@ select an expression and ""print it"":
 ]]]
 
 In case you want to play with these code snippets in Pharo, you can download a
-plain text file with all the example code from the book's web site:
+plain text file with all the example code from the Resources sidebar of the book's web site:
 *http://www.pharoByExample.org>http://www.pharoByExample.org*.
+
+@@todo TODO: When book is finished, confirm this code snippet file is synchronised.
+
 
 !!Acknowledgments
 
 We would first like to thank Alan Kay, Dan Ingalls and their team for making
-Squeak, this amazing Smalltalk development environment, available as an
+Squeak, an amazing Smalltalk development environment, that became the
 open-source project from which Pharo took roots.
 
 We would also like to thank Hilaire Fernandes and Serge Stinckwich who allowed
