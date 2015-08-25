@@ -34,10 +34,16 @@ This book follows the
 GitHub workflow for contributions:
 
 1. Fork the repository
-2. For each addition, create a quick branch, prefixed with your initials. For
-    example: `git checkout -b dz_streams_syntax_fix`
+
+2. For each modification, create a quick topic branch named in the form of...
+
+   * initials_ChapterName_topicDescription   
+
+   example: `git checkout -b dz_PharoTour_updateScreenSnapshots`
+
 3. Make commits to that branch. When you're ready, make a
     [Pull Request](https://help.github.com/articles/using-pull-requests/#sending-the-pull-request)
+
 4. The request will receive comments/corrections, and will be merged into the
     main repo.
 
