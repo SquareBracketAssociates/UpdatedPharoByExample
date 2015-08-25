@@ -37,9 +37,9 @@ GitHub workflow for contributions:
 
 2. For each modification, create a quick topic branch named in the form of...
 
-   * initials_ChapterName_topicDescription   
+   * initials_ChapterName_my_topic_description   
 
-   example: `git checkout -b dz_PharoTour_updateScreenSnapshots`
+   example: `git checkout -b dz_PharoTour_update_screen_snapshots`
 
 3. Make commits to that branch. When you're ready, make a
     [Pull Request](https://help.github.com/articles/using-pull-requests/#sending-the-pull-request)
