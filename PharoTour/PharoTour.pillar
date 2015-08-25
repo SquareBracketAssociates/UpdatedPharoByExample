@@ -163,7 +163,7 @@ to activate the "morphic halo", an array of handles that are used to perform
 operations on the on-screen objects themselves, such as inspecting or resizing
 them (see Figure *@fig:halos*). If you let the mouse linger over a handle, a help
 balloon will explain its function. In Pharo, how you meta-click depends on your
-operating system: either you must hold ==Shift-Ctrl== (on Windows or Linux) or 
+operating system: either you must hold ==Shift-Ctrl== or ==Shift-Alt== (on Windows or Linux) or 
 ==Shift-Option== (on Mac OS X) while clicking.
 
 +Action Click brings the contextual menu.>file://figures/operating.png|width=60|label=fig:operating+
@@ -287,11 +287,10 @@ Instead, you can use keyboard shortcuts. These are the parenthesized expressions
 in the menu. Depending on your platform, you may have to press one of the
 modifier keys which are Control, Alt and Command. We will be focusing on the Mac
 OS platform since this is the platform most Pharo developers use, where the
-command key (a.k.a ==CMD==) is the main modifier key. On Linux or Windows, the
-corresponding key is ==ALT==, so each time you see something like ==CMD-d==,
+command key (a.k.a ==CMD==) is the main modifier key. The corresponding modifier
+key in Windows is ==ALT==, and in Linux is either ==ALT== or ==CTRL==, 
+so each time you see something like ==CMD-d==,
 just replace it with the appropriate modifier key depending on your OS.
-
-@@todo TODO: Test that alt is the modifier key for Linux
 
 In addition to ""do it"", you might have noticed ""print it"", ""inspect it""
 and ""explore it"". Let's have a quick look at each of these.
@@ -321,8 +320,8 @@ Delete the highlighted text "7" (Pharo should have selected it for you, so you
 can just press the delete key). Select ==3+4== again and this time ""inspect
 it"" (==CMD-i==)
 
-Now you should see a new window, called an ''inspector'', with the heading
-SmallInteger: 7. The inspector is an extremely useful tool that will allow you
+Now you should see a new window titled "Inspector on a SmallInteger(7)"
+The inspector is an extremely useful tool that will allow you
 to browse and interact with any object in the system. The title tells us that 7
 is an instance of the class ''SmallInteger''. The left panel allows us to browse
 the instance variables of an object, the values of which are shown in the right
@@ -334,8 +333,8 @@ it"".
 
 +Inspecting an object>file://figures/inspector.png|width=80|label=fig:inspector+
 
-Close the inspector. Type the expression ==Object== in a playground and this
-time ""explore it"" (==CMD-I==, that is, the uppercase i, or ==CMD-SHIFT-i==).
+Close the inspector. Type the expression [[[language=smalltalk Object]]]
+in a Playground and this time ""explore it"" (==CMD-I==, that is, the uppercase i, or ==CMD-SHIFT-i==).
 
 This time you should see a window labelled ""Object"" containing the text
 ""root: Object"". Click on the triangle to open it up.
@@ -368,11 +367,21 @@ When a new System Browser window first opens, all panes are empty but the
 leftmost one. This first pane lists all known packages, which contain groups of
 related classes.
 
+@@todo TODO: BTC-2015-08-26 double-check this next bit
+
+!!!! Expand the "Kernal" package and select "Objects"
 When we select a package, it causes the second pane to show a list of all of the
-classes in the selected package. When a class is selected the remaining two
+classes in the selected package. 
+
+!!!! Select the "Object" class
+When a class is selected the remaining two
 panes will be filled with text. The third pane displays the protocols of the
 currently selected class. These are convenient groupings of related methods. If
 no protocol is selected you should see all methods in the fourth pane.
+
+@@todo TODO: BTC-2015-08-26 to here
+
+When a class object is selected the remaining two panes will be filled with text. The third pane displays the protocols of the currently selected class. These are convenient groupings of related methods. If no protocol is selected you should see all methods in the fourth pane.
 
 !!!! Select the ""printing"" protocol
 
