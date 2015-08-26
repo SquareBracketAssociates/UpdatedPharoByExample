@@ -3,13 +3,7 @@ sudo: false
 addons:
   apt:
     packages:
-    - texlive-latex-base
-    - texlive-latex-recommended
-    - texlive-fonts-recommended
-    - texlive-latex-extra
-    - texlive-bibtex-extra
-    - lmodern
-    - latex-xcolor
+    - texlive-full
     - libc6-i386
 
 install:
