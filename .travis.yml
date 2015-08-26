@@ -8,6 +8,7 @@ addons:
     - texlive-fonts-recommended
     - texlive-latex-extra
     - texlive-bibtex-extra
+    - lmodern
     - libc6-i386
 
 install:
