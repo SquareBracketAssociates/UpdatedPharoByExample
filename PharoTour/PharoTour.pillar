@@ -333,8 +333,8 @@ it"".
 
 +Inspecting an object>file://figures/inspector.png|width=80|label=fig:inspector+
 
-Close the inspector. Type the expression [[[language=smalltalk Object]]]
-in a Playground and this time ""explore it"" (==CMD-I==, that is, the uppercase i, or ==CMD-SHIFT-i==).
+Close the inspector. Type the expression ==Object== in a playground and this 
+time ""inspect it"" (==CMD-i==).
 
 This time you should see a window labelled ""Object"" containing the text
 ""root: Object"". Click on the triangle to open it up.
@@ -352,7 +352,7 @@ The ""System Browser"", also known as "Class Browser", is one of the key tools
 used for programming. As we shall see, there are several interesting browsers
 available for Pharo, but this is the basic one you will find in any image.
 
-@@todo TODO: factorial on number would be better. and should redo the screenshot
+@@authorToDo TODO: factorial on number would be better. and should redo the screenshot
 
 !!!! Open the System Browser
 
@@ -367,7 +367,7 @@ When a new System Browser window first opens, all panes are empty but the
 leftmost one. This first pane lists all known packages, which contain groups of
 related classes.
 
-@@todo TODO: BTC-2015-08-26 double-check this next bit
+@@authorToDo TODO: BTC-2015-08-26 double-check this next bit
 
 !!!! Expand the "Kernal" package and select "Objects"
 When we select a package, it causes the second pane to show a list of all of the
@@ -379,7 +379,7 @@ panes will be filled with text. The third pane displays the protocols of the
 currently selected class. These are convenient groupings of related methods. If
 no protocol is selected you should see all methods in the fourth pane.
 
-@@todo TODO: BTC-2015-08-26 to here
+@@authorToDo TODO-END: BTC-2015-08-26
 
 When a class object is selected the remaining two panes will be filled with text. The third pane displays the protocols of the currently selected class. These are convenient groupings of related methods. If no protocol is selected you should see all methods in the fourth pane.
 
