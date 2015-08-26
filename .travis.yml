@@ -9,6 +9,7 @@ addons:
     - texlive-latex-extra
     - texlive-bibtex-extra
     - lmodern
+    - latex-xcolor
     - libc6-i386
 
 install:
