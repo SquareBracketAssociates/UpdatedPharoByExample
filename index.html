@@ -1,1 +1,185 @@
-First Test
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+	<meta name="author" content="SCG" />
+	<meta name="keywords" content="SCG, Software Composition Group" />
+	<meta name="description" content="Software Composition Group, IAM, University of Berne" />
+	<meta name="robots" content="all" />
+	<title>Pharo by Example</title>
+</head>
+<body>
+
+<link rel="stylesheet" href="pbe.css"/>
+<div id="header">
+<div align="center"><img src="pictures/pbe-title.jpg" width=60% border=0></div>
+</div>
+
+<div id="news">
+<!-- --- NEWS -------------------------------------------------- -->
+<h1>News</h1>
+<p><b>2013-10-01</b>: Pharo by Example 2, AKA <a href="http://www.deepintopharo.com/">Deep into Pharo</a>, is now available.</p>
+<p><b>2013-05-12</b>: A <a href="es/PBE1-sp.pdf">Spanish translation</a> is available.</p>
+<p><b>2013-04-23</b>: A <a href="https://github.com/SquareBracketAssociates/PharoByExample-japanese/wiki/Pharo-by-Example-%28ja%29">Japanese translation</a> is now available.</p>
+<p><b>2012-03-28</b>: <a href="http://rmod.lille.inria.fr/pbe2/">Pharo by Example 2</a> has its own web site</p>
+<p><b>2011-07-27</b>: The <a href="fr/index.html">French translation</a> of Pharo by Example is online!</p>
+<p><b>2011-04-06</b>: The draft chapter on <a href="drafts/Metacello.pdf">Metacello</a> for <em>Pharo by Example 2</em> is available for review!</p>
+<!-- --- TRANSLATIONS -------------------------------------------------- -->
+<h1>Translations</h1>
+<p>Help is welcome for the following translation projects:</p>
+<ul>
+<li><a href="fr/index.html">French translation</a> &mdash; contact: <a href="mailto:Serge.Stinckwich@gmail.com">Serge.Stinckwich@gmail.com</a></li>
+<li>Spanish translation &mdash; contact: <a href="mailto:nicopaez@gmail.com">nicopaez@gmail.com</a></li>
+</ul>
+
+<!-- --- RESOURCES -------------------------------------------------- -->
+<h1>Resources</h1>
+<ul>
+<li><a target=_blank href="http://www.lulu.com/content/paperback-book/pharo-by-example/7522128">Buy the book!</a> (lulu.com)</li>
+<li><a target=blank_ href="versions/PBE1-2009-10-28.pdf">Download latest version</a>
+	<br/>(352 pp., 9.4MB pdf)</li>
+<li><a href="http://www.deepintopharo.com/">Deep into Pharo</a> (PBE 2)</li>	
+<li><a target=blank_ href="http://scg.unibe.ch/download/pharobyexample/">Browse old versions</a></li>
+<li><a target=blank_ href="http://creativecommons.org/licenses/by-sa/3.0/">Creative commons by-sa license</a></li>
+<li><a target=_blank href="http://www.pharocasts.com/2010/11/lightsout-game.html">Screencast of the Lights Out exercise</a></li>
+<li><a target=blank_ href="http://www.squeaksource.com/PharoByExample.html">Source code</a> (SqueakSource)</li>
+<li><a href="https://github.com/SquareBracketAssociates/PharoByExample-english/blob/master/pbe1-examples.txt">Code snippets</a> from the book to copy/paste</li>
+<li><a target=blank_ href="http://github.com/SquareBracketAssociates/PharoByExample-english/blob/master/errata.txt">errata</a></li>
+<li><a href="http://github.com/SquareBracketAssociates/">LaTeX sources</a> (github)</li>
+<li><a target=blank_ href="http://scg.unibe.ch/scgbib?query=Blac09a&display=bibtex">bibtex reference</a></li>
+<li><a target=blank_ href="https://www.iam.unibe.ch/mailman/listinfo/sbe-discussion">Discussion list</a> and <a target=blank_ href="http://www.iam.unibe.ch/pipermail/sbe-discussion/">archive</a></li>
+</ul>
+<!-- p>PDF downloads to date: <img src="http://www.iam.unibe.ch/server-cntr/~scg/SBE/SBE.pdf?face=sgrey"></p> -->
+<!-- --- EXTERNAL -------------------------------------------------- -->
+<h1>Download Pharo</h1>
+<ul>
+	<!-- <li><a href="http://scg.unibe.ch/download/pharobyexample/PBE.zip">Pharo By Example image</a> (recommended for use with the book)</li> -->
+	<li><a href="image/PBE-OneClick-1.1.app.zip">Pharo By Example image</a> (recommended for use with the book)</li>
+	<li><a target=blank_ href="http://www.pharo-project.org/">Pharo download</a> (VM, sources and various images)</li>
+</ul>
+<!-- --- AUTHORS -------------------------------------------------- -->
+<h1>Authors</h1>
+<ul>
+	<li><a target=blank_ href="http://web.cecs.pdx.edu/~black/">Andrew P. Black</a></li>
+	<li><a target=blank_ href="http://stephane.ducasse.free.fr/">St&eacute;phane Ducasse</a></li>
+	<li><a target=blank_ href="http://scg.unibe.ch/staff/oscar">Oscar Nierstrasz</a></li>
+	<li><a target=blank_ href="http://people.untyped.org/damien.pollet/">Damien Pollet</a></li>
+	<li><a target=blank_ href="http://damiencassou.seasidehosting.st/">Damien Cassou</a></li>
+	<li><a target=blank_ href="http://marcusdenker.de/">Marcus Denker</a></li>
+</ul>
+<!-- --- EXTERNAL -------------------------------------------------- -->
+<h1>External resources</h1>
+<ul>
+<li><a target=blank_ href="http://en.wikipedia.org/wiki/Pharo">Pharo on Wikipedia</a></li>
+<li><a target=blank_ href="http://lists.gforge.inria.fr/mailman/listinfo/pharo-project">Pharo mailing list</a></li>
+<li><a target=blank_ href="http://stephane.ducasse.free.fr/FreeBooks.html">free books on Smalltalk</a></li>
+<li><a target=blank_ href="http://stephane.ducasse.free.fr/Videos/2008-SmalltalkVideos/">Smalltalk Videos</a></li>
+<li><a target=blank_ href="https://www.iam.unibe.ch/scg/svn_repos/Lectures/Smalltalk/">open source lecture slides</a> (ppt)</li>
+</ul>
+<p>Endorsed by <a target=blank_ href="http://www.esug.org"><img src="pictures/esug-logo.png" width=50% border=0></a></p>
+</div>
+
+<div id="content">
+
+<!-- --- ABOUT -------------------------------------------------- -->
+<h1>About this book</h1>
+<p><!-- a target=blank_ href="http://www.lulu.com/content/paperback-book/pharo-by-example/7522128" --><img src="pictures/pbe.jpg" width=25% align=left border=0>
+<div style="float: right; margin-right: 10px; margin-bottom: 2px;">
+<script type="text/javascript">
+var flattr_url = 'http://pharobyexample.org/';
+</script>
+<script src="http://api.flattr.com/button/load.js" type="text/javascript"></script>
+</div>
+<!-- div style="float: right; margin-right: 10px; margin-bottom: 2px;">
+<script type="text/javascript">
+digg_url = 'http://www.digg.com/software/Squeak_by_Example_Lulu_com';
+</script>
+<script src="http://digg.com/tools/diggthis.js" type="text/javascript"></script>
+</div -->
+<a target=_blank href="http://pharo-project.org/">Pharo</a> is a modern open-source development environment for the classic <a target=_blank href="http://en.wikipedia.org/wiki/Smalltalk">Smalltalk-80</a> programming language. Despite being the first purely object-oriented language and environment, Smalltalk is in many ways still far ahead of its successors in promoting a vision of an environment where <em>everything is an object</em>, and anything can change at run-time.</p>
+
+<p><em>Pharo by Example</em>, intended for both students and developers, will guide you gently through the Pharo language and environment by means of a series of examples and exercises.</p>
+
+<!--
+<p>This book is made available under the Creative Commons Attribution-ShareAlike 3.0 license. You can either <a target=blank_ href="http://www.iam.unibe.ch/~scg/SBE/SBE.pdf">download the PDF for free</a>, or you can <a target=_blank href="http://www.lulu.com/content/1171965">buy a softcover copy from lulu.com</a>.  (You can also pay for the PDF download from lulu.com, if you would like to make a contribution to this effort, but you are under no obligation.)</p>
+-->
+
+<!-- --- TOPICS -------------------------------------------------- -->
+<h2>Topics</h2>
+<p>The book helps you get started with <i>A Quick Tour of Pharo</i> and guides you through <i>A First Application</i>. The Smalltalk language is introduced in the chapters <i>Syntax in a Nutshell</i> and <i>Understanding Message Syntax</i>.
+
+<p>Development with Pharo is introduced in <i>The Smalltalk Object Model</i>, <i>The Pharo Programming Environment</i> and <i>SUnit</i>.
+Several of the key classes are presented in chapters on <i>Basic Classes</i>, <i>Collections</i>, <i>Streams</i> and <i>Morphic</i>.
+A chapter dedicated to <i>Seaside by Example</i> introduces web application development with the popular Seaside framework.</p>
+
+<p>The first edition of the book concludes with chapters on <i>Classes and Metaclasses</i>, <i>Reflection</i> and <i>Frequently Asked Questions</i>.</p>
+
+<!-- --- HANDS ON -------------------------------------------------- -->
+<!--
+<h2>Hands on!</h2>
+<p>The book is filled with hands-on exercises for you to try out.</p>
+<p><img src="pictures/dothis.png" width=80%></p>
+
+<p>Wherever possible, Smalltalk code is illustrated with lots of working examples.</p>
+
+<pre>
+factorial := [:n | (1 to: n)
+	inject: 1
+	into: [:product :each | product  * each ] ]. 
+factorial value: 10 &rarr; <em>3628800</em>
+</pre>
+-->
+
+<!-- --- TESTING -------------------------------------------------- -->
+<!--
+<h2>Truth in advertising</h2>
+<p>Actually, most of the examples are automatically converted to SUnit tests, so we can be sure that the code really runs as advertised. For example, the following expression (on line 114 of the Preface)</p>
+<pre>
+3 + 4 &rarr; <em>7</em>
+</pre>
+<p>will be translated to:</p>
+<pre>
+test114
+	self assert: [ 3 + 4 ] value printString = '7'.
+</pre>
+<p>and automatically run:</p>
+
+<p><img src="pictures/testRunner.png" width=80%></p>
+-->
+
+<!-- --- AN OPEN BOOK -------------------------------------------------- -->
+<h2>An open book</h2>
+<p>This book is open in the following senses:</p>
+
+<ul>
+	<li>The full book is available as a <a target=blank_ href="versions/PBE1-2009-10-28.pdf">free, printable PDF download</a>.</li>
+	<li>You can also order a softcover copy of the book from <a target=_blank href="http://www.lulu.com/content/paperback-book/pharo-by-example/7522128">Lulu</a> or <a target=_blank  href="http://www.amazon.com/Pharo-Example-Oscar-Nierstrasz/dp/3952334146/">Amazon</a>.
+</br>You can also pay for the PDF from the same web site, if you like, but you are under no obligation! (We are happy if you would like to make a contribution.)</li>
+	<li>The content of this book is released under a <a target=blank_ href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike license</a>.
+In short, you are allowed to freely share and adapt this book, as long as you respect the <a target=blank_ href="http://creativecommons.org/licenses/by-sa/3.0/">conditions of the license</a>.
+You may download the LaTeX sources from the publicly-accessible <a target=blank_ href="http://github.com/SquareBracketAssociates/">github repository</a>.</li>
+	<li>Source code of various projects described in the book is available as open-source from <a target=blank_ href="http://www.squeaksource.com/PharoByExample.html">SqueakSource</a>.</li>
+</ul>
+
+<p>We would like to see this book grow!
+We encourage you to contribute chapters on the parts of Pharo that we have not described.
+If you would like to participate, please contact us.</p>
+
+<div id=hosting>
+This web site is graciously hosted by the <a target=blank_ href="http://www.iam.unibe.ch">Institute of Computer Science and Applied Mathematics of the University of Bern</a>, Switzerland.</div>
+
+<div id=pub>Published by <a target=_blank href="http://SquareBracketAssociates.org">Square Bracket Associates</a>, Kehrsatz, Switzerland.</div>
+
+<div id=lastModified>Last modified: 2013-10-24 by <a target=_blank href="http://scg.unibe.ch/staff/oscar">omn</a></div>
+</div>
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2374419-1";
+urchinTracker();
+</script>
+</body>
+</html>
+

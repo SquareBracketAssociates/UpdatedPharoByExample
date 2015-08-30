@@ -1,0 +1,177 @@
+/* BODY */
+body {
+	border: 4px solid lightblue;
+	margin: 50px 100px 50px 100px;
+	padding-left: 0px;
+	color: black;
+	background: white;
+	font: 12pt Verdana, Tahoma, Arial, Helvetica, sans-serif, Times New Roman;
+	/* background-image: url(./pictures/monticello.png); */
+	background-repeat: no-repeat;
+	background-position: 100% 0%;
+}
+h1,h2,h3 {
+	font-weight: normal;
+	margin: 0px;
+	letter-spacing: 2px;
+	text-decoration: none;
+}
+table {
+	border-collapse: collapse;
+}
+td {
+	font-size: 12px;
+	border: 2px solid #CCCCCC;
+	padding: 4px;
+}
+#hosting {
+	font-size: 10pt;
+	text-align: left;
+	margin: 0px;
+	border-top: 5px solid lightblue;
+	padding: 10px 10px 10px 10px;
+}
+#pub {
+	font-size: 8pt;
+	text-align: left;
+	font-style: italic;
+	margin: 0px;
+	padding: 2px 2px 2px 8px;
+	background: lightblue;
+}
+#lastModified {
+	font-size: 8pt;
+	text-align: right;
+	font-style: italic;
+	color: grey;
+	margin: 8px;
+	padding: 2px 2px 2px 8px;
+}
+#lastModified a {
+	color: grey;
+}
+.more {
+	text-align: right;
+	font-size: 8px;
+	font-style: italic;
+}
+/* BODY -end */
+
+/* LINKS */
+a:link {
+	color: #000099;
+	text-decoration: none;
+}
+a:visited {
+	color: #000099;
+	text-decoration: none;
+}
+a:hover {
+	color: #992222;
+	text-decoration: none;
+}
+a:active {
+	color: blue;
+	text-decoration: none;
+}
+a.button { /* pseudo-button appearance */
+	border: 1px solid #CCCCCC;
+	border-right-color: grey;
+	border-bottom-color: grey;
+	padding: 0px 4px;
+	background: #F0F0F0;
+}
+/*LINKS - end*/
+
+/* HEADER */
+#header {
+	padding: 20px;
+	padding-left: 16px;
+	background: white;
+}
+#header h1, #header h2 {
+	margin: 4px;
+	letter-spacing: 3px;
+	font: 48pt Optima, Verdana, Tahoma, Arial, Helvetica, sans-serif, Times New Roman;
+	font-weight: bold;
+	color: navy;
+	text-align: center;
+}
+
+/* CONTENT */
+#content {
+	font-size: 10pt;
+}
+#content h1,#content h2,#content h3 {
+	letter-spacing: 2px;
+	padding: 2px 2px 2px 8px;
+	background: lightblue;
+}
+#content h1 {
+	font-size: 16pt;
+}
+#content h2 {
+	font-size: 14pt;
+}
+#content h3 {
+	font-size: 12pt;
+}
+#content p, #content form, #content pre {
+	padding-left: 16px;
+	padding-right: 16px;
+}
+#content table {
+	margin-left: 16px;
+}
+#content pre {
+	padding: 2px 2px 2px 8px;
+	margin: 8px;
+	background: lightgrey;
+}
+ul {
+	list-style-image: url(./pictures/dot.png);
+	padding-right: 16px;
+}
+/* CONTENT - end */
+
+/* NEWS */
+.date {
+	display: run-in;
+	margin-right: 8px;
+	color: #990000;
+	font-weight: bold;
+}
+.date:after {
+	content: ':';
+}
+#news {
+	font-size: 8pt;
+	float: right;
+	width: 240px;
+	margin-left: 16px;
+	margin-bottom: 16px;
+	padding: 8px 0px 0px 8px;
+	border-top: 2px solid lightblue;
+	border-left: 2px solid lightblue;
+	border-bottom: 2px solid lightblue;
+	background: white;
+}
+#news h1,#news h2,#news h3 {
+	letter-spacing: 2px;
+	padding: 2px 2px 2px 8px;
+	background: lightblue;
+}
+#news h1 {
+	font-size: 12pt;
+}
+#news h2 {
+	font-size: 10pt;
+}
+#news h3 {
+	font-size: 8pt;
+}
+#news p, #news form, #news table {
+	padding: 0px 0px 0px 16px;
+}
+/* NEWS - end*/
+
