@@ -36,3 +36,4 @@ play-cache/
 # Emacs
 \#*#
 *~
+/pillarPostExport.sh
