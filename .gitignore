@@ -1,14 +1,3 @@
-*.md
-*.aux
-*.glo
-*.idx
-*.log
-*.out
-*.toc
-*.url
-*.synctex.gz
-/crash.dmp
-.DS_Store
 /Pharo.changes
 /Pharo.image
 /pharo-vm
@@ -17,17 +6,12 @@
 /vm-ui.sh
 /pharo
 /pillar
-auto/
 files/
 /package-cache
 /PharoByExample.pdf
 /PharoByExample.tex
 /UpdatedPharoByExample.tex
 /book-result/
-*.html
-*.md
-*.pdf
-*.tex
 stderr
 stdout
 stdin
@@ -37,3 +21,4 @@ play-cache/
 \#*#
 *~
 /pillarPostExport.sh
+/book-result
