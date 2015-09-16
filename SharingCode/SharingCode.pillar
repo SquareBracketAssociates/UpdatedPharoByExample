@@ -50,7 +50,7 @@ certain ''methods'' in a package, even though the rest of the class is in
 another package.
 
 The way that you do this is by placing those methods in a protocol (of
-==Object==, ==String==, ==Date==, and so on) named ==*PharoLink== (note the
+==Object==, ==String==, ==Date==, and so on) named ==\*PharoLink== (note the
 initial asterisk). The combination of the ==PharoLink-...== categories and
 the ==*PharoLink== protocols form a package named ==PharoLink==. To be
 precise, the rules for what goes in a package are as follows.
@@ -62,13 +62,13 @@ A package named ==Foo== contains:
 ""1."" All ''class definitions'' of classes in the category ==Foo==, or in
 categories with names starting with ==Foo-==.
 
-""2."" All ''methods'' in ''any class'' in protocols named ==*Foo== or ==*foo==
+""2."" All ''methods'' in ''any class'' in protocols named ==\*Foo== or ==\*foo==
 (When performing this comparison, the case of the letters in the names is
-ignored.), or whose name starts with ==*Foo-== or ==*foo-==.
+ignored.), or whose name starts with ==\*Foo-== or ==\*foo-==.
 
 ""3."" All ''methods'' in classes in the category ==Foo==, or in a category
 whose name starts with ==Foo-==, ''except'' for those methods in protocols whose
-names start with ==*==.
+names start with ==\*==.
 
 A consequence of these rules is that each class definition and each method
 belongs to exactly one package. The ''except'' in the last rule has to be there
@@ -375,7 +375,7 @@ the files that it contains (but not the directories) are displayed on the right.
 This list of files can be filtered by entering a Unix-style pattern in the small
 box at the top-left of the window. Initially, this pattern is ==*==, which
 matches all file names, but you can type a different string there and accept it,
-changing the pattern. (Note that a ==*== is implicitly prepended and appended
+changing the pattern. (Note that a ==\*== is implicitly prepended and appended
 to the pattern that you type.) The sort order of the files can be changed using
 the ==name==, ==date== and ==size== buttons. The rest of the
 buttons depend on the name of the file selected in the browser. In

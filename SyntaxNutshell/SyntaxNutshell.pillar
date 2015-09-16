@@ -8,7 +8,7 @@ the syntax. It checks whether ==DayNames== already contains the argument, i.e.
 if this argument represents a correct day name. If this is the case, it
 will assign it to the variable ==StartDay==.
 
-[[[language=Smalltalk
+[[[
 startDay: aSymbol
 
    (DayNames includes: aSymbol)
@@ -92,7 +92,7 @@ such as ==Character space== and ==Character tab==.
 
 ""Strings."" Single quotes ==' '== are used to define a literal string. If you
 want a string with a single quote inside, just double the quote, as in
-=='G''day'==.
+=='G'\'day'==.
 
 ""Symbols."" are like Strings, in that they contain a sequence of characters.
 However, unlike a string, a literal symbol is guaranteed to be globally unique.
@@ -188,8 +188,9 @@ lower case letter.
 Binary message selectors consist of one or more characters from the following
 set:
 
-[[[ language=Smalltalk
-+ - / \ * ~ < > = @ % | & ? , ]]]
+[[[
++ - / \ * ~ < > = @ % | & ? ,
+]]]
 
 Keyword message selectors consist of a series of alphanumeric keywords, where
 each keyword starts with a lower-case letter and ends with a colon.
@@ -197,8 +198,9 @@ each keyword starts with a lower-case letter and ends with a colon.
 Unary messages have the highest precedence, then binary messages, and finally
 keyword messages, so:
 
-[[[language=Smalltalk
-2 raisedTo: 1 + 3 factorial --> 128]]]
+[[[
+2 raisedTo: 1 + 3 factorial --> 128
+]]]
 
 (First we send ==factorial== to 3, then we send ==+ 6== to 1, and finally we
 send ==raisedTo: 7== to 2.) Recall that we use the notation expression ==- ->==
@@ -206,35 +208,38 @@ to show the result of evaluating an expression.
 
 Precedence aside, evaluation is strictly from left to right, so:
 
-[[[language=Smalltalk
-1 + 2 * 3 --> 9 ]]]
+[[[
+1 + 2 * 3 --> 9
+]]]
 
 not 7. Parentheses must be used to alter the order of evaluation:
 
-[[[language=Smalltalk
-1 + (2 * 3) --> 7 ]]]
+[[[
+1 + (2 * 3) --> 7
+]]]
 
 Message sends may be composed with periods and semi-colons. A period separated
 sequence of expressions causes each expression in the series to be evaluated as
 a ''statement'', one after the other.
 
-[[[language=Smalltalk
+[[[
 Transcript cr.
 Transcript show: 'hello world'.
-Transcript cr]]]
+Transcript cr
+]]]
 
-This will send ==cr== to the ==Transcript== object, then send it ==show: 'hello
-world'==, and finally send it another ==cr==.
+This will send ==cr== to the ==Transcript== object, then send it ==show: 'hello world'==, and finally send it another ==cr==.
 
 When a series of messages is being sent to the ''same'' receiver, then this can
 be expressed more succinctly as a ''cascade''. The receiver is specified just
 once, and the sequence of messages is separated by semi-colons:
 
-[[[language=Smalltalk
+[[[
 Transcript
-	cr;
-	show: 'hello world';
-	cr]]]
+  cr;
+  show: 'hello world';
+  cr
+]]]
 
 This has precisely the same effect as the previous example.
 
@@ -253,7 +258,7 @@ Here is the method ==lineCount== in the class ==String==. (The usual convention
 is to refer to methods as ClassName\>\>methodName, so we call this method
 String\>\>lineCount.)
 
-[[[language=Smalltalk
+[[[
 String >> lineCount
 	"Answer the number of lines represented by the receiver, where every cr adds one line."
 
@@ -262,7 +267,8 @@ String >> lineCount
 	count := 1 min: self size.
 	self do:
     	[:c | c == cr ifTrue: [count := count + 1]].
-	^ count]]]
+	^ count
+]]]
 
 Syntactically, a method consists of:
 
@@ -289,8 +295,9 @@ message ==value==. The block answers the value of the last expression in its
 body, unless there is an explicit return (with ^), in which case it does not
 answer any value.
 
-[[[language=Smalltalk
-[ 1 + 2 ] value --> 3]]]
+[[[
+[ 1 + 2 ] value --> 3
+]]]
 
 Blocks may take parameters, each of which is declared with a leading colon. A
 vertical bar separates the parameter declaration(s) from the body of the block.
@@ -298,9 +305,10 @@ To evaluate a block with one parameter, you must send it the message value: with
 one argument. A two-parameter block must be sent ==value:value:==, and so on, up
 to 4 arguments.
 
-[[[language=Smalltalk
+[[[
 [ :x | 1 + x ] value:2 --> 3
-[ :x :y | x + y ] value: 1 value: 2 --> 3]]]
+[ :x :y | x + y ] value: 1 value: 2 --> 3
+]]]
 
 If you have a block with more than four parameters, you must use
 ==valueWithArguments:== and pass the arguments in an array. (A block with a
@@ -310,17 +318,19 @@ Blocks may also declare local variables, which are surrounded by vertical bars,
 just like local variable declarations in a method. Locals are declared after any
 arguments:
 
-[[[language=Smalltalk
-[ :x :y || z | z := x + y. z ] value: 1 value: 2 --> 3]]]
+[[[
+[ :x :y || z | z := x + y. z ] value: 1 value: 2 --> 3
+]]]
 
 Blocks are actually lexical closures, since they can refer to variables of the
 surrounding environment. The following block refers to the variable ==x== of its
 enclosing environment:
 
-[[[language=Smalltalk
+[[[
 | x |
 x := 1.
-[ :y | x + y ] value: 2 --> 3]]]
+[ :y | x + y ] value: 2 --> 3
+]]]
 
 Blocks are instances of the class BlockClosure. This means that they are
 objects, so they can be assigned to variables and passed as arguments just like
@@ -337,7 +347,7 @@ Conditionals are expressed by sending one of the messages ==ifTrue:==,
 Chapter *: Basic Classes>../BasicClasses/BasicClasses.pier@cha:basicClasses*, 
 for more about booleans.
 
-[[[language=Smalltalk
+[[[
 (17 * 13 > 220)
 	ifTrue: [ 'bigger' ]
 	ifFalse: [ 'smaller' ] -->'bigger'
@@ -348,7 +358,7 @@ collections. Since the exit condition for a loop may be repeatedly evaluated, it
 should be a block rather than a boolean value. Here is an example of a very
 procedural loop:
 
-[[[language=Smalltalk
+[[[
 n := 1.
 [ n < 1000 ] whileTrue: [ n := n*2 ].
 n --> 1024
@@ -356,7 +366,7 @@ n --> 1024
 
 ==whileFalse:== reverses the exit condition.
 
-[[[language=Smalltalk
+[[[
 n := 1.
 [ n > 1000 ] whileFalse: [ n := n*2 ].
 n --> 1024
@@ -364,7 +374,7 @@ n --> 1024
 
 ==timesRepeat:== offers a simple way to implement a fixed iteration:
 
-[[[language=Smalltalk
+[[[
 n := 1.
 10 timesRepeat: [ n := n*2 ].
 n --> 1024
@@ -374,10 +384,11 @@ We can also send the message ==to:do:== to a number which then acts as the
 initial value of a loop counter. The two arguments are the upper bound, and a
 block that takes the current value of the loop counter as its argument:
 
-[[[language=Smalltalk
+[[[
 result := String new.
 1 to: 10 do: [:n | result := result, n printString, ' '].
-result --> '1 2 3 4 5 6 7 8 9 10 ']]]
+result --> '1 2 3 4 5 6 7 8 9 10 '
+]]]
 
 ""High-Order Iterators."" Collections comprise a large number of different
 classes, many of which support the same protocol. The most important messages
@@ -390,17 +401,19 @@ from the starting point to the end. ==1 to: 10== represents the interval from 1
 to 10. Since it is a collection, we can send the message do: to it. The argument
 is a block that is evaluated for each element of the collection.
 
-[[[language=Smalltalk
+[[[
 result := String new.
 (1 to: 10) do: [:n | result := result, n printString, ' '].
-result --> '1 2 3 4 5 6 7 8 9 10 ']]]
+result --> '1 2 3 4 5 6 7 8 9 10 '
+]]]
 
 ==collect:== builds a new collection of the same size, transforming each
 element. (You can think of ==collect:== as the Map in the MapReduce
 programming model).
 
-[[[language=Smalltalk
-(1 to:10) collect: [ :each | each * each ] --> #(149162536496481100)]]]
+[[[
+(1 to:10) collect: [ :each | each * each ] --> #(149162536496481100)
+]]]
 
 ==select:== and ==reject:== build new collections, each containing a subset of
 the elements satisfying (or not) the boolean block condition.
@@ -409,10 +422,11 @@ the elements satisfying (or not) the boolean block condition.
 that strings are also collections (of characters), so you can iterate over all
 the characters.
 
-[[[language=Smalltalk
+[[[
 'hello there' select: [ :char | char isVowel ] --> 'eoee'
 'hello there' reject: [ :char | char isVowel ] --> 'hll thr'
-'hello there' detect: [ :char | char isVowel ] --> $e]]]
+'hello there' detect: [ :char | char isVowel ] --> $e
+]]]
 
 Finally, you should be aware that collections also support a functional-style
 fold operator in the ==inject:into:== method. (You can also think of it as the
@@ -420,8 +434,9 @@ Reduce in the MapReduce programming model). This lets you generate a cumulative
 result using an expression that starts with a seed value and injects each
 element of the collection. Sums and products are typical examples.
 
-[[[language=Smalltalk
-(1 to: 10) inject: 0 into: [ :sum :each | sum + each] --> 55]]]
+[[[
+(1 to: 10) inject: 0 into: [ :sum :each | sum + each] --> 55
+]]]
 
 This is equivalent to ==0\+\1\+2\+3\+4\+5\+6\+7\+8\+9\+10==.
 
@@ -446,14 +461,15 @@ evaluated only if the primitive fails.
 Here we see the code for ==SmallInteger>>+==. If the primitive fails, the
 expression ==super + aNumber== will be evaluated and returned.
 
-[[[language=Smalltalk
+[[[
 + aNumber
 	"Primitive. Add the receiver to the argument and answer with the result
 	if it is a SmallInteger. Fail if the argument or the result is not a
 	SmallInteger Essential No Lookup. See Object documentation whatIsAPrimitive."
 
 	<primitive: 1>
-	^ super + aNumber]]]
+	^ super + aNumber
+]]]
 
 In Pharo, the angle bracket syntax is also used for method annotations called
 pragmas.

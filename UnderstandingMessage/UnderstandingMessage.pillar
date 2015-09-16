@@ -109,7 +109,7 @@ Object class --> Object class  "The class of Object is Object class (BANG)"
 !!!Binary messages
 
 Binary messages are messages that require exactly one argument ''and'' whose
-selector consists of a sequence of one or more characters from the set: ==+==, ==-==, ==*==, ==/==, ==&==, =====, ==>==, ==|==, ==<==, ==~==,
+selector consists of a sequence of one or more characters from the set: ==+==, ==-==, ==\*==, ==/==, ==&==, =====, ==>==, ==|==, ==<==, ==~==,
 and ==@==. Note that ==--== is not allowed for parsing reasons.
 
 [[[
@@ -127,7 +127,7 @@ and ==@==. Note that ==--== is not allowed for parsing reasons.
 	--> false "two equal Fractions are not the same object"
 ]]]
 
-@@important Binary messages are messages that require exactly one argument ''and'' whose selector is composed of a sequence of characters from: ==+==, ==-==, ==*==, ==/==, ==\&==, =====, ==>==, ==|==, ==<==, ==\~==, and ==@==. ==--== is not possible. They follow the syntactic template: ==receiver selector argument==.
+@@important Binary messages are messages that require exactly one argument ''and'' whose selector is composed of a sequence of characters from: ==\+==, ==-==, ==\*==, ==/==, ==\&==, =====, ==>==, ==|==, ==<==, ==\~==, and ==@==. ==--== is not possible. They follow the syntactic template: ==receiver selector argument==.
 
 !!!Keyword messages
 
@@ -247,9 +247,9 @@ message ==aPen color: aColor== (2) as shown in Script *@scr:decColor*. Figure
 ]]]
 
 !!!!!Example 2.
-In the message ==aPen go: 100 + 20==, there is a ''binary'' message ==+ 20== and
+In the message ==aPen go: 100 + 20==, there is a ''binary'' message ==\+ 20== and
 a ''keyword'' message ==go:==. Binary messages are sent prior to keyword
-messages so ==100 + 20== is sent first (1): the message ==+ 20== is sent to the
+messages so ==100 + 20== is sent first (1): the message ==\+ 20== is sent to the
 object ==100== and returns the number ==120==. Then the message ==aPen go: 120==
 is sent with ==120== as argument (2). The following example shows how the
 message send is executed (Script *@scr:decColor2*)
@@ -361,10 +361,10 @@ Here we see the common situations where extra parentheses are needed.
 ]]]
 
 !!!!!Example 6.
-In the message sends ==20 + 2 * 5==, there are only binary messages ==+== and ==*==.
-However in Pharo there is no special priority for the operations ==+== and ==*==.
-They are just binary messages, hence ==*== does not have priority over ==+==.
-Here the leftmost message ==+== is sent first, and then the ==*== is sent to
+In the message sends ==20 \+ 2 \* 5==, there are only binary messages ==\+== and ==\*==.
+However in Pharo there is no special priority for the operations ==\+== and ==\*==.
+They are just binary messages, hence ==\*== does not have priority over ==\+==.
+Here the leftmost message ==\+== is sent first, and then the ==*== is sent to
 the result as shown in Script *@scr:decomposing* and Figure *@fig:wrongcompo*.
 
 [[[label=scr:decomposing|caption=Decomposing 20 + 2 * 5|language=Smalltalk
@@ -383,7 +383,7 @@ but ==110==. This result is perhaps unexpected but follows directly from the
 rules used to send messages. This is the price to pay for the simplicity of the
 Pharo model. To get the correct result, we should use parentheses. When messages
 are enclosed in parentheses, they are evaluated first. Hence the message send
-==20 + (2 * 5)== returns the result as shown by Script *@scr:decomposing2* and Figure
+==20 \+ (2 \* 5)== returns the result as shown by Script *@scr:decomposing2* and Figure
 *@fig:okcompo*.
 
 [[[label=scr:decomposing2|caption=Decomposing 20 + (2 * 5)|language=Smalltalk
@@ -551,9 +551,9 @@ Point new setX: 25 setY: 35; isZero --> false
 -A message is always sent to an object named the ''receiver'', which itself may be the result of other message sends.
 -There are three types of messages: ''unary'', ''binary'', and ''keyword''.
 -Unary messages are messages that do not require any argument. They are of the form of ==receiver selector==.
--Binary messages are messages that involve two objects, the receiver and another object, whose selector is composed of one or more characters from the following list: ==+==, ==-==, ==*==, ==/==, ==|==, ==&==, =====, ==>==, ==<==, ==~==, and ==@==. They are of the form: ==receiver selector argument==.
+-Binary messages are messages that involve two objects, the receiver and another object, whose selector is composed of one or more characters from the following list: ==\+==, ==-==, ==\*==, ==/==, ==|==, ==&==, =====, ==>==, ==<==, ==~==, and ==@==. They are of the form: ==receiver selector argument==.
 -Keyword messages are messages that involve more than one object and that contain at least one colon character (==:==). They are of the form: ==receiver selectorWordOne: argumentOne wordTwo: argumentTwo==.
 -""Rule One."" Unary messages are sent first, then binary messages, and finally keyword messages.
 -""Rule Two."" Messages in parentheses are sent before any others.
 -""Rule Three."" When the messages are of the same type, the order of evaluation is from left to right.
--In Pharo, traditional arithmetic operators such as \+ and \* have the same priority. ==+== and ==*== are just binary messages, therefore ==*== does not have priority over ==+==. You must use parentheses to obtain the desired arithmetical order of operations.
+-In Pharo, traditional arithmetic operators such as \+ and \* have the same priority. ==\+== and ==\*== are just binary messages, therefore ==\*== does not have priority over ==\+==. You must use parentheses to obtain the desired arithmetical order of operations.
