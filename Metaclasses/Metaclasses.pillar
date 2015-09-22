@@ -361,7 +361,7 @@ metaclass hierarchy perfectly mirrors the class hierarchy, all the way up to
 
 The following examples show us how we can query the class hierarchy to
 demonstrate that Figure *@fig:metaclassclassclass* is correct. (Actually, you
-will see that we told a white lie — ==Object class superclass -->==
+will see that we told a white lie — ==Object class superclass -\->==
 ==ProtoObject class==, not ==Class==. In Pharo, we must go one superclass higher
 to reach ==Class==.)
 

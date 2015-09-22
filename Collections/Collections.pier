@@ -466,7 +466,7 @@ You can also create sets using ==Set class>>newFrom:== or the conversion message
 { Color black. Color white. (Color red + Color blue + Color green) } asSet size --> 2
 ]]]
 
-Note that ""red"" ==+== ""blue"" ==+== ""green"" = ""white"".
+Note that ""red"" ==\+== ""blue"" ==\+== ""green"" ==\=== ""white"".
 
 A ==Bag== is much like a ==Set== except that it does allow duplicates:
 
@@ -494,7 +494,7 @@ In contrast to an ==OrderedCollection==, a ==SortedCollection== maintains its
 elements in sort order. By default, a sorted collection uses the message ==<===
 to establish sort order, so it can sort instances of subclasses of the abstract
 class ==Magnitude==, which defines the protocol of comparable objects (==<==,
-=====, ==>==, ==>===, ==between:and:==...).
+==\===, ==>==, ==>===, ==between:and:==...).
 (See Chapter *: Basic Classes>../BasicClasses/BasicClasses.pier@cha:basicClasses*).
 
 You can create a ==SortedCollection== by creating a new instance and adding
@@ -1019,4 +1019,4 @@ manipulating a variety of different kinds of collections.
 -The basic iteration message is ==do:==. It is useful for imperative code, such as modifying each element of a collection, or sending each element a message.
 -Instead of using ==do:==, it is more common to use ==collect:==, ==select:==, ==reject:==, ==includes:==, ==inject:into:== and other higher-level messages to process collections in a uniform way.
 -Never remove an element from a collection you are iterating over. If you must modify it, iterate over a copy instead.
--If you override =====, remember to override ==hash== as well!
+-If you override ==\===, remember to override ==hash== as well!

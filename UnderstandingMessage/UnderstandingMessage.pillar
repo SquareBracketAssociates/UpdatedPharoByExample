@@ -109,8 +109,8 @@ Object class --> Object class  "The class of Object is Object class (BANG)"
 !!!Binary messages
 
 Binary messages are messages that require exactly one argument ''and'' whose
-selector consists of a sequence of one or more characters from the set: ==+==, ==-==, ==\*==, ==/==, ==&==, =====, ==>==, ==|==, ==<==, ==~==,
-and ==@==. Note that ==--== is not allowed for parsing reasons.
+selector consists of a sequence of one or more characters from the set: ==\+==, ==-==, ==\*==, ==/==, ==&==, ==\===, ==>==, ==|==, ==<==, ==~==,
+and ==@==. Note that ==-\-== is not allowed for parsing reasons.
 
 [[[
 100@100
@@ -127,7 +127,7 @@ and ==@==. Note that ==--== is not allowed for parsing reasons.
 	--> false "two equal Fractions are not the same object"
 ]]]
 
-@@important Binary messages are messages that require exactly one argument ''and'' whose selector is composed of a sequence of characters from: ==\+==, ==-==, ==\*==, ==/==, ==\&==, =====, ==>==, ==|==, ==<==, ==\~==, and ==@==. ==--== is not possible. They follow the syntactic template: ==receiver selector argument==.
+@@important Binary messages are messages that require exactly one argument ''and'' whose selector is composed of a sequence of characters from: ==\+==, ==-==, ==\*==, ==/==, ==\&==, ==\===, ==>==, ==|==, ==<==, ==~==, and ==@==. ==-\-== is not possible. They follow the syntactic template: ==receiver selector argument==.
 
 !!!Keyword messages
 

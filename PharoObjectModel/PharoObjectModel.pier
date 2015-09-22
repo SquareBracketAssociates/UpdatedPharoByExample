@@ -629,7 +629,7 @@ method must be chosen ''dynamically'', when the message is received.
 As a consequence, we can send the ''same message'' to different objects, each of
 which may have ''its own method'' for responding to the message. We do not tell
 the ==SmallInteger== ==3== or the ==Point== ==(1@2)== how to respond to the
-message ==+ 4==. Each has its own method for ==+==, and responds to ==+ 4==
+message ==\+ 4==. Each has its own method for ==\+==, and responds to ==\+ 4==
 accordingly.
 
 One of the consequences of Pharo's model of message sending is that it
