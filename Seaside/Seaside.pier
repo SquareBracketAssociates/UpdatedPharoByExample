@@ -65,8 +65,7 @@ administrator login is ==admin== and the default password is ==seaside==. To
 change them, evaluate: ==WADispatcherEditor== ==initialize==. This will prompt
 you for a new name and password.
 
-+Starting up Seaside
->file://figures/seasideStartup.png|label=fig:seasideStartup+
++Starting up Seaside>file://figures/seasideStartup.png|label=fig:seasideStartup+
 
 @@todo Start the Seaside server and direct a web browser to *http://localhost:8080/seaside/*.
 
