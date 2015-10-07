@@ -322,11 +322,10 @@ Since classes are objects, we can inspect or explore them just like any other ob
 
 In Figure *@fig:CompiledMethod*, the explorer shows the structure of class
 ==Point==. You can see that the class stores its methods in a dictionary,
-indexing them by their selector. The selector ==#*== points to the decompiled
-bytecode of ==Point>>>*==.
+indexing them by their selector. The selector ==#\*== points to the decompiled
+bytecode of ==Point>>>\*==.
 
-+Explorer class ==Point== and the bytecode of its ==#*== method.
->file://figures/CompiledMethod.png|label=fig:CompiledMethod+
++Explorer class ==Point== and the bytecode of its ==#\*== method.>file://figures/CompiledMethod.png|label=fig:CompiledMethod+
 
 Let us consider the relationship between classes and methods. In Figure
 *@fig:MethodsAsObjects* we see that classes and metaclasses have the common
