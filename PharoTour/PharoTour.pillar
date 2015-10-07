@@ -314,7 +314,7 @@ This time we see the result we expect.
 3 + 4 --> 7
 ]]]
 
-We use the notation ""-->"" as a convention in this book to indicate that a
+We use the notation ==-\->== as a convention in this book to indicate that a
 particular Pharo expression yields a given result when you ""print it"".
 
 Delete the highlighted text "7" (Pharo should have selected it for you, so you
