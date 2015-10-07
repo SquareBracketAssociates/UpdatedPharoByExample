@@ -99,7 +99,7 @@ position: (joe position + (10@3))== repeatedly (see Figure *@fig:moveJoe*).
 + Bill and Joe after 10 move>file://figures/moveJoe.png|width=75|label=fig:moveJoe+
 
 It is possible to do a similar thing with size. ==joe extent== answers joe's
-size; to have joe grow, execute ==joe extent: (joe extent * 1.1)==. To change
+size; to have joe grow, execute ==joe extent: (joe extent \* 1.1)==. To change
 the color of a morph, send it the ==color:== message with the desired ==Color==
 object as argument, for instance, ==joe color: Color orange==. To add
 transparency, try ==joe color: (Color orange alpha: 0.5)==.

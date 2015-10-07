@@ -52,7 +52,7 @@ another package.
 The way that you do this is by placing those methods in a protocol (of
 ==Object==, ==String==, ==Date==, and so on) named ==\*PharoLink== (note the
 initial asterisk). The combination of the ==PharoLink-...== categories and
-the ==*PharoLink== protocols form a package named ==PharoLink==. To be
+the ==\*PharoLink== protocols form a package named ==PharoLink==. To be
 precise, the rules for what goes in a package are as follows.
 
 A package named ==Foo== contains:
@@ -131,10 +131,10 @@ to access a package. Also, if you are given a Monticello (.mcz) file directly,
 for example as an email attachment, the most convenient way to access it is to
 place it in the package-cache directory.
 
-To add a new repository to the list, click the ==+Repository==, and choose
+To add a new repository to the list, click the ==\+Repository==, and choose
 the kind of repository from the pop-up menu. Let's add an HTTP repository.
 
-(do this) Open Monticello, click on ==+Repository==, and select ==HTTP==.
+(do this) Open Monticello, click on ==\+Repository==, and select ==HTTP==.
 Edit the dialog to read:
 
 [[[language=Smalltalk
@@ -177,7 +177,7 @@ classes \-\- see Figure *@fig:MCnewmethod*.
 
 +An extension method that will also be in the ==PBE== package.>file://figures/MCnewmethod.png|label=fig:MCnewmethod+
 
-To tell Monticello about your package, click on ==+Package==, and type the
+To tell Monticello about your package, click on ==\+Package==, and type the
 name of the package, in this case ==PBE==. Monticello will add ==PBE== to its
 list of packages; the package entry will be marked with an asterisk to show that
 the version in the image has not yet been written to any repository. Note that

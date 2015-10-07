@@ -179,7 +179,7 @@ pseudo-variables because they are predefined and cannot be assigned to.
 There are three kinds of messages in Pharo.
 
 #''Unary'' messages take no argument. ==1 factorial== sends the message ==factorial== to the object 1.
-#''Binary'' messages take exactly one argument. ==1 + 2== sends the message ==+== with argument 2 to the object 1.
+#''Binary'' messages take exactly one argument. ==1 \+ 2== sends the message ==\+== with argument 2 to the object 1.
 #''Keyword'' messages take an arbitrary number of arguments. ==2 raisedTo: 6 modulo: 10== sends the message consisting of the message selector ==raisedTo:modulo:== and the arguments 6 and 10 to the object 2.
 
 Unary message selectors consist of alphanumeric characters, and start with a
@@ -202,8 +202,8 @@ keyword messages, so:
 2 raisedTo: 1 + 3 factorial --> 128
 ]]]
 
-(First we send ==factorial== to 3, then we send ==+ 6== to 1, and finally we
-send ==raisedTo: 7== to 2.) Recall that we use the notation expression ==- ->==
+(First we send ==factorial== to 3, then we send ==\+ 6== to 1, and finally we
+send ==raisedTo: 7== to 2.) Recall that we use the notation expression ==-\->==
 to show the result of evaluating an expression.
 
 Precedence aside, evaluation is strictly from left to right, so:

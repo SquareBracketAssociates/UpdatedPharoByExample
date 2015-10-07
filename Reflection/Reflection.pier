@@ -336,8 +336,7 @@ selectors to compiled methods. Each compiled method knows the class in which it
 is installed. In Figure *@fig:CompiledMethod* we can even see that this is stored
 in an association in ==literal5==.
 
-+Classes, method dictionaries and compiled methods
->file://figures/MethodsAsObjects.png|label=fig:MethodsAsObjects+
++Classes, method dictionaries and compiled methods>file://figures/MethodsAsObjects.png|label=fig:MethodsAsObjects+
 
 We can exploit the relationships between classes and methods to pose queries
 about the system. For example, to discover which methods are newly introduced in
