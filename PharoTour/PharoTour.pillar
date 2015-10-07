@@ -178,7 +178,7 @@ recognize it as the ''Workspace'' tool, from previous versions of Pharo). We can
 use the Playground to quickly execute Pharo code. Enter the following code in
 it, then right click and select ==do it==:
 
-[[[language=smalltalk|caption=Open the Pharo Tutorial from the ==Playground==.|label=src:pharoTutorial
+[[[caption=Open the Pharo Tutorial from the ==Playground==.|label=src:pharoTutorial
 	PharoTutorial go.
 ]]]
 
@@ -270,7 +270,7 @@ a captured image, as well.
 
 Type the following text into the playground:
 
-[[[language=smalltalk|caption=Hello World in a Transcript|label=src:helloWorld
+[[[caption=Hello World in a Transcript|label=src:helloWorld
 	Transcript show: 'hello world'; cr.
 ]]]
 
@@ -299,25 +299,26 @@ Type the expression ==3 + 4== into the playground. Now ""do it"" with the
 keyboard shortcut.
 
 Do not be surprised if you saw nothing happen! What you just did is send the
-message ==+== with argument 4 to the number 3. Normally the resulting 7  would
+message ==\+== with argument 4 to the number 3. Normally the resulting 7  would
 have been computed and returned to you, but since the playground did not know
 what to do with this answer, it simply threw the answer away. If you want to see
 the result, you should ""print it"" instead. ""print it"" actually compiles the
 expression, executes it, sends the message ==printString== to the result, and
 displays the resulting string.
 
-Select ==3+4== and ""print it"" (==CMD-p==).
+Select ==3\+4== and ""print it"" (==CMD-p==).
 
 This time we see the result we expect.
 
-[[[lang=Smalltalk
-3 + 4 --> 7]]]
+[[[
+3 + 4 --> 7
+]]]
 
 We use the notation ""-->"" as a convention in this book to indicate that a
 particular Pharo expression yields a given result when you ""print it"".
 
 Delete the highlighted text "7" (Pharo should have selected it for you, so you
-can just press the delete key). Select ==3+4== again and this time ""inspect
+can just press the delete key). Select ==3\+4== again and this time ""inspect
 it"" (==CMD-i==)
 
 Now you should see a new window titled "Inspector on a SmallInteger(7)"
@@ -556,19 +557,18 @@ or the end of the text, or press ==CMD-a==, to "Select All"), and start typing
 your method. We can turn our "Don't Panic" code example into the test method
 itself:
 
-[[[ lang=Smalltalk
+[[[
 testShout
 	self assert: ('Don''t panic' shout = 'DON''T PANIC!')
 ]]]
 
 Once you have typed the text into the browser, notice that the corner is orange.
-This is a reminder that the pane contains unsaved changes. So, select ==accept
-(s)== by right clicking in the bottom pane, or just type ==CMD-s==, to compile
+This is a reminder that the pane contains unsaved changes. So, select ==accept (s)==
+by right clicking in the bottom pane, or just type ==CMD-s==, to compile
 and save your method. You should see a situation similar to the one depicted in
 Figure *@fig:testshout*.
 
-+Defining a test method in the class
-==StringTest==.>file://figures/testshout-00.png|width=70|label=fig:testshout+
++Defining a test method in the class ==StringTest==.>file://figures/testshout-00.png|width=70|label=fig:testshout+
 
 If this is the first time you have accepted any code in your image, you will
 likely be prompted to enter your name. Since many people have contributed code
@@ -640,9 +640,10 @@ Now let's define the method that will make the test succeed!
 Select class ==String== in the browser, select the converting protocol method,
 type the code of the method bellow over the method template, and ""accept"" it.
 
-[[[ lang= Smalltalk
+[[[
 shout
-  ^ self asUppercase,'!' ]]]
+  ^ self asUppercase,'!'
+]]]
 
 The comma is the string concatenation operation, so the body of this method
 appends an exclamation mark to an upper-case version of whatever String object
