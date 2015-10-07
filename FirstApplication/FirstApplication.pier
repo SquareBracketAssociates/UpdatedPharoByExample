@@ -137,7 +137,7 @@ initialize
 
 Note that the characters \'\' on line 3 are two separate single quotes with
 nothing between them, not a double quote! \'\' denotes the empty string.
-En other way to create an empty string is == String new. ==
+Another way to create an empty string is == String new. ==
 
 ""Accept"" this method definition.
 
