@@ -22,3 +22,4 @@ play-cache/
 *~
 /pillarPostExport.sh
 /book-result
+*.log
