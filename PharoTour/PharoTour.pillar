@@ -374,6 +374,8 @@ When a new System Browser window first opens, all panes are empty but the
 leftmost one. This first pane lists all known packages, which contain groups of
 related classes.
 
+In the case of Pharo 4 and 5 , the default System Browser is Nautilus. However is possible to have also other System Browser installed in the Pharo enviroment like for example OmniBrowser and others. Each System Browser may have his own GUI that may be very diffirent to Nautilus GUI. So from now on when we refer to Browser or System Browser  or Nautilus we will imply the same thing , Nautilus the default System Browser of Pharo . 
+
 
 !!!! Expand the "Kernel" package and select "Objects"
 When we select a package, it causes the second pane to show a list of all of the
@@ -671,6 +673,10 @@ no errors.
 
 When you get to a green bar, it's a good idea to save your work by saving the
 image, and take a break. So do that right now!
+
+!!! Dark Theme
+
+If you are like some of us , not a fan of the white or bright themes , there is also a dark theme that can be found in World menu -> System -> Settings -> Appearance -> User Interface theme. There you can change the default Pharo3 theme to Pharo3 Dark theme. Please note that you may have to close windows and reopen them to draw themselves correctly with the dark theme.  Using Catalog Browser if you want something more colorful you can download with a single click Nireas which is a blue theme inspired by classic home computers like Amiga 500 and Amstrad CPC 6128. Of course if you feel even more adventurous you can even make your own themes using existing ones as templates, its actually fairly simple. Nireas also comes with a GUI tool that allows to customise the colors to your liking if  blue is not your thing.  
 
 !!Chapter Summary
 
