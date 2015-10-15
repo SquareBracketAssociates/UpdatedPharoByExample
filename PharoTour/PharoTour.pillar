@@ -361,7 +361,13 @@ Open the Browser by selecting World Menu > System Browser.
 
 +The System Browser showing the printString method of class Object>file://figures/system-browser.png|width=100|label=fig:systemBrowser+
 
-We can see a System Browser in Figure *@fig:systemBrowser*. The title bar indicates
++Icons used by the system browser>file://figures/pharoBrowserIcons.png|width=100|label=fig:systemBrowserIcons+
+
+We can see a System Browser in Figure *@fig:systemBrowser*.
+
+Its icons in figure *@fig:systemBrowserIcons*  have special meaning and some can act as buttons that perfom an action depending on the context of the icon. The meaning of the icons is as follows from left to right and top to bottom : Package, Class with comment , method inherited to sub class , method inherited by super class,method is both inhereted to subclass and by super class, test class that has not been run, test class that has run and passed all its tests, button to switch to class side , button to switch on the class comment, Trait, Class tag, button to show inheritance hierachy , Announcement class, Group
+
+The title bar indicates
 that we are browsing the class Object and its method ==printString==.
 
 When a new System Browser window first opens, all panes are empty but the
@@ -369,7 +375,7 @@ leftmost one. This first pane lists all known packages, which contain groups of
 related classes.
 
 
-!!!! Expand the "Kernal" package and select "Objects"
+!!!! Expand the "Kernel" package and select "Objects"
 When we select a package, it causes the second pane to show a list of all of the
 classes in the selected package. 
 
