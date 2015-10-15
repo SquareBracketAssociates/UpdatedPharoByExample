@@ -368,7 +368,6 @@ When a new System Browser window first opens, all panes are empty but the
 leftmost one. This first pane lists all known packages, which contain groups of
 related classes.
 
-@@authorToDo TODO: BTC-2015-08-26 double-check this next bit
 
 !!!! Expand the "Kernal" package and select "Objects"
 When we select a package, it causes the second pane to show a list of all of the
@@ -380,7 +379,6 @@ panes will be filled with text. The third pane displays the protocols of the
 currently selected class. These are convenient groupings of related methods. If
 no protocol is selected you should see all methods in the fourth pane.
 
-@@authorToDo TODO-END: BTC-2015-08-26
 
 When a class object is selected the remaining two panes will be filled with text. The third pane displays the protocols of the currently selected class. These are convenient groupings of related methods. If no protocol is selected you should see all methods in the fourth pane.
 
