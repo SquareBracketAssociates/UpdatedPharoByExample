@@ -450,13 +450,21 @@ Note that if you type the complete (and correctly capitalized) name of a class
 in the find dialog, the browser will go directly to that class without showing
 you the list of options.
 
-!!!!Using Spotlight
+!!!!Using Spotter
 
-Pressing Shift and Enter will bring Spotlight, a simple but powerfull tool to
-find classes and methods. Figure *@fig:spotlight* shows that we look for ==Point==.
-The system proposes us several possibilities.
+Pressing Shift and Enter will bring Spotter, a very powerful tool to
+find classes, methods and perform many other actions . Figure *@fig:spotter* shows that we look for ==Point==.
+Spotter proposes us several possibilities.
 
-+Spotlight>file://figures/spotlight.png|width=50|label=fig:spotlight+
++Spotter>file://figures/spotter.png|width=100|label=fig:spotter+
+
+We can use Spotter to navigate to our search results  similarly to how we use System Browser. Spotter catagorises its search results , for example Classes are under Classes category , methods under the implementors category, help topics under helpt topics category etc. Clicking on the right arrow will take us to our selection and create a tab on top that we can clikc to go back to where we were. Depending on what we click on we enter inside our selection and be exposed to more categories.
+
+For example if our selection is the point class , we will dive inside a group of categories made for instance methods, class methods, super instance methods etc.
+
+The interface is fully controllable through the keyboard. The user can move with ArrowUp/ArrowDown between items or Cmd \+Shift\+ArrowUp\/ArrowDown (note that on Windows and Linux CMD key is the ALT key) through categories. At the same time, the search field has the focus, so the user can switch seamlessly between selecting items and refining the search. Pressing Enter on a selection opens the System Browser on that specific selected search result. 
+
+Spotter can be used even to browser through the OS file system and has a history category where previous searches are stored for quickly going back to popular searches. 
 
 !!!!Using the Finder
 
