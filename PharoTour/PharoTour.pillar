@@ -163,7 +163,7 @@ to activate the "morphic halo", an array of handles that are used to perform
 operations on the on-screen objects themselves, such as inspecting or resizing
 them (see Figure *@fig:halos*). If you let the mouse linger over a handle, a help
 balloon will explain its function. In Pharo, how you meta-click depends on your
-operating system: either you must hold ==Shift-Ctrl== or ==Shift-Alt== (on Windows or Linux) or 
+operating system: either you must hold ==Shift-Ctrl== or ==Shift-Alt== (on Windows or Linux) or
 ==Shift-Option== (on Mac OS X) while clicking.
 
 +Action Click brings the contextual menu.>file://figures/operating.png|width=60|label=fig:operating+
@@ -288,7 +288,7 @@ in the menu. Depending on your platform, you may have to press one of the
 modifier keys which are Control, Alt and Command. We will be focusing on the Mac
 OS platform since this is the platform most Pharo developers use, where the
 command key (a.k.a ==CMD==) is the main modifier key. The corresponding modifier
-key in Windows is ==ALT==, and in Linux is either ==ALT== or ==CTRL==, 
+key in Windows is ==ALT==, and in Linux is either ==ALT== or ==CTRL==,
 so each time you see something like ==CMD-d==,
 just replace it with the appropriate modifier key depending on your OS.
 
@@ -334,7 +334,7 @@ it"".
 
 +Inspecting an object>file://figures/inspector.png|width=80|label=fig:inspector+
 
-Close the inspector. Type the expression ==Object== in a playground and this 
+Close the inspector. Type the expression ==Object== in a playground and this
 time ""inspect it"" (==CMD-i==).
 
 This time you should see a window labelled ""Object"" containing the text
@@ -365,7 +365,7 @@ Open the Browser by selecting World Menu > System Browser.
 
 We can see a System Browser in Figure *@fig:systemBrowser*.
 
-Its icons in figure *@fig:systemBrowserIcons*  have special meaning and some can act as buttons that perfom an action depending on the context of the icon. The meaning of the icons is as follows from left to right and top to bottom : Package, Class with comment , method inherited to sub class , method inherited by super class,method is both inhereted to subclass and by super class, test class that has not been run, test class that has run and passed all its tests, button to switch to class side , button to switch on the class comment, Trait, Class tag, button to show inheritance hierachy , Announcement class, Group
+Its icons in figure *@fig:systemBrowserIcons*  have special meaning and some can act as buttons that perfom an action depending on the context of the icon. The meaning of the icons is as follows from left to right and top to bottom : Package, Class with comment , method inherited to sub class , method inherited by super class,method is both inhereted to subclass and by super class, test class that has not been run, test class that has run and passed all its tests, Trait,Class tag, Class without a comment, button to switch on the class comment, button to switch to class side ,  button to show inheritance hierachy, Announcement class, Group
 
 The title bar indicates
 that we are browsing the class Object and its method ==printString==.
@@ -374,12 +374,12 @@ When a new System Browser window first opens, all panes are empty but the
 leftmost one. This first pane lists all known packages, which contain groups of
 related classes.
 
-In the case of Pharo 4 and 5 , the default System Browser is Nautilus. However is possible to have also other System Browser installed in the Pharo enviroment like for example OmniBrowser and others. Each System Browser may have his own GUI that may be very diffirent to Nautilus GUI. So from now on when we refer to Browser or System Browser  or Nautilus we will imply the same thing , Nautilus the default System Browser of Pharo . 
+In the case of Pharo 4 and 5 , the default System Browser is Nautilus. However is possible to have also other System Browser installed in the Pharo enviroment like for example OmniBrowser and others. Each System Browser may have his own GUI that may be very diffirent to Nautilus GUI. So from now on when we refer to Browser or System Browser  or Nautilus we will imply the same thing , Nautilus the default System Browser of Pharo .
 
 
 !!!! Expand the "Kernel" package and select "Objects"
 When we select a package, it causes the second pane to show a list of all of the
-classes in the selected package. 
+classes in the selected package.
 
 !!!! Select the "Object" class
 When a class is selected the remaining two
@@ -464,9 +464,9 @@ We can use Spotter to navigate to our search results  similarly to how we use Sy
 
 For example if our selection is the point class , we will dive inside a group of categories made for instance methods, class methods, super instance methods etc.
 
-The interface is fully controllable through the keyboard. The user can move with ArrowUp/ArrowDown between items or Cmd \+Shift\+ArrowUp\/ArrowDown (note that on Windows and Linux CMD key is the ALT key) through categories. At the same time, the search field has the focus, so the user can switch seamlessly between selecting items and refining the search. Pressing Enter on a selection opens the System Browser on that specific selected search result. 
+The interface is fully controllable through the keyboard. The user can move with ArrowUp/ArrowDown between items or Cmd \+Shift\+ArrowUp\/ArrowDown (note that on Windows and Linux CMD key is the ALT key) through categories. At the same time, the search field has the focus, so the user can switch seamlessly between selecting items and refining the search. Pressing Enter on a selection opens the System Browser on that specific selected search result.
 
-Spotter can be used even to browser through the OS file system and has a history category where previous searches are stored for quickly going back to popular searches. 
+Spotter can be used even to browser through the OS file system and has a history category where previous searches are stored for quickly going back to popular searches.
 
 !!!!Using the Finder
 
@@ -676,7 +676,7 @@ image, and take a break. So do that right now!
 
 !!! Dark Theme
 
-If you are like some of us , not a fan of the white or bright themes , there is also a dark theme that can be found in World menu -> System -> Settings -> Appearance -> User Interface theme. There you can change the default Pharo3 theme to Pharo3 Dark theme. Please note that you may have to close windows and reopen them to draw themselves correctly with the dark theme.  Using Catalog Browser if you want something more colorful you can download with a single click Nireas which is a blue theme inspired by classic home computers like Amiga 500 and Amstrad CPC 6128. Of course if you feel even more adventurous you can even make your own themes using existing ones as templates, its actually fairly simple. Nireas also comes with a GUI tool that allows to customise the colors to your liking if  blue is not your thing.  
+If you are like some of us , not a fan of the white or bright themes , there is also a dark theme that can be found in World menu -> System -> Settings -> Appearance -> User Interface theme. There you can change the default Pharo3 theme to Pharo3 Dark theme. Please note that you may have to close windows and reopen them to draw themselves correctly with the dark theme.  Using Catalog Browser if you want something more colorful you can download with a single click Nireas which is a blue theme inspired by classic home computers like Amiga 500 and Amstrad CPC 6128. Of course if you feel even more adventurous you can even make your own themes using existing ones as templates, its actually fairly simple. Nireas also comes with a GUI tool that allows to customise the colors to your liking if  blue is not your thing.
 
 !!Chapter Summary
 
