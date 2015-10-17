@@ -43,13 +43,12 @@ This book will introduce the Pharo programming environment, the language and the
 associated tools.  You will be exposed to common idioms and practices, but the
 focus is on the technology, not on object-oriented design.  Wherever possible,
 we will show you lots of examples. We have been inspired by Alec Sharp’s
-excellent book on Smalltalk  (Alec Sharp, *Smalltalk by
-Example>Http://stephane.ducasse.free.fr/FreeBooks/ByExample*. McGraw-Hill,
+excellent book on Smalltalk  (Alec Sharp, 
+*Smalltalk by Example>Http://stephane.ducasse.free.fr/FreeBooks/ByExample*, McGraw-Hill,
 1997).
 
-There are numerous other *books on Smalltalk freely available on the
-web>http://stephane.ducasse.free.fr/FreeBooks.html* but none of  these focuses
-specifically on Pharo.
+There are numerous other 
+*books on Smalltalk freely available on the web>http://stephane.ducasse.free.fr/FreeBooks.html* but none of  these focuses specifically on Pharo.
 
 "Deep into Pharo" is a new book on the internals of Pharo. It is freely
 available at *http://www.deepintopharo.org*
@@ -58,12 +57,13 @@ available at *http://www.deepintopharo.org*
 
 Do not be frustrated by parts of Pharo that you do not immediately understand.
 You do not have to know everything! Alan Knight expresses this as follows:
-
+{{{latex:\begin{quote} }}}
 ""Try not to care"". Beginning Smalltalk programmers often have trouble because
 they think they need to understand all the details of how a thing works before
 they can use it.  This means it takes quite a while before they can master
 Transcript show: 'Hello World'. One of the great leaps in OO is to be able to
 answer the  question “How does this work?” with "I don't care".
+{{{latex:\end{quote} }}}
 
 !!An open book
 
@@ -83,16 +83,14 @@ that you may find useful:
 - *http://www.pharo.org>http://www.pharo.org* is the main web site of Pharo.
 - On IRC, you can find us on the freenode.net server, channel "pharo".
 - You can also ask questions on Stack Overflow, using the tags *pharo>http://stackoverflow.com/questions/tagged/pharo* and *smalltalk>http://stackoverflow.com/questions/tagged/smalltalk*.
-- SmalltalkHub (*http://www.smalltalkhub.com/>http://www.smalltalkhub.com/*)
-is the equivalent of SourceForge/Github for Pharo projects. Many extra packages
-and projects for Pharo live there.
+- SmalltalkHub (*http://www.smalltalkhub.com/>http://www.smalltalkhub.com/*) is the equivalent of SourceForge/Github for Pharo projects. Many extra packages and projects for Pharo live there.
 
 !!Examples and exercises
 
 We have tried to provide as many examples as possible. In particular, there are
 many examples that show a fragment of code which can be evaluated. We use the
-symbol ==-->== an expression and to indicate the result that you obtain when you
-select an expression and ""print it"":
+symbol {{{latex:$\to$}}}{{{html:<code>--&gt;</code>}}} to indicate the result 
+that you obtain when you select an expression and ""print it"":
 
 [[[label=scr:script1|caption=Small example|language=Smalltalk
 3 + 4
