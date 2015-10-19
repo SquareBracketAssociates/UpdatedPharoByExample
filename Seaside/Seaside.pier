@@ -5,10 +5,10 @@ Seaside is a framework for building web applications in Smalltalk, originally
 developed by Avi Bryant and Julian Fitzell in 2002. Once mastered, Seaside makes
 web applications almost as easy to write as desktop applications.
 
-SmalltalkHub(*http://SmalltalkHub.com*) itself is written using Seaside, as was
+SmalltalkHub (*http://SmalltalkHub.com*) itself is written using Seaside, as was
 the original SqueakSource(*http://SqueakSource.com*).
 
-Seaside is unusual in that it is thoroughly object-oriented: there are no XHTML
+Seaside is unusual in that it is thoroughly object-oriented: there are no HTML
 templates, no complicated control flows through web pages, and no encoding of
 state in URLs. Instead, you just send messages to objects. What a nice idea!
 
@@ -40,8 +40,8 @@ back button. You do not have to encode state information in the URL — this too
 is managed automatically for you.
 
 Third, web pages are built up from nested components, each of which can support
-its own, independent control flow. There are no XHTML templates — instead valid
-XHTML is generated programmatically using a simple Smalltalk-based protocol.
+its own, independent control flow. There are no HTML templates — instead valid
+HTML is generated programmatically using a simple Smalltalk-based protocol.
 Seaside supports Cascading Style Sheets (CSS), so content and layout are cleanly
 separated.
 
@@ -92,7 +92,7 @@ application through a convenient web-interface. (To close the ==Configure==
 view, click on the __x__ in the top right corner.) ==Toggle Halos== provides a
 way to explore the state of the application running on the Seaside server.
 ==Profiler== and ==Memory== provide detailed information about the run-time
-performance of the application. ==XHTML== can be used to validate the generated
+performance of the application. ==HTML== can be used to validate the generated
 web page, but works only  when the web page is publicly accessible from the
 Internet, because it uses the W3C validation service.
 
@@ -198,7 +198,7 @@ Every Seaside component should inherit directly or indirectly from
 
 Components must know how to render themselves. Usually this is done by
 implementing the method ==renderContentOn:==, which gets as its argument an
-instance of ==WAHtmlCanvas==, which knows how to render XHTML.
+instance of ==WAHtmlCanvas==, which knows how to render HTML.
 
 @@todo Implement the following method, and put it in a protocol called ==rendering==:
 
@@ -282,7 +282,7 @@ When the state of a ==WACounter== object is replaced by a previous state, the
 previous value; this correctly replaces the current value of ==count== by a
 prior value.
 
-!!Rendering XHTML
+!!Rendering HTML
 
 The purpose of a web application is to create, or ''render'', web pages.  As we
 mentioned in Section *@sec:components*, each Seaside component is responsible for
@@ -293,7 +293,7 @@ counter component renders itself.
 
 The rendering of the counter is relatively straightforward; the code is shown in
 Figure *@fig:WACounter*. The current value of the counter is displayed as an
-XHTML heading, and the increment and decrement operations are implemented as
+HTML heading, and the increment and decrement operations are implemented as
 html anchors (that is, links) with callbacks to blocks that will send
 ==increase== and ==decrease== to the counter object.
 
@@ -312,10 +312,10 @@ there is nothing else to the multi-counter!
 
 +WAMultiCounter>file://figures/WAMultiCounter.png|label=fig:WAMultiCounter+
 
-!!!More about Rendering XHTML
+!!!More about Rendering HTML
 
 As you can see from these examples, Seaside does not use templates to generate
-web pages. Instead it generates XTHML programmatically. The basic idea is that
+web pages. Instead it generates HTML programmatically. The basic idea is that
 every Seaside component should override the method ==renderContentOn:==; this
 message will be sent by the framework to each component that needs to be
 rendered. This ==renderContentOn:== message will have an argument that is an
@@ -328,7 +328,7 @@ Here are some of the most basic rendering methods:
 
 [[[
 html text: 'hello world'.  "render a plain text string"
-html html: '&ndash;'.     "render an XHTML incantation"
+html html: '&ndash;'.     "render an HTML incantation"
 html render: 1.              "render any object"
 ]]]
 
@@ -341,7 +341,7 @@ multi-counter (see Figure *@fig:WAMultiCounter*).
 @sec:brushes
 
 A canvas provides a number of ''brushes'' that can be used to render (''i.e.'',
-''paint'') content on the canvas. There are brushes for every kind of XHTML
+''paint'') content on the canvas. There are brushes for every kind of HTML
 element — paragraphs, tables, lists, and so on. To see the full protocol of
 brushes and convenience methods, you should browse the class ==WACanvas== and
 its subclasses. The argument to ==renderContentOn:== is actually an instance of
@@ -394,7 +394,7 @@ Many of the available brushes can be used in these two ways.
 
 In method *@scr:renderdemo*, the first heading is at level 1, since this is the
 default. We explicitly set the level of the second heading to 2. The
-subcomponent is rendered as an XHTML ''div'' with the CSS class
+subcomponent is rendered as an HTML ''div'' with the CSS class
 ''subcomponent''. (More on CSS in Section *@sec:css*.) Also note that the
 argument to the ==with:== keyword message need not be a literal string: it can
 be another component, or even — as in the next example — a block containing
@@ -421,7 +421,7 @@ methods go in the ==rendering== protocol. Don't send ==renderContentOn:== from
 your own code, use ==render:== instead.==
 
 Look at the following code. The first helper method,
-==SeasideHtmlDemo>>>renderParagraphsOn:==, shows you how to generate XHTML
+==SeasideHtmlDemo>>>renderParagraphsOn:==, shows you how to generate HTML
 paragraphs, plain and emphasized text, and images. Note that in Seaside simple
 elements are rendered by specifying the text they contain directly, whereas
 complex elements are specified using blocks. This is a simple convention to help
@@ -461,7 +461,7 @@ SeasideHtmlDemo>>>renderListsAndTablesOn: html
 The next example shows how we can specify CSS ''div''s and ''span''s with
 ''class'' or ''id'' attributes. Of course, the messages ==class:== and ==id:==
 can also be sent to the other brushes, not just to ''div''s and ''span''s. The
-method ==SeasideDemoWidget>>>style== defines how these XHTML elements should be
+method ==SeasideDemoWidget>>>style== defines how these HTML elements should be
 displayed (see Section *@sec:css*).
 
 [[[
@@ -588,8 +588,8 @@ below) for text to be highlighted, and specify how highlighted text is to be
 displayed in your style sheet.
 
 Basically a CSS style sheet consists of a set of rules that specify how to
-format given XHTML elements. Each rule consists of two parts. There is a
-''selector'' that specifies which XHTML elements the rule applies to, and there
+format given HTML elements. Each rule consists of two parts. There is a
+''selector'' that specifies which HTML elements the rule applies to, and there
 is a ''declaration'' which sets a number of attributes for that element.
 
 [[[label=scr:democss|caption===SeasideDemoWidget== common style sheet.
@@ -631,19 +631,19 @@ preference for the fonts to use for the ==body== of the web page. The next few
 rules specify properties of second-level headings (==h2==), tables (==table==),
 and table data (==td==).
 
-The remaining rules have selectors that will match XHTML elements that have the
+The remaining rules have selectors that will match HTML elements that have the
 given ''class'' or ''id'' attributes. CSS selectors for class attributes start
 with a ==.== and those for id attributes with ==#==. The main difference
 between class and id attributes is that many elements may have the same class,
 but only one element may have a given id (i.e., an ''identifier''). So,
 whereas a class attribute, such as ==highlight==, may occur multiple times on
 any page, an id must identify a ''unique'' element on the page, such as a
-particular menu, the modified date, or author. Note that a particular XHTML
+particular menu, the modified date, or author. Note that a particular HTML
 element may have multiple classes, in which case all the applicable display
 attributes will be applied in sequence.
 
 Selector conditions may be combined, so the selector ==div.subcomponent== will
-only match an XHTML element if it is both a div ''and'' it has a class attribute
+only match an HTML element if it is both a div ''and'' it has a class attribute
 equal to ''subcomponent''.
 
 It is also possible to specify nested elements, though this is seldom necessary.
@@ -1313,7 +1313,7 @@ MyKeypad>>>renderStackButton: text callback: aBlock colSpan: anInteger on: html
 instance of ==SUUpdater==, a Smalltalk object representing the JavaScript
 Ajax.Updater object (*http://www.prototypejs.org/api/ajax/updater*). This object
 performs an AJAX request and updates a container's contents based on the
-response text. ==id:== tells the updater what XHTML DOM element to update, in
+response text. ==id:== tells the updater what HTML DOM element to update, in
 this case the contents of the div element with the id 'display'. ==callback:==
 specifies a block that is triggered when the user presses the button. The block
 argument is a new renderer ==r==, which we can use to render the display
@@ -1379,14 +1379,14 @@ debugger FireBug (*http://www.getfirebug.com/*) plugin enabled.
 -The easiest way to get started is to download the ''Seaside One-Click Experience'' from *http://seaside.st*
 -Turn the server on and off by evaluating ==WAKom startOn: 8080== and ==WAKom stop==.
 -Reset the administrator login and password by evaluating ==WADispatcherEditor initialize==.
--==Toggle Halos== to directly view application source code, run-time objects, CSS and XHTML.
+-==Toggle Halos== to directly view application source code, run-time objects, CSS and HTML.
 -Send ==WAGlobalConfiguration setDeploymentMode== to hide the toolbar.
 -Seaside web applications are composed of components, each of which is an instance of a subclass of ==WAComponent==.
 -Only a root component may be registered as an application. It should implement ==canBeRoot== on the class side. Alternatively it may register itself as an application in its class-side ==initialize== method by sending ==self registerAsApplication:== ''application path''. If you override ==description== it is possible to return a descriptive application name that will be displayed in the configuration editor.
 -To backtrack state, a component must implement the ==states== method to answer an array of objects whose state will be restored if the user clicks the browser's ''back'' button.
--A component renders itself by implementing ==renderContentOn:==. The argument to this method is an XHTML rendering ''canvas'' (usually called ==html==).
+-A component renders itself by implementing ==renderContentOn:==. The argument to this method is an HTML rendering ''canvas'' (usually called ==html==).
 -A component can render a subcomponent by sending ==self render:== ''subcomponent''.
--XHTML is generated programmatically by sending messages to ''brushes''. A brush is obtained by sending a message, such as ==paragraph== or ==div==, to the html canvas.
+-HTML is generated programmatically by sending messages to ''brushes''. A brush is obtained by sending a message, such as ==paragraph== or ==div==, to the html canvas.
 -If you send a cascade of messages to a brush that includes the message ==with:==, then ==with:== should be the last message sent. The ==with:== message sets the contents ''and'' renders the result.
 -Actions should appear only in callbacks. You should not change the state of the application while you are rendering it.
 -You can bind various form widgets and anchors to instance variables with accessors by sending the message ==on:== ''instance variable'' ==of:== ''object'' to the brush.
