@@ -873,7 +873,7 @@ BorderedMorph>>>fullPrintOn: aStream
     aStream nextPutAll: '('.
     super fullPrintOn: aStream.
     aStream nextPutAll: ') setBorderWidth: '; print: borderWidth;
-        nextPutAll: ' borderColor: ' , (self colorString: borderColor)
+        nextPutAll: ' borderColor: ', (self colorString: borderColor)
 ]]]
 
 At this point, ==BorderedMorph>>fullPrintOn:== does a ==super== send to extend

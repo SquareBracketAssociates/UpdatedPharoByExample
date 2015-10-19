@@ -638,7 +638,7 @@ aCollection do:
 	[:each |
 	self
 		assert: each even
-		description: each printString , ' is not even'
+		description: each printString, ' is not even'
 		resumable: true]
 ]]]
 
@@ -694,7 +694,7 @@ TestResult>>runCase: aTestCase
 	aTestCase runCase.
 	aTestCase announce: TestCaseEnded withResult: self.
 	self addPass: aTestCase]
-		on: self class failure , self class skip, self class warning, self class error
+		on: self class failure, self class skip, self class warning, self class error
 		do: [:ex | ex sunitAnnounce: aTestCase toResult: self]
 ]]]
 
@@ -773,7 +773,7 @@ TestResource class>>current
 	self
 		assert: self isAvailable
 		description:
-			'Sent #current to unavailable resource ' , self name ,
+			'Sent #current to unavailable resource ', self name,
 				'. Add it to test case'' class-side #resources (recommended) or send #availableFor: beforehand'.
 	^ current
 ]]]

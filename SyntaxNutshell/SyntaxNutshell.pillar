@@ -153,7 +153,7 @@ message ==show: 'hello'== to the receiver ==Transcript==, and then we send the
 unary message ==cr== to the same receiver.
 
 The classes ==Number==, ==Character==, ==String== and ==Boolean== are described
-in more detail in Chapter 
+in more detail in Chapter
 *: Basic Classes>../BasicClasses/BasicClasses.pier@cha:basicClasses*.
 
 !!Pseudo-variables
@@ -344,7 +344,7 @@ with blocks as arguments.
 
 Conditionals are expressed by sending one of the messages ==ifTrue:==,
 ==ifFalse:== or ==ifTrue:ifFalse:== to the result of a boolean expression. See
-Chapter *: Basic Classes>../BasicClasses/BasicClasses.pier@cha:basicClasses*, 
+Chapter *: Basic Classes>../BasicClasses/BasicClasses.pier@cha:basicClasses*,
 for more about booleans.
 
 [[[
@@ -440,7 +440,7 @@ element of the collection. Sums and products are typical examples.
 
 This is equivalent to ==0\+\1\+2\+3\+4\+5\+6\+7\+8\+9\+10==.
 
-More about collections can be found in Chapter 
+More about collections can be found in Chapter
 *: Collections>../Collections/Collections.pier@cha:collections*.
 
 !! Primitives and pragmas
@@ -451,7 +451,7 @@ work done by invoking virtual machine primitives.
 
 For example, the following are all implemented as primitives: memory allocation
 (==new==, ==new:==), bit manipulation (==bitAnd:==, ==bitOr:==, ==bitShift:==),
-pointer and integer arithmetic (\+, \-, \<, \>, \*, \/ , \ , \=, \=\=...), and
+pointer and integer arithmetic (\+, \-, \<, \>, \*, \/, \, \=, \=\=...), and
 array access (==at:==, ==at:put:==).
 
 Primitives are invoked with the syntax ==<primitive: aNumber>==. A method that

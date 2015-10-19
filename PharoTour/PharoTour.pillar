@@ -365,7 +365,7 @@ Open the Browser by selecting World Menu > System Browser.
 
 We can see a System Browser in Figure *@fig:systemBrowser*.
 
-Its icons in figure *@fig:systemBrowserIcons*  have special meaning and some can act as buttons that perfom an action depending on the context of the icon. The meaning of the icons is as follows from left to right and top to bottom : Package, Class with comment , method inherited to sub class , method inherited by super class,method is both inhereted to subclass and by super class, test class that has not been run, test class that has run and passed all its tests, Trait,Class tag, Class without a comment, button to switch on the class comment, button to switch to class side ,  button to show inheritance hierachy, Announcement class, Group
+Its icons in figure *@fig:systemBrowserIcons*  have special meaning and some can act as buttons that perfom an action depending on the context of the icon. The meaning of the icons is as follows from left to right and top to bottom: Package, Class with comment, method inherited to sub class, method inherited by super class,method is both inhereted to subclass and by super class, test class that has not been run, test class that has run and passed all its tests, Trait,Class tag, Class without a comment, button to switch on the class comment, button to switch to class side,  button to show inheritance hierachy, Announcement class, Group
 
 The title bar indicates
 that we are browsing the class Object and its method ==printString==.
@@ -374,7 +374,7 @@ When a new System Browser window first opens, all panes are empty but the
 leftmost one. This first pane lists all known packages, which contain groups of
 related classes.
 
-In the case of Pharo 4 and 5 , the default System Browser is Nautilus. However is possible to have also other System Browser installed in the Pharo enviroment like for example OmniBrowser and others. Each System Browser may have his own GUI that may be very diffirent to Nautilus GUI. So from now on when we refer to Browser or System Browser  or Nautilus we will imply the same thing , Nautilus the default System Browser of Pharo .
+In the case of Pharo 4 and 5, the default System Browser is Nautilus. However is possible to have also other System Browser installed in the Pharo enviroment like for example OmniBrowser and others. Each System Browser may have his own GUI that may be very diffirent to Nautilus GUI. So from now on when we refer to Browser or System Browser  or Nautilus we will imply the same thing, Nautilus the default System Browser of Pharo .
 
 
 !!!! Expand the "Kernel" package and select "Objects"
@@ -460,9 +460,9 @@ Spotter proposes us several possibilities.
 
 +Spotter>file://figures/spotter.png|width=100|label=fig:spotter+
 
-We can use Spotter to navigate to our search results  similarly to how we use System Browser. Spotter catagorises its search results , for example Classes are under Classes category , methods under the implementors category, help topics under helpt topics category etc. Clicking on the right arrow will take us to our selection and create a tab on top that we can clikc to go back to where we were. Depending on what we click on we enter inside our selection and be exposed to more categories.
+We can use Spotter to navigate to our search results  similarly to how we use System Browser. Spotter catagorises its search results, for example Classes are under Classes category, methods under the implementors category, help topics under helpt topics category etc. Clicking on the right arrow will take us to our selection and create a tab on top that we can clikc to go back to where we were. Depending on what we click on we enter inside our selection and be exposed to more categories.
 
-For example if our selection is the point class , we will dive inside a group of categories made for instance methods, class methods, super instance methods etc.
+For example if our selection is the point class, we will dive inside a group of categories made for instance methods, class methods, super instance methods etc.
 
 The interface is fully controllable through the keyboard. The user can move with ArrowUp/ArrowDown between items or Cmd \+Shift\+ArrowUp\/ArrowDown (note that on Windows and Linux CMD key is the ALT key) through categories. At the same time, the search field has the focus, so the user can switch seamlessly between selecting items and refining the search. Pressing Enter on a selection opens the System Browser on that specific selected search result.
 
@@ -676,7 +676,7 @@ image, and take a break. So do that right now!
 
 !!! Dark Theme
 
-If you are like some of us , not a fan of the white or bright themes , there is also a dark theme that can be found in World menu -> System -> Settings -> Appearance -> User Interface theme. There you can change the default Pharo3 theme to Pharo3 Dark theme. Please note that you may have to close windows and reopen them to draw themselves correctly with the dark theme.  Using Catalog Browser if you want something more colorful you can download with a single click Nireas which is a blue theme inspired by classic home computers like Amiga 500 and Amstrad CPC 6128. Of course if you feel even more adventurous you can even make your own themes using existing ones as templates, its actually fairly simple. Nireas also comes with a GUI tool that allows to customise the colors to your liking if  blue is not your thing.
+If you are like some of us, not a fan of the white or bright themes, there is also a dark theme that can be found in World menu -> System -> Settings -> Appearance -> User Interface theme. There you can change the default Pharo3 theme to Pharo3 Dark theme. Please note that you may have to close windows and reopen them to draw themselves correctly with the dark theme.  Using Catalog Browser if you want something more colorful you can download with a single click Nireas which is a blue theme inspired by classic home computers like Amiga 500 and Amstrad CPC 6128. Of course if you feel even more adventurous you can even make your own themes using existing ones as templates, its actually fairly simple. Nireas also comes with a GUI tool that allows to customise the colors to your liking if  blue is not your thing.
 
 !!Chapter Summary
 

@@ -285,7 +285,7 @@ If you now look at the class definition once again (which you can do by clicking
 on ""LOGame"" on the second pane), you will see that the
 browser has modified it to include the instance variable ==cells==.
 
-Let's look at this ==initialize== method. At line 2, ==\| sampleCell width height n \|== ,
+Let's look at this ==initialize== method. At line 2, ==\| sampleCell width height n \|==,
 declares 4 temporary variables. They are called temporary variables because
 their scope and lifetime are limited to this method. Temporary variables with
 explanatory names are helpful in making code more readable. Lines 4\-7 set the
@@ -388,7 +388,7 @@ of representing constants as methods is that if the program evolves so that the
 constant then depends on some other features, the method can be changed to
 calculate this value.
 As you can see there are some tabulation and empty lines. In order to keep the
-same convention you can Right-Click on the method edit area and Click on 
+same convention you can Right-Click on the method edit area and Click on
 ==format== use ==CMD-Shift-u== shortcut. This will format your method.
 
 [[[language=smalltalk|caption=An initialization helper method|label=scr:NewCellAt
@@ -736,7 +736,7 @@ documentation for Monticello at
 If you are already familiar with Git and Github there is a chapter about how to
 use Git and Github with Pharo in the online book Pharo for The Enterprise here
 *https://ci.inria.fr/pharo-contribution/job/PharoForTheEnterprise/lastSuccessfulBuild/artifact/>https://ci.inria.fr/pharo-contribution/job/PharoForTheEnterprise/lastSuccessfulBuild/artifact/*.
-If you have not done so already its recommended to download the entire book ,
+If you have not done so already its recommended to download the entire book,
 ""EnterprisePharo.pdf"", because it contains a lot of valuable information about
 Pharo and its third party libraries.
 

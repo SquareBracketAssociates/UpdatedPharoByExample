@@ -117,7 +117,7 @@ same requests. Let us briefly survey some of the key differences:
 +Some collection classes categorized by implementation technique.>file://figures/CollectionsByImpl.png|width=100|label=fig:collsByImpl+
 
 These categorizations by functionality are not our only concern; we must also
-consider how the collection classes are implemented. As shown in Figure *@fig:collsByImpl* , five main implementation techniques are employed.
+consider how the collection classes are implemented. As shown in Figure *@fig:collsByImpl*, five main implementation techniques are employed.
 
 - Arrays store their elements in the (indexable) instance variables of the collection object itself; as a consequence, arrays must be of a fixed size, but can be created with a single memory allocation.
 - ==OrderedCollections== and ==SortedCollections== store their elements in an array that is referenced by one of the instance variables of the collection. Consequently, the internal array can be replaced with a larger one if the collection grows beyond its storage capacity.
@@ -591,7 +591,7 @@ Note that the comma method is defined by ==Collection==, so it will work for any
 kind of collection!
 
 [[[
-(1 to: 3) , '45' --> #(1 2 3 $4 $5)
+(1 to: 3), '45' --> #(1 2 3 $4 $5)
 ]]]
 
 We can also modify an existing string using ==replaceAll:with:== or

@@ -268,7 +268,7 @@ apparent immediately if we draw a semi-transparent cross, as shown in Figure
 @@todo Execute the following code in  a playground, line by line:
 
 [[[language=smalltalk|caption=Use this code to show a bug|label=scr:overdrawBug
-CrossMorph new openInWorld; 
+CrossMorph new openInWorld;
 bounds: (0@0 corner: 200@200);
 color: (Color blue alpha: 0.4)
 ]]]
@@ -549,12 +549,12 @@ That's all we need as far as the receiver is concerned.
 @@todo Create instances of ==ReceiverMorph== and ==EllipseMorph== in a playground:
 
 [[[language=smalltalk|caption=Create an instance of ReceiverMorph|label=scr:createReceiverMorph
-ReceiverMorph new openInWorld; 
+ReceiverMorph new openInWorld;
     bounds: (100@100 corner: 200@200).
 EllipseMorph new openInWorld.
 ]]]
 
-+ A ''ReceiverMorph'' and an ''EllipseMorph''>file://figures/receiverMorph.png|width=100|label=fig:receiverMorph+ 
++ A ''ReceiverMorph'' and an ''EllipseMorph''>file://figures/receiverMorph.png|width=100|label=fig:receiverMorph+
 
 Try to drag-and-drop the yellow ==EllipseMorph== onto the receiver. It will be
 rejected and sent back to its initial position.
@@ -711,7 +711,7 @@ The ==drawOn:== method does two things: it draws the die background with the
 [[[language=smalltalk|caption=Drawing the die morph|label=scr:drawOnDie
 DieMorph>>#drawOn: aCanvas
 	super drawOn: aCanvas.
-	(self perform: ('face' , dieValue asString) asSymbol)
+	(self perform: ('face', dieValue asString) asSymbol)
 		do: [:aPoint | self drawDotOn: aCanvas at: aPoint]
 ]]]
 
@@ -750,7 +750,7 @@ dieValue: 5==:
 [[[language=smalltalk|caption=Setting the current value of the die|label=scr:dieValue
 DieMorph>>#dieValue: aNumber
 	((aNumber isInteger and: [ aNumber > 0 ]) and: [ aNumber <= faces ])
-		ifTrue: [ 
+		ifTrue: [
 			dieValue := aNumber.
 			self changed ]
 ]]]
@@ -807,7 +807,7 @@ DieMorph>>#drawOn: aCanvas
 	| theCanvas |
 	theCanvas := aCanvas asAlphaBlendingCanvas: 0.5.
 	super drawOn: theCanvas.
-	(self perform: ('face' , dieValue asString) asSymbol)
+	(self perform: ('face', dieValue asString) asSymbol)
 		do: [:aPoint | self drawDotOn: theCanvas at: aPoint]
 ]]]
 

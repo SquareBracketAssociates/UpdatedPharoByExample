@@ -373,7 +373,7 @@ SystemNavigation default
     each methodDict associations
       select: [:assoc | assoc value sendsToSuper]
       thenCollect: [:assoc | MethodReference class: each selector: assoc key]])
-  name: 'Supersends of ' , class name , ' and its subclasses'
+  name: 'Supersends of ', class name, ' and its subclasses'
 ]]]
 
 Note how we navigate from classes to method dictionaries to compiled methods to

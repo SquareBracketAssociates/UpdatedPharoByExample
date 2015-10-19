@@ -366,7 +366,7 @@ want.
 [[[
 WebPage>>relativePath
 	^ path
-		copyWithRegex: homePath , '/'
+		copyWithRegex: homePath, '/'
 		matchesReplacedWith: ''
 
 WebPage>>link
@@ -391,7 +391,7 @@ If our web site has subdirectories, we need a way to access them:
 [[[
 WebDir>>webDirs
 	^ webDir directoryNames
-		collect: [ :each | WebDir onPath: webDir pathName , '/' , each home: homePath ]
+		collect: [ :each | WebDir onPath: webDir pathName, '/', each home: homePath ]
 ]]]
 
 We need to generate HTML bullet lists containing links for each web page of a
