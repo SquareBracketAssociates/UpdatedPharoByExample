@@ -58,9 +58,9 @@ available at *http://www.deepintopharo.org*
 Do not be frustrated by parts of Pharo that you do not immediately understand.
 You do not have to know everything! Alan Knight expresses this as follows:
 
-{{{latex:\begin{quote} }}}
+{{{latex:\begin{quote} }}}{{{html:<blockquote>}}}
 ''Try not to care''. Beginning Smalltalk programmers often have trouble because they think they need to understand all the details of how a thing works before they can use it.  This means it takes quite a while before they can master Transcript show: 'Hello World'. One of the great leaps in OO is to be able to answer the  question “How does this work?” with "I don't care".
-{{{latex:\end{quote} }}}
+{{{latex:\end{quote} }}}{{{html:</blockquote>}}}
 
 !!An open book
 
