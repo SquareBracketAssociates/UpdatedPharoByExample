@@ -129,6 +129,10 @@ The latest versions of *Updated Pharo by Example* can be found at the following 
     Latest PDF: [UpdatedPharoByExample.pdf](https://ci.inria.fr/pharo-contribution/view/Books/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/book-result/UpdatedPharoByExample.pdf). All Chapters: [UpdatedPharoByExample build artifacts](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/)
 * Travis ![Build Status](https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample.svg?branch=master)(https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample)
 
+## License
+This book is licensed under a
+[Creative Commons Attribution-Noncommercial-Share Alike 3.0 license](http://creativecommons.org/licenses/by-nc-sa/3.0/).
+
 ## Other Books
 #### Deep Into Pharo (Pharo By Example vol 2)
 [Deep into Pharo](http://www.deepintopharo.com/) ([source code](https://gforge.inria.fr/scm/viewvc.php/PharoByExampleTwo-Eng/?root=pharobooks)) is the second volume of a series of books covering Pharo. Whereas the first volume is intended for newcomers, this second volume covers deeper topics.
