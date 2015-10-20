@@ -96,10 +96,9 @@ the panel changed to orange (see Figure *@fig:createClass*). This means that
 there are unsaved changes. To actually send this subclass message, you must save
 (accept) the source code.
 
-
-Either right-click and select ""accept"", or use the shortcut CMD-s (for "save")
-. The message will be sent to ""SimpleSwitchMorph"", which will cause the new
-class to be compiled.
+Either right-click and select ""Accept"", or use the shortcut ==CMD-s== (for
+"Save"). The message will be sent to ==SimpleSwitchMorph==, which will cause the
+new class to be compiled.
 
 +The newly-created class LOCell>file://figures/pannelAtNewClass.png|width=100|label=fig:pannelAtNewClass+
 
@@ -120,8 +119,9 @@ to know whether to spend time looking at this class.
 
 Now let's add some methods to our class.
 
-Select the protocol ==no messages== in the protocol pane. You will see a template for
-method creation in the editing pane. Select the template text, and replace it by the following:
+Select the protocol ==no messages== in the protocol pane. You will see a
+template for method creation in the editing pane. Select the template text, and
+replace it by the following:
 
 [[[language=smalltalk|lineNumber=true|caption=Initializing instance of LOCell|label=scr:InitLOCell
 initialize
@@ -135,44 +135,45 @@ initialize
 	self turnOff
 ]]]
 
-Note that the characters \'\' on line 3 are two separate single quotes with
-nothing between them, not a double quote! \'\' denotes the empty string.
-Another way to create an empty string is == String new. ==
+Note that the characters =='\'== on line 3 are two separate single quotes with
+nothing between them, not a double quote! ==\'\'== denotes the empty string.
+Another way to create an empty string is ==String new.==
 
 ""Accept"" this method definition.
 
 Notice that the method is called ==initialize==. The name is very significant!
 By convention, if a class defines a method named ==initialize==, it will be
-called right after the object is created. So, when we evaluate ==LOCell new==, the
-message initialize will be sent automatically to this newly created object.
+called right after the object is created. So, when we evaluate ==LOCell new==,
+the message initialize will be sent automatically to this newly created object.
 Initialize methods are used to set up the state of objects, typically to set
 their instance variables; this is exactly what we are doing here.
 
 +The newly-created method initialize>file://figures/createMethod.png|width=100|label=fig:createMethod+
 
 The first thing that this method does (line 2) is to execute the ==initialize==
-method of its superclass, ==SimpleSwitchMorph==. The idea here is that any inherited
-state will be properly initialized by the initialize method of the superclass.
-It is always a good idea to initialize inherited state by sending ==super initialize==
-before doing anything else. We don't know exactly what
-==SimpleSwitchMorph==’s ==initialize== method will do (and we don't care), but it's a
-fair bet that it will set up some instance variables to hold reasonable default
-values. So we had better call it, or we risk starting in an unclean state.
+method of its superclass, ==SimpleSwitchMorph==. The idea here is that any
+inherited state will be properly initialized by the initialize method of the
+superclass. It is always a good idea to initialize inherited state by sending
+==super initialize== before doing anything else. We don't know exactly what
+==SimpleSwitchMorph==’s ==initialize== method will do (and we don't care), but
+it's a fair bet that it will set up some instance variables to hold reasonable
+default values. So we had better call it, or we risk starting in an unclean
+state.
 
-The rest of the method sets up the state of this object. Sending ==self label: \'\'==,
-for example, sets the label of this object to the empty string.
+The rest of the method sets up the state of this object. Sending ==self label:
+\'\'==, for example, sets the label of this object to the empty string.
 
 The expression ==0\@0 corner: 16\@16== probably needs some explanation. ==0\@0==
-represents a ==Point== object with x and y coordinates both set to 0. In fact, ==0\@0==
-sends the message ==@== to the number 0 with argument 0. The effect will be that the
-number 0 will ask the ==Point== class to create a new instance with coordinates
-==(0,0)==. Now we send this newly created point the message ==corner: 16\@16==, which
-causes it to create a ==Rectangle== with corners ==0\@0== and ==16\@16==. This newly created
-rectangle will be assigned to the ==bounds== variable, inherited from the
-superclass.
+represents a ==Point== object with ==x== and ==y== coordinates both set to 0. In
+fact, ==0\@0== sends the message ==@== to the number 0 with argument 0. The
+effect will be that the number 0 will ask the ==Point== class to create a new
+instance with coordinates ==(0,0)==. Now we send this newly created point the
+message ==corner: 16\@16==, which causes it to create a ==Rectangle== with
+corners ==0\@0== and ==16\@16==. This newly created rectangle will be assigned
+to the ==bounds== variable, inherited from the superclass.
 
-Note that the origin of the Pharo screen is the top left, and the y coordinate
-increases downwards.
+Note that the origin of the Pharo screen is the top left, and the ==y==
+coordinate increases downwards.
 
 The rest of the method should be self-explanatory. Part of the art of writing
 good Smalltalk code is to pick good method names so that the code can be
@@ -181,33 +182,36 @@ talking to itself and saying \"Self, use square corners!\", \"Self, turn off\!\"
 
 +The method initialize into the pane>file://figures/initialize.png|width=50|label=fig:initialize+
 
-You can also notice that there is a little green arrow near to your method (see Figure *@fig:initialize*).
-This mean the method exist in the super class and is override in the class.
-
+You can also notice that there is a little green arrow near to your method (see
+Figure *@fig:initialize*). This mean the method exist in the super class and is
+override in the class.
 
 !!Inspecting an object
 
-You can test the effect of the code you have written by creating a new ==LOCell==
-object and inspecting it.
+You can test the effect of the code you have written by creating a new
+==LOCell== object and inspecting it.
 
-Open a ==Playground==. Type the expression ==LOCell new== and ""inspect"" it.
+Open a ==Playground==. Type the expression ==LOCell new== and ""Inspect"" it.
 
 +The inspector used to examine a LOCell object>file://figures/inspectLOCell.png|width=100|label=fig:inspectLOCell+
 
-The left-hand column of the inspector shows a list of instance variables and
-the value of the instance variable is shown in the right column (see Figure *@fig:inspectLOCell*).
+The left-hand column of the inspector shows a list of instance variables and the
+value of the instance variable is shown in the right column (see Figure
+*@fig:inspectLOCell*).
 
 +The inspector when we click on an instance variable>file://figures/inspectBounds.png|width=100|label=fig:inspectBounds+
 
-If you click on an instance variable the inspector will open a new pane with the detail of the instance variable (see Figure *@fig:inspectBounds*).
+If you click on an instance variable the inspector will open a new pane with the
+detail of the instance variable (see Figure *@fig:inspectBounds*).
 
 The bottom pane of the inspector is a mini-playground. It's useful because in
 this playground the pseudo-variable ==self== is bound to the object selected.
 
-Go to that Playground at the bottom of the pane and type the text
-==self bounds: (200\@200 corner: 250\@250)== ""do it"". Click on the ==update== button at the top right of the pane (see Figure *@fig:updateInspector*). The ==bounds==
-variable should change in the inspector. Now type the text ==self openInWorld== in
-the mini-playground and ""do it"".
+Go to that Playground at the bottom of the pane and type the text ==self bounds:
+(200\@200 corner: 250\@250)== ""do it"". Click on the ==update== button at the
+top right of the pane (see Figure *@fig:updateInspector*). The ==bounds==
+variable should change in the inspector. Now type the text ==self openInWorld==
+in the mini-playground and ""Do it"".
 
 +Update inspector button>file://figures/updateInspector.png|width=20|label=fig:updateInspector+
 
@@ -227,9 +231,10 @@ Delete the cell by clicking on the ==x== in the pink handle.
 Now let's create the other class that we need for the game, which we will name
 ==LOGame==.
 
-Make the class definition template visible in the browser main window. Do this by
-clicking on the package name. Edit the code so that it reads as follows, and
-accept it.
+Make the class definition template visible in the browser main window. Do this
+by clicking on the package name (or right-clicking on the Class pane and
+selecting ==Add Class==). Edit the code so that it reads as follows, and
+""Accept"" it.
 
 [[[language=smalltalk|caption=Defining the LOGame class|label=scr:DefineLOGame
 BorderedMorph subclass: #LOGame
@@ -238,13 +243,14 @@ BorderedMorph subclass: #LOGame
 	category: 'PBE-LightsOut'
 ]]]
 
-Here we subclass ==BorderedMorph==. ==Morph== is the superclass of all of the graphical
-shapes in Pharo, and (unsurprisingly) a ==BorderedMorph== is a ==Morph== with a border. We
-could also insert the names of the instance variables between the quotes on the
-second line, but for now, let's just leave that list empty.
+Here we subclass ==BorderedMorph==. ==Morph== is the superclass of all of the
+graphical shapes in Pharo, and (unsurprisingly) a ==BorderedMorph== is a
+==Morph== with a border. We could also insert the names of the instance
+variables between the quotes on the second line, but for now, let's just leave
+that list empty.
 
-Now let's define an ==initialize== method for ==LOGame==. Type the following into the
-browser as a method for ==LOGame== and try to ""accept"" it.
+Now let's define an ==initialize== method for ==LOGame==. Type the following
+into the browser as a method for ==LOGame== and try to ""Accept"" it.
 
 [[[language=smalltalk|lineNumber=true|caption=Initialize the game|label=scr:InitiGame
 initialize
@@ -258,56 +264,58 @@ initialize
 	cells := Matrix new: n tabulate: [ :i :j | self newCellAt: i at: j ]
 ]]]
 
-Pharo will complain that it doesn't know the meaning of ==cells== (see Figure *@fig:doesntKnowCell*). It will offer
-you a number of ways to fix this.
+Pharo will complain that it doesn't know the meaning of ==cells== (see Figure
+*@fig:doesntKnowCell*). It will offer you a number of ways to fix this.
 
 +Declaring a new instance variable>file://figures/doesntKnowCell.png|width=75|label=fig:doesntKnowCell+
 
 Choose ""Declare new instance variable"", because we want ==cells== to be an
 instance variable.
 
-At this stage if you open a ==Playground== and type ==LOGame new== and ""do it""
-Pharo will complain that it doesn't know the meaning of some of the terms (see Figure *@fig:doesntKnowCellsPerSide*). It
-will tell you that it doesn't know of a message ==cellsPerSide==, and will open a debugger.
+At this stage if you open a ==Playground== and type ==LOGame new== and ""Do it""
+Pharo will complain that it doesn't know the meaning of some of the terms (see
+Figure *@fig:doesntKnowCellsPerSide*). It will tell you that it doesn't know of
+a message ==cellsPerSide==, and will open a debugger.
 
-+Pharo  detecting  an  un-known selector>file://figures/doesntKnowCellsPerSide.png|width=100|label=fig:doesntKnowCellsPerSide+
++Pharo detecting an unknown selector>file://figures/doesntKnowCellsPerSide.png|width=100|label=fig:doesntKnowCellsPerSide+
 
 But ==cellsPerSide== is not a mistake; it is just a method that we haven't yet
 defined. We will do so, shortly.
 
 +Define CellsPerSide methods>file://figures/defineCellsPerSide.png|width=100|label=fig:defineCellsPerSide+
 
-So, click on ==Create==, select ""LOGame"", the class which will contains the method,
-click on ""ok"" (see Figure *@fig:defineCellsPerSide*). Here you can write your method. But for now we'll let this method like this.
-We'll see this method later.
+So, click on ==Create==, select ""LOGame"", the class which will contains the
+method, click on ""ok"" (see Figure *@fig:defineCellsPerSide*). Here you can
+write your method. But for now we'll leave this method like this. We'll return
+to it later.
 
 If you now look at the class definition once again (which you can do by clicking
 on ""LOGame"" on the second pane), you will see that the
 browser has modified it to include the instance variable ==cells==.
 
-Let's look at this ==initialize== method. At line 2, ==\| sampleCell width height n \|==,
-declares 4 temporary variables. They are called temporary variables because
-their scope and lifetime are limited to this method. Temporary variables with
-explanatory names are helpful in making code more readable. Lines 4\-7 set the
-value of these variables.
+Let's look at this ==initialize== method. At line 2, ==\| sampleCell width
+height n \|==, declares 4 temporary variables. They are called temporary
+variables because their scope and lifetime are limited to this method. Temporary
+variables with explanatory names are helpful in making code more readable. Lines
+4\-7 set the value of these variables.
 
 How big should our game board be? Big enough to hold some integral number of
 cells, and big enough to draw a border around them. How many cells is the right
 number? 5? 10? 100? We don't know yet, and if we did, we would probably change
 our minds later. So we delegate the responsibility for knowing that number to
 another method, which we will name ==cellsPerSide==, and which we will write in
-a minute or two. Don't be put off by this: it is actually good practice to
-code by referring to other methods that we haven't yet defined.
-Why? Well, it wasn't until we started writing the ==initialize== method
-that we realized that we needed it. And at that point, we can give it a
-meaningful name, and move on, without interrupting our flow.
+a minute or two. Don't be put off by this: it is actually good practice to code
+by referring to other methods that we haven't yet defined. Why? Well, it wasn't
+until we started writing the ==initialize== method that we realized that we
+needed it. And at that point, we can give it a meaningful name, and move on,
+without interrupting our flow.
 
-The fourth line uses this method, ==n := self cellsPerSide.== sends the
-message ==cellsPerSide== to ==self==, i.e., to this very object. The response, which
+The fourth line uses this method, ==n := self cellsPerSide.== sends the message
+==cellsPerSide== to ==self==, i.e., to this very object. The response, which
 will be the number of cells per side of the game board, is assigned to ==n==.
 
-The next three lines create a new ==LOCell== object, and assign its width and height
-to the appropriate temporary variables.
+The next three lines create a new ==LOCell== object, and assign its width and
+height to the appropriate temporary variables.
 
 Line 8 sets the bounds of the new object. Without worrying too much about the
 details just yet, believe us that the expression in parentheses creates a
@@ -315,22 +323,22 @@ square with its origin (i.e., its top-left corner) at the point (5,5) and its
 bottom-right corner far enough away to allow space for the right number of
 cells.
 
-The last line sets the ==LOGame== object's instance variable ==cells== to a newly
-created ==Matrix== with the right number of rows and columns. We do this by sending
-the message ==new: tabulate:== to the ==Matrix== class (classes are objects too, so
-we can send them messages). We know that ==new: tabulate:== takes two arguments
-because it has two colons (:) in its name. The arguments go right after the
-colons. If you are used to languages that put all of the arguments together
-inside parentheses, this may seem weird at first. Don't panic, it's only syntax!
-It turns out to be a very good syntax because the name of the method can be used
-to explain the roles of the arguments. For example, it is pretty clear that
-==Matrix rows: 5 columns: 2== has 5 rows and 2 columns, and not 2 rows and 5
-columns.
+The last line sets the ==LOGame== object's instance variable ==cells== to a
+newly created ==Matrix== with the right number of rows and columns. We do this
+by sending the message ==new: tabulate:== to the ==Matrix== class (classes are
+objects too, so we can send them messages). We know that ==new: tabulate:==
+takes two arguments because it has two colons (:) in its name. The arguments go
+right after the colons. If you are used to languages that put all of the
+arguments together inside parentheses, this may seem weird at first. Don't
+panic, it's only syntax! It turns out to be a very good syntax because the name
+of the method can be used to explain the roles of the arguments. For example, it
+is pretty clear that ==Matrix rows: 5 columns: 2== has 5 rows and 2 columns, and
+not 2 rows and 5 columns.
 
-==Matrix new: n tabulate: [ :i :j \| self newCellAt: i at: j ]== creates a new n X n
-matrix and initializes its elements. The initial value of each element will
-depend on its coordinates. The (i,j)^^th^^ element will be initialized to the result
-of evaluating ==self newCellAt: i at: j.==
+==Matrix new: n tabulate: [ :i :j \| self newCellAt: i at: j ]== creates a new n
+X n matrix and initializes its elements. The initial value of each element will
+depend on its coordinates. The (i,j)^^th^^ element will be initialized to the
+result of evaluating ==self newCellAt: i at: j.==
 
 !!Organizing methods into protocols
 
@@ -343,30 +351,31 @@ the method pane. These groups of methods are called "protocols".
 
 If there are only a few methods in a class, the extra level of hierarchy
 provided by protocols is not really necessary. This is why the browser also
-offers us the ==\-\-all\-\-== virtual protocol, which, you will not be surprised to
-learn, contains all of the methods in the class.
+offers us the ==\-\-all\-\-== virtual protocol, which, you will not be surprised
+to learn, contains all of the methods in the class.
 
 +Automatically categorize all uncategorized methods>file://figures/categorizeProtocols.png|width=100|label=fig:categorizeProtocoles+
 
 If you have followed along with this example, the protocol pane may well contain
 the protocol ""as yet unclassified"".
 
-Right-click in the protocol pane and select ""categorize all uncatogorized""
+Right-click in the protocol pane and select ""categorize all uncategorized""
 to fix this, and move the ==initialize== method to a new protocol called
 ""initialization"" (see Figure *@fig:categorizeProtocoles*).
 
 How does Pharo know that this is the right protocol? Well, in general Pharo
-can't know exactly, but in this case there is also an ==initialize== method in the superclass,
-and Pharo assumes that our ==initialize== method should go in the same protocol
-as the one that it overrides.
+can't know exactly, but in this case there is also an ==initialize== method in
+the superclass, and Pharo assumes that our ==initialize== method should go in
+the same protocol as the one that it overrides.
 
-!!!!!A typographic convention. Smalltalkers frequently use the notation ==>>== to
-identify the class to which a method belongs. For example, the ==cellsPerSide==
-method in class ==LOGame== would be referred to as ==LOGame >> cellsPerSide==.
-Just keep in mind that this is not Smalltalk syntax exactly, but merely a
-convenient notation to indicate "the instance method ==cellsPerSide== which
-belongs to the class ==LOGame==". (Incidentally, the corresponding notation for
-a class-side method would be ==LOGame class >> someClassSideMethod==.)
+!!!!!A typographic convention.
+Smalltalkers frequently use the notation ==>>== to identify the class to which a
+method belongs. For example, the ==cellsPerSide== method in class ==LOGame==
+would be referred to as ==LOGame >> cellsPerSide==. Just keep in mind that this
+is not Smalltalk syntax exactly, but merely a convenient notation to indicate
+"the instance method ==cellsPerSide== which belongs to the class ==LOGame==".
+(Incidentally, the corresponding notation for a class-side method would be
+==LOGame class >> someClassSideMethod==.)
 
 From now on, when we show a method in this book, we will write the name of the
 method in this form. Of course, when you actually type the code into the
@@ -387,9 +396,10 @@ This method could hardly be simpler: it answers the constant 10. One advantage
 of representing constants as methods is that if the program evolves so that the
 constant then depends on some other features, the method can be changed to
 calculate this value.
+
 As you can see there are some tabulation and empty lines. In order to keep the
-same convention you can Right-Click on the method edit area and Click on
-==format== use ==CMD-Shift-u== shortcut. This will format your method.
+same convention you can right-click on the method edit area and click on
+==Format== (or use ==CMD-Shift-u== shortcut). This will format your method.
 
 [[[language=smalltalk|caption=An initialization helper method|label=scr:NewCellAt
 LOGame >> newCellAt: i at: j
@@ -405,11 +415,11 @@ LOGame >> newCellAt: i at: j
 
 Add the methods ==LOGame >> cellsPerSide== and ==LOGame >> newCellAt: at:==.
 
-The method defined above answers a new ==LOCell==, initialized to position (i, j) in the
-Matrix of cells. The last line defines the new cell's ==mouseAction== to be the
-block ==[self toggleNeighboursOfCellAt: i at: j ]==. In effect, this defines the
-callback behaviour to perform when the mouse is clicked. The corresponding
-method also needs to be defined.
+The method defined above answers a new ==LOCell==, initialized to position (i,
+j) in the Matrix of cells. The last line defines the new cell's ==mouseAction==
+to be the block ==[self toggleNeighboursOfCellAt: i at: j ]==. In effect, this
+defines the callback behaviour to perform when the mouse is clicked. The
+corresponding method also needs to be defined.
 
 [[[language=smalltalk|caption=The callback method|label=scr:Toggle
 LOGame >> toggleNeighboursOfCellAt: i at: j
@@ -430,8 +440,8 @@ we have to make sure that a neighboring cell exists before we toggle its state.
 Place this method in a new protocol called ==game logic==. (Right-click in the
 protocol pane to add a new protocol.)
 
-To move (re-classify) the method, you can simply click on its name and drag it to the
-newly-created protocol (see Figure *@fig:dropProtocol*).
+To move (re-classify) the method, you can simply click on its name and drag it
+to the newly-created protocol (see Figure *@fig:dropProtocol*).
 
 +Drag a method to a protocol>file://figures/dropProtocol.png|width=100|label=fig:dropProtocol+
 
@@ -443,10 +453,11 @@ LOCell >> mouseAction: aBlock
 	^ mouseAction := aBlock
 ]]]
 
-The method above does nothing more than set the cell's ==mouseAction== variable to
-the argument, and then answers the new value. Any method that changes the value
-of an instance variable in this way is called a setter method; a method that
-answers the current value of an instance variable is called a getter method.
+The method above does nothing more than set the cell's ==mouseAction== variable
+to the argument, and then answers the new value. Any method that changes the
+value of an instance variable in this way is called a ''setter method''; a method
+that answers the current value of an instance variable is called a ''getter
+method''.
 
 If you are used to getters and setters in other programming languages, you might
 expect these methods to be called ==setMouseAction== and ==getMouseAction==. The
@@ -454,30 +465,32 @@ Smalltalk convention is different. A getter always has the same name as the
 variable it gets, and a setter is named similarly, but with a trailing ":",
 hence ==mouseAction== and ==mouseAction:==.
 
-Collectively, setters and getters are called accessor methods, and by convention
-they should be placed in the ==accessing== protocol. In Smalltalk, all instance
-variables are private to the object that owns them, so the only way for another
-object to read or write those variables is through
-accessor methods like this one. In fact, the instance variables can be accessed
-in subclasses too.
+Collectively, setters and getters are called ''accessor methods'', and by
+convention they should be placed in the ==accessing== protocol. In Smalltalk,
+all instance variables are private to the object that owns them, so the only way
+for another object to read or write those variables is through accessor methods
+like this one. In fact, the instance variables can be accessed in subclasses
+too.
 
 Go to the class ==LOCell==, define ==LOCell >> mouseAction:== and put it in the
 ==accessing== protocol.
 
-Finally, we need to define a method ==mouseUp:==. This will be called automatically
-by the GUI framework if the mouse button is released while the cursor is over
-this cell on the screen.
+Finally, we need to define a method ==mouseUp:==. This will be called
+automatically by the GUI framework if the mouse button is released while the
+cursor is over this cell on the screen.
 
 [[[language=smalltalk|caption=An event handler|label=scr:MouseUp
 LOCell >> mouseUp: anEvent
 	mouseAction value
 ]]]
 
-Add the method ==LOCell >> mouseUp:== and then ""categorize automatically"" methods.
+Add the method ==LOCell >> mouseUp:== and then ""Categorize automatically""
+the methods.
 
-What this method does is to send the message ==value== to the object stored in the
-instance variable ==mouseAction==. Recall that in ==LOGame >> newCellAt: i at: j== we
-assigned the following code fragment (called a ''block'') to ==mouseAction==:
+What this method does is to send the message ==value== to the object stored in
+the instance variable ==mouseAction==. Recall that in ==LOGame >> newCellAt: i
+at: j== we assigned the following code fragment (called a ''block'') to
+==mouseAction==:
 
 ==[self toggleNeighboursOfCellAt: i at: j ]==
 
@@ -491,33 +504,35 @@ That’s it: the Lights Out game is complete!
 If you have followed all of the steps, you should be able to play the game,
 consisting of just 2 classes and 7 methods.
 
-In a Playground, type ==LOGame new openInWorld== and ""do it"" .
+In a Playground, type ==LOGame new openInWorld== and ""Do it"" .
 
 The game will open, and you should be able to click on the cells and see how it
 works.
 
 Well, so much for theory... When you click on a cell, a notifier window called
-the PreDebugWindow window appears with an error message like we see on Figure *@fig:doesNotUnderstood*! It says
-==MessageNotUnderstood: LOGame >> toggleState==.
+the PreDebugWindow window appears with an error message like we see on Figure
+*@fig:doesNotUnderstood*! It says ==MessageNotUnderstood: LOGame >>
+toggleState==.
 
 +There is a bug in our game when a cell is clicked!>file://figures/doesNotUnderstood.png|width=100|label=fig:doesNotUnderstood+
 
 What happened? To find out, let’s use one of Smalltalk’s more powerful tools:
 the debugger.
 
-Click on the ""debug"" button in the notifer window.
+Click on the ""Debug"" button in the notifer window.
 
 The debugger will appear. In the upper part of the debugger window you can see
 the execution stack, showing all the active methods. Selecting any one of them
 will show, in the middle pane, the Smalltalk code being executed in that method,
 with the part that triggered the error highlighted.
 
-Click on the line labeled ==LOGame >> toggleNeighboursOfCellAt: at:== (near the top).
+Click on the line labeled ==LOGame >> toggleNeighboursOfCellAt: at:== (near the
+top).
 
 The debugger will show you the execution context within this method where the
 error occurred (see Figure *@fig:debuggerHighlight*).
 
-+ The debugger, with the method toggleNeighboursOfCell:at: selected>file://figures/debuggerHighlight.png|width=85|label=fig:debuggerHighlight+
++The debugger, with the method ==toggleNeighboursOfCell:at:== selected>file://figures/debuggerHighlight.png|width=85|label=fig:debuggerHighlight+
 
 At the bottom of the debugger are two small inspector windows. On the right, you
 can inspect the object that is the receiver of the message that caused the
@@ -534,14 +549,14 @@ time, rather than in the browser. The advantage of this is that you see the
 method that you are writing as it will be executed, with real parameters in the
 actual execution context.
 
-In this case we can see in the first line of the top panel that the ==toggleState==
-message has been sent to an instance of ==LOGame==, while it should clearly have
-been an instance of ==LOCell==. The problem is most likely with the initialization
-of the cells matrix. Browsing the code of ==LOGame >> initialize== shows that ==cells==
-is filled with the return values of ==newCellAt: at:==, but when we look at that
-method, we see that there is no return statement there! By default, a method
-returns ==self==, which in the case of ==newCellAt: at:== is indeed an instance of
-==LOGame==.
+In this case we can see in the first line of the top panel that the
+==toggleState== message has been sent to an instance of ==LOGame==, while it
+should clearly have been an instance of ==LOCell==. The problem is most likely
+with the initialization of the cells matrix. Browsing the code of
+==LOGame >> initialize== shows that ==cells== is filled with the return values
+of ==newCellAt: at:==, but when we look at that method, we see that there is no
+return statement there! By default, a method returns ==self==, which in the case
+of ==newCellAt: at:== is indeed an instance of ==LOGame==.
 
 Close the debugger window. Add the expression ==^ c== to the end of the method
 ==LOGame >> newCellAt:at:== so that it returns ==c==.
@@ -559,14 +574,14 @@ LOGame >> newCellAt: i at: j
 	^ c
 ]]]
 
-Recall from Chapter *: A Quick Tour of Pharo>../PharoTour/PharoTour.pillar@cha:tour* that the syntax to return a value from a method in
-Smalltalk is ==^==.
+Recall from Chapter *: A Quick Tour of Pharo>../PharoTour/PharoTour.pillar@cha:tour*
+that the syntax to return a value from a method in Smalltalk is ==^==.
 
-Often, you can fix the code directly in the debugger window and click Proceed to
-continue running the application. In our case, because the bug was in the
-initialization of an object, rather than in the method that failed, the easiest
-thing to do is to close the debugger window, destroy the running instance of the
-game (with the halo), and create a new one.
+Often, you can fix the code directly in the debugger window and click
+==Proceed== to continue running the application. In our case, because the bug
+was in the initialization of an object, rather than in the method that failed,
+the easiest thing to do is to close the debugger window, destroy the running
+instance of the game (with the halo), and create a new one.
 
 Do: ==LOGame new openInWorld== again.
 
@@ -582,7 +597,7 @@ LOGame >> mouseMove: anEvent
 
 Finally we are done!
 
-!!Saving and sharing Smalltalk code
+!!Saving and sharing Pharo code
 
 Now that you have the Lights Out game working, you probably want to save it
 somewhere so that you can share it with your friends. Of course, you can save
@@ -591,12 +606,14 @@ friends probably have their own code in their images, and don't want to give
 that up to use your image. What you need is a way of getting source code out of
 your Pharo image so that other programmers can bring it into theirs.
 
-The simplest way of doing this is by "filing out" the code. The action-click menu
-in the Package pane will give you the option to ==File Out== the
-whole of package ==PBE-LightsOut==. The resulting file is more or less human
-readable, but is really intended for computers, not humans. You can email this
-file to your friends, and they can file it into their own Pharo images using the
-file list browser.
+@@note We'll be discussing the various ways to save and share code in a future chapter, Chapter *: Sharing Code and Source Control>./SharingCode/SharingCode.pillarr@cha:sharingCode*. For now, here is a brief overview of some of the available methods.
+
+The simplest way of doing this is by "filing out" the code. The right-click
+menu in the Package pane will give you the option to ==File Out== the whole of
+package ==PBE-LightsOut==. The resulting file is more or less human readable,
+but is really intended for computers, not humans. You can email this file to
+your friends, and they can file it into their own Pharo images using the file
+list browser.
 
 Right-click on the ==PBE-LightsOut== package and file out the
 contents (see Figure *@fig:fileOut*).
@@ -608,9 +625,10 @@ where your image is saved. Have a look at this file with a text editor.
 
 +Import your code with the file browser>file://figures/fileBrowser.png|width=100|label=fig:fileBrowser+
 
-Open a fresh Pharo image and use the File Browser tool ( ==Tools \-\-> File
-Browser== ) to file in the ==PBE-LightsOut.st== fileout (see Figure *@fig:fileBrowser*) and ==fileIn==. Verify that the game now
-works in the new image.
+Open a fresh Pharo image and use the ==File Browser== tool (==Tools \-\-> File
+Browser==) to file in the ==PBE-LightsOut.st== fileout (see Figure
+*@fig:fileBrowser*) and ==fileIn==. Verify that the game now works in the new
+image.
 
 !!!Monticello packages
 @fstApp:Monticiello
@@ -626,7 +644,7 @@ complete code of your package.
 Using the Monticello package browser, you can save packages to repositories on
 various types of server, including FTP and HTTP servers. You can also just write
 the packages to a repository in a local file system directory. A copy of your
-package is also always cached on your local hard-disk in the ==package-cache==
+package is also always cached on your local disk in the ==package-cache==
 folder. Monticello lets you save multiple versions of your program, merge
 versions, go back to an old version, and browse the differences between
 versions. In fact, Monticello is a distributed revision control system. This
@@ -660,8 +678,8 @@ were loaded are marked with an asterisk. (These are sometimes referred to as
 dirty packages.) If you select a package, the list of repositories is restricted
 to just those repositories that contain a copy of the selected package.
 
-Add the ==PBE-LightsOut== package to your Monticello browser using the ""+ Package""
-button and type ==PBE-LightsOut==.
+Add the ==PBE-LightsOut== package to your Monticello browser using the
+""+ Package"" button and type ==PBE-LightsOut==.
 
 !!!SmalltalkHub: a Github for Pharo
 
@@ -690,7 +708,8 @@ smalltalk message similar to
 MCHttpRepository
     location: 'http://www.smalltalkhub.com/mc/UserName/ProjectName/main'
     user: 'YourName'
-    password: 'Optionnal_YourPassword' ]]]
+    password: 'Optional_Password'
+]]]
 
 Copy those contents.
 
@@ -699,16 +718,17 @@ Go back to Pharo.
 Once your project has been created on SmalltalkHub, you have to tell your Pharo
 system to use it.
 
-With the ==PBE-LightsOut== package selected, click the ""+Repository"" button in the
-Monticello browser.
+With the ==PBE-LightsOut== package selected, click the ""+Repository"" button in
+the Monticello browser.
 
-You will see a list of the different Repository types that are available. To
-add a SmalltalkHub repository select ==smalltalkhub.com==. You will be presented with a dialog
-in which you can provide the necessary information about the server. You should
-paste the code snippet you have copied from SmalltalkHub (see Figure *@fig:createRepository*). This message
-tells to Monticello where to find your project online. You can also provide your
-user name and password. If you do not, then Pharo will ask for them each time
-you try to save into your online repository at SmalltalkHub.
+You will see a list of the different Repository types that are available. To add
+a SmalltalkHub repository select ==smalltalkhub.com==. You will be presented
+with a dialog in which you can provide the necessary information about the
+server. You should paste the code snippet you have copied from SmalltalkHub (see
+Figure *@fig:createRepository*). This message tells Monticello where to find
+your project online. You can also provide your user name and password. If you do
+not, then Pharo will ask for them each time you try to save into your online
+repository at SmalltalkHub.
 
 +Create your first repository on smalltalkHub>file://figures/createRepository.png|width=100|label=fig:createRepository+
 
@@ -716,8 +736,9 @@ Once you have accepted, your new repository should be listed on the right-hand
 side of the Monticello browser.
 
 Click on the ""Save"" button to save a first version of your Lights Out game on
-SmalltalkHub. Don't forget to put a comment for you, or others, have an idea
-of what contains your commit for the future (see Figure *@fig:firstCommit*).
+SmalltalkHub. Don't forget to put a comment so that you, or others, will have an
+idea of what contains your commit for the future (see Figure
+*@fig:firstCommit*).
 
 +Do your first commit>file://figures/firstCommit.png|width=60|label=fig:firstCommit+
 
@@ -729,12 +750,12 @@ your image.
 Open the ==PBE-LightsOut== repository you have just saved.
 
 Monticello has many more capabilities, which will be discussed in depth in
-Chapter *: The Pharo Environment>../Environment/Environment.pillar@cha:env* . You can also look at the online
-documentation for Monticello at
+Chapter *: Sharing Code and Source Control>./SharingCode/SharingCode.pillarr@cha:sharingCode*.
+You can also look at the online documentation for Monticello at
 *http://www.wiresong.ca/Monticello/>http://www.wiresong.ca/Monticello/*.
 
 If you are already familiar with Git and Github there is a chapter about how to
-use Git and Github with Pharo in the online book Pharo for The Enterprise here
+use Git with Pharo in the online book Pharo for The Enterprise here
 *https://ci.inria.fr/pharo-contribution/job/PharoForTheEnterprise/lastSuccessfulBuild/artifact/>https://ci.inria.fr/pharo-contribution/job/PharoForTheEnterprise/lastSuccessfulBuild/artifact/*.
 If you have not done so already its recommended to download the entire book,
 ""EnterprisePharo.pdf"", because it contains a lot of valuable information about
@@ -743,8 +764,8 @@ Pharo and its third party libraries.
 !!Chapter summary
 
 In this chapter you have seen how to create packages, classes and methods. In
-addition, you have learned how to use the System browser, the inspector, the debugger and the Monticello
-browser.
+addition, you have learned how to use the System browser, the inspector, the
+debugger and the Monticello browser.
 
 -Packages are groups of related classes.
 -A new class is created by sending a message to its superclass.
