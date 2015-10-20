@@ -186,7 +186,7 @@ remember this shortcut, think: ""b""rowse se""n""ders.
 code. This can be done in a code pane of a browser, in a Playground window, or
 in any text window. If you want to find the senders of a keyword message, you
 highlight all of the keywords in the message, including arguments. Then, you can
-right-click on the highlited selector and choose ==Code search... > senders of
+right-click on the highlighted selector and choose ==Code search... > senders of
 it (n)==. Alternatively, you can use the shortcut ==CMD-n== instead of
 right-clicking.
 
