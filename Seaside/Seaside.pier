@@ -6,7 +6,7 @@ developed by Avi Bryant and Julian Fitzell in 2002. Once mastered, Seaside makes
 web applications almost as easy to write as desktop applications.
 
 SmalltalkHub (*http://SmalltalkHub.com*) itself is written using Seaside, as was
-the original SqueakSource(*http://SqueakSource.com*).
+the original SqueakSource (*http://SqueakSource.com*).
 
 Seaside is unusual in that it is thoroughly object-oriented: there are no HTML
 templates, no complicated control flows through web pages, and no encoding of
@@ -21,7 +21,7 @@ the user's browser makes a request of the server, and the server responds with a
 new web page. So web application development frameworks have to cope with a host
 of problems, chief among them being the management of this ''inverted'' control
 flow. Because of this, many web applications try to forbid the use of the
-browser's ''back'' button due to the difficulty of keeping track of the state of
+browser's ''Back'' button due to the difficulty of keeping track of the state of
 a session. Expressing non-trivial control flows across multiple web pages is
 often cumbersome, and multiple control flows can be difficult or impossible to
 express.
@@ -29,11 +29,11 @@ express.
 Seaside is a component-based framework that makes web development easier in
 several ways. First, control flow can be expressed naturally using message
 sends. Seaside keeps track of which web page corresponds to which point in the
-execution of the web application. This means that the browser's ''back'' button
+execution of the web application. This means that the browser's ''Back'' button
 works correctly.
 
 Second, state is managed for you. As the developer, you have the choice of
-enabling backtracking of state, so that navigation ''back'' in time will undo
+enabling backtracking of state, so that navigation ''Back'' in time will undo
 side-effects. Alternatively, you can use the transaction support built into
 Seaside to prevent users from undoing permanent side-effects when they use the
 back button. You do not have to encode state information in the URL — this too
@@ -59,30 +59,30 @@ tutorials. Be warned, however, that Seaside has evolved considerably over the
 years, and not all available material refers to the latest version of Seaside.
 
 Seaside includes a web server; you can turn the server on, telling it to listen
-on port 8080, by evaluating ==WAKom== ==startOn: 8080==, and you can turn it off
+on port 8080, by evaluating ==WAKom startOn: 8080==, and you can turn it off
 again by evaluating ==WAKom stop==. In the default installation, the default
 administrator login is ==admin== and the default password is ==seaside==. To
-change them, evaluate: ==WADispatcherEditor== ==initialize==. This will prompt
+change them, evaluate: ==WADispatcherEditor initialize==. This will prompt
 you for a new name and password.
 
 +Starting up Seaside>file://figures/seasideStartup.png|label=fig:seasideStartup+
 
-@@todo Start the Seaside server and direct a web browser to *http://localhost:8080/seaside/*.
+Start the Seaside server and direct a web browser to *http://localhost:8080/seaside/*.
 
 You should see a web page that looks like Figure *@fig:seasideStartup*.
 
-@@todo Navigate to the ==examples>counter== page. (Figure *@fig:counter*)
+Navigate to the ==examples > counter== page. (Figure *@fig:counter*)
 
 +The counter.>file://figures/counter.png|label=fig:counter+
 
 This page is a small Seaside application: it displays a counter that can be
-incremented or decremented by clicking on the __++__ and __– –__ links.
+incremented or decremented by clicking on the __++__ and __–\–__ links.
 
-(do this) Play with the counter by clicking on these links. Use your browser's
-''back'' button to go back to a previous state, and then click on __++__ again.
+Play with the counter by clicking on these links. Use your browser's
+''Back'' button to go back to a previous state, and then click on __++__ again.
 Notice how the counter is correctly incremented with respect to the currently
 displayed state, rather than the state that the counter was in when you started
-using the ''back'' button.
+using the ''Back'' button.
 
 Notice the toolbar at the bottom of the web page in Figure *@fig:seasideStartup*.
 Seaside supports a notion of ''sessions'' to keep track of the state of the
@@ -104,7 +104,8 @@ from the Pharo image, or directly from the web interface using halos.
 
 +Halos>file://figures/counterHalos.png|label=fig:counterHalos+
 
-@@todo Select ==Toggle Halos==. You should see a web page like Figure *@fig:counterHalos*.
+Select ==Toggle Halos==. You should see a web page like Figure
+*@fig:counterHalos*.
 
 At the top left the text ==WACounter== tells us the class of the Seaside
 component that implements the behavior of this web page. Next to this are three
@@ -112,11 +113,9 @@ clickable icons. The first, with the pencil, activates a Seaside class browser
 on this class. The second, with the magnifying glass, opens an object inspector
 on the currently active ==WACounter== instance. The third, with the coloured
 circles, displays the CSS style sheet for this component. At the top right, the
-__R__ and __S__ let you toggle between the rendered and source views of the web
-page. Experiment with all of these links. Note that the __++__ and __--__
-links are also active in the source view. Contrast the nicely-formatted source
-view provided by the Halos with the unformatted source view offered by your
-browser.
+__R__ and __S__ let you toggle between the Rendered and (formatted) Source views
+of the web page. Experiment with all of these links. Note that the __++__ and
+__-\-__ links are also active in the source view.
 
 The Seaside class browser and object inspector can be very convenient when the
 server is running on another computer, especially when the server does not have
@@ -126,7 +125,8 @@ the ordinary Pharo development tools in the server image.
 
 +Halting the counter>file://figures/haltingCounter.png|label=fig:haltingCounter+
 
-@@todo Using the object inspector link in the web browser, open an inspector on the underlying Smalltalk counter object and evaluate ==self halt==.
+Using the object inspector link in the web browser, open an inspector on the
+underlying Pharo counter object and evaluate ==self halt==.
 
 The web page will stop loading. Now switch to the Seaside image. You should see
 a pre-debugger window (Figure *@fig:haltingCounter*) showing a ==WACounter==
@@ -136,14 +136,14 @@ is running again.
 
 Seaside components can be instantiated multiple times and in different contexts.
 
-+Independent subcomponents
->file://figures/multiCounterHalos.png|label=fig:multiCounterHalos+
++Independent subcomponents>file://figures/multiCounterHalos.png|label=fig:multiCounterHalos+
 
-@@todo Point your web browser to *http://localhost:8080/seaside/examples/multicounter*.
+Now, point your web browser to
+*http://localhost:8080/seaside/examples/multicounter*.
 
 You will see an application built out of a number of independent instances of
 the counter component. Increment and decrement several of the counters. Verify
-that they behave correctly even if you use the ''back'' button. Toggle the halos
+that they behave correctly even if you use the ''Back'' button. Toggle the halos
 to see how the application is built out of nested components. Use the Seaside
 class browser to view the implementation of ==WAMultiCounter==. You should see
 three methods on the class side (==canBeRoot==, ==description==, and
@@ -154,15 +154,15 @@ willingness is indicated by defining a class-side method ==canBeRoot== to answer
 ==true==.
 
 You can use the Seaside web interface to configure, copy or remove individual
-applications (''i.e.'', root-level components).  Try making the following
+applications (which are root-level components). Try making the following
 configuration change.
 
-@@todo Point your web browser to *http://localhost:8080/seaside/config*.
+Point your web browser to *http://localhost:8080/seaside/config*.
 
 Supply the login and password (==admin== and ==seaside== by default). Select
-__Configure__ next to ''examples.'' Under the heading ''Add entry point'', enter
-the new name ''counter2'' for the type ''Application'' and click on ==Add== (see
-Figure *@fig:counter2*). On the next screen, set the ''Root Component'' to
+__Configure__ next to ==examples==. Under the heading ==Add entry point==, enter
+the new name ==counter2== for the type ==Application== and click on ==Add== (see
+Figure *@fig:counter2*). On the next screen, set the ==Root Component== to
 ==WACounter==, then click ==Save== and ==Close==. Now we have a new counter
 installed at *http://localhost:8080/seaside/examples/counter2*. Use the same
 configuration interface to remove this entry point.
@@ -176,13 +176,12 @@ You can put Seaside into deployment mode using either the configuration page
 (navigate to the entry for the application and click on the __Configure__ link)
 or click the ==Configure== button in the toolbar. In either case, set the
 deployment mode to ''true''. Note that this affects new sessions only. You can
-also set the mode globally by evaluating ==WAGlobalConfiguration==
-==setDeploymentMode== or ==WAGlobalConfiguration setDevelopmentMode==.
+also set the mode globally by evaluating ==WAGlobalConfiguration
+setDeploymentMode== or ==WAGlobalConfiguration setDevelopmentMode==.
 
 The configuration web page is just another Seaside application, so it too can be
 controlled from the configuration page. If you remove the ''config''
-application, you can get it back by evaluating ==WADispatcherEditor==
-==initialize==.
+application, you can get it back by evaluating ==WADispatcherEditor initialize==.
 
 !!Seaside components
 @sec:components
@@ -192,15 +191,16 @@ components. Let's take a closer look at how Seaside works by implementing the
 ''Hello World'' component.
 
 Every Seaside component should inherit directly or indirectly from
-==WAComponent==, as shown in Figure *@fig:WACounter*.
+==WAComponent==, as shown in Figure *@fig:WACounter*. (Incidentally, the
+'WA' prefix often used in Seaside code stands for 'Web Application'.)
 
-@@todo Define a subclass of ==WAComponent== called ==WAHelloWorld==.
+Define a subclass of ==WAComponent== called ==WAHelloWorld==.
 
 Components must know how to render themselves. Usually this is done by
 implementing the method ==renderContentOn:==, which gets as its argument an
 instance of ==WAHtmlCanvas==, which knows how to render HTML.
 
-@@todo Implement the following method, and put it in a protocol called ==rendering==:
+Implement the following method, and put it in a protocol called ==rendering==:
 
 [[[
 WAHelloWorld>>>renderContentOn: html
@@ -210,7 +210,7 @@ WAHelloWorld>>>renderContentOn: html
 Now we must inform Seaside that this component is willing to be a standalone
 application.
 
-@@todo Implement the following method on the class side of ==WAHelloWorld==.
+Implement the following method on the class side of ==WAHelloWorld==.
 
 [[[
 WAHelloWorld class>>>canBeRoot
@@ -219,35 +219,33 @@ WAHelloWorld class>>>canBeRoot
 
 We are almost done!
 
-@@todo Point your web browser at *http://localhost:8080/seaside/config*, add a new entry point called ''hello'', and set its root component to be ==WAHelloWorld==.
+Point your web browser at *http://localhost:8080/seaside/config*, add a new
+entry point called ==hello==, and set its root component to be ==WAHelloWorld==.
 
-Now point your browser to *http://localhost:8080/seaside/hello*. That's it!  You
-should see a web page like Figure *@fig:WAHelloWorld*.
+Now navigate to *http://localhost:8080/seaside/hello*. That's it! You
+should see a web page similar to Figure *@fig:WAHelloWorld*.
 
-+''Hello World'' in
-Seaside>file://figures/WAHelloWorld.png|label=fig:WAHelloWorld+
++''Hello World'' in Seaside>file://figures/WAHelloWorld.png|label=fig:WAHelloWorld+
 
-!!!State backtracking and the ''Counter'' Application
+!!!State backtracking and the ==Counter== Application
 
 The ''counter'' application is only slightly more complex than the ''hello
 world'' application.
 
 @sec:backtracking
 
-+The ==WACounter== class, which implements the ''counter'' application. Methods
-with underlined names are on the class-side; those with plain-text names are on
-the instance side.>file://figures/WACounter.png|label=fig:WACounter+
++The ==WACounter== class, which implements the ''counter'' application. Methods with underlined names are on the class-side; those with plain-text names are on the instance side.>file://figures/WACounter.png|label=fig:WACounter+
 
 The class ==WACounter== is a standalone application, so ==WACounter class== must
-answer ==true== to the  ==canBeRoot== message. It must also register itself as
+answer ==true== to the ==canBeRoot== message. It must also register itself as
 an application; this is done in its class-side ==initialize== method, as shown
 in Figure *@fig:WACounter*.
 
 ==WACounter== defines two methods, ==increase== and ==decrease==, which will be
-triggered from the __++__ and __– –__ links on the web page. It also defines an
+triggered from the __++__ and __–\–__ links on the web page. It also defines an
 instance variable ==count== to record the state of the counter. However, we also
 want Seaside to synchronize the counter with the browser page: when the user
-clicks on the browser's ''back'' button, we want seaside to ''backtrack'' the
+clicks on the browser's ''Back'' button, we want seaside to ''backtrack'' the
 state of the ==WACounter== object. Seaside includes a general mechanism for
 backtracking, but each application has to tell Seaside which parts of its state
 to track.
@@ -257,7 +255,7 @@ instance side: ==states== should answer an array containing all the objects to
 be tracked. In this case, the ==WACounter== object adds itself to Seaside's
 table of backtrackable objects by returning ==Array with: self==.
 
-!!!!!Caveat
+!!!!!Backtracking Caveat
 
 There is a subtle but important point to watch for when declaring objects for
 backtracking. Seaside tracks state by making a ''copy'' of all the objects
@@ -274,9 +272,9 @@ instance variable. However, having the ==states== method answer ==Array with:
 count== won't work. This is because the object named by ==count== is an integer,
 and integers are immutable. The ==increase== and ==decrease== methods don't
 change the state of the object ==0== into ==1== or the object ==3== into ==2==.
-Instead, they make ==count== name a different integer: every time the count is
+Instead, they make ==count== hold a different integer: every time the count is
 incremented or decremented, the object named by ==count== is ''replaced'' by
-another. This is why ==WACounter>>>states== must return ==Array with: self==.
+another. This is why ==WACounter>>states== must return ==Array with: self==.
 When the state of a ==WACounter== object is replaced by a previous state, the
 ''value'' of each of the instance variable in the object is replaced by a
 previous value; this correctly replaces the current value of ==count== by a
@@ -284,9 +282,9 @@ prior value.
 
 !!Rendering HTML
 
-The purpose of a web application is to create, or ''render'', web pages.  As we
+The purpose of a web application is to create, or ''render'', web pages. As we
 mentioned in Section *@sec:components*, each Seaside component is responsible for
-rendering itself. So, lets start our exploration of rendering by seeing how the
+rendering itself. So, let's start our exploration of rendering by seeing how the
 counter component renders itself.
 
 !!!Rendering the Counter
@@ -294,7 +292,7 @@ counter component renders itself.
 The rendering of the counter is relatively straightforward; the code is shown in
 Figure *@fig:WACounter*. The current value of the counter is displayed as an
 HTML heading, and the increment and decrement operations are implemented as
-html anchors (that is, links) with callbacks to blocks that will send
+HTML anchors (that is, links) with callbacks to blocks that will send
 ==increase== and ==decrease== to the counter object.
 
 We will have a closer look at the rendering protocol in a moment. But before we
@@ -319,8 +317,8 @@ web pages. Instead it generates HTML programmatically. The basic idea is that
 every Seaside component should override the method ==renderContentOn:==; this
 message will be sent by the framework to each component that needs to be
 rendered. This ==renderContentOn:== message will have an argument that is an
-''html canvas'' onto which the component should render itself.  By convention,
-the html canvas parameter is called ==html==. An html canvas is analogous to the
+''HTML canvas'' onto which the component should render itself. By convention,
+the HTML canvas parameter is called ==html==. An HTML canvas is analogous to the
 graphics canvas used by Morphic (and most other drawing frameworks) to abstract
 away from the device-dependent details of drawing.
 
@@ -332,8 +330,8 @@ html html: '&ndash;'.     "render an HTML incantation"
 html render: 1.              "render any object"
 ]]]
 
-The message ==render: anyObject== can be sent to an html canvas to render
-==anyObject==; it is normally used to render subcomponents.  ==anyObject== will
+The message ==render: anyObject== can be sent to an HTML canvas to render
+==anyObject==; it is normally used to render subcomponents. ==anyObject== will
 itself be sent the message ==renderContentOn:== this is what happens in the
 multi-counter (see Figure *@fig:WAMultiCounter*).
 
@@ -356,9 +354,9 @@ html horizontalRule.
 
 +RenderingDemo>file://figures/RenderingDemo.png|label=fig:RenderingDemo+
 
-In Figure *@fig:RenderingDemo* we can see the output of many of the basic brushes
-offered by Seaside.(The source code for method *@scr:renderdemo* is in the
-package ==PBE-SeasideDemo== in the project
+In Figure *@fig:RenderingDemo* we can see the output of many of the basic
+brushes offered by Seaside. (The source code for method *@scr:renderdemo* is in
+the package ==PBE-SeasideDemo== in the project
 *http://www.squeaksource.com/PharoByExample*.) The root component
 ==SeasideDemo== simply renders its subcomponents, which are instances of
 ==SeasideHtmlDemo==, ==SeasideFormDemo==, ==SeasideEditCallDemo== and
@@ -390,7 +388,7 @@ The second way is to instantiate the brush by sending ==heading==, and then to
 send a cascade of messages to the brush to set its properties and render it.
 Many of the available brushes can be used in these two ways.
 
-@@important If you send a cascade of messages to a brush including the message ==with:==, then ==with:== should be the ''final'' message.  ==with:==  both sets the content and renders the result.
+@@important If you send a cascade of messages to a brush including the message ==with:==, then ==with:== should be the ''final'' message. ==with:==  both sets the content and renders the result.
 
 In method *@scr:renderdemo*, the first heading is at level 1, since this is the
 default. We explicitly set the level of the second heading to 2. The
@@ -414,14 +412,14 @@ SeasideHtmlDemo>>>renderContentOn: html
 It is common practice to break up long rendering methods into many helper
 methods, as we have done here.
 
-@@important Don't put all your rendering code into a single method.
+A word of advice: Don't put all your rendering code into a single method.
 
-Split it into helper methods named using the pattern ==render*On:. All rendering
-methods go in the ==rendering== protocol. Don't send ==renderContentOn:== from
-your own code, use ==render:== instead.==
+Instead, split it into helper methods named using the pattern ==render*On:. All
+rendering methods go in the ==rendering== protocol. Don't send
+==renderContentOn:== from your own code, use ==render:== instead.
 
 Look at the following code. The first helper method,
-==SeasideHtmlDemo>>>renderParagraphsOn:==, shows you how to generate HTML
+==SeasideHtmlDemo>>renderParagraphsOn:==, shows you how to generate HTML
 paragraphs, plain and emphasized text, and images. Note that in Seaside simple
 elements are rendered by specifying the text they contain directly, whereas
 complex elements are specified using blocks. This is a simple convention to help
@@ -443,7 +441,7 @@ SeasideHtmlDemo>>>renderParagraphsOn: html
 			width: '50']
 ]]]
 
-The next helper method, ==SeasideHtmlDemo>>>renderListsAndTablesOn:==, shows you
+The next helper method, ==SeasideHtmlDemo>>renderListsAndTablesOn:==, shows you
 how to generate lists and tables. A table uses two levels of blocks to display
 each of its rows and the cells within the rows.
 
@@ -458,11 +456,11 @@ SeasideHtmlDemo>>>renderListsAndTablesOn: html
 			html tableData: 'A table with one data cell.']]
 ]]]
 
-The next example shows how we can specify CSS ''div''s and ''span''s with
-''class'' or ''id'' attributes. Of course, the messages ==class:== and ==id:==
-can also be sent to the other brushes, not just to ''div''s and ''span''s. The
-method ==SeasideDemoWidget>>>style== defines how these HTML elements should be
-displayed (see Section *@sec:css*).
+The next example shows how we can specify ==class== or ==id== attributes for
+==div== and ==span== elements (for use with CSS). Of course, the messages
+==class:== and ==id:== can also be sent to the other brushes, not just to
+==div== and ==span==. The method ==SeasideDemoWidget>>style== defines how
+these HTML elements should be displayed (see Section *@sec:css*).
 
 [[[
 SeasideHtmlDemo>>>renderDivsAndSpansOn: html
@@ -477,7 +475,7 @@ SeasideHtmlDemo>>>renderDivsAndSpansOn: html
 
 Finally we see a simple example of a link, created by binding a simple callback
 to an ''anchor'' (''i.e.'', a link). Clicking on the link will cause the
-subsequent text to toggle between ''true'' and ''false'' by toggling the
+subsequent text to toggle between ==true== and ==false== by toggling the
 instance variable ==toggleValue==.
 
 [[[
@@ -494,7 +492,7 @@ SeasideHtmlDemo>>>renderLinkWithCallbackOn: html
 			with: toggleValue ]
 ]]]
 
-@@important Note that actions should appear only in callbacks.
+Note that actions should appear only in callbacks.
 
 The code executed while rendering should not change the state of the
 application!
@@ -526,7 +524,7 @@ SeasideFormDemo>>>renderContentOn: html
 		html checkbox on: #checked of: self.
 		html submitButton
 			text: 'done' ]
-]]]{}
+]]]
 
 Since a form is a complex entity, it is rendered using a block. Note that all
 the state changes happen in the callbacks, not as part of the rendering.
@@ -535,18 +533,18 @@ There is one Seaside feature used here that is worth special mention, namely the
 message ==on:of:==. In the example, this message is used to bind a text input
 field to the variable ==heading==. Anchors and buttons also support this
 message. The first argument is the name of an instance variable for which
-accessors have been defined;  the second argument is the object to which this
+accessors have been defined; the second argument is the object to which this
 instance variable belongs. Both observer (==heading==) and mutator
 (==heading:==) accessor messages must be understood by the object, with the
-usual naming convention. In the case here of a text input field, this saves us
+usual naming convention. In the case of a text input field, this saves us
 the trouble of having to define a callback that updates the field as well as
-having to bind the default contents of the html input field to the current value
+having to bind the default contents of the HTML input field to the current value
 of the instance variable. Using ==on: #heading of: self==, the ==heading==
 variable is updated automatically whenever the user updates the text input
 field.
 
 The same message is used twice more in this example, to cause the selection of a
-colour on the html form to update the ==color== variable, and to bind the result
+colour on the HTML form to update the ==color== variable, and to bind the result
 of the checkbox to the ==checked== variable. Many other examples can be found in
 the functional tests for Seaside. Have a look at the package
 ==Seaside-Tests-Functional==, or just point your browser to
@@ -559,10 +557,9 @@ examples directly using the Seaside class browser.
 !!CSS: Cascading style sheets
 @sec:css
 
-Cascading Style Sheets(*http://www.w3.org/Style/CSS/*), or CSS for short, have
-emerged as a standard way for web applications to separate style from content.
-Seaside relies on CSS to avoid cluttering your rendering code with layout
-considerations.
+Cascading Style Sheets (*http://www.w3.org/Style/CSS/*), or CSS for short, are a
+standard way for web applications to separate style from content. Seaside relies
+on CSS to avoid cluttering your rendering code with layout considerations.
 
 You can set the CSS style sheet for your web components by defining the method
 ==style==, which should return a string containing the CSS rules for that
@@ -580,15 +577,11 @@ If you already are familiar with CSS, then that's all you need to know.
 Otherwise, read on for a very brief introduction to CSS.
 
 Instead of directly encoding display attributes in the paragraph and text
-elements of your web pages, with CSS you will define different classes of
-elements and place all display considerations in a separate style sheet.
-Paragraph-like entities are called ''div''s and text-like entities are
-''span''s. You would then define symbolic names, like ''highlight'' (see example
-below) for text to be highlighted, and specify how highlighted text is to be
-displayed in your style sheet.
+elements of your web pages, CSS lets you define different ''classes'' of
+elements, and place all display considerations in a separate style sheet.
 
-Basically a CSS style sheet consists of a set of rules that specify how to
-format given HTML elements. Each rule consists of two parts. There is a
+To put it another way, a CSS style sheet consists of a set of rules that specify
+how to format given HTML elements. Each rule consists of two parts. There is a
 ''selector'' that specifies which HTML elements the rule applies to, and there
 is a ''declaration'' which sets a number of attributes for that element.
 
@@ -632,7 +625,7 @@ rules specify properties of second-level headings (==h2==), tables (==table==),
 and table data (==td==).
 
 The remaining rules have selectors that will match HTML elements that have the
-given ''class'' or ''id'' attributes. CSS selectors for class attributes start
+given ==class== or ==id== attributes. CSS selectors for class attributes start
 with a ==.== and those for id attributes with ==#==. The main difference
 between class and id attributes is that many elements may have the same class,
 but only one element may have a given id (i.e., an ''identifier''). So,
@@ -643,8 +636,8 @@ element may have multiple classes, in which case all the applicable display
 attributes will be applied in sequence.
 
 Selector conditions may be combined, so the selector ==div.subcomponent== will
-only match an HTML element if it is both a div ''and'' it has a class attribute
-equal to ''subcomponent''.
+only match an HTML element if it is both a ==div== ''and'' it has a class
+attribute equal to ==subcomponent==.
 
 It is also possible to specify nested elements, though this is seldom necessary.
 For example, the selector ==p span== will match a span within a paragraph
@@ -652,7 +645,7 @@ but not within a div.
 
 There are numerous books and web sites to help you learn CSS. For a dramatic
 demonstration of the power of CSS, we recommend you to have a look at the CSS
-Zen Garden(*http://www.csszengarden.com/*), which shows how the same content can
+Zen Garden (*http://www.csszengarden.com/*), which shows how the same content can
 be rendered in radically different ways simply by changing the CSS style sheet.
 
 !!Managing control flow
@@ -677,7 +670,7 @@ Call and answer are used to realize simple dialogues.
 
 There is a trivial example of ==call:== and ==answer:== in the rendering demo of
 Figure *@fig:RenderingDemo*. The component ==SeasideEditCallDemo== displays a
-text field and an ''edit'' link. The callback for the edit link calls a new
+text field and an ==edit== link. The callback for the edit link calls a new
 instance of ==SeasideEditAnswerDemo== initialized to the value of the text
 field. The callback also updates this text field to the result which is sent as
 an answer.
@@ -701,7 +694,9 @@ which the ==SeasideEditCallDemo== component is replaced by a
 ==SeasideEditAnswerDemo== component; the parent component and the other peer
 components are untouched.
 
-@@important ==call:== and ==answer:== should never be used while rendering. They may safely be sent from within a callback, or from within the ==go== method of a task.
+It is important to keep in mind that ==call:== and ==answer:== should never be
+used while rendering. They may safely be sent from within a callback, or from
+within the ==go== method of a task.
 
 The ==SeasideEditAnswerDemo== component is also remarkably simple. It just
 renders a form with a text field. The submit button is bound to a callback that
@@ -721,7 +716,7 @@ SeasideEditAnswerDemo>>>renderContentOn: html
 That's it.
 
 Seaside takes care of the control flow and the correct rendering of all the
-components. Interestingly, the ''back'' button of the browser will also work
+components. Interestingly, the ''Back'' button of the browser will also work
 just fine (though side effects are not rolled back unless we take additional
 steps).
 
@@ -731,14 +726,13 @@ Since certain call–answer dialogues are very common, Seaside provides some
 convenience methods to save you the trouble of writing components like
 ==SeasideEditAnswerDemo==. The generated dialogues are shown in Figure
 *@fig:dialogs*. We can see these convenience methods being used within
-==SeasideDialogDemo>>>renderContentOn:==
+==SeasideDialogDemo>>renderContentOn:==
 
 +Some standard dialogs>file://figures/dialogs-flat.png|label=fig:dialogs+
 
 The message ==request:== performs a call to a component that will let you edit a
 text field. The component answers the edited string. An optional label and
 default value may also be specified.
-
 
 [[[
 SeasideDialogDemo>>>renderContentOn: html
@@ -749,20 +743,20 @@ SeasideDialogDemo>>>renderContentOn: html
 ]]]
 
 The message ==inform:== calls a component that simply displays the argument
-message and waits for the user to click ''ok''. The called component just
+message and waits for the user to click ==Ok==. The called component just
 returns ==self==.
 
 [[[
 ...
 	html space.
 	html anchor
-		callback: [ self inform: 'yesBANG' ];
+		callback: [ self inform: 'yes!' ];
 		with: 'self inform:'.
 ...
 ]]]
 
-The message ==confirm:== asks a questions and waits for the user to select
-either ''Yes'' or ''No''. The component answers a boolean, which can be used to
+The message ==confirm:== asks a question and waits for the user to select
+either ==Yes== or ==No==. The component answers a boolean, which can be used to
 perform further actions.
 
 [[[
@@ -840,24 +834,24 @@ whose state must be tracked.
 
 Sometimes, however, we do not want to backtrack state: instead we want to
 ''prevent'' the user from accidentally undoing effects that should be permanent.
-This is often referred to as ''the shopping cart problem''. Once you have
-checked-out your shopping cart and paid for the items you have purchased, it
-should not be possible to go ''back'' with the browser and add more items to the
+This is often referred to as "the shopping cart problem". Once you have
+checked out your shopping cart and paid for the items you have purchased, it
+should not be possible to go ''Back'' with the browser and add more items to the
 shopping cart!
 
-Seaside allows you to prevent this by defining a task within which certain
-actions are grouped together as ''transactions''. You can backtrack within a
-transaction, but once a transaction is complete, you can no longer go back to
-it. The corresponding pages are ''invalidated'', and any attempt to go back to
-them will cause Seaside to generate a warning and redirect the user to the most
-recent valid page.
+Seaside allows you to enforce restriction this by defining a task within which
+certain actions are grouped together as ''transactions''. You can backtrack
+within a transaction, but once a transaction is complete, you can no longer go
+back to it. The corresponding pages are ''invalidated'', and any attempt to go
+back to them will cause Seaside to generate a warning and redirect the user to
+the most recent valid page.
 
 +The Sushi Store>file://figures/sushiStore|label=fig:sushiStore+
 
 The Seaside ''Sushi Store'' is sample application that illustrates many of the
 features of Seaside, including transactions. This application is bundled with
 your installation of Seaside, so you can try it out by pointing your browser at
-*http://localhost:8080/seaside/examples/store*.(If you cannot find it in your
+*http://localhost:8080/seaside/examples/store*. (If you cannot find it in your
 image, there is a version of the sushi store available on SqueakSource from
 *http://www.squeaksource.com/SeasideExamples/*.)
 
@@ -887,13 +881,14 @@ WAStore>>>renderContentOn: html
 critical that the user not be able to go back and change the submitted
 information.
 
-@@todo  ''Purchase'' some sushi and then use the ''back'' button to try to put more sushi into your cart.
+Purchase some sushi and then use the ''Back'' button to try to put more sushi
+into your cart.
 
 You will get the message ''That page has expired.''
 
-Seaside lets the programmer say that a certain part of a workflow act like a
+Seaside lets the programmer say that a certain part of a workflow acts like a
 transaction: once the transaction is complete, the user cannot go back and undo
-it. You say this by sending ==isolate:== to a task with the transactional block
+it. This is done by sending ==isolate:== to a task with the transactional block
 as its argument. We can see this in the sushi store workflow as follows:
 
 [[[
@@ -917,7 +912,7 @@ WAStoreTask>>>go
 ]]]
 
 Here we see quite clearly that there are two transactions. The first fills the
-cart and closes the shopping phase. (The helper methods ==fillCart== etc. take
+cart and closes the shopping phase. (The helper methods such as ==fillCart== take
 care of instantiating and calling the right subcomponents.) Once you have
 confirmed the contents of the cart you cannot go back without starting a new
 session. The second transaction completes the shipping and payment data. You can
@@ -939,11 +934,16 @@ WANestedTransaction>>>go
 	self inform: 'Outside parent txn'
 ]]]
 
-@@todo Go to *http://localhost:8080/seaside/tests/alltests*, select ==WATransactionTest== and click on ==Restart==. Try to navigate back and forth within the parent and child transaction by clicking the ==back== button and then clicking ==ok==. Note that as soon as a transaction is complete, you can no longer go back inside the transaction without generating an error upon clicking ==ok==.
+Go to *http://localhost:8080/seaside/tests/alltests*, select
+==WATransactionTest== and click on ==Restart==. Try to navigate back and forth
+within the parent and child transaction by clicking the ''Back'' button and then
+clicking ==Ok==. Note that as soon as a transaction is complete, you can no
+longer go back inside the transaction without generating an error upon clicking
+==Ok==.
 
 !!A complete tutorial example
 
-Let's see how we can build a complete Seaside application from scratch.(The
+Let's see how we can build a complete Seaside application from scratch. (The
 exercise should take at most a couple of hours. If you prefer to just look at
 the completed source code, you can grab it from the SqueakSource project
 *http://www.squeaksource.com/PharoByExample*. The package to load is
@@ -956,12 +956,12 @@ value on top of the stack, and the other which shows us the complete state of
 the stack. The calculator with the two display options is shown in Figure
 *@fig:stackMachine*.
 
-+RPN calculator and its stack
-machine>file://figures/stackMachine-flat.png|label=fig:stackMachine+
++RPN calculator and its stack machine>file://figures/stackMachine-flat.png|label=fig:stackMachine+
 
 We begin by implementing the stack machine and its tests.
 
-@@todo Define a new class called ==MyStackMachine== with an instance variable ==contents== initialized to a new ==OrderedCollection==.
+First, Define a new class called ==MyStackMachine== with an instance variable
+==contents== initialized to a new ==OrderedCollection==.
 
 [[[
 MyStackMachine>>>initialize
@@ -973,7 +973,7 @@ The stack machine should provide operations to ==push:== and ==pop== values,
 view the ==top== of the stack, and perform various arithmetic operations to add,
 subtract, multiply and divide the top values on the stack.
 
-@@todo Write some tests for the stack operations and then implement these operations.
+Write some tests for the stack operations and then implement these operations.
 Here is a sample test:
 
 [[[
@@ -988,36 +988,45 @@ MyStackMachineTest>>>testDiv
 
 You might consider using some helper methods for the arithmetic operations to
 check that there are two numbers on the stack before doing anything, and raising
-an error if this precondition is not fulfilled.(It's a good idea to use
-==Object>>>assert:== to specify the preconditions for an operation. This method
+an error if this precondition is not fulfilled. (It's a good idea to use
+==Object>>assert:== to specify the preconditions for an operation. This method
 will raise an ==AssertionFailure== if the user tries to use the stack machine in
-an invalid state.) If you do this, most  of your methods will just be one or two
+an invalid state.) If you do this, most of your methods will just be one or two
 lines long.
 
-You might also consider implementing ==MyStackMachine>>>printOn:== to make it
+You might also consider implementing ==MyStackMachine>>printOn:== to make it
 easier to debug your stack machine implementation with the help of an object
 inspector. (Hint: just delegate printing to the ==contents== variable.)
 
-@@todo Complete the ==MyStackMachine== by writing operations ==dup== (push a duplicate of the top value onto the stack), ==exch== (exchange the top two values), and ==rotUp== (rotate the entire stack contents up — the top value will move to the bottom).
+Complete the ==MyStackMachine== by writing operations ==dup== (push a duplicate
+of the top value onto the stack), ==exch== (exchange the top two values), and
+==rotUp== (rotate the entire stack contents up — the top value will move to the
+bottom).
 
 Now we have a simple stack machine implementation. We can start to implement the
 Seaside RPN Calculator.
 
-We will make use of 5 classes: -==MyRPNWidget== — this should be an abstract
-class that defines the common CSS style sheet for the application, and other
-common behavior for the components of the RPN calculator. It is a subclass of
-==WAComponent== and the direct superclass of the following four classes.
--==MyCalculator== — this is the root component. It should register the
+We will make use of 5 classes:
+
+1. ==MyRPNWidget== — this should be an abstract class that defines the common
+CSS style sheet for the application, and other common behavior for the
+components of the RPN calculator. It is a subclass of ==WAComponent== and the
+direct superclass of the following four classes.
+
+2. ==MyCalculator== — this is the root component. It should register the
 application (on the class side), it should instantiate and render its
-subcomponents, and it should register any state for backtracking. -==MyKeypad== —
-this displays the keys that we use to interact with the calculator.
--==MyDisplay== — this component displays the top of the stack and provides a
+subcomponents, and it should register any state for backtracking.
+
+3. ==MyKeypad== - this displays the keys that we use to interact with the
+calculator.
+
+4. ==MyDisplay== — this component displays the top of the stack and provides a
 button to call another component to display the detailed view.
--==MyDisplayStack== — this component shows the detailed view of the stack and
+
+5. ==MyDisplayStack== — this component shows the detailed view of the stack and
 provides a button to answer back. It is a subclass of ==MyDisplay==.
 
-
-@@todo Define ==MyRPNWidget== in the package ==MyCalculator==.
+Create a package ==MyCalculator==, and define ==MyRPNWidget==.
 
 Define the common ==style== for the application.
 
@@ -1045,7 +1054,9 @@ td.stackcell {
 td.small { font-size: 8pt; }'
 ]]]
 
-@@todo Define ==MyCalculator== to be a root component and register itself as an application (''i.e.'', implement ==canBeRoot== and ==initialize== on the class side).
+Define ==MyCalculator== to be a root component and register itself as an
+application (''i.e.'', implement ==canBeRoot== and ==initialize== on the class
+side).
 
 Implement ==MyCalculator>>>renderContentOn:== to render something trivial (such
 as its name), and verify that the application runs in a browser.
@@ -1053,40 +1064,42 @@ as its name), and verify that the application runs in a browser.
 ==MyCalculator== is responsible for instantiating ==MyStackMachine==,
 ==MyKeypad== and ==MyDisplay==.
 
-@@todo Define ==MyKeypad== and ==MyDisplay== as subclasses of ==MyRPNWidget==.
+Define ==MyKeypad== and ==MyDisplay== as subclasses of ==MyRPNWidget==.
 
 All three components will need access to a common instance of the stack machine,
 so define the instance variable ==stackMachine== and an initialization method
 ==setMyStackMachine:== in the common parent, ==MyRPNWidget==. Add instance
 variables ==keypad== and ==display== to ==MyCalculator== and initialize them in
-==MyCalculator>>>initialize==. (Don't forget to send ==super initialize==!)
+==MyCalculator>>initialize==. (Don't forget to send ==super initialize==!)
 
-@@todo Pass the shared instance of the stack machine to the keypad and the display in the same initialize method.
+Pass the shared instance of the stack machine to the keypad and the display in
+the same initialize method.
 
-Implement ==MyCalculator>>>renderContentOn:== to simply render in turn the
+Implement ==MyCalculator>>renderContentOn:== to simply render in turn the
 keypad and the display. To correctly display the subcomponents, you must
-implement ==MyCalculator>>>children== to return an array with the keypad and the
+implement ==MyCalculator>>children== to return an array with the keypad and the
 display. Implement placeholder rendering methods for the keypad and the display
 and verify that the calculator now displays its two subcomponents.
 
 Now we will change the implementation of the display to show the top value of
 the stack.
 
-@@todo Use a table with class ''keypad'' containing a row with a single table data cell with class ''stackcell''.
+Use a table with class ==keypad== containing a row with a single table data cell
+with class ==stackcell==.
 
 Change the rendering method of the keypad to ensure that the number 0 is pushed
 on the stack in case it is empty. (Define and use
-==MyKeypad>>>ensureMyStackMachineNotEmpty==.) Also make it display an empty
-table with class ''keypad''. Now the calculator should display a single cell
+==MyKeypad>>ensureMyStackMachineNotEmpty==.) Also make it display an empty
+table with class ==keypad==. Now the calculator should display a single cell
 containing the value 0. If you toggle the halos, you should see something like
 this:
 
-+Displaying the top of the stack
->file://figures/firstStackDisplay|label=fig:firstStackDisplay+
++Displaying the top of the stack>file://figures/firstStackDisplay|label=fig:firstStackDisplay+
 
 Now let's implement an interface to interact with the stack.
 
-@@todo First define the following helper methods, which will make it easier to script the interface:
+First, define the following helper methods, which will make it easier to script
+the interface:
 
 [[[
 MyKeypad>>>renderStackButton: text callback: aBlock colSpan: anInteger on: html
@@ -1112,9 +1125,9 @@ We will use these two methods to define the buttons on the keypad with
 appropriate callbacks. Certain buttons may span multiple columns, but the
 default is to occupy just one column.
 
-@@todo Use the two helper methods to script the keypad as follows:
+Use the two helper methods to script the keypad as follows.
 
-(Hint: start by getting the digit and ''Enter'' keys working, then the
+(Hint: start by getting the digit and ==Enter== keys working, then the
 arithmetic operators.)
 
 [[[
@@ -1145,9 +1158,11 @@ MyKeypad>>>renderContentOn: html
 ]]]
 
 Check that the keypad displays properly. If you try to click on the keys,
-however, you will find that the calculator does not work yet...
+however, you will find that the calculator does not work yet.
 
-@@todo Implement ==MyKeypad>>>type:== to update the top of the stack by appending the typed digit. You will need to convert the top value to a string, update it, and convert it back to an integer, something like this:
+Implement ==MyKeypad>>type:== to update the top of the stack by appending the
+typed digit. You will need to convert the top value to a string, update it, and
+convert it back to an integer, something like this:
 
 [[[
 MyKeypad>>>type: aString
@@ -1155,35 +1170,37 @@ MyKeypad>>>type: aString
 ]]]
 
 Now when you click on the digit keys the display should be updated. (Be sure
-that ==MyStackMachine>>>pop== returns the value popped, or this will not work!)
+that ==MyStackMachine>>pop== returns the value popped, or this will not work!)
 
-@@todo Now we must implement ==MyKeypad>>>stackOp:==
-
-Something like this will do the trick:
+Next, we must implement ==MyKeypad>>>stackOp:==. Something like this will do the
+trick:
 
 [[[
 MyKeypad>>>stackOp: op
 	[ stackMachine perform: op ] on: AssertionFailure do: [ ].
 ]]]
 
-The point is that we are not sure that all operations will succeed, for example,
+The point is that we are not sure that all operations will succeed. For example,
 addition will fail if we do not have two numbers on the stack. For the moment we
 can just ignore such errors. If we are feeling more ambitious later on, we can
 provide some user feedback in the error handler block.
 
-@@todo The first version of the calculator should be working now. Try to enter some numbers by pressing the digit keys, hitting ==Enter== to push a copy of the current value, and entering ==+== to sum the top two values.
+The first version of the calculator should be working now. Try to enter some
+numbers by pressing the digit keys, hitting ==Enter== to push a copy of the
+current value, and entering ==+== to sum the top two values.
 
 You will notice that typing digits does not behave the way you might expect.
 Actually the calculator should be aware of whether you are typing a ''new''
 number, or appending to an existing number.
 
-@@todo Adapt ==MyKeypad>>>type:== to behave differently depending on the current typing mode.
+Adapt ==MyKeypad>>type:== to behave differently depending on the current typing
+mode.
 
-Introduce an instance variable ==mode== which takes on one of the three values
-==#typing== (when you are typing), ==#push== (after you have performed a
-calculator operation and typing should force the top value to be pushed), or
-==#clear== (after you have performed ==Enter== and the top value should be
-cleared before typing). The new ==type:== method might look like this:
+Introduce an instance variable ==mode== which takes on one of the three values:
+the symbol ==#typing== (when you are typing), ==#push== (after you have
+performed a calculator operation and typing should force the top value to be
+pushed), or ==#clear== (after you have performed ==Enter== and the top value
+should be cleared before typing). The new ==type:== method might look like this:
 
 [[[
 MyKeypad>>>type: aString
@@ -1197,10 +1214,10 @@ MyKeypad>>>type: aString
 Typing might work better now, but it is still frustrating not to be able to see
 what is on the stack.
 
-@@todo Define ==MyDisplayStack== as a subclass of ==MyDisplay==.
+Define ==MyDisplayStack== as a subclass of ==MyDisplay==.
 
 Add a button to the rendering method of ==MyDisplay== which will call a new
-instance of ==MyDisplayStack==. You will need an html anchor that looks
+instance of ==MyDisplayStack==. You will need an HTML anchor that looks
 something like this:
 
 [[[
@@ -1215,11 +1232,12 @@ complete stack. When this component signals that it is done (''i.e.'', by
 sending ==self answer==), then control will return to the original instance of
 ==MyDisplay==.
 
-@@todo Define the rendering method of ==MyDisplayStack== to display all of the values on the stack.
+Define the rendering method of ==MyDisplayStack== to display all of the values
+on the stack.
 
 (You will either need to define an accessor for the stack machine's ==contents==
 or you can define ==MyStackMachine>>>do:== to iterate over the stack values.)
-The stack display should also have a button labelled ''close'' whose callback
+The stack display should also have a button labelled ==close== whose callback
 will simply perform ==self answer==.
 
 [[[
@@ -1232,17 +1250,16 @@ Now you should be able to ''open'' and ''close'' the stack while you are using
 the calculator.
 
 There is, however, one thing we have forgotten. Try to perform some operations
-on the stack. Now use the ''back'' button of your browser and try to perform
-some more stack operations. (For example, ==open== the stack, type ==1==,
+on the stack. Now use the ''Back'' button of your browser and try to perform
+some more stack operations. For example, ==open== the stack, type ==1==,
 ==Enter== twice and ==+==. The stack should display ''2'' and ''1''. Now hit the
-''back'' button. The stack now shows three times ''1'' again. Now if you type ==+==
-the stack shows ''3''. Backtracking is not yet working.
+''Back'' button. The stack now shows three times ''1'' again. Now if you type
+==+==, the stack shows ''3''. Backtracking is not yet working.
 
-@@todo Implement ==MyCalculator>>>states== to return an array with the contents of the stack machine.
+Implement ==MyCalculator>>states== to return an array with the contents of the
+stack machine.
 
-Check that backtracking now works correctly!
-
-Sit back and enjoy a tall glass of something cool!
+Check that backtracking now works correctly.
 
 !!A quick look at AJAX
 
@@ -1251,18 +1268,18 @@ more interactive by exploiting JavaScript functionality on the client side.
 
 Two well-known JavaScript libraries are Prototype (*http://www.prototypejs.org*)
 and script.aculo.us (*http://script.aculo.us*). Prototype provides a framework
-to ease writing JavaScript. script.aculo.us provides some additional features to
-support animations and drag-and-drop on top of Prototype. Both frameworks are
-supported in Seaside through the package ''Scriptaculous''.
+to ease writing JavaScript. ==script.aculo.us== provides some additional
+features to support animations and drag-and-drop on top of Prototype. Both
+frameworks are supported in Seaside through the package ==Scriptaculous==.
 
-All ready-made images have the Scriptaculous package extensions already loaded.
+All ready made images have the Scriptaculous package extensions already loaded.
 The latest version is available from *http://www.squeaksource.com/Seaside*. An
 online demo is available at *http://scriptaculous.seasidehosting.st*.
 Alternatively, if you have a enabled image running, simply go to
 *http://localhost:8080/seaside/tests/scriptaculous*.
 
 The Scriptaculous extensions follow the same approach as Seaside itself — simply
-configure Smalltalk objects to model your application, and the needed Javascript
+configure Pharo objects to model your application, and the needed Javascript
 code will be generated for you.
 
 Let us look at a simple example of how client-side Javascript support can make
@@ -1271,12 +1288,12 @@ digit generates a request to refresh the page. We would like instead to handle
 editing of the display on the client-side by updating the display in the
 existing page.
 
-@@todo To address the display from JavaScript code we must first give it a unique id.
+To address the display from JavaScript code, we must first give it a unique id.
 
-Update the calculator's rendering method as follows:(If you have not implemented
-the tutorial example yourself, you can simply load the complete example
-(PBE-SeasideRPN) from *http://www.squeaksource.com/PharoByExample* and apply the
-suggested changes to the classes ==RPN*== instead of ==My*==.)
+Update the calculator's rendering method as follows. (If you have not
+implemented the tutorial example yourself, you can simply load the complete
+example (==PBE-SeasideRPN==) from *http://www.squeaksource.com/PharoByExample*
+and apply the suggested changes to the classes ==RPN*== instead of ==My*==.
 
 [[[
 MyCalculator>>>renderContentOn: html
@@ -1284,12 +1301,13 @@ MyCalculator>>>renderContentOn: html
 	html div id: 'display'; with: display.
 ]]]
 
-@@todo To be able to re-render the display when a keyboard button is pressed, the keyboard needs to know the display component.
+To be able to re-render the display when a keyboard button is pressed, the
+keyboard needs to know the display component.
 
 Add a ==display== instance variable to ==MyKeypad==, an initialize method
-==MyKeypad>>>setDisplay:==, and call this from ==MyCalculator>>initialize==. Now
+==MyKeypad>>setDisplay:==, and call this from ==MyCalculator>>initialize==. Now
 we are able to assign some JavaScript code to the buttons by updating
-==MyKeypad>>>renderStackButton:callback:colSpan:on:== as follows:
+==MyKeypad>>renderStackButton:callback:colSpan:on:== as follows:
 
 [[[
 MyKeypad>>>renderStackButton: text callback: aBlock colSpan: anInteger on: html
@@ -1310,14 +1328,14 @@ MyKeypad>>>renderStackButton: text callback: aBlock colSpan: anInteger on: html
 ]]]
 
 ==onClick:== specifies a JavaScript event handler. ==html updater== returns an
-instance of ==SUUpdater==, a Smalltalk object representing the JavaScript
-Ajax.Updater object (*http://www.prototypejs.org/api/ajax/updater*). This object
-performs an AJAX request and updates a container's contents based on the
-response text. ==id:== tells the updater what HTML DOM element to update, in
-this case the contents of the div element with the id 'display'. ==callback:==
+instance of ==SUUpdater==, a Smalltalk object representing the JavaScript AJAX
+Updater object (*http://www.prototypejs.org/api/ajax/updater*). This object
+performs AJAX requests and updates a container's contents based on the response
+text. ==id:== tells the updater what HTML DOM element to update, in this case
+the contents of the ==div== element with the id 'display'. ==callback:==
 specifies a block that is triggered when the user presses the button. The block
 argument is a new renderer ==r==, which we can use to render the display
-component. (Note: Even though html is still accessible, it is not valid anymore
+component. (Note: Even though HTML is still accessible, it is not valid anymore
 at the time this callback block is evaluated). Before rendering the display
 component we evaluate ==aBlock== to perform the desired action.
 
@@ -1326,12 +1344,14 @@ callback, which would cause a full refresh. We could instead remove the original
 anchor ==callback:==, but like this the calculator will still work even if
 JavaScript is disabled.
 
-@@todo Try the calculator again, and notice how a full page refresh is triggered every time you press a digit key. (The URL of the web page is updated at each keystroke.)
+Try the calculator again, and notice how a full page refresh is triggered every
+time you press a digit key. (The URL of the web page is updated at each
+keystroke.)
 
 Although we have implemented the client-side behavior, we have not yet activated
 it. Now we will enable the Javascript event handling.
 
-@@todo Click on the __Configure__ link in the toolbar of the calculator.
+Click on the __Configure__ link in the toolbar of the calculator.
 
 Select ''Add Library:'' ==SULibrary==, click the ==Add== button and ==Close==.
 
@@ -1344,10 +1364,10 @@ MyCalculator class>>>initialize
 		addLibrary: SULibrary
 ]]]
 
-+Seaside AJAX processing (simplified)
->file://figures/ajax-processing.png|label=fig:ajax-processing+
++Seaside AJAX processing (simplified)>file://figures/ajax-processing.png|label=fig:ajax-processing+
 
-@@todo Try the revised application. Note that the feedback is much more natural. In particular, a new URL is not generated with each keystroke.
+Try the revised application. Note that the feedback is much more natural. In
+particular, a new URL is not generated with each keystroke.
 
 You may well ask, ''yes, but how does this work?'' Figure *@fig:ajax-processing*
 shows how the RPN applications would both without and with AJAX. Basically AJAX
@@ -1370,7 +1390,7 @@ For more advanced examples, have a further look at
 
 !!!!Hints
 
-In case of server side problems use the Smalltalk debugger. In case of client
+In case of server side problems use the Debugger. In case of client
 side problems use FireFox (*http://www.mozilla.com*) with the JavaScript
 debugger FireBug (*http://www.getfirebug.com/*) plugin enabled.
 
@@ -1383,10 +1403,10 @@ debugger FireBug (*http://www.getfirebug.com/*) plugin enabled.
 -Send ==WAGlobalConfiguration setDeploymentMode== to hide the toolbar.
 -Seaside web applications are composed of components, each of which is an instance of a subclass of ==WAComponent==.
 -Only a root component may be registered as an application. It should implement ==canBeRoot== on the class side. Alternatively it may register itself as an application in its class-side ==initialize== method by sending ==self registerAsApplication:== ''application path''. If you override ==description== it is possible to return a descriptive application name that will be displayed in the configuration editor.
--To backtrack state, a component must implement the ==states== method to answer an array of objects whose state will be restored if the user clicks the browser's ''back'' button.
+-To backtrack state, a component must implement the ==states== method to answer an array of objects whose state will be restored if the user clicks the browser's ''Back'' button.
 -A component renders itself by implementing ==renderContentOn:==. The argument to this method is an HTML rendering ''canvas'' (usually called ==html==).
 -A component can render a subcomponent by sending ==self render:== ''subcomponent''.
--HTML is generated programmatically by sending messages to ''brushes''. A brush is obtained by sending a message, such as ==paragraph== or ==div==, to the html canvas.
+-HTML is generated programmatically by sending messages to ''brushes''. A brush is obtained by sending a message, such as ==paragraph== or ==div==, to the HTML canvas.
 -If you send a cascade of messages to a brush that includes the message ==with:==, then ==with:== should be the last message sent. The ==with:== message sets the contents ''and'' renders the result.
 -Actions should appear only in callbacks. You should not change the state of the application while you are rendering it.
 -You can bind various form widgets and anchors to instance variables with accessors by sending the message ==on:== ''instance variable'' ==of:== ''object'' to the brush.
@@ -1394,4 +1414,4 @@ debugger FireBug (*http://www.getfirebug.com/*) plugin enabled.
 -Control flows can be programmed by sending ==x call: y==, in which case component ==x== will be replaced by ==y== until ==y== answers by sending ==answer:== with a result in a callback. The receiver of ==call:== is usually ==self==, but may in general be any visible component.
 -A control flow can also be specified as a ''task'' — a instance of a subclass of ==WATask==. It should implement the method ==go==, which should ==call:== a series of components in a workflow.
 -Use ==WAComponents=='s convenience methods ==request:==, ==inform:==, ==confirm:== and ==chooseFrom:caption:== for basic interactions.
--To prevent the user from using the browser's ''back'' button to access a previous execution state of the web application, you can declare portions of the workflow to be a ''transaction'' by enclosing them in an ==isolate:== block.
+-To prevent the user from using the browser's ''Back'' button to access a previous execution state of the web application, you can declare portions of the workflow to be a ''transaction'' by enclosing them in an ==isolate:== block.
