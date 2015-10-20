@@ -133,5 +133,10 @@ The latest versions of *Updated Pharo by Example* can be found at the following 
 #### Deep Into Pharo (Pharo By Example vol 2)
 [Deep into Pharo](http://www.deepintopharo.com/) ([source code](https://gforge.inria.fr/scm/viewvc.php/PharoByExampleTwo-Eng/?root=pharobooks)) is the second volume of a series of books covering Pharo. Whereas the first volume is intended for newcomers, this second volume covers deeper topics.
 
-#### Enterprise Pharo
-[Enterprise Pharo](https://github.com/SquareBracketAssociates/EnterprisePharo) ([latest PDF](https://ci.inria.fr/pharo-contribution/job/PharoForTheEnterprise/lastSuccessfulBuild/artifact/EnterprisePharo.pdf)) is a new book that describes Enterprise-related libraries for Pharo.
+#### Enterprise Pharo: A Web Perspective
+[Enterprise Pharo: A Web Perspective](http://files.pharo.org/books/enterprisepharo/)
+([latest
+PDF](https://ci.inria.fr/pharo-contribution/view/Books/job/EnterprisePharoBook/lastSuccessfulBuild/artifact/book-result/EnterprisePharo.pdf),
+[source code](https://github.com/SquareBracketAssociates/EnterprisePharo))
+is the third volume of the series.  It covers enterprise libraries and
+frameworks, and in particular those useful for doing web development.

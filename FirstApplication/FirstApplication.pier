@@ -755,11 +755,11 @@ You can also look at the online documentation for Monticello at
 *http://www.wiresong.ca/Monticello/>http://www.wiresong.ca/Monticello/*.
 
 If you are already familiar with Git and Github there is a chapter about how to
-use Git with Pharo in the online book Pharo for The Enterprise here
-*https://ci.inria.fr/pharo-contribution/job/PharoForTheEnterprise/lastSuccessfulBuild/artifact/>https://ci.inria.fr/pharo-contribution/job/PharoForTheEnterprise/lastSuccessfulBuild/artifact/*.
+use Git with Pharo in the online book Enterprise Pharo: A Web Perspective at
+*http://files.pharo.org/books/enterprisepharo/>http://files.pharo.org/books/enterprisepharo/*.
 If you have not done so already its recommended to download the entire book,
-""EnterprisePharo.pdf"", because it contains a lot of valuable information about
-Pharo and its third party libraries.
+because it contains a lot of valuable information about Pharo and its third
+party libraries.
 
 !!Chapter summary
 
