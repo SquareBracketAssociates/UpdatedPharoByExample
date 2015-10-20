@@ -102,7 +102,7 @@ Whenever you refer to other chapters of the book, please use the Pillar internal
 link syntax and the chapter name. (The `cha:` in the id is to denote that it's
 a chapter, to differentiate from a section id.) For example:
 
-`Chapter 8: *Seaside By Example>../Seaside/Seaside.pier@cha:seaside*`
+`Chapter *: A Quick Tour of Pharo>../PharoTour/PharoTour.pillar@cha:tour*`
 
 A list of chapter ref link code is provided, to easily copy and paste, in the
 Chapter Progress / table of contents above.
