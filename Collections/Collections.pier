@@ -81,12 +81,13 @@ optimized or occasionally even forbidden by subclasses of ==Collection==.
 % \caption{Standard Collection protocols\figlabel{protocols}}
 
 |!Protocol |!Methods |
-| ==accessing== |	==size==, ==capacity==, ==at:==, ==at:put:== |
-| ==testing==	|	==isEmpty==, ==includes:==, ==contains:==, ==occurrencesOf:== |
-| ==adding==    |   ==add:==, ==addAll:==
-| ==removing==	|	==remove:==, ==remove:ifAbsent:==, ==removeAll:==
-| ==enumerating==	|	==do:==, ==collect:==, ==select:==, == reject:==, ==detect:==, ==detect:ifNone:==, ==inject:into:==
-| ==converting==	|	==asBag==, ==asSet==, ==asOrderedCollection==, ==asSortedCollection==, ==asArray==, ==asSortedCollection:==
+| ==accessing== | ==size==, ==capacity==, ==at:==, ==at:put:== |
+| ==testing==	| ==isEmpty==, ==includes:==, ==contains:==, ==occurrencesOf:== |
+| ==adding==    | ==add:==, ==addAll:==
+| ==removing==	| ==remove:==, ==remove:ifAbsent:==, ==removeAll:==
+| ==enumerating== | ==do:==, ==collect:==, ==select:==, == reject:==, ==detect:==, ==detect:ifNone:==, ==inject:into:==
+| ==converting== | ==asBag==, ==asSet==, ==asOrderedCollection==, ==asSortedCollection==,
+| | ==asArray==, ==asSortedCollection:==
 | ==creation== | ==with:==, ==with:with:==, ==with:with:with:==, ==with:with:with:with:==, ==withAll:==
 
 Beyond this basic uniformity, there are many different kinds of collection
@@ -642,6 +643,26 @@ Another useful method is ==findString:==.
 
 More advanced pattern matching facilities are also available in the ==Regex==
 package.
+
+!!!!!Substrings
+For substring manipulation we can use the methods like ==first==, ==first:==,
+==allButFirst:==, ==copyFrom:to:== and others, defined for ==SequenceableCollection==.
+
+[[[
+'alphabet' at: 6   --> $b
+'alphabet' first   --> $a
+'alphabet' first: 5   --> 'alpha'
+'alphabet' allButFirst: 3   --> 'habet'
+'alphabet' copyFrom: 5 to: 7  --> 'abe'
+'alphabet' copyFrom: 3 to: 3  --> 'p' (not $p)
+]]]
+
+Be aware the results are of different types, mostly String instances, but 
+==first==, ==last==, ==at:== and so on (all returns only one element of ==String== collection)
+returns Character instance.
+Exception: ==copyFrom: x to:== x obviously returns String of size 1, not Character.
+For complete list of these methods we can use System Browser on 
+==SequenceableCollection== class.
 
 !!!!!Some tests on strings
 
