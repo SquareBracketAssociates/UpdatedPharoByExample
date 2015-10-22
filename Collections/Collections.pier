@@ -645,8 +645,9 @@ More advanced pattern matching facilities are also available in the ==Regex==
 package.
 
 !!!!!Substrings
-For substring manipulation we can use the methods like ==first==, ==first:==,
-==allButFirst:==, ==copyFrom:to:== and others, defined for ==SequenceableCollection==.
+For substring manipulation we can use methods like ==first==, ==first:==,
+==allButFirst:==, ==copyFrom:to:== and others, defined in
+==SequenceableCollection==.
 
 [[[
 'alphabet' at: 6   --> $b
@@ -657,12 +658,17 @@ For substring manipulation we can use the methods like ==first==, ==first:==,
 'alphabet' copyFrom: 3 to: 3  --> 'p' (not $p)
 ]]]
 
-Be aware the results are of different types, mostly String instances, but 
-==first==, ==last==, ==at:== and so on (all returns only one element of ==String== collection)
-returns Character instance.
-Exception: ==copyFrom: x to:== x obviously returns String of size 1, not Character.
-For complete list of these methods we can use System Browser on 
-==SequenceableCollection== class.
+Be aware that result type can be different, depending on the method used.
+Most of the substring-related methods return String instances. But the methods
+that always return one element of the ==String== collection, return a
+==Character== instance (for example, =='alphabet' at: 6== returns the character
+==$b==). Methods that just ''happen'' to return a single element, such as
+==copyFrom: x to: x==, return a ==String== of size 1, not a ==Character==.
+This is because other times (with different parameters), ==copyFrom:to:== can
+return multiple elements.
+
+For complete list of substring-related methods, browse the
+==SequenceableCollection== class (especially the ==accessing== protocol).
 
 !!!!!Some tests on strings
 
