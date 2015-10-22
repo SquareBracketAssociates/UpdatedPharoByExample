@@ -96,7 +96,7 @@ the panel changed to orange (see Figure *@fig:createClass*). This means that
 there are unsaved changes. To actually send this subclass message, you must save
 (accept) the source code.
 
-Either right-click and select ""Accept"", or use the shortcut ==CMD-s== (for
+Either right-click and select ==Accept==, or use the shortcut ==CMD-s== (for
 "Save"). The message will be sent to ==SimpleSwitchMorph==, which will cause the
 new class to be compiled.
 
@@ -104,11 +104,12 @@ new class to be compiled.
 
 Once the class definition is accepted, the class will be created and appear in
 the class pane of the browser (see Figure *@fig:pannelAtNewClass*). The editing
-pane now shows the class definition. You can click on ==Comments== and a small
-pane below it will remind you to write a few words describing the purpose of the
-class. This is called a class comment, and it is quite important to write one
-that will give other programmers a high-level overview of the purpose of this
-class. Smalltalkers put a very high value on the readability of their code, and
+pane now shows the class definition. The Comments pane on the bottom right will
+remind you to write a few words describing the purpose of the class (if you
+don't see that pane, click on the ==Comments== button to toggle it open). This
+is called a ''class comment'', and it is quite important to write one that will
+give other programmers a high-level overview of the purpose of this class.
+Smalltalkers put a very high value on the readability of their code, and
 detailed comments in methods are unusual: the philosophy is that the code should
 speak for itself. (If it doesn't, you should refactor it until it does!) A class
 comment need not contain a detailed description of the class, but a few words
