@@ -324,7 +324,7 @@ inherits. The list is in inheritance order; it can often be useful to bring up
 this list just to remind yourself of the name of an instance variable. If you
 click outside the list, it will go away and no variable browser will be created.
 If you click on a variable, ==bounds== for example, a ''chasing browser'' will
-be create  (Figure *@fig:chasingBrowser*).
+be created (Figure *@fig:chasingBrowser*).
 
 +A chasing browser for ==bounds== variable of ==Morph==.>file://figures/chasingBrowser.png|label=fig:chasingBrowser+
 
