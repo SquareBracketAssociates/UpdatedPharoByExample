@@ -94,9 +94,9 @@ the source code of the corresponding method appears in the large pane at the
 bottom of the browser, where you can view it, edit it, and save the edited
 version. If you select class ==Boolean==, protocol ==controlling== and the
 method ==or:==, the browser should look like Figure
-*@fig:SystemBrowserAnd*.
+*@fig:SystemBrowserOr*.
 
-+Browser showing the ==or:== method in class ==Boolean==>file://figures/SystemBrowserAnd.png|label=fig:SystemBrowserAnd+
++Browser showing the ==or:== method in class ==Boolean==>file://figures/SystemBrowserOr.png|label=fig:SystemBrowserOr+
 
 Unlike directories in a file browser, the four top panes of the browser
 are not quite equal. Whereas classes and methods are part of the Smalltalk
