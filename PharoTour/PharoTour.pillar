@@ -674,7 +674,8 @@ no errors.
 
 When you get to a green bar, it's a good idea to save your work by saving the
 image, and take a break. So do that right now!
-!!! PharoLauncher
+
+!! PharoLauncher
 
 PharoLauncher is a tool that helps you download and manage pharo images. Its highly recommend it for getting updated versions of Pharo that contain importan bug fixes as well as new versions of Pharo. It also gives access to specific images preloaded with specific libraries that make it very easy to use those tools without having to manually go to their website and download their images.
 
@@ -688,7 +689,14 @@ After installing PharoLauncher and opening it like you open pharo (its afterall 
 
 To dowload one just select one and click on the dowload button icon which is the second from the top right. 
 
-!!! Dark Theme
+!! Window Group
+
+Managing multiple windows can become a tedious process. Window Groups are windows that offer tab support similar to the one you are used to with your OS or your Internet browser. To create a window group click on the down arrow on the top right side of a window, then select ""Create window group"". This will create a bar bellow the window title bar, you can use this bar to drag and drop other windows which will be added as new tabs to your window group.
+
++Window Group with opened the down arrow menu at create window group selection already having 2 tabs, one with Playground and one with System Browser>file://figures/WindowGroup.png|width=70|label=fig:WindowGroup+
+
+
+!! Dark Theme
 
 If you are like some of us, not a fan of the white or bright themes, there is also a dark theme that can be found in World menu -> System -> Settings -> Appearance -> User Interface theme. There you can change the default Pharo3 theme to Pharo3 Dark theme. Please note that you may have to close windows and reopen them to draw themselves correctly with the dark theme.  Using Catalog Browser if you want something more colorful you can download with a single click Nireas which is a blue theme inspired by classic home computers like Amiga 500 and Amstrad CPC 6128. Of course if you feel even more adventurous you can even make your own themes using existing ones as templates, its actually fairly simple. Nireas also comes with a GUI tool that allows to customise the colors to your liking if  blue is not your thing.
 
