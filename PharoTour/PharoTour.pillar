@@ -674,6 +674,19 @@ no errors.
 
 When you get to a green bar, it's a good idea to save your work by saving the
 image, and take a break. So do that right now!
+!!! PharoLauncher
+
+PharoLauncher is a tool that helps you download and manage pharo images. Its highly recommend it for getting updated versions of Pharo that contain importan bug fixes as well as new versions of Pharo. It also gives access to specific images preloaded with specific libraries that make it very easy to use those tools without having to manually go to their website and download their images.
+
+
+
+*PharoLauncher website>http://smalltalkhub.com/#!/~Pharo/PharoLauncher* can be found in SmalltalkHub together with its install instructions and download links depending on your platform.
+
++PharoLauncher - GUI>file://figures/PharoLauncher.png|width=70|label=fig:PharoLauncher+
+
+After installing PharoLauncher and opening it like you open pharo (its afterall a pharo app) you will be met with a GUI that contains two coumns. The left column is your images that live in your HD (usually its a shared system folder) you can open with double clicking it. With the right click you open the popup menu that contains several useful functions like renaming and locating your images. On the left side is the images available for download.
+
+To dowload one just select one and click on the dowload button icon which is the second from the top right. 
 
 !!! Dark Theme
 
