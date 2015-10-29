@@ -292,8 +292,7 @@ key in Windows is ==ALT==, and in Linux is either ==ALT== or ==CTRL==,
 so each time you see something like ==CMD-d==,
 just replace it with the appropriate modifier key depending on your OS.
 
-In addition to ""do it"", you might have noticed, ""Do it and go"" , ""print it"", ""inspect it""
-and several other options. Let's have a quick look at each of these.
+In addition to ""do it"", you might have noticed, ""Do it and go"", ""print it"", ""inspect it"" and several other options. Let's have a quick look at each of these.
 
 Type the expression ==3 + 4== into the playground. Now ""do it"" with the
 keyboard shortcut.
@@ -345,7 +344,7 @@ Other options that may be used are the following
 -"" Basic inspect it"" opens the classic inspector that offers a more minimal gui and live updates of changes to the object
 - ""Debug it"" open the debuger on the code
 - ""Profile it"" profiles the code with the pharo profile tool which show how much time is spent for each message sent
-- ""code search"" offers several options offered also by System Browser , like browse, implementors, senders etc for convenience. 
+- ""code search"" offers several options offered also by System Browser, like browse, implementors, senders etc for convenience.
 
 
 !!The System Browser
@@ -375,7 +374,7 @@ When a new System Browser window first opens, all panes are empty but the
 leftmost one. This first pane lists all known packages, which contain groups of
 related classes.
 
-In the case of Pharo 4 and 5, the default System Browser is Nautilus. However is possible to have also other System Browser installed in the Pharo enviroment like for example OmniBrowser and others. Each System Browser may have his own GUI that may be very diffirent to Nautilus GUI. So from now on when we refer to Browser or System Browser  or Nautilus we will imply the same thing, Nautilus the default System Browser of Pharo .
+In the case of Pharo 4 and 5, the default System Browser is Nautilus. However is possible to have also other System Browser installed in the Pharo enviroment like for example OmniBrowser, AltBrowser and others. Each System Browser may have its own GUI that may be very diffirent to Nautilus GUI. So from now on when we refer to Browser or System Browser  or Nautilus we will imply the same thing, Nautilus the default System Browser of Pharo .
 
 
 !!!! Expand the "Kernel" package and select "Objects"
@@ -677,7 +676,7 @@ image, and take a break. So do that right now!
 
 !! PharoLauncher
 
-PharoLauncher is a tool that helps you download and manage pharo images. Its highly recommend it for getting updated versions of Pharo that contain importan bug fixes as well as new versions of Pharo. It also gives access to specific images preloaded with specific libraries that make it very easy to use those tools without having to manually go to their website and download their images.
+PharoLauncher is a tool that helps you download and manage pharo images. Its highly recommended for getting updated versions of Pharo that contain importan bug fixes as well as new versions of Pharo. It also gives access to specific images preloaded with specific libraries that make it very easy to use those tools without having to manually go to their website and download their images.
 
 
 
@@ -685,9 +684,9 @@ PharoLauncher is a tool that helps you download and manage pharo images. Its hig
 
 +PharoLauncher - GUI>file://figures/PharoLauncher.png|width=70|label=fig:PharoLauncher+
 
-After installing PharoLauncher and opening it like you open pharo (its afterall a pharo app) you will be met with a GUI that contains two coumns. The left column is your images that live in your HD (usually its a shared system folder) you can open with double clicking it. With the right click you open the popup menu that contains several useful functions like renaming and locating your images. On the left side is the images available for download.
+After installing PharoLauncher and opening it like you open Pharo (its afterall a Pharo app) you will be met with a GUI that contains two coumns. The left column is your images that live in your HD (usually its a shared system folder) you can open with double clicking it. With the right click you open the popup menu that contains several useful functions like renaming and locating your images. On the left side is the images available for download.
 
-To dowload one just select one and click on the dowload button icon which is the second from the top right. 
+To dowload one just select one and click on the dowload button icon which is the second from the top right.
 
 !! Window Group
 
