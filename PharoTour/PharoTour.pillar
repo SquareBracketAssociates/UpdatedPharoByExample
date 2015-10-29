@@ -292,8 +292,8 @@ key in Windows is ==ALT==, and in Linux is either ==ALT== or ==CTRL==,
 so each time you see something like ==CMD-d==,
 just replace it with the appropriate modifier key depending on your OS.
 
-In addition to ""do it"", you might have noticed ""print it"", ""inspect it""
-and ""explore it"". Let's have a quick look at each of these.
+In addition to ""do it"", you might have noticed, ""Do it and go"" , ""print it"", ""inspect it""
+and several other options. Let's have a quick look at each of these.
 
 Type the expression ==3 + 4== into the playground. Now ""do it"" with the
 keyboard shortcut.
@@ -340,12 +340,13 @@ time ""inspect it"" (==CMD-i==).
 This time you should see a window labelled ""Object"" containing the text
 ""root: Object"". Click on the triangle to open it up.
 
-+Exploring Object>file://figures/explorer.png|width=60|label=fig:explorer+
+Other options that may be used are the following
 
-The explorer is similar to the inspector, but it offers a tree view of a complex
-object. In this case the object we are looking at is the ""Object"" class. We
-can see directly all the information stored in this class, and we can easily
-navigate to all its parts.
+-"" Basic inspect it"" opens the classic inspector that offers a more minimal gui and live updates of changes to the object
+- ""Debug it"" open the debuger on the code
+- ""Profile it"" profiles the code with the pharo profile tool which show how much time is spent for each message sent
+- ""code search"" offers several options offered also by System Browser , like browse, implementors, senders etc for convenience. 
+
 
 !!The System Browser
 
