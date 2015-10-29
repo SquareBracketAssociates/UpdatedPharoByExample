@@ -132,8 +132,6 @@ their elements weakly, i.e., in a way that does not prevent the elements
 from being garbage collected. The Pharo virtual machine is aware of these
 classes and handles them specially.
 
-Readers interested in learning more about the Smalltalk collections are referred
-to LaLonde and Pugh's excellent book.
 
 !!Examples of key classes
 
