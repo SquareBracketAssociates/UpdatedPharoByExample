@@ -129,6 +129,34 @@ For Windows, assuming that you're in the unzipped ==Pharo4.0== folder:
 Pharo.exe Pharo4.0.image
 ]]]
 
+!!PharoLauncher
+
+==PharoLauncher== is a tool that helps you download and manage Pharo images. It
+is very useful for getting new versions of Pharo (as well as updates to the
+existing versions that contain important bug fixes). It also gives you access to
+images preloaded with specific libraries that make it very easy to use
+those tools without having to manually install and configure them.
+
+PharoLauncher can be found on SmalltalkHub at
+*http://smalltalkhub.com/#!/~Pharo/PharoLauncher>http://smalltalkhub.com/#!/~Pharo/PharoLauncher*
+together with installation instructions and download links depending on your
+platform.
+
++PharoLauncher - GUI>file://figures/PharoLauncher.png|width=70|label=fig:PharoLauncher+
+
+After installing PharoLauncher and opening it (like you would any Pharo image),
+you will see a GUI that contains two columns. The left column lists images that
+live locally on your machine (usually in a shared system folder). You can
+launch any local image directly (either by double-clicking, or by selecting it
+and pressing the ==Launch== button). A right-click context menu provides
+several useful functions like copying and renaming your images, as well as
+locating them on the file system.
+
+The right column lists Templates, which are remote images available for
+download. To download a remote image, select it and click the ==Create
+image== button (located on the top right, next to the ==Refresh template list==
+button).
+
 !!The World Menu
 
 Once Pharo is running, you should see a single large window, possibly containing
@@ -729,34 +757,6 @@ no errors.
 
 When you get to a green bar, it's a good idea to save your work by saving the
 image (==World Menu > Save==), and take a break. So, do that right now!
-
-!!PharoLauncher
-
-==PharoLauncher== is a tool that helps you download and manage Pharo images. It
-is very useful for getting new versions of Pharo (as well as updates to the
-existing versions that contain important bug fixes). It also gives you access to
-images preloaded with specific libraries that make it very easy to use
-those tools without having to manually install and configure them.
-
-PharoLauncher can be found on SmalltalkHub at
-*http://smalltalkhub.com/#!/~Pharo/PharoLauncher>http://smalltalkhub.com/#!/~Pharo/PharoLauncher*
-together with installation instructions and download links depending on your
-platform.
-
-+PharoLauncher - GUI>file://figures/PharoLauncher.png|width=70|label=fig:PharoLauncher+
-
-After installing PharoLauncher and opening it (like you would any Pharo image),
-you will see a GUI that contains two columns. The left column lists images that
-live locally on your machine (usually in a shared system folder). You can
-launch any local image directly (either by double-clicking, or by selecting it
-and pressing the ==Launch== button). A right-click context menu provides
-several useful functions like copying and renaming your images, as well as
-locating them on the file system.
-
-The right column lists Templates, which are remote images available for
-download. To download a remote image, select it and click the ==Create
-image== button (located on the top right, next to the ==Refresh template list==
-button).
 
 !!Window Groups
 
