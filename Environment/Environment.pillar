@@ -65,6 +65,43 @@ typing ==CMD-.== to interrupt a running process, or by inserting a
 % THINK ABOUT : add documentation about the Versionner, Kommiter, Configuration
 % Browser etc...
 
+!!!Window Groups
+
+Managing multiple windows within a Pharo image can become a tedious process.
+Window Groups are windows that offer tab support similar to the one you are used
+to on your web browser. To create a window group, click on the down arrow which
+appears on the top right corner of every window within Pharo, and select
+==Create window group==. This will turn that window into a window group with a
+tab bar, containing as its first tab the original contents of the window. You
+can add other windows to the group (within the Pharo image only, of course), by
+dragging and dropping their title bars onto the tab bar, next to existing tabs.
+Each new window that you drag onto the tab bar will be added as a new tab.
+
++Window Group with two tabs, one with Playground and one with System Browser>file://figures/WindowGroup.png|width=70|label=fig:WindowGroup+
+
+!!!Themes and Icon Sets
+
+If, like some of us, you are not a fan of the default bright theme, there is
+also a dark theme that can be used with Pharo. It can be found in the Settings
+browser in the World Menu (==World > System > Settings==), in the ==Appearance==
+section. The ==User interface theme== pulldown allows you to switch between the
+default ==Pharo3== theme and the ==Pharo3 Dark== theme. You can also experiment
+with available icon sets in the next pulldown in that section.
+
+Please note that you may have to close and reopen existing windows to redraw
+them correctly with the new dark theme.
+
+If you are using Pharo 5 and above, you can use the ==Catalog Browser== to
+install additional themes. Open ==World > Tools > Catalog Browser== and search
+for ==theme== in the search box. For example, if you want something more
+colorful, you can download the Nireas theme, which is a blue theme inspired by
+classic home computers like Amiga 500 and Amstrad CPC 6128. Nireas comes with a
+GUI tool that allows you to customize the theme's colors to your liking, if blue
+is not your thing.
+
+Of course, if you are feeling especially adventurous, you can even make your own
+themes using existing ones as templates.
+
 !!The Browser
 @sec:browser
 
