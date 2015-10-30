@@ -468,9 +468,10 @@ Often, the fastest way to find a class is to search for it by name. For example,
 suppose that you are looking for some unknown class that represents dates and
 times.
 
-In the System Browser, place the mouse in the package pane of the browser and
-type ==CMD-f==, or select ==Find class (f)== by right clicking inside the
-package pane. Type ==time== in the dialog box and accept it.
+In the System Browser, click anywhere in the package pane or the class pane, and
+launch the Class Search window by typing ==CMD-f CMD-c==, or selecting ==Find
+class (f,c)== from the right-click context menu. Type ==time== in the dialog box
+and click ==OK== (or press ==Enter==).
 
 You will be presented with a list of classes whose names contain the substring
 ==time==. Choose one (say, ==Time==), and the browser will show it, along with a
