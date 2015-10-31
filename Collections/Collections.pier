@@ -4,22 +4,14 @@
 !!Introduction
 
 The collection classes form a loosely-defined group of general-purpose
-subclasses of ==Collection== and ==Stream==. The group of classes that appears
-in the ''Blue Book'' contains 17 subclasses of ==Collection== and 9 subclasses
-of ==Stream==, for a total of 28 classes, and has already been redesigned
-several times before the Smalltalk-80 system was released. This group of classes
-is often considered to be a paradigmatic example of object-oriented design.
-
-In Pharo, the abstract class ==Collection== has 101 subclasses, and the abstract
-class ==Stream== has 50 subclasses. However, many of these (like ==Bitmap==,
+subclasses of ==Collection== and ==Stream==.  Many of these (like ==Bitmap==,
 ==FileStream== and ==CompiledMethod==) are special-purpose classes crafted for
 use in other parts of the system or in applications, and hence not categorized
 as ''Collections'' by the system organization. For the purposes of this chapter,
-we use the term ''Collection Hierarchy'' to mean ==Collection== and its 47
-subclasses that are ''also'' in the packages labelled ==Collections-*==. We
-use the term ''Stream Hierarchy'' to mean ==Stream== and its 9 subclasses that
-are ''also'' in the ==Collections-Streams== packages. These 56 classes respond
-to 982 messages and define a total of 1609 methods!
+we use the term ''Collection Hierarchy'' to mean ==Collection== and its
+subclasses that are ''also'' in the packages labelled ==Collections-*==. We use
+the term ''Stream Hierarchy'' to mean ==Stream== and its subclasses that are
+''also'' in the ==Collections-Streams== packages.
 
 In this chapter we focus mainly on the subset of collection classes shown in
 Figure *@fig:CollClassesTree*. Streams will be discussed separately in
