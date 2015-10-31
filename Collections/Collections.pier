@@ -562,7 +562,7 @@ quotes, but the usual collection creation methods will work as well.
 [[[
 'Hello'                                             --> 'Hello'
 String with: $A                               --> 'A'
-String with: $h with: $i with: $BANG       --> 'hiBANG'
+String with: $h with: $i with: $!       --> 'hi!'
 String newFrom: #($h $e $l $l $o) --> 'hello'
 ]]]
 
@@ -853,7 +853,7 @@ as the receiver. For this reason the following code fails. (A ==String== cannot
 hold integer values.)
 
 [[[
-'abc' collect: [:ea | ea asciiValue ]      "errorBANG"
+'abc' collect: [:ea | ea asciiValue ]      "error!"
 ]]]
 
 Instead we must first convert the string to an ==Array== or an
