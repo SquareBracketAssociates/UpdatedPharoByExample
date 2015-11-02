@@ -893,7 +893,7 @@ If you think carefully about ==super== send and Figure
 static: all that matters is the class in which the text of the ==super== send is
 found. By contrast, the meaning of ==self== is dynamic: it always represents the
 receiver of the currently executing message. This means that  ''all''  messages
-sent to ==self== are looked-up by starting in the receiver's class.
+sent to ==self== are looked up by starting in the receiver's class.
 
 !!!Message not understood
 

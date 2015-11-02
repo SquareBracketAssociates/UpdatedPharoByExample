@@ -1,20 +1,22 @@
 !Classes and metaclasses
 @cha:metaclasses
 
-As we saw in Chapter *: The Pharo Object Model>../PharoObjectModel/PharoObjectModel.pier@cha:model*, in Pharo, everything is an object, and every
-object is an instance of a class. Classes are no exception: classes are objects,
-and class objects are instances of other classes. This object model captures the
-essence of object-oriented programming: it is lean, simple, elegant and uniform.
-However, the implications of this uniformity may confuse newcomers. The goal of
-this chapter is to show that there is nothing complex, ''magic'' or special
-here: just simple rules applied uniformly. By following these rules you can
-always understand why the situation is the way that it is.
+As we saw in Chapter *: The Pharo Object Model>../PharoObjectModel/PharoObjectModel.pier@cha:model*,
+in Pharo, everything is an object, and every object is an instance of a class.
+Classes are no exception: classes are objects, and class objects are instances
+of other classes. This object model captures the essence of object-oriented
+programming, and is lean, simple, elegant and uniform. However, the implications
+of this uniformity may confuse newcomers. The goal of this chapter is to show
+that there is nothing complex, ''magic'' or special here: just simple rules
+applied uniformly. By following these rules you can always understand why the
+situation is the way that it is.
 
 !!Rules for classes and metaclasses
 
 The Pharo object model is based on a limited number of concepts applied
 uniformly. To refresh your memory, here are the rules of the object model that
-we explored in Chapter *: The Pharo Object Model>../PharoObjectModel/PharoObjectModel.pier@cha:model*.
+we explored in
+Chapter *: The Pharo Object Model>../PharoObjectModel/PharoObjectModel.pier@cha:model*.
 
 ; Rule 1
 : Everything is an object.
@@ -41,7 +43,8 @@ its metaclass are two separate classes, even though the former is an instance of
 the latter.
 
 To properly explain classes and metaclasses, we need to extend the rules from
-Chapter *: The Pharo Object Model>../PharoObjectModel/PharoObjectModel.pier@cha:model* with the following additional rules.
+Chapter *: The Pharo Object Model>../PharoObjectModel/PharoObjectModel.pier@cha:model*
+with the following additional rules.
 
 ; Rule 6
 : Every class is an instance of a metaclass.
@@ -54,14 +57,14 @@ Chapter *: The Pharo Object Model>../PharoObjectModel/PharoObjectModel.pier@cha:
 ; Rule 10
 : The metaclass of ==Metaclass== is an instance of ==Metaclass==.
 
+Together, these 10 rules complete Pharo's object model.
 
-Together, these 10 rules complete Smalltalk's object model.
+We will first briefly revisit the 5 rules from
+Chapter *: The Pharo Object Model>../PharoObjectModel/PharoObjectModel.pier@cha:model*
+with a small example. Then we will take a closer look at the new rules, using
+the same example.
 
-We will first briefly revisit the 5 rules from Chapter *: The Pharo Object Model>../PharoObjectModel/PharoObjectModel.pier@cha:model* with a small
-example. Then we will take a closer look at the new rules, using the same
-example.
-
-!!Revisiting the Smalltalk object model
+!!Revisiting the Pharo object model
 
 Since everything is an object, an ordered collection in Pharo is also an object.
 
@@ -114,8 +117,7 @@ message ==class== to the result of ==(OrderedCollection withAll: #(4 5 6 1 2 3))
 asSortedCollection==, the message is handled when the corresponding method is
 found in the class ==Object==, as shown in Figure *@fig:classmessage*.
 
-+Sending a message to a sorted collection
->file://figures/SortedCollectionClassMessage.png|label=fig:classmessage+
++Sending a message to a sorted collection>file://figures/SortedCollectionClassMessage.png|label=fig:classmessage+
 
 The figure captures the essence of the ''is-a'' relationship. Our
 sortedCollection object ''is a'' ==SortedCollection== instance, but we can also
@@ -133,8 +135,8 @@ sortedCollection isKindOf: Object                  --> true
 
 !!Every class is an instance of a metaclass
 
-As we mentioned in Section *@sec:metaclassIntro*, classes whose instances are
-themselves classes are called metaclasses.
+As we mentioned earlier in Section *@sec:metaclassIntro*, classes whose
+instances are themselves classes are called metaclasses.
 
 !!!!!Metaclasses are implicit.
 
@@ -154,11 +156,11 @@ Object class --> Object class
 ]]]
 
 Figure *@fig:translucentmetaclasses* shows how each class is an instance of its
-(anonymous) metaclass. Note that space reason we skip ==SequenceableCollection==
-and ==Collection== from the figures and explanation for now. It does not change
-anything to contents.
+(anonymous) metaclass. Note that we only skip ==SequenceableCollection==
+and ==Collection== from the figures and explanation due to space constraints.
+Their absence does not change the overall meaning.
 
-+The metaclasses of SortedCollection and its superclasses>file://figures/SortedCollectionMetaclasses.png|label=fig:translucentmetaclasses+
++The metaclasses of ==SortedCollection== and its superclasses>file://figures/SortedCollectionMetaclasses.png|label=fig:translucentmetaclasses+
 
 The fact that classes are also objects makes it easy for us to query them by
 sending messages. Let's have a look:
@@ -184,11 +186,10 @@ SortedCollection superclass class --> OrderedCollection class
 ]]]
 
 This is what we mean by the metaclass hierarchy being parallel to the class
-hierarchy;  Figure *@fig:parallelHierarchies* shows how this works in the
+hierarchy. Figure *@fig:parallelHierarchies* shows how this works in the
 ==SortedCollection== hierarchy.
 
-+The metaclass hierarchy parallels the class hierarchy.
->file://figures/SortedCollectionMetaclassHierarchy.png|label=fig:parallelHierarchies+
++The metaclass hierarchy parallels the class hierarchy.>file://figures/SortedCollectionMetaclassHierarchy.png|label=fig:parallelHierarchies+
 
 [[[
 SortedCollection class                                     --> SortedCollection class
@@ -197,7 +198,7 @@ SortedCollection class superclass superclass --> SequenceableCollection class
 SortedCollection class superclass superclass superclass superclass--> Object class
 ]]]
 
-!!!!!Uniformity between Classes and Objects.
+!!!!Uniformity between Classes and Objects
 
 It is interesting to step back a moment and realize that there is no difference
 between sending a message to an object and to a class. In both cases the search
@@ -207,7 +208,7 @@ up the inheritance chain.
 Thus, messages sent to classes must follow the metaclass inheritance chain.
 Consider, for example, the method ==withAll:==, which is implemented on the
 class side of ==Collection==. If we send the message ==withAll:== to
-==OrderedCollection==, then it will be looked-up the same way as any other
+==OrderedCollection==, then it will be looked up the same way as any other
 message. The lookup starts in ==OrderedCollection class==, and proceeds up the
 metaclass hierarchy until it is found in ==Collection class== (see Figure
 *@fig:metaclasslookup*).
@@ -219,8 +220,7 @@ OrderedCollection withAll: #(4 5 6 1 2 3) --> an OrderedCollection (4 5 6 1 2 3)
 Note that we get as a result an ordinary ==Color blue==, and not a translucent
 one — there is no magic!
 
-+Message lookup for classes is the same as for ordinary objects.
->file://figures/InstanceMessage.png|label=fig:metaclasslookup+
++Message lookup for classes is the same as for ordinary objects.>file://figures/InstanceMessage.png|label=fig:metaclasslookup+
 
 Thus we see that there is one uniform kind of method lookup in Pharo. Classes
 are just objects, and behave like any other objects. Classes have the power to
@@ -232,7 +232,7 @@ to a non-metaclass.
 
 Since classes are objects, we can also inspect them.
 
-@@todo Inspect ==OrderedCollection withAll: #(4 5 6 1 2 3)== and ==OrderedCollection==.
+Inspect ==OrderedCollection withAll: #(4 5 6 1 2 3)== and ==OrderedCollection==.
 
 Notice that in one case you are inspecting an instance of ==OrderedCollection==
 and in the other case the ==OrderedCollection== class itself. This can be a bit
@@ -243,8 +243,7 @@ The inspector on ==OrderedCollection== allows you to see the superclass,
 instance variables, method dictionary, and so on, of the ==OrderedCollection==
 class, as shown in Figure *@fig:inspectingColor*.
 
-+Classes are objects too.
->file://figures/InspectingOrderedCollection.png|label=fig:inspectingColor+
++Classes are objects too.>file://figures/InspectingOrderedCollection.png|label=fig:inspectingColor+
 
 !!Every metaclass Inherits from ==Class== and ==Behavior==
 
@@ -253,18 +252,17 @@ inherits from its superclasses, ==ClassDescription== and ==Behavior==. Since
 everything in Pharo ''is-an'' object, these classes all inherit eventually from
 ==Object==. We can see the complete picture in Figure *@fig:inheritbehavior*.
 
-+Metaclasses inherit from ==Class== and ==Behavior==
->file://figures/SortedCollectionBehavior.png|label=fig:inheritbehavior+
++Metaclasses inherit from ==Class== and ==Behavior==>file://figures/SortedCollectionBehavior.png|label=fig:inheritbehavior+
 
-!!!!!Where is ==new== defined?
+!!!!Where is ==new== defined?
 
 To understand the importance of the fact that metaclasses inherit from ==Class==
 and ==Behavior==, it helps to ask where ==new== is defined and how it is found.
-When the message ==new== is sent to a class it is looked up in its metaclass
+When the message ==new== is sent to a class, it is looked up in its metaclass
 chain and ultimately in its superclasses ==Class==, ==ClassDescription== and
 ==Behavior== as shown in Figure *@fig:sendingnew*.
 
-The question ''''Where is ==new== defined?'''' is crucial. ==new== is first
+The question ''Where is ==new== defined?'' is crucial. ==new== is first
 defined in the class ==Behavior==, and it can be redefined in its subclasses,
 including any of the metaclass of the classes we define, when this is necessary.
 Now when a message ==new== is sent to a class it is looked up, as usual, in the
@@ -273,7 +271,7 @@ class ==Behavior==, if it has not been redefined along the way.
 
 Note that the result of sending ==SortedCollection new== is an instance of
 ==SortedCollection== and ''not'' of ==Behavior==, even though the method is
-looked-up in the class ==Behavior==!  ==new== always returns an instance of
+looked up in the class ==Behavior==! ==new== always returns an instance of
 ==self==, the class that receives the message, even if it is implemented in
 another class.
 
@@ -281,8 +279,7 @@ another class.
 SortedCollection new class --> SortedCollection    "not Behavior!"
 ]]]
 
-+==new== is an ordinary message looked up in the metaclass
-chain.>file://figures/SortedOrderedSendingNew.png|label=fig:sendingnew+
++==new== is an ordinary message looked up in the metaclass chain.>file://figures/SortedOrderedSendingNew.png|label=fig:sendingnew+
 
 A common mistake is to look for ==new== in the superclass of the receiving
 class. The same holds for ==new:==, the standard message to create an object of
@@ -291,11 +288,11 @@ will not find this method defined in ==Array== or any of its superclasses.
 Instead you should look in ==Array class== and its superclasses, since that is
 where the lookup will start.
 
-!!!!!Responsibilities of ==Behavior==, ==ClassDescription== and ==Class==.
+!!!!Responsibilities of ==Behavior==, ==ClassDescription== and ==Class==
 
 ==Behavior== provides the minimum state necessary for objects that have
-instances: this includes a superclass link, a method dictionary and the class
-format.  The class format is an integer that encodes the pointer/non-pointer
+instances, which includes a superclass link, a method dictionary and the class
+format. The class format is an integer that encodes the pointer/non-pointer
 distinction, compact/non-compact class distinction, and basic size of instances.
 ==Behavior== inherits from ==Object==, so it, and all of its subclasses, can
 behave like objects.
@@ -312,17 +309,17 @@ accessing instances and variables (''i.e.'', ==allInstances==,
 
 ==ClassDescription== is an abstract class that provides facilities needed by its
 two direct subclasses, ==Class== and ==Metaclass==. ==ClassDescription== adds a
-number of facilities to the basis provided by ==Behavior==: named instance
+number of facilities to the base provided by ==Behavior==: named instance
 variables, the categorization of methods into protocols, the maintenance of
 change sets and the logging of changes, and most of the mechanisms needed for
-filing-out changes.
+filing out changes.
 
 ==Class== represents the common behaviour of all classes. It provides a class
 name, compilation methods, method storage, and instance variables. It provides a
 concrete representation for class variable names and shared pool variables
 (==addClassVarName:==, ==addSharedPool:==, ==initialize==). Since a metaclass is
-a class for its sole instance (''i.e.'',, the non-meta class) and provides the
-service for the instance as a class, all metaclasses inherit ultimately from
+a class for its sole instance (''i.e.'', the non-meta class) and provides the
+service for the instance as a class, all metaclasses ultimately inherit from
 ==Class==.
 
 !!Every metaclass is an instance of ==Metaclass==
@@ -332,16 +329,15 @@ shown in Figure *@fig:metaclassclass*. The instances of class ==Metaclass== are
 the anonymous metaclasses, each of which has exactly one instance, which is a
 class.
 
-+Every metaclass is a ==Metaclass==.
->file://figures/TranslucentMetaclassClass.png|label=fig:metaclassclass+
++Every metaclass is a ==Metaclass==.>file://figures/TranslucentMetaclassClass.png|label=fig:metaclassclass+
 
 ==Metaclass== represents common metaclass behaviour. It provides methods for
-instance creation (==subclassOf:==) creating initialized instances of the
+instance creation (==subclassOf:==), creating initialized instances of the
 metaclass's sole instance, initialization of class variables, metaclass
-instance, method compilation, % (different semantics can be introduced)
-and class information (inheritance links, instance variables, etc.).
+instance, method compilation, and class information (inheritance links,
+instance variables, etc.).
 
-!!The metaclass of ==Metaclass is an Instance of ==Metaclass====
+!!The metaclass of ==Metaclass is an instance of ==Metaclass====
 
 The final question to be answered is: what is the class of ==Metaclass class==?
 
@@ -349,9 +345,7 @@ The answer is simple: it is a metaclass, so it must be an instance of
 ==Metaclass==, just like all the other metaclasses in the system (see Figure
 *@fig:metaclassclassclass*).
 
-+All metaclasses are instances of the class ==Metaclass==, even the metaclass of
-==Metaclass==.
->file://figures/TranslucentMetaclassClassClass.png|label=fig:metaclassclassclass+
++All metaclasses are instances of the class ==Metaclass==, even the metaclass of ==Metaclass==.>file://figures/TranslucentMetaclassClassClass.png|label=fig:metaclassclassclass+
 
 The figure shows how all metaclasses are instances of ==Metaclass==, including
 the metaclass of ==Metaclass== itself. If you compare Figures
@@ -361,8 +355,8 @@ metaclass hierarchy perfectly mirrors the class hierarchy, all the way up to
 
 The following examples show us how we can query the class hierarchy to
 demonstrate that Figure *@fig:metaclassclassclass* is correct. (Actually, you
-will see that we told a white lie — ==Object class superclass -\->==
-==ProtoObject class==, not ==Class==. In Pharo, we must go one superclass higher
+will see that we told a white lie — ==Object class superclass -\-> ProtoObject
+class==, not ==Class==. In Pharo, we must go one superclass higher
 to reach ==Class==.)
 
 [[[caption=The class hierarchy
@@ -393,11 +387,12 @@ Metaclass superclass --> ClassDescription
 
 !!Chapter summary
 
-Now you should understand better how classes are organized and the impact of a
-uniform object model. If you get lost or confused, you should always remember
-that message passing is the key: you look for the method in the class of the
-receiver. This works on ''any'' receiver. If the method is not found in the
-class of the receiver, it is looked up in its superclasses.
+This chapter gave an in-depth look into the uniform object model, and a
+more thorough explanation of how classes are organized. If you get lost or
+confused, you should always remember that message passing is the key: you look
+for the method in the class of the receiver. This works on ''any'' receiver. If
+the method is not found in the class of the receiver, it is looked up in its
+superclasses.
 
 -Every class is an instance of a metaclass. Metaclasses are implicit. A Metaclass is created automatically when you create the class that is its sole instance.
 -The metaclass hierarchy parallels the class hierarchy. Method lookup for classes parallels method lookup for ordinary objects, and follows the metaclass's superclass chain.
