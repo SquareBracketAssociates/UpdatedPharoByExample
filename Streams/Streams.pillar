@@ -9,35 +9,31 @@ versa.
 
 !!Two sequences of elements
 
-A good metaphor to understand a stream is the following: A stream can be
+A good metaphor to understand a stream is the following. A stream can be
 represented as two sequences of elements: a past element sequence and a future
 element sequence. The stream is positioned between the two sequences.
-Understanding this model is important since all stream operations in Smalltalk
+Understanding this model is important, since all stream operations in Pharo
 rely on it. For this reason, most of the ==Stream== classes are subclasses of
-==PositionableStream==. Figure *@fig:_abcde* presents a stream which contains five
-characters. This stream is in its original position, i.e., there is no
+==PositionableStream==. Figure *@fig:_abcde* presents a stream which contains
+five characters. This stream is in its original position, i.e., there is no
 element in the past. You can go back to this position using the message
 ==PositionableStream>>reset==.
 
-+A stream positioned at its
-beginning.>file://figures/_abcdeStef.png|width=100|label=fig:_abcde+
++A stream positioned at its beginning.>file://figures/_abcdeStef.png|width=100|label=fig:_abcde+
 
 Reading an element conceptually means removing the first element of the future
 element sequence  and putting it after the last element in the past element
 sequence. After having read one element using the message ==next==, the state of
 your stream is that shown in Figure *@fig:a_bcde*.
 
-+The same stream after the execution of the method ==next==: the character ==a==
-is ''in the past'' whereas ==b==, ==c==, ==d== and ==e== are ''in the
-future''.>file://figures/a_bcdeStef.png|width=100|label=fig:a_bcde+
++The same stream after the execution of the method ==next==: the character ==a== is ''in the past'' whereas ==b==, ==c==, ==d== and ==e== are ''in the future''.>file://figures/a_bcdeStef.png|width=100|label=fig:a_bcde+
 
 Writing an element means replacing the first element of the future sequence by
 the new one and moving it to the past. Figure *@fig:ax_cde* shows the state of
 the same stream after having written an ==x== using the message
 ==Stream>>nextPut: anElement==.
 
-+The same stream after having written an
-==x==.>file://figures/ax_cdeStef.png|width=100|label=fig:ax_cde+
++The same stream after having written an ==x==.>file://figures/ax_cdeStef.png|width=100|label=fig:ax_cde+
 
 !!Streams vs. collections
 
@@ -92,14 +88,14 @@ The following sections present the protocols in more depth.
 
 !!Streaming over collections
 
-Streams are really useful when dealing with collections of elements. They can be
-used for reading and writing elements in collections. We will now explore the
-stream features for the collections.
+Streams are really useful when dealing with collections of elements, and can be
+used for reading and writing those elements. We will now explore the
+stream features for collections.
 
 !!!Reading collections
 
 Using a stream to read a collection essentially provides you a pointer into the
-collection. That pointer will move forward on reading and you can place it
+collection. That pointer will move forward on reading, and you can place it
 wherever you want. The class ==ReadStream== should be used to read elements
 from collections.
 
@@ -134,7 +130,7 @@ number. --> '143'
 ]]]
 
 This code sets the boolean variable ==negative== according to the sign of the
-number in the stream and ==number== to its absolute value. The method
+number in the stream, and ==number== to its absolute value. The method
 ==ReadStream>>upToEnd== returns everything from the current position to the end
 of the stream and sets the stream to its end. This code can be simplified using
 ==PositionableStream>>peekFor:==, which moves forward if the following element
@@ -151,7 +147,8 @@ element.
 
 You might have noticed a new way of constructing a stream in the above example:
 one can simply send ==SequenceableCollection>>readStream== to a sequenceable
-collection to get a reading stream on that particular collection.
+collection (such as a ==String==) to get a reading stream on that particular
+collection.
 
 !!!!Positioning
 
@@ -275,7 +272,7 @@ string. -->   '#(1 2 3) size = 3'
 The method ==SequenceableCollection class>>streamContents:== creates a
 collection and a stream on that collection for you. It then executes the block
 you gave passing the stream as a parameter. When the block ends,
-==streamContents:== returns the content of the collection.
+==streamContents:== returns the contents of the collection.
 
 The following ==WriteStream== methods are especially useful in this context:
 
@@ -286,7 +283,7 @@ The following ==WriteStream== methods are especially useful in this context:
 ;==print:==
 :adds the textual representation of the parameter to the stream.
 
-There are also methods useful for printing to the stream useful characters
+There are also convenient methods for printing useful characters to a stream,
 such as ==WriteStream>>space==, ==WriteStream>>tab== and ==WriteStream>>cr==
 (carriage return). Another useful method is ==WriteStream>>ensureASpace== which
 ensures that the last character in the stream is a space; if the last character
@@ -311,13 +308,13 @@ concatenation operator (==,==) is far less efficient:
   temp contents] timeToRun --> 1262 "(milliseconds)"
 ]]]
 
-The reason that using a stream can be much more efficient is that comma creates
-a new string containing the concatenation of the receiver and the argument, so
-it must copy both of them. When you repeatedly concatenate onto the same
-receiver, it gets longer and longer each time, so that the number of characters
-that must be copied goes up exponentially. This also creates a lot of garbage,
-which must be collected. Using a stream instead of string concatenation is a
-well-known optimization.
+The reason that using a stream can be much more efficient is that using a
+comma creates a new string containing the concatenation of the receiver and the
+argument, so it must copy both of them. When you repeatedly concatenate onto the
+same receiver, it gets longer and longer each time, so that the number of
+characters that must be copied goes up exponentially. This also creates a lot of
+garbage, which must be collected. Using a stream instead of string concatenation
+is a well-known optimization.
 
 In fact, you can use ==SequenceableCollection class>>streamContents:==
 (mentioned earlier) to help you do this:
@@ -331,29 +328,23 @@ String streamContents: [ :tempStream |
 !!!Reading and writing at the same time
 
 It's possible to use a stream to access a collection for reading and writing at
-the same time. Imagine you want to create an ==History== class which will manage
+the same time. Imagine you want to create a ==History== class which will manage
 backward and forward buttons in a web browser. A history would react as in
 figures *@fig:emptyStream* to *@fig:page4*.
 
-+A new history is empty. Nothing is displayed in the web
-browser.>file://figures/emptyStef.png|width=100|label=fig:emptyStream+
++A new history is empty. Nothing is displayed in the web browser.>file://figures/emptyStef.png|width=100|label=fig:emptyStream+
 
 +The user opens to page 1.>file://figures/page1Stef.png|width=100|label=fig:page1+
 
-+The user clicks on a link to page
-2.>file://figures/page2Stef.png|width=100|label=fig:page2+
++The user clicks on a link to page 2.>file://figures/page2Stef.png|width=100|label=fig:page2+
 
-+The user clicks on a link to page
-3.>file://figures/page3Stef.png|width=100|label=fig:page3+
++The user clicks on a link to page 3.>file://figures/page3Stef.png|width=100|label=fig:page3+
 
-+The user clicks on the back button. He is now viewing page 2
-again.>file://figures/page2_Stef.png|width=100|label=fig:page2_+
++The user clicks on the Back button. They are now viewing page 2 again.>file://figures/page2_Stef.png|width=100|label=fig:page2_+
 
-+The user clicks again the back button. Page 1 is now
-displayed.>file://figures/page1_Stef.png|width=100|label=fig:page1_+
++The user clicks again the back button. Page 1 is now displayed.>file://figures/page1_Stef.png|width=100|label=fig:page1_+
 
-+From page 1, the user clicks on a link to page 4. The history forgets pages 2
-and 3.>file://figures/page4Stef.png|width=100|label=fig:page4+
++From page 1, the user clicks on a link to page 4. The history forgets pages 2 and 3.>file://figures/page4Stef.png|width=100|label=fig:page4+
 
 This behaviour can be implemented using a ==ReadWriteStream==.
 
@@ -397,7 +388,7 @@ History>>goTo: aPage
 This version is incomplete however. This is because when the user clicks on the
 link, there should be no more future pages to go to, ''i.e.'', the forward
 button must be deactivated. To do this, the simplest solution is to write
-==nil== just after to indicate the history end:
+==nil== just after, to indicate that history is at the end:
 
 [[[language=smalltalk|label=src:history4
 History>>goTo: anObject
@@ -444,7 +435,7 @@ History new
 
 You have already seen how to stream over collections of elements. It's also
 possible to stream over files on your hard disk. Once created, a stream on a
-file is really like a stream on a collection: you will be able to use the same
+file is really like a stream on a collection; you will be able to use the same
 protocol to read, write or position the stream. The main difference appears in
 the creation of the stream. There are several different ways to create file
 streams, as we shall now see.
@@ -503,7 +494,7 @@ string := FileStream
 string --> 'This text is written in a file named ''test.txt'''
 ]]]
 
-The stream-creation methods that take a block as an argument first create a
+The stream creation methods that take a block as an argument first create a
 stream on a file, then execute the block with the stream as an argument, and
 finally close the stream. These methods return what is returned by the block,
 which is to say, the value of the last expression in the block. This is used in
@@ -539,7 +530,7 @@ FileStream
       ].
 ]]]
 
-Here is another example which creates a picture in a file named ''test.pgm''
+Here is another example which creates a picture in a file named ==test.pgm==
 (portable graymap file format). You can open this file with your favorite
 drawing program.
 
@@ -561,14 +552,13 @@ FileStream
 
 This creates a 4x4 checkerboard as shown in *@fig:checkerboard4x4*.
 
-+A 4x4 checkerboard you can draw using binary
-streams.>file://figures/checkerboard4x4.png|width=25|label=fig:checkerboard4x4+
++A 4x4 checkerboard you can draw using binary streams.>file://figures/checkerboard4x4.png|width=25|label=fig:checkerboard4x4+
 
 !!Chapter summary
 
-Streams offer a better way than collections to incrementally read and write a
-sequence of elements. There are easy ways to convert back and forth between
-streams and collections.
+Streams offer a better way (compared to collections) to incrementally read and
+write a sequence of elements. There are easy ways to convert back and forth
+between streams and collections.
 
 -Streams may be either readable, writeable or both readable and writeable.
 -To convert a collection to a stream, define a stream ''on'' a collection, ''e.g.'', ==ReadStream on: (1 to: 1000)==, or send the messages ==readStream==, etc. to the collection.
