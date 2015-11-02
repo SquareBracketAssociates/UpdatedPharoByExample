@@ -2,7 +2,7 @@
 @cha:morphic
 
 Morphic is the name given to Pharo's graphical interface. Morphic is written in
-Smalltalk, so it is fully portable between operating systems; as a consequence,
+Pharo, so it is fully portable between operating systems. As a consequence,
 Pharo looks exactly the same on Unix, MacOS and Windows. What distinguishes
 Morphic from most other user interface toolkits is that it does not have
 separate modes for ''composing'' and ''running'' the interface: all the
@@ -13,16 +13,21 @@ article in French.)
 !!The history of Morphic
 
 Morphic was developed by John Maloney and Randy Smith for the Self programming
-language, starting around 1993.  Maloney later wrote a new version of Morphic
+language, starting around 1993. Maloney later wrote a new version of Morphic
 for Squeak, but the basic ideas behind the Self version are still alive and well
 in Pharo Morphic: ''directness'' and ''liveness''. Directness means that the
 shapes on the screen are objects that can be examined or changed directly, that
-is, by pointing at them using the mouse. Liveness means that the user interface
+is, by clicking on them using a mouse. Liveness means that the user interface
 is always able to respond to user actions: information on the screen is
 continuously updated as the world that it describes changes. A simple example of
 this is that you can detach a menu item and keep it as a button.
 
-@@todo Bring up the world menu (by a Click in world) and meta-click once on the world menu to bring up its morphic halo (Recall that you should set ==halosEnabled== in the Preferences browser. Alternatively, you can evaluate ==Preferences enable: #halosEnabled== in a Playground.), then meta-click again on the menu item you want to detach to bring up its halo.  Now drag that item elsewhere on the screen by grabbing the black handle (see Figure *@fig:grabHandle*), as shown in Figure *@fig:detachingMenu*.
+Bring up the World Menu and meta-click once on it to bring up its morphic halo,
+then meta-click again on a menu item you want to detach, to bring up that item's
+halo. (Recall that you should set ==halosEnabled== in the Preferences browser.
+Alternatively, you can evaluate ==Preferences enable: #halosEnabled== in a
+Playground.) Now drag that item elsewhere on the screen by grabbing the black
+handle (see Figure *@fig:grabHandle*), as shown in Figure *@fig:detachingMenu*.
 
 +The grab handle>file://figures/grabhandle.png|width=3|label=fig:grabHandle+
 
@@ -35,8 +40,8 @@ implement interesting behaviour with little code. You can create a morph to
 represent any object, although how good a representation you get depends on the
 object!
 
-@@todo To create a morph to represent a string object, execute the following code in a Playground.
-% , one line at a time.}
+To create a morph to represent a string object, execute the following code in a
+Playground.
 
 [[[language=smalltalk|caption=Creation of a String Morph|label=scr:stringMorph
 'Morph' asMorph openInWorld
@@ -44,17 +49,17 @@ object!
 
 This creates a Morph to represent the string =='Morph'==, and then opens it
 (that is, displays it) in the ''world'', which is the name that Pharo gives to
-the screen. You should obtain a graphical element — a Morph — which you can
-manipulate by meta-click{ing}.
+the screen. You should obtain a graphical element (a ==Morph==), which you can
+manipulate by meta-clicking.
 
 Of course, it is possible to define morphs that are more interesting graphical
 representations than the one that you have just seen. The method ==asMorph== has
 a default implementation in class ==Object== class that just creates a
-StringMorph. So, for example, ==Color tan asMorph== returns a StringMorph
-labeled with the result of ==Color== ==tan printString==. Let's change this so
+==StringMorph==. So, for example, ==Color tan asMorph== returns a StringMorph
+labeled with the result of ==Color tan printString==. Let's change this so
 that we get a coloured rectangle instead.
 
-@@todo Open a browser on the ==Color== class and add the following method to it:
+Open a browser on the ==Color== class and add the following method to it:
 
 [[[language=smalltalk|caption=Getting a morph for an instance of ==Color==|label=scr:asMorphInColor
 Color>>>asMorph
@@ -62,14 +67,15 @@ Color>>>asMorph
 ]]]
 
 Now execute ==Color orange asMorph openInWorld== in a Playground. Instead of
-the string-like morph, you get an orange rectangle! (see Figure *@fig:colorOrange*)
+the string-like morph, you get an orange rectangle (see Figure
+*@fig:colorOrange*)!
 
 +==Color orange asMorph openInWorld== with our new method>file://figures/colorOrange.png|width=75|label=fig:colorOrange+
 
 !!Manipulating morphs
 
 Morphs are objects, so we can manipulate them like any other object in
-Smalltalk: by sending messages, we can change their properties, create new
+Pharo: by sending messages, we can change their properties, create new
 subclasses of Morph, and so on.
 
 Every morph, even if it is not currently open on the screen, has a position and
@@ -80,23 +86,23 @@ known as the morph's bounding box, or just its ''bounds''. The ==position==
 method returns a ==Point== that describes the location of the morph's upper left
 corner (or the upper left corner of its bounding box). The origin of the
 coordinate system is the screen's upper left corner, with ''y'' coordinates
-increasing ''down'' the screen and ''x'' coordinates increasing to the right. The
-==extent== method also returns a point, but this point specifies the width and
-height of the morph rather than a location.
+increasing ''down'' the screen and ''x'' coordinates increasing to the right.
+The ==extent== method also returns a point, but this point specifies the width
+and height of the morph rather than a location.
 
-@@todo Type the following code into a playground and ==do it==:
+Type the following code into a playground and ==Do it==:
 
 [[[lanuage=smalltalk|caption=Creation of two Color Morph|label=scr:joeAndBill
 joe := Morph new color: Color blue.
 joe openInWorld.
-bill := Morph new color: Color red .
+bill := Morph new color: Color red.
 bill openInWorld.
 ]]]
 
-Then type ==joe position== and ==print it==. To move joe, execute ==joe
+Then type ==joe position== and then ==Print it==. To move joe, execute ==joe
 position: (joe position + (10@3))== repeatedly (see Figure *@fig:moveJoe*).
 
-+ Bill and Joe after 10 move>file://figures/moveJoe.png|width=75|label=fig:moveJoe+
++Bill and Joe after 10 moves>file://figures/moveJoe.png|width=75|label=fig:moveJoe+
 
 It is possible to do a similar thing with size. ==joe extent== answers joe's
 size; to have joe grow, execute ==joe extent: (joe extent \* 1.1)==. To change
@@ -104,17 +110,18 @@ the color of a morph, send it the ==color:== message with the desired ==Color==
 object as argument, for instance, ==joe color: Color orange==. To add
 transparency, try ==joe color: (Color orange alpha: 0.5)==.
 
-@@todo To make bill follow joe, you can repeatedly execute this code:
+To make bill follow joe, you can repeatedly execute this code:
 
 [[[language=smalltalk|caption=Make bill follow joe|label=scr:billfollowJoe
 bill position: (joe position + (100@0))
 ]]]
+
 If you move joe using the mouse and then execute this code, bill will move so
 that it is 100 pixels to the right of joe.
 
 You can see the result on Figure *@fig:joeAndBillResult*
 
-+ Bill follow Joe>file://figures/joeAndBillResult.png|width=75|label=fig:joeAndBillResult+
++Bill follow Joe>file://figures/joeAndBillResult.png|width=75|label=fig:joeAndBillResult+
 
 !!Composing morphs
 
@@ -124,7 +131,7 @@ another. This is called ''composition''; morphs can be composed to any depth.
 You can place a morph inside another by sending the message ==addMorph:== to the
 container morph.
 
-@@todo Try adding a morph to another one:
+Try adding a morph to another one:
 
 [[[language=smalltalk|caption=Create a Balloon inside Joe|label=scr:balloonCreation
 balloon := BalloonMorph new color: Color yellow.
@@ -132,18 +139,19 @@ joe addMorph: balloon.
 balloon position: joe position.
 ]]]
 
-The last line positions the balloon at the same coordinates as joe. Notice that the
-coordinates of the contained morph are still relative to the screen, not to the
-containing morph. There are many  methods available to position a morph; browse
-the ==geometry== protocol of class ==Morph== to see for yourself. For example,
-to center the balloon inside joe, execute ==balloon center: joe center==.
+The last line positions the balloon at the same coordinates as joe. Notice that
+the coordinates of the contained morph are still relative to the screen, not to
+the containing morph. There are many  methods available to position a morph;
+browse the ==geometry== protocol of class ==Morph== to see for yourself. For
+example, to center the balloon inside joe, execute ==balloon center: joe
+center==.
 
 +The balloon is contained inside joe, the translucent orange morph>file://figures/joeStar.png|width=30|label=fig:joeStar+
 
-If you now try to grab the balloon with the mouse, you will find that you actually
-grab joe, and the two morphs move together: the balloon is ''embedded'' inside joe.
-It is possible to embed more morphs inside joe. In addition to doing this
-programmatically, you can also embed morphs by direct manipulation.
+If you now try to grab the balloon with the mouse, you will find that you
+actually grab joe, and the two morphs move together: the balloon is ''embedded''
+inside joe. It is possible to embed more morphs inside joe. In addition to doing
+this programmatically, you can also embed morphs by direct manipulation.
 
 !!Creating and drawing your own morphs
 
@@ -155,12 +163,12 @@ To do this you define a subclass of ==Morph== and override the ==drawOn:==
 method to change its appearance.
 
 The morphic framework sends the message ==drawOn:== to a morph when it needs to
-redisplay the morph on the screen.  The parameter to ==drawOn:==  is a kind of
+redisplay the morph on the screen. The parameter to ==drawOn:== is a kind of
 ==Canvas==; the expected behaviour is that the morph will draw itself on that
 canvas, inside its bounds. Let's use this knowledge to create a cross-shaped
 morph.
 
-@@todo Using the browser, define a new class ==CrossMorph== inheriting from ==Morph==:
+Using the browser, define a new class ==CrossMorph== inheriting from ==Morph==:
 
 [[[language=smalltalk|caption=Defining ==CrossMorph==|label=scr:defineCrossMorph
 Morph subclass: #CrossMorph
@@ -186,23 +194,23 @@ drawOn: aCanvas
 +A ==CrossMorph== with its halo; you can resize it as you wish.>file://figures/NewCross.png|width=30|label=fig:cross+
 
 Sending the ==bounds== message to a morph answers its bounding box, which is an
-instance of ==Rectangle==.  Rectangles understand many messages that create
-other rectangles of related geometry; here we use the ==insetBy:== message with
+instance of ==Rectangle==. Rectangles understand many messages that create
+other rectangles of related geometry. Here, we use the ==insetBy:== message with
 a point as its argument to create first a rectangle with reduced height, and
 then another rectangle with reduced width.
 
-@@todo To test your new morph, execute ==CrossMorph new openInWorld==.
+To test your new morph, execute ==CrossMorph new openInWorld==.
 
 The result should look something like Figure *@fig:cross*. However, you will
 notice that the sensitive zone — where you can click to grab the morph — is
-still the whole bounding box.  Let's fix this.
+still the whole bounding box. Let's fix this.
 
 When the Morphic framework needs to find out which Morphs lie under the cursor,
 it sends the message ==containsPoint:== to all the morphs whose bounding boxes
 lie under the mouse pointer. So, to limit the sensitive zone of the morph to the
 cross shape, we need to override the ==containsPoint:== method.
 
-@@todo Define the following method in class ==CrossMorph==:
+Define the following method in class ==CrossMorph==:
 
 [[[language=smalltalk|caption=Shaping the sensitive zone of the ==CrossMorph==|label=scr:firstContains
 containsPoint: aPoint
@@ -265,7 +273,7 @@ apparent immediately if we draw a semi-transparent cross, as shown in Figure
 
 +The cross-shaped morph, showing a row of unfilled pixels. >file://figures/onePixelLineBug.png|width=40|label=fig:onePixelLineBug+
 
-@@todo Execute the following code in  a playground, line by line:
+Execute the following code in a playground, line by line:
 
 [[[language=smalltalk|caption=Use this code to show a bug|label=scr:overdrawBug
 CrossMorph new openInWorld;
@@ -288,11 +296,11 @@ drawOn: aCanvas
 
 This code seems to work, but if you try it on some crosses and resize them, you
 may notice that at some sizes, a one-pixel wide line separates the bottom of the
-cross from the remainder, as shown in Figure *@fig:onePixelLineBug*. This is due to rounding:
-when the size of the rectangle to be filled is not an integer, ==fillRectangle:
-color:== seems to round inconsistently, leaving one row of pixels unfilled. We
-can work around this by rounding explicitly when we calculate the sizes of the
-bars.
+cross from the remainder, as shown in Figure *@fig:onePixelLineBug*. This is due
+to rounding: when the size of the rectangle to be filled is not an integer,
+==fillRectangle: color:== seems to round inconsistently, leaving one row of
+pixels unfilled. We can work around this by rounding explicitly when we
+calculate the sizes of the bars.
 
 [[[language=smalltalk|caption===CrossMorph>>>horizontalBar== with explicit rounding|label=scr:improveHorizontalBar
 horizontalBar
@@ -310,8 +318,8 @@ verticalBar
 
 !!Interaction and animation
 
-To build live user-interfaces using morphs, we need to be able to interact with
-them using the mouse and the keyboard. Moreover, the morphs need to be able
+To build live user interfaces using morphs, we need to be able to interact with
+them using the mouse and keyboard. Moreover, the morphs need to be able
 respond to user input by changing their appearance and position — that is, by
 animating themselves.
 
@@ -328,7 +336,7 @@ then Morphic initiates a drag-and-drop operation. As we will discuss below, the
 Let's extend ==CrossMorph== to handle mouse events. We start by ensuring that
 all crossMorphs answer ==true== to the ==handlesMouseDown:== message.
 
-@@todo Add this method to ==CrossMorph==:
+Add this method to ==CrossMorph==:
 
 [[[language=smalltalk|caption=Declaring that ==CrossMorph== will react to mouse clicks|label=scr:mouseEvent
 CrossMorph>>#handlesMouseDown: anEvent
@@ -337,7 +345,8 @@ CrossMorph>>#handlesMouseDown: anEvent
 
 Suppose that when we click on the cross, we want to change the color of the
 cross to red, and when we action-click on it, we want to change the color to
-yellow. This can be accomplished by method *@scr:mouseDown*.
+yellow. This can be accomplished by the ==mouseDown:== method (Script
+*@scr:mouseDown*).
 
 [[[language=smalltalk|caption=Reacting to mouse clicks by changing the morph's color|label=scr:mouseDown
 CrossMorph>>#mouseDown: anEvent
@@ -362,7 +371,7 @@ morph to make the halo appear and grab either the brown move handle
 
 +Grab Handle button>file://figures/grabhandle.png|width=3|label=fig:grabHandle2+
 
-The ==anEvent== argument of ==mouseDown:== is an instance of ==MouseEvent,==
+The ==anEvent== argument of ==mouseDown:== is an instance of ==MouseEvent==,
 which is a subclass of ==MorphicEvent==. ==MouseEvent== defines the
 ==redButtonPressed== and ==yellowButtonPressed== methods. Browse this class to
 see what other methods it provides to interrogate the mouse event.
@@ -371,15 +380,15 @@ see what other methods it provides to interrogate the mouse event.
 
 To catch keyboard events, we need to take three steps.
 
-#Give the ''keyboard focus'' to a specific morph: for instance we can give focus to our morph when the mouse is over it.
-#Handle the keyboard event itself with the ==handleKeystroke:== method: this message is sent to the morph that has keyboard focus when the user presses a key.
+#Give the ''keyboard focus'' to a specific morph. For instance, we can give focus to our morph when the mouse is over it.
+#Handle the keyboard event itself with the ==handleKeystroke:== method. This message is sent to the morph that has keyboard focus when the user presses a key.
 #Release the keyboard focus when the mouse is no longer over our morph.
 
 Let's extend ==CrossMorph== so that it reacts to keystrokes. First, we need to
 arrange to be notified when the mouse is over the morph. This will happen if our
 morph answers ==true== to the ==handlesMouseOver:== message
 
-@@todo Declare that ==CrossMorph== will react when it is under the mouse pointer.
+Declare that ==CrossMorph== will react when it is under the mouse pointer.
 
 [[[language=smalltalk|caption=We want to handle ''mouse over'' events|label=scr:mouseEventDeclaration
 CrossMorph>>#handlesMouseOver: anEvent
@@ -390,7 +399,8 @@ This message is the equivalent of ==handlesMouseDown:== for the mouse position.
 When the mouse pointer enters or leaves the morph, the ==mouseEnter:== and
 ==mouseLeave:== messages are sent to it.
 
-@@todo Define two methods so that ==CrossMorph== catches and releases the keyboard focus, and a third method to actually handle the keystrokes.
+Define two methods so that ==CrossMorph== catches and releases the keyboard
+focus, and a third method to actually handle the keystrokes.
 
 [[[language=smalltalk|caption=Getting the keyboard focus when the mouse enters the morph|label=scr:gettingFocus
 CrossMorph>>#mouseEnter: anEvent
@@ -419,24 +429,24 @@ CrossMorph>>#handleKeystroke: anEvent
 We have written this method so that you can move the morph using the arrow keys.
 Note that when the mouse is no longer over the morph, the ==handleKeystroke:==
 message is not sent, so the morph stops responding to keyboard commands. To
-discover the key values, you can open a Transcript window and add ==Transcript==
-==show: anEvent keyValue== to method *@scr:handleKeystroke*. The ==anEvent==
-argument of ==handleKeystroke:== is an instance of ==KeyboardEvent==, another
-subclass of ==MorphicEvent==. Browse this class to learn more about keyboard
-events.
+discover the key values, you can open a Transcript window and add ==Transcript
+show: anEvent keyValue== to the ==handleKeystroke:== method in Script
+*@scr:handleKeystroke*. The ==anEvent== argument of ==handleKeystroke:== is an
+instance of ==KeyboardEvent==, another subclass of ==MorphicEvent==. Browse this
+class to learn more about keyboard events.
 
 !!!Morphic animations
 
 Morphic provides a simple animation system with two main methods: ==step== is
 sent to a morph at regular intervals of time, while ==stepTime== specifies the
-time in milliseconds between ==steps==.==stepTime== is actually the ''minimum''
+time in milliseconds between ==steps==. ==stepTime== is actually the ''minimum''
 time between ==steps==. If you ask for a ==stepTime== of 1 ms, don't be
 surprised if Pharo is too busy to step your morph that often. In addition,
 ==startStepping== turns on the stepping mechanism, while ==stopStepping== turns
-it off again;  ==isStepping== can be used to find out whether a morph is
+it off again. ==isStepping== can be used to find out whether a morph is
 currently being stepped.
 
-@@todo Make ==CrossMorph== blink by defining these methods as follows:
+Make ==CrossMorph== blink by defining these methods as follows:
 
 [[[language=smalltalk|caption=Defining the animation time interval|label=scr:animationTime
 CrossMorph>>#stepTime
@@ -452,13 +462,13 @@ CrossMorph>>#step
 
 To start things off, you can open an inspector on a ==CrossMorph== using the
 debug handle (see Figure *@fig:debugHandle*) in the morphic halo, type ==self
-startStepping== in the small workspace pane at the bottom, and  ==do it==.
-Alternatively, you can modify the ==handleKeystroke:== method so that you can
-use the ==+== and ==-== keys to start and stop stepping.
+startStepping== in the small workspace pane at the bottom, and ==Do it==.
 
 +The debug handle button>file://figures/debugHandle.png|width=3|label=fig:debugHandle+
 
-@@todo Add the following code to method *@scr:handleKeystroke*:
+Alternatively, you can modify the ==handleKeystroke:== method so that you can
+use the ==+== and ==-== keys to start and stop stepping. Add the following code
+to the ==handleKeystroke:== method in Script *@scr:handleKeystroke*:
 
 [[[language=smalltalk|caption=Add the beginning and the end of the steps|label=scr:startStopSteps
 	keyValue = $+ asciiValue
@@ -470,7 +480,7 @@ use the ==+== and ==-== keys to start and stop stepping.
 !!Interactors
 
 To prompt the user for input, the ==UIManager== class provides a large number of
-ready-to-use dialog boxes. For instance, the ==request:initialAnswer:== method
+ready to use dialog boxes. For instance, the ==request:initialAnswer:== method
 returns the string entered by the user (Figure *@fig:dialogName*).
 
 [[[language=smalltalk|caption=Use the UIManager|label=scr:uimanager
@@ -478,6 +488,7 @@ UIManager default request: 'What''s your name?' initialAnswer: 'no name'
 ]]]
 
 +An input dialog>file://figures/dialog.png|label=fig:dialogName|width=70+
+
 +Pop-up menu>file://figures/popup.png|width=70|label=fig:popup+
 
 To display a popup menu, use one of the various ==chooseFrom:== methods (Figure
@@ -489,16 +500,17 @@ UIManager default
 	lines: #(2 4) message: 'Choose a shape'
 ]]]
 
-@@todo Browse the ==UIManager== class and try out some of the interaction methods offered.
+Browse the ==UIManager== class and try out some of the interaction methods
+offered.
 
 !!Drag-and-drop
 
 Morphic also supports drag-and-drop. Let's examine a simple example with two
 morphs, a receiver morph and a dropped morph. The receiver will accept a morph
-only if the dropped morph matches a given condition: in our example,  the morph
+only if the dropped morph matches a given condition: in our example, the morph
 should be blue. If it is rejected, the dropped morph decides what to do.
 
-@@todo Let's first define the receiver morph:
+Let's first define the receiver morph:
 
 [[[language=smalltalk|caption=Defining a morph on which we can drop other morphs|label=scr:receiverMorph
 Morph subclass: #ReceiverMorph
@@ -508,7 +520,7 @@ Morph subclass: #ReceiverMorph
 	category: 'PBE-Morphic'
 ]]]
 
-@@todo Now define the initialization method in the usual way:
+Now define the initialization method in the usual way:
 
 [[[language=smalltalk|caption=Initializing ==ReceiverMorph==|label=scr:initializeReceiverMorph
 ReceiverMorph>>#initialize
@@ -517,14 +529,14 @@ ReceiverMorph>>#initialize
 	bounds := 0 @ 0 extent: 200 @ 200
 ]]]
 
-How do we decide if the receiver morph will accept or repel the dropped morph?
+How do we decide if the receiver morph will accept or reject the dropped morph?
 In general, both of the morphs will have to agree to the interaction. The
-receiver does this by responding to ==wantsDroppedMorph:event:==; the first
+receiver does this by responding to ==wantsDroppedMorph:event:==. Its first
 argument is the dropped morph, and the second the mouse event, so that the
 receiver can, for example, see if any modifier keys were held down at the time
 of the drop. The dropped morph is also given the opportunity to check and see if
-it likes the morph onto which it is being dropped; it is sent the message
-==wantsToBeDroppedInto:==.  The default implementation of  this method (in class
+it likes the morph onto which it is being dropped, by responding to the message
+==wantsToBeDroppedInto:==. The default implementation of this method (in class
 ==Morph==) answers ==true==.
 
 [[[language=smalltalk|caption=Accept dropped morphs based on their color|label=scr:acceptDropMorph
@@ -534,8 +546,8 @@ ReceiverMorph>>#wantsDroppedMorph: aMorph event: anEvent
 
 What happens to the dropped morph if the receiving morph doesn't want it?  The
 default behaviour is for it to do nothing, that is, to sit on top of the
-receiving morph, but without interacting with it.  A more intuitive behavior is
-for the dropped morph to go back to its original position.  This can be achieved
+receiving morph, but without interacting with it. A more intuitive behavior is
+for the dropped morph to go back to its original position. This can be achieved
 by the receiver answering ==true== to the message ==repelsMorph:event:== when it
 doesn't want the dropped morph:
 
@@ -546,7 +558,7 @@ ReceiverMorph>>#repelsMorph: aMorph event: anEvent
 
 That's all we need as far as the receiver is concerned.
 
-@@todo Create instances of ==ReceiverMorph== and ==EllipseMorph== in a playground:
+Create instances of ==ReceiverMorph== and ==EllipseMorph== in a playground:
 
 [[[language=smalltalk|caption=Create an instance of ReceiverMorph|label=scr:createReceiverMorph
 ReceiverMorph new openInWorld;
@@ -554,12 +566,14 @@ ReceiverMorph new openInWorld;
 EllipseMorph new openInWorld.
 ]]]
 
-+ A ''ReceiverMorph'' and an ''EllipseMorph''>file://figures/receiverMorph.png|width=100|label=fig:receiverMorph+
++A ==ReceiverMorph== and an ==EllipseMorph==>file://figures/receiverMorph.png|width=100|label=fig:receiverMorph+
 
-Try to drag-and-drop the yellow ==EllipseMorph== onto the receiver. It will be
+Try to drag and drop the yellow ==EllipseMorph== onto the receiver. It will be
 rejected and sent back to its initial position.
 
-@@todo To change this behaviour, change the color of the ellipse morph to ==Color blue== using an inspector.  Blue morphs should be accepted by the ==ReceiverMorph==.
+To change this behaviour, change the color of the ellipse morph to the color
+blue (by sending it the message ==color: Color blue;== right after ==new==).
+Blue morphs should be accepted by the ==ReceiverMorph==.
 
 Let's create a specific subclass of ==Morph==, named ==DroppedMorph==, so we can
 experiment a bit more:
@@ -594,7 +608,8 @@ Sending the ==hand== message to an event answers the ''hand'', an instance of
 ==HandMorph== that represents the mouse pointer and whatever it holds. Here we
 tell the ==World== that the hand should grab ==self==, the rejected morph.
 
-@@todo Create two instances of ==DroppedMorph==, and then drag-and-drop them onto the receiver.
+Create two instances of ==DroppedMorph==, and then drag and drop them onto the
+receiver.
 
 [[[language=smalltalk|caption=Open a now DroppedMorph|label=scr:newDroppedMorph
 ReceiverMorph new openInWorld.
@@ -603,19 +618,19 @@ morph position: (morph position + (70@0)).
 (DroppedMorph new color: Color green) openInWorld.
 ]]]
 
-+Creation of DroppedMorph and ReceiverMorph>file://figures/droppedMorph.png|width=70|label=fig:droppedMorph+
++Creation of ==DroppedMorph== and ==ReceiverMorph==>file://figures/droppedMorph.png|width=70|label=fig:droppedMorph+
 
 The green morph is rejected and therefore stays attached to the mouse pointer.
 
 !!A complete example
 
-Let's design a morph to roll a die (NB: One die, two dice). Clicking on it will
-display the values of all sides of the die in a quick loop, and another click
-will stop the animation.
+Let's design a morph to roll a die. Clicking on it will display the values of
+all sides of the die in a quick loop, and another click will stop the animation.
 
 +The die in Morphic>file://figures/die.png|width=30|label=fig:dialogDie+
 
-@@todo Define the die as a subclass of ==BorderedMorph== instead of ==Morph==, because we will make use of the border.
+Define the die as a subclass of ==BorderedMorph== instead of ==Morph==, because
+we will make use of the border.
 
 [[[language=smalltalk|caption=Defining the die morph|label=scr:classDie
 BorderedMorph subclass: #DieMorph
@@ -637,7 +652,8 @@ DieMorph class>>#faces: aNumber
 ]]]
 
 The ==initialize== method is defined on the instance side in the usual way;
-remember that ==new== sends ==initialize== to the newly-created instance.
+remember that ==new== automatically sends ==initialize== to the newly-created
+instance.
 
 [[[language=smalltalk|caption=Initializing instances of ==DieMorph==|label=scr:initializeDie
 DieMorph>>#initialize
@@ -715,11 +731,11 @@ DieMorph>>#drawOn: aCanvas
 		do: [:aPoint | self drawDotOn: aCanvas at: aPoint]
 ]]]
 
-The second part of this method uses the reflective capacities of Smalltalk.
+The second part of this method uses the reflective capacities of Pharo.
 Drawing the dots of a face is a simple matter of iterating over the collection
 given by the ==faceX== method for that face, sending the ==drawDotOn:at:==
 message for each coordinate. To call the correct ==faceX== method, we use the
-==perform:== method which sends a message built from a string, here ==('face',
+==perform:== method which sends a message built from a string, ==('face',
 dieValue asString) asSymbol==. You will encounter this use of ==perform:== quite
 regularly.
 
@@ -732,20 +748,20 @@ DieMorph>>#drawDotOn: aCanvas at: aPoint
 		color: Color black
 ]]]
 
-Since the coordinates are normalized to the ''[0:1]'' interval, we scale them to
+Since the coordinates are normalized to the ==[0:1]== interval, we scale them to
 the dimensions of our die: ==self extent * aPoint==.
 
-@@todo We can already create a die instance from a playground (see result on Figure *@fig:die6*):
+We can already create a die instance from a playground (see result on Figure
+*@fig:die6*):
 
 [[[language=smalltalk|caption=Create a Die 6|label=scr:die6
 (DieMorph faces: 6) openInWorld.
 ]]]
 
-+ A new die 6 with ==(DieMorph faces: 6) openInWorld==>file://figures/die6.png|width=30|label=fig:die6+
++A new die 6 with ==(DieMorph faces: 6) openInWorld==>file://figures/die6.png|width=30|label=fig:die6+
 
 To change the displayed face, we create an accessor that we can use as ==myDie
 dieValue: 5==:
-
 
 [[[language=smalltalk|caption=Setting the current value of the die|label=scr:dieValue
 DieMorph>>#dieValue: aNumber
@@ -755,7 +771,7 @@ DieMorph>>#dieValue: aNumber
 			self changed ]
 ]]]
 
-+ Result of ==(DieMorph faces: 6) openInWorld; dieValue: 5==>file://figures/die.png|width=30|label=fig:dieValue5+
++Result of ==(DieMorph faces: 6) openInWorld; dieValue: 5==>file://figures/die.png|width=30|label=fig:dieValue5+
 
 Now we will use the animation system to show quickly all the faces:
 
@@ -780,6 +796,7 @@ DieMorph>>#mouseDown: anEvent
 	anEvent redButtonPressed
 		ifTrue: [isStopped := isStopped not]
 ]]]
+
 Now the die will roll or stop rolling when we click on it.
 
 !!More about the canvas
@@ -789,18 +806,19 @@ canvas is the area on which the morph draws itself. By using the graphics
 methods of the canvas you are free to give the appearance you want to a morph.
 If you browse the inheritance hierarchy of the ==Canvas== class, you will see
 that it has several variants. The default variant of ==Canvas== is
-==FormCanvas==; you will find the key graphics methods in ==Canvas== and
+==FormCanvas==, and you will find the key graphics methods in ==Canvas== and
 ==FormCanvas==. These methods can draw points, lines, polygons, rectangles,
 ellipses, text, and images with rotation and scaling.
 
-It is also possible to use other kinds of canvas, to obtain transparent morphs,
-more graphics methods, antialiasing, and so on. To use these features you will
-need an ==AlphaBlendingCanvas== or a ==BalloonCanvas==. But how can you obtain
-such a canvas in a ==drawOn:== method, when ==drawOn:== receives an instance of
-==FormCanvas== as its argument? Fortunately, you can transform one kind of
-canvas into another.
+It is also possible to use other kinds of canvas, for example to obtain
+transparent morphs, more graphics methods, antialiasing, and so on. To use these
+features you will need an ==AlphaBlendingCanvas== or a ==BalloonCanvas==. But
+how can you obtain such a canvas in a ==drawOn:== method, when ==drawOn:==
+receives an instance of ==FormCanvas== as its argument? Fortunately, you can
+transform one kind of canvas into another.
 
-@@todo To use a canvas with a 0.5 alpha-transparency in ==DieMorph==, redefine ==drawOn:== like this:
+To use a canvas with a 0.5 alpha-transparency in ==DieMorph==, redefine
+==drawOn:== like this:
 
 [[[language=smalltalk|caption=Drawing a translucent die|label=scr:translucentDie
 DieMorph>>#drawOn: aCanvas
@@ -821,7 +839,7 @@ Morphic is a graphical framework in which graphical interface elements can be
 dynamically composed.
 
 -You can convert an object into a morph and display that morph on the screen by sending it the messages ==asMorph openInWorld==.
--You can manipulate a morph by meta-click{ing} on it and using the handles that appear. (Handles have help balloons that explain what they do.)
+-You can manipulate a morph by meta-clicking on it and using the handles that appear. (Handles have help balloons that explain what they do.)
 -You can compose morphs by embedding one onto another, either by drag and drop or by sending the message ==addMorph:==.
 -You can subclass an existing morph class and redefine key methods, like ==initialize== and ==drawOn:==.
 -You can control how a morph reacts to mouse and keyboard events by redefining the methods ==handlesMouseDown:==, ==handlesMouseOver:==, etc.
