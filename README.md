@@ -131,7 +131,7 @@ The latest versions of *Updated Pharo by Example* can be found at the following 
 
 ## License
 This book is licensed under a
-[Creative Commons Attribution-Noncommercial-Share Alike 3.0 license](http://creativecommons.org/licenses/by-nc-sa/3.0/).
+[Creative Commons Attribution-ShareAlike 3.0 license](http://creativecommons.org/licenses/by-sa/3.0/).
 
 ## Other Books
 #### Deep Into Pharo (Pharo By Example vol 2)
