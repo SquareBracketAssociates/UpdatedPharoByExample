@@ -184,9 +184,9 @@ talking to itself and saying \"Self, use square corners!\", \"Self, turn off\!\"
 
 +The method initialize into the pane>file://figures/initialize.png|width=50|label=fig:initialize+
 
-You can also notice that there is a little green arrow near to your method (see
-Figure *@fig:initialize*). This mean the method exist in the super class and is
-override in the class.
+Notice that there is a little green arrow next to your method (see
+Figure *@fig:initialize*). This means the method exists in the super class and is
+overridden in your class.
 
 !!Inspecting an object
 
