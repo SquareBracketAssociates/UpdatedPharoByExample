@@ -414,8 +414,8 @@ methods, as we have done here.
 
 A word of advice: Don't put all your rendering code into a single method.
 
-Instead, split it into helper methods named using the pattern ==render*On:. All
-rendering methods go in the ==rendering== protocol. Don't send
+Instead, split it into helper methods named using the pattern ==render\*On:==.
+All rendering methods go in the ==rendering== protocol. Don't send
 ==renderContentOn:== from your own code, use ==render:== instead.
 
 Look at the following code. The first helper method,
