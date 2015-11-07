@@ -16,6 +16,56 @@ use it. However, since this chapter is written for Pharo 4, if you notice
 differences between the appearance or behaviour of your system and what is
 described here, do not be surprised.
 
+!!Pharo components
+
+Like many Smalltalk-derived systems, Pharo consists of four main component files. 
+Although you do not need to deal with them directly for the purposes
+of this book, it is useful to understand the roles they play.
+
+""1."" The ""virtual machine"" (VM) is the only component that is
+different for each operating system. The VM executable is named:
+- ==Pharo.exe== for Windows; 
+- ==pharo== for Linux ; and
+- ==Pharo== for OSX (inside a package also named ==Pharo==).
+
+The other components below are portable across operating systems, 
+and can be copied and run on any appropriate virtual machine.
+
+""2."" The ""sources"" file contains source code for parts of
+Pharo that don't change frequently. Typically a new ""sources""
+file is generated once per major release of Pharo.
+For Pharo 4.0, this file is named ==PharoV40.sources==.
+
+
+""3."" The ""changes"" file logs of all source code 
+modifications since the ==.sources== file was generated.
+This facilitates a per method history for diffs or reverting.
+Each release provides a near empty file named for the release,
+for example ==Pharo4.0.changes==.
+
+""4."" The ""image"" file provides a frozen in time snapshot 
+of a running Pharo system. This is the heart of Pharo, 
+containing the live state of all objects in the system 
+(including classes and methods, since they are objects too).
+The file is named for the release like ==Pharo4.0.image==.
+
+The ==.image== and ==.changes== files provided by a Pharo release 
+are the starting point for a live environment that you adapt to your needs. 
+As you work in Pharo, these files are modified, 
+so you need to make sure that they are writable. 
+The ==.image== and ==.changes== files are intimately linked 
+and should always be kept together, with matching base filenames.
+Never edit them directly with a text editor, as ==.images== holds your 
+live object runtime memory,which indexes into the ==.changes== files 
+for the source. 
+It is a good idea to keep a backup copy of the downloaded ==.image== and ==.changes==
+files so you can always start from a fresh image and reload your code.
+
+The four main component files above can be placed in the same directory, 
+but its also possible to put the Virtual Machine and sources file in separate
+directory where everyone has read-only access to them. 
+Do whatever works best for your style of working and your operating system.
+
 !!Getting started
 
 Pharo is available as a free download from
@@ -34,42 +84,6 @@ capable of running standalone. Depending on your platform, download the
 appropriate zip file, uncompress it in a directory of your choice and now you
 are ready to launch Pharo. In case of Ubuntu Linux, there is also the extra
 option of installing Pharo via the Pharo PPA.
-
-!!Pharo components
-
-Like many Smalltalk-derived systems, Pharo currently consists of three main
-components. Although you do not need to deal with them directly for the purposes
-of this book, it is important to understand the roles that they play.
-
-""1."" The ""image"" is a current snapshot of a running Pharo system, frozen in
-time. It consists of two files: an ==.image== file, which contains the state of
-all of the objects in the system (including classes and methods, since they are
-objects too), and a ==.changes== file, which contains the log of all of the
-changes to the source code of the system. For Pharo 4.0, these files are named
-==Pharo4.0.image== and ==Pharo4.0.changes==. These files are portable across
-operating systems, and can be copied and run on any appropriate virtual machine.
-
-""2."" The ""virtual machine"" (VM) is the only part of the system that is
-different for each operating system. Pre-compiled virtual machines are available
-for all major computing environments. (For example, on Windows, the VM file is
-named ==Pharo.exe==).
-
-""3."" The ""sources"" file contains the source code for all of the parts of
-Pharo that don't change very frequently. For Pharo 4.0, this file is named
-==PharoV40.sources==.
-
-As you work in Pharo, the ==.image== and ==.changes== files are modified (so you
-need to make sure that they are writable). Always keep these two files together.
-Never edit them directly with a text editor, as Pharo uses them to store the
-objects you work with and to log the changes you make to the source code. It is
-a good idea to keep a backup copy of the downloaded ==.image== and ==.changes==
-files so you can always start from a fresh image and reload your code.
-
-The ==.sources== file and the VM can be read-only, and can be shared between
-different users. All of these files can be placed in the same directory, but it
-is also possible to put the Virtual Machine and sources file in separate
-directory where everyone has access to them. Do whatever works best for your
-style of working and your operating system.
 
 !!Launching Pharo
 
