@@ -51,32 +51,77 @@ and recompile and extend applications while the server is running.
 
 !!Getting started
 
-The easiest way to get started is to download the ''Seaside One-Click
-Experience'' from the Seaside web site( *http://seaside.st* ). This is a
-prepackaged version of Seaside 2.8 for Mac OSX, Linux and Windows. The same web
-site lists many pointers to additional resources, including documentation and
-tutorials. Be warned, however, that Seaside has evolved considerably over the
-years, and not all available material refers to the latest version of Seaside.
+!!!The Seaside community
 
-Seaside includes a web server; you can turn the server on, telling it to listen
-on port 8080, by evaluating ==WAKom startOn: 8080==, and you can turn it off
-again by evaluating ==WAKom stop==. In the default installation, the default
-administrator login is ==admin== and the default password is ==seaside==. To
-change them, evaluate: ==WADispatcherEditor initialize==. This will prompt
-you for a new name and password.
+The Seaside.st website (*http://www.seaside.st*) contains many Seaside-related
+resources, including downloads, documentation and tutorials. (Keep in mind that
+Seaside has evolved considerably over the years, and not all available material
+refers to the latest version.) There are also several active mailing lists,
+which you can find at *http://www.seaside.st/community/mailinglist*.
 
-+Starting up Seaside>file://figures/seasideStartup.png|label=fig:seasideStartup+
+In addition, the Wiki on the Seaside GitHub repository
+(*https://github.com/seasidest/seaside/wiki*) provides some crucial
+documentation, including the Release Notes for each version of Seaside.
 
-Start the Seaside server and direct a web browser to *http://localhost:8080/seaside/*.
+!!!Installing Seaside using the One-Click Experience image
 
-You should see a web page that looks like Figure *@fig:seasideStartup*.
++Start up the Seaside One-Click Experience image.>file://figures/seasideOneClickExperience.png|label=fig:seasideOneClickExperience+
 
-Navigate to the ==examples > counter== page. (Figure *@fig:counter*)
+The easiest way to get started is to download the ==Seaside One-Click Experience
+3.1== from the Pharo Downloads section of the Seaside web site
+(*http://www.seaside.st/download/pharo*). This is a prepackaged version of the
+latest stable version of Seaside (currently 3.1) for Mac OSX, Linux and Windows,
+built on Pharo 4. These are full Pharo distributions, which include the Pharo
+VM as well as a development image with many Seaside-related packages preloaded,
+and a helpful Seaside control panel that starts when you open the image.
 
-+The counter.>file://figures/counter.png|label=fig:counter+
+Download and launch the Seaside One-Click image (feel free to refer to the
+==Getting Started== section of
+Chapter *: A Quick Tour of Pharo>../PharoTour/PharoTour.pillar@cha:tour* for an
+in-depth discussion of launching Pharo images). Once started, you should see
+something similar to Figure *@fig:seasideOneClickExperience* - a familiar
+Pharo development environment with some windows pre-opened, such as welcome
+messages as well as a Seaside Control Panel.
 
-This page is a small Seaside application: it displays a counter that can be
-incremented or decremented by clicking on the __++__ and __–\–__ links.
+!!!Starting the Seaside server
+
+The easiest way to start and stop the Seaside web server is through the
+==Seaside Control Panel==. If you're using the Seaside One-Click Experience
+image, it should already be open (and running a server adapter) when you open
+the image for the first time. You can manually open it at any time, however,
+by evaluating ==WAPharoServerAdapterSpecBrowser open.==
+
+Right-clicking on the top pane of the Seaside Control Panel lets you add new
+server adapters. For example, you can add a ==ZnZincServerAdaptor==, specify
+a port number, then start it using the ==Start== button on the control panel,
+which launches a new Seaside server that listens on that port.
+
+[[[language=smalltalk|caption=Starting and stopping Seaside using the Zinc Server adaptor|label=scr:startingStoppingSeaside
+ZnZincServerAdaptor startOn: 8080.  "start on port 8080"
+ZnZincServerAdaptor stop.
+]]]
+
+You can also start and stop the Seaside web server from a playground, by
+sendning the ==startOn:== and ==stop== messages to your server adapter of
+choice.
+
+!!!The Seaside Welcome page
+
+Once the Seaside server is running, navigate to *http://localhost:8080/* in
+your web browser. You should see a web page that looks like Figure
+*@fig:seasideStartup*.
+
+The Welcome page contains links to some sample Seaside applications. It also
+links to various documents and resources, and (in the sidebar) links to the
+Configuration and Browse applications that allow you to interact with Seaside
+applications registered in your image.
+
+Let's look at one of the example applications that demonstrates the Counter
+component: click on the ==Counter== link.
+
+This page is a small Seaside application: it displays a counter component that
+can be incremented or decremented by clicking on the __++__ and __–\–__ links
+(see Figure *@fig:counter*).
 
 Play with the counter by clicking on these links. Use your browser's
 ''Back'' button to go back to a previous state, and then click on __++__ again.
@@ -88,70 +133,84 @@ Notice the toolbar at the bottom of the web page in Figure *@fig:seasideStartup*
 Seaside supports a notion of ''sessions'' to keep track of the state of the
 application for different users. ==New Session== will start a new session on the
 counter application. ==Configure== allows you to configure the settings of your
-application through a convenient web-interface. (To close the ==Configure==
-view, click on the __x__ in the top right corner.) ==Toggle Halos== provides a
+application through a web interface. (To close the ==Configure==
+view, click on the __x__ in the top right corner.) ==Halos== provides a
 way to explore the state of the application running on the Seaside server.
-==Profiler== and ==Memory== provide detailed information about the run-time
-performance of the application. ==HTML== can be used to validate the generated
-web page, but works only  when the web page is publicly accessible from the
+==Profile== and ==Memory== provide detailed information about the run-time
+performance of the application. ==XHTML== can be used to validate the generated
+web page, but works only when the web page is publicly accessible from the
 Internet, because it uses the W3C validation service.
+
++The Seaside Welcome application at ==http://localhost:8080/==>file://figures/seasideStartup.png|label=fig:seasideStartup+
+
++The counter.>file://figures/counter.png|label=fig:counter+
+
+!!!Single components
 
 Seaside applications are built up from pluggable ''components''. In fact,
 components are ordinary Smalltalk objects. The only thing that is special about
-them is that they should be instances of classes that inherit from the Seaside
+them is that they are instances of classes that inherit from the Seaside
 framework class ==WAComponent==. We can explore components and their classes
 from the Pharo image, or directly from the web interface using halos.
 
 +Halos>file://figures/counterHalos.png|label=fig:counterHalos+
 
-Select ==Toggle Halos==. You should see a web page like Figure
-*@fig:counterHalos*.
+Click on the ==Halos== link at the bottom of the page to toggle on halo
+functionality. You'll see a number of nested components each with their own
+halo icons, including the Counter component (you may have to scroll down a bit
+to reach it), like the one seen in Figure *@fig:counterHalos*.
 
-At the top left the text ==WACounter== tells us the class of the Seaside
-component that implements the behavior of this web page. Next to this are three
-clickable icons. The first, with the pencil, activates a Seaside class browser
-on this class. The second, with the magnifying glass, opens an object inspector
-on the currently active ==WACounter== instance. The third, with the coloured
-circles, displays the CSS style sheet for this component. At the top right, the
-__R__ and __S__ let you toggle between the Rendered and (formatted) Source views
-of the web page. Experiment with all of these links. Note that the __++__ and
+At the top left of the component, the text ==WACounter== tells us the class of
+the Seaside component that implements its behavior. Next to this are three
+clickable icons. The first is the ==Class Browser== (the notepad with pencil
+icon), which opens up a (web-based) Seaside class browser on this component's
+class. The second is the ==Object Inspector== (notepad with magnifying glass
+icon), which opens a web-based object inspector on the actual ==WACounter==
+instance. The third is the ==CSS Style Manager== (the coloured circles icon),
+opens a Seaside view to display the CSS style sheet for this component.
+
+At the top right of the component, the ==Render== / ==Source== links let you
+toggle between the Rendered and (formatted) Source views of the component's
+HTML source code. Experiment with all of these links. Note that the __++__ and
 __-\-__ links are also active in the source view.
 
-The Seaside class browser and object inspector can be very convenient when the
+The Seaside Class Browser and Object Inspector can be very convenient when the
 server is running on another computer, especially when the server does not have
 a display, or if it is in remote place. However, when you are first developing a
 Seaside application, the server will be running locally, and it is easy to use
 the ordinary Pharo development tools in the server image.
 
-+Halting the counter>file://figures/haltingCounter.png|label=fig:haltingCounter+
++Debugging the running Counter application in the Pharo image>file://figures/haltingCounter.png|label=fig:haltingCounter+
 
-Using the object inspector link in the web browser, open an inspector on the
-underlying Pharo counter object and evaluate ==self halt==.
+Using the Object Inspector link in the web browser, open an inspector on the
+underlying Pharo counter object, type ==self halt== and click the ==doIt==
+button.
 
-The web page will stop loading. Now switch to the Seaside image. You should see
-a pre-debugger window (Figure *@fig:haltingCounter*) showing a ==WACounter==
-object executing a ==halt==. Examine this execution in the debugger, and then
-==Proceed==. Go back to the web browser and notice that the counter application
-is running again.
+The form submits, and the browser will hang, spinning. Now switch to the Pharo
+Seaside image. You should see a pre-debugger window (Figure
+*@fig:haltingCounter*) showing a ==WACounter== object executing a ==halt==.
+Examine this execution in the debugger, and then ==Proceed==. Go back to the web
+browser and notice that the Counter application is running again.
+
+!!!Multiple components
 
 Seaside components can be instantiated multiple times and in different contexts.
 
 +Independent subcomponents>file://figures/multiCounterHalos.png|label=fig:multiCounterHalos+
 
-Now, point your web browser to
-*http://localhost:8080/seaside/examples/multicounter*.
+Now, point your web browser to *http://localhost:8080/examples/multicounter*.
 
-You will see an application built out of a number of independent instances of
-the counter component. Increment and decrement several of the counters. Verify
-that they behave correctly even if you use the ''Back'' button. Toggle the halos
-to see how the application is built out of nested components. Use the Seaside
-class browser to view the implementation of ==WAMultiCounter==. You should see
-three methods on the class side (==canBeRoot==, ==description==, and
-==initialize==) and three on the instance side (==children==, ==initialize==,
-and ==renderContentOn:==). Note that an application is simply a component that
-is willing to be at the root of the component containment hierarchy; this
-willingness is indicated by defining a class-side method ==canBeRoot== to answer
-==true==.
+You will see a simple application composed of a number of independent instances
+of the ==WACounter== component, nested inside a ==WAMultiCounter==. Increment
+and decrement several of the counters. Verify that they behave correctly even if
+you use the ''Back'' button. Toggle the halos to see how the application is
+built out of nested components. Use the Seaside class browser to view the
+implementation of ==WAMultiCounter==. You should see two methods on the class
+side (==description==, and ==initialize==) and three on the
+instance side (==children==, ==initialize==, and ==renderContentOn:==). Note
+that an application is simply a component that is willing to be at the root of
+the component containment hierarchy; this willingness is indicated by defining a
+class-side method ==canBeRoot== to answer ==true==.
 
 You can use the Seaside web interface to configure, copy or remove individual
 applications (which are root-level components). Try making the following
@@ -551,7 +610,7 @@ the functional tests for Seaside. Have a look at the package
 *http://localhost:8080/seaside/tests/alltests*. Select ==WAInputTest== and click
 on the ==Restart== button to see most of the features of forms.
 
-Don't forget, if you ==Toggle Halos==, you can browse the source code of the
+Don't forget, if you toggle ==Halos==, you can browse the source code of the
 examples directly using the Seaside class browser.
 
 !!CSS: Cascading style sheets
