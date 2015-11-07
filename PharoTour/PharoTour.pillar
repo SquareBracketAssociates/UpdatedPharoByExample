@@ -16,25 +16,6 @@ use it. However, since this chapter is written for Pharo 4, if you notice
 differences between the appearance or behaviour of your system and what is
 described here, do not be surprised.
 
-!!Getting started
-
-Pharo is available as a free download from
-*http://pharo.org/download>http://pharo.org/download*. Click the button for your
-operating system to download the appropriate ==.zip== file. For example, the
-full Pharo 4.0 distribution for Mac OS X will be available at
-*http://files.pharo.org/platform/Pharo4.0-mac.zip>http://files.pharo.org/platform/Pharo4.0-mac.zip*.
-
-Once that file is unzipped, it will contain everything you need to run
-Pharo (this includes the VM, the image, and the sources, as explained below).
-
-!!Installing Pharo
-
-Pharo does not need to install anything in your system, as it's perfectly
-capable of running standalone. Depending on your platform, download the
-appropriate zip file, uncompress it in a directory of your choice and now you
-are ready to launch Pharo. In case of Ubuntu Linux, there is also the extra
-option of installing Pharo via the Pharo PPA.
-
 !!Pharo components
 
 Like many Smalltalk-derived systems, Pharo currently consists of three main
@@ -70,6 +51,25 @@ different users. All of these files can be placed in the same directory, but it
 is also possible to put the Virtual Machine and sources file in separate
 directory where everyone has access to them. Do whatever works best for your
 style of working and your operating system.
+
+!!Getting started
+
+Pharo is available as a free download from
+*http://pharo.org/download>http://pharo.org/download*. Click the button for your
+operating system to download the appropriate ==.zip== file. For example, the
+full Pharo 4.0 distribution for Mac OS X will be available at
+*http://files.pharo.org/platform/Pharo4.0-mac.zip>http://files.pharo.org/platform/Pharo4.0-mac.zip*.
+
+Once that file is unzipped, it will contain everything you need to run
+Pharo (this includes the VM, the image, and the sources, as explained below).
+
+!!Installing Pharo
+
+Pharo does not need to install anything in your system, as it's perfectly
+capable of running standalone. Depending on your platform, download the
+appropriate zip file, uncompress it in a directory of your choice and now you
+are ready to launch Pharo. In case of Ubuntu Linux, there is also the extra
+option of installing Pharo via the Pharo PPA.
 
 !!Launching Pharo
 
