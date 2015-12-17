@@ -703,7 +703,7 @@ requested and click ""Register project"" button. You will be sent to your
 profile page, on the right side you will see the list of your projects and
 projects you watch by other coders. Click on the project you just created.
 
-Under ""Monticello registration"" title label you will see a box containg a
+Under ""Monticello registration"" title label you will see a box containing a
 smalltalk message similar to
 
 [[[lang=Smalltalk|caption=A repository pattern|label=scr:RepositoryPattern
