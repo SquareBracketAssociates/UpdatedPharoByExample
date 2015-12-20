@@ -37,7 +37,7 @@ This revision has been liberally updated to align with Pharo 4.0.
 Various aspects of Pharo are presented, starting with
 the basics then proceeding to intermediate topics.
 Advanced topics are presented in "Deep into Pharo", a book on the internals of Pharo
-that is freely available at *http://www.deepintopharo.org*
+that is freely available at *http://www.deepintopharo.com*
 
 This book will not teach you how to program. The reader should have some
 familiarity with programming languages.  Some background with object-oriented
