@@ -4,7 +4,7 @@
 
 The goal of this chapter is to show you how to develop programs in the Pharo
 programming environment. You have already seen how to define methods and classes
-using the browser; this chapter will show you more of the its features,
+using the browser; this chapter will show you more of its features,
 and introduce you to some of the other browsers.
 
 Of course, very occasionally you may find that your program does not work as you
