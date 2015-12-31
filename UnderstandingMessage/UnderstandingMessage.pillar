@@ -405,7 +405,7 @@ are enclosed in parentheses, they are evaluated first. Hence the message send
 Table : Message sends and their fully parenthesized equivalents
 |!Implicit precedence |!Explicitly parenthesized equivalent
 |aPen color: Color yellow | aPen color: (Color yellow)
-| aPen go: 100 \+ 20= | Pen go: (100 \+ 20)
+| aPen go: 100 \+ 20 | Pen go: (100 \+ 20)
 | aPen penSize: aPen penSize \+ 2 | aPen penSize: ((aPen penSize) \+ 2)
 | 2 factorial \+ 4 | (2 factorial) \+ 4
 

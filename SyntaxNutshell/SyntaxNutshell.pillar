@@ -412,7 +412,7 @@ element. (You can think of ==collect:== as the Map in the MapReduce
 programming model).
 
 [[[
-(1 to:10) collect: [ :each | each * each ] --> #(149162536496481100)
+(1 to:10) collect: [ :each | each * each ] --> #(1 4 9 16 25 36 49 64 81 100)
 ]]]
 
 ==select:== and ==reject:== build new collections, each containing a subset of

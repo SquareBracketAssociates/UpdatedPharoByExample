@@ -26,7 +26,7 @@ exist for every programming language.
 
 This chapter describes SUnit 3.3 (the current version as of this writing). The
 official website (not really updated by the maintainers) is
-*http://sunit.sourceforge.net>http://sunit.sourcefore.net*.
+*http://sunit.sourceforge.net>http://sunit.sourceforge.net*.
 
 Neither testing, nor the building of test suites, is new. By now, everybody knows that
 tests are a good way to catch errors. eXtreme Programming, by making testing a
