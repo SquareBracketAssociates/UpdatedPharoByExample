@@ -171,6 +171,11 @@ download. To download a remote image, select it and click the ==Create
 image== button (located on the top right, next to the ==Refresh template list==
 button).
 
+You can use your own local images with PharoLauncher, in addition to working
+with remote images. To do so, simply ensure that your .image and its associated
+.changes file are placed in a folder (with a name of your choosing) in your
+default image location.
+
 !!The World Menu
 
 Once Pharo is running, you should see a single large window, possibly containing
