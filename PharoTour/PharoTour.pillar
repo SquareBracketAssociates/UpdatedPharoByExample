@@ -182,7 +182,7 @@ menu bar, but Pharo mainly makes use of context-dependent pop-up menus.
 Clicking anywhere on the background of the Pharo window will display the
 World Menu, which contains many of the Pharo tools, utilities and settings.
 
-At the top of the World Menu, uou will see a list of several core tools in
+At the top of the World Menu, you will see a list of several core tools in
 Pharo, including the System Browser, the Playground, the Monticello package
 manager, and others. We will discuss them in more detail in the coming chapters.
 
