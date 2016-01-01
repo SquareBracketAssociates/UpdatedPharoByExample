@@ -173,7 +173,7 @@ button).
 
 You can use your own local images with PharoLauncher, in addition to working
 with remote images. To do so, simply ensure that your .image and its associated
-.changes file are placed in a folder (with a name of your choosing) in your
+.changes files are placed in a folder (with the same name as your image) in your
 default image location.
 
 !!The World Menu
