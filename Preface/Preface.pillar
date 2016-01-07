@@ -2,7 +2,7 @@
 
 !!What is Pharo?
 
-Pharo is a modern, open-source , dynamic live coding enviroment inspired as a modern variant of Smalltalk. Pharo contains five fundemental elements that set it apart from other programming languages:
+Pharo is a modern, open-source , dynamic live coding enviroment inspired as a modern variant of Smalltalk. Pharo contains six fundemental elements that set it apart from other programming languages:
 
 - A dynamic language with syntax so simple it can fit on small piece of paper and yet is readable even for someone not familiar with it
 - A live coding enviroment that allows the coder to modify its code while the code executes, without any need to slow down his or her worfkflow
