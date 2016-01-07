@@ -2,19 +2,23 @@
 
 !!What is Pharo?
 
-Pharo is a modern, open-source, dynamically-typed language
-inspired by the Smalltalk programming language and environment.  Pharo strives
-to offer a lean, open platform for professional software development, as well as
-a robust and stable platform for research and development into dynamic languages
-and environments. Pharo serves as the reference implementation for the Seaside
-web development framework available at *http://www.seaside.st*.
+Pharo is a modern, open-source , dynamic live coding enviroment inspired as a modern variant of Smalltalk. Pharo contains five fundemental elements that set it apart from other programming languages:
+
+- A dynamic language with syntax so simple it can fit on small piece of paper and yet is readable even for someone not familiar with it
+- A live coding enviroment that allows the coder to modify its code while the code executes, without any need to slow down his or her worfkflow
+- A powerful IDE providing all the tools to help manage complex code and promote good code designs
+- A rich library that creates an enviroment so powerful that it can be viewed even as a virtual OS, including a very fast JIT VM and full access to OS libraries and features via its FFI
+- A culture that diverge from Smalltalk that makes it integrate much more of the modern technologies coders are used to in other languages but at the same time builds on new concepts for making high level coding even higher.
+- A community that welcomes coders from any corner of the world, any skil and any programming language who want an alternate way of coding that brakes away from old standards and common recipies in shake of efficiency and optimised workflow
+
+Pharo strives to offer a lean, open platform for professional software development, as well as a  robust and stable platform for research and development into dynamic languagesand environments. Pharo serves as the reference implementation for the Seasideweb development framework available at *http://www.seaside.st*.
 
 Pharo core contains only code that has been contributed under the MIT license.
-The Pharo project started in March 2008, and the first 1.0 beta version was
+The Pharo project started in March 2008 as fork of Squeak (a modern implementation of Smalltalk), and the first 1.0 beta version was
 released on July 31, 2009. The current version is Pharo 4.0, released in April
 2015. Pharo 5.0 is in alpha development.
 
-Pharo is highly portable. Its virtual machine is written entirely in
+Pharo is highly portable. Pharo can run on MacOSX , Windows , Linux , Android , iOS and Raspberry Pi. Its virtual machine is written entirely in
 a subset of Smalltalk, making it easy to simulate, debug, analyze, and change
 from within Pharo itself.  Pharo is the vehicle for a
 wide range of innovative projects, from multimedia applications and educational
@@ -64,6 +68,8 @@ You do not have to know everything! Alan Knight expresses this as follows:
 ''Try not to care''. Beginning Smalltalk programmers often have trouble because they think they need to understand all the details of how a thing works before they can use it.  This means it takes quite a while before they can master Transcript show: 'Hello World'. One of the great leaps in OO is to be able to answer the  question “How does this work?” with "I don't care".
 {{{latex:\end{quote} }}}{{{html:</blockquote>}}}
 
+But even when you don't understand something , however simple or complex, do not hesitate for a second to ask us at our mailing lists, irc and Slack. We love questions and we welcome people of any skill.
+
 !!An open book
 
 This book is an open book in the following senses:
@@ -83,6 +89,7 @@ that you may find useful:
 - On IRC, you can find us on the freenode.net server, channel "pharo".
 - You can also ask questions on Stack Overflow, using the tags *pharo>http://stackoverflow.com/questions/tagged/pharo* and *smalltalk>http://stackoverflow.com/questions/tagged/smalltalk*.
 - SmalltalkHub (*http://www.smalltalkhub.com/>http://www.smalltalkhub.com/*) is the equivalent of SourceForge/Github for Pharo projects. Many extra packages and projects for Pharo live there.
+- We are also active on Slack, just asks for an invitation , all are welcomed.
 
 !!Examples and exercises
 
@@ -108,6 +115,8 @@ plain text file with all the example code from the Resources sidebar of the book
 We would first like to thank Alan Kay, Dan Ingalls and their team for making
 Squeak, an amazing Smalltalk development environment, that became the
 open-source project from which Pharo took roots.
+
+Pharo also would not be possible without the incredible work of the Squeak developers. Pharo is a Squeak fork and the two communities remain still close even though their code bases have diverged a lot since Pharo started development.
 
 We would also like to thank Hilaire Fernandes and Serge Stinckwich who allowed
 us to translate parts of their columns on Smalltalk, and Damien Cassou for
