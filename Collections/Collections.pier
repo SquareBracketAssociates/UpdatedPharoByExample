@@ -371,8 +371,8 @@ colors values       --> {Color blue. Color yellow. Color red}
 ]]]
 
 Dictionaries compare keys by equality. Two keys are considered to be the same if
-they return true when compared using =====. A common and difficult to spot bug
-is to use as key an object whose ===== method has been redefined but not its
+they return true when compared using ==\===. A common and difficult to spot bug
+is to use as key an object whose ==\=== method has been redefined but not its
 ==hash== method. Both methods are used in the implementation of dictionary and
 when comparing objects.
 
@@ -389,7 +389,7 @@ colors associations --> {#yellow->Color yellow. #red->Color red}
 
 !!!!!==IdentityDictionary==
 
-While a dictionary uses the result of the messages ===== and ==hash== to
+While a dictionary uses the result of the messages ==\=== and ==hash== to
 determine if two keys are the same, the class ==IdentityDictionary== uses the
 identity (message ==\=\===) of the key instead of its values, i.e., it
 considers two keys to be equal ''only'' if they are the same object.
@@ -436,7 +436,7 @@ The class ==Set== is a collection which behaves as a mathematical set, i.e.,
 as a collection with no duplicate elements and without any order. In a ==Set==
 elements are added using the message ==add:== and they cannot be accessed using
 the message ==at:==. Objects put in a set should implement the methods ==hash==
-and =====.
+and ==\===.
 
 [[[
 s := Set new.
@@ -482,10 +482,10 @@ As we explain below, elements of a set are accessed using iterators (see Section
 !!!==SortedCollection==
 
 In contrast to an ==OrderedCollection==, a ==SortedCollection== maintains its
-elements in sort order. By default, a sorted collection uses the message ==<===
+elements in sort order. By default, a sorted collection uses the message ==<\===
 to establish sort order, so it can sort instances of subclasses of the abstract
 class ==Magnitude==, which defines the protocol of comparable objects (==<==,
-==\===, ==>==, ==>===, ==between:and:==...).
+==\===, ==>==, ==>\===, ==between:and:==...).
 (See Chapter *: Basic Classes>../BasicClasses/BasicClasses.pier@cha:basicClasses*).
 
 You can create a ==SortedCollection== by creating a new instance and adding
@@ -530,11 +530,11 @@ numbers such as integers, floats and fractions:
 { 5. 2/-3. 5.21 } asSortedCollection --> a SortedCollection((-2/3) 5 5.21)
 ]]]
 
-Imagine that you want to sort objects that do not define the method ==<=== or
+Imagine that you want to sort objects that do not define the method ==<\=== or
 that you would like to have a different sorting criterion. You can do this by
 supplying a two argument block, called a sortblock, to the sorted collection.
 For example, the class ==Color== is not a Magnitude and it does not implement
-the method ==<===, but we can specify a block stating that the colors should be
+the method ==<\===, but we can specify a block stating that the colors should be
 sorted according to their luminance (a measure of brightness).
 
 [[[
@@ -1000,13 +1000,13 @@ range copy do: [:aNumber | aNumber isPrime ifFalse: [ range remove: aNumber ] ].
 range --> an OrderedCollection(2 3 5 7 11 13 17 19)
 ]]]
 
-!!!!!Redefining ===== but not ==hash==
+!!!!!Redefining ==\=== but not ==hash==
 
-A difficult error to spot is when you redefine ===== but not ==hash==. The
+A difficult error to spot is when you redefine ==\=== but not ==hash==. The
 symptoms are that you will lose elements that you put in sets or other strange
 behaviour. One solution proposed by Kent Beck is to use ==xor:== to redefine
 ==hash==. Suppose that we want two books to be considered equal if their titles
-and authors are the same. Then we would redefine not only ===== but also
+and authors are the same. Then we would redefine not only ==\=== but also
 ==hash== as follows:
 
 [[[caption=Redefining ==\=== and ==hash==.
