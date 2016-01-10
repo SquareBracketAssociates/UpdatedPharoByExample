@@ -770,7 +770,7 @@ SeasideEditAnswerDemo>>>renderContentOn: html
 			callback: [ self answer: self text ];
 			text: 'ok'.
 		]
-]]]{}
+]]]
 
 That's it.
 
