@@ -23,16 +23,17 @@ Although you do not need to deal with them directly for the purposes
 of this book, it is useful to understand the roles they play.
 
 ""1."" The ""virtual machine"" (VM) is the only component that is
-different for each operating system. The VM executable is named:
+different for each operating system. The purpose of the VM is to take Pharo bytcode that is generated each time user accepts a piece of code as well later see and convert it to machine code in order to run. Pharo 4 comes with the Cog VM a very fast JIT VM.
+The VM executable is named:
 - ==Pharo.exe== for Windows;
 - ==pharo== for Linux ; and
-- ==Pharo== for OSX (inside a package also named ==Pharo==).
+- ==Pharo== for OSX (inside a package also named ==Pharo.app==).
 
 The other components below are portable across operating systems,
 and can be copied and run on any appropriate virtual machine.
 
 ""2."" The ""sources"" file contains source code for parts of
-Pharo that don't change frequently. Typically a new ""sources""
+Pharo that don't change frequently. Sources file is important because Typically a new ""sources""
 file is generated once per major release of Pharo.
 For Pharo 4.0, this file is named ==PharoV40.sources==.
 
