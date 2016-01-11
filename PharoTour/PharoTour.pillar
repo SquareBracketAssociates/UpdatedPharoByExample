@@ -23,7 +23,7 @@ Although you do not need to deal with them directly for the purposes
 of this book, it is useful to understand the roles they play.
 
 ""1."" The ""virtual machine"" (VM) is the only component that is
-different for each operating system. The purpose of the VM is to take Pharo bytcode that is generated each time user accepts a piece of code as well later see and convert it to machine code in order to run. Pharo 4 comes with the Cog VM a very fast JIT VM.
+different for each operating system. The purpose of the VM is to take Pharo bytcode that is generated each time user accepts a piece of code and convert it to machine code in order to be executed. Pharo 4 comes with the Cog VM a very fast JIT VM.
 The VM executable is named:
 - ==Pharo.exe== for Windows;
 - ==pharo== for Linux ; and
@@ -33,25 +33,26 @@ The other components below are portable across operating systems,
 and can be copied and run on any appropriate virtual machine.
 
 ""2."" The ""sources"" file contains source code for parts of
-Pharo that don't change frequently. Sources file is important because Typically a new ""sources""
+Pharo that don't change frequently. Sources file is important because the image file format stores only the bytecode of live objects and not their source code. Typically a new ""sources""
 file is generated once per major release of Pharo.
 For Pharo 4.0, this file is named ==PharoV40.sources==.
 
 
 ""3."" The ""changes"" file logs of all source code
 modifications since the ==.sources== file was generated.
-This facilitates a per method history for diffs or reverting.
+This facilitates a per method history for diffs or reverting.That means that even if you dont manage to save the image file on a crash or you just forgot you can recover your changes from this file.
 Each release provides a near empty file named for the release,
 for example ==Pharo4.0.changes==.
 
 ""4."" The ""image"" file provides a frozen in time snapshot
-of a running Pharo system. This is the heart of Pharo,
+of a running Pharo system. This is the file where the Pharo bytecode is stored and as such its a cross platform format. This is the heart of Pharo,
 containing the live state of all objects in the system
 (including classes and methods, since they are objects too).
 The file is named for the release (like ==Pharo4.0.image==).
 
 The ==.image== and ==.changes== files provided by a Pharo release
-are the starting point for a live environment that you adapt to your needs.
+are the starting point for a live environment that you adapt to your needs. Essentially the image file containes the compiler of the language (not the VM) , the language parser, the IDE tools, many libraries and acts a bit like a virtual Operation System that runs on top of a Virtual Machine (VM), similarly to ISO files.
+
 As you work in Pharo, these files are modified,
 so you need to make sure that they are writable.
 The ==.image== and ==.changes== files are intimately linked
@@ -60,11 +61,14 @@ Never edit them directly with a text editor, as ==.images== holds your
 live object runtime memory, which indexes into the ==.changes== files
 for the source.
 It is a good idea to keep a backup copy of the downloaded ==.image== and ==.changes==
-files so you can always start from a fresh image and reload your code.
+files so you can always start from a fresh image and reload your code. However the most efficient way for backing up code is to use a version control system that will provide an easier and powerful way to back up and track your changes.
 
 The four main component files above can be placed in the same directory,
 although it's also possible to put the Virtual Machine and sources file in a
 separate directory where everyone has read-only access to them.
+
+If more than one image file is present in the same directory pharo will prompt you to choose an image file you want to load.
+
 Do whatever works best for your style of working and your operating system.
 
 !!Getting started
@@ -84,7 +88,7 @@ Pharo does not need to install anything in your system, as it's perfectly
 capable of running standalone. Depending on your platform, download the
 appropriate zip file, uncompress it in a directory of your choice and now you
 are ready to launch Pharo. In case of Ubuntu Linux, there is also the extra
-option of installing Pharo via the Pharo PPA.
+option of installing Pharo via the Pharo PPA. Pharo can be also installed via the command line.
 
 !!Launching Pharo
 
@@ -251,12 +255,14 @@ in other programming languages. Instead they will say "send a message". This
 reflects the idea that objects are responsible for their own actions. You never
 tell an object what to do, instead you politely ask it to do something by
 sending it a message. The object, and not the sender, selects the appropriate
-method for responding to your message.
+method for responding to your message. In most cases however the a method with the same name as the message is executed.
 
 As a user you don't need to understand how each message works, the only thing
 you need to know is what the available messages are for the objects that
 interest you. This way an object can hide its complexity, and coding can be kept
 as simple as possible without losing flexibility.
+
+How to find the available messages for each object is something we will explore later on.
 
 !!Saving, quitting and restarting a Pharo session
 
