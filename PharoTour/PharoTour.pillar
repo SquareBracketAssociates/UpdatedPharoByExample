@@ -351,7 +351,7 @@ Notice how the text "hello world" appears in the transcript window. Do it again.
 
 If you want to evaluate an expression, you do not always have to right click.
 Instead, you can use keyboard shortcuts. These are the parenthesized expressions
-in the World Menu as well other menus used by Pharo. Even though may seem like a mouse driven enviroment it contains over 200 shortcuts that allow you operate a variaty of tools, as well the facility to assign a a keyboard shortcut to any of the 800000 methods contain in the Pharo image.
+in the World Menu as well other menus used by Pharo. Even though Pharo may seem like a mouse driven enviroment it contains over 200 shortcuts that allow you operate a variaty of tools, as well as the facility to assign a a keyboard shortcut to any of the 800000 methods contained in the Pharo image. To have a look at the available shortcuts go to World Menu ==->== System ==->== Keymap Browser.
 
 Depending on your platform, you may have to press one of the
 modifier keys which are Control, Alt and Command. We will be focusing on the Mac
