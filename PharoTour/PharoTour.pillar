@@ -351,7 +351,9 @@ Notice how the text "hello world" appears in the transcript window. Do it again.
 
 If you want to evaluate an expression, you do not always have to right click.
 Instead, you can use keyboard shortcuts. These are the parenthesized expressions
-in the menu. Depending on your platform, you may have to press one of the
+in the World Menu as well other menus used by Pharo. Even though may seem like a mouse driven enviroment it contains over 200 shortcuts that allow you operate a variaty of tools, as well the facility to assign a a keyboard shortcut to any of the 800000 methods contain in the Pharo image.
+
+Depending on your platform, you may have to press one of the
 modifier keys which are Control, Alt and Command. We will be focusing on the Mac
 OS platform since this is the platform most Pharo developers use, where the
 command key (a.k.a ==CMD==) is the main modifier key. The corresponding modifier
@@ -422,7 +424,7 @@ implementors, and so on.
 
 The ==System Browser==, also known as "Class Browser", is one of the key tools
 used for programming. As we shall see, there are several interesting browsers
-available for Pharo, but this is the basic one you will find in any image.
+available for Pharo, but this is the basic one you will find in any image. The default System Browser used by Pharo is called Nautilus.
 
 @@authorToDo TODO: factorial on number would be better. and should redo the screenshot
 
@@ -454,7 +456,7 @@ When a new System Browser window first opens, all panes are empty but the
 leftmost one. This first pane lists all known packages, which contain groups of
 related classes.
 
-In Pharo 4 and above, the default System Browser is Nautilus. However,
+In Pharo , the default System Browser is Nautilus. However,
 it is possible to have other System Browsers installed in the Pharo enviroment
 such as OmniBrowser, AltBrowser and others. Each System Browser may
 have its own GUI that may be very diffirent from the Nautilus GUI. From now on,
