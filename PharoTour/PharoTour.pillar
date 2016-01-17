@@ -12,66 +12,14 @@ learn how to define a new method, create an object and send it messages.
 
 ''Note:'' Most of the introductory material in this book will work with any
 Pharo version, so if you already have one installed, you may as well continue to
-use it. However, since this chapter is written for Pharo 4, if you notice
+use it. However, since this chapter is written for Pharo 4.0 and Pharo 5.0, if you notice
 differences between the appearance or behaviour of your system and what is
 described here, do not be surprised.
 
-!!Pharo components
 
-Like many Smalltalk-derived systems, Pharo consists of four main component files.
-Although you do not need to deal with them directly for the purposes
-of this book, it is useful to understand the roles they play.
+!!  Installing Pharo
 
-""1."" The ""virtual machine"" (VM) is the only component that is
-different for each operating system. The purpose of the VM is to take Pharo bytcode that is generated each time user accepts a piece of code and convert it to machine code in order to be executed. Pharo 4 comes with the Cog VM a very fast JIT VM.
-The VM executable is named:
-- ==Pharo.exe== for Windows;
-- ==pharo== for Linux ; and
-- ==Pharo== for OSX (inside a package also named ==Pharo.app==).
-
-The other components below are portable across operating systems,
-and can be copied and run on any appropriate virtual machine.
-
-""2."" The ""sources"" file contains source code for parts of
-Pharo that don't change frequently. Sources file is important because the image file format stores only the bytecode of live objects and not their source code. Typically a new ""sources""
-file is generated once per major release of Pharo.
-For Pharo 4.0, this file is named ==PharoV40.sources==.
-
-
-""3."" The ""changes"" file logs of all source code
-modifications since the ==.sources== file was generated.
-This facilitates a per method history for diffs or reverting.That means that even if you dont manage to save the image file on a crash or you just forgot you can recover your changes from this file.
-Each release provides a near empty file named for the release,
-for example ==Pharo4.0.changes==.
-
-""4."" The ""image"" file provides a frozen in time snapshot
-of a running Pharo system. This is the file where the Pharo bytecode is stored and as such its a cross platform format. This is the heart of Pharo,
-containing the live state of all objects in the system
-(including classes and methods, since they are objects too).
-The file is named for the release (like ==Pharo4.0.image==).
-
-The ==.image== and ==.changes== files provided by a Pharo release
-are the starting point for a live environment that you adapt to your needs. Essentially the image file containes the compiler of the language (not the VM) , the language parser, the IDE tools, many libraries and acts a bit like a virtual Operation System that runs on top of a Virtual Machine (VM), similarly to ISO files.
-
-As you work in Pharo, these files are modified,
-so you need to make sure that they are writable.
-The ==.image== and ==.changes== files are intimately linked
-and should always be kept together, with matching base filenames.
-Never edit them directly with a text editor, as ==.images== holds your
-live object runtime memory, which indexes into the ==.changes== files
-for the source.
-It is a good idea to keep a backup copy of the downloaded ==.image== and ==.changes==
-files so you can always start from a fresh image and reload your code. However the most efficient way for backing up code is to use a version control system that will provide an easier and powerful way to back up and track your changes.
-
-The four main component files above can be placed in the same directory,
-although it's also possible to put the Virtual Machine and sources file in a
-separate directory where everyone has read-only access to them.
-
-If more than one image file is present in the same directory pharo will prompt you to choose an image file you want to load.
-
-Do whatever works best for your style of working and your operating system.
-
-!!Getting started
+!!! Downloading Pharo
 
 Pharo is available as a free download from
 *http://pharo.org/download>http://pharo.org/download*. Click the button for your
@@ -82,7 +30,17 @@ full Pharo 4.0 distribution for Mac OS X will be available at
 Once that file is unzipped, it will contain everything you need to run
 Pharo (this includes the VM, the image, and the sources, as explained below).
 
-!!Installing Pharo
+!!!! Using handy scripts
+*http://files.pharo.org/get/* offers a collection of scripts to download specific versions of Pharo. 
+This is really handy to automate the process. 
+
+To download the latest 40 full system, use the following snippet. 
+
+[[[
+wget -O- get.pharo.org/40+vm | bash
+]]]
+
+!!! Installing Pharo
 
 Pharo does not need to install anything in your system, as it's perfectly
 capable of running standalone. Depending on your platform, download the
@@ -90,27 +48,66 @@ appropriate zip file, uncompress it in a directory of your choice and now you
 are ready to launch Pharo. In case of Ubuntu Linux, there is also the extra
 option of installing Pharo via the Pharo PPA. Pharo can be also installed via the command line.
 
+
+
+
+!!Pharo: File components
+
+Pharo consists of four main component files.
+Although you do not need to deal with them directly for the purposes
+of this book, it is useful to understand the roles they play.
+
+""1."" The ""virtual machine"" (VM) is the only component that is
+different for each operating system. The VM is the execution engine (similar to a JVM). It takes Pharo bytcode that is generated each time user compiles a piece of code, converts it to machine code and executes it. Pharo comes with the Cog VM a very fast JITing VM.
+The VM executable is named:
+- ==Pharo.exe== for Windows;
+- ==pharo== for Linux ; and
+- ==Pharo== for OSX (inside a package also named ==Pharo.app==).
+
+The other components below are portable across operating systems, and can be copied and run on any appropriate virtual machine.
+
+""2."" The ""sources"" file contains source code for parts of
+Pharo that don't change frequently. Sources file is important because the image file format stores only objects including compiled methods and their bytecode and not their source code. Typically a new ""sources"" file is generated once per major release of Pharo. For Pharo 4.0, this file is named ==PharoV40.sources==.
+
+
+""3."" The ""changes"" file logs of all source code modifications (especially all the changes you did while programming) since the ==.sources== file was generated. Each release provides a near empty file named for the release, for example ==Pharo4.0.changes==. This facilitates a per method history for diffs or reverting. It means that even if you did not manage to save the image file on a crash or you just forgot, you can recover your changes from this file.  A changes file is always coupled with a image file. They work in pair. 
+
+""4."" The ""image"" file provides a frozen in time snapshot of a running Pharo system. This is the file where all the objects including compiled methods are stored and as such it's a cross platform format. An image file contains the live state of all objects of the system (including classes and methods, since they are objects too) at a given point. An image is a virtual object container. The file is named for the release (like ==Pharo4.0.image==) and it is synched with the ==Pharo4.0.changes== file. 
+
+
+!!! Image/Change pair
+
+The ==.image== and ==.changes== files provided by a Pharo release are the starting point for a live environment that you adapt to your needs. Essentially the image file contains the compiler of the language (not the VM), the language parser, the IDE tools, many libraries and acts like a virtual Operation System that runs on top of a Virtual Machine (VM), similarly to ISO files.
+
+As you work in Pharo, these files are modified, so you need to make sure that they are writable. Pay attention to remove the changes and image files from the list 
+of files to be checked by anti-viruses.  The ==.image== and ==.changes== files are intimately linked
+and should always be kept together, with matching base filenames. 
+Never edit them directly with a text editor, as ==.images== holds your live object runtime memory, which indexes into the ==.changes== files for the source.
+It is a good idea to keep a backup copy of the downloaded ==.image== and ==.changes== files so you can always start from a fresh image and reload your code. However, the most efficient way for backing up code is to use a version control system that will provide an easier and powerful way to back up and track your changes.
+
+!!! Common setup
+
+The four main component files above can be placed in the same directory,
+but it's a common practice to put the Virtual Machine and sources file in a
+separate directory where everyone has read-only access to them.
+
+Do whatever works best for your style of working and your operating system.
+
+
 !!Launching Pharo
 
-To start Pharo, double click on the Pharo executable (or, for more advanced
-users, drag and drop the ==.image== file onto the VM, or use the command line).
+To start Pharo, do whatever your operating system expects: drag the .image file onto the icon of the virtual machine, or double-click the .image file, or at the command line type the name of the virtual machine followed by the path to the .image file. 
 
-On ""Mac OS X"", double click the ==Pharo4.0.app== bundle in the unzipped download.
+- On ""Mac OS X"", double click the ==Pharo4.0.app== bundle in the unzipped download.
+- On ""Linux"", double click (or invoke from the command line) the ==pharo== executable bash script from the unzipped Pharo folder.
+- On ""Windows"", enter the unzipped Pharo folder and double click ==Pharo.exe==.
 
-On ""Linux"", double click (or invoke from the command line) the ==pharo==
-executable bash script from the unzipped Pharo folder.
-
-On ""Windows"", enter the unzipped Pharo folder and double click ==Pharo.exe==.
-
-In general, Pharo tries to "do the right thing". If you double click on the VM,
-it looks for an image file in the default location. If you double click on an
+In general, Pharo tries to "do the right thing". If you double click on the VM, it looks for an image file in the default location. If you double click on an
 ==.image== file, it tries to find the nearest VM to launch it with.
 
-Once you have multiple VMs (or multiple images) installed on your
-machine, the operating system may no longer be able to guess the right one. In this
-case, it is safer to specify exactly which ones you meant to launch, either
-by dragging and dropping the image file onto the VM, or specifying the image on
-the command line (see the next section).
+If you have multiple VMs installed on your machine, the operating system may no longer be able to guess the right one. In this
+case, it is safer to specify exactly which ones you meant to launch, either by dragging and dropping the image file onto the VM, 
+or specifying the image on the command line (see the next section).
 
 !!!Launching Pharo via the command line
 
@@ -137,8 +134,9 @@ For Mac OS X, assuming that you're in the directory with the unzipped
 Pharo4.0.app/Contents/MacOS/Pharo Pharo4.0.app/Contents/Resources/Pharo4.0.image
 ]]]
 
-Incidentally, to drag-and-drop images on Mac OS in Finder, you need to
-right-click on ==Pharo4.0.app== and select 'Show Package Contents'.
+When using a Pharo bundle, you need to right-click on ==Pharo4.0.app== and select 'Show Package Contents'
+to get access to the image. If you need this often, just download a separated image/changes pair and drop 
+that image into the ==Pharo4.0.app==.
 
 !!!!Windows command line
 
@@ -148,38 +146,21 @@ For Windows, assuming that you're in the unzipped ==Pharo4.0== folder:
 Pharo.exe Pharo4.0.image
 ]]]
 
-!!PharoLauncher
+!! PharoLauncher
 
-==PharoLauncher== is a tool that helps you download and manage Pharo images. It
-is very useful for getting new versions of Pharo (as well as updates to the
-existing versions that contain important bug fixes). It also gives you access to
-images preloaded with specific libraries that make it very easy to use
-those tools without having to manually install and configure them.
+""PharoLauncher"" is a tool that helps you download and manage Pharo images. It is very useful for getting new versions of Pharo (as well as updates to the existing versions that contain important bug fixes). It also gives you access to images preloaded with specific libraries that make it very easy to use those tools without having to manually install and configure them.
 
-PharoLauncher can be found on SmalltalkHub at
-*http://smalltalkhub.com/#!/~Pharo/PharoLauncher>http://smalltalkhub.com/#!/~Pharo/PharoLauncher*
-together with installation instructions and download links depending on your
-platform.
+""PharoLauncher"" can be found on SmalltalkHub at *http://smalltalkhub.com/#!/~Pharo/PharoLauncher>http://smalltalkhub.com/#!/~Pharo/PharoLauncher* together with installation instructions and download links depending on your platform. ""PharoLauncher"" is basically composed of two columns.
 
 +PharoLauncher - GUI>file://figures/PharoLauncher.png|width=70|label=fig:PharoLauncher+
 
-After installing PharoLauncher and opening it (like you would any Pharo image),
-you will see a GUI that contains two columns. The left column lists images that
-live locally on your machine (usually in a shared system folder). You can
-launch any local image directly (either by double-clicking, or by selecting it
-and pressing the ==Launch== button). A right-click context menu provides
-several useful functions like copying and renaming your images, as well as
-locating them on the file system.
+After installing PharoLauncher and opening it (like you would do for any Pharo image), you should get GUI similar to Figure *@fig:PharoLauncher*. 
 
-The right column lists Templates, which are remote images available for
-download. To download a remote image, select it and click the ==Create
-image== button (located on the top right, next to the ==Refresh template list==
-button).
+- The left column lists images that live locally on your machine (usually in a shared system folder). You can launch any local image directly (either by double-clicking, or by selecting it and pressing the ==Launch== button). A right-click context menu provides several useful functions like copying and renaming your images, as well as locating them on the file system.
+- The right column lists Templates, which are remote images available for download. To download a remote image, select it and click the ==Create image== button (located on the top right, next to the ==Refresh template list== button).
 
-You can use your own local images with PharoLauncher, in addition to working
-with remote images. To do so, simply ensure that your .image and its associated
-.changes files are placed in a folder (with the same name as your image) in your
-default image location.
+You can use your own local images with ""PharoLauncher"", in addition to working with the images you donwloaded. To do so, simply ensure that your .image and its associated
+.changes files are placed in a folder (with the same name as your image) in your default image location. You can find such information in the ""PharoLauncher"" settings
 
 !!The World Menu
 
@@ -227,13 +208,13 @@ Windows or Linux) or ==Shift-Option== (on Mac OS X) while clicking.
 !!Sending messages
 
 In the Pharo window, click on an open space to open the ==World Menu==, and then
-select the ==Playground== menu option. The Playground tool will open (you may
-recognize it as the ==Workspace== tool, from previous versions of Pharo). We can
-use the Playground to quickly execute Pharo code. Enter the following code in
+select the ""Playground"" menu option. The ""Playground"" tool will open (you may
+recognize it as the ""Workspace"" tool, from previous versions of Pharo). We can
+use ""Playground"" to quickly execute Pharo code. Enter the following code in
 it, then right click and select ==Do it==:
 
-[[[caption=Open the Pharo Tutorial from the ==Playground==.|label=src:pharoTutorial
-	PharoTutorial go.
+[[[caption=Open ProfStef in the ==Playground==.|label=src:pharoTutorial
+	ProfStef go.
 ]]]
 
 +Executing an expression is simple with the ==Do it== menu item.>file://figures/PharoTutorialOption.png|width=60|label=fig:pharotutorial+
@@ -250,12 +231,12 @@ will see how an object can understand a message, later on.
 +PharoTutorial is a simple interactive tutorial to learn about Pharo>file://figures/ProfStef.png|width=60|label=fig:ProfStef+
 
 If you talk to Pharoers for a while, you will notice that they generally do not
-use expressions like "call an operation" or "invoke a method", as developers do
-in other programming languages. Instead they will say "send a message". This
-reflects the idea that objects are responsible for their own actions. You never
-tell an object what to do, instead you politely ask it to do something by
-sending it a message. The object, and not the sender, selects the appropriate
-method for responding to your message. In most cases however the a method with the same name as the message is executed.
+use expressions like ''call an operation'' or ''invoke a method'', as developers do
+in other programming languages. Instead they will say ''send a message''. This
+reflects the idea that objects are responsible for their own actions and that the method
+associated with the message is looked up dynamically. 
+When sending a message to an object, the object, and not the sender, selects the appropriate
+method for responding to your message. In most cases, the method with the same name as the message is executed.
 
 As a user you don't need to understand how each message works, the only thing
 you need to know is what the available messages are for the objects that
@@ -264,10 +245,12 @@ as simple as possible without losing flexibility.
 
 How to find the available messages for each object is something we will explore later on.
 
+@@todo Stef stopped here!
+
 !!Saving, quitting and restarting a Pharo session
 
 You can exit Pharo at any point, by closing the Pharo window as you do any other
-application window. Additionally you can use the World Menu and select either
+application window. Additionally you can use the ""World Menu"" and select either
 ==Save and quit== or ==Quit==.
 
 In any case Pharo will display a prompt to ask you about saving your image. If
