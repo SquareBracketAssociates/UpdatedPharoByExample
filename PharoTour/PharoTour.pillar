@@ -243,7 +243,6 @@ as simple as possible without losing flexibility.
 
 How to find the available messages for each object is something we will explore later on.
 
-@@todo Stef stopped here!
 
 !!Saving, quitting and restarting a Pharo session
 
@@ -251,12 +250,10 @@ You can exit Pharo at any point, by closing the Pharo window as you do any other
 application window. Additionally you can use the ""World Menu"" and select either
 ==Save and quit== or ==Quit==.
 
-In any case Pharo will display a prompt to ask you about saving your image. If
+In any case, Pharo will display a prompt to ask you about saving your image. If
 you do save your image and reopen it, you will see that things are ''exactly''
-as you left them. This happens because the image file is capable of storing any
-information (created objects, edited text, window positions, added methods... of
-course since they are all objects) that Pharo has loaded into your memory so
-that nothing is lost on exit.
+as you left them. This happens because the image file stores all the objects
+(edited text, window positions, added methods... of course since they are all objects) that Pharo has loaded into your memory so that nothing is lost on exit.
 
 When you start Pharo for the first time, the Pharo virtual machine loads the
 image file that you specified. This file contains a snapshot of a large number
@@ -280,12 +277,12 @@ It may seem like the image is the key mechanism for storing and managing
 software projects, but that is not the case. As we shall see soon, there are
 much better tools for managing code and sharing software developed by teams.
 Images are very useful, but you should learn to be very cavalier about creating
-and throwing away images, since tools like ==Monticello== offer much better ways
+and throwing away images, since versioning tools like ==Monticello== offer much better ways
 to manage versions and share code amongst developers. In addition, if you need
 to persist objects, you can use several systems such as ==Fuel== (a fast object
 binary serializer), ==STON== (a textual object serializer) or a database.
 
-!!Playground and Transcripts
+!!Playgrounds and Transcripts
 
 Let us start with some exercises:
 
@@ -302,10 +299,9 @@ The ==Transcript== is an object that is often used for logging system messages.
 It is a kind of ''system console''.
 
 ==Playgrounds== are useful for typing snippets of code that you would like to
-experiment with. You can also use playgrounds simply for typing arbitrarily text
+experiment with. You can also use playgrounds simply for typing any text
 that you would like to remember, such as to-do lists or instructions for anyone
-who will use your image. Playgrounds are often used to hold documentation about
-a captured image, as well.
+who will use your image. 
 
 Type the following text into the playground:
 
@@ -320,46 +316,39 @@ entire expression. In particular, if you place the cursor before the first
 character or after the last character and double-click, you select the complete
 paragraph.
 
-Select the text you have typed, right click and select ==Do it (d)==. The
-==(d)== at the end indicates that you can use the shortcut ==CMD-d== to get the
-same result.
+Select the text you have typed, right click and select ==Do it==. 
 
 Notice how the text "hello world" appears in the transcript window. Do it again.
 
-+Executing an expresssion: displaying a string in the Transcript.>file://figures/HelloWorld_new.png|width=80|label=fig:HelloWorld+
++Executing an expresssion: displaying a string in the Transcript.>file://figures/HelloWorld_new.png|width=100|label=fig:HelloWorld+
 
 !!Keyboard shortcuts
 
 If you want to evaluate an expression, you do not always have to right click.
-Instead, you can use keyboard shortcuts. These are the parenthesized expressions
-in the World Menu as well other menus used by Pharo. Even though Pharo may seem like a mouse driven enviroment it contains over 200 shortcuts that allow you operate a variaty of tools, as well as the facility to assign a keyboard shortcut to any of the 800000 methods contained in the Pharo image. To have a look at the available shortcuts go to World Menu ==->== System ==->== Keymap Browser.
+Instead, you can use keyboard shortcuts shown in menu items. Even though Pharo may seem like a mouse driven enviroment it contains over 200 shortcuts that allow you operate a variaty of tools, as well as the facility to assign a keyboard shortcut to any of the 800000 methods contained in the Pharo image. To have a look at the available shortcuts go to World Menu ==>== System ==>== Keymap Browser.
 
 Depending on your platform, you may have to press one of the
-modifier keys which are Control, Alt and Command. We will be focusing on the 
-OS X platform since this is the platform most Pharo developers use, where the
-command key (a.k.a ==CMD==) is the main modifier key. The corresponding modifier
-key in Windows is ==ALT==, and in Linux is either ==ALT== or ==CTRL==,
-so each time you see something like ==CMD-d==,
-just replace it with the appropriate modifier key depending on your OS.
+modifier keys which are Control, Alt, and Command. We will use ==CMD== in the rest of the book: so each time you see something like ==CMD-d==, just replace it with the appropriate modifier key depending on your OS. The corresponding modifier key in Windows is ==ALT==, and in Linux is either ==ALT== or ==CTRL==, so each time you see something like ==CMD-d==, just replace it with the appropriate modifier key depending on your OS.
+
+!!! Key execution operations
 
 In addition to ==Do it==, you might have noticed ==Do it and go==, ==Print
 it==, ==Inspect it== and several other options in the context menu. Let's have a quick look at each
 of these.
 
+!!!! Doing vs. printing
 Type the expression ==3 + 4== into the playground. Now ==Do it== with the
 keyboard shortcut.
 
 Do not be surprised if you saw nothing happen! What you just did is send the
 message ==\+== with argument 4 to the number 3. Normally the resulting 7 would
 have been computed and returned to you, but since the playground did not know
-what to do with this answer, it simply threw the answer away. If you want to see
+what to do with this answer, it simply did not show the answer. If you want to see
 the result, you should ==Print it== instead. ==Print it== actually compiles the
 expression, executes it, sends the message ==printString== to the result, and
 displays the resulting string.
 
-Select ==3\+4== and ==Print it== (==CMD-p==).
-
-This time we see the result we expect.
+Select ==3\+4== and ==Print it== (==CMD-p==). This time we see the result we expect.
 
 [[[
 3 + 4 --> 7
@@ -368,10 +357,11 @@ This time we see the result we expect.
 We use the notation ==-\->== as a convention in this book to indicate that a
 particular Pharo expression yields a given result when you ==Print it==.
 
+!!!! Inspect
 Select ==3\+4== again, and this time ==Inspect it== (==CMD-i==).
 
 Now you should see a new window titled "Inspector on a SmallInteger(7)"
-The inspector is an extremely useful tool that will allow you
+The inspector is an extremely useful tool that allows you
 to browse and interact with any object in the system. The title tells us that 7
 is an instance of the class ==SmallInteger==. The left panel allows us to browse
 the instance variables of an object, the values of which are shown in the right
@@ -382,21 +372,19 @@ Type ==self squared== in the bottom panel of the inspector, and ==Print it==.
 
 +Inspecting an object using ==Basic Inspect==>file://figures/inspector.png|width=80|label=fig:inspector+
 
-Close the inspector.
+
+
+!!!! Other operations
 
 Other right-click options that may be used are the following:
 
-==Basic Inspect it== opens the classic inspector that offers a more minimal gui
-and live updates of changes to the object.
+- ==Basic Inspect it== opens the classic inspector that offers a more minimal GUI and live updates of changes to the object.
 
-==Debug it== open the debuger on the code.
+- ==Debug it== open the debuger on the code.
 
-==Profile it== profiles the code with the Pharo profile tool which show how much
-time is spent for each message sent.
+- ==Profile it== profiles the code with the Pharo profile tool which show how much time is spent for each message sent.
 
-==Code search== offers several options provided by System Browser, such as
-browsing the source code of an expression, searching for senders and
-implementors, and so on.
+- ==Code search== offers several options provided by System Browser, such as browsing the source code of an expression, searching for senders and implementors, and so on.
 
 
 !!The System Browser
@@ -409,35 +397,31 @@ available for Pharo, but this is the basic one you will find in any image. The d
 
 !!!!Open the System Browser
 
-Open the Browser by selecting ==World > System Browser==.
+Open the Browser by selecting ==World > System Browser==. The System Browser is also called Nautilus (this is the name of the Jules Verne's submarine).
 
-+The System Browser showing the printString method of class Object>file://figures/system-browser.png|width=100|label=fig:systemBrowser+
-
-+Icons used by the system browser>file://figures/pharoBrowserIcons.png|width=100|label=fig:systemBrowserIcons+
++The System Browser showing the ==factorial== method of class ==Integer==>file://figures/system-browser-annotated.png|width=100|label=fig:systemBrowser+
 
 We can see a System Browser in Figure *@fig:systemBrowser*.
 
-Its icons in figure *@fig:systemBrowserIcons* have special meaning, and some can
-act as buttons that perfom an action depending on the context of the icon. The
-meanings of the icons are as follows (from left to right and top to bottom):
+#Its icons in figure *@fig:systemBrowserIcons* have special meaning, and some can
+#act as buttons that perfom an action depending on the context of the icon. The
+#meanings of the icons are as follows (from left to right and top to bottom):
 
-Package, Class with comment, method overriden in subclasses, method inherited
-from super class, method both inherited from superclass and overriden by
-subclasses, test class that has not been run, test class that has run and passed
-all its tests, Trait, Class tag, Class without a comment, button to switch on
-the class comment, button to switch to class side, button to show inheritance
-hierachy, Announcement class, Group.
+#Package, Class with comment, method overriden in subclasses, method inherited
+#from super class, method both inherited from superclass and overriden by
+#subclasses, test class that has not been run, test class that has run and passed
+#all its tests, Trait, Class tag, Class without a comment, button to switch on
+#the class comment, button to switch to class side, button to show inheritance
+#hierachy, Announcement class, Group.
 
-The title bar indicates that we are browsing the class Object and its method
-==printString==.
+The title bar indicates that we are browsing the class ==Integer== and its method
+==factorial==.
 
 When a new System Browser window first opens, all panes are empty but the
 leftmost one. This first pane lists all known packages, which contain groups of
 related classes.
 
-In Pharo , the default System Browser is Nautilus. However,
-it is possible to have other System Browsers installed in the Pharo enviroment
-such as OmniBrowser, AltBrowser and others. Each System Browser may
+In Pharo, the default System Browser is Nautilus. However, it is possible to have other System Browsers installed in the Pharo enviroment such as AltBrowser. Each System Browser may
 have its own GUI that may be very diffirent from the Nautilus GUI. From now on,
 we will use the terms ==Browser==, ==System Browser== and (occasionally)
 ==Nautilus== interchangeably.
