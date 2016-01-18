@@ -11,14 +11,14 @@ Pharo is a modern, open-source, dynamically typed language supporting live codin
 - A culture where changes and improvements are encouraged and highly valued.
 - A community that welcomes coders from any corner of the world with any skill and any programming languages.
 
-Pharo strives to offer a lean, open platform for professional software development, as well as a  robust and stable platform for research and development into dynamic languagesand environments. Pharo serves as the reference implementation for the Seasideweb development framework available at *http://www.seaside.st*.
+Pharo strives to offer a lean, open platform for professional software development, as well as a  robust and stable platform for research and development into dynamic languagesand environments. Pharo serves as the reference implementation for the Seaside web development framework available at *http://www.seaside.st*.
 
 Pharo core contains only code that has been contributed under the MIT license.
 The Pharo project started in March 2008 as fork of Squeak (a modern implementation of Smalltalk), and the first 1.0 beta version was
 released on July 31, 2009. The current version is Pharo 4.0, released in April
 2015. Pharo 5.0 is in alpha development and planned for release in April 2016.
 
-Pharo is highly portable. Pharo can run on MacOSX, Windows, Linux, Android, iOS and Raspberry Pi. Its virtual machine is written entirely in
+Pharo is highly portable. Pharo can run on OS X, Windows, Linux, Android, iOS, and Raspberry Pi. Its virtual machine is written entirely in
 a subset of Smalltalk, making it easy to simulate, debug, analyze, and change
 from within Pharo itself.  Pharo is the vehicle for a
 wide range of innovative projects, from multimedia applications and educational
@@ -31,13 +31,13 @@ Rather than leaping for the final perfect solution in one big step,
 a multitude of small changes keeps even the bleeding edge relatively stable
 while experimenting with important new features and libraries.
 This facilitates rapid feedback and contributions from the community,
-on which Pharo depends for its success. You can make impact on Pharo.
+on which Pharo depends for its success. Finally Pharo is not read-only, Pharo integrates every day  changes made by the community. This is why you can get an impact on Pharo!
 
 
 !!Who should read this book?
 
 The previous revision of this book was based on Pharo 1.4.
-This revision has been liberally updated to align with Pharo 4.0.
+This revision has been liberally updated to align with Pharo 4.0/5.0.
 Various aspects of Pharo are presented, starting with the basics then proceeding to intermediate topics.
 Advanced topics are presented in """Deep into Pharo""", a book on the internals of Pharo
 that is freely available at *http://books.pharo.org*. In addition for readers interested in web development, a new book ""Enterprise Pharo: a Web Perspective"" 
@@ -55,8 +55,7 @@ excellent book on Smalltalk  (Alec Sharp,
 *Smalltalk by Example>Http://stephane.ducasse.free.fr/FreeBooks/ByExample*, McGraw-Hill,
 1997).
 
-There are numerous other
-*books on Smalltalk freely available on the web>http://stephane.ducasse.free.fr/FreeBooks.html* but none of these focuses specifically on Pharo.
+There are numerous other books on Smalltalk freely available on the web at *http://stephane.ducasse.free.fr/FreeBooks.html*.
 
 
 !!A word of advice
@@ -78,7 +77,7 @@ This book is an open book in the following senses:
 
 - This book just describes the core of Pharo. We encourage others to contribute chapters on the parts of Pharo that we have not described. If you would like to participate in this effort, please contact us. We would like to see more books around Pharo!
 
-- It also possible to contribute directly to this book via Github. Just follow the instructions there and ask any question on the mailing list. You can find the Github repo at *https://github.com/SquareBracketAssociates/UpdatedPharoByExample>https://github.com/SquareBracketAssociates/UpdatedPharoByExample*
+- It is also possible to contribute directly to this book via Github. Just follow the instructions there and ask any question on the mailing list. You can find the Github repo at *https://github.com/SquareBracketAssociates/UpdatedPharoByExample>https://github.com/SquareBracketAssociates/UpdatedPharoByExample*
 
 !!The Pharo community
 
@@ -126,6 +125,8 @@ open-source project and for hosting the web site of this book.
 We also thank the Pharo community for their enthusiastic support of this book
 project, as well as for all the translations of the first edition of ""Pharo by
 Example"".
+
+Thanks to Manfred Kröhnert, Markus Schlager, Werner Kassens for the typos and feedback. 
 
 Finally we want to thank Inria for its steady and important financial support,
 and the RMoD team members for the constant energy pushing Pharo forward.
