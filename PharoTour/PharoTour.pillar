@@ -12,7 +12,7 @@ learn how to define a new method, create an object and send it messages.
 
 ''Note:'' Most of the introductory material in this book will work with any
 Pharo version, so if you already have one installed, you may as well continue to
-use it. However, since this chapter is written for Pharo 4.0 and Pharo 5.0, if you notice
+use it. However, since this book is written for Pharo 4.0/5.0, if you notice
 differences between the appearance or behaviour of your system and what is
 described here, do not be surprised.
 
@@ -72,14 +72,12 @@ Pharo that don't change frequently. Sources file is important because the image 
 
 ""3."" The ""changes"" file logs of all source code modifications (especially all the changes you did while programming) since the ==.sources== file was generated. Each release provides a near empty file named for the release, for example ==Pharo4.0.changes==. This facilitates a per method history for diffs or reverting. It means that even if you did not manage to save the image file on a crash or you just forgot, you can recover your changes from this file.  A changes file is always coupled with a image file. They work in pair. 
 
-""4."" The ""image"" file provides a frozen in time snapshot of a running Pharo system. This is the file where all the objects including compiled methods are stored and as such it's a cross platform format. An image file contains the live state of all objects of the system (including classes and methods, since they are objects too) at a given point. An image is a virtual object container. The file is named for the release (like ==Pharo4.0.image==) and it is synched with the ==Pharo4.0.changes== file. 
+""4."" The ""image"" file provides a frozen in time snapshot of a running Pharo system. This is the file where all objects are stored and as such it's a cross platform format. An image file contains the live state of all objects of the system (including classes and compiled methods, since they are objects too) at a given point. An image is a virtual object container. The file is named for the release (like ==Pharo4.0.image==) and it is synched with the ==Pharo4.0.changes== file. 
 
 
 !!! Image/Change pair
 
-The ==.image== and ==.changes== files provided by a Pharo release are the starting point for a live environment that you adapt to your needs. Essentially the image file contains the compiler of the language (not the VM), the language parser, the IDE tools, many libraries and acts like a virtual Operation System that runs on top of a Virtual Machine (VM), similarly to ISO files.
-
-As you work in Pharo, these files are modified, so you need to make sure that they are writable. Pay attention to remove the changes and image files from the list 
+The ==.image== and ==.changes== files provided by a Pharo release are the starting point for a live environment that you adapt to your needs. As you work in Pharo, these files are modified, so you need to make sure that they are writable. Pay attention to remove the changes and image files from the list 
 of files to be checked by anti-viruses.  The ==.image== and ==.changes== files are intimately linked
 and should always be kept together, with matching base filenames. 
 Never edit them directly with a text editor, as ==.images== holds your live object runtime memory, which indexes into the ==.changes== files for the source.
@@ -98,7 +96,7 @@ Do whatever works best for your style of working and your operating system.
 
 To start Pharo, do whatever your operating system expects: drag the .image file onto the icon of the virtual machine, or double-click the .image file, or at the command line type the name of the virtual machine followed by the path to the .image file. 
 
-- On ""Mac OS X"", double click the ==Pharo4.0.app== bundle in the unzipped download.
+- On ""OS X"", double click the ==Pharo4.0.app== bundle in the unzipped download.
 - On ""Linux"", double click (or invoke from the command line) the ==pharo== executable bash script from the unzipped Pharo folder.
 - On ""Windows"", enter the unzipped Pharo folder and double click ==Pharo.exe==.
 
@@ -125,9 +123,9 @@ For Linux, assuming that you're in the unzipped ==pharo4.0== folder:
 ./pharo shared/Pharo4.0.image
 ]]]
 
-!!!!Mac OS X command line
+!!!!OS X command line
 
-For Mac OS X, assuming that you're in the directory with the unzipped
+For OS X, assuming that you're in the directory with the unzipped
 ==Pharo4.0.app== bundle:
 
 [[[caption=Launching Pharo from Mac OS X|label=src:launchingFromMac
@@ -160,7 +158,7 @@ After installing PharoLauncher and opening it (like you would do for any Pharo i
 - The right column lists Templates, which are remote images available for download. To download a remote image, select it and click the ==Create image== button (located on the top right, next to the ==Refresh template list== button).
 
 You can use your own local images with ""PharoLauncher"", in addition to working with the images you donwloaded. To do so, simply ensure that your .image and its associated
-.changes files are placed in a folder (with the same name as your image) in your default image location. You can find such information in the ""PharoLauncher"" settings
+.changes files are placed in a folder (with the same name as your image) in your default image location. You can find the location in the ""PharoLauncher"" settings.
 
 !!The World Menu
 
@@ -334,7 +332,7 @@ Notice how the text "hello world" appears in the transcript window. Do it again.
 
 If you want to evaluate an expression, you do not always have to right click.
 Instead, you can use keyboard shortcuts. These are the parenthesized expressions
-in the World Menu as well other menus used by Pharo. Even though Pharo may seem like a mouse driven enviroment it contains over 200 shortcuts that allow you operate a variaty of tools, as well as the facility to assign a a keyboard shortcut to any of the 800000 methods contained in the Pharo image. To have a look at the available shortcuts go to World Menu ==->== System ==->== Keymap Browser.
+in the World Menu as well other menus used by Pharo. Even though Pharo may seem like a mouse driven enviroment it contains over 200 shortcuts that allow you operate a variaty of tools, as well as the facility to assign a keyboard shortcut to any of the 800000 methods contained in the Pharo image. To have a look at the available shortcuts go to World Menu ==->== System ==->== Keymap Browser.
 
 Depending on your platform, you may have to press one of the
 modifier keys which are Control, Alt and Command. We will be focusing on the 
@@ -345,7 +343,7 @@ so each time you see something like ==CMD-d==,
 just replace it with the appropriate modifier key depending on your OS.
 
 In addition to ==Do it==, you might have noticed ==Do it and go==, ==Print
-it==, ==Inspect it== and several other options. Let's have a quick look at each
+it==, ==Inspect it== and several other options in the context menu. Let's have a quick look at each
 of these.
 
 Type the expression ==3 + 4== into the playground. Now ==Do it== with the
@@ -370,9 +368,7 @@ This time we see the result we expect.
 We use the notation ==-\->== as a convention in this book to indicate that a
 particular Pharo expression yields a given result when you ==Print it==.
 
-Delete the highlighted text "7" (Pharo should have selected it for you, so you
-can just press the delete key). Select ==3\+4== again, and this time ==Inspect
-it== (==CMD-i==).
+Select ==3\+4== again, and this time ==Inspect it== (==CMD-i==).
 
 Now you should see a new window titled "Inspector on a SmallInteger(7)"
 The inspector is an extremely useful tool that will allow you
