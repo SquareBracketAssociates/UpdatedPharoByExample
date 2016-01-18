@@ -24,7 +24,7 @@ described here, do not be surprised.
 Pharo is available as a free download from
 *http://pharo.org/download>http://pharo.org/download*. Click the button for your
 operating system to download the appropriate ==.zip== file. For example, the
-full Pharo 4.0 distribution for Mac OS X will be available at
+full Pharo 4.0 distribution for OS X will be available at
 *http://files.pharo.org/platform/Pharo4.0-mac.zip>http://files.pharo.org/platform/Pharo4.0-mac.zip*.
 
 Once that file is unzipped, it will contain everything you need to run
@@ -199,7 +199,7 @@ operations on the on-screen objects themselves, such as inspecting or resizing
 them (see Figure *@fig:halos*). If you let the mouse linger over a handle, a
 help balloon will explain its function. In Pharo, how you meta-click depends on
 your operating system: either you must hold ==Shift-Ctrl== or ==Shift-Alt== (on
-Windows or Linux) or ==Shift-Option== (on Mac OS X) while clicking.
+Windows or Linux) or ==Shift-Option== (on OS X) while clicking.
 
 +Action Click (right click) brings the contextual menu.>file://figures/operating.png|width=60|label=fig:operating+
 
@@ -337,8 +337,8 @@ Instead, you can use keyboard shortcuts. These are the parenthesized expressions
 in the World Menu as well other menus used by Pharo. Even though Pharo may seem like a mouse driven enviroment it contains over 200 shortcuts that allow you operate a variaty of tools, as well as the facility to assign a a keyboard shortcut to any of the 800000 methods contained in the Pharo image. To have a look at the available shortcuts go to World Menu ==->== System ==->== Keymap Browser.
 
 Depending on your platform, you may have to press one of the
-modifier keys which are Control, Alt and Command. We will be focusing on the Mac
-OS platform since this is the platform most Pharo developers use, where the
+modifier keys which are Control, Alt and Command. We will be focusing on the 
+OS X platform since this is the platform most Pharo developers use, where the
 command key (a.k.a ==CMD==) is the main modifier key. The corresponding modifier
 key in Windows is ==ALT==, and in Linux is either ==ALT== or ==CTRL==,
 so each time you see something like ==CMD-d==,
