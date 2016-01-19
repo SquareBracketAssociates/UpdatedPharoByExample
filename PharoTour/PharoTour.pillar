@@ -357,26 +357,24 @@ Select ==3\+4== and ==Print it== (==CMD-p==). This time we see the result we exp
 We use the notation ==-\->== as a convention in this book to indicate that a
 particular Pharo expression yields a given result when you ==Print it==.
 
++Inspecting a simple number using ==Inspect==>file://figures/inspector.png|width=80|label=fig:inspector+
+
 !!!! Inspect
 Select ==3\+4== again, and this time ==Inspect it== (==CMD-i==).
 
-Now you should see a new window titled "Inspector on a SmallInteger(7)"
-The inspector is an extremely useful tool that allows you
-to browse and interact with any object in the system. The title tells us that 7
-is an instance of the class ==SmallInteger==. The left panel allows us to browse
-the instance variables of an object, the values of which are shown in the right
-panel. The bottom panel can be used to write expressions to send messages to the
-object.
+Now you should see a new window titled "Inspector on a SmallInteger(7)" as shown in Figure *@fig:inspector*.
+The inspector is an extremely useful tool that allows you to browse and interact with any object in the system. The title tells us that 7 is an instance of the class ==SmallInteger==. The top panel allows us to browse the instance variables of an object and their values.  The bottom panel can be used to write expressions to send messages to the object. The inspector presents specific tabs that will show different information and views on the object depending on the kind of object you are inspecting. Inspect ==Morph new openInWorld== you should get a situation similar to the one of Figure *@fig:inspectorMorph*.
 
 Type ==self squared== in the bottom panel of the inspector, and ==Print it==.
 
-+Inspecting an object using ==Basic Inspect==>file://figures/inspector.png|width=80|label=fig:inspector+
-
++Inspecting a Mprph using ==Inspect==>file://figures/inspectMorph.png|width=80|label=fig:inspectorMorph+
 
 
 !!!! Other operations
 
 Other right-click options that may be used are the following:
+
+- ==Do it and go== happens a navigable inspector on the side of the playground. It allows us to navigate the object structure. Try with the previous expression ==Morph new openInWorld== and navigate the structure. 
 
 - ==Basic Inspect it== opens the classic inspector that offers a more minimal GUI and live updates of changes to the object.
 
@@ -389,65 +387,63 @@ Other right-click options that may be used are the following:
 
 !!The System Browser
 
-The ==System Browser==, also known as "Class Browser", is one of the key tools
-used for programming. As we shall see, there are several interesting browsers
-available for Pharo, but this is the basic one you will find in any image. The default System Browser used by Pharo is called Nautilus.
+The ==System Browser==, also known as "Class Browser", is one of the key tools used for programming. As we shall see, there are several interesting browsers available for Pharo, but this is the basic one you will find in any image.  The current incarantion of the System Browser is called Nautilus (this is the name of the Jules Verne's submarine).
 
-@@authorToDo TODO: factorial on number would be better. and should redo the screenshot
-
-!!!!Open the System Browser
-
-Open the Browser by selecting ==World > System Browser==. The System Browser is also called Nautilus (this is the name of the Jules Verne's submarine).
+!!! Opening the System Browser on a given method 
 
 +The System Browser showing the ==factorial== method of class ==Integer==>file://figures/system-browser-annotated.png|width=100|label=fig:systemBrowser+
 
-We can see a System Browser in Figure *@fig:systemBrowser*.
 
-#Its icons in figure *@fig:systemBrowserIcons* have special meaning, and some can
-#act as buttons that perfom an action depending on the context of the icon. The
-#meanings of the icons are as follows (from left to right and top to bottom):
+This is not the usual way we open a browser on a method because we use more advanced tools now for the sake of this presentation, execute the ==Nautilus openOnMethod: Integer>>#factorial== expression. It will open a system browser on the method ==factorial==. We should get a System Browser in Figure *@fig:systemBrowser*. The title bar indicates that we are browsing the class ==Integer== and its method ==factorial==.
+ Figure *@fig:systemBrowser* shows the different entities displayed by the browser: packages, classes, protocols, methods and method definition.
 
-#Package, Class with comment, method overriden in subclasses, method inherited
-#from super class, method both inherited from superclass and overriden by
-#subclasses, test class that has not been run, test class that has run and passed
-#all its tests, Trait, Class tag, Class without a comment, button to switch on
-#the class comment, button to switch to class side, button to show inheritance
-#hierachy, Announcement class, Group.
-
-The title bar indicates that we are browsing the class ==Integer== and its method
-==factorial==.
-
-When a new System Browser window first opens, all panes are empty but the
-leftmost one. This first pane lists all known packages, which contain groups of
-related classes.
 
 In Pharo, the default System Browser is Nautilus. However, it is possible to have other System Browsers installed in the Pharo enviroment such as AltBrowser. Each System Browser may
 have its own GUI that may be very diffirent from the Nautilus GUI. From now on,
 we will use the terms ==Browser==, ==System Browser== and (occasionally)
 ==Nautilus== interchangeably.
 
-!!!!!Expand the ==Kernel== package category and select the ==Objects== package
+
+!!! Navigating using the System Browser
+Pharo has ""Spotter"" (see below) to navigate the system. Now we just want to show you the flow of the System Browser. Usually with ""Spotter"" we go directly to the class or the method. 
+
+Let us look how to find the ==printString== method defined in class ==Object== at the end of the navigation we will get the situation depicted in *@fig:systemBrowser2*.
+
++The System Browser showing the ==printString== method of class ==Object==>file://figures/browsingprintString.png|width=100|label=fig:systemBrowser2+
+
+
+!!!! Open the Browser by selecting ==World > System Browser==. 
+
+When a new System Browser window first opens, all panes are empty but the leftmost one. This first pane lists all known packages, which contain groups of related classes. 
+
+!!!! Filter packages.
+Type part of the name of the package in the left most filter. It filters the list of packages to be shown in the list under it. Type 'Kern' for example.
+
+!!!!! Expand the ==Kernel== package and select the ==Objects== element.
 
 When we select a package, it causes the second pane to show a list of all of the
-classes in the selected package.
+classes in the selected package. You should see the hierarchy of ==ProtoObject==
 
-!!!!!Select the ==Object== class
+!!!!! Select the ==Object== class.
 
 When a class is selected, the remaining two panes will be populated. The
 third pane displays the protocols of the currently selected class. These are
 convenient groupings of related methods. If no protocol is selected you should
 see all methods in the fourth pane.
 
-!!!!!Select the ==printing== protocol
+!!!!! Select the ==printing== protocol.
 
 You may have to scroll down to find it. You can also click on the third pane and
 type ==pr==, to typeahead-find the ==printing== protocol. Now select it, and you
 will see in the fourth pane only methods related to printing.
 
-!!!!!Select the ==printString== method
+!!!!! Select the ==printString== method.
 
 Now we see in the bottom pane the source code of the ==printString== method,
 shared by all objects in the system (except those that override it).
+
+
+There are much better way to find a method and we will look at them now. 
 
 !!Finding classes
 
