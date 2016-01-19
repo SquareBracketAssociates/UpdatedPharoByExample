@@ -445,6 +445,8 @@ shared by all objects in the system (except those that override it).
 
 There are much better way to find a method and we will look at them now. 
 
+
+@@todo stef here 
 !!Finding classes
 
 There are several ways to find a class in Pharo. The first, as we have just
@@ -454,13 +456,13 @@ using the browser.
 A second way is to send the ==browse== message to the class, asking it to open a
 browser on itself. Suppose we want to browse the class ==Boolean==.
 
-!!!!Using the message ==browse==
+!!!!Using the message ==browse==.
 
 Type ==Boolean browse== into a playground and ==Do it==.
 
 A browser will open on the ==Boolean== class.
 
-!!!!Using ==CMD-b== to browse
+!!!!Using ==CMD-b== to browse.
 
 There is also a keyboard shortcut ==CMD-b== (browse) that you can use in any
 tool where you find a class name; select the name and press ==CMD-b==. Use this
@@ -477,7 +479,7 @@ bottom of the class pane, you can see the class comment in a dedicated pane.
 
 +The Boolean class with the comments section>file://figures/Boolean.png|width=100|label=fig:boolean+
 
-!!!!Find class in System Browser
+!!!!Find class in System Browser.
 
 Often, the fastest way to find a class is to search for it by name. For example,
 suppose that you are looking for some unknown class that represents dates and
@@ -498,13 +500,13 @@ Note that if you type the complete (and correctly capitalized) name of a class
 in the find dialog, the browser will go directly to that class without showing
 you the list of options.
 
-!!!!Using Spotter
+!!!!Using Spotter.
 
 Pressing ==Shift-Enter== will open ==Spotter==, a very powerful tool for finding
 classes, methods, and many other related actions. Figure *@fig:spotter* shows
 that we look for ==Point==. Spotter proposes us several possibilities.
 
-+Spotter>file://figures/spotter.png|width=100|label=fig:spotter+
++Spotter>file://figures/spotter.png|width=80|label=fig:spotter+
 
 We can use Spotter to navigate to our search results similarly to how we use
 System Browser. Spotter categorizes its search results: for example, classes are
