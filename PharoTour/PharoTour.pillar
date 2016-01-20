@@ -413,32 +413,27 @@ Let us look how to find the ==printString== method defined in class ==Object== a
 
 
 !!!! Open the Browser by selecting ==World > System Browser==. 
-
 When a new System Browser window first opens, all panes are empty but the leftmost one. This first pane lists all known packages, which contain groups of related classes. 
 
-!!!! Filter packages.
+!!!!Filter packages.
 Type part of the name of the package in the left most filter. It filters the list of packages to be shown in the list under it. Type 'Kern' for example.
 
 !!!!! Expand the ==Kernel== package and select the ==Objects== element.
-
 When we select a package, it causes the second pane to show a list of all of the
 classes in the selected package. You should see the hierarchy of ==ProtoObject==
 
 !!!!! Select the ==Object== class.
-
 When a class is selected, the remaining two panes will be populated. The
 third pane displays the protocols of the currently selected class. These are
 convenient groupings of related methods. If no protocol is selected you should
 see all methods in the fourth pane.
 
 !!!!! Select the ==printing== protocol.
-
 You may have to scroll down to find it. You can also click on the third pane and
 type ==pr==, to typeahead-find the ==printing== protocol. Now select it, and you
 will see in the fourth pane only methods related to printing.
 
 !!!!! Select the ==printString== method.
-
 Now we see in the bottom pane the source code of the ==printString== method,
 shared by all objects in the system (except those that override it).
 
@@ -477,11 +472,11 @@ bottom of the class pane, you can see the class comment in a dedicated pane.
 %+The Boolean class with the comments section>file://figures/Boolean.png|width=100|label=fig:boolean+
 In addition the system supports the following mouse shortcuts
 
-- ==CMD== + ==Click==: open the definition of a class,
-- ==CMD== + ==Shift== + ==Click==: open a list browser with all the refs of the class.
+- ==CMD-Click== on a word: open the definition of a class when the word is a class name. You get also the implementors of the message when you click on a selector that is in the body of a method.
+- ==CMD-Shift-Click== on a word: open a list browser with all the refs of the class when the word is a class name. You get also the senders of the message when you click on a selector that is in the body of a method.
 
 
-!!! Using Spotter.
+!!! Using Spotter
 
 The fastest (and probably the coolest) way to find a class is to use ""Spotter"". Pressing ==Shift\+Enter== opens ==Spotter==, a very powerful tool for finding classes, methods, and many other related actions. Figure *@fig:spotter* shows that we look for ==Point==. 
 
@@ -491,14 +486,16 @@ The fastest (and probably the coolest) way to find a class is to use ""Spotter""
 You can specify to Spotter the kind of ''categories'' you are interested in.
 For example using ==\#class== followed by the word you look indicates that you are
 interested in classes. This is the default so you do not need to type ==#class==.
-Other Categories are menu, packages, method (#implementor), examples (#example), pragma (#pragma), senders (#sender), class references (#references) but also playground code snippets (using ==\#playground).
+Other Categories are menu, packages, method (==#implementor==), examples (==#example==), pragma (==#pragma==), senders (==#sender==), class references (==#reference==) but also playground code snippets (using ==\#playground==).
+You can just type the beginning of the category to identify it i.e., ==#ref Point== will give all the reference to the class ==Point==. 
+
 
 Spotter can be used even to browse through the OS file system, and has a history
 category where previous searches are stored for quickly going back to popular
 searches.
 
 
-!!!! Results navigation
+!!!!Results navigation.
 In addition we can use ""Spotter"" to navigate to our search results similarly to how we use
 System Browser. Spotter categorizes its search results: for example, classes are
 under Classes category, methods under the Implementors category, help topics
@@ -522,7 +519,6 @@ switch seamlessly between selecting items and refining the search. Pressing
 search result.
 
 !!!! Using Find class in System Browser.
-
 In the SystemBrowser you can also search for a class via its name. For example,
 suppose that you are looking for some unknown class that represents dates and
 times.
@@ -545,11 +541,8 @@ you the list of options.
 !!!! Using the Finder
 
 You can also open the ==Finder== that is available from the ==World > Tools...==
-menu, and type part of the name of the class. It is less efficient than using
-""Spotter"" or the SystemBrowser as explained above. The Finder is more useful
+menu, and type part of the name of the class and change the Selectors to Classes in the right combo box. It is less efficient than using ""Spotter"" or the SystemBrowser as explained above. The Finder is more useful
 for other types of code searches such as find methods based on examples, as we will show later.
-
-
 
 
 !! Finding methods
@@ -557,11 +550,18 @@ for other types of code searches such as find methods based on examples, as we w
 Sometimes you can guess the name of a method, or at least part of the name of a
 method, more easily than the name of a class. For example, if you are interested
 in the current time, you might expect that there would be a method called "now",
-or containing "now" as a substring. But where might it be? The ==Finder==
+or containing "now" as a substring. But where might it be? ""Spotter"" and ""Finder""
 can help you.
 
-Select ==World Menu > Tools > Finder==. Type ==now== in the top left search box,
-and click ==Search== (or just press the ==Enter== key).
+!!!! Spotter
+
+With ""Spotter"" you can also find methods. Either by getting a class and navigating or using category such as: 
+- ==#implementor a method name== will display all the methods that are implemented and have the same name. For example you will get all the ==do:== methods.
+- ==#selector a method name== will display all the selectors that matches this name
+
+!!! With Finder
+
+Select ==World Menu > Tools > Finder==. Type ==now== in the top left search box, click ==Search== (or just press the ==Enter== key).
 You should see a list of results similar to the one in Figure *@fig:finder*.
 
 The Finder will display a list of all the method names that contain the
@@ -573,26 +573,30 @@ in the code pane on the bottom.
 
 +The Finder showing all classes defining a method named ==now==.>file://figures/finder.png|width=80|label=fig:finder+
 
+
+
+!!! Finding methods using examples
+
 At other times, you may have a good idea that a method exists, but will have no
 idea what it might be called. The Finder can still help! For example,
 suppose that you would like to find a method that turns a string into upper
-case (for example, transforming 'eureka' into 'EUREKA'). We can give the
+case (for example, transforming =='eureka'== into =='EUREKA'==). We can give the
 inputs and expected output of a method and the Finder will try to find it for
 you.
 
-!!!!Finding methods using examples
-
-The Finder has a really powerful functionality: you can give the receiver,
+The ""Finder"" has a really powerful functionality: you can give the receiver,
 arguments and expected result and the finder tries to find the corresponding
 message.
 
-In the Finder, select the examples mode using the second combo-box (the one that
+!!!! Trying
+
+In the Finder, select the """Examples"" mode using the second combo-box (the one that
 shows ==Selectors== by default).
 
-Type =='eureka'. 'EUREKA'== into the search box and press the ==Enter== key.
+Type =='eureka' . 'EUREKA'== into the search box and press the ==Enter== key.
 
-The Finder will then suggest a method that does what you were looking for, as
-well as display a list of classes that implement that method. In this case,
+The ""Finder"" will then suggest a method that does what you were looking for, as
+well as display a list of classes that implement methods with the same name. In this case,
 it determined that the ==asUppercase== method is the one that performed the
 operation that fit your example.
 
@@ -611,13 +615,13 @@ is not a ==Character== instance (but is instead a ==String==).
 
 You can also use the Finder to search for methods by arguments and results. For
 example, if you are looking for a method that will find the greatest common
-factor of two integers, you might try ==25. 35. 5== as an example. You can also
+factor of two integers, you might try ==25 . 35 . 5== as an example. You can also
 give the method finder multiple examples to narrow the search space; the help
 text in the bottom pane explains how.
 
 !!Defining a new method
 
-The advent of Test Driven Development (TDD) has changed the way that we write
+The advent of Test Driven Development (TDD) has changed the way we write
 code. The idea behind TDD is that we write a test that defines the desired
 behaviour of our code before we write the code itself. Only then do we write the
 code that satisfies the test.
@@ -633,12 +637,12 @@ idea is that this message should turn a string into its uppercase version as
 shown in the example below:
 
 [[[
-'Don''t panic' shout
---> 'DON''T PANIC!'
+'No panic' shout
+--> 'NO PANIC!'
 ]]]
 
 However, before creating the ==shout== method itself, we must first create a
-test method! In the next section, we can use the "Don't Panic" example to
+test method! In the next section, we can use the "No Panic" example to
 create our test method.
 
 !!!Defining a new test method
@@ -653,12 +657,12 @@ protocol for our method, in this case =='tests - converting'==. The highlighted
 text in the bottom pane is a template that reminds you what a Pharo method looks
 like. Delete this template code (remember, you can either click on the beginning
 or the end of the text, or press ==CMD-a==, to "Select All"), and start typing
-your method. We can turn our "Don't Panic" code example into the test method
+your method. We can turn our "No Panic" code example into the test method
 itself:
 
 [[[
 testShout
-	self assert: ('Don''t panic' shout = 'DON''T PANIC!')
+	self assert: ('No panic' shout = 'NO PANIC!')
 ]]]
 
 Once you have typed the text into the browser, notice that the corner is orange.
@@ -672,8 +676,7 @@ Figure *@fig:testshout*.
 If this is the first time you have accepted any code in your image, you will
 likely be prompted to enter your name. Since many people have contributed code
 to the image, it is important to keep track of everyone who creates or modifies
-methods. Simply enter your first and last names, without any spaces (you can
-also use a dot to separate).
+methods. Simply enter your first and last names, without any spaces.
 
 Because there is as yet no method called ==shout==, the browser will ask you to
 confirm that this is the name that you really want. It will also suggest some
@@ -684,18 +687,17 @@ the first option from the menu of choices.
 
 !!! Running your test method
 
-Run your newly created test: open the ==Test Runner== from the World Menu.
+Run your newly created test: open the ==Test Runner== from the World Menu (or press on the circle icon in front of the method name this is faster and cooler). 
 
-The leftmost two panes are a bit like the top panes in the System Browser. The
+In the TestRunner the leftmost two panes are a bit like the top panes in the System Browser. The
 left pane contains a list of packages, but it's restricted to those packages
 that contain test classes.
 
 Select ==CollectionsTests-Strings== package, and the pane to the right will show
-all of the test classes in it, which includes the class ==StringTest==. The
-names of the classes are already selected, so click ==Run Selected== to run all
-these tests.
+all of the test classes in it, which includes the class ==StringTest==. Class names are already selected, 
+so click ==Run Selected== to run all these tests.
 
-+Failed test - Message not Understood>file://figures/preview-1.png|width=70|label=fig:messageNotUnderstood+
+%+Failed test - Message not Understood>file://figures/preview-1.png|width=70|label=fig:messageNotUnderstood+
 
 You should see the upper right pane turn red, which indicates that there was an
 error in running the tests. The list of tests that gave rise to errors is shown
@@ -704,14 +706,17 @@ culprit. (Note that ==StringTest>>testShout== is the Pharo way of identifying
 the ==testShout== method of the ==StringTest== class.) If you click on that
 method in the bottom right pane, the erroneous test will run again, this time in
 such a way that you see the error happen: ==MessageNotUnderstood:
-ByteString>>shout== (see Figure *@fig:messageNotUnderstood*).
+ByteString>>shout== (see Figure *@fig:shoutError*).
+
+
++Looking at the error in the debugger.>file://figures/testshout-0.png|width=70|label=fig:shoutError+
 
 The window that opens with the error message is the Pharo debugger. We will look
-at the debugger and how to use it in Chapter *: The Pharo Environment>../Environment/Environment.pillar@cha:env*.
+at the debugger and how to use it in Chapter: *The Pharo Environment>../Environment/Environment.pillar@cha:env*.
 
-+Pressing the Create button in the debugger prompts you to select which class to create the new method in>file://figures/preview-2.png|width=70|label=fig:createPromptWhichClass+
++Pressing the Create button in the debugger prompts you to select in which class to create the new method. >file://figures/preview-2.png|width=50|label=fig:createPromptWhichClass+
 
-!!!Implementing the test method
+!!!Implementing the tested method
 
 The error is, of course, exactly what we expected: running the test generates an
 error because we haven't yet written a method that tells strings how to shout.
@@ -720,25 +725,20 @@ confirms that we have set up the testing machinery correctly and that the new
 test is actually being run. Once you have seen the error, you can ==Abandon==
 the running test, which will close the debugger window.
 
-+You can implement methods in the debugger itself, via the Create button.>file://figures/shouldBeImplemented-3.png|width=70|label=fig:shoutShouldBeImplemented+
++The automatically created ==shout== method waiting for a real definition.>file://figures/shoutInDebugger-4.png|width=70|label=fig:shoutShouldBeImplemented+
 
-+The newly created ==shout== method.>file://figures/shoutInDebugger-4.png|width=70|label=fig:shoutInDebugger+
-
+!!!! Coding in the debugger
 Instead of pressing ==Abandon==, you can define the missing method using the
 ==Create== button right in the debugger. This will prompt you to select a class
 in which to define the new method (see Figure *@fig:createPromptWhichClass*), then
 prompt you to select a protocol for that method, and finally take you to a code
 editor window in the debugger, in which you can edit the code for this new
-method (see Figure *@fig:shoutShouldBeImplemented*). When you've finished
-implementing the method, you can press ==Proceed== and continue with the tests.
-Note that ==Proceed== simply continues on running the test suite, and does not
-re-run the failed method.
+method. Note that since the system cannot implement the method
+for you, it creates a generic method that is tagged as to be implemented (see Figure *@fig:shoutShouldBeImplemented*). 
 
-Now let's define the method that will make the test succeed!
 
-Select class ==String== in the browser, select the converting protocol method,
-replace the method template with the code of the method below, and ==Accept==
-it (==CMD-s==).
+Now let's define the method that will make the test succeed! Right inside the debugger 
+edit the ==shout== method with this definition:
 
 [[[
 shout
@@ -751,13 +751,13 @@ the shout message was sent to. The ==^== tells Pharo that the expression that
 follows is the answer to be returned from the method, in this case the new
 concatenated string.
 
+When you've finished implementing the method, do not forget to compile it using ==CMD-s== and you can press ==Proceed== and continue with the tests. Note that ==Proceed== simply continues on running the test suite, and does not re-run the failed method.
+
 Does this method work? Let's run the tests and see.
 
 Click on ==Run Selected== again in the Test Runner, and this time you should see
 a green bar and text indicating that all of the tests ran with no failures and
-no errors.
-
-When you get to a green bar, it's a good idea to save your work by saving the
+no errors. When you get to a green bar, it's a good idea to save your work by saving the
 image (==World Menu > Save==), and take a break. So, do that right now!
 
 !!Chapter Summary
@@ -768,7 +768,7 @@ the Debugger, and the Test Runner. You have also seen a little of Pharo's
 syntax, even though you may not understand it all yet.
 
 -A running Pharo system consists of a ''virtual machine'', a ==.sources== file, and ==.image== and ==.changes== files. Only these last two change, as they record a snapshot of the running system.
--When you restore a Pharo image, you will find yourself in exactly the same state (i.e., with exactly the same running objects) that you had when you last saved that image.
+-When you open a Pharo image, you will find yourself in exactly the same state (i.e., with exactly the same running objects) that you had when you last saved that image.
 -You can click on the Pharo background to bring up the ==World Menu== and launch various tools.
 -A ==Playground== is a tool for writing and evaluating snippets of code. You can also use it to store arbitrary text.
 -You can use keyboard shortcuts on text in the playground, or any other tool, to evaluate code. The most important of these are ==Do it== (==CMD-d==), ==Print it== (==CMD-p==), ==Inspect it== (==CMD-i==), and ==Browse it== (==CMD-b==).
