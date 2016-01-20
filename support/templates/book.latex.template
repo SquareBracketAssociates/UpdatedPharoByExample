@@ -45,10 +45,8 @@
 \setcounter{page}{1}
 \pagestyle{headings}
 %=================================================================
-\author{Damien Cassou and St\'ephane Ducasse and Kilon Alios
-
-        Originally by Andrew P. Black \quad St\'ephane Ducasse \\ \quad Oscar Nierstrasz \quad Damien Pollet\quad \\
-       with Damien Cassou and Marcus Denker
+\author{Damien Cassou and St\'ephane Ducasse and Kilon Alios\\\vspace{3cm}
+        \small{Originally Written by Andrew P. Black \quad St\'ephane Ducasse \quad Oscar Nierstrasz \quad Damien Pollet\quad \\ with Damien Cassou and Marcus Denker}}
 }
 \title{\Huge\bf Updated Pharo by Example}
 \isodate
