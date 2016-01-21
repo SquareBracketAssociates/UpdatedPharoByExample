@@ -169,9 +169,9 @@ menu bar, but Pharo mainly makes use of context-dependent pop-up menus.
 +Clicking anywhere on the Pharo window background activates the World Menu>file://figures/Pharo40.png|width=100|label=fig:worldMenu+
 
 Clicking anywhere on the background of the Pharo window will display the
-World Menu, which contains many of the Pharo tools, utilities and settings.
+""World Menu"", which contains many of the Pharo tools, utilities and settings.
 
-At the top of the World Menu, you will see a list of several core tools in
+At the top of the ""World Menu"", you will see a list of several core tools in
 Pharo, including the System Browser, the Playground, the Monticello package
 manager, and others. We will discuss them in more detail in the coming chapters.
 
@@ -205,7 +205,7 @@ Windows or Linux) or ==Shift-Option== (on OS X) while clicking.
 
 !!Sending messages
 
-In the Pharo window, click on an open space to open the ==World Menu==, and then
+In the Pharo window, click on an open space to open the ""World Menu"", and then
 select the ""Playground"" menu option. The ""Playground"" tool will open (you may
 recognize it as the ""Workspace"" tool, from previous versions of Pharo). We can
 use ""Playground"" to quickly execute Pharo code. Enter the following code in
@@ -374,27 +374,33 @@ Type ==self squared== in the bottom panel of the inspector, and ==Print it==.
 
 Other right-click options that may be used are the following:
 
-- ==Do it and go== happens a navigable inspector on the side of the playground. It allows us to navigate the object structure. Try with the previous expression ==Morph new openInWorld== and navigate the structure. 
+- ==Do it and go== additionally opens a ''navigable'' inspector on the side of the playground. It allows us to navigate the object structure. Try with the previous expression ==Morph new openInWorld== and navigate the structure. 
 
 - ==Basic Inspect it== opens the classic inspector that offers a more minimal GUI and live updates of changes to the object.
 
-- ==Debug it== open the debuger on the code.
+- ==Debug it== opens the debuger on the code.
 
-- ==Profile it== profiles the code with the Pharo profile tool which show how much time is spent for each message sent.
+- ==Profile it== profiles the code with the Pharo profile tool which shows how much time is spent for each message sent.
 
 - ==Code search== offers several options provided by System Browser, such as browsing the source code of an expression, searching for senders and implementors, and so on.
 
 
 !!The System Browser
 
-The ==System Browser==, also known as "Class Browser", is one of the key tools used for programming. As we shall see, there are several interesting browsers available for Pharo, but this is the basic one you will find in any image.  The current incarantion of the System Browser is called Nautilus (this is the name of the Jules Verne's submarine).
+The ==System Browser==, also known as "Class Browser", is one of the key tools used for programming. As we shall see, there are several interesting browsers available for Pharo, but this is the basic one you will find in any image.  The current implementation of the System Browser is called Nautilus (this is the name of the Jules Verne's submarine).
 
 !!! Opening the System Browser on a given method 
 
 +The System Browser showing the ==factorial== method of class ==Integer==>file://figures/system-browser-annotated.png|width=100|label=fig:systemBrowser+
 
 
-This is not the usual way we open a browser on a method because we use more advanced tools now for the sake of this presentation, execute the ==Nautilus openOnMethod: Integer>>#factorial== expression. It will open a system browser on the method ==factorial==. We should get a System Browser in Figure *@fig:systemBrowser*. The title bar indicates that we are browsing the class ==Integer== and its method ==factorial==.
+This is not the usual way that we open a browser on a method: we use more advanced tools! Now for the sake of this presentation, execute the following snippet:
+
+[[[
+Nautilus openOnMethod: Integer>>#factorial
+]]]
+ 
+It will open a system browser on the method ==factorial==. We should get a System Browser like in Figure *@fig:systemBrowser*. The title bar indicates that we are browsing the class ==Integer== and its method ==factorial==.
  Figure *@fig:systemBrowser* shows the different entities displayed by the browser: packages, classes, protocols, methods and method definition.
 
 
@@ -405,9 +411,9 @@ we will use the terms ==Browser==, ==System Browser== and (occasionally)
 
 
 !!! Navigating using the System Browser
-Pharo has ""Spotter"" (see below) to navigate the system. Now we just want to show you the flow of the System Browser. Usually with ""Spotter"" we go directly to the class or the method. 
+Pharo has ""Spotter"" (see below) to navigate the system. Now we just want to show you the working flow of the System Browser. Usually with ""Spotter"" we go directly to the class or the method. 
 
-Let us look how to find the ==printString== method defined in class ==Object== at the end of the navigation we will get the situation depicted in *@fig:systemBrowser2*.
+Let us look how to find the ==printString== method defined in class ==Object==. At the end of the navigation, we will get the situation depicted in *@fig:systemBrowser2*.
 
 +The System Browser showing the ==printString== method of class ==Object==>file://figures/browsingprintString.png|width=100|label=fig:systemBrowser2+
 
@@ -480,17 +486,19 @@ In addition the system supports the following mouse shortcuts
 
 The fastest (and probably the coolest) way to find a class is to use ""Spotter"". Pressing ==Shift\+Enter== opens ==Spotter==, a very powerful tool for finding classes, methods, and many other related actions. Figure *@fig:spotter* shows that we look for ==Point==. 
 
-+Spotter>file://figures/spotter.png|width=80|label=fig:spotter+
++Opening Spotter>file://figures/spotter.png|width=80|label=fig:spotter+
 
 ""Spotter"" offers several possibilities as shown in Figure *@fig:spotter*.
 You can specify to Spotter the kind of ''categories'' you are interested in.
-For example using ==\#class== followed by the word you look indicates that you are
+For example, using ==\#class== followed by the word you look for, indicates that you are
 interested in classes. This is the default so you do not need to type ==#class==.
-Other Categories are menu, packages, method (==#implementor==), examples (==#example==), pragma (==#pragma==), senders (==#sender==), class references (==#reference==) but also playground code snippets (using ==\#playground==).
-You can just type the beginning of the category to identify it i.e., ==#ref Point== will give all the reference to the class ==Point==. 
 
+Figure *@fig:spotter2* shows how we can ask ""Spotter"" to show all the implementors of a given messages. We do not have to type the full category name. 
+Other Categories are menu, packages, method (==#implementor==), examples (==#example==), pragma (==#pragma==), senders (==#sender==), class references (==#reference==) but also playground code snippets (using ==\#playground==).You can just type the beginning of the category to identify it i.e., ==#ref Point== will give all the reference to the class ==Point==. 
 
-Spotter can be used even to browse through the OS file system, and has a history
++Looking for implementors matching ==printString==>file://figures/Spotter2.png|width=80|label=fig:spotter2+
+
+""Spotter"" can be used even to browse through the OS file system, and has a history
 category where previous searches are stored for quickly going back to popular
 searches.
 
@@ -528,7 +536,7 @@ launch the Class Search window by typing ==CMD-f CMD-c==, or selecting ==Find
 class (f,c)== from the right-click context menu. Type ==time== in the dialog box
 and click ==OK== (or press ==Enter==).
 
-You will be presented with a list of classes whose names contain the substring
+A list of classes is displayed, whose names contain the substring
 ==time==. Choose one (say, ==Time==), and the browser will show it, along with a
 class comment that suggests other classes that might be useful. If you want to
 browse one of the others, select its name (in any text pane), and type
@@ -687,9 +695,9 @@ the first option from the menu of choices.
 
 !!! Running your test method
 
-Run your newly created test: open the ==Test Runner== from the World Menu (or press on the circle icon in front of the method name this is faster and cooler). 
+Run your newly created test: open the ""Test Runner"" from the World Menu (or press on the circle icon in front of the method name this is faster and cooler). 
 
-In the TestRunner the leftmost two panes are a bit like the top panes in the System Browser. The
+In the ""Test Runner"" the leftmost two panes are a bit like the top panes in the System Browser. The
 left pane contains a list of packages, but it's restricted to those packages
 that contain test classes.
 
@@ -769,9 +777,9 @@ syntax, even though you may not understand it all yet.
 
 -A running Pharo system consists of a ''virtual machine'', a ==.sources== file, and ==.image== and ==.changes== files. Only these last two change, as they record a snapshot of the running system.
 -When you open a Pharo image, you will find yourself in exactly the same state (i.e., with exactly the same running objects) that you had when you last saved that image.
--You can click on the Pharo background to bring up the ==World Menu== and launch various tools.
--A ==Playground== is a tool for writing and evaluating snippets of code. You can also use it to store arbitrary text.
+-You can click on the Pharo background to bring up the ""World Menu"" and launch various tools.
+-A ""Playground"" is a tool for writing and evaluating snippets of code. You can also use it to store arbitrary text.
 -You can use keyboard shortcuts on text in the playground, or any other tool, to evaluate code. The most important of these are ==Do it== (==CMD-d==), ==Print it== (==CMD-p==), ==Inspect it== (==CMD-i==), and ==Browse it== (==CMD-b==).
--The ==System Browser== is the main tool for browsing Pharo code and for developing new code.
--The ==Test runner== is a tool for running unit tests, and aids in Test Driven Development.
--The ==Debugger== allows you to examine errors and exceptions (such as errors or failures encountered when running tests). You can even create new methods right in the debugger.
+-The ""System Browser"" is the main tool for browsing Pharo code and for developing new code.
+-The ""Test runner"" is a tool for running unit tests, and aids in Test Driven Development.
+-The ""Debugger"" allows you to examine errors and exceptions (such as errors or failures encountered when running tests). You can even create new methods right in the debugger.
