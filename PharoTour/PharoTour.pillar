@@ -152,7 +152,7 @@ Pharo.exe Pharo4.0.image
 
 +PharoLauncher - GUI>file://figures/PharoLauncher.png|width=70|label=fig:PharoLauncher+
 
-After installing PharoLauncher and opening it (like you would do for any Pharo image), you should get GUI similar to Figure *@fig:PharoLauncher*. 
+After installing PharoLauncher and opening it (like you would do for any Pharo image), you should get a GUI similar to Figure *@fig:PharoLauncher*. 
 
 - The left column lists images that live locally on your machine (usually in a shared system folder). You can launch any local image directly (either by double-clicking, or by selecting it and pressing the ==Launch== button). A right-click context menu provides several useful functions like copying and renaming your images, as well as locating them on the file system.
 - The right column lists Templates, which are remote images available for download. To download a remote image, select it and click the ==Create image== button (located on the top right, next to the ==Refresh template list== button).
@@ -360,14 +360,14 @@ particular Pharo expression yields a given result when you ==Print it==.
 +Inspecting a simple number using ==Inspect==>file://figures/inspector.png|width=80|label=fig:inspector+
 
 !!!! Inspect
-Select ==3\+4== again, and this time ==Inspect it== (==CMD-i==).
+Select or place the cursor on the line of ==3\+4==, and this time ==Inspect it== (==CMD-i==).
 
 Now you should see a new window titled "Inspector on a SmallInteger(7)" as shown in Figure *@fig:inspector*.
 The inspector is an extremely useful tool that allows you to browse and interact with any object in the system. The title tells us that 7 is an instance of the class ==SmallInteger==. The top panel allows us to browse the instance variables of an object and their values.  The bottom panel can be used to write expressions to send messages to the object. The inspector presents specific tabs that will show different information and views on the object depending on the kind of object you are inspecting. Inspect ==Morph new openInWorld== you should get a situation similar to the one of Figure *@fig:inspectorMorph*.
 
 Type ==self squared== in the bottom panel of the inspector, and ==Print it==.
 
-+Inspecting a Mprph using ==Inspect==>file://figures/inspectMorph.png|width=80|label=fig:inspectorMorph+
++Inspecting a Morph using ==Inspect==>file://figures/inspectMorph.png|width=80|label=fig:inspectorMorph+
 
 
 !!!! Other operations
@@ -413,7 +413,7 @@ Let us look how to find the ==printString== method defined in class ==Object== a
 
 
 !!!! Open the Browser by selecting ==World > System Browser==. 
-When a new System Browser window first opens, all panes are empty but the leftmost one. This first pane lists all known packages, which contain groups of related classes. 
+When a new System Browser window first opens, all panes but the leftmost are empty. This first pane lists all known packages, which contain groups of related classes. 
 
 !!!!Filter packages.
 Type part of the name of the package in the left most filter. It filters the list of packages to be shown in the list under it. Type 'Kern' for example.
