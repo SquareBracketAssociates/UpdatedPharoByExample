@@ -493,24 +493,17 @@ The game will open, and you should be able to click on the cells and see how it
 works. Well, so much for theory... When you click on a cell, a debugger will appear. In the upper part of the debugger window you can see the execution stack, showing all the active methods. Selecting any one of them will show, in the middle pane, the Smalltalk code being executed in that method, with the part that triggered the error highlighted.
 
 Click on the line labeled ==LOGame >> toggleNeighboursOfCellAt: at:== (near the
-top).
-
-The debugger will show you the execution context within this method where the
+top). The debugger will show you the execution context within this method where the
 error occurred (see Figure *@fig:debuggerHighlight*).
 
 +The debugger, with the method ==toggleNeighboursOfCell:at:== selected>file://figures/debuggerHighlight.png|width=85|label=fig:debuggerHighlight+
 
-At the bottom of the debugger are two small inspector windows. On the right, you
-can inspect the object that is the receiver of the message that caused the
-selected method to execute, so you can look here to see the values of the
-instance variables. On the left you can inspect an object that represents the
-currently executing method itself, so you can look here to see the values of the
-method's parameters and temporary variables.
+At the bottom of the debugger is a variable zone. You can inspect the object that is the receiver of the message that caused the selected method to execute, so you can look here to see the values of the instance variables. You can also seet the values of the method arguments. 
 
 Using the debugger, you can execute code step by step, inspect objects in
 parameters and local variables, evaluate code just as you can in a playground,
 and, most surprisingly to those used to other debuggers, change the code while
-it is being debugged! Some Smalltalkers program in the debugger almost all the
+it is being debugged! Some Pharoers program in the debugger almost all the
 time, rather than in the browser. The advantage of this is that you see the
 method that you are writing as it will be executed, with real parameters in the
 actual execution context.
@@ -540,8 +533,7 @@ LOGame >> newCellAt: i at: j
 	^ c
 ]]]
 
-Recall from Chapter *: A Quick Tour of Pharo>../PharoTour/PharoTour.pillar@cha:tour*
-that the syntax to return a value from a method in Smalltalk is ==^==.
+The syntax to return a value from a method in Pharo is ==^==.
 
 Often, you can fix the code directly in the debugger window and click
 ==Proceed== to continue running the application. In our case, because the bug
@@ -549,7 +541,7 @@ was in the initialization of an object, rather than in the method that failed,
 the easiest thing to do is to close the debugger window, destroy the running
 instance of the game (with the halo), and create a new one.
 
-Do: ==LOGame new openInWorld== again.
+Do: ==LOGame new openInWorld== again because if you use the old game instance it will still contain the block with the old logic. 
 
 Now the game should work properly... or nearly so. If we happen to move the
 mouse between clicking and releasing, then the cell the mouse is over will also
