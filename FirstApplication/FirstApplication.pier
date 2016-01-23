@@ -515,7 +515,7 @@ with the initialization of the cells matrix. Browsing the code of
 ==LOGame >> initialize== shows that ==cells== is filled with the return values
 of ==newCellAt: at:==, but when we look at that method, we see that there is no
 return statement there! By default, a method returns ==self==, which in the case
-of ==newCellAt: at:== is indeed an instance of ==LOGame==.
+of ==newCellAt: at:== is indeed an instance of ==LOGame==. The syntax to return a value from a method in Pharo is ==^==.
 
 Close the debugger window. Add the expression ==^ c== to the end of the method
 ==LOGame >> newCellAt:at:== so that it returns ==c==.
@@ -533,7 +533,7 @@ LOGame >> newCellAt: i at: j
 	^ c
 ]]]
 
-The syntax to return a value from a method in Pharo is ==^==.
+
 
 Often, you can fix the code directly in the debugger window and click
 ==Proceed== to continue running the application. In our case, because the bug
