@@ -539,7 +539,7 @@ Often, you can fix the code directly in the debugger window and click
 ==Proceed== to continue running the application. In our case, because the bug
 was in the initialization of an object, rather than in the method that failed,
 the easiest thing to do is to close the debugger window, destroy the running
-instance of the game (with the halo), and create a new one.
+instance of the game (with the halo ==CMD-Alt-Shift== and click), and create a new one.
 
 Do: ==LOGame new openInWorld== again because if you use the old game instance it will still contain the block with the old logic. 
 
@@ -556,7 +556,7 @@ LOGame >> mouseMove: anEvent
 Finally we are done!
 
 !!!!! About the debugger.
-By default when an error occurs in Pharo the IDE shows you a debugger. However, we can fully control this behavior and we could write the error in a file. We can even serialize the execution stack in a file and zip and we can reopen it in another image. Now when we are in development 
+By default when an error occurs in Pharo, the system displays a debugger. However, we can fully control this behavior. For example we can write the error in a file. We can even serialize the execution stack in a file, zip and reopen it in another image. Now when we are in development 
 mode the debugger is available to let us go as fast as possible. In production system, developers
 often control the debugger to hide their mistakes to their clients. 
 
