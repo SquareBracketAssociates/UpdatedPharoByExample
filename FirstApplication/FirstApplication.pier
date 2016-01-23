@@ -101,7 +101,7 @@ pane now shows the class definition. Below you get the Quality Assistant's feedb
 Pharoers put a very high value on the readability of their code, but also good quality 
 comments. 
 
-!!!! Method comments.
+!!!!!Method comments.
 People got the tendency to believe that it is not necessary to comment well written methods: 
 it is plain wrong and encourage sloppiness. Of course, bad code should renamed and refactored.
 Obviously commenting trivial methods makes no sense.
@@ -109,7 +109,7 @@ A comment should not be the code written in english but an explanation of what t
 its context, or the rational behind its implementation. When reading a comment, the reader should be 
 conforted that his hypothesis are correct. When you read foreign code with good comments, you 
 
-!!!! Class comments. 
+!!!!! Class comments. 
 For the class comment, the Pharo class comment template gives a good idea of a strong class comment. 
 Read it! It is based on CRC for Class Responsibility Collaborators. 
 So in a nutshell the comments state the responsibility of the class in a couple of sentences and how it collaborates
@@ -122,7 +122,7 @@ Select the comment button and define a class comment following this template
 
 !!!On categories vs. packages
 
-Historically, Pharo packages were implemented as "categories". With the newer
+Historically, Pharo packages were implemented as "categories" (a group of classes). With the newer
 versions of Pharo, the term ""category"" is being deprecated, and replaced
 exclusively by ""package"". 
 
@@ -142,11 +142,8 @@ also what you will be using to version your source code using the Monticello ver
 
 !!Adding methods to a class
 
-Now let's add some methods to our class.
-
-Select the protocol ==no messages== in the protocol pane. You will see a
-template for method creation in the editing pane. Select the template text, and
-replace it by the following:
+Now let's add some methods to our class. Select the protocol =='no messages'== in the protocol pane. You will see a template for method creation in the editing pane. Select the template text, and
+replace it by the following (Do not forget to compile it):
 
 [[[lineNumber=true|caption=Initializing instance of LOCell|label=scr:InitLOCell
 initialize
@@ -162,22 +159,23 @@ initialize
 
 Note that the characters =='\'== on line 3 are two separate single quotes with
 nothing between them, not a double quote! ==\'\'== denotes the empty string.
-Another way to create an empty string is ==String new.==
+Another way to create an empty string is ==String new.== Do not forget to ""accept"" this method definition.
 
-""Accept"" this method definition.
++The newly-created method initialize>file://figures/initialize.png|width=100|label=fig:initialize+
 
+
+!!!!! Initialize methods.
 Notice that the method is called ==initialize==. The name is very significant!
-By convention, if a class defines a method named ==initialize==, it will be
-called right after the object is created. So, when we evaluate ==LOCell new==,
-the message initialize will be sent automatically to this newly created object.
-Initialize methods are used to set up the state of objects, typically to set
+By convention, if a class defines a method named ==initialize==, it is
+called right after the object is created. So, when we execute ==LOCell new==,
+the message ==initialize== is sent automatically to this newly created object.
+==initialize== methods are used to set up the state of objects, typically to set
 their instance variables; this is exactly what we are doing here.
 
-+The newly-created method initialize>file://figures/createMethod.png|width=100|label=fig:createMethod+
-
+!!!!! Invoking superclass initialization.
 The first thing that this method does (line 2) is to execute the ==initialize==
 method of its superclass, ==SimpleSwitchMorph==. The idea here is that any
-inherited state will be properly initialized by the initialize method of the
+inherited state will be properly initialized by the ==initialize== method of the
 superclass. It is always a good idea to initialize inherited state by sending
 ==super initialize== before doing anything else. We don't know exactly what
 ==SimpleSwitchMorph==’s ==initialize== method will do (and we don't care), but
@@ -188,6 +186,7 @@ state.
 The rest of the method sets up the state of this object. Sending ==self label:
 \'\'==, for example, sets the label of this object to the empty string.
 
+!!!!! About point and rectangle creation.
 The expression ==0\@0 corner: 16\@16== probably needs some explanation. ==0\@0==
 represents a ==Point== object with ==x== and ==y== coordinates both set to 0. In
 fact, ==0\@0== sends the message ==@== to the number 0 with argument 0. The
@@ -200,15 +199,16 @@ to the ==bounds== variable, inherited from the superclass.
 Note that the origin of the Pharo screen is the top left, and the ==y==
 coordinate increases downwards.
 
+!!!! About the rest
 The rest of the method should be self-explanatory. Part of the art of writing
 good Pharo code is to pick good method names so that the code can be
 read like a kind of pidgin English. You should be able to imagine the object
 talking to itself and saying \"Self, use square corners!\", \"Self, turn off\!\".
 
-+The method initialize into the pane>file://figures/initialize.png|width=50|label=fig:initialize+
+
 
 Notice that there is a little green arrow next to your method (see
-Figure *@fig:initialize*). This means the method exists in the super class and is
+Figure *@fig:initialize*). This means the method exists in the superclass and is
 overridden in your class.
 
 !!Inspecting an object
