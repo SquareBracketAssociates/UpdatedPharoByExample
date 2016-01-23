@@ -1,10 +1,9 @@
 !A first application
 @cha:firstApp
 
-In this chapter, we will develop a simple game: *Lights
-Out>http://en.wikipedia.org/wiki/Lights_Out_(game)*. Along the way we will
-demonstrate most of the tools that Pharo programmers use to construct and debug
-their programs, and show how programs are exchanged with other developers. We
+In this chapter, we will develop a simple game: LightsOut (*http://en.wikipedia.org/wiki/Lights_Out_(game))*. Along the way we will
+show most of the tools that Pharo programmers use to construct and debug
+their programs, and show how programs are shared with other developers. We
 will see the browser, the object inspector, the debugger and the Monticello
 package browser.
 
@@ -13,12 +12,12 @@ package browser.
 !!The Lights Out game
 
 To show you how to use Pharo's programming tools, we will build a simple game
-called Lights Out. The game board consists of rectangular array of light yellow
+called ""Lights Out"". The game board consists of rectangular array of light yellow
 cells. When you click on one of the cells, the four surrounding
 cells turn blue. Click again, and they toggle back to light yellow. The object
 of the game is to turn blue as many cells as possible.
 
-The Lights Out game is made up of two kinds of objects: the game board itself,
+""Lights Out"" is made up of two kinds of objects: the game board itself,
 and 100 individual cell objects. The Pharo code to implement the game will
 contain two classes: one for the game and one for the cells. We will now show
 you how to define these classes using the Pharo programming tools.
@@ -28,61 +27,51 @@ you how to define these classes using the Pharo programming tools.
 
 We have already seen the browser in Chapter
 *: A Quick Tour of Pharo>../PharoTour/PharoTour.pillar@cha:tour* where we
-learned how to navigate to classes and methods, and saw how to define new
+learned how to navigate to pakages, classes and methods, and saw how to define new
 methods. Now we will see how to create packages and classes.
 
-From the ==World== menu, open a System Browser. Right-click on an existing
++Create a Package and class template>file://figures/createPackageFull.png|width=90|label=fig:createPackage+
+
+From the ==World== menu, open a ""System Browser"". Right-click on an existing
 package in the Package pane and select ==Add package...== from the menu
 (see Figure *@fig:createPackage*). Type the name of the new package (we
-will use ==PBE-LightsOut==) in the dialog box and click ==OK== (or just
+ use ==PBE-LightsOut==) in the dialog box and click ==OK== (or just
 press the return key). The new package is created, and positioned
-alphabetically in the list of packages.
+alphabetically in the list of packages. 
+
+""Hints:"" You can type PBE in the filter to get your package filtered out the other ones (See Figure *@fig:createPackageFiltered*). 
+
++Filtering our package to work more efficiently>file://figures/createPackageFullFiltered.png|width=90|label=fig:createPackageFiltered+
+
 
 !!Defining the class ==LOCell==
 
-At this point there are of course no classes in the new package. However, the
+At this point there are, of course, no classes in the new package. However, the
 main editing pane displays a template to make it easy to create a new class (see
-Figure *@fig:createPackage*).
+Figure *@fig:createPackageFiltered*).
 
-This template shows us a Smalltalk expression that sends a message to a class
+This template shows us a Pharo expression that sends a message to a class
 called ==Object==, asking it to create a subclass called ==NameOfSubClass==. The
 new class has no variables, and should belong to the category (package)
 ==PBE-LightsOut==.
 
-+Create a Package and class template>file://figures/createPackageFull.png|width=100|label=fig:createPackage+
-
-!!!On categories vs. packages
-
-Historically, Pharo packages were implemented as "categories". With the newer
-versions of Pharo, the term ""category"" is being deprecated, and replaced
-exclusively by ""package"". However, the method for creating subclasses
-(explained in the next section) still refers to the class's package as
-==category:==. Aside from subclass creation, to maintain consistency, we will
-only use the term ""package"" in this book, to denote a collection or related
-classes (and extension methods to other, existing classes). The Pharo package is
-also what you will be using to version your source code using the Monticello
-versioning tool.
-
 !!!Creating a new class
 
-We simply modify the template to create the class that we really want.
-
-Modify the class creation template as follows:
-
+We simply edit the template to create the class that we really want. Modify the class creation template as follows:
 - Replace ==Object== with ==SimpleSwitchMorph==.
 - Replace ==NameOfSubClass== with ==LOCell==.
 - Add ==mouseAction== to the list of instance variables.
 
-The result should look like this:
+You should get the following class definition:
 
-[[[language=smalltalk|caption=Defining the classLOCell|label=scr:ClassLOCell
+[[[caption= ==LOCell== class definition|label=scr:ClassLOCell
 SimpleSwitchMorph subclass: #LOCell
 	instanceVariableNames: 'mouseAction'
 	classVariableNames: ''
-	category: 'PBE-LightsOut'
+	package: 'PBE-LightsOut'
 ]]]
 
-This new definition consists of a Smalltalk expression that sends a message to
+This new definition consists of a Pharo expression that sends a message to
 the existing class ==SimpleSwitchMorph==, asking it to create a subclass called
 ==LOCell==. (Actually, since ==LOCell== does not exist yet, we passed the symbol
 ==\#LOCell== as an argument, representing the name of the class to create.) We
@@ -90,32 +79,66 @@ also tell it that instances of the new class should have a ==mouseAction==
 instance variable, which we will use to define what action the cell should take
 if the mouse should click on it.
 
-+The class-creation Template>file://figures/createClass.png|width=75|label=fig:createClass+
-
 At this point you still have not created anything. Note that the top right of
-the panel changed to orange (see Figure *@fig:createClass*). This means that
-there are unsaved changes. To actually send this subclass message, you must save
-(accept) the source code.
-
-Either right-click and select ==Accept==, or use the shortcut ==CMD-s== (for
+the panel changed to orange. This means that there are unsaved changes. 
+To actually send this subclass message, you must save
+(accept) the source code. Either right-click and select ==Accept==, or use the shortcut ==CMD-s== (for
 "Save"). The message will be sent to ==SimpleSwitchMorph==, which will cause the
-new class to be compiled.
+new class to be compiled. You should get the situation depicted in Figure *@fig:pannelAtNewClass*.
+
+
 
 +The newly-created class LOCell>file://figures/pannelAtNewClass.png|width=100|label=fig:pannelAtNewClass+
 
 Once the class definition is accepted, the class will be created and appear in
 the class pane of the browser (see Figure *@fig:pannelAtNewClass*). The editing
-pane now shows the class definition. The Comments pane on the bottom right will
-remind you to write a few words describing the purpose of the class (if you
-don't see that pane, click on the ==Comments== button to toggle it open). This
-is called a ''class comment'', and it is quite important to write one that will
-give other programmers a high-level overview of the purpose of this class.
-Smalltalkers put a very high value on the readability of their code, and
-detailed comments in methods are unusual: the philosophy is that the code should
-speak for itself. (If it doesn't, you should refactor it until it does!) A class
-comment need not contain a detailed description of the class, but a few words
-describing its overall purpose are vital if programmers who come after you are
-to know whether to spend time looking at this class.
+pane now shows the class definition. Below you get the Quality Assistant's feedback: It runs automatically quality
+ rules on your code and report them. 
+
+
+!!! About comments
+
+Pharoers put a very high value on the readability of their code, but also good quality 
+comments. 
+
+!!!! Method comments.
+People got the tendency to believe that it is not necessary to comment well written methods: 
+it is plain wrong and encourage sloppiness. Of course, bad code should renamed and refactored.
+Obviously commenting trivial methods makes no sense.
+A comment should not be the code written in english but an explanation of what the method is doing, 
+its context, or the rational behind its implementation. When reading a comment, the reader should be 
+conforted that his hypothesis are correct. When you read foreign code with good comments, you 
+
+!!!! Class comments. 
+For the class comment, the Pharo class comment template gives a good idea of a strong class comment. 
+Read it! It is based on CRC for Class Responsibility Collaborators. 
+So in a nutshell the comments state the responsibility of the class in a couple of sentences and how it collaborates
+with other classes to achieve this responsibilities. In addition we can state the name API, give an example 
+(usually in Pharo we define examples as class methods), and some details about internal representation or 
+implementation rationale.
+
+Select the comment button and define a class comment following this template
+
+
+!!!On categories vs. packages
+
+Historically, Pharo packages were implemented as "categories". With the newer
+versions of Pharo, the term ""category"" is being deprecated, and replaced
+exclusively by ""package"". 
+
+If you use an older version of Pharo or an old tutorial, the class template will be as follow: 
+
+[[[
+SimpleSwitchMorph subclass: #LOCell
+	instanceVariableNames: 'mouseAction'
+	classVariableNames: ''
+	category: 'PBE-LightsOut'
+]]]
+
+It is equivalent as the one we mentioned earlier. In this book we will only use the term ""package"" in this book, to denote a collection or related
+classes (and extension methods to other, existing classes). The Pharo package is
+also what you will be using to version your source code using the Monticello versioning tool.
+
 
 !!Adding methods to a class
 
@@ -125,7 +148,7 @@ Select the protocol ==no messages== in the protocol pane. You will see a
 template for method creation in the editing pane. Select the template text, and
 replace it by the following:
 
-[[[language=smalltalk|lineNumber=true|caption=Initializing instance of LOCell|label=scr:InitLOCell
+[[[lineNumber=true|caption=Initializing instance of LOCell|label=scr:InitLOCell
 initialize
 	super initialize.
 	self label: ''.
@@ -178,7 +201,7 @@ Note that the origin of the Pharo screen is the top left, and the ==y==
 coordinate increases downwards.
 
 The rest of the method should be self-explanatory. Part of the art of writing
-good Smalltalk code is to pick good method names so that the code can be
+good Pharo code is to pick good method names so that the code can be
 read like a kind of pidgin English. You should be able to imagine the object
 talking to itself and saying \"Self, use square corners!\", \"Self, turn off\!\".
 
@@ -238,7 +261,7 @@ by clicking on the package name (or right-clicking on the Class pane and
 selecting ==Add Class==). Edit the code so that it reads as follows, and
 ""Accept"" it.
 
-[[[language=smalltalk|caption=Defining the LOGame class|label=scr:DefineLOGame
+[[[caption=Defining the LOGame class|label=scr:DefineLOGame
 BorderedMorph subclass: #LOGame
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -254,7 +277,7 @@ that list empty.
 Now let's define an ==initialize== method for ==LOGame==. Type the following
 into the browser as a method for ==LOGame== and try to ""Accept"" it.
 
-[[[language=smalltalk|lineNumber=true|caption=Initialize the game|label=scr:InitiGame
+[[[lineNumber=true|caption=Initialize the game|label=scr:InitiGame
 initialize
 	| sampleCell width height n |
 	super initialize.
@@ -371,10 +394,10 @@ the superclass, and Pharo assumes that our ==initialize== method should go in
 the same protocol as the one that it overrides.
 
 !!!!!A typographic convention.
-Smalltalkers frequently use the notation ==>>== to identify the class to which a
+Pharoers frequently use the notation ==>>== to identify the class to which a
 method belongs. For example, the ==cellsPerSide== method in class ==LOGame==
 would be referred to as ==LOGame >> cellsPerSide==. Just keep in mind that this
-is not Smalltalk syntax exactly, but merely a convenient notation to indicate
+is not Pharo syntax exactly, but merely a convenient notation to indicate
 "the instance method ==cellsPerSide== which belongs to the class ==LOGame==".
 (Incidentally, the corresponding notation for a class-side method would be
 ==LOGame class >> someClassSideMethod==.)
@@ -387,7 +410,7 @@ make sure that the appropriate class is selected in the class pane.
 Now let's define the other two methods that are used by ==LOGame >> initialize==.
 Both of them can go in the ==initialization== protocol.
 
-[[[language=smalltalk|caption=A constant method|label=scr:CellsPerSide
+[[[caption=A constant method|label=scr:CellsPerSide
 LOGame >> cellsPerSide
 	"The number of cells along each side of the game"
 
@@ -403,7 +426,7 @@ As you can see there are some tabulation and empty lines. In order to keep the
 same convention you can right-click on the method edit area and click on
 ==Format== (or use ==CMD-Shift-u== shortcut). This will format your method.
 
-[[[language=smalltalk|caption=An initialization helper method|label=scr:NewCellAt
+[[[caption=An initialization helper method|label=scr:NewCellAt
 LOGame >> newCellAt: i at: j
 	"Create a cell for position (i,j) and add it to my on-screen representation at the appropriate screen position. Answer the new cell"
 
@@ -423,7 +446,7 @@ to be the block ==[self toggleNeighboursOfCellAt: i at: j ]==. In effect, this
 defines the callback behaviour to perform when the mouse is clicked. The
 corresponding method also needs to be defined.
 
-[[[language=smalltalk|caption=The callback method|label=scr:Toggle
+[[[caption=The callback method|label=scr:Toggle
 LOGame >> toggleNeighboursOfCellAt: i at: j
 	i > 1
 		ifTrue: [ (cells at: i - 1 at: j) toggleState ].
@@ -450,7 +473,7 @@ to the newly-created protocol (see Figure *@fig:dropProtocol*).
 To complete the Lights Out game, we need to define two more methods in class
 ==LOCell== to handle mouse events.
 
-[[[language=smalltalk|caption=A typical setter method|label=scr:TypicalSetter
+[[[caption=A typical setter method|label=scr:TypicalSetter
 LOCell >> mouseAction: aBlock
 	^ mouseAction := aBlock
 ]]]
@@ -481,7 +504,7 @@ Finally, we need to define a method ==mouseUp:==. This will be called
 automatically by the GUI framework if the mouse button is released while the
 cursor is over this cell on the screen.
 
-[[[language=smalltalk|caption=An event handler|label=scr:MouseUp
+[[[caption=An event handler|label=scr:MouseUp
 LOCell >> mouseUp: anEvent
 	mouseAction value
 ]]]
@@ -563,7 +586,7 @@ of ==newCellAt: at:== is indeed an instance of ==LOGame==.
 Close the debugger window. Add the expression ==^ c== to the end of the method
 ==LOGame >> newCellAt:at:== so that it returns ==c==.
 
-[[[language=smalltalk|caption=Fixing the bug.|label=scr:BugFix
+[[[caption=Fixing the bug.|label=scr:BugFix
 LOGame >> newCellAt: i at: j
 	"Create a cell for position (i,j) and add it to my on-screen representation at the appropriate screen position. Answer the new cell"
 
@@ -593,7 +616,7 @@ be toggled. This turns out to be behavior that we inherit from
 ==SimpleSwitchMorph==. We can fix this simply by overriding ==mouseMove:== to do
 nothing:
 
-[[[language=smalltalk|caption=Overriding mouse move actions|label=scr:MouseMove
+[[[caption=Overriding mouse move actions|label=scr:MouseMove
 LOGame >> mouseMove: anEvent
 ]]]
 
