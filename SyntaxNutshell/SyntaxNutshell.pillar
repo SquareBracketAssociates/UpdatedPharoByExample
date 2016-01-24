@@ -70,15 +70,15 @@ instance variable, method or block argument, or temporary variable must be lower
 case. This indicates to the reader that the variable has a private scope.
 
 ""Shared variables."" Identifiers that start with upper case letters are global
-variables, class variables, pool dictionaries or class names. ==Transcript== is
-a global variable, an instance of the class ==TranscriptStream==.
+variables, class variables, pool dictionaries or class names. ==Processor== is
+a global variable, an instance of the class ==ProcessScheduler==.
 
-""The receiver."". ==self== is a keyword that refers to the object inside which
-the current method is executing. We call it "the receiver" because this object
-will normally have received the message that caused the method to execute.
+""The receiver."" ==self== is a keyword that refers to the object inside which
+the current method is executing. We call it "the receiver" because this object has 
+received the message that caused the method to execute.
 ==self== is called a "pseudo-variable" since we cannot assign to it.
 
-""Integers."". In addition to ordinary decimal integers like 42, Pharo also
+""Integers."" In addition to ordinary decimal integers like 42, Pharo also
 provides a radix notation. ==2r101== is 101 in radix 2 (i.e., binary), which is
 equal to decimal 5.
 
@@ -94,7 +94,7 @@ such as ==Character space== and ==Character tab==.
 want a string with a single quote inside, just double the quote, as in
 =='G'\'day'==.
 
-""Symbols."" are like Strings, in that they contain a sequence of characters.
+""Symbols."" Symbols are like Strings, in that they contain a sequence of characters.
 However, unlike a string, a literal symbol is guaranteed to be globally unique.
 There is only one ==Symbol== object ==#Hello== but there may be multiple
 ==String== objects with the value =='Hello'==.
@@ -131,9 +131,8 @@ primitive fails. The same syntax is also used for method annotations (pragmas).
 receiver (like 3). In ==3 factorial==, 3 is the receiver, and ==factorial== is
 the message selector.
 
-""Binary messages."" These are operators (for example: ==+==) sent to a
-receiver, and taking a single argument. In ==3 + 4==, the receiver is 3, the
-message selector is  ==+==, and the argument is 4.
+""Binary messages."" These are message with an argument and whose selector looks like mathematical expressions (for example: ==\+==) sent to a receiver, and taking a single argument. In ==3 + 4==, the receiver is 3, the
+message selector is  ==\+==, and the argument is 4.
 
 ""Keyword messages."" They consist of multiple keywords (like ==raisedTo:
 modulo:==), each ending with a colon and taking a single argument. In the
@@ -176,15 +175,18 @@ pseudo-variables because they are predefined and cannot be assigned to.
 
 !!Message sends
 
-There are three kinds of messages in Pharo.
+There are three kinds of messages in Pharo. This distinction has been made to reduce the number of mandatory parentheses.
 
 #''Unary'' messages take no argument. ==1 factorial== sends the message ==factorial== to the object 1.
 #''Binary'' messages take exactly one argument. ==1 \+ 2== sends the message ==\+== with argument 2 to the object 1.
 #''Keyword'' messages take an arbitrary number of arguments. ==2 raisedTo: 6 modulo: 10== sends the message consisting of the message selector ==raisedTo:modulo:== and the arguments 6 and 10 to the object 2.
 
-Unary message selectors consist of alphanumeric characters, and start with a
-lower case letter.
 
+
+!!!!!Unary messages.
+Unary message selectors consist of alphanumeric characters, and start with a lower case letter.
+
+!!!!!Binary messages.
 Binary message selectors consist of one or more characters from the following
 set:
 
@@ -192,9 +194,11 @@ set:
 + - / \ * ~ < > = @ % | & ? ,
 ]]]
 
+!!!!!Keyword message selectors.
 Keyword message selectors consist of a series of alphanumeric keywords, where
 each keyword starts with a lower-case letter and ends with a colon.
 
+!!!!!Message precedence.
 Unary messages have the highest precedence, then binary messages, and finally
 keyword messages, so:
 
@@ -202,22 +206,23 @@ keyword messages, so:
 2 raisedTo: 1 + 3 factorial --> 128
 ]]]
 
-(First we send ==factorial== to 3, then we send ==\+ 6== to 1, and finally we
-send ==raisedTo: 7== to 2.) Recall that we use the notation expression ==-\->==
+First we send ==factorial== to 3, then we send ==\+ 6== to 1, and finally we
+send ==raisedTo: 7== to 2. Recall that we use the notation expression ==-\->==
 to show the result of evaluating an expression.
 
-Precedence aside, evaluation is strictly from left to right, so:
+Precedence aside, execution is strictly from left to right, so:
 
 [[[
 1 + 2 * 3 --> 9
 ]]]
 
-not 7. Parentheses must be used to alter the order of evaluation:
+return 9 and not 7. Parentheses must be used to alter the order of evaluation:
 
 [[[
 1 + (2 * 3) --> 7
 ]]]
 
+!!!!!Periods and semi-colons.
 Message sends may be composed with periods and semi-colons. A period separated
 sequence of expressions causes each expression in the series to be evaluated as
 a ''statement'', one after the other.
@@ -247,16 +252,17 @@ This has precisely the same effect as the previous example.
 
 Whereas expressions may be evaluated anywhere in Pharo (for example, in a
 workspace, in a debugger, or in a browser), methods are normally defined in a
-browser window, or in the debugger. (Methods can also be filed in from an
-external medium, but this is not the usual way to program in Pharo.)
+browser window, or in the debugger. Methods can also be filed in from an
+external medium, but this is not the usual way to program in Pharo.
 
-Programs are developed one method at a time, in the context of a given class. (A
+Programs are developed one method at a time, in the context of a given class. A
 class is defined by sending a message to an existing class, asking it to create
-a subclass, so there is no special syntax required for defining classes.)
+a subclass, so there is no special syntax required for defining classes.
 
-Here is the method ==lineCount== in the class ==String==. (The usual convention
-is to refer to methods as ClassName\>\>methodName, so we call this method
-String\>\>lineCount.)
+Here is the method ==lineCount== in the class ==String==. The usual ''convention''
+is to refer to methods as ClassName\>\>methodName. Here the method is then  String\>\>lineCount. 
+Note that  ClassName\>\>methodName is not part of the Pharo syntax just 
+a convention used in books to clearly define a method. 
 
 [[[
 String >> lineCount
@@ -265,8 +271,7 @@ String >> lineCount
 	| cr count |
 	cr := Character cr.
 	count := 1 min: self size.
-	self do:
-    	[:c | c == cr ifTrue: [count := count + 1]].
+	self do: [:c | c == cr ifTrue: [count := count + 1]].
 	^ count
 ]]]
 
@@ -277,7 +282,7 @@ Syntactically, a method consists of:
 #declarations of local variables (i.e., ==cr== and ==count==); and
 #any number of expressions separated by dots (here there are four)
 
-The evaluation of any expression preceded by a ==^== (a caret or upper
+The execution of any expression preceded by a ==^== (a caret or upper
 arrow, which is Shift-6 for most keyboards) will cause the method to exit at
 that point, returning the value of that expression. A method that terminates
 without explicitly returning some expression will implicitly return ==self==.
@@ -289,8 +294,8 @@ the object representing that class.
 
 !!Block syntax
 
-Blocks provide a mechanism to defer the evaluation of expressions. A block is
-essentially an anonymous function. A block is evaluated by sending it the
+Blocks (lexical closures) provide a mechanism to defer the execution of expressions. A block is
+essentially an anonymous function with a definition context. A block is executed by sending it the
 message ==value==. The block answers the value of the last expression in its
 body, unless there is an explicit return (with ^), in which case it does not
 answer any value.
@@ -306,7 +311,7 @@ one argument. A two-parameter block must be sent ==value:value:==, and so on, up
 to 4 arguments.
 
 [[[
-[ :x | 1 + x ] value:2 --> 3
+[ :x | 1 + x ] value: 2 --> 3
 [ :x :y | x + y ] value: 1 value: 2 --> 3
 ]]]
 
@@ -319,7 +324,10 @@ just like local variable declarations in a method. Locals are declared after any
 arguments:
 
 [[[
-[ :x :y || z | z := x + y. z ] value: 1 value: 2 --> 3
+[ :x :y |
+	| z | 
+	z := x + y. 
+	z ] value: 1 value: 2 --> 3
 ]]]
 
 Blocks are actually lexical closures, since they can refer to variables of the
@@ -332,7 +340,7 @@ x := 1.
 [ :y | x + y ] value: 2 --> 3
 ]]]
 
-Blocks are instances of the class BlockClosure. This means that they are
+Blocks are instances of the class ==BlockClosure==. This means that they are
 objects, so they can be assigned to variables and passed as arguments just like
 any other object.
 
@@ -342,6 +350,8 @@ Pharo offers no special syntax for control constructs. Instead, these are
 typically expressed by sending messages to booleans, numbers and collections,
 with blocks as arguments.
 
+
+!!! Some conditionals
 Conditionals are expressed by sending one of the messages ==ifTrue:==,
 ==ifFalse:== or ==ifTrue:ifFalse:== to the result of a boolean expression. See
 Chapter *: Basic Classes>../BasicClasses/BasicClasses.pier@cha:basicClasses*,
@@ -353,6 +363,7 @@ for more about booleans.
 	ifFalse: [ 'smaller' ] -->'bigger'
 ]]]
 
+!!! Some loops
 Loops are typically expressed by sending messages to blocks, integers or
 collections. Since the exit condition for a loop may be repeatedly evaluated, it
 should be a block rather than a boolean value. Here is an example of a very
@@ -390,7 +401,8 @@ result := String new.
 result --> '1 2 3 4 5 6 7 8 9 10 '
 ]]]
 
-""High-Order Iterators."" Collections comprise a large number of different
+!!! High-order iterators
+Collections comprise a large number of different
 classes, many of which support the same protocol. The most important messages
 for iterating over collections include ==do:==, ==collect:==, ==select:==,
 ==reject:==, ==detect:== and ==inject:into:==. These messages define high-level
@@ -398,7 +410,7 @@ iterators that allow one to write very compact code.
 
 An ""Interval"" is a collection that lets one iterate over a sequence of numbers
 from the starting point to the end. ==1 to: 10== represents the interval from 1
-to 10. Since it is a collection, we can send the message do: to it. The argument
+to 10. Since it is a collection, we can send the message ==do:== to it. The argument
 is a block that is evaluated for each element of the collection.
 
 [[[
@@ -429,8 +441,8 @@ the characters.
 ]]]
 
 Finally, you should be aware that collections also support a functional-style
-fold operator in the ==inject:into:== method. (You can also think of it as the
-Reduce in the MapReduce programming model). This lets you generate a cumulative
+fold operator in the ==inject:into:== method. You can also think of it as the
+Reduce in the MapReduce programming model. This lets you generate a cumulative
 result using an expression that starts with a seed value and injects each
 element of the collection. Sums and products are typical examples.
 
@@ -455,11 +467,11 @@ pointer and integer arithmetic (\+, \-, \<, \>, \*, \/, \, \=, \=\=...), and
 array access (==at:==, ==at:put:==).
 
 Primitives are invoked with the syntax ==<primitive: aNumber>==. A method that
-invokes such a primitive may also include Smalltalk code, which will be
-evaluated only if the primitive fails.
+invokes such a primitive may also include Pharo code, which will be
+executed only if the primitive fails.
 
 Here we see the code for ==SmallInteger>>+==. If the primitive fails, the
-expression ==super + aNumber== will be evaluated and returned.
+expression ==super + aNumber== will be executed and returned.
 
 [[[
 + aNumber
@@ -471,8 +483,7 @@ expression ==super + aNumber== will be evaluated and returned.
 	^ super + aNumber
 ]]]
 
-In Pharo, the angle bracket syntax is also used for method annotations called
-pragmas.
+In Pharo, the angle bracket syntax is also used for method annotations called pragmas.
 
 !!Chapter summary
 
