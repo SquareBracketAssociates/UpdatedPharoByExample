@@ -541,7 +541,7 @@ was in the initialization of an object, rather than in the method that failed,
 the easiest thing to do is to close the debugger window, destroy the running
 instance of the game (with the halo ==CMD-Alt-Shift== and click), and create a new one.
 
-Do: ==LOGame new openInWorld== again because if you use the old game instance it will still contain the block with the old logic. 
+Execute ==LOGame new openInWorld== again because if you use the old game instance it will still contain the block with the old logic. 
 
 Now the game should work properly... or nearly so. If we happen to move the
 mouse between clicking and releasing, then the cell the mouse is over will also
@@ -563,15 +563,18 @@ often control the debugger to hide their mistakes to their clients.
 
 !!Saving and sharing Pharo code
 
-Now that you have the Lights Out game working, you probably want to save it
-somewhere so that you can share it with your friends. Of course, you can save
+Now that you have ""Lights Out"" working, you probably want to save it
+somewhere so that you can archive it and share it with your friends. Of course, you can save
 your whole Pharo image, and show off your first program by running it, but your
 friends probably have their own code in their images, and don't want to give
 that up to use your image. What you need is a way of getting source code out of
 your Pharo image so that other programmers can bring it into theirs.
 
-@@note We'll be discussing the various ways to save and share code in a future chapter, Chapter *: Sharing Code and Source Control>./SharingCode/SharingCode.pillarr@cha:sharingCode*. For now, here is a brief overview of some of the available methods.
+@@note We'll be discussing the various ways to save and share code in a future chapter, Chapter *: Sharing Code and Source Control>./SharingCode/SharingCode.pillarr@cha:sharingCode*. For now, here is an overview of some of the available methods.
 
++File Out our PBE-LightsOut>file://figures/fileOut.png|width=15|label=fig:fileOut+
+
+!!!Saving plain code
 The simplest way of doing this is by "filing out" the code. The right-click
 menu in the Package pane will give you the option to ==File Out== the whole of
 package ==PBE-LightsOut==. The resulting file is more or less human readable,
@@ -580,11 +583,7 @@ your friends, and they can file it into their own Pharo images using the file
 list browser.
 
 Right-click on the ==PBE-LightsOut== package and file out the
-contents (see Figure *@fig:fileOut*).
-
-+File Out our PBE-LightsOut>file://figures/fileOut.png|width=75|label=fig:fileOut+
-
-You should now find a file named ==PBE-LightsOut.st== in the same folder on disk
+contents (see Figure *@fig:fileOut*). You should now find a file named ==PBE-LightsOut.st== in the same folder on disk
 where your image is saved. Have a look at this file with a text editor.
 
 +Import your code with the file browser>file://figures/fileBrowser.png|width=100|label=fig:fileBrowser+
@@ -598,7 +597,7 @@ image.
 @fstApp:Monticiello
 
 Although fileouts are a convenient way of making a snapshot of the code you have
-written, they are decidedly "old school". Just as most open-source projects find
+written, they are definitevely "old school". Just as most open-source projects find
 it much more convenient to maintain their code in a repository using SVN or
 Git, so Pharo programmers find it more convenient to manage their code
 using Monticello packages. These packages are represented as files with names
@@ -619,10 +618,11 @@ You can also send a ==.mcz== file by email. The recipient will have to place it 
 her ==package-cache== folder; she will then be able to use Monticello to browse and
 load it.
 
+
++Monticello browser. The package PBE-LightsOut is not save yet>file://figures/monticiello.png|width=100|label=fig:monticiello+
+
+!!!! Monticello Browser
 Open the Monticello browser from the World menu (see Figure *@fig:monticiello*).
-
-+Monticiello browser>file://figures/monticiello.png|width=100|label=fig:monticiello+
-
 In the right-hand pane of the browser is a list of Monticello repositories,
 which will include all of the repositories from which code has been loaded into
 the image that you are using.
@@ -653,12 +653,9 @@ it is a web front-end to a HTTP Monticello server that lets you manage your
 projects. There is a public server at
 *http://www.smalltalkhub.com/>http://www.smalltalkhub.com/*.
 
-In order to be able to use SmalltalkHub you will need an account. Open the site
-in your browser. Then, click on the
-""Join"" link and follow the instructions to create a new account. Finally,
+To be able to use SmalltalkHub you will need an account. Open the site
+in your browser. Then, click on the ""Join"" link and follow the instructions to create a new account. Finally,
 ""login"" to your account.
-
-+Join and login at SmalltalkHub>file://figures/smalltalkhub-join.png|width=100|label=fig:join+
 
 Click on the ""+ New project"" to create a new project. Fill in the information
 requested and click ""Register project"" button. You will be sent to your
