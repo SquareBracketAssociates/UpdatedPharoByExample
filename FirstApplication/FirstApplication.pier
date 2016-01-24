@@ -655,9 +655,7 @@ projects. There is a public server at
 
 To be able to use SmalltalkHub you will need an account. Open the site
 in your browser. Then, click on the ""Join"" link and follow the instructions to create a new account. Finally,
-""login"" to your account.
-
-Click on the ""+ New project"" to create a new project. Fill in the information
+""login"" to your account. Click on the ""+ New project"" to create a new project. Fill in the information
 requested and click ""Register project"" button. You will be sent to your
 profile page, on the right side you will see the list of your projects and
 projects you watch by other coders. Click on the project you just created.
@@ -672,16 +670,9 @@ MCHttpRepository
     password: 'Optional_Password'
 ]]]
 
-Copy those contents.
-
-Go back to Pharo.
-
-Once your project has been created on SmalltalkHub, you have to tell your Pharo
-system to use it.
-
-With the ==PBE-LightsOut== package selected, click the ""+Repository"" button in
-the Monticello browser.
-
+Copy the contents and go back to Pharo. Once your project has been created on SmalltalkHub, 
+you have to tell your Pharo system to use it. 
+With the ==PBE-LightsOut== package selected, click the ""+Repository"" button in the Monticello browser.
 You will see a list of the different Repository types that are available. To add
 a SmalltalkHub repository select ==smalltalkhub.com==. You will be presented
 with a dialog in which you can provide the necessary information about the
@@ -691,12 +682,10 @@ your project online. You can also provide your user name and password. If you do
 not, then Pharo will ask for them each time you try to save into your online
 repository at SmalltalkHub.
 
-+Create your first repository on smalltalkHub>file://figures/createRepository.png|width=100|label=fig:createRepository+
++Create your first repository on SmalltalkHub>file://figures/createRepository.png|width=100|label=fig:createRepository+
 
 Once you have accepted, your new repository should be listed on the right-hand
-side of the Monticello browser.
-
-Click on the ""Save"" button to save a first version of your Lights Out game on
+side of the Monticello browser. Click on the ""Save"" button to save a first version of your Lights Out game on
 SmalltalkHub. Don't forget to put a comment so that you, or others, will have an
 idea of what contains your commit for the future (see Figure
 *@fig:firstCommit*).
@@ -708,13 +697,13 @@ You can do this in the repository browser, which you can open using the button
 or the right-click menu. Once you have selected a version, you can load it onto
 your image.
 
-Open the ==PBE-LightsOut== repository you have just saved.
+Open the ==PBE-LightsOut== repository you have just saved. You should see the package you just saved.
 
 Monticello has many more capabilities, which will be discussed in depth in
 Chapter *: Sharing Code and Source Control>./SharingCode/SharingCode.pillarr@cha:sharingCode*.
-You can also look at the online documentation for Monticello at
-*http://www.wiresong.ca/Monticello/>http://www.wiresong.ca/Monticello/*.
 
+
+!!!!! About git. 
 If you are already familiar with Git and Github there is a chapter about how to
 use Git with Pharo in the online book Enterprise Pharo: A Web Perspective at
 *http://files.pharo.org/books/enterprisepharo/>http://files.pharo.org/books/enterprisepharo/*.
