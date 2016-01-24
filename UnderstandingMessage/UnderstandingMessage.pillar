@@ -10,19 +10,22 @@ to it later.
 !!Identifying messages
 
 In Pharo, except for the syntactic elements listed in Chapter *: Syntax in a Nutshell>../SyntaxNutshell/SyntaxNutshell.pillar@cha:syntax*
-(==\:= ^ . ; # () {} [ : | ]==), everything is a message
-send. As in C\+\+, you can define operators like ==\+== for your own classes, but
-all operators have the same precedence. Moreover, you cannot change the arity of
-a method. ==-== is always a binary message; there is no way to have a unary
-==-== (in addition to the binary one) via overloading.
+(==\:= ^ . ; # () {} [ : | ]== ==\<== ==\>==), everything is a message
+send. There is no operators, just messages sent to objects. 
+Therefore you can define a message named ==\+== in your class but there is also no precedence
+because Pharo always takes the simplest form of definition. 
 
-In Pharo the order in which messages are sent is determined by the type of
+
+The order in which messages are sent is determined by the type of
 message. There are just three types of messages: ""unary"", ""binary"", and ""keyword
-messages"". Unary messages are always sent first, then binary messages and
+messages"". Pharo distinguishes such three types of messages to minimize the number of parentheses. 
+Unary messages are always sent first, then binary messages and
 finally keyword ones. As in most languages, parentheses can be used to change
 the order of execution. These rules make Pharo code as easy to read as possible.
 And most of the time you do not have to think about the rules.
 
+
+!!! Message structure
 As most computation in Pharo is done by message passing, correctly identifying
 messages is key to avoiding future mistakes. The following terminology will help
 us:
@@ -31,7 +34,7 @@ us:
 - A message is sent to a ""receiver"".
 - The combination of a message and its receiver is called a ''message send'' as shown in Figure *@fig:firstScriptMessage*.
 
-+Two message sends composed of a receiver, a method selector, and a set of arguments.>file://figures/message.png|width=80|label=fig:firstScriptMessage+
++Two message sends composed of a receiver, a method selector, and a set of arguments.>file://figures/message.png|width=70|label=fig:firstScriptMessage+
 
 A message is always sent to a receiver, which can be a single literal, a block
 or a variable or the result of evaluating another message.
@@ -58,31 +61,29 @@ returned by the message send ==Pen new==. In all the cases, a message is sent to
 an object called the ''receiver'' which may be the result of another message
 send.
 
-|!Message send |!Message type |!Action
-|==Color yellow== | unary | Creates a color.
-|==aPen go: 100== | keyword | Forwards pen 100 pixels.
-|==100 + 20== | binary | 100 receives the message +
-|==Browser open== | unary | Opens a new browser.
-|==Pen new  go: 100== | unary and keyword | Creates and moves pen 100 pixels.
-|==aPen go: 100 + 20== | keyword and binary | Pen moves forward 120 pixels.
 
-The table shows several examples of message sends. You should note that not all
-message sends have arguments. Unary messages like ==open== do not have
-arguments. Single keyword and binary messages like ==go: 100== and ==+ 20== each
-have one argument. There are also simple messages and composed ones. ==Color
-yellow== and ==100 + 20== are  simple:  a message is sent to an object, while
-the message send ==aPen go: 100 + 20== is composed of two messages: ==+ 20== is
-sent to ==100== and ==go:== is sent to ==aPen== with the argument being the
-result of the first message. A receiver can be an expression (such as an
-assignment, a message send or a literal) which returns an object. In ==Pen new
-go: 100==, the message ==go: 100== is sent to the object that results from the
-execution of the message send ==Pen new==.
+|!Message send |!Message type |!Action
+|==Color yellow== | unary | Creates a color
+|==aPen go: 100== | keyword | Forwards pen 100 pixels
+|==100 + 20== | binary | 100 receives the message +
+|==Browser open== | unary | Opens a new browser
+|==Pen new  go: 100== | un. and keyw. | Creates and moves pen 100 px
+|==aPen go: 100 + 20== | keyw. and bin. | Pen moves forward 120 px
+
+The table shows several characteristics of message sends. 
+
+- You should note that not all message sends have arguments. Unary messages like ==open== do not have arguments. Single keyword and binary messages like ==go: 100== and ==+ 20== each have one argument. 
+
+- There are also simple messages and composed ones. ==Color yellow== and ==100 + 20== are  simple:  a message is sent to an object, while the message send ==aPen go: 100 + 20== is composed of two messages: ==+ 20== is sent to ==100== and ==go:== is sent to ==aPen== with the argument being the result of the first message. 
+
+- A receiver can be an expression (such as an assignment, a message send or a literal) which returns an object. In ==Pen new go: 100==, the message ==go: 100== is sent to the object that results from the execution of the message send ==Pen new==.
 
 !!Three types of messages
+Pharo distinguishes between three kinds of messages to reduce mandatory parentheses. 
+A few simple rules based on the such different message determine the order in which the messages
+are sent. 
 
-Pharo defines a few simple rules to determine the order in which the messages
-are sent. These rules are based on the distinction between 3 different types of
-messages:
+There are three different types of messages:
 
 - ''Unary messages'' are messages that are sent to an object without any other information. For example, in ==3 factorial==, ==factorial== is a unary message.
 - ''Binary messages'' are messages consisting of operators (often arithmetic). They are binary because they always involve only two objects: the receiver and the argument object. For example in ==10 + 20==, ==+== is a binary message sent to the receiver ==10== with argument ==20==.
@@ -109,8 +110,7 @@ Object class --> Object class  "The class of Object is Object class (BANG)"
 !!!Binary messages
 
 Binary messages are messages that require exactly one argument ''and'' whose
-selector consists of a sequence of one or more characters from the set: ==\+==, ==-==, ==\*==, ==/==, ==&==, ==\===, ==>==, ==|==, ==<==, ==~==,
-and ==@==. Note that ==-\-== is not allowed for parsing reasons.
+selector consists of a sequence of one or more characters from the set: ==\+==, ==-==, ==\*==, ==/==, ==&==, ==\===, ==>==, ==|==, ==<==, ==~==, and ==@==. Note that ==-\-== (double minus) is not allowed for parsing reasons.
 
 [[[
 100@100
@@ -162,7 +162,7 @@ nums --> #(6 2 3 4 5)
 !!Message composition
 
 The three types of messages each have different precedence, which allows them to
-be composed in an elegant way.
+be composed in an elegant way and with few parentheses.
 
 - Unary messages are always sent first, then binary messages and finally, keyword messages.
 - Messages in parentheses are sent prior to any other messages.
@@ -210,26 +210,26 @@ binary operators:
 	--> 7
 ]]]
 
-The following example, which is a bit more complex, offers a nice
-illustration that even complicated Pharo expressions can be read in a natural
-way:
+%The following example, which is a bit more complex, offers a nice
+%illustration that even complicated Pharo expressions can be read in a natural
+%way:
 
-[[[
-[:aClass | aClass methodDict keys
-		select: [:aMethod | (aClass>>aMethod) isAbstract ]] value: Boolean
-		 --> an IdentitySet(#or: #| #and: #& #ifTrue: #ifTrue:ifFalse: #ifFalse: #not #ifFalse:ifTrue:)
-]]]
+%[[[
+%[:aClass | aClass methodDict keys
+%		select: [:aMethod | (aClass>>aMethod) isAbstract ]] value: Boolean
+%		 --> an IdentitySet(#or: #| #and: #& #ifTrue: #ifTrue:ifFalse: #ifFalse: #not #ifFalse:ifTrue:)
+%]]]
 
-Here we want to know which methods of the ==Boolean== class are abstract. In
-fact, we could also have written the equivalent but simpler expression:
-==Boolean methodDict select: #isAbstract thenCollect: #selector==. We ask some
-argument class, ==aClass==, for the keys of its method dictionary, and select
-those methods of that class that are abstract. Then we bind the argument
-==aClass== to the concrete value ==Boolean==. We need parentheses only to send
-the binary message ==>>==, which selects a method from a class, before sending
-the unary message ==isAbstract== to that method. The result shows us which
-methods must be implemented by ==Boolean=='s concrete subclasses ==True== and
-==False==.
+%Here we want to know which methods of the ==Boolean== class are abstract. In
+%fact, we could also have written the equivalent but simpler expression:
+%==Boolean methodDict select: #isAbstract thenCollect: #selector==. We ask some
+%argument class, ==aClass==, for the keys of its method dictionary, and select
+%those methods of that class that are abstract. Then we bind the argument
+%==aClass== to the concrete value ==Boolean==. We need parentheses only to send
+%the binary message ==>>==, which selects a method from a class, before sending
+%the unary message ==isAbstract== to that method. The result shows us which
+%methods must be implemented by ==Boolean=='s concrete subclasses ==True== and
+%==False==.
 
 !!!!!Example 1.
 In the message ==aPen color: Color yellow==, there is one ''unary'' message
@@ -239,7 +239,7 @@ is sent (1). This returns a color object which is passed as argument of the
 message ==aPen color: aColor== (2) as shown in Script *@scr:decColor*. Figure
 *@fig:uKeyUn* shows graphically how messages are sent.
 
-[[[label=scr:decColor|caption=Decomposing the evaluation of aPen color: Color yellow|language=Smalltalk
+[[[label=scr:decColor|caption=Decomposing the evaluation of aPen color: Color yellow
         aPen color: Color yellow
 (1)                       Color yellow        "unary message is sent first"
                         --> aColor
@@ -254,7 +254,7 @@ object ==100== and returns the number ==120==. Then the message ==aPen go: 120==
 is sent with ==120== as argument (2). The following example shows how the
 message send is executed (Script *@scr:decColor2*)
 
-[[[label=scr:decColor2|caption=Decomposing aPen go: 100 + 20|language=Smalltalk
+[[[label=scr:decColor2|caption=Decomposing aPen go: 100 + 20
       aPen go: 100 + 20
 (1)                 100 + 20           "binary message first"
                    -->   120
@@ -276,8 +276,6 @@ As an exercise we let you decompose the evaluation of the message ==Pen new go:
 Parenthesised messages are sent prior to other messages.
 
 [[[
-1.5 tan rounded asString = (((1.5 tan) rounded) asString)
-	--> true    "parentheses not needed here"
 3 + 4 factorial
 	--> 27    "(not 5040)"
 (3 + 4) factorial
@@ -310,7 +308,7 @@ the message without parentheses would lead to an error because the object
 +Decomposing Pen new
 down>file://figures/ucompoUn.png|width=45|label=fig:unaryMessages+
 
-[[[label=scr:decExtent|caption=Example of Parentheses.|language=Smalltalk
+[[[label=scr:decExtent|caption=Example of Parentheses.
 
       (65@325 extent: 134@100) center
 (1)   65@325                                                    "binary"
@@ -329,7 +327,13 @@ Now we know how messages of different kinds or priorities are handled. The final
 question to be addressed is how messages with the same priority are sent. They
 are sent from the left to the right. Note that you already saw this behaviour in
 Script *@scr:decExtent* where the two point creation messages (==@==) were sent
-first.
+first. Script *@scr:Parentheses* shows that execution from left to right for messages
+of the same type reduces the need for parentheses.
+
+[[[label=scr:Parentheses|caption=Example of Parentheses.
+1.5 tan rounded asString = (((1.5 tan) rounded) asString)
+	--> true    "parentheses not needed here"
+]]]
 
 @@important ''Rule three''. When the messages are of the same kind, the order of evaluation is from left to right.
 
@@ -367,7 +371,7 @@ They are just binary messages, hence ==\*== does not have priority over ==\+==.
 Here the leftmost message ==\+== is sent first, and then the ==*== is sent to
 the result as shown in Script *@scr:decomposing* and Figure *@fig:wrongcompo*.
 
-[[[label=scr:decomposing|caption=Decomposing 20 + 2 * 5|language=Smalltalk
+[[[label=scr:decomposing|caption=Decomposing 20 + 2 * 5
 "As there is no priority among binary messages, the leftmost message + is evaluated first
 even if by the rules of arithmetic the * should be sent first."
 
@@ -386,7 +390,7 @@ are enclosed in parentheses, they are evaluated first. Hence the message send
 ==20 \+ (2 \* 5)== returns the result as shown by Script *@scr:decomposing2* and Figure
 *@fig:okcompo*.
 
-[[[label=scr:decomposing2|caption=Decomposing 20 + (2 * 5)|language=Smalltalk
+[[[label=scr:decomposing2|caption=Decomposing 20 + (2 * 5)
 "The messages surrounded by parentheses are evaluated first therefore * is sent prior to + which produces the correct behaviour."
 
 20 + (2 * 5)
@@ -398,9 +402,9 @@ are enclosed in parentheses, they are evaluated first. Hence the message send
 
 @@note Arithmetic operators such as ==\+== and ==\*== do not have different priority. ==\+== and ==\*== are just binary messages, therefore ==\*== does not have priority over ==\+==. Use parentheses to obtain the desired result.
 
-+Equivalent messages using parentheses.>file://figures/uKeyUnBinPar.png|width=60|label=fig:uKeyUnBinPar+
++Equivalent messages using parentheses.>file://figures/uKeyUnBinPar.png|width=80|label=fig:uKeyUnBinPar+
 
-+Equivalent messages using parentheses.>file://figures/uunKeyBinPar.png|width=60|label=fig:uunKeyBinPar+
++Equivalent messages using parentheses.>file://figures/uunKeyBinPar.png|width=80|label=fig:uunKeyBinPar+
 
 Table : Message sends and their fully parenthesized equivalents
 |!Implicit precedence |!Explicitly parenthesized equivalent
@@ -473,9 +477,9 @@ the collection!
 
 You may also have problems understanding when to use square brackets (blocks) rather than
 parentheses. The basic principle is that you should use ==[ ]== when you do not
-know how many times, potentially zero, an expression should be evaluated.
+know how many times, potentially zero, an expression should be executed.
 ==[ expression ]== will create a block closure (an object, as always) from
-==expression==, which may be evaluated zero or more times,
+==expression==, which may be executed zero or more times,
 depending on the context. (Recall from Chapter *: Syntax in a Nutshell>../SyntaxNutshell/SyntaxNutshell.pillar@cha:syntax*
 that an expression can either be a message
 send, a variable, a literal, an assignment or a block.)
@@ -483,11 +487,10 @@ send, a variable, a literal, an assignment or a block.)
 Following this principle, the conditional branches of ==ifTrue:== or ==ifTrue:ifFalse:== require
 blocks. Similarly, both the receiver and the argument of the
 ==whileTrue:== message require the use of square brackets since we do not know
-how many times either the receiver (the loop conditional) or the argument (the "loop body") will be evaluated.
+how many times either the receiver (the loop conditional) or the argument (the "loop body") will be executed.
 
 Parentheses, on the other hand, only affect the order of sending messages. So in
-==( expression )==, the ==expression== will ''always'' be evaluated
-exactly once.
+==( expression )==, the ==expression== will ''always'' be executed exactly once.
 
 [[[
 [ x isReady ] whileTrue: [ y doSomething ]   "both the receiver and the argument must be blocks"
@@ -514,7 +517,7 @@ box containsPoint: 40@50 --> true
 !!Cascaded messages
 
 Pharo offers a way to send multiple messages to the same receiver using a
-semicolon (==;==). This is called the cascade in Smalltalk jargon. It follows
+semicolon (==;==). This is called the cascade in Pharo jargon. It follows
 the pattern: ==expression msg1; msg2==
 
 [[[
