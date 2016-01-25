@@ -39,7 +39,7 @@ even look for methods by providing an example!
 
 The ==Monticello Browser== is the starting point for loading code from, and
 saving code in, Monticello packages. It is discussed in more detail in
-Chapter *: Sharing Code and Source Control>./SharingCode/SharingCode.pillarr@cha:sharingCode*.
+Chapter *: Sharing Code and Source Control>./SharingCode/SharingCode.pillar@cha:sharingCode*.
 
 The ==Process Browser== provides a view of all of the processes (threads)
 executing in Smalltalk.

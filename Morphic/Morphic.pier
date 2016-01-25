@@ -286,7 +286,7 @@ top and bottom. Once again we find a method in class ==Rectangle== that does the
 hard work for us: ==r1 areasOutside: r2== answers an array of rectangles
 comprising the parts of ==r1== outside ==r2==. Here is the revised code:
 
-[[[language=smalltalk|caption=The revised ==CrossMorph>>#drawOn:== method, which fills the center of the cross once|label=scr:correctionOfBug
+[[[language=smalltalk|caption=The revised ==CrossMorph>>>drawOn:== method, which fills the center of the cross once|label=scr:correctionOfBug
 drawOn: aCanvas
 	| topAndBottom |
 	aCanvas fillRectangle: self horizontalBar color: self color.

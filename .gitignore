@@ -1,3 +1,7 @@
+/book-result/
+/pillarPostExport.sh
+
+# Pharo stuff
 /Pharo.changes
 /Pharo.image
 /pharo-vm
@@ -8,10 +12,6 @@
 /pillar
 files/
 /package-cache
-/PharoByExample.pdf
-/PharoByExample.tex
-/UpdatedPharoByExample.tex
-/book-result/
 stderr
 stdout
 stdin
@@ -20,6 +20,5 @@ play-cache/
 # Emacs
 \#*#
 *~
-/pillarPostExport.sh
-/book-result
 *.log
+.auctex/
