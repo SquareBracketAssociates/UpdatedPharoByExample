@@ -45,7 +45,7 @@
 \setcounter{page}{1}
 \pagestyle{headings}
 %=================================================================
-\author{Damien Cassou and St\'ephane Ducasse and Kilon Alios}
+\author{Damien Cassou and St\'ephane Ducasse and Dimitris Chloupis}
 
 \title{\Huge\bf Updated Pharo by Example}
 \isodate
