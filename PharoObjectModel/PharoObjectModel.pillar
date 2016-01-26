@@ -3,11 +3,11 @@
 
 The Pharo programming model is heavily inspired by that of Smalltalk. It
 is simple and uniform: everything is an object, and objects communicate only by
-sending each other messages. This simplicity and uniformity, however, can be a
-source of difficulty for programmers used to other languages. In this chapter we
+sending each other messages. Methods are all public and dynamically looked up (late-bound).
+ This simplicity and uniformity, however, can be a source of difficulty for programmers used to other languages. In this chapter we
 present the core concepts of the Pharo object model. In particular we discuss
 the consequences of representing classes as objects. This will be extended in
-Chapter *: Classes and Metaclasses>../Metaclasses/Metaclasses.pillar@cha:metaclasses*.
+Chapter: *Classes and Metaclasses>../Metaclasses/Metaclasses.pillar@cha:metaclasses*.
 
 !!The rules of the model
 @sec:rules
@@ -21,9 +21,9 @@ The object model is based on a set of simple rules that are applied
 
 ""Rule 3"". Every class has a superclass.
 
-""Rule 4"". Everything happens by sending messages.
+""Rule 4"". Commmunication between objects happens by sending messages.
 
-""Rule 5"". Method lookup follows the inheritance chain.
+""Rule 5"". Method lookup dynamically follows the inheritance chain.
 
 Let us look at each of these rules in some detail.
 
@@ -41,21 +41,17 @@ can send messages to them, just as you do to any other object.
    --> 2432902008176640000   "send factorial, yielding a big number"
 ]]]
 
-The representation of the result of the expression ==20 factorial== is certainly
-different from the representation of ==7==, but because they are both objects,
-none of the code, not even the implementation of ==factorial==, needs to know
-about this.
+The object ==7== is different than the object returned by ==20 factorial==, but because they are 
+both polymorphic objects, none of the code, not even the implementation of ==factorial==, needs to know about this. 
 
-Perhaps the most fundamental consequence of this rule is that classes are
-objects too.
+Coming back to ''everything is an object'' rule, perhaps the most fundamental consequence of this rule is 
+that classes are objects too. Classes are not second-class objects: they are really first-class
+objects that you can send messages to, inspect, and change. This means that Pharo
+is a truly reflective system, which gives a great deal of expressive power to developers.
 
 @@important Classes are objects too.
 
-Furthermore, classes are not second-class objects: they are really first-class
-objects that you can send messages to, inspect, and so on. This means that Pharo
-is a truly reflective system, which gives a great deal of expressive power to
-developers.
-
+!!!!! Implementation note. 
 Deep in the implementation of Pharo, there are three different kinds of objects:
 
 # ordinary objects with instance variables that are passed by references
@@ -127,8 +123,8 @@ point. The instance variables ==x== and ==y== of the receiver are accessed
 directly by the method body. However, the instance variables of the other point
 must be accessed by sending it the messages ==x== and ==y==.
 
-[[[label=scr:distance|caption=Distance between two points|language=smalltalk
-Point>>>dist: aPoint
+[[[label=scr:distance|caption=Distance between two points
+Point >>> dist: aPoint
     "Answer the distance between aPoint and the receiver."
 
     | dx dy |
@@ -148,12 +144,12 @@ abstraction to coexist. For example, the method ==dist:== need not know or
 care whether the argument ==aPoint== is an instance of the same class as the
 receiver. The argument object might be represented in polar coordinates, or as
 a record in a database, or on another computer in a distributed system. As long
-as it can respond to the messages ==x== and ==y==, the code in Script
-*@scr:distance* will still work.
+as it can respond to the messages ==x== and ==y==, the code of method ==dist== (shown in Script
+*@scr:distance*) will still work.
 
 !!!Methods
 
-All methods are public. Methods are grouped into protocols that indicate their
+All methods are ''public''. Methods are grouped into ''protocols'' that indicate their
 intent. Some common protocol names have been established by convention, for
 example, ==accessing== for all accessor methods, and ==initialization== for
 establishing a consistent initial state for the object. The protocol ==private==
@@ -263,7 +259,7 @@ separately.
 Suppose we define the class ==Dog==, and its subclass ==Hyena==. ==Hyena==
 will naturally inherit the class instance variable ==count== from ==Dog==.
 
-[[[caption=Dogs and Hyenas|language=smalltalk
+[[[caption=Dogs and Hyenas
 Object subclass: #Dog
     instanceVariableNames: ''
     classVariableNames: ''
@@ -283,7 +279,7 @@ Dog subclass: #Hyena
 Now suppose we define class methods for ==Dog== to initialize its ==count== to
 ==0==, and to increment it when new instances are created:
 
-[[[caption=Keeping count of new dogs|label=scr:dogCount|language=smalltalk
+[[[caption=Keeping count of new dogs|label=scr:dogCount
 Dog class>>>initialize
     count := 0.
 
@@ -305,7 +301,7 @@ can see for yourself by browsing ==Behavior new==). But with classes, simply
 defining them does not automatically call ==initialize==, and so we have to call
 it explicitly here. See also the discussion about lazy initialization, below.
 
-[[[label=scr:dogCount2|language=smalltalk
+[[[label=scr:dogCount2
 Dog initialize.
 Hyena initialize.
 Dog count      --> 0
@@ -354,7 +350,7 @@ instance.
 
 We define the class ==WebServer== as follow.
 
-[[[caption=A sample singleton class, ==WebServer==|language=smalltalk
+[[[caption=A sample singleton class, ==WebServer==
 Object subclass: #WebServer
     instanceVariableNames: 'sessions'
     classVariableNames: ''
@@ -365,7 +361,7 @@ Object subclass: #WebServer
 Then, clicking on the ""Class side"" checkbox, we add the (class) instance
 variable ==uniqueInstance==.
 
-[[[caption=The class side of the singleton class|language=smalltalk
+[[[caption=The class side of the singleton class
 WebServer class
     instanceVariableNames: 'uniqueInstance'
 ]]]
@@ -381,7 +377,7 @@ variable ==uniqueInstance==. Finally the value of ==uniqueInstance== is
 returned. Since ==uniqueInstance== is a class instance variable, this method can
 directly access it.
 
-[[[label=scr:uniqueInstance|caption=Class-side accessor method ==uniqueInstance==|language=smalltalk
+[[[label=scr:uniqueInstance|caption=Class-side accessor method ==uniqueInstance==
 WebServer class>>>uniqueInstance
      uniqueInstance ifNil: [ uniqueInstance := self new ].
      ^ uniqueInstance
@@ -491,7 +487,7 @@ others for comparing objects. Such methods are inherited by subclasses. The
 method ==Magnitude>><== is abstract, and defined as shown in Script
 *@scr:MagnitudeLessThan*.
 
-[[[label=scr:MagnitudeLessThan|caption===Magnitude>> <==|language=smalltalk
+[[[label=scr:MagnitudeLessThan|caption===Magnitude>> <==
 < aMagnitude
     "Answer whether the receiver is less than the argument."
 
@@ -500,7 +496,7 @@ method ==Magnitude>><== is abstract, and defined as shown in Script
 
 By contrast, the method ==>=== is concrete, and is defined in terms of ==<==.
 
-[[[label=scr:MagnitudeGTE|caption===Magnitude>> >===|language=smalltalk
+[[[label=scr:MagnitudeGTE|caption===Magnitude>> >===
 >= aMagnitude
     "Answer whether the receiver is greater than or equal to the argument."
 
@@ -517,7 +513,7 @@ Script *@scr:characterLessThan*). ==Character== also explicitly defines methods
 ===== and ==hash==; it inherits from ==Magnitude== the methods ==>===, ==<===,
 ==~=== and others.
 
-[[[label=scr:characterLessThan|caption===Character>> <===|language=smalltalk
+[[[label=scr:characterLessThan|caption===Character>> <===
 < aCharacter
     "Answer true if the receiver's value < aCharacter's value."
 
@@ -535,7 +531,7 @@ To define a new trait, simply right-click in the class pane and select
 ==Add Trait==, or replace the subclass creation template by the trait
 creation template, below.
 
-[[[label=scr:tauthor|caption=Defining a new trait|language=smalltalk
+[[[label=scr:tauthor|caption=Defining a new trait
 Trait named: #TAuthor
     uses: { }
     category: 'PBE-LightsOut'
@@ -564,7 +560,7 @@ instance the ==LOGame== class that we defined in Chapter *: A First Application>
 simply modify the class creation template for ==LOGame== to include a ==uses:==
 keyword argument that specifies that ==TAuthor== should be used.
 
-[[[label=scr:sbegamewithtrait|caption=Using a trait|language=smalltalk
+[[[label=scr:sbegamewithtrait|caption=Using a trait
 BorderedMorph subclass: #LOGame
     uses: TAuthor
     instanceVariableNames: 'cells'
@@ -589,7 +585,7 @@ providing a new name for them.
 
 Traits are used in the system kernel. One good example is the class ==Behavior==.
 
-[[[label=scr:behaviorwithtraits|caption=Behavior defined using traits|language=smalltalk
+[[[label=scr:behaviorwithtraits|caption=Behavior defined using traits
 Object subclass: #Behavior
     uses: TPureBehavior @ {#basicAddTraitSelector:withMethod:->#addTraitSelector:withMethod:}
     instanceVariableNames: 'superclass methodDict format'
@@ -718,7 +714,7 @@ anEllipse defaultColor --> Color yellow
 The class ==EllipseMorph== implements ==defaultColor==, so the appropriate
 method is found immediately.
 
-[[[label=scr:defaultColor|caption=A locally implemented method|language=smalltalk
+[[[label=scr:defaultColor|caption=A locally implemented method
 EllipseMorph>>>defaultColor
      "Answer the default color/fill style for the receiver"
 
@@ -731,7 +727,7 @@ is not immediately found, since the class ==EllipseMorph== does not implement
 ==BorderedMorph==, and so on, until an ==openInWorld== method is found in the
 class ==Morph== (see Figure *@fig:openInWorldLookup*).
 
-[[[label=scr:openInWorld|caption=An inherited method|language=smalltalk
+[[[label=scr:openInWorld|caption=An inherited method
 Morph>>>openInWorld
      "Add this morph to the world."
 
@@ -760,7 +756,7 @@ instead you can imagine that a method without an explicit return ends with
 This suggests that ==openInWorld== is equivalent to ==openInWorldReturnSelf==,
 defined below.
 
-[[[label=scr:openInWorldReturnSelf|caption=Explicitly returning ==self==|language=smalltalk
+[[[label=scr:openInWorldReturnSelf|caption=Explicitly returning ==self==
 Morph>>>openInWorld
     "Add this morph to the world."
 
@@ -808,7 +804,7 @@ subclass has no business even trying to initialize inherited instance variables!
 It is therefore good practice whenever implementing an initialize method to send
 ==super initialize== before performing any further initialization:
 
-[[[label=scr:morphinit|caption=Super initialize|language=smalltalk
+[[[label=scr:morphinit|caption=Super initialize
 BorderedMorph>>>initialize
     "initialize the state of the receiver"
 
@@ -851,7 +847,7 @@ How exactly is this result obtained through a combination of ==self== and
 
 +==self== and ==super== sends>file://figures/constructorStringLookup.png|label=fig:constructorStringLookup|width=80+
 
-[[[label=scr:constructorString|caption=A ==self== send|language=smalltalk
+[[[label=scr:constructorString|caption=A ==self== send
 Morph>>>constructorString
     ^ String streamContents: [:s | self printConstructorOn: s indent: 0].
 ]]]
@@ -868,7 +864,7 @@ start again in the class of the receiver, namely the class of ==anEllipse==.
 
 @@important A ==self== send triggers a ''dynamic method lookup starting in the class of the receiver.''
 
-[[[label=scr:fullPrintOn|caption=Combining ==super== and ==self== sends|language=smalltalk
+[[[label=scr:fullPrintOn|caption=Combining ==super== and ==self== sends
 BorderedMorph>>>fullPrintOn: aStream
     aStream nextPutAll: '('.
     super fullPrintOn: aStream.
@@ -1054,7 +1050,7 @@ A class variable is declared in the class definition template. For example, the
 class ==Color== defines a large number of class variables to speed up color
 creation; its definition is shown below, in Script *@scr:classDefColor*.
 
-[[[label=scr:classDefColor|caption=Color and its class variables|language=smalltalk
+[[[label=scr:classDefColor|caption=Color and its class variables
 Object subclass: #Color
 	instanceVariableNames: 'rgb cachedDepth cachedBitPattern alpha'
 	classVariableNames: 'BlueShift CachedColormaps ColorRegistry ComponentMask
@@ -1093,7 +1089,7 @@ is no longer shared.
 Another solution is to override the class method ==initialize== (we've seen this
 before in Scripts *@scr:dogCount* and *@scr:dogCount2*).
 
-[[[label=scr:colorClassInit|caption=Initializing the ==Color== class|language=smalltalk
+[[[label=scr:colorClassInit|caption=Initializing the ==Color== class
 Color class>>>initialize
     ...
     self initializeColorRegistry.
@@ -1123,7 +1119,7 @@ dictionary ==TextConstants==, which contains all the text constants such as
 ==CR== and ==LF==. This dictionary has a key ==#CR== that is bound to the value
 ==Character cr==, i.e., the carriage return character.
 
-[[[label=scr:textPoolDict|caption=Pool dictionaries in the ==Text== class|language=smalltalk
+[[[label=scr:textPoolDict|caption=Pool dictionaries in the ==Text== class
 ArrayedCollection subclass: #Text
         instanceVariableNames: 'string runs'
         classVariableNames: ''
@@ -1135,7 +1131,7 @@ This allows methods of the class ==Text== to access the ''keys'' of the dictiona
 in the method body ''directly'', i.e., by using variable syntax rather than an
 explicit dictionary lookup. For example, we can write the following method.
 
-[[[label=scr:textTestCR|caption===Text>>testCR==|language=smalltalk
+[[[label=scr:textTestCR|caption===Text>>testCR==
 Text>>>testCR
     ^ CR == Character cr
 ]]]
