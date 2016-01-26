@@ -1,0 +1,147 @@
+%!TEX TS-program = lualatex
+% -*- mode: LaTeX; -*-
+\documentclass[10pt,twoside,english,showtrims]{support/latex/sbabook/sbabook}
+\let\wholebook=\relax
+
+\usepackage{import}
+\subimport{support/latex/}{common.tex}
+
+%=================================================================
+% Add the path for the figures of each chapter here:
+\graphicspath{
+  {../figures/}
+  {../Preface/}
+  {../PharoTour/}
+  {../FirstApplication/}
+  {../SyntaxNutshell/}
+  {../UnderstandingMessage/}
+  {../PharoObjectModel/}
+  {../Environment/}
+  {../SharingCode/}
+  {../SUnit/}
+  {../BasicClasses/}
+  {../Collections/}
+  {../Streams/}
+  {../Morphic/}
+  {../Seaside/}
+  {../Reflection/}
+  {../Regex/}
+  {../Metaclasses/}
+}
+%=================================================================
+\title{Updated Pharo by Example}
+\author{
+    Damien Cassou \and
+    Stéphane Ducasse \and
+    Kilon Alios}
+\date{\gitdate\titlebreak[\smallskip]{ -- }\protect\gitCommitInfo}
+%=================================================================
+\begin{document}
+
+% Title page and colophon on verso
+\maketitle
+\pagestyle{titlingpage}
+\thispagestyle{titlingpage} % \pagestyle does not work on the first one…
+
+\cleartoverso
+{\small
+
+  Copyright 2016 by Damien Cassou, Stéphane Ducasse, and Kilon Alios.
+
+  The contents of this book are protected under the Creative Commons
+  Attribution-ShareAlike 3.0 Unported license.
+
+  You are \textbf{free}:
+  \begin{itemize}
+  \item to \textbf{Share}: to copy, distribute and transmit the work,
+  \item to \textbf{Remix}: to adapt the work,
+  \end{itemize}
+
+  Under the following conditions:
+  \begin{description}
+  \item[Attribution.] You must attribute the work in the manner specified by the
+    author or licensor (but not in any way that suggests that they endorse you
+    or your use of the work).
+  \item[Share Alike.] If you alter, transform, or build upon this work, you may
+    distribute the resulting work only under the same, similar or a compatible
+    license.
+  \end{description}
+
+  For any reuse or distribution, you must make clear to others the
+  license terms of this work. The best way to do this is with a link to
+  this web page: \\
+  \url{http://creativecommons.org/licenses/by-sa/3.0/}
+
+  Any of the above conditions can be waived if you get permission from
+  the copyright holder. Nothing in this license impairs or restricts the
+  author's moral rights.
+
+  \begin{center}
+    \includegraphics[width=0.2\textwidth]{CreativeCommons-BY-SA.pdf}
+  \end{center}
+
+  Your fair dealing and other rights are in no way affected by the
+  above. This is a human-readable summary of the Legal Code (the full
+  license): \\
+  \url{http://creativecommons.org/licenses/by-sa/3.0/legalcode}
+
+  \vfill
+
+  \begin{tabular}{@{}c@{\quad}l}
+    \multirow{2}{*}{\includegraphics[width=2em]{support/latex/sbabook/sba-logo.pdf}}
+    & Published by Square Bracket Associates, Switzerland. \\
+    & \url{http://squarebracketassociates.org} \\[\smallskipamount]
+    & ISBN xx-xxx-xx-xxx-xxxx-xxxx- \\
+    & First Edition, December 2015. \\%FIXME
+  \end{tabular}
+  \medskip
+
+  Book layout and typography based on the \code{sbabook} \LaTeX{} class by Damien Pollet.
+}
+
+
+\frontmatter
+\pagestyle{plain}
+
+
+% \chapter*{About this book}
+%
+% enterprise pharo has a paragraph to introduce the book and acknowledge contributors
+
+\tableofcontents
+
+\mainmatter
+
+%\part{enterprise pharo uses parts…}
+\input{Preface/Preface}
+\input{PharoTour/PharoTour}
+\input{FirstApplication/FirstApplication}
+\input{SyntaxNutshell/SyntaxNutshell}
+\input{UnderstandingMessage/UnderstandingMessage}
+\input{PharoObjectModel/PharoObjectModel}
+\input{Environment/Environment}
+\input{SharingCode/SharingCode}
+\input{SUnit/SUnit}
+\input{BasicClasses/BasicClasses}
+\input{Collections/Collections}
+\input{Streams/Streams}
+\input{Morphic/Morphic}
+\input{Seaside/Seaside}
+\input{Metaclasses/Metaclasses}
+\input{Reflection/Reflection}
+\input{Regex/Regex}
+
+\backmatter
+
+% \chapter*{Pages to print in color}
+
+\end{document}
+
+%=================================================================
+%%% Local Variables:
+%%% coding: utf-8
+%%% mode: latex
+%%% TeX-master: t
+%%% TeX-PDF-mode: t
+%%% ispell-local-dictionary: "english"
+%%% End:

@@ -1,31 +1,20 @@
 % -*- mode: latex; -*-
 \ifx\wholebook\relax\else
 
-	% Lulu:
-	\documentclass[a4paper,10pt,twoside]{book}
-	\usepackage[
-		papersize={6.13in,9.21in},
-		hmargin={.75in,.75in},
-		vmargin={.75in,1in},
-		ignoreheadfoot
-	]{geometry}
-	\input{../support/latex/common.tex}
-	% \input{../support/latex/commonLuaTex.tex}
-	\setboolean{lulu}{true}
-% --------------------------------------------
-% A4:
-%	\documentclass[a4paper,11pt,twoside]{book}
-%	\input{../support/latex/common.tex}
-%	\usepackage{a4wide}
-% --------------------------------------------    \graphicspath{{figures/} {../figures/}}
+	\documentclass[10pt,twoside,english]{root/support/latex/sbabook/sbabook}
+  \usepackage{import}
+  \subimport{root/support/latex/}{common.tex}
+
 	\begin{document}
 \fi
-\sloppy
 
-{{{content}}}
+{{=« »=}}
+«! the '&' below prevents HTML escaping. »
+\chapter{«& title»}
+\chapterprecis{«& attribution»}
 
+«& content»
 
 \ifx\wholebook\relax\else
-   \bibliographystyle{jurabib}
-   \nobibliography{scg}\end{document}
+\end{document}
 \fi

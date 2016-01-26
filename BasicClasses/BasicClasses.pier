@@ -374,7 +374,7 @@ otherwise caught, the debugger will open to this point in the execution.
 typical usage is to check non-trivial pre-conditions to public methods of
 objects. ==Stack>>pop== could easily have been implemented as follows:
 
-[[[caption=Checking a pre-condition}
+[[[caption=Checking a pre-condition
 Stack>>>pop
     "Return the first element and remove it from the stack."
 
