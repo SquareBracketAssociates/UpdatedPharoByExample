@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample.svg?branch=master)](https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample)
+
 ## Introduction
 
 *Pharo by Example (vol 1)* is a practical introduction for Pharo, a Smalltalk-inspired programming language, IDE and live coding enviroment. This book is an updated version of [Pharo By Example for Pharo 1.4](https://github.com/SquareBracketAssociates/PharoByExample-english).
