@@ -1,4 +1,4 @@
-!A first application
+{ "title": "A first application" }
 @cha:firstApp
 
 In this chapter, we will develop a simple game: LightsOut (*http://en.wikipedia.org/wiki/Lights_Out_(game))*. Along the way we will

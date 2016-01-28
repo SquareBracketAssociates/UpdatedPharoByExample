@@ -1,4 +1,4 @@
-!Syntax in a nutshell
+{ "title": "Syntax in a nutshell" }
 @cha:syntax
 
 Pharo adopts a syntax very close to that of its ancestor, Smalltalk. The syntax

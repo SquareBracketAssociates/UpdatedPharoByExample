@@ -1,4 +1,4 @@
-!Understanding message syntax
+{ "title": "Understanding message syntax" }
 @cha:messages
 
 Although Pharo's message syntax is simple, it is unconventional and can take

@@ -1,4 +1,4 @@
-!Morphic
+{ "title": "Morphic" }
 @cha:morphic
 
 Morphic is the name given to Pharo's graphical interface. Morphic is written in

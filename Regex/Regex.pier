@@ -1,4 +1,4 @@
-!Regular Expressions in Pharo
+{ "title": "Regular Expressions in Pharo" }
 @cha:regex
 
 Regular expressions are widely used in many scripting languages such as Perl,

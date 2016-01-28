@@ -1,6 +1,7 @@
-%TODO : A better par about the finder at the end of the chapter.
-!The Pharo programming environment
+{ "title": "The Pharo programming environment" }
 @cha:env
+
+%TODO : A better par about the finder at the end of the chapter.
 
 The goal of this chapter is to show you how to develop programs in the Pharo
 programming environment. You have already seen how to define methods and classes

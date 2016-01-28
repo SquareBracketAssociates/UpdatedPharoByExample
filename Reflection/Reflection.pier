@@ -1,4 +1,4 @@
-!Reflection
+{ "title": "Reflection" }
 @cha:reflection
 
 Pharo, like all Smalltalks, is a reflective programming language. In a nutshell,
