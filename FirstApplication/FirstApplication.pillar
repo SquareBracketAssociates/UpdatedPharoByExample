@@ -570,7 +570,7 @@ friends probably have their own code in their images, and don't want to give
 that up to use your image. What you need is a way of getting source code out of
 your Pharo image so that other programmers can bring it into theirs.
 
-@@note We'll be discussing the various ways to save and share code in a future chapter, Chapter *: Sharing Code and Source Control>./SharingCode/SharingCode.pillarr@cha:sharingCode*. For now, here is an overview of some of the available methods.
+@@note We'll be discussing the various ways to save and share code in a future chapter, Chapter *: Sharing Code and Source Control>./SharingCode/SharingCode.pillar@cha:sharingCode*. For now, here is an overview of some of the available methods.
 
 +File Out our PBE-LightsOut>file://figures/fileOut.png|width=15|label=fig:fileOut+
 
@@ -700,7 +700,7 @@ your image.
 Open the ==PBE-LightsOut== repository you have just saved. You should see the package you just saved.
 
 Monticello has many more capabilities, which will be discussed in depth in
-Chapter *: Sharing Code and Source Control>./SharingCode/SharingCode.pillarr@cha:sharingCode*.
+Chapter *: Sharing Code and Source Control>./SharingCode/SharingCode.pillar@cha:sharingCode*.
 
 
 !!!!! About git. 
