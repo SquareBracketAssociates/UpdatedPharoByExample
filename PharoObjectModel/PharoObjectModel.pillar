@@ -1,4 +1,4 @@
-!The Pharo object model
+{ "title": "The Pharo object model" }
 @cha:model
 
 The Pharo programming model is heavily inspired by that of Smalltalk. It

@@ -1,4 +1,4 @@
-!Streams
+{ "title": "Streams" }
 @cha:streams
 
 Streams are used to iterate over sequences of elements such as sequenced
