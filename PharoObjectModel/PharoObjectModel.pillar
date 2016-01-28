@@ -876,7 +876,13 @@ the class ==EllipseMorph==, and ==BorderedMorph>>fullPrintOn:== is found in
 is critical to notice is that the ==self== send causes the method lookup to
 start again in the class of the receiver, namely the class of ==anEllipse==.
 
-@@important A ==self== send triggers a ''dynamic method lookup starting in the class of the receiver.''
+A ==self== send is dynamic in the sense that by looking at the method containing it, we cannot predict which method will be executed. 
+Indeed an instance of a subclass may receive the message containing the self expression and redefine the method in that subclass. 
+
+@@todo put an exemple.
+
+
+@@important A ==self== send triggers a ''dynamic method lookup starting in the class of the receiver.'' A ==self== send is dynamic in the sense that by looking at the method containing it, we cannot predict which method will be executed. 
 
 [[[label=scr:fullPrintOn|caption=Combining ==super== and ==self== sends
 BorderedMorph>>>fullPrintOn: aStream
@@ -896,7 +902,7 @@ Note that the ==super== lookup did not start in the superclass of the receiver.
 This would have caused lookup to start from ==BorderedMorph==, resulting in an
 infinite loop!
 
-@@important A ==super== send triggers a ''method lookup'' starting in the superclass of the class of the method performing the ==super== send. We say that super sends are static because just looking at the method we know the class where we should start to look.
+@@important A ==super== send triggers a method lookup starting in the ''superclass of the class of the method performing the ==super== send''. We say that super sends are ''static'' because just looking at the method we know the class where the lookup should start.
 
 If you think carefully about ==super== send and Figure
 *@fig:constructorStringLookup*, you will realize that ==super== bindings are
@@ -940,12 +946,12 @@ rules: shared variables.
 
 Pharo provides three kinds of shared variables:
 
-""1."" ''Globally'' shared variables
+""1."" ''Globally'' shared variables.
 
 ""2."" ''Class variables'': variables shared between instances and classes. (Not
 to be confused with class instance variables, discussed earlier).
 
-""3."" ''Pool variables'': variables shared amongst a group of classes
+""3."" ''Pool variables'': variables shared amongst a group of classes,
 
 The names of all of these shared variables start with a capital letter, to warn
 us that they are indeed shared between multiple objects.
@@ -957,44 +963,32 @@ which is implemented as an instance of the class ==SystemDictionary==. Global
 variables are accessible everywhere. Every class is named by a global variable.
 In addition, a few globals are used to name special or commonly useful objects.
 
-The variable ==Transcript== names an instance of ==TranscriptStream==, a stream
-that writes to a scrolling window. The following code displays some information
-and then goes to the next line in the ==Transcript==.
+The variable ==Processor== names an instance of ==ProcessScheduler==, the main process schedler of Pharo
 
 [[[
-Transcript show: 'Pharo is fun and powerful' ; cr
+Processor class 
+   --> ProcessorScheduler
 ]]]
-
-Before you ==Do it==, open a transcript by selecting ==World > Tools... >
-Transcript==.
-
-''Hint:'' Writing to the ==Transcript== is slow, especially when the transcript
-window is open. So, if you experience some sluggishness and are writing to the
-Transcript, think about collapsing it.
 
 !!!!Other useful global variables
 
-""==Smalltalk=="" is the instance of ==SystemDictionary== that defines all of
-the globals (including ==Smalltalk== itself). The keys to this dictionary are
+""==Smalltalk=="" is the instance of ==SmalltalkImage==. It contains many functionality to manage the system.
+In particular it holds a reference to the main namespace ==Smalltalk globals==.
+This namespace includes ==Smalltalk== itself since it is a global variable. The  keys to this namespace are
 the symbols that name the global objects in Pharo code. So, for example:
 
-[[[language=smalltalk
-Smalltalk at: #Boolean --> Boolean
+[[[
+Smalltalk globals at: #Boolean --> Boolean
 ]]]
 
 Since ==Smalltalk== is itself a global variable:
 
-[[[language=smalltalk
-Smalltalk at: #Smalltalk  --> a SystemDictionary(lots of globals)
+[[[
+Smalltalk globals at: #Smalltalk  --> Smalltalk
 
-(Smalltalk at: #Smalltalk) == Smalltalk   --> true
+(Smalltalk globals at: #Smalltalk) == Smalltalk   --> true
 ]]]
 
-""==Sensor=="" is an instance of ==EventSensor==, and represents input to Pharo.
-For example, ==Sensor keyboard== answers the next character input on the
-keyboard, and ==Sensor leftShiftDown== answers ==true== if the left shift key is
-being held down, while ==Sensor mousePoint== answers a ==Point== indicating the
-current mouse location.
 
 ""==World=="" is an instance of ==PasteUpMorph== that represents the screen.
 ==World bounds== answers a rectangle that defines the whole screen space; all
@@ -1011,14 +1005,6 @@ instance variable of the class. However, if you later delete the declaration,
 the code will then reference an undeclared variable. Inspecting ==Undeclared==
 can sometimes help explain strange behaviour!
 
-""==SystemOrganization=="" is an instance of ==SystemOrganizer==: it records the
-organization of classes into packages. More precisely, it categorizes the
-''names'' of classes, so that:
-
-[[[
-SystemOrganization categoryOfElement: #Magnitude --> #'Kernel-Numbers'
-]]]
-
 !!!!Using globals in your code
 
 The recommended practice is to strictly limit the use of global variables. It is usually
@@ -1030,15 +1016,15 @@ singletons.
 The usual way to define a global is just to perform ==Do it== on an assignment
 to a capitalized but undeclared identifier. The parser will then offer to
 declare the global for you. If you want to define a global programmatically,
-just execute ==Smalltalk at: #AGlobalName put: nil==. To remove it, execute
-==Smalltalk removeKey: #AGlobalName==.
+just execute ==Smalltalk globals at: #AGlobalName put: nil==. To remove it, execute
+==Smalltalk globals removeKey: #AGlobalName==.
 
 !!!Class variables
 @sec:classVars
 
 Sometimes we need to share some data amongst all the instances of a class and
-the class itself. This is possible using ''class variables''. The term class
-variable indicates that the lifetime of the variable is the same as that of the
+the class itself. This is possible using ''class variables''. The term ''class
+variable'' indicates that the lifetime of the variable is the same as that of the
 class. However, what the term does not convey is that these variables are shared
 amongst all the instances of a class as well as the class itself, as shown in
 Figure *@fig:privateSharedVar*. Indeed, a better name would have been ''shared
@@ -1050,7 +1036,7 @@ danger of using them, particularly if they are modified.
 In Figure *@fig:privateSharedVar* we see that ==rgb== and ==cachedDepth== are
 instance variables of ==Color==, hence only accessible to instances of
 ==Color==. We also see that ==superclass==, ==subclass==, ==methodDict== and so
-on are class instance variables, i.e., instance variables only accessible to the
+on are ''class instance variables'', i.e., instance variables only accessible to the
 ==Color== class.
 
 But we can also see something new: ==ColorRegistry== and ==CachedColormaps== are
@@ -1162,5 +1148,5 @@ Everything is an object, and pretty much everything happens by sending messages.
 -Every object is an instance of a class. Classes define the structure of their instances via ''private'' instance variables and the behaviour of their instances via ''public'' methods. Each class is the unique instance of its metaclass. Class variables are private variables shared by the class and all the instances of the class. Classes cannot directly access instance variables of their instances, and instances cannot access instance variables of their class. Accessors must be defined if this is needed.
 -Every class has a superclass. The root of the single inheritance hierarchy is ==ProtoObject==. Classes you define, however, should normally inherit from ==Object== or its subclasses. There is no syntax for defining abstract classes. An abstract class is simply a class with an abstract method (one whose implementation consists of the expression ==self subclassResponsibility==). Although Pharo supports only single inheritance, it is easy to share implementations of methods by packaging them as ''traits''.
 -Everything happens by sending messages. We do not ''call methods'', we ''send messages''. The receiver then chooses its own method for responding to the message.
--Method lookup follows the inheritance chain; ==self== sends are dynamic and start the method lookup again in the class of the receiver, whereas ==super== sends are static, and start in the superclass of class in which the ==super== send is written.
+-Method lookup follows the inheritance chain; ==self== sends are dynamic and start the method lookup in the class of the receiver, whereas ==super== sends start the method lookup in the superclass of class in which the ==super== send is written. From this perspective ==super== sends are more static than ==self== sends. 
 -There are three kinds of shared variables. Global variables are accessible everywhere in the system. Class variables are shared between a class, its subclasses and its instances. Pool variables are shared between a selected set of classes. You should avoid shared variables as much as possible.
