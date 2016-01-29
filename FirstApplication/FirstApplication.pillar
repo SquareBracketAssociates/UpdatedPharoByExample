@@ -2,14 +2,16 @@
 @cha:firstApp
 
 In this chapter, we will develop a simple game: LightsOut (*http://en.wikipedia.org/wiki/Lights_Out_(game))*. Along the way we will
-show most of the tools that Pharo programmers use to construct and debug their programs, and show how programs are shared with other developers. We will see the browser, the object inspector, the debugger and the Monticello package browser. The Pharo IDE lets us develop in a traditional way, by defining a class, then instance variables, then methods. However, Pharo development flow is much more productive than that! You can define instance variables and methods on the fly. You can also code in the debugger. This is why we will show you that you can gain benefit of the debugger to go really fast. 
+show most of the tools that Pharo programmers use to construct and debug their programs, and show how programs are shared with other developers. We will see the browser, the object inspector, the debugger and the Monticello package browser. 
+
+In Pharo you can develop in a traditional way, by defining a class, then its instance variables, then its methods. However, in Pharo your development flow can be much more productive than that! You can define instance variables and methods on the fly. You can also code in the debugger using the exact context of currently executed objects. This chapter will sketch such alternate way and show you how you can be really productive.
 
 +The Lights Out game board>file://figures/gameLO.png|width=30|label=fig:gameLO+
 
 !!The Lights Out game
 
 To show you how to use Pharo's programming tools, we will build a simple game
-called ""Lights Out"". The game board consists of rectangular array of light yellow
+called ""Lights Out"". The game board consists of a rectangular array of light yellow
 cells. When you click on one of the cells, the four surrounding
 cells turn blue. Click again, and they toggle back to light yellow. The object
 of the game is to turn blue as many cells as possible.
@@ -22,19 +24,17 @@ you how to define these classes using the Pharo programming tools.
 !!Creating a new Package
 @fstApp:Packages
 
-We have already seen the browser in Chapter
-*: A Quick Tour of Pharo>../PharoTour/PharoTour.pillar@cha:tour* where we
+We have already seen the browser in Chapter *: A Quick Tour of Pharo>../PharoTour/PharoTour.pillar@cha:tour* where we
 learned how to navigate to pakages, classes and methods, and saw how to define new
 methods. Now we will see how to create packages and classes.
 
 +Create a Package and class template>file://figures/createPackageFull.png|width=90|label=fig:createPackage+
 
 From the ==World== menu, open a ""System Browser"". Right-click on an existing
-package in the Package pane and select ==Add package...== from the menu
-(see Figure *@fig:createPackage*). Type the name of the new package (we
+package in the Package pane and select ==Add package...== from the menu. Type the name of the new package (we
  use ==PBE-LightsOut==) in the dialog box and click ==OK== (or just
 press the return key). The new package is created, and positioned
-alphabetically in the list of packages. 
+alphabetically in the list of packages (see Figure *@fig:createPackage*). 
 
 ""Hints:"" You can type ==PBE== in the filter to get your package filtered out the other ones (See Figure *@fig:createPackageFiltered*). 
 
@@ -87,10 +87,10 @@ new class to be compiled. You should get the situation depicted in Figure *@fig:
 
 +The newly-created class LOCell>file://figures/pannelAtNewClass.png|width=100|label=fig:pannelAtNewClass+
 
-Once the class definition is accepted, the class will be created and appear in
+Once the class definition is accepted, the class is created and appears in
 the class pane of the browser (see Figure *@fig:pannelAtNewClass*). The editing
 pane now shows the class definition. Below you get the Quality Assistant's feedback: It runs automatically quality
- rules on your code and report them. 
+ rules on your code and reports them. 
 
 
 !!! About comments
@@ -100,17 +100,17 @@ comments.
 
 !!!!!Method comments.
 People got the tendency to believe that it is not necessary to comment well written methods: 
-it is plain wrong and encourage sloppiness. Of course, bad code should renamed and refactored.
+it is plain wrong and encourages sloppiness. Of course, bad code should renamed and refactored.
 Obviously commenting trivial methods makes no sense.
 A comment should not be the code written in english but an explanation of what the method is doing, 
-its context, or the rational behind its implementation. When reading a comment, the reader should be 
-conforted that his hypothesis are correct. When you read foreign code with good comments, you 
+its context, or the rationale behind its implementation. When reading a comment, the reader should be 
+comforted that his hypotheses are correct. 
 
 !!!!! Class comments. 
 For the class comment, the Pharo class comment template gives a good idea of a strong class comment. 
 Read it! It is based on CRC for Class Responsibility Collaborators. 
 So in a nutshell the comments state the responsibility of the class in a couple of sentences and how it collaborates
-with other classes to achieve this responsibilities. In addition we can state the name API, give an example 
+with other classes to achieve this responsibilities. In addition we can state the API (main messages an object understands), give an example 
 (usually in Pharo we define examples as class methods), and some details about internal representation or 
 implementation rationale.
 
@@ -131,7 +131,7 @@ SimpleSwitchMorph subclass: #LOCell
 	category: 'PBE-LightsOut'
 ]]]
 
-It is equivalent as the one we mentioned earlier. In this book we only use the term ""package"". The Pharo package is also what you will be using to version your source code using the Monticello versioning tool.
+It is equivalent to the one we mentioned earlier. In this book we only use the term ""package"". The Pharo package is also what you will be using to version your source code using the Monticello versioning tool.
 
 
 !!Adding methods to a class
