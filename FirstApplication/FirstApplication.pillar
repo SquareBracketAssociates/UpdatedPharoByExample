@@ -2,13 +2,7 @@
 @cha:firstApp
 
 In this chapter, we will develop a simple game: LightsOut (*http://en.wikipedia.org/wiki/Lights_Out_(game))*. Along the way we will
-show most of the tools that Pharo programmers use to construct and debug
-their programs, and show how programs are shared with other developers. We
-will see the browser, the object inspector, the debugger and the Monticello
-package browser. 
-The Pharo IDE lets us develop in a traditional way, by defining class, then instance variables, then methods. However we want to show that you can define instance variables
-and methods on the fly. As such we will show you that you can gain benefit of the debugger 
-to go really fast. 
+show most of the tools that Pharo programmers use to construct and debug their programs, and show how programs are shared with other developers. We will see the browser, the object inspector, the debugger and the Monticello package browser. The Pharo IDE lets us develop in a traditional way, by defining a class, then instance variables, then methods. However, Pharo development flow is much more productive than that! You can define instance variables and methods on the fly. You can also code in the debugger. This is why we will show you that you can gain benefit of the debugger to go really fast. 
 
 +The Lights Out game board>file://figures/gameLO.png|width=30|label=fig:gameLO+
 
