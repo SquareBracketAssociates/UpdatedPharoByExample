@@ -208,7 +208,7 @@ overridden in your class.
 !!Inspecting an object
 
 You can immediately test the effect of the code you have written by creating a new
-==LOCell== object and inspecting it: Open a ==Playground==, type the expression ==LOCell new==, and ""Inspect"" it.
+==LOCell== object and inspecting it: Open a ==Playground==, type the expression ==LOCell new==, and ""Inspect"" it (using the menu item with the same name).
 
 +The inspector used to examine a ==LOCell== object>file://figures/inspectLOCell.png|width=100|label=fig:inspectLOCell+
 
@@ -228,7 +228,7 @@ The bottom pane of the inspector is a mini-playground. It's useful because in
 this playground the pseudo-variable ==self== is bound to the object selected.
 
 Go to that Playground at the bottom of the pane and type the text ==self bounds:
-(200\@200 corner: 250\@250)== ""do it"". To refresh the values, click on the ==update== button (the blue little circle) at the top right of the pane. The ==bounds== variable should change in the inspector. Now type the text ==self openInWorld== in the mini-playground and ""Do it"".
+(200\@200 corner: 250\@250)== ""Do it"". To refresh the values, click on the ==update== button (the blue little circle) at the top right of the pane. The ==bounds== variable should change in the inspector. Now type the text ==self openInWorld== in the mini-playground and ""Do it"".
 
 The cell should appear near the top left-hand corner of the screen (as shown in Figure *@fig:LOCellOpenInWorld*) and exactly where its bounds say that it should appear. Meta-click on the
 cell to bring up the Morphic halo. Move the cell with the brown (next to
@@ -288,7 +288,7 @@ instance variable.
 
 !!! Taking advantage of the debugger
 
-At this stage if you open a ==Playground== and type ==LOGame new== and ""Do it""
+At this stage if you open a ==Playground==, type ==LOGame new==, and ""Do it"", 
 Pharo will complain that it doesn't know the meaning of some of the terms (see
 Figure *@fig:doesntKnowCellsPerSide*). It will tell you that it doesn't know of
 a message ==cellsPerSide==, and will open a debugger. But ==cellsPerSide== is not a mistake; it is just a method that we haven't yet defined. We will do so, shortly.
@@ -296,7 +296,7 @@ a message ==cellsPerSide==, and will open a debugger. But ==cellsPerSide== is no
 +Pharo detecting an unknown selector>file://figures/doesntKnowCellsPerSide.png|width=100|label=fig:doesntKnowCellsPerSide+
 
 Now let us do it: type ==LOGame new== and ""Do it"". Do not close the debugger.
-Click on the button ==Create== of the debugger, when prompt, select ""LOGame"", the class which will contain the method, click on ""ok"", then when prompted for a method protocol enter ==accessing==. The debugger will create the method ==cellsPerSide== on the fly and invoke it immediately. As there is no magic, the created method simply will simply raise and exception
+Click on the button ==Create== of the debugger, when prompted, select ""LOGame"", the class which will contain the method, click on ""ok"", then when prompted for a method protocol enter ==accessing==. The debugger will create the method ==cellsPerSide== on the fly and invoke it immediately. As there is no magic, the created method will simply raise and exception
 and the debugger will stop again (as shown in Figure *@fig:cellsPerSideShould*) giving you the opportunity to define the behavior of the method.
 
 
@@ -314,7 +314,7 @@ cellsPerSide
 +Defining ==cellsPerSide== in the debugger>file://figures/cellPerSideInDebugger.png|width=100|label=fig:cellPerSideInDebugger+
 
 Define the method ==celsPerSide== in the debugger. Do not forget to compile the method definition by using ""Accept"". You should obtain a situation as shown by Figure *@fig:cellPerSideInDebugger*.
-If you press the button proceed the program will continue its execution - here it will stop since we did not define the method ==newCellAt:==. We could use the same process but for now we stop to explain a bit what we did so far. Close the debugger, and look at the class definition once again (which you can do by clicking on ""LOGame"" on the second pane of the ""System Browser""), you will see that the browser has modified it to include the instance variable ==cells==.
+If you press the button ""Proceed"" the program will continue its execution - here it will stop since we did not define the method ==newCellAt:==. We could use the same process but for now we stop to explain a bit what we did so far. Close the debugger, and look at the class definition once again (which you can do by clicking on ""LOGame"" on the second pane of the ""System Browser""), you will see that the browser has modified it to include the instance variable ==cells==.
 
 
 !!! Studying the initialize method
@@ -333,7 +333,7 @@ initialize
 	cells := Matrix new: n tabulate: [ :i :j | self newCellAt: i at: j ]
 ]]]
 
-- At line 2, ==\| sampleCell width height n \|==, declares 4 temporary variables. They are called temporary variables because their scope and lifetime are limited to this method. Temporary variables with explanatory names are helpful in making code more readable. Lines 4\-7 set the value of these variables.
+- At line 2, the expression ==\| sampleCell width height n \|== declares 4 temporary variables. They are called temporary variables because their scope and lifetime are limited to this method. Temporary variables with explanatory names are helpful in making code more readable. Lines 4\-7 set the value of these variables.
 
 - How big should our game board be? Big enough to hold some integral number of cells, and big enough to draw a border around them. How many cells is the right number? 5? 10? 100? We don't know yet, and if we did, we would probably change our minds later. So we delegate the responsibility for knowing that number to another method, which we name ==cellsPerSide==, and which we will write in a minute or two. Don't be put off by this: it is actually good practice to code by referring to other methods that we haven't yet defined. Why? Well, it wasn't until we started writing the ==initialize== method that we realized that we needed it. And at that point, we can give it a meaningful name, and move on, without interrupting our flow.
 
@@ -404,7 +404,7 @@ As you can see there are some tabulation and empty lines. In order to keep the
 same convention you can right-click on the method edit area and click on
 ==Format== (or use ==CMD-Shift-u== shortcut). This will format your method.
 
-The method defined above answers a new ==LOCell==, initialized to position (i,
+The method defined above created a new ==LOCell==, initialized to position (i,
 j) in the Matrix of cells. The last line defines the new cell's ==mouseAction==
 to be the block ==[ self toggleNeighboursOfCellAt: i at: j ]==. In effect, this
 defines the callback behaviour to perform when the mouse is clicked. The
@@ -422,7 +422,7 @@ LOGame >> toggleNeighboursOfCellAt: i at: j
 		ifTrue: [ (cells at: i at: j + 1) toggleState ]
 ]]]
 
-==toggleNeighboursOfCellAt:at:== toggles the state of the four cells to the north, south, west
+The method ==toggleNeighboursOfCellAt:at:== toggles the state of the four cells to the north, south, west
 and east of cell (i, j). The only complication is that the board is finite, so
 we have to make sure that a neighboring cell exists before we toggle its state.
 
@@ -492,7 +492,7 @@ error occurred (see Figure *@fig:debuggerHighlight*).
 
 +The debugger, with the method ==toggleNeighboursOfCell:at:== selected>file://figures/debuggerHighlight.png|width=85|label=fig:debuggerHighlight+
 
-At the bottom of the debugger is a variable zone. You can inspect the object that is the receiver of the message that caused the selected method to execute, so you can look here to see the values of the instance variables. You can also seet the values of the method arguments. 
+At the bottom of the debugger is a variable zone. You can inspect the object that is the receiver of the message that caused the selected method to execute, so you can look here to see the values of the instance variables. You can also set the values of the method arguments. 
 
 Using the debugger, you can execute code step by step, inspect objects in
 parameters and local variables, evaluate code just as you can in a playground,
