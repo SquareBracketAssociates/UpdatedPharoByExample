@@ -127,7 +127,7 @@ directly by the method body. However, the instance variables of the other point
 must be accessed by sending it the messages ==x== and ==y==.
 
 [[[label=scr:distance|caption=Distance between two points
-Point >>> dist: aPoint
+Point >> dist: aPoint
     "Answer the distance between aPoint and the receiver."
 
     | dx dy |
@@ -390,7 +390,7 @@ returned. Since ==uniqueInstance== is a class instance variable, this method can
 directly access it.
 
 [[[label=scr:uniqueInstance|caption=Class-side accessor method ==uniqueInstance==
-WebServer class>>>uniqueInstance
+WebServer class>>uniqueInstance
      uniqueInstance ifNil: [ uniqueInstance := self new ].
      ^ uniqueInstance
 ]]]
@@ -561,7 +561,7 @@ they occur in the hierarchy.
 We might do this as follows:
 
 [[[label=scr:author|caption=An author method|lang=smalltalk
-TAuthor>>>author
+TAuthor>>author
     "Returns author initials"
 
     ^ 'on'    "oscar nierstrasz"
@@ -728,7 +728,7 @@ The class ==EllipseMorph== implements ==defaultColor==, so the appropriate
 method is found immediately.
 
 [[[label=scr:defaultColor|caption=A locally implemented method
-EllipseMorph>>>defaultColor
+EllipseMorph>>defaultColor
      "Answer the default color/fill style for the receiver"
 
      ^ Color yellow
@@ -741,7 +741,7 @@ is not immediately found, since the class ==EllipseMorph== does not implement
 class ==Morph== (see Figure *@fig:openInWorldLookup*).
 
 [[[label=scr:openInWorld|caption=An inherited method
-Morph>>>openInWorld
+Morph>>openInWorld
      "Add this morph to the world."
 
      self openInWorld: self currentWorld
@@ -770,7 +770,7 @@ This suggests that ==openInWorld== is equivalent to ==openInWorldReturnSelf==,
 defined below.
 
 [[[label=scr:openInWorldReturnSelf|caption=Explicitly returning ==self==
-Morph>>>openInWorld
+Morph>>openInWorld
     "Add this morph to the world."
 
     self openInWorld: self currentWorld
@@ -817,7 +817,7 @@ It is therefore good practice whenever implementing an ==initialize== method to 
 ==super initialize== before performing any further initialization:
 
 [[[label=scr:morphinit|caption=Super initialize
-BorderedMorph>>>initialize
+BorderedMorph>>initialize
     "initialize the state of the receiver"
 
     super initialize.
@@ -862,7 +862,7 @@ How exactly is this result obtained through a combination of ==self== and
 +==self== and ==super== sends>file://figures/constructorStringLookup.png|label=fig:constructorStringLookup|width=90+
 
 [[[label=scr:constructorString|caption=A ==self== send
-Morph>>>constructorString
+Morph>>constructorString
     ^ String streamContents: [:s | self printConstructorOn: s indent: 0].
 ]]]
 
@@ -885,7 +885,7 @@ Indeed an instance of a subclass may receive the message containing the self exp
 @@important A ==self== send triggers a ''dynamic method lookup starting in the class of the receiver.'' A ==self== send is dynamic in the sense that by looking at the method containing it, we cannot predict which method will be executed. 
 
 [[[label=scr:fullPrintOn|caption=Combining ==super== and ==self== sends
-BorderedMorph>>>fullPrintOn: aStream
+BorderedMorph>>fullPrintOn: aStream
     aStream nextPutAll: '('.
     super fullPrintOn: aStream.
     aStream nextPutAll: ') setBorderWidth: '; print: borderWidth;
@@ -1081,7 +1081,7 @@ It also arguably defeats the point of using a class variable, since in fact it
 is no longer shared.
 
 % \begin{method}[colorclasscolornames]{Color class>>colorNames}
-% Color class>>>colorNames
+% Color class>>colorNames
 %     ColorNames ifNil: [self initializeNames].
 %     ^ ColorNames
 % \end{method}
@@ -1090,7 +1090,7 @@ Another solution is to override the class method ==initialize== (we've seen this
 before in Scripts *@scr:dogCount* and *@scr:dogCount2*).
 
 [[[label=scr:colorClassInit|caption=Initializing the ==Color== class
-Color class>>>initialize
+Color class>>initialize
     ...
     self initializeColorRegistry.
     ...
@@ -1132,7 +1132,7 @@ in the method body ''directly'', i.e., by using variable syntax rather than an
 explicit dictionary lookup. For example, we can write the following method.
 
 [[[label=scr:textTestCR|caption===Text>>testCR==
-Text>>>testCR
+Text>>testCR
     ^ CR == Character cr
 ]]]
 
