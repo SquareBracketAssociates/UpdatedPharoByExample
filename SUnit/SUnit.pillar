@@ -660,7 +660,7 @@ TestCase>>run: aResult
 The method ==TestResult>>runCase:== sends the message ==TestCase>>runCase== to
 an individual test, to execute the test. ==TestResult>>runCase== deals with any
 exceptions that may be raised during the execution of a test, runs a
-==TestCase== by sending it the ==runCase==, and counts the errors, failures and
+==TestCase== by sending it the ==runCase==, and counts the errors, failures, and
 passes.
 
 [[[caption=Catching test case errors and failures
@@ -692,7 +692,7 @@ To run more than one test, we send the message ==run== to a ==TestSuite== that c
 
 [[[caption=Auto-building the test suite
 TestCase class>>testSelectors
-	^(self selectors select: [ :each | (each beginsWith: 'test') and: [each numArgs isZero]])
+	^(self selectors select: [ :each | (each beginsWith: 'test') and: [ each numArgs isZero ]])
 ]]]
 
 The method ==TestSuite>>run== creates an instance of ==TestResult==, verifies
@@ -733,7 +733,7 @@ initialized and the message ==setUp== is sent to a test resource.
 TestResource class>>isAvailable
 	"This is (and must be) a lazy method. If my current has a value, an attempt to make me available has already been made: trust its result. If not, try to make me available."
 
-	current ifNil: [self makeAvailable].
+	current ifNil: [ self makeAvailable ].
 	^self isAlreadyAvailable
 ]]]
 
