@@ -470,14 +470,12 @@ LOCell >> mouseUp: anEvent
 
 
 What this method does is to send the message ==value== to the object stored in
-the instance variable ==mouseAction==. Recall that in ==LOGame >> newCellAt: i
-at: j== we assigned the following code fragment (called a ''block'') to
-==mouseAction==:
-
-==[self toggleNeighboursOfCellAt: i at: j ]==
-
-Sending the ==value== message causes this block to be evaluated, and
+the instance variable ==mouseAction==. In ==LOGame >> newCellAt: i
+at: j== we created the ''block'' ==[self toggleNeighboursOfCellAt: i at: j ]==
+which is toggling all the neighbours of a cell and we assigned this block to the ==mouseAction== of 
+the cell. Therefore sending the ==value== message causes this block to be evaluated, and
 consequently the state of the cells will toggle.
+
 
 !!Let's try our code
 
@@ -551,8 +549,7 @@ Finally we are done!
 
 !!!!! About the debugger.
 By default when an error occurs in Pharo, the system displays a debugger. However, we can fully control this behavior. For example we can write the error in a file. We can even serialize the execution stack in a file, zip and reopen it in another image. Now when we are in development 
-mode the debugger is available to let us go as fast as possible. In production system, developers
-often control the debugger to hide their mistakes to their clients. 
+mode the debugger is available to let us go as fast as possible. In production system, developers often control the debugger to hide their mistakes from their clients. 
 
 
 !!Saving and sharing Pharo code
@@ -617,14 +614,12 @@ load it.
 
 !!!! Monticello Browser
 Open the Monticello browser from the World menu (see Figure *@fig:monticiello*).
+
 In the right-hand pane of the browser is a list of Monticello repositories,
 which will include all of the repositories from which code has been loaded into
-the image that you are using.
-
-At the top of the list in the Monticello browser is a repository in a local
-directory called the package cache, which caches copies of the packages that you
-have loaded or published over the network. This local cache is really handy
-because it lets you keep your own local history. It also allows you to work in
+the image that you are using. The top list item is a local
+directory called the ==package-cache==. It caches copies of the packages that you
+have loaded or published over the network. This local cache is really handy because it lets you keep your own local history. It also allows you to work in
 places where you do not have internet access, or where access is slow enough
 that you do not want to save to a remote repository very frequently.
 
@@ -681,7 +676,7 @@ repository at SmalltalkHub.
 Once you have accepted, your new repository should be listed on the right-hand
 side of the Monticello browser. Click on the ""Save"" button to save a first version of your Lights Out game on
 SmalltalkHub. Don't forget to put a comment so that you, or others, will have an
-idea of what contains your commit for the future (see Figure
+idea of what your commit contains (see Figure
 *@fig:firstCommit*).
 
 +Do your first commit>file://figures/firstCommit.png|width=60|label=fig:firstCommit+
@@ -697,13 +692,10 @@ Monticello has many more capabilities, which will be discussed in depth in
 Chapter *: Sharing Code and Source Control>./SharingCode/SharingCode.pillar@cha:sharingCode*.
 
 
-!!!!! About git. 
-If you are already familiar with Git and Github there is a chapter about how to
-use Git with Pharo in the online book Enterprise Pharo: A Web Perspective at
-*http://files.pharo.org/books/enterprisepharo/>http://files.pharo.org/books/enterprisepharo/*.
-If you have not done so already its recommended to download the entire book,
-because it contains a lot of valuable information about Pharo and its third
-party libraries.
+!!!!! About Git. 
+If you are already familiar with Git and Github there are several solutions to manage your projects with Git. 
+This blog posts provides a summary: *http://blog.yuriy.tymch.uk/2015/07/pharo-and-github-versioning-revision-2.html#!>http://blog.yuriy.tymch.uk/2015/07/pharo-and-github-versioning-revision-2.html#!*
+There is a chapter in preparation on about how to use Git with Pharo. Request it on the Pharo mailing-list.
 
 !!Chapter summary
 

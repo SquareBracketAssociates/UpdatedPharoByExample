@@ -13,20 +13,16 @@ We then present a series of small examples showing how to use SUnit. Finally, we
 look at the implementation of SUnit, so that you can understand how Pharo
 uses the power of reflection in supporting its tools. Note that the version
 documented in this chapter and used in Pharo is a modified version of SUnit3.3.
-In the future, Pharo may include version of SUnit4.0.
+
 
 !!Introduction
 
-The interest in testing and Test Driven Development is not limited to Pharo or
-Smalltalk. Automated testing has become a hallmark of the ''Agile software
+The interest in testing and Test Driven Development is not limited to Pharo.
+ Automated testing has become a hallmark of the ''Agile software
 development'' movement, and any software developer concerned with improving
 software quality would do well to adopt it. Indeed, developers in many languages
 have come to appreciate the power of unit testing, and versions of ''xUnit'' now
 exist for every programming language.
-
-This chapter describes SUnit 3.3 (the current version as of this writing). The
-official website (not really updated by the maintainers) is
-*http://sunit.sourceforge.net>http://sunit.sourceforge.net*.
 
 Neither testing, nor the building of test suites, is new. By now, everybody knows that
 tests are a good way to catch errors. eXtreme Programming, by making testing a
@@ -182,8 +178,8 @@ Define the ==setUp== method as follows, to initialize the ==empty== variable to
 refer to an empty set and the ==full== variable to refer to a set containing two
 elements.
 
-[[[caption=Setting up a fixture|language=Smalltalk
-MyExampleSetTest>>>setUp
+[[[caption=Setting up a fixture
+MyExampleSetTest>>setUp
 	empty := Set new.
 	full := Set with: 5 with: 6
 ]]]
@@ -213,7 +209,7 @@ number of occurrences of 5 in ==full== set is equal to one, even if we
 add another element 5 to the set.
 
 [[[caption=Testing occurrences
-MyExampleSetTest>>>testOccurrences
+MyExampleSetTest>>testOccurrences
 	self assert: (empty occurrencesOf: 0) = 0.
 	self assert: (full occurrencesOf: 5) = 1.
 	full add: 5.
@@ -224,7 +220,7 @@ Finally, we test that the set no longer contains the element 5 after we have
 removed it.
 
 [[[caption=Testing removal
-MyExampleSetTest>>>testRemove
+MyExampleSetTest>>testRemove
 	full remove: 5.
 	self assert: (full includes: 6).
 	self deny: (full includes: 5)
@@ -241,8 +237,7 @@ the icon of the class name, or on an individual test method, and select ''Run
 tests (t)'' or press the icon. The test methods will be flagged green or red,
 depending on whether they pass or not (as shown in *@fig:browsertests*).
 
-+Running SUnit tests from the
-browser>file://figures/updatedbrowsertests.png|width=80|label=fig:browsertests+
++Running SUnit tests from the System Browser>file://figures/updatedbrowsertests.png|width=80|label=fig:browsertests+
 
 You can also select sets of test suites to run, and obtain a more detailed log
 of the results using the SUnit Test Runner, which you can open by selecting
@@ -272,7 +267,7 @@ Some people include an executable comment in their test methods that allows
 running a test method with a ''Do it'' from the browser, as shown below.
 
 [[[caption=Executable comments in test methods
-MyExampleSetTest>>>testRemove
+MyExampleSetTest>>testRemove
 	"self run: #testRemove"
 	full remove: 5.
 	self assert: (full includes: 6).
@@ -283,7 +278,7 @@ Introduce a bug in ==MyExampleSetTest>>testRemove== and run the tests again. For
 example, change ==6== to ==7==, as in:
 
 [[[caption=Introducing a bug in a test
-MyExampleSetTest>>>testRemove
+MyExampleSetTest>>testRemove
 	full remove: 5.
 	self assert: (full includes: 7).
 	self deny: (full includes: 5)
@@ -305,17 +300,13 @@ The method ==TestCase>>assert:==, which is defined in the class ==TestCase==,
 expects a boolean argument, usually the value of a tested expression. When the
 argument is true, the test passes; when the argument is false, the test fails.
 
-There are actually three possible outcomes of a test. The outcome that we hope
-for is that all of the assertions in the test are true, in which case the test
-passes. In the test runner, when all of the tests pass, the bar at the top turns
-green. However, there are two other ways that running a test can go wrong.
-The obvious way is that one of the assertions can be false, causing the test to
-''fail''. The other possibility is that some kind of error occurs during the
-execution of the test, such as a ''message not understood'' error or an ''index
-out of bounds'' error. If an error occurs, the assertions in the test method may
-not have been executed at all, so we can't say that the test has failed;
-nevertheless, something is clearly wrong! In the ''test runner'', failing tests
-cause the bar at the top to turn yellow, and are listed in the middle pane on
+There are actually three possible outcomes of a test: ''passing'', ''failing'', and ''raising an error''.
+
+- ""Passing"". The outcome that we hope for is that all of the assertions in the test are true, in which case the test passes. In the test runner, when all of the tests pass, the bar at the top turns green. However, there are two other ways that running a test can go wrong.
+- ""Failing"". The obvious way is that one of the assertions can be false, causing the test to ''fail''. 
+- ""Error"". The other possibility is that some kind of error occurs during the execution of the test, such as a ''message not understood'' error or an ''index out of bounds'' error. If an error occurs, the assertions in the test method may not have been executed at all, so we can't say that the test has failed; nevertheless, something is clearly wrong!
+
+In the ''test runner'', failing tests cause the bar at the top to turn yellow, and are listed in the middle pane on
 the right, whereas tests with errors cause the bar to turn red, and are listed in
 the bottom pane on the right.
 
@@ -334,7 +325,7 @@ In addition to ==assert:== and ==deny:==, there are several other methods that
 can be used to make assertions.
 
 First, ==TestCase>>assert:description:== and ==TestCase>>deny:description:==
-take a second argument which is a message string that can be used to describe
+take a second argument which is a message string that describes
 the reason for the failure, if it is not obvious from the test itself. These
 methods are described in Section *@sec:descriptionStrings*.
 
@@ -346,25 +337,13 @@ that a particular exception is raised during the execution of ==aBlock==. The
 method below illustrates the use of ==should:raise:==.
 
 [[[caption=Testing error raising
-	MyExampleSetTest>>>testIllegal
+	MyExampleSetTest>>testIllegal
 		self should: [ empty at: 5 ] raise: Error.
 		self should: [ empty at: 5 put: #zork ] raise: Error
 ]]]
 
 Try running this test. Note that the first argument of the ==should:== and
-==shouldnt:== methods is a block that contains the expression to be evaluated.
-
-SUnit is portable: it can be used from all dialects of Smalltalk. To make SUnit
-portable, its developers factored out the dialect-dependent aspects. The class
-method ==TestResult class error== answers the system's error class in a
-dialect-independent fashion. You can take advantage of this and rewrite the
-previous method as follows:
-
-[[[caption=Portable error handling
-MyExampleSetTest>>>testIllegal
-	self should: [empty at: 5] raise: TestResult error.
-	self should: [empty at: 5 put: #zork] raise: TestResult error
-]]]
+==shouldnt:== methods is a block that contains the expression to be executed.
 
 !!!Running a single test
 
@@ -488,8 +467,9 @@ use (note the use of a dynamic array, for convenience).
 [[[caption=An example of a TestResource subclass
 TestResource subclass: #MyTestResource
 	instanceVariableNames: ''
-
-MyTestCase class>>>resources
+	...
+	
+MyTestCase class>>resources
 	"Associate the resource with this class of test cases"
 
 	^{ MyTestResource }
@@ -517,35 +497,30 @@ Create new classes ==MyTestResource== and ==MyTestCase== which are subclasses of
 that the following messages are written to the ==Transcript== when you run your
 tests.
 
-!!!!!Solution. You will need to write the following six methods.
+!!!!!Solution. 
+You will need to write the following six methods.
 
 [[[
-MyTestCase>>>setUp
-	Transcript
-	 	show: 'MyTestCase>>setUp has run.'; cr
+MyTestCase>>setUp
+	Transcript show: 'MyTestCase>>setUp has run.'; cr
 
-MyTestCase>>>tearDown
-	Transcript
-		show: 'MyTestCase>>tearDown has run.'; cr
+MyTestCase>>tearDown
+	Transcript show: 'MyTestCase>>tearDown has run.'; cr
 
-MyTestCase>>>testOne
-	Transcript
-		 show: 'MyTestCase>>testOne has run.'; cr
+MyTestCase>>testOne
+	Transcript show: 'MyTestCase>>testOne has run.'; cr
 
-MyTestCase>>>testTwo
-	Transcript
-		show: 'MyTestCase>>testTwo has run.'; cr
+MyTestCase>>testTwo
+	Transcript show: 'MyTestCase>>testTwo has run.'; cr
 
-MyTestCase class>>>resources
+MyTestCase class>>resources
 	^ Array with: MyTestResource
 
-MyTestResource>>>setUp
-	Transcript
-		show: 'MyTestResource>>setUp has run'; cr
+MyTestResource>>setUp
+	Transcript show: 'MyTestResource>>setUp has run'; cr
 
-MyTestResource>>>tearDown
-	Transcript
-		show: 'MyTestResource>>tearDown has run.'; cr
+MyTestResource>>tearDown
+	Transcript show: 'MyTestResource>>tearDown has run.'; cr
 ]]]
 
 !!Advanced features of SUnit
@@ -562,10 +537,10 @@ programmer to supply a description of the assertion. The description is a
 runner. Of course, this string can be constructed dynamically.
 
 [[[
-| e |
+...
 e := 42.
-self assert: e = 23
-	description: 'expected 23, got ', e printString
+self assert: e = 23 description: 'expected 23, got ', e printString
+...
 ]]]
 
 The relevant methods in ==TestCase== are:
@@ -583,16 +558,18 @@ In addition to ==assert:==, there is also ==assert:equals:== that offers a
 better report in case of error (incidentally, ==assert:equals:== uses
 ==assert:description:==).
 
-For example the two following tests are equivalent, the second one will report
-that the value that the test is expecting. We suppose here that ==aDateAndTime==
-is an instance variable of the test class.
+For example, the two following tests are equivalent. However, the second one will report
+that the value that the test is expecting and this is easier to understand the failure.
+In this example, we suppose that ==aDateAndTime== is an instance variable of the test class.
 
 [[[
 testAsDate
 	self assert: aDateAndTime asDate = ('February 29, 2004' asDate translateTo: 2 hours).
 
 testAsDate
-	self assert: aDateAndTime asDate equals: ('February 29, 2004' asDate translateTo: 2 hours).
+	self 
+		assert: aDateAndTime asDate 
+		equals: ('February 29, 2004' asDate translateTo: 2 hours).
 ]]]
 
 !!!Logging support
@@ -612,20 +589,20 @@ following test uses it to define a conditional test.
 [[[
 OCCompiledMethodIntegrityTest>>testPragmas
 
-		| newCompiledMethod originalCompiledMethod |
-		(Smalltalk hasClassNamed: #Compiler) ifFalse: [ ^ self skip ].
-		...
+	| newCompiledMethod originalCompiledMethod |
+	(Smalltalk globals hasClassNamed: #Compiler) ifFalse: [ ^ self skip ].
+	...
 ]]]
 
 !!Continuing after a failure
 
 SUnit also allows us to specify whether or not a test should continue after a
-failure. This is a really powerful feature that uses the exception mechanisms
-offered by Pharo. To see what this can be used for, let's look at an example.
+failure. This is a really powerful feature that uses Pharo's exception mechanisms.
+ To see what this can be used for, let's look at an example.
 Consider the following test expression:
 
 [[[
-aCollection do: [ :each | self assert: each even]
+aCollection do: [ :each | self assert: each even ]
 ]]]
 
 In this case, as soon as the test finds the first element of the collection that
@@ -634,12 +611,11 @@ see both how many elements, and which elements, aren't ==even== (and maybe also
 log this information). You can do this as follows:
 
 [[[
-aCollection do:
-	[:each |
+aCollection do: [ :each |
 	self
 		assert: each even
 		description: each printString, ' is not even'
-		resumable: true]
+		resumable: true ]
 ]]]
 
 This will print out a message on your logging stream for each element that
@@ -648,7 +624,7 @@ your test method, you'll still only see one failure. All the other assertion
 methods that we have seen are not resumable by default; ==assert: p description: s== is
 equivalent to ==assert: p description: s resumable: false==.
 
-!!The implementation of SUnit
+!!SUnit implementation
 
 The implementation of SUnit makes an interesting case study of a Pharo
 framework. Let's look at some key aspects of the implementation by following the
@@ -656,7 +632,7 @@ execution of a test.
 
 !!!Running one test
 
-To execute one test, we evaluate the expression ==(aTestClass selector: aSymbol)
+To execute one test, we execute the expression ==(aTestClass selector: aSymbol)
 run.==
 
 +Running one test>file://figures/sunit-scenario.png|width=60|label=fig:sunit-scenario+
@@ -677,7 +653,7 @@ TestCase>>run
 The method ==TestCase>>run:== sends the message ==runCase:== to the test result:
 
 [[[caption=Passing the test case to the test result
-TestCase>>>run: aResult
+TestCase>>run: aResult
 	aResult runCase: self
 ]]]
 
@@ -693,9 +669,9 @@ TestResult>>runCase: aTestCase
 	aTestCase announce: TestCaseStarted withResult: self.
 	aTestCase runCase.
 	aTestCase announce: TestCaseEnded withResult: self.
-	self addPass: aTestCase]
+	self addPass: aTestCase ]
 		on: self class failure, self class skip, self class warning, self class error
-		do: [:ex | ex sunitAnnounce: aTestCase toResult: self]
+		do: [ :ex | ex sunitAnnounce: aTestCase toResult: self ]
 ]]]
 
 The method ==TestCase>>runCase== sends the messages ==TestCase>>setUp== and
@@ -703,23 +679,19 @@ The method ==TestCase>>runCase== sends the messages ==TestCase>>setUp== and
 
 [[[
 TestCase>>runCase
-		self resources do: [:each | each availableFor: self].
-		[self setUp.
-		self performTest] ensure: [
+		self resources do: [ :each | each availableFor: self ].
+		[ self setUp.
+		self performTest ] ensure: [
 			self tearDown.
-		self cleanUpInstanceVariables]
+			self cleanUpInstanceVariables ]
 ]]]
 
 !!!Running a TestSuite
 
-To run more than one test, we send the message ==run== to a ==TestSuite== that
-contains the relevant tests. ==TestCase class== provides some functionality to
-build a test suite from its methods. The expression ==MyTestCase
-buildSuiteFromSelectors== returns a suite containing all the tests defined in
-the ===MyTestCase== class. The core of this process is:
+To run more than one test, we send the message ==run== to a ==TestSuite== that contains the relevant tests. ==TestCase class== provides some functionality to build a test suite from its methods. The expression ==MyTestCase buildSuiteFromSelectors== returns a suite containing all the tests defined in the ==MyTestCase== class. The core of this process is:
 
 [[[caption=Auto-building the test suite
-TestCase class>>>testSelectors
+TestCase class>>testSelectors
 	^(self selectors select: [ :each | (each beginsWith: 'test') and: [each numArgs isZero]])
 ]]]
 
