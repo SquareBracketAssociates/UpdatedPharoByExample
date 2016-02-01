@@ -131,7 +131,7 @@ The implementations of ==Point>>printOn:== and ==Interval>>printOn:== are
 self-evaluating.
 
 [[[caption=Self-evaluation of ==Point==
-Point>>printOn: aStream
+Point >> printOn: aStream
 	"The receiver prints on aStream in terms of infix notation."
 
 	aStream nextPut: $(.
@@ -146,7 +146,7 @@ Point>>printOn: aStream
 ]]]
 
 [[[caption=Self-evaluation of ==Interval==
-Interval>>printOn: aStream
+Interval >> printOn: aStream
     aStream nextPut: $(;
         print: start;
         nextPutAll: ' to: ';
@@ -168,7 +168,7 @@ two objects represent the same value) whereas ==\=\=== tests object ''identity''
 The default implementation of object equality is to test for object identity:
 
 [[[caption=Object equality
-Object>>= anObject
+Object >> = anObject
     "Answer whether the receiver and the argument represent the same object.
     If = is redefined in any subclass, consider also redefining the message hash."
 
@@ -186,7 +186,7 @@ This is a method that you will frequently want to override. Consider the case of
 This works because ==Complex== overrides ===== as follows:
 
 [[[caption=Equality for complex numbers
-Complex>>= anObject
+Complex >> = anObject
     anObject isComplex
         ifTrue: [^ (real = anObject real) & (imaginary = anObject imaginary)]
         ifFalse: [^ anObject adaptToComplex: self andSend: #=]
@@ -204,7 +204,7 @@ your class are ever used as keys in a ==Dictionary==, then you should make sure
 that instances that are considered to be equal have the same hash value:
 
 [[[caption=Hash must be reimplemented for complex numbers
-Complex>>hash
+Complex >> hash
     "Hash is reimplemented because = is implemented."
     ^ real hash bitXor: imaginary hash.
 ]]]
@@ -226,7 +226,7 @@ feature.)
 
 Several methods allow you to query the class of an object.
 
-!!!!!==class==
+!!!!!==class==.
 
 You can ask any object about its class using the message ==class==.
 
@@ -234,7 +234,7 @@ You can ask any object about its class using the message ==class==.
 1 class --> SmallInteger
 ]]]
 
-!!!!!==isMemberOf:==
+!!!!!==isMemberOf:==.
 
 Conversely, you can ask if an object is an instance of a specific class:
 
@@ -249,7 +249,7 @@ Since Pharo is written in itself, you can really navigate through its
 structure using the right combination of superclass and class messages (see
 Chapter *: Classes and Metaclasses>../Metaclasses/Metaclasses.pillar@cha:metaclasses*).
 
-!!!!!==isKindOf:==
+!!!!!==isKindOf:==.
 
 ==Object>>isKindOf:== answers whether the receiver's class is either the same
 as, or a subclass of the argument class.
@@ -269,7 +269,7 @@ as, or a subclass of the argument class.
 ==Number== is a superclass of the class ==Fraction==, but ==1/3== is not a
 ==Integer==.
 
-!!!!!==respondsTo:==
+!!!!!==respondsTo:==.
 
 ==Object>>respondsTo:== answers whether the receiver understands the message
 selector given as an argument.
@@ -328,7 +328,7 @@ An alternate solution is to use message ==copy==. It is implemented on
 ==Object== as follows: 
 
 [[[caption=Copying objects as a template method
-Object>>copy
+Object >> copy
     "Answer another instance just like the receiver.
     Subclasses typically override postCopy;
     they typically do not override shallowCopy."
@@ -337,7 +337,7 @@ Object>>copy
 ]]]
 
 [[[
-Object>>postCopy
+Object >> postCopy
     ^ self
 ]]]
 
@@ -348,7 +348,7 @@ be shared. In addition there is a good chance that ==postCopy== should always do
 
 !!!Debugging
 
-!!!!! ==halt==
+!!!!! ==halt==.
 The most important method here is ==halt==. In order to set a breakpoint in a
 method, simply insert the expression send ==self halt== at some point in the body
 of the method. (Note that since ==halt== is defined on ==Object== you can also write ==1 halt==).
@@ -357,7 +357,7 @@ debugger will open to this point in your program. (See
 Chapter *: The Pharo Environment>../Environment/Environment.pillar@cha:env* for more details about the debugger.)
 
 
-!!!!! ==assert:==
+!!!!! ==assert:==.
 The next most important message is ==assert:==, which takes a block as its
 argument. If the block evaluates to ==true==, execution continues. Otherwise an
 ==AssertionFailure== exception will be raised. If this exception is not
@@ -367,11 +367,11 @@ typical usage is to check non-trivial pre-conditions to public methods of
 objects. ==Stack>>pop== could easily have been implemented as follows:
 
 [[[caption=Checking a pre-condition
-Stack>>pop
+Stack >> pop
     "Return the first element and remove it from the stack."
 
     self assert: [ self isEmpty not ].
-    ^self linkedList removeFirst element
+    ^ self linkedList removeFirst element
 ]]]
 
 Do not confuse ==Object>>assert:== with ==TestCase>>assert:==, which occurs in
@@ -384,34 +384,34 @@ both are useful for debugging, they each serve a very different purpose.
 
 This protocol contains several methods useful for signaling run-time errors.
 
-!!!!! ==assert:== 
+!!!!! ==assert:==.
 Sending ==self deprecated:== signals that the current method should no longer be
 used, if deprecation has been turned on in the Debugging section of the
 Settings browser. The argument should describe  an alternative. 
 Look for sender of the message ==deprecated:== to get an idea. 
 
 
-!!!!! ==doesNotUnderstand:==
+!!!!! ==doesNotUnderstand:==.
 ==doesNotUnderstand:== (commonly abbreviated in discussions as DNU or MNU)
 is sent whenever message lookup fails. The default
 implementation, i.e., ==Object>>doesNotUnderstand:== will trigger the
 debugger at this point. It may be useful to override ==doesNotUnderstand:== to
 provide some other behaviour.
 
-!!!!! ==error==
+!!!!! ==error==.
 ==Object>>error== and ==Object>>error:== are generic methods that can be used to
 raise exceptions. (Generally it is better to raise your own custom exceptions,
 so you can distinguish errors arising from your code from those coming from
 kernel classes.)
 
-!!!!! ==subclassResponsibility==
+!!!!! ==subclassResponsibility==.
 Abstract methods are implemented by convention with the body ==self
 subclassResponsibility==. Should an abstract class be instantiated by accident,
 then calls to abstract methods will result in ==Object>>subclassResponsibility==
 being executed.
 
 [[[caption=Signaling that a method is abstract
-Object>>subclassResponsibility
+Object >> subclassResponsibility
     "This message sets up a framework for the behavior of the class' subclasses.
     Announce that the subclass should have implemented this message."
 
@@ -425,7 +425,7 @@ classes that we shall see shortly in this chapter.
 Number new + 1 --> !''Error: My subclass should have overridden #+''!
 ]]]
 
-!!!!! ==shouldNotImplement==
+!!!!! ==shouldNotImplement==.
 ==self shouldNotImplement== is sent by convention to signal that an inherited
 method is not appropriate for this subclass. This is generally a sign that
 something is not quite right with the design of the class hierarchy. Due to the
@@ -458,7 +458,7 @@ A final key method that occurs not in ==Object== but in ==ProtoObject== is
 ==initialize==.
 
 [[[caption= ==initialize== as an empty hook method
-ProtoObject>>initialize
+ProtoObject >> initialize
    "Subclasses should redefine this method to perform initializations on instance creation"
 ]]]
 
@@ -467,7 +467,7 @@ defined for every class in the system will send ==initialize== to newly created
 instances.
 
 [[[caption= ==new== as a class-side template method
-Behavior>>new
+Behavior >> new
     "Answer a new initialized instance of the receiver (which is a class) with no indexable
     variables. Fail if the class is indexable."
     ^ self basicNew initialize
@@ -476,8 +476,7 @@ Behavior>>new
 This means that simply by overriding the ==initialize== hook method, new
 instances of your class will automatically be initialized. The ==initialize==
 method should normally perform a ==super initialize== to establish the class
-invariant for any inherited instance variables. (Note that this is ''not'' the
-standard behaviour of other Smalltalks.)
+invariant for any inherited instance variables.
 
 !!Numbers
 @sec:Numbers
@@ -485,17 +484,15 @@ standard behaviour of other Smalltalks.)
 Numbers in Pharo are not primitive data values but true objects.
 Of course numbers are implemented efficiently in the virtual machine, but the
 ==Number== hierarchy is as perfectly accessible and extensible as any other
-portion of the Smalltalk class hierarchy.
+portion of the class hierarchy.
 
 +The Number Hierarchy>file://figures/NumberHierarchy.png+
 
-Numbers are found in the ==Kernel-Numbers== package. The abstract root of this
-hierarchy is ==Magnitude==, which represents all kinds of classes supporting
+The abstract root of this hierarchy is ==Magnitude==, which represents all kinds of classes supporting
 comparison operators. ==Number== adds various arithmetic and other operators as
 mostly abstract methods. ==Float== and ==Fraction== represent, respectively,
-floating point numbers and fractional values. ==Integer== is also abstract,
-thus distinguishing between subclasses ==SmallInteger==,
-==LargePositiveInteger== and ==LargeNegativeInteger==. For the most part users
+floating point numbers and fractional values. ==Float== subclasses (==BoxedFloat64== and ==SmallFloat64==) represent Float on certain architecture. For example ==BoxedFloat64== is only available for 64bits. ==Integer== is also abstract, thus distinguishing between subclasses ==SmallInteger==,
+==LargePositiveInteger== and ==LargeNegativeInteger==. For the most part, users
 do not need to be aware of the difference between the three ==Integer== classes,
 as values are automatically converted as needed.
 
@@ -503,19 +500,18 @@ as values are automatically converted as needed.
 
 ==Magnitude== is the parent not only of the ==Number== classes, but also of
 other classes supporting comparison operations, such as ==Character==,
-==Duration== and ==Timespan==. (==Complex== numbers are not comparable, and so
-do not inherit from ==Number==.)
+==Duration== and ==Timespan==. 
 
 Methods ==<== and ===== are abstract. The remaining operators are generically
 defined. For example:
 
 [[[caption=Abstract comparison methods
-Magnitude>> < aMagnitude
+Magnitude >> < aMagnitude
     "Answer whether the receiver is less than the argument."
 
     ^ self subclassResponsibility
 
-Magnitude>> > aMagnitude
+Magnitude >> > aMagnitude
     "Answer whether the receiver is greater than the argument."
 
     ^ aMagnitude < self
@@ -561,7 +557,8 @@ Unsurprisingly ==Number== overrides ==isNumber==. More interestingly,
 The following example works surprisingly well in Pharo:
 
 [[[
-1000 factorial / 999 factorial --> 1000
+1000 factorial / 999 factorial 
+--> 1000
 ]]]
 
 Note that ==1000 factorial== is really calculated, which in many other languages
@@ -647,8 +644,7 @@ n --> 256
 
 !!Characters
 
-==Character== is defined in the ==Kernel-BasicObjects== package as a subclass
-of ==Magnitude==. Printable characters are represented in Pharo as ==$<char>==.
+==Character== is defined a subclass of ==Magnitude==. Printable characters are represented in Pharo as ==$<char>==.
 For example:
 
 [[[
@@ -704,10 +700,9 @@ Character characterTable size                               --> 256
 
 !!Strings
 
-The ==String== class is defined in the package ==Collections-Strings==. A
-==String== is an indexed ==Collection== that holds only ==Character==s.
+A ==String== is an indexed ==Collection== that holds only ==Character==s.
 
-+The String Hierarchy>file://figures/StringHierarchy.png|label=fig:strings+
++The String Hierarchy>file://figures/StringHierarchy.png|label=fig:strings|width=40+
 
 In fact, ==String== is abstract and Pharo strings are actually instances of
 the concrete class ==ByteString==.
@@ -773,37 +768,45 @@ The class ==Boolean== offers a fascinating insight into how much of the
 Pharo language has been pushed into the class library. ==Boolean== is the
 abstract superclass of the ==Singleton== classes ==True== and ==False==.
 
-+The Boolean Hierarchy>file://figures/BooleanHierarchy.png|label=fig:booleans+
++The Boolean Hierarchy>file://figures/BooleanHierarchy.png|label=fig:booleans|width=40+
 
 Most of the behaviour of ==Boolean==s can be understood by considering the
 method ==ifTrue:ifFalse:==, which takes two ==Blocks== as arguments.
 
 [[[
-(4 factorial > 20) ifTrue: [ 'bigger' ] ifFalse: [ 'smaller' ] --> 'bigger'
+4 factorial > 20
+	ifTrue: [ 'bigger' ] 
+	ifFalse: [ 'smaller' ] 
+--> 'bigger'
 ]]]
 
-The method is abstract in ==Boolean==. The implementations in its concrete
+The method ==ifTrue:ifFalse:== is abstract in class ==Boolean==. The implementations in its concrete
 subclasses are both trivial:
 
 [[[caption=Implementations of ==ifTrue:ifFalse:==
-True>>ifTrue: trueAlternativeBlock ifFalse: falseAlternativeBlock
-    ^trueAlternativeBlock value
+True >> ifTrue: trueAlternativeBlock ifFalse: falseAlternativeBlock
+    ^ trueAlternativeBlock value
 
-False>>ifTrue: trueAlternativeBlock ifFalse: falseAlternativeBlock
-    ^falseAlternativeBlock value
+False >> ifTrue: trueAlternativeBlock ifFalse: falseAlternativeBlock
+    ^ falseAlternativeBlock value
 ]]]
 
+Each of them execute the correct block depending on the receiver of the message. 
 In fact, this is the essence of OOP: when a message is sent to an object, the
 object itself determines which method will be used to respond. In this case an
-instance of ==True== simply evaluates the ''true'' alternative, while an
-instance of ==False== evaluates the ''false'' alternative. All the abstract
+instance of ==True== simply executes the ''true'' alternative, while an
+instance of ==False== executes the ''false'' alternative. All the abstract
 ==Boolean== methods are implemented in this way for ==True== and ==False==. For
-example:
+example the implementation of negation (message ==not==) is defined the same way:
 
 [[[caption=Implementing negation
-True>>not
+True >> not
     "Negation--answer false since the receiver is true."
-    ^false
+    ^ false
+
+False >> not
+    "Negation--answer true since the receiver is false."
+    ^ true
 ]]]
 
 ==Boolean==s offer several useful convenience methods, such as ==ifTrue:==,
