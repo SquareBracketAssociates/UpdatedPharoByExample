@@ -11,7 +11,7 @@ Our goal here is not to present in tedious detail the whole of the Pharo class
 library, but rather to point out the key classes and methods that you will need
 to use (or subclass/override) to program effectively. In this chapter, we will cover the basic
 classes that you will need for nearly every application: ==Object==, ==Number==
-and its subclasses, ==Character==, ==String==, ==Symbol== and ==Boolean==.
+and its subclasses, ==Character==, ==String==, ==Symbol==, and ==Boolean==.
 
 !!Object
 
@@ -20,42 +20,37 @@ hierarchy. Actually, in Pharo the true root of the hierarchy is ==ProtoObject==,
 which is used to define minimal entities that masquerade as objects, but we can
 ignore this point for the time being.
 
-==Object== can be found in the ==Kernel== package. There are almost 400 methods
-to be found here (in other words, every class that you define will automatically
+==Object== define almost 400 methods (in other words, every class that you define will automatically
 provide all those methods). ''Note:'' You can count the number of methods in
 a class, yourself, like so:
 
 [[[
 Object selectors size         "Count the instance methods in Object"
-Object class selectors size   "Count the class-side methods"
+Object class selectors size   "Count the class methods"
 ]]]
 
-The class comment for the ==Object== states:
 
-''==Object== is the root class for almost all of the other classes in the class hierarchy.
-The exceptions are ==ProtoObject== (the superclass of ==Object==) and its subclasses.''
-
-''Class ==Object== provides default behaviour common to all normal objects, such
+Class ==Object== provides default behaviour common to all normal objects, such
 as access, copying, comparison, error handling, message sending, and reflection.
 Also utility messages that all objects should respond to are defined here.
 ==Object== has no instance variables, nor should any be added. This is due to
 several classes of objects that inherit from ==Object== that have special
 implementations (==SmallInteger== and ==UndefinedObject== for example) that the VM
-knows about and depends on the structure and layout of certain standard classes.''
+knows about and depends on the structure and layout of certain standard classes.
 
 If we begin to browse the method protocols on the instance side of ==Object==
 we will start to see some of the key behaviour it provides.
 
 !!!Printing
 
-Every object in Smalltalk can return a printed form of itself. You can select
-any expression in a workspace and select the ==Print it== menu: this executes
+Every object can return a printed form of itself. You can select
+any expression in a textpane and select the ==Print it== menu: this executes
 the expression and asks the returned object to print itself. In fact this sends
 the message ==printString== to the returned object. The method ==printString==,
 which is a template method, at its core sends the message ==printOn:== to its
 receiver. The message ==printOn:== is a hook that can be specialized.
 
-==Object>>printOn:== is very likely one of the methods that you will most
+Method ==Object>>printOn:== is very likely one of the methods that you will most
 frequently override. This method takes as its argument a ==Stream== on which a
 ==String== representation of the object will be written. The default
 implementation simply writes the class name preceded by ''==a=='' or ''==an==''.
@@ -66,7 +61,8 @@ sending the message ==printString== to an instance executes the methods defined 
 ==Object==.
 
 [[[
-Browser new printString --> 'a Browser'
+GTPlayground new printString 
+  --> 'a GTPlayground(id=42544640 title=Playground pane=a GLMPane(1012947200 root))'
 ]]]
 
 The class ==Color== shows an example of ==printOn:== specialization. It prints
@@ -74,7 +70,7 @@ the name of the class followed by the name of the class method used to generate
 that color.
 
 [[[caption=printOn: redefinition.
-Color>>>printOn: aStream
+Color >> printOn: aStream
 	| name |
 	(name := self name) ifNotNil:
 		[ ^ aStream
@@ -84,12 +80,13 @@ Color>>>printOn: aStream
 ]]]
 
 [[[
-Color red printString --> 'Color red'
+Color red printString 
+  --> 'Color red'
 ]]]
 
 Note that the message ==printOn:== is not the same as ==storeOn:==. The message
 ==storeOn:== writes to its argument stream an expression that can be used to
-recreate the receiver. This expression is evaluated when the stream is read
+recreate the receiver. This expression is executed when the stream is read
 using the message ==readFrom:==. ==printOn:== just returns a textual version of
 the receiver. Of course, it may happen that this textual representation may
 represent the receiver as a self-evaluating expression.
@@ -97,8 +94,8 @@ represent the receiver as a self-evaluating expression.
 !!!!!A word about representation and self-evaluating representation.
 
 In functional programming, expressions return values when executed. In
-Smalltalk, messages (expressions) return objects (values). Some objects have the
-nice properties that their value is themselves. For example, the value of the
+Pharo, messages (expressions) return objects (values). Some objects have the
+nice property that their value is themselves. For example, the value of the
 object ==true== is itself i.e., the object ==true==. We call such objects
 ''self-evaluating objects''. You can see a ''printed'' version of an object
 value when you print the object in a workspace. Here are some examples of such
@@ -119,7 +116,7 @@ array is self-evaluating only if its elements are:
 
 [[[
 {10@10. 100@100}           --> {(10@10). (100@100)}
-{Browser new . 100@100} --> an Array(a Browser (100@100))
+{Nautilus new . 100@100} --> an Array(a Nautilus (100@100))
 ]]]
 
 Remember that literal arrays can only contain literals. Hence the following
@@ -134,7 +131,7 @@ The implementations of ==Point>>printOn:== and ==Interval>>printOn:== are
 self-evaluating.
 
 [[[caption=Self-evaluation of ==Point==
-Point>>>printOn: aStream
+Point>>printOn: aStream
 	"The receiver prints on aStream in terms of infix notation."
 
 	aStream nextPut: $(.
@@ -143,13 +140,13 @@ Point>>>printOn: aStream
 	(y notNil and: [y negative])
 		ifTrue: [
 			"Avoid ambiguous @- construct"
-			aStream space].
+			aStream space ].
 	y printOn: aStream.
 	aStream nextPut: $).
 ]]]
 
 [[[caption=Self-evaluation of ==Interval==
-Interval>>>printOn: aStream
+Interval>>printOn: aStream
     aStream nextPut: $(;
         print: start;
         nextPutAll: ' to: ';
@@ -164,14 +161,14 @@ Interval>>>printOn: aStream
 
 !!!Identity and equality
 
-In Smalltalk, the message ==\=== tests object ''equality'' (i.e., whether
+In Pharo, the message ==\=== tests object ''equality'' (i.e., whether
 two objects represent the same value) whereas ==\=\=== tests object ''identity''
 (whether two expressions represent the same object).
 
 The default implementation of object equality is to test for object identity:
 
 [[[caption=Object equality
-Object>>>= anObject
+Object>>= anObject
     "Answer whether the receiver and the argument represent the same object.
     If = is redefined in any subclass, consider also redefining the message hash."
 
@@ -189,7 +186,7 @@ This is a method that you will frequently want to override. Consider the case of
 This works because ==Complex== overrides ===== as follows:
 
 [[[caption=Equality for complex numbers
-Complex>>>= anObject
+Complex>>= anObject
     anObject isComplex
         ifTrue: [^ (real = anObject real) & (imaginary = anObject imaginary)]
         ifFalse: [^ anObject adaptToComplex: self andSend: #=]
@@ -207,14 +204,14 @@ your class are ever used as keys in a ==Dictionary==, then you should make sure
 that instances that are considered to be equal have the same hash value:
 
 [[[caption=Hash must be reimplemented for complex numbers
-Complex>>>hash
+Complex>>hash
     "Hash is reimplemented because = is implemented."
     ^ real hash bitXor: imaginary hash.
 ]]]
 
 Although you should override ==\=== and ==hash== together, you should ''never''
-override ==\=\===. (The semantics of object identity is the same for all
-classes.)  ==\=\=== is a primitive method of ==ProtoObject==.
+override ==\=\===. The semantics of object identity is the same for all
+classes.  Message ==\=\=== is a primitive method of ==ProtoObject==.
 
 Note that Pharo has some strange equality behaviour compared to other Smalltalks. For
 example a symbol and a string can be equal. (We consider this to be a bug, not a
@@ -307,22 +304,6 @@ a2 --> #(#('sally'))    "the subarray is shared!"
 object. Since ==a2== is only a shallow copy of ==a1==, the two arrays share a
 reference to the nested ==Array== that they contain.
 
-==Object>>shallowCopy== is the ''public interface'' to ==Object>>copy== and
-should be overridden if instances are unique. This is the case, for example,
-with the classes ==Boolean==, ==Character==, ==SmallInteger==, ==Symbol== and
-==UndefinedObject==.
-
-==Object>>copyTwoLevel== does the obvious thing when a simple shallow copy does
-not suffice:
-
-[[[
-a1 := { { 'harry' } } .
-a2 := a1 copyTwoLevel.
-(a1 at: 1) at: 1 put: 'sally'.
-a1 --> #(#('sally'))
-a2 --> #(#('harry'))    "fully independent state"
-]]]
-
 ==Object>>deepCopy== makes an arbitrarily deep copy of an object.
 
 [[[
@@ -343,11 +324,11 @@ a1 at: 1 put: a2.
 a1 deepCopy --> !''... does not terminate!''!
 ]]]
 
-Although it is possible to override ==deepCopy== to do the right thing,
-==Object>>copy== offers a better solution:
+An alternate solution is to use message ==copy==. It is implemented on 
+==Object== as follows: 
 
 [[[caption=Copying objects as a template method
-Object>>>copy
+Object>>copy
     "Answer another instance just like the receiver.
     Subclasses typically override postCopy;
     they typically do not override shallowCopy."
@@ -355,17 +336,28 @@ Object>>>copy
     ^ self shallowCopy postCopy
 ]]]
 
-You should override ==postCopy== to copy any instance variables that should not
-be shared. ==postCopy== should always do a ==super postCopy==.
+[[[
+Object>>postCopy
+    ^ self
+]]]
+
+By default ==postCopy== returns self. It means that by default ==copy== is doing 
+the same as ==shallowCopy== but each subclass can decide to customise the ==postCopy== method
+which acts as a hook. You should override ==postCopy== to copy any instance variables that should not
+be shared. In addition there is a good chance that ==postCopy== should always do a ==super postCopy== to ensure that state of the superclass are also copied. 
 
 !!!Debugging
 
+!!!!! ==halt==
 The most important method here is ==halt==. In order to set a breakpoint in a
-method, simply insert the message send ==self halt.== at some point in the body
-of the method. When this message is sent, execution will be interrupted and a
+method, simply insert the expression send ==self halt== at some point in the body
+of the method. (Note that since ==halt== is defined on ==Object== you can also write ==1 halt==).
+ When this message is sent, execution will be interrupted and a
 debugger will open to this point in your program. (See
 Chapter *: The Pharo Environment>../Environment/Environment.pillar@cha:env* for more details about the debugger.)
 
+
+!!!!! ==assert:==
 The next most important message is ==assert:==, which takes a block as its
 argument. If the block evaluates to ==true==, execution continues. Otherwise an
 ==AssertionFailure== exception will be raised. If this exception is not
@@ -375,7 +367,7 @@ typical usage is to check non-trivial pre-conditions to public methods of
 objects. ==Stack>>pop== could easily have been implemented as follows:
 
 [[[caption=Checking a pre-condition
-Stack>>>pop
+Stack>>pop
     "Return the first element and remove it from the stack."
 
     self assert: [ self isEmpty not ].
@@ -392,46 +384,48 @@ both are useful for debugging, they each serve a very different purpose.
 
 This protocol contains several methods useful for signaling run-time errors.
 
+!!!!! ==assert:== 
 Sending ==self deprecated:== signals that the current method should no longer be
 used, if deprecation has been turned on in the Debugging section of the
-Settings browser. The ==String== argument should offer an alternative.
+Settings browser. The argument should describe  an alternative. 
+Look for sender of the message ==deprecated:== to get an idea. 
 
-[[[
-1 doIfNotNil: [ :arg | arg printString, ' is not nil' ]
-	--> !''SmallInteger(Object)>>doIfNotNil: has been deprecated. use ifNotNilDo:''!
-]]]
 
+!!!!! ==doesNotUnderstand:==
 ==doesNotUnderstand:== (commonly abbreviated in discussions as DNU or MNU)
 is sent whenever message lookup fails. The default
 implementation, i.e., ==Object>>doesNotUnderstand:== will trigger the
 debugger at this point. It may be useful to override ==doesNotUnderstand:== to
 provide some other behaviour.
 
+!!!!! ==error==
 ==Object>>error== and ==Object>>error:== are generic methods that can be used to
 raise exceptions. (Generally it is better to raise your own custom exceptions,
 so you can distinguish errors arising from your code from those coming from
 kernel classes.)
 
-Abstract methods in Smalltalk are implemented by convention with the body ==self
+!!!!! ==subclassResponsibility==
+Abstract methods are implemented by convention with the body ==self
 subclassResponsibility==. Should an abstract class be instantiated by accident,
 then calls to abstract methods will result in ==Object>>subclassResponsibility==
-being evaluated.
+being executed.
 
 [[[caption=Signaling that a method is abstract
-Object>>>subclassResponsibility
+Object>>subclassResponsibility
     "This message sets up a framework for the behavior of the class' subclasses.
     Announce that the subclass should have implemented this message."
 
     self error: 'My subclass should have overridden ', thisContext sender selector printString
 ]]]
 
-==Magnitude==, ==Number== and ==Boolean== are classical examples of abstract
+==Magnitude==, ==Number==, and ==Boolean== are classical examples of abstract
 classes that we shall see shortly in this chapter.
 
 [[[
 Number new + 1 --> !''Error: My subclass should have overridden #+''!
 ]]]
 
+!!!!! ==shouldNotImplement==
 ==self shouldNotImplement== is sent by convention to signal that an inherited
 method is not appropriate for this subclass. This is generally a sign that
 something is not quite right with the design of the class hierarchy. Due to the
@@ -448,9 +442,8 @@ The ==testing== methods have nothing to do with SUnit testing! A testing method
 is one that lets you ask a question about the state of the receiver and returns
 a ==Boolean==.
 
-Numerous testing methods are provided by ==Object==. We have already seen
-==isComplex==. Others include ==isArray==, ==isBoolean==, ==isBlock==,
-==isCollection== and so on. Generally such methods are to be avoided since
+Numerous testing methods are provided by ==Object==. There are ==isArray==, ==isBoolean==, 
+==isBlock==, ==isCollection== and so on. Generally such methods are to be avoided since
 querying an object for its class is a form of violation of encapsulation.
 Instead of testing an object for its class, one should simply send a request and
 let the object decide how to handle it.
@@ -465,7 +458,7 @@ A final key method that occurs not in ==Object== but in ==ProtoObject== is
 ==initialize==.
 
 [[[caption= ==initialize== as an empty hook method
-ProtoObject>>>initialize
+ProtoObject>>initialize
    "Subclasses should redefine this method to perform initializations on instance creation"
 ]]]
 
@@ -474,7 +467,7 @@ defined for every class in the system will send ==initialize== to newly created
 instances.
 
 [[[caption= ==new== as a class-side template method
-Behavior>>>new
+Behavior>>new
     "Answer a new initialized instance of the receiver (which is a class) with no indexable
     variables. Fail if the class is indexable."
     ^ self basicNew initialize
@@ -517,12 +510,12 @@ Methods ==<== and ===== are abstract. The remaining operators are generically
 defined. For example:
 
 [[[caption=Abstract comparison methods
-Magnitude>>> < aMagnitude
+Magnitude>> < aMagnitude
     "Answer whether the receiver is less than the argument."
 
     ^ self subclassResponsibility
 
-Magnitude>>> > aMagnitude
+Magnitude>> > aMagnitude
     "Answer whether the receiver is greater than the argument."
 
     ^ aMagnitude < self
@@ -793,10 +786,10 @@ The method is abstract in ==Boolean==. The implementations in its concrete
 subclasses are both trivial:
 
 [[[caption=Implementations of ==ifTrue:ifFalse:==
-True>>>ifTrue: trueAlternativeBlock ifFalse: falseAlternativeBlock
+True>>ifTrue: trueAlternativeBlock ifFalse: falseAlternativeBlock
     ^trueAlternativeBlock value
 
-False>>>ifTrue: trueAlternativeBlock ifFalse: falseAlternativeBlock
+False>>ifTrue: trueAlternativeBlock ifFalse: falseAlternativeBlock
     ^falseAlternativeBlock value
 ]]]
 
@@ -808,7 +801,7 @@ instance of ==False== evaluates the ''false'' alternative. All the abstract
 example:
 
 [[[caption=Implementing negation
-True>>>not
+True>>not
     "Negation--answer false since the receiver is true."
     ^false
 ]]]
@@ -820,13 +813,13 @@ lazy conjunctions and disjunctions.
 [[[
 (1>2) & (3<4)              --> false    "Eager, must evaluate both sides"
 (1>2) and: [ 3<4 ]        --> false    "Lazy, only evaluate receiver"
-(1>2) and: [ (1/0) > 0 ] --> false    "argument block is never evaluated, so no exception"
+(1>2) and: [ (1/0) > 0 ] --> false    "argument block is never executed, so no exception"
 ]]]
 
-In the first example, both ==Boolean== subexpressions are evaluated, since ==&==
+In the first example, both ==Boolean== subexpressions are executed, since ==&==
 takes a ==Boolean== argument. In the second and third examples, only the first
-is evaluated, since ==and:== expects a ==Block== as its argument. The ==Block==
-is evaluated only if the first argument is ==true==.
+is executed, since ==and:== expects a ==Block== as its argument. The ==Block==
+is executed only if the first argument is ==true==.
 
 @@todo Try to imagine how ==and:== and ==or:== are implemented. Check the implementations in ==Boolean==, ==True== and ==False==.
 
