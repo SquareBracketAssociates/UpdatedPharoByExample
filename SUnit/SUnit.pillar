@@ -67,8 +67,8 @@ that they cover. This documentation is active: watching the tests pass
 tells you that the documentation is up to date. Second, tests help developers to
 confirm that some changes that they have just made to a package have not broken
 anything else in the system, and to find the parts that break when that
-confidence turns out to be misplaced. Finally, writing tests at the same time
-as, or even before, programming forces you to think about the functionality that
+confidence turns out to be misplaced. Finally, writing tests during, or even before, 
+programming forces you to think about the functionality that
 you want to design, ''and how it should appear to the client code'', rather than
 about how to implement it.
 
@@ -166,7 +166,7 @@ The name of the class is not critical, but by convention it should end in
 ==Test==. If you define a class called ==Pattern== and call the corresponding
 test class ==PatternTest==, the two classes will be alphabetized together in the
 browser (assuming that they are in the same package). It ''is'' critical that
-your class be a subclass of ==TestCase==.
+your class is a subclass of ==TestCase==.
 
 !!!Step 2: Initialize the test context
 
@@ -460,9 +460,8 @@ By default, the resources of a ==TestSuite== are the union of the resources of t
 ==TestCase==s that it contains.
 
 Here is an example. We define a subclass of ==TestResource== called
-==MyTestResource== and we associate it with ==MyTestCase== by overriding the
-class method ==resources== to return an array of the test classes that it will
-use (note the use of a dynamic array, for convenience).
+==MyTestResource==. Then we associate it with ==MyTestCase== by overriding the
+class method ==MyTestCase class>>resources== to return an array of the test resource classes that ==MyTestCase== will use. 
 
 [[[caption=An example of a TestResource subclass
 TestResource subclass: #MyTestResource
@@ -559,7 +558,7 @@ better report in case of error (incidentally, ==assert:equals:== uses
 ==assert:description:==).
 
 For example, the two following tests are equivalent. However, the second one will report
-that the value that the test is expecting and this is easier to understand the failure.
+ the value that the test is expecting: this makes easier to understand the failure.
 In this example, we suppose that ==aDateAndTime== is an instance variable of the test class.
 
 [[[
@@ -577,7 +576,7 @@ testAsDate
 The description strings mentioned above may also be logged to a ==Stream==, such
 as the ==Transcript== or a file stream. You can choose whether to log by
 overriding ==isLogging== in your test class; you must also choose where to log
-by overriding ==failureLog== to answer an appropriate stream.
+by overriding ==failureLog== to answer an appropriate stream. By default, the ==Transcript== is used to log.
 
 !!!Skipping tests
 
@@ -822,7 +821,7 @@ by presenting the classes ==TestCase==, ==TestResult==, ==TestSuite== and
 execution of a test and a test suite.
 
 - To maximize their potential, unit tests should be fast, repeatable, independent of any direct human interaction and cover a single unit of functionality.
-- Tests for a class called ==MyClass== belong in a class classed ==MyClassTest==, which should be introduced as a subclass of ==TestCase==.
+- Tests for a class called ==MyClass== belong in a class named ==MyClassTest==, which should be introduced as a subclass of ==TestCase==.
 - Initialize your test data in a ==setUp== method.
 - Each test method should start with the word ''test''.
 - Use the ==TestCase== methods ==assert:==, ==deny:== and others to make assertions.
