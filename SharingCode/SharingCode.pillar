@@ -3,29 +3,27 @@
 
 The consequence of programming in a world of live objects rather than with files
 and a text editor is that you have to do something explicit to export your
-program from your Pharo image. The original way of doing this (supported by
-all Smalltalk dialects), is by creating a ''fileout'' or a ''change set'', which
+program from your Pharo image. The original way of doing this is by creating a ''fileout'' or a ''change set'', which
 are essentially encoded text files that can be imported into another system. The
-preferred way of sharing code in Pharo is to upload it to a versioned repository
+preferred way of sharing code in Pharo is to save packages and share them using a versioned repository
 on a server. This is done using a tool called Monticello, and is a much
 more powerful and effective way to work, especially when working in a team.
 
 !!Monticello
 
 We gave you a quick overview of Monticello, Pharo's packaging tool, in
-Chapter *: A First Application>../FirstApplication/FirstApplicatioin.pier@fstApp:Monticiello*. However, Monticello has many more features than were
+Chapter *: A First Application>../FirstApplication/FirstApplication.pier@fstApp:Monticello*. However, Monticello has many more features than were
 discussed there. Because Monticello manages ''packages'', before telling you
 more about Monticello, it's important that we first explain exactly what a
 package is.
 
-!!!Packages: declarative categorization of Pharo code
+!!!Packages: groups of classes and methods
 @sec:packages
 
-We have pointed out earlier, in Chapter *: A First Application>../FirstApplication/FirstApplicatioin.pier@fstApp:Packages* that packages are
-more or less equivalent to categories. Now we will see exactly what the
+We have pointed out earlier, in Chapter *: A First Application>../FirstApplication/FirstApplication.pillar@fstApp:Packages* that packages are
+more or less a group of classes and methods. Now we will see exactly what the
 relationship is. The package system is a simple, lightweight way of organizing
-Smalltalk source code that exploits a simple naming convention for categories
-and protocols.
+Pharo source code that exploits a simple naming convention.
 
 Let's explain this using an example. Suppose that you are developing a framework
 named to facilitate the use of relational databases from Pharo. You have decided
@@ -37,7 +35,7 @@ DBQuery==, and so on. However, not all of your code will reside in these
 classes. For example, you may also have a series of methods to convert objects
 into an SQL-friendly format:
 
-[[[language=Smalltalk
+[[[
 Object>>asSQL
 String>>asSQL
 Date>>asSQL
