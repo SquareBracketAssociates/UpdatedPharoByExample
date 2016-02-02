@@ -993,8 +993,9 @@ Smalltalk exception handling mechanism to catch and handle them.
 -matching (for example, if a bad selector was specified using ==':<selector>:'==
 -syntax, or because of the matcher's internal error).
 
-[[[
-['+' asRegex] on: RegexError do: [:ex | ^ ex printString ]                                        --> 'RegexSyntaxError:  nullable closure'
+[[[language=smalltalk
+['+' asRegex] on: RegexError do: [:ex | ^ ex printString ]
+--> 'RegexSyntaxError:  nullable closure'
 ]]]
 
 !!Implementation Notes by Vassili Bykov

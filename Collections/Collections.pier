@@ -238,7 +238,7 @@ Array with: 4 with: 3/2 with: 'lulu' -->  {4. (3/2). 'lulu'}
  following code creates an array of size 2 where the first element is the
  (literal) number ==1== and the second the (literal) string =='here'==.
 
-[[[
+[[[language=smalltalk
 #(1 'here') size --> 2
 ]]]
 
@@ -246,7 +246,7 @@ Now, if you evaluate ==#(1+2)==, you do not get an array with a single element
 ==3== but instead you get the array ==#(1 #+ 2)== i.e., with three elements:
 ==1==, the symbol ==#+== and the number ==2==.
 
-[[[
+[[[language=smalltalk
 #(1+2) -->  #(1 #+ 2)
 ]]]
 
@@ -261,7 +261,7 @@ Finally, you can create a dynamic array using the construct =={}==. =={ a. b }==
 is equivalent to ==Array with: a with: b==. This means in particular that the
 expressions enclosed by =={== and ==}== are executed.
 
-[[[
+[[[language=smalltalk
 { 1 + 2 } --> #(3)
 {(1/2) asFloat} at: 1 --> 0.5
 {10 atRandom. 1/3} at: 2 --> (1/3)
@@ -324,7 +324,7 @@ result --> 33
 It is possible to get an ==OrderedCollection== from an ==Array== (or any other
 collection) by sending the message ==asOrderedCollection==:
 
-[[[
+[[[language=smalltalk
 #(1 2 3) asOrderedCollection --> an OrderedCollection(1 2 3)
 'hello' asOrderedCollection --> an OrderedCollection($h $e $l $l $o)
 ]]]
@@ -453,7 +453,7 @@ You can also create sets using ==Set class>>newFrom:== or the conversion message
 
 ==asSet== offers us a convenient way to eliminate duplicates from a collection:
 
-[[[
+[[[language=smalltalk
 { Color black. Color white. (Color red + Color blue + Color green) } asSet size --> 2
 ]]]
 
@@ -461,7 +461,7 @@ Note that ""red"" ==\+== ""blue"" ==\+== ""green"" ==\=== ""white"".
 
 A ==Bag== is much like a ==Set== except that it does allow duplicates:
 
-[[[
+[[[language=smalltalk
 { Color black. Color white. (Color red + Color blue + Color green) } asBag size --> 3
 ]]]
 
@@ -498,7 +498,7 @@ SortedCollection new add: 5; add: 2; add: 50; add: -10; yourself. --> a SortedCo
 More usually, though, one will send the conversion message
 ==asSortedCollection== to an existing collection:
 
-[[[
+[[[language=smalltalk
 #(5 2 50 -10) asSortedCollection --> a SortedCollection(-10 2 5 50)
 ]]]
 
@@ -526,7 +526,7 @@ It is possible to have different kinds of elements in a ==SortedCollection== as
 long as they are all comparable. For example we can mix different kinds of
 numbers such as integers, floats and fractions:
 
-[[[
+[[[language=smalltalk
 { 5. 2/-3. 5.21 } asSortedCollection --> a SortedCollection((-2/3) 5 5.21)
 ]]]
 
@@ -714,7 +714,7 @@ representation by sending the message ==printString== and converting it to a
 string by sending the message ==asString==. Here is an example of the
 difference.
 
-[[[
+[[[language=smalltalk
 #ASymbol printString --> '#ASymbol'
 #ASymbol asString    --> 'ASymbol'
 ]]]
@@ -741,7 +741,7 @@ The method ==do:== is the basic collection iterator. It applies its argument (a
 block taking a single argument) to each element of the receiver. The following
 example prints all the strings contained in the receiver to the transcript.
 
-[[[
+[[[language=smalltalk
 #('bob' 'joe' 'toto') do: [:each | Transcript show: each; cr].
 ]]]
 
@@ -755,7 +755,7 @@ For the indexed collections (==Array==, ==OrderedCollection==,
 current index. This method is related to ==to:do:== which is defined in class
 ==Number==.
 
-[[[
+[[[language=smalltalk
 #('bob' 'joe' 'toto') doWithIndex: [:each :i | (each = 'joe') ifTrue: [ ^ i ] ] --> 2
 ]]]
 
@@ -813,7 +813,7 @@ The method ==collect:== executes its argument block for each element and returns
 a new collection containing the results. Using ==collect:== instead, the code is
 much simpler:
 
-[[[
+[[[language=smalltalk
 #(1 2 3 4 5 6) collect: [:e | 2 * e] --> #(2 4 6 8 10 12)
 ]]]
 
@@ -830,7 +830,7 @@ result --> #(2 3 4 35 4 11)
 
 Contrast the above with the much simpler following expression:
 
-[[[
+[[[language=smalltalk
 #( 2 -3 4 -35 4 -11) collect: [:each | each abs ] --> #(2 3 4 35 4 11)
 ]]]
 

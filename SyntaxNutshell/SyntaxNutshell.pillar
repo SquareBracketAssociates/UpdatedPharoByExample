@@ -300,7 +300,7 @@ message ==value==. The block answers the value of the last expression in its
 body, unless there is an explicit return (with ^), in which case it does not
 answer any value.
 
-[[[
+[[[language=smalltalk
 [ 1 + 2 ] value --> 3
 ]]]
 
@@ -310,7 +310,7 @@ To evaluate a block with one parameter, you must send it the message value: with
 one argument. A two-parameter block must be sent ==value:value:==, and so on, up
 to 4 arguments.
 
-[[[
+[[[language=smalltalk
 [ :x | 1 + x ] value: 2 --> 3
 [ :x :y | x + y ] value: 1 value: 2 --> 3
 ]]]
@@ -323,7 +323,7 @@ Blocks may also declare local variables, which are surrounded by vertical bars,
 just like local variable declarations in a method. Locals are declared after any
 arguments:
 
-[[[
+[[[language=smalltalk
 [ :x :y |
 	| z | 
 	z := x + y. 

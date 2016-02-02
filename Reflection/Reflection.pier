@@ -353,7 +353,7 @@ about the system. For example, to discover which methods are newly introduced in
 a given class, ''i.e.'', do not override superclass methods, we can navigate
 from the class to the method dictionary as follows:
 
-[[[
+[[[language=smalltalk
 [:aClass| aClass methodDict keys select: [:aMethod |
   (aClass superclass canUnderstand: aMethod) not ]] value: SmallInteger
   --> an IdentitySet(#threeDigitName #printStringBase:nDigits: ...)
@@ -365,7 +365,7 @@ method is ==isAbstract== (which tells if the method sends
 ==subclassResponsibility==). We can use it to identify all the abstract methods
 of an abstract class.
 
-[[[
+[[[language=smalltalk
 [:aClass| aClass methodDict keys select: [:aMethod |
   (aClass>>aMethod) isAbstract ]] value: Number
   --> an IdentitySet(#storeOn:base: #printOn:base: #+ #- #* #/ ...)

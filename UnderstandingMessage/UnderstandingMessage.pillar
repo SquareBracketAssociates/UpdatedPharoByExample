@@ -309,7 +309,6 @@ the message without parentheses would lead to an error because the object
 down>file://figures/ucompoUn.png|width=45|label=fig:unaryMessages+
 
 [[[label=scr:decExtent|caption=Example of Parentheses.
-
       (65@325 extent: 134@100) center
 (1)   65@325                                                    "binary"
     --> aPoint
@@ -492,7 +491,7 @@ how many times either the receiver (the loop conditional) or the argument (the "
 Parentheses, on the other hand, only affect the order of sending messages. So in
 ==( expression )==, the ==expression== will ''always'' be executed exactly once.
 
-[[[
+[[[language=smalltalk
 [ x isReady ] whileTrue: [ y doSomething ]   "both the receiver and the argument must be blocks"
 4 timesRepeat: [ Beeper beep ]                   "the argument is evaluated more than once, so must be a block"
 (x isReady) ifTrue: [ y doSomething ]           "receiver is evaluated once, so is not a block"
