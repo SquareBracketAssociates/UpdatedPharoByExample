@@ -585,7 +585,7 @@ Browser==) to file in the ==PBE-LightsOut.st== fileout (see Figure
 image.
 
 !!!Monticello packages
-@fstApp:Monticiello
+@fstApp:Monticello
 
 Although fileouts are a convenient way of making a snapshot of the code you have
 written, they are definitevely "old school". Just as most open-source projects find
@@ -610,10 +610,10 @@ her ==package-cache== folder; she will then be able to use Monticello to browse 
 load it.
 
 
-+Monticello browser. The package PBE-LightsOut is not save yet>file://figures/monticiello.png|width=100|label=fig:monticiello+
++Monticello browser. The package PBE-LightsOut is not save yet>file://figures/monticiello.png|width=100|label=fig:monticello+
 
 !!!! Monticello Browser
-Open the Monticello browser from the World menu (see Figure *@fig:monticiello*).
+Open the Monticello browser from the World menu (see Figure *@fig:monticello*).
 
 In the right-hand pane of the browser is a list of Monticello repositories,
 which will include all of the repositories from which code has been loaded into
