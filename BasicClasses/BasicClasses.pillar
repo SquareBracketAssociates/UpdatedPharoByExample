@@ -20,9 +20,9 @@ hierarchy. Actually, in Pharo the true root of the hierarchy is ==ProtoObject==,
 which is used to define minimal entities that masquerade as objects, but we can
 ignore this point for the time being.
 
-==Object== define almost 400 methods (in other words, every class that you define will automatically
+==Object== defines almost 400 methods (in other words, every class that you define will automatically
 provide all those methods). ''Note:'' You can count the number of methods in
-a class, yourself, like so:
+a class like so:
 
 [[[
 Object selectors size         "Count the instance methods in Object"
@@ -44,7 +44,7 @@ we will start to see some of the key behaviour it provides.
 !!!Printing
 
 Every object can return a printed form of itself. You can select
-any expression in a textpane and select the ==Print it== menu: this executes
+any expression in a textpane and select the ==Print it== menu item: this executes
 the expression and asks the returned object to print itself. In fact this sends
 the message ==printString== to the returned object. The method ==printString==,
 which is a template method, at its core sends the message ==printOn:== to its
@@ -87,7 +87,7 @@ Color red printString
 Note that the message ==printOn:== is not the same as ==storeOn:==. The message
 ==storeOn:== writes to its argument stream an expression that can be used to
 recreate the receiver. This expression is executed when the stream is read
-using the message ==readFrom:==. ==printOn:== just returns a textual version of
+using the message ==readFrom:==. On the other hand, the message ==printOn:== just returns a textual version of
 the receiver. Of course, it may happen that this textual representation may
 represent the receiver as a self-evaluating expression.
 
@@ -266,7 +266,7 @@ as, or a subclass of the argument class.
 ]]]
 
 ==1/3== which is a ==Fraction== is a kind of ==Number==, since the class
-==Number== is a superclass of the class ==Fraction==, but ==1/3== is not a
+==Number== is a superclass of the class ==Fraction==, but ==1/3== is not an
 ==Integer==.
 
 !!!!!==respondsTo:==.
@@ -344,7 +344,7 @@ Object >> postCopy
 By default ==postCopy== returns self. It means that by default ==copy== is doing 
 the same as ==shallowCopy== but each subclass can decide to customise the ==postCopy== method
 which acts as a hook. You should override ==postCopy== to copy any instance variables that should not
-be shared. In addition there is a good chance that ==postCopy== should always do a ==super postCopy== to ensure that state of the superclass are also copied. 
+be shared. In addition there is a good chance that ==postCopy== should always do a ==super postCopy== to ensure that state of the superclass is also copied. 
 
 !!!Debugging
 
@@ -358,21 +358,23 @@ Chapter *: The Pharo Environment>../Environment/Environment.pillar@cha:env* for 
 
 
 !!!!! ==assert:==.
-The next most important message is ==assert:==, which takes a block as its
+The next most important message is ==assert:==, which expects a block as its
 argument. If the block evaluates to ==true==, execution continues. Otherwise an
 ==AssertionFailure== exception will be raised. If this exception is not
 otherwise caught, the debugger will open to this point in the execution.
 ==assert:== is especially useful to support ''design by contract''. The most
 typical usage is to check non-trivial pre-conditions to public methods of
-objects. ==Stack>>pop== could easily have been implemented as follows:
+objects. ==Stack>>pop== could easily have been implemented as follows (Note that this definition is anhypothetical example and not in the Pharo 50 system):
 
 [[[caption=Checking a pre-condition
 Stack >> pop
     "Return the first element and remove it from the stack."
 
-    self assert: [ self isEmpty not ].
+    self assert: [ self isNotEmpty ].
     ^ self linkedList removeFirst element
 ]]]
+
+
 
 Do not confuse ==Object>>assert:== with ==TestCase>>assert:==, which occurs in
 the SUnit testing framework (see Chapter *: SUnit>../SUnit/SUnit.pillar@cha:sunit*). While the former expects
@@ -384,11 +386,11 @@ both are useful for debugging, they each serve a very different purpose.
 
 This protocol contains several methods useful for signaling run-time errors.
 
-!!!!! ==assert:==.
+!!!!! ==deprecated:==.
 Sending ==self deprecated:== signals that the current method should no longer be
-used, if deprecation has been turned on in the Debugging section of the
+used, if deprecation has been turned on. You can turn it on/off in the Debugging section using the 
 Settings browser. The argument should describe  an alternative. 
-Look for sender of the message ==deprecated:== to get an idea. 
+Look for senders of the message ==deprecated:== to get an idea. 
 
 
 !!!!! ==doesNotUnderstand:==.
@@ -491,7 +493,7 @@ portion of the class hierarchy.
 The abstract root of this hierarchy is ==Magnitude==, which represents all kinds of classes supporting
 comparison operators. ==Number== adds various arithmetic and other operators as
 mostly abstract methods. ==Float== and ==Fraction== represent, respectively,
-floating point numbers and fractional values. ==Float== subclasses (==BoxedFloat64== and ==SmallFloat64==) represent Float on certain architecture. For example ==BoxedFloat64== is only available for 64bits. ==Integer== is also abstract, thus distinguishing between subclasses ==SmallInteger==,
+floating point numbers and fractional values. ==Float== subclasses (==BoxedFloat64== and ==SmallFloat64==) represent Float on certain architectures. For example ==BoxedFloat64== is only available for 64 bit systems. ==Integer== is also abstract, thus distinguishing between subclasses ==SmallInteger==,
 ==LargePositiveInteger== and ==LargeNegativeInteger==. For the most part, users
 do not need to be aware of the difference between the three ==Integer== classes,
 as values are automatically converted as needed.
@@ -524,9 +526,7 @@ all other arithmetic operators are generically defined.
 
 All ==Number== objects support various ''converting'' operators, such as
 ==asFloat== and ==asInteger==. There are also numerous ''shortcut constructor
-methods'', such as ==i==, which converts a ==Number== to an instance of
-==Complex== with a zero real component, and others which generate ==Duration==s,
-such as ==hour==, ==day== and ==week==.
+methods''  which generate ==Duration==s, such as ==hour==, ==day== and ==week==.
 
 ==Numbers== directly support common ''math functions'' such as ==sin==, ==log==,
 ==raiseTo:==, ==squared==, ==sqrt== and so on.
@@ -611,7 +611,8 @@ methods, it also adds a few methods specific to integers, such as ==factorial==,
 instead of being stored as a reference, a ==SmallInteger== is represented
 directly using the bits that would otherwise be used to hold a reference. The
 first bit of an object reference indicates whether the object is a
-==SmallInteger== or not.
+==SmallInteger== or not. Now the virtual machine abstracts that from you, therefore you cannot 
+see this directly when inspecting the object.
 
 The class methods ==minVal== and ==maxVal== tell us the range of a
 ==SmallInteger==:
