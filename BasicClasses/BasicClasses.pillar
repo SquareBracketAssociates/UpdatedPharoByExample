@@ -114,7 +114,7 @@ the objects they contain. For example, an array of booleans is self-evaluating,
 whereas an array of persons is not. The following example shows that a dynamic
 array is self-evaluating only if its elements are:
 
-[[[
+[[[language=smalltalk
 {10@10. 100@100}           --> {(10@10). (100@100)}
 {Nautilus new . 100@100} --> an Array(a Nautilus (100@100))
 ]]]
@@ -122,7 +122,7 @@ array is self-evaluating only if its elements are:
 Remember that literal arrays can only contain literals. Hence the following
 array does not contain two points but rather six literal elements.
 
-[[[
+[[[language=smalltalk
 #(10@10 100@100) --> #(10 #@ 10 100 #@ 100)
 ]]]
 
@@ -217,7 +217,7 @@ Note that Pharo has some strange equality behaviour compared to other Smalltalks
 example a symbol and a string can be equal. (We consider this to be a bug, not a
 feature.)
 
-[[[
+[[[language=smalltalk
 #'lulu' = 'lulu' --> true
 'lulu' = #'lulu' --> true
 ]]]
@@ -733,14 +733,14 @@ Another important difference is that a ==String== is mutable, whereas a
 'hello' at: 2 put: $u; yourself --> 'hullo'
 ]]]
 
-[[[
+[[[language=smalltalk
 #hello at: 2 put: $u --> error!
 ]]]
 
 It is easy to forget that since strings are collections, they understand the
 same messages that other collections do:
 
-[[[
+[[[language=smalltalk
 #hello indexOf: $o --> 5
 ]]]
 
