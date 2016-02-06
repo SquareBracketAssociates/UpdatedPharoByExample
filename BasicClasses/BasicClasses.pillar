@@ -176,7 +176,7 @@ Object >> = anObject
 ]]]
 
 This is a method that you will frequently want to override. Consider the case of
-==Complex== numbers:
+==Complex== numbers as defined in the SciSmalltalk packages (SciSmalltalk is a set of packages that offer support for numerical methods):
 
 [[[
 (1 + 2 i) = (1 + 2 i)   --> true     "same value"
