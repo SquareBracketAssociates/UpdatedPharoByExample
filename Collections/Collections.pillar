@@ -26,36 +26,36 @@ To make good use of the collection classes, the reader needs at least a
 superficial knowledge of the wide variety of collections that they implement,
 and their commonalities and differences.
 
-Programming with collections rather than individual elements is an important way
-to raise the level of abstraction of a program. The Lisp function ==map==,
-which applies an argument function to every element of a list and returns a new
-list containing the results is an early example of this style, but Smalltalk-80
-adopted collection-based programming as a central tenet. Modern functional
-programming languages such as ML and Haskell have followed Smalltalk's lead.
+Programming with collections using high-order functions rather than individual elements is an important way
+to raise the level of abstraction of a program. The Lisp function ==map==, which applies an argument function 
+to every element of a list and returns a new list containing the results is an early example of this style. 
+Following its Smalltalk root, Pharo adopts this collection-based high-order programming as a central tenet. 
+Modern functional programming languages such as ML and Haskell have followed Smalltalk's lead.
 
 Why is this a good idea? Suppose you have a data structure containing a
 collection of student records, and wish to perform some action on all of the
 students that meet some criterion. Programmers raised to use an imperative
-language will immediately reach for a loop. But the Smalltalk programmer will
+language will immediately reach for a loop. But the Pharo programmer will
 write:
 
 [[[
-students select: [ :each | each gpa < threshold ]
+students 
+	select: [ :each | each gpa < threshold ]
 ]]]
 
-This evaluates to a new collection containing precisely those elements of
-==students== for which the bracketed function returns ==true==. (The expression
-in brackets can be thought of as a lambda-expression defining an anonymous
-function ==x. x gpa < threshold==). This code has the simplicity and
+This expression returns a new collection containing precisely those elements of
+==students== for which the block (the bracketed function) returns ==true==. The block 
+can be thought of as a lambda-expression defining an anonymous
+function ==x. x gpa < threshold==. This code has the simplicity and
 elegance of a domain-specific query language.
 
-The message ==select:== is understood by ''all'' collections in Smalltalk.
+The message ==select:== is understood by ''all'' collections in Pharo.
 There is no need to find out if the student data structure is an array or a
 linked list: the ==select:== message is understood by both. Note that this is
 quite different from using a loop, where one must know whether ==students== is
 an array or a linked list before the loop can be set up.
 
-In Smalltalk, when one speaks of a collection without being more specific about
+In Pharo, when one speaks of a collection without being more specific about
 the kind of collection, one means an object that supports well-defined protocols
 for testing membership and enumerating the elements. ''All'' collections
 understand the ==testing== messages ==includes:==, ==isEmpty== and
@@ -77,10 +77,12 @@ optimized or occasionally even forbidden by subclasses of ==Collection==.
 | ==testing==	| ==isEmpty==, ==includes:==, ==contains:==, ==occurrencesOf:== |
 | ==adding==    | ==add:==, ==addAll:==
 | ==removing==	| ==remove:==, ==remove:ifAbsent:==, ==removeAll:==
-| ==enumerating== | ==do:==, ==collect:==, ==select:==, == reject:==, ==detect:==, ==detect:ifNone:==, ==inject:into:==
+| ==enumerating== | ==do:==, ==collect:==, ==select:==, == reject:==
+| | ==detect:==, ==detect:ifNone:==, ==inject:into:==
 | ==converting== | ==asBag==, ==asSet==, ==asOrderedCollection==, ==asSortedCollection==,
 | | ==asArray==, ==asSortedCollection:==
-| ==creation== | ==with:==, ==with:with:==, ==with:with:with:==, ==with:with:with:with:==, ==withAll:==
+| ==creation== | ==with:==, ==with:with:==, ==with:with:with:==,
+| | ==with:with:with:with:==, ==withAll:==
 
 Beyond this basic uniformity, there are many different kinds of collection
 either supporting different protocols, or providing different behaviour for the
@@ -91,17 +93,17 @@ same requests. Let us briefly survey some of the key differences:
 ;==Sortable:==
 :A ==SortedCollection== maintains its elements in sort order.
 ;==Indexable:==
-:Most sequenceable collections are also indexable, that is, elements can be retrieved with ==at:==. ==Array== is the familiar indexable data structure with a fixed size; ==anArray at: n== retrieves the n^^th^^ element of ==anArray==, and ==anArray at: n put: v== changes the n^^th^^ element to ==v==. ==LinkedList==s and ==SkipList==s are sequenceable but not indexable, that is, they understand ==first== and ==last==, but not ==at:==.
+:Most sequenceable collections are also indexable, that is, elements can be retrieved with message ==at: anIndex==. ==Array== is the familiar indexable data structure with a fixed size; ==anArray at: n== retrieves the n^^th^^ element of ==anArray==, and ==anArray at: n put: v== changes the n^^th^^ element to ==v==. ==LinkedList==s and ==SkipList==s are sequenceable but not indexable, that is, they understand ==first== and ==last==, but not the message ==at:==.
 ;==Keyed:==
 :Instances of ==Dictionary== and its subclasses are accessed by keys instead of indices.
 ;==Mutable:==
-:Most collections are mutable, but ==Interval==s and ==Symbol==s are not. An ==Interval== is an immutable collection representing a range of ==Integer==s. For example, ==5 to: 16 by: 2== is an interval that contains the elements 5, 7, 9, 11, 13 and 15. It is indexable with ==at:==, but cannot be changed with ==at:put:==.
+:Most collections are mutable, but ==Interval==s and ==Symbol==s are not. An ==Interval== is an immutable collection representing a range of ==Integer==s. For example, ==5 to: 16 by: 2== is an interval that contains the elements 5, 7, 9, 11, 13 and 15. It is indexable with message ==at: anIndex==, but cannot be changed with message ==at: anIndex put: aValue==.
 ;==Growable:==
-:Instances of ==Interval== and ==Array== are always of a fixed size. Other kinds of collections (sorted collections, ordered collections, and linked lists) can grow after creation. The class ==OrderedCollection== is more general than ==Array==; the size of an ==OrderedCollection== grows on demand, and it has methods for ==addFirst:== and ==addLast:== as well as ==at:== and ==at:put:==.
+:Instances of ==Interval== and ==Array== are always of a fixed size. Other kinds of collections (sorted collections, ordered collections, and linked lists) can grow after creation. The class ==OrderedCollection== is more general than ==Array==; the size of an ==OrderedCollection== grows on demand, and it defines messages ==addFirst: anElement== and ==addLast: anElement== as well as messages ==at: anIndex== and ==at: anIndex put: aValue==.
 ;==Accepts duplicates:==
-:A ==Set== will filter out duplicates, but a ==Bag== will not. ==Dictionary==, ==Set== and ==Bag== use the ==\=== method provided by the elements; the ==Identity== variants of these classes use the ==\=\=== method, which tests whether the arguments are the same object, and the ==Pluggable== variants use an arbitrary equivalence relation supplied by the creator of the collection.
+:A ==Set== filters out duplicates, but a ==Bag== does not. Classes ==Dictionary==, ==Set== and ==Bag== use the ==\=== method provided by the elements; the ==Identity== variants of these classes use the ==\=\=== method, which tests whether the arguments are the same object, and the ==Pluggable== variants use an arbitrary equivalence relation supplied by the creator of the collection.
 ;==Heterogeneous:==
-:Most collections will hold any kind of element. A ==String==, ==CharacterArray== or ==Symbol==, however, only holds ==Character==s. An ==Array== will hold any mix of objects, but a ==ByteArray== only holds \lct{Byte}s, an ==IntegerArray== only holds ==Integer==s and a ==FloatArray== only holds ==Float==s. A ==LinkedList== is constrained to hold elements that conform to the ==Link== > ==accessing== protocol.
+:Most collections will hold any kind of element. A ==String==, ==CharacterArray== or ==Symbol==, however, only holds ==Character==s. An ==Array== will hold any mix of objects, but a ==ByteArray== only holds Bytes, an ==IntegerArray== only holds Integers and a ==FloatArray== only holds Floats. A ==LinkedList== is constrained to hold elements that conform to the ==Link== ==accessing== protocol.
 
 !!Implementations of collections
 
@@ -128,10 +130,11 @@ classes and handles them specially.
 !!Examples of key classes
 
 We present now the most common or important collection classes using simple code
-examples. The main protocols of collections are: ==at:==, ==at:put:== — to
-access an element, ==add:==, ==remove:== — to add or remove an element,
-==size==, ==isEmpty==, ==include:== — to get some information about the
-collection, ==do:==, ==collect:==, ==select:== — to iterate over the collection.
+examples. The main protocols of collections are: 
+- messages ==at:==, ==at:put:== — to access an element, 
+- messages ==add:==, ==remove:== — to add or remove an element,
+- messages ==size==, ==isEmpty==, ==include:== — to get some information about the collection, 
+- messages ==do:==, ==collect:==, ==select:== — to iterate over the collection.
 Each collection may implement (or not) such protocols, and when they do, they
 interpret them to fit with their semantics. We suggest you browse the classes
 themselves to identify specific and more advanced protocols.
@@ -142,28 +145,36 @@ We will focus on the most common collection classes: ==OrderedCollection==,
 !!!!!Common creation protocol.
 
 There are several ways to create instances of collections. The most generic ones
-use the methods ==new:== and ==with:==. ==new: anInteger== creates a collection
-of size ==anInteger== whose elements will all be ==nil==. ==with:==
-==anObject== creates a collection and adds ==anObject== to the created
-collection. Different collections will realize this behaviour differently.
+use the message ==new: aSize== and ==with: anElement==. 
+
+- ==new: anInteger== creates a collection of size ==anInteger== whose elements will all be ==nil==. 
+- ==with:== ==anObject== creates a collection and adds ==anObject== to the created collection. 
+Different collections will realize this behaviour differently.
 
 You can create collections with initial elements using the methods ==with:==,
 ==with:with:== etc. for up to six elements.
 
 [[[
-Array with: 1 --> #(1)
-Array with: 1 with: 2 --> #(1 2)
-Array with: 1 with: 2 with: 3 --> #(1 2 3)
-Array with: 1 with: 2 with: 3 with: 4 --> #(1 2 3 4)
-Array with: 1 with: 2 with: 3 with: 4 with: 5 --> #(1 2 3 4 5)
-Array with: 1 with: 2 with: 3 with: 4 with: 5 with: 6 --> #(1 2 3 4 5 6)
+Array with: 1 
+--> #(1)
+Array with: 1 with: 2 
+--> #(1 2)
+Array with: 1 with: 2 with: 3 
+--> #(1 2 3)
+Array with: 1 with: 2 with: 3 with: 4 
+--> #(1 2 3 4)
+Array with: 1 with: 2 with: 3 with: 4 with: 5 
+--> #(1 2 3 4 5)
+Array with: 1 with: 2 with: 3 with: 4 with: 5 with: 6 
+--> #(1 2 3 4 5 6)
 ]]]
 
-You can also use ==addAll:== to add all elements of one kind of collection to
+You can also use message ==addAll: aCollection== to add all elements of one kind of collection to
 another kind:
 
 [[[
-(1 to: 5) asOrderedCollection addAll: '678'; yourself --> an OrderedCollection(1 2 3 4 5 $6 $7 $8)
+(1 to: 5) asOrderedCollection addAll: '678'; yourself 
+--> an OrderedCollection(1 2 3 4 5 $6 $7 $8)
 ]]]
 
 Take care that ==addAll:== returns its argument, and not the receiver!
@@ -171,12 +182,18 @@ Take care that ==addAll:== returns its argument, and not the receiver!
 You can also create many collections with ==withAll:== or ==newFrom:==
 
 [[[
-Array withAll: #(7 3 1 3)                      --> #(7 3 1 3)
-OrderedCollection withAll: #(7 3 1 3) --> an OrderedCollection(7 3 1 3)
-SortedCollection withAll: #(7 3 1 3)    --> a SortedCollection(1 3 3 7)
-Set withAll: #(7 3 1 3)                         --> a Set(7 1 3)
-Bag withAll: #(7 3 1 3)                        --> a Bag(7 1 3 3)
-Dictionary withAll: #(7 3 1 3)               --> a Dictionary(1->7 2->3 3->1 4->3 )
+Array withAll: #(7 3 1 3)                      
+--> #(7 3 1 3)
+OrderedCollection withAll: #(7 3 1 3) 
+--> an OrderedCollection(7 3 1 3)
+SortedCollection withAll: #(7 3 1 3)    
+--> a SortedCollection(1 3 3 7)
+Set withAll: #(7 3 1 3)                         
+--> a Set(7 1 3)
+Bag withAll: #(7 3 1 3)                        
+--> a Bag(7 1 3 3)
+Dictionary withAll: #(7 3 1 3)               
+--> a Dictionary(1->7 2->3 3->1 4->3 )
 ]]]
 
 
