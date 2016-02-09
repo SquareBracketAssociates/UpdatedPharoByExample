@@ -1,7 +1,8 @@
 { "title": "Basic Classes" }
 @cha:basicClasses
 
-Most of the magic of Pharo is not in the language but in the class
+Pharo is a really simple language but powerful language.  Part of its power
+is not in the language but in its class
 libraries. To program effectively in it, you will need to learn how the
 class libraries support the language and environment. The class libraries are
 entirely written in Pharo, and can easily be extended. (Recall that a package may add
