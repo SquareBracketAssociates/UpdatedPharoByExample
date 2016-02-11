@@ -279,10 +279,8 @@ anArray at: 3
 --> 33
 ]]]
 
-Be careful as a general principle do not modify literal arrays!
-Literal arrays are kept in compiled method literal frame (a space where literals appearing in the method are stored), therefore unless you copy the array, the
-second time you execute the code your ''literal'' array may not have the value
-you expect. (Without cloning, the second time around, the literal ==#(1 2 3 4 5 6)== will actually be ==#(1 2 33 4 5 6)==!) Dynamic arrays do not have this problem because they are not stored in literal frames. 
+Be careful: as a general principle do not modify literal arrays!
+Literal arrays are kept in compiled method literal frame (a space where literals appearing in the method are stored), therefore unless you copy the array, the second time you execute the code your ''literal'' array may not have the value you expect. (Without cloning, the second time around, the literal ==#(1 2 3 4 5 6)== will actually be ==#(1 2 33 4 5 6)==!) Dynamic arrays do not have this problem because they are not stored in literal frames. 
 
 !!!==OrderedCollection==
 
@@ -324,8 +322,10 @@ It is possible to get an ==OrderedCollection== from an ==Array== (or any other
 collection) by sending the message ==asOrderedCollection==:
 
 [[[language=smalltalk
-#(1 2 3) asOrderedCollection --> an OrderedCollection(1 2 3)
-'hello' asOrderedCollection --> an OrderedCollection($h $e $l $l $o)
+#(1 2 3) asOrderedCollection 
+--> an OrderedCollection(1 2 3)
+'hello' asOrderedCollection 
+--> an OrderedCollection($h $e $l $l $o)
 ]]]
 
 !!!==Interval==
@@ -412,9 +412,12 @@ a := 'foobar'.
 b := a copy.
 trouble := IdentityDictionary new.
 trouble at: a put: 'a'; at: b put: 'b'.
-trouble at: a          --> 'a'
-trouble at: b          --> 'b'
-trouble at: 'foobar' --> 'a'
+trouble at: a          
+--> 'a'
+trouble at: b          
+--> 'b'
+trouble at: 'foobar' 
+--> 'a'
 ]]]
 
 Since ==a== and ==b== are different objects, they are treated as different
@@ -427,12 +430,13 @@ Use only globally unique objects (like ==Symbol==s or ==SmallInteger==s) as keys
 for an ==IdentityDictionary==, and ==String==s (or other objects) as keys for a
 plain ==Dictionary==.
 
-Note that the global ==Smalltalk== is an instance of ==SystemDictionary==, a
+Note that the expression ==Smalltalk globals== returns an instance of ==SystemDictionary==, a
 subclass of ==IdentityDictionary==, hence all its keys are ==Symbol==s
 (actually, ==ByteSymbol==s, which contain only 8-bit characters).
 
 [[[
-Smalltalk keys collect: [ :each | each class ] --> a Set(ByteSymbol)
+Smalltalk globals keys collect: [ :each | each class ]
+--> a Set(ByteSymbol)
 ]]]
 
 Sending ==keys== or ==values== to a ==Dictionary== results in a ==Set==, which
@@ -441,7 +445,7 @@ we look at next.
 !!!==Set==
 
 The class ==Set== is a collection which behaves as a mathematical set, i.e.,
-as a collection with no duplicate elements and without any order. In a ==Set==
+as a collection with no duplicate elements and without any order. In a ==Set==,
 elements are added using the message ==add:== and they cannot be accessed using
 the message ==at:==. Objects put in a set should implement the methods ==hash==
 and ==\===.
@@ -449,20 +453,23 @@ and ==\===.
 [[[
 s := Set new.
 s add: 4/2; add: 4; add:2.
-s size --> 2
+s size 
+--> 2
 ]]]
 
 You can also create sets using ==Set class>>newFrom:== or the conversion message
 ==Collection>>asSet==:
 
 [[[
-(Set newFrom: #( 1 2 3 1 4 )) = #(1 2 3 4 3 2 1) asSet --> true
+(Set newFrom: #( 1 2 3 1 4 )) = #(1 2 3 4 3 2 1) asSet 
+--> true
 ]]]
 
 ==asSet== offers us a convenient way to eliminate duplicates from a collection:
 
 [[[language=smalltalk
-{ Color black. Color white. (Color red + Color blue + Color green) } asSet size --> 2
+{ Color black. Color white. (Color red + Color blue + Color green) } asSet size 
+--> 2
 ]]]
 
 Note that ""red"" ==\+== ""blue"" ==\+== ""green"" ==\=== ""white"".
@@ -470,18 +477,22 @@ Note that ""red"" ==\+== ""blue"" ==\+== ""green"" ==\=== ""white"".
 A ==Bag== is much like a ==Set== except that it does allow duplicates:
 
 [[[language=smalltalk
-{ Color black. Color white. (Color red + Color blue + Color green) } asBag size --> 3
+{ Color black. Color white. (Color red + Color blue + Color green) } asBag size 
+--> 3
 ]]]
 
 The set operations ''union'', ''intersection'' and ''membership test'' are
-implemented by the ==Collection== messages ==union:==, ==intersection:== and
+implemented by the ==Collection== messages ==union:==, ==intersection:==, and
 ==includes:==. The receiver is first converted to a ==Set==, so these operations
 work for all kinds of collections!
 
 [[[
-(1 to: 6) union: (4 to: 10)  --> a Set(1 2 3 4 5 6 7 8 9 10)
-'hello' intersection: 'there' --> 'he'
-#Smalltalk includes: $k     --> true
+(1 to: 6) union: (4 to: 10)
+--> a Set(1 2 3 4 5 6 7 8 9 10)
+'hello' intersection: 'there'
+--> 'he'
+#Smalltalk includes: $k
+--> true
 ]]]
 
 As we explain below, elements of a set are accessed using iterators (see Section
@@ -500,42 +511,50 @@ You can create a ==SortedCollection== by creating a new instance and adding
 elements to it:
 
 [[[
-SortedCollection new add: 5; add: 2; add: 50; add: -10; yourself. --> a SortedCollection(-10 2 5 50)
+SortedCollection new add: 5; add: 2; add: 50; add: -10; yourself. 
+--> a SortedCollection(-10 2 5 50)
 ]]]
 
 More usually, though, one will send the conversion message
 ==asSortedCollection== to an existing collection:
 
 [[[language=smalltalk
-#(5 2 50 -10) asSortedCollection --> a SortedCollection(-10 2 5 50)
+#(5 2 50 -10) asSortedCollection 
+--> a SortedCollection(-10 2 5 50)
 ]]]
 
 [[[
-'hello' asSortedCollection --> a SortedCollection($e $h $l $l $o)
+'hello' asSortedCollection 
+--> a SortedCollection($e $h $l $l $o)
 ]]]
 
 How do you get a ==String== back from this result? ==asString== unfortunately
 returns the ==printString== representation, which is not what we want:
 
 [[[
-'hello' asSortedCollection asString --> 'a SortedCollection($e $h $l $l $o)'
+'hello' asSortedCollection asString 
+--> 'a SortedCollection($e $h $l $l $o)'
 ]]]
 
 The correct answer is to either use ==String class>>newFrom:==, ==String
 class>>withAll:== or ==Object>>as:==:
 
 [[[
-'hello' asSortedCollection as: String              --> 'ehllo'
-String newFrom: ('hello' asSortedCollection) --> 'ehllo'
-String withAll: ('hello' asSortedCollection)     --> 'ehllo'
+'hello' asSortedCollection as: String
+--> 'ehllo'
+String newFrom: ('hello' asSortedCollection)
+--> 'ehllo'
+String withAll: ('hello' asSortedCollection)
+--> 'ehllo'
 ]]]
 
 It is possible to have different kinds of elements in a ==SortedCollection== as
-long as they are all comparable. For example we can mix different kinds of
+long as they are all comparable. For example, we can mix different kinds of
 numbers such as integers, floats and fractions:
 
 [[[language=smalltalk
-{ 5. 2/-3. 5.21 } asSortedCollection --> a SortedCollection((-2/3) 5 5.21)
+{ 5. 2/-3. 5.21 } asSortedCollection 
+--> a SortedCollection((-2/3) 5 5.21)
 ]]]
 
 Imagine that you want to sort objects that do not define the method ==<\=== or
@@ -548,60 +567,64 @@ sorted according to their luminance (a measure of brightness).
 [[[
 col := SortedCollection sortBlock: [:c1 :c2 | c1 luminance <= c2 luminance].
 col addAll: { Color red. Color yellow. Color white. Color black }.
-col --> a SortedCollection(Color black Color red Color yellow Color white)
+col 
+--> a SortedCollection(Color black Color red Color yellow Color white)
 ]]]
 
 !!!==String==
 
-A Smalltalk ==String== represents a collection of ==Character==s. It is
+In Pharo, a ==String== is a collection of ==Character==s. It is
 sequenceable, indexable, mutable and homogeneous, containing only ==Character==
 instances. Like ==Array==s, ==String==s have a dedicated syntax, and are
 normally created by directly specifying a ==String== literal within single
 quotes, but the usual collection creation methods will work as well.
 
 [[[
-'Hello'                                             --> 'Hello'
-String with: $A                               --> 'A'
-String with: $h with: $i with: $!       --> 'hi!'
-String newFrom: #($h $e $l $l $o) --> 'hello'
+'Hello'
+--> 'Hello'
+String with: $A
+--> 'A'
+String with: $h with: $i with: $!
+--> 'hi!'
+String newFrom: #($h $e $l $l $o)
+--> 'hello'
 ]]]
 
-In actual fact, ==String== is abstract. When we instantiate a ==String== we
-actually get either an 8-bit ==ByteString== or a 32-bit ==WideString==. To keep
-things simple, we usually ignore the difference and just talk about instances of
-==String==.
+In actual fact, ==String== is abstract. When we instantiate a ==String== we actually get either an 8-bit ==ByteString== or a 32-bit ==WideString==. To keep things simple, we usually ignore the difference and just talk about instances of ==String==.
 
 Two instances of ==String== can be concatenated with a comma.
 
 [[[
 s := 'no', ' ', 'worries'.
-s -->  'no worries'
+s 
+-->  'no worries'
 ]]]
 
-Since a string is a mutable collection we can also change it using the method
-==at:put:==.
+Since a string is a mutable collection we can also change it using the message ==at:put:==.
 
 [[[
 s at: 4 put: $h; at: 5 put: $u.
-s --> 'no hurries'
+s 
+--> 'no hurries'
 ]]]
 
-Note that the comma method is defined by ==Collection==, so it will work for any
-kind of collection!
+Note that the comma method is defined by ==Collection==, so it will work for any kind of collection!
 
 [[[
-(1 to: 3), '45' --> #(1 2 3 $4 $5)
+(1 to: 3), '45' 
+--> #(1 2 3 $4 $5)
 ]]]
 
-We can also modify an existing string using ==replaceAll:with:== or
-==replaceFrom:to:with:== as shown below. Note that the number of characters and
+We can also modify an existing string using ==replaceAll:with:== or ==replaceFrom:to:with:== as shown below. Note that the number of characters and
 the interval should have the same size.
 
 [[[
 s replaceAll: $n with: $N.
-s --> 'No hurries'
+s 
+--> 'No hurries'
 s replaceFrom: 4 to: 5 with: 'wo'.
-s --> 'No worries'
+s 
+--> 'No worries'
 ]]]
 
 In contrast to the methods described above, the method ==copyReplaceAll:==
@@ -609,64 +632,53 @@ creates a new string. (Curiously, here the arguments are substrings rather than
 individual characters, and their sizes do not have to match.)
 
 [[[
-s copyReplaceAll: 'rries' with: 'mbats' --> 'No wombats'
+s copyReplaceAll: 'rries' with: 'mbats' 
+--> 'No wombats'
 ]]]
 
-A quick look at the implementation of these methods reveals that they are
-defined not only for ==String==s, but for any kind of
+A quick look at the implementation of these methods reveals that they are defined not only for ==String==s, but for any kind of
 ==SequenceableCollection==, so the following also works:
 
 [[[
-(1 to: 6) copyReplaceAll: (3 to: 5) with: { 'three'. 'etc.' } --> #(1 2 'three' 'etc.' 6)
+(1 to: 6) copyReplaceAll: (3 to: 5) with: { 'three' . 'etc.' } 
+--> #(1 2 'three' 'etc.' 6)
 ]]]
 
 !!!!!String matching
 
 It is possible to ask whether a pattern matches a string by sending the
-==match:== message. The pattern can specify ==*== to match an arbitrary series
-of characters and # to match a single character. Note that ==match:== is sent to
+==match:== message. The pattern can use ==*== to match an arbitrary series
+of characters and ==#== to match a single character. Note that ==match:== is sent to
 the pattern and not the string to be matched.
 
 [[[
-'Linux *' match: 'Linux mag'           --> true
-'GNU/Linux #ag' match: 'GNU/Linux tag' --> true
+'Linux *' match: 'Linux mag'
+--> true
+'GNU/Linux #ag' match: 'GNU/Linux tag'
+--> true
 ]]]
 
-Another useful method is ==findString:==.
-
-[[[
-'GNU/Linux mag' findString: 'Linux'                                     --> 5
-'GNU/Linux mag' findString: 'linux' startingAt: 1 caseSensitive: false  --> 5
-]]]
-
-More advanced pattern matching facilities are also available in the ==Regex==
-package.
+More advanced pattern matching facilities are also available in the ==Regex== package.
 
 !!!!!Substrings
-For substring manipulation we can use methods like ==first==, ==first:==,
-==allButFirst:==, ==copyFrom:to:== and others, defined in
-==SequenceableCollection==.
+For substring manipulation we can use messages like ==first==, ==first:==, ==allButFirst:==, ==copyFrom:to:== and others, defined in ==SequenceableCollection==.
 
 [[[
-'alphabet' at: 6   --> $b
-'alphabet' first   --> $a
-'alphabet' first: 5   --> 'alpha'
-'alphabet' allButFirst: 3   --> 'habet'
-'alphabet' copyFrom: 5 to: 7  --> 'abe'
-'alphabet' copyFrom: 3 to: 3  --> 'p' (not $p)
+'alphabet' at: 6
+--> $b
+'alphabet' first
+--> $a
+'alphabet' first: 5
+--> 'alpha'
+'alphabet' allButFirst: 3
+--> 'habet'
+'alphabet' copyFrom: 5 to: 7
+--> 'abe'
+'alphabet' copyFrom: 3 to: 3
+--> 'p' (not $p)
 ]]]
 
-Be aware that result type can be different, depending on the method used.
-Most of the substring-related methods return String instances. But the methods
-that always return one element of the ==String== collection, return a
-==Character== instance (for example, =='alphabet' at: 6== returns the character
-==$b==). Methods that just ''happen'' to return a single element, such as
-==copyFrom: x to: x==, return a ==String== of size 1, not a ==Character==.
-This is because other times (with different parameters), ==copyFrom:to:== can
-return multiple elements.
-
-For complete list of substring-related methods, browse the
-==SequenceableCollection== class (especially the ==accessing== protocol).
+Be aware that result type can be different, depending on the method used. Most of the substring-related methods return ==String== instances. But the messages that always return one element of the ==String== collection, return a ==Character== instance (for example, =='alphabet' at: 6== returns the character==$b==). For complete list of substring-related messages, browse the ==SequenceableCollection== class (especially the ==accessing== protocol).
 
 !!!!!Some tests on strings
 
@@ -675,10 +687,14 @@ The following examples illustrate the use of ==isEmpty==, ==includes:== and
 generally on collections.
 
 [[[
-'Hello' isEmpty --> false
-'Hello' includes: $a --> false
-'JOE' anySatisfy: [:c | c isLowercase] --> false
-'Joe' anySatisfy: [:c | c isLowercase] --> true
+'Hello' isEmpty 
+--> false
+'Hello' includes: $a 
+--> false
+'JOE' anySatisfy: [:c | c isLowercase] 
+--> false
+'Joe' anySatisfy: [:c | c isLowercase] 
+--> true
 ]]]
 
 !!!!!String templating
@@ -687,7 +703,8 @@ There are three messages that are useful to manage string templating:
 ==format:==, ==expandMacros== and ==expandMacrosWith:==.
 
 [[[
-'{1} is {2}' format: {'Pharo' . 'cool'}  --> 'Pharo is cool'
+'{1} is {2}' format: {'Pharo' . 'cool'}  
+--> 'Pharo is cool'
 ]]]
 
 The messages of the ==expandMacros== family offer variable substitution, using
@@ -696,12 +713,18 @@ The messages of the ==expandMacros== family offer variable substitution, using
 quotes), and ==<1?value1:value2>== for conditional.
 
 [[[
-'look-<t>-here' expandMacros                                         --> 'look-	-here'
-'<1s> is <2s>' expandMacrosWith: 'Pharo' with: 'cool'   --> 'Pharo is cool'
-'<2s> is <1s>' expandMacrosWith: 'Pharo' with: 'cool'   --> 'cool is Pharo'
-'<1p> or <1s>' expandMacrosWith: 'Pharo' with: 'cool'  --> '''Pharo'' or Pharo'
-'<1?Quentin:Thibaut> plays' expandMacrosWith: true     --> 'Quentin plays'
-'<1?Quentin:Thibaut> plays' expandMacrosWith: false    --> 'Thibaut plays'
+'look-<t>-here' expandMacros 
+--> 'look-   -here'
+'<1s> is <2s>' expandMacrosWith: 'Pharo' with: 'cool'
+--> 'Pharo is cool'
+'<2s> is <1s>' expandMacrosWith: 'Pharo' with: 'cool'
+--> 'cool is Pharo'
+'<1p> or <1s>' expandMacrosWith: 'Pharo' with: 'cool'
+--> '''Pharo'' or Pharo'
+'<1?Quentin:Thibaut> plays' expandMacrosWith: true
+--> 'Quentin plays'
+'<1?Quentin:Thibaut> plays' expandMacrosWith: false
+--> 'Thibaut plays'
 ]]]
 
 !!!!!Some other utility methods
