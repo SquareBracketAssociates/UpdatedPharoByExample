@@ -26,11 +26,7 @@ To make good use of the collection classes, the reader needs at least a
 superficial knowledge of the wide variety of collections that they implement,
 and their commonalities and differences.
 
-Programming with collections using high-order functions rather than individual elements is an important way
-to raise the level of abstraction of a program. The Lisp function ==map==, which applies an argument function 
-to every element of a list and returns a new list containing the results is an early example of this style. 
-Following its Smalltalk root, Pharo adopts this collection-based high-order programming as a central tenet. 
-Modern functional programming languages such as ML and Haskell have followed Smalltalk's lead.
+Programming with collections using high-order functions rather than individual elements is an important way to raise the level of abstraction of a program. The Lisp function ==map==, which applies an argument function to every element of a list and returns a new list containing the results is an early example of this style. Following its Smalltalk root, Pharo adopts this collection-based high-order programming as a central tenet. Modern functional programming languages such as ML and Haskell have followed Smalltalk's lead.
 
 Why is this a good idea? Suppose you have a data structure containing a
 collection of student records, and wish to perform some action on all of the
@@ -105,7 +101,7 @@ same requests. Let us briefly survey some of the key differences:
 ;==Heterogeneous:==
 :Most collections will hold any kind of element. A ==String==, ==CharacterArray== or ==Symbol==, however, only holds ==Character==s. An ==Array== will hold any mix of objects, but a ==ByteArray== only holds Bytes, an ==IntegerArray== only holds Integers and a ==FloatArray== only holds Floats. A ==LinkedList== is constrained to hold elements that conform to the ==Link== ==accessing== protocol.
 
-!!Implementations of collections
+!!Collection Implementations
 
 @sec:implementation
 
@@ -129,18 +125,17 @@ classes and handles them specially.
 
 !!Examples of key classes
 
-We present now the most common or important collection classes using simple code
-examples. The main protocols of collections are: 
+We present now the most common or important collection classes using simple code examples. The main protocols of collections are: 
+
 - messages ==at:==, ==at:put:== — to access an element, 
 - messages ==add:==, ==remove:== — to add or remove an element,
 - messages ==size==, ==isEmpty==, ==include:== — to get some information about the collection, 
 - messages ==do:==, ==collect:==, ==select:== — to iterate over the collection.
-Each collection may implement (or not) such protocols, and when they do, they
-interpret them to fit with their semantics. We suggest you browse the classes
-themselves to identify specific and more advanced protocols.
 
-We will focus on the most common collection classes: ==OrderedCollection==,
-==Set==, ==SortedCollection==, ==Dictionary==, ==Interval==, and ==Array==.
+Each collection may implement (or not) such protocols, and when they do, they interpret them to fit with their semantics. We suggest you browse the classes themselves to identify specific and more advanced protocols.
+
+We will focus on the most common collection classes: ==OrderedCollection==, ==Set==, ==SortedCollection==, ==Dictionary==, ==Interval==, and ==Array==.
+
 
 !!!!!Common creation protocol.
 
@@ -149,10 +144,11 @@ use the message ==new: aSize== and ==with: anElement==.
 
 - ==new: anInteger== creates a collection of size ==anInteger== whose elements will all be ==nil==. 
 - ==with:== ==anObject== creates a collection and adds ==anObject== to the created collection. 
+
 Different collections will realize this behaviour differently.
 
-You can create collections with initial elements using the methods ==with:==,
-==with:with:== etc. for up to six elements.
+You can create collections with initial elements using the methods ==with:==, ==with:with:== etc. for up to six elements.
+
 
 [[[
 Array with: 1 
@@ -169,57 +165,43 @@ Array with: 1 with: 2 with: 3 with: 4 with: 5 with: 6
 --> #(1 2 3 4 5 6)
 ]]]
 
-You can also use message ==addAll: aCollection== to add all elements of one kind of collection to
-another kind:
+You can also use message ==addAll: aCollection== to add all elements of one kind of collection to another kind:
+
 
 [[[
 (1 to: 5) asOrderedCollection addAll: '678'; yourself 
---> an OrderedCollection(1 2 3 4 5 $6 $7 $8)
+--> an OrderedCollection(1 2 3 4 5 6 7 8)
 ]]]
 
 Take care that ==addAll:== returns its argument, and not the receiver!
 
-You can also create many collections with ==withAll:== or ==newFrom:==
+You can also create many collections with ==withAll: aCollection==.
 
 [[[
-Array withAll: #(7 3 1 3)                      
+Array withAll: #(7 3 1 3)
 --> #(7 3 1 3)
 OrderedCollection withAll: #(7 3 1 3) 
 --> an OrderedCollection(7 3 1 3)
-SortedCollection withAll: #(7 3 1 3)    
+SortedCollection withAll: #(7 3 1 3)
 --> a SortedCollection(1 3 3 7)
-Set withAll: #(7 3 1 3)                         
+Set withAll: #(7 3 1 3)
 --> a Set(7 1 3)
-Bag withAll: #(7 3 1 3)                        
+Bag withAll: #(7 3 1 3)
 --> a Bag(7 1 3 3)
-Dictionary withAll: #(7 3 1 3)               
---> a Dictionary(1->7 2->3 3->1 4->3 )
 ]]]
 
-
-[[[
-Array newFrom: #(7 3 1 3)                                          --> #(7 3 1 3)
-OrderedCollection newFrom: #(7 3 1 3)                     --> an OrderedCollection(7 3 1 3)
-SortedCollection newFrom: #(7 3 1 3)                       --> a SortedCollection(1 3 3 7)
-Set newFrom: #(7 3 1 3)                                            --> a Set(7 1 3)
-Bag newFrom: #(7 3 1 3)                                           --> a Bag(7 1 3 3)
-Dictionary newFrom: {1 -> 7. 2 -> 3. 3 -> 1. 4 -> 3} --> a Dictionary(1->7 2->3 3->1 4->3 )
-]]]
-
-Note that these two methods are not identical. In particular, ==Dictionary
-class>>withAll:== interprets its argument as a collection of values, whereas
-==Dictionary class>>newFrom:== expects a collection of associations.
 
 !!!==Array==
 
 An ==Array== is a fixed-sized collection of elements accessed by integer
-indices. Contrary to the C convention, the first element of a Smalltalk array is
+indices. Contrary to the C convention in Pharo, the first element of an array is
 at position 1 and not 0. The main protocol to access array elements is the
 method ==at:== and ==at:put:==. ==at: anInteger== returns the element at index
 ==anInteger==. ==at: anInteger put: anObject== puts ==anObject== at index
 ==anInteger==. Arrays are fixed-size collections therefore we cannot add or
 remove elements at the end of an array. The following code creates an array of
 size 5, puts values in the first 3 locations and returns the first element.
+
 
 [[[
 anArray := Array new: 5.
@@ -229,79 +211,81 @@ anArray at: 3 put: 'ssss'.
 anArray at: 1 --> 4
 ]]]
 
+
 There are several ways to create instances of the class ==Array==. We can use
-==new:==, ==with:==, and the constructs ==#( )== and =={ }==.
+==new:==, ==with:==, and the constructs ==#( )== (literal arrays) and =={ . }== (dynamic compact syntax).
+
 
 !!!!!Creation with ==new:==
 
- ==new: anInteger== creates an array of size ==anInteger==. ==Array new: 5==
- creates an array of size 5. (Note: the value of each element is initialized
-to ==nil==).
+The message ==new: anInteger== creates an array of size ==anInteger==. ==Array new: 5==
+creates an array of size 5. (Note: the value of each element is initialized to ==nil==).
+
 
 !!!!!Creation using ==with:==
 
-==with:== methods allow one to specify the value of the elements. The following
+The ==with:== messages allow one to specify the value of the elements. The following
 code creates an array of three elements consisting of the number ==4==, the
 fraction ==3/2== and the string =='lulu'==.
 
 [[[
-Array with: 4 with: 3/2 with: 'lulu' -->  {4. (3/2). 'lulu'}
+Array with: 4 with: 3/2 with: 'lulu' 
+-->  {4. (3/2). 'lulu'}
 ]]]
+
 
 !!!!!Literal creation with ==#()==
+The expression ==#()== creates literal arrays with static (or ''literal'') elements that have
+to be known when the expression is compiled, and not when it is executed. The following code creates an array of size 2 where the first element is the (literal) number ==1== and the second the (literal) string =='here'==.
 
- ==#()== creates literal arrays with static (or ''literal'') elements that have
- to be known when the expression is compiled, and not when it is executed. The
- following code creates an array of size 2 where the first element is the
- (literal) number ==1== and the second the (literal) string =='here'==.
-
-[[[language=smalltalk
-#(1 'here') size --> 2
+[[[
+#(1 'here') size 
+--> 2
 ]]]
 
-Now, if you evaluate ==#(1+2)==, you do not get an array with a single element
+Now, if you execute the expression ==#(1+2)==, you do not get an array with a single element
 ==3== but instead you get the array ==#(1 #+ 2)== i.e., with three elements:
 ==1==, the symbol ==#+== and the number ==2==.
 
-[[[language=smalltalk
-#(1+2) -->  #(1 #+ 2)
+[[[
+#(1+2) 
+-->  #(1 #+ 2)
 ]]]
 
-This occurs because the construct ==#()== causes the compiler to interpret
-literally the expressions contained in the array. The expression is scanned and
-the resulting elements are fed to a new array. Literal arrays contain numbers,
-==nil==, ==true==, ==false==, symbols, strings and other literal arrays.
+This occurs because the construct ==#()== does not execute the expressions it contains. 
+The elements are only objects that are created when parsing the expression (called literal objects). The expression is scanned and the resulting elements are fed to a new array. Literal arrays contain numbers, ==nil==, ==true==, ==false==, symbols, strings and other literal arrays.
 
-!!!!!Dynamic creation with =={ }==
+!!!!!Dynamic creation with =={ . }==
 
-Finally, you can create a dynamic array using the construct =={}==. =={ a. b }==
-is equivalent to ==Array with: a with: b==. This means in particular that the
+Finally, you can create a dynamic array using the construct =={ . }==. The expression =={ a . b }== is equivalent to ==Array with: a with: b==. This means in particular that the
 expressions enclosed by =={== and ==}== are executed.
 
-[[[language=smalltalk
-{ 1 + 2 } --> #(3)
-{(1/2) asFloat} at: 1 --> 0.5
-{10 atRandom. 1/3} at: 2 --> (1/3)
+[[[
+{ 1 + 2 } 
+--> #(3)
+{(1/2) asFloat} at: 1 
+--> 0.5
+{10 atRandom. 1/3} at: 2 
+--> (1/3)
 ]]]
 
 !!!!!Element Access
 
-Elements of all sequenceable collections can be accessed with ==at:== and
-==at:put:==.
+Elements of all sequenceable collections can be accessed with messages ==at: anIndex== and
+==at: anIndex put: anObject==.
 
 [[[
 anArray := #(1 2 3 4 5 6) copy.
 anArray at: 3 --> 3
 anArray at: 3 put: 33.
-anArray at: 3 --> 33
+anArray at: 3 
+--> 33
 ]]]
 
 Be careful with code that modifies literal arrays! The compiler tries to
 allocate space just once for literal arrays. Unless you copy the array, the
 second time you evaluate the code your ''literal'' array may not have the value
-you expect. (Without cloning, the second time around, the literal ==#(1 2 3 4 5
-6)== will actually be ==#(1 2 33 4 5 6)==!) Dynamic arrays do not have this
-problem.
+you expect. (Without cloning, the second time around, the literal ==#(1 2 3 4 5 6)== will actually be ==#(1 2 33 4 5 6)==!) Dynamic arrays do not have this problem.
 
 !!!==OrderedCollection==
 
@@ -312,19 +296,19 @@ elements can be added sequentially. It offers a variety of methods such as
 [[[
 ordCol := OrderedCollection new.
 ordCol add: 'Seaside'; add: 'SmalltalkHub'; addFirst: 'Monticello'.
-ordCol --> an OrderedCollection('Monticello' 'Seaside' 'SmalltalkHub')
+ordCol 
+--> an OrderedCollection('Monticello' 'Seaside' 'SmalltalkHub')
 ]]]
 
 !!!!!Removing Elements
 
-The method ==remove:== ==anObject== removes the first occurrence of an object
-from the collection. If the collection does not include such an object, it
-raises an error.
+The message ==remove:== ==anObject== removes the first occurrence of an object from the collection. If the collection does not include such an object, it raises an error.
 
 [[[
 ordCol add: 'Monticello'.
 ordCol remove: 'Monticello'.
-ordCol --> an OrderedCollection('Seaside' 'SmalltalkHub' 'Monticello')
+ordCol 
+--> an OrderedCollection('Seaside' 'SmalltalkHub' 'Monticello')
 ]]]
 
 There is a variant of ==remove:== named ==remove:ifAbsent:== that allows one to
@@ -333,7 +317,8 @@ removed is not in the collection.
 
 [[[
 result := ordCol remove: 'zork' ifAbsent: [33].
-result --> 33
+result 
+--> 33
 ]]]
 
 !!!!!Conversion
@@ -341,7 +326,7 @@ result --> 33
 It is possible to get an ==OrderedCollection== from an ==Array== (or any other
 collection) by sending the message ==asOrderedCollection==:
 
-[[[language=smalltalk
+[[[
 #(1 2 3) asOrderedCollection --> an OrderedCollection(1 2 3)
 'hello' asOrderedCollection --> an OrderedCollection($h $e $l $l $o)
 ]]]
@@ -352,39 +337,47 @@ The class ==Interval== represents ranges of numbers. For example, the interval
 of numbers from 1 to 100 is defined as follows:
 
 [[[
-Interval from: 1 to: 100 --> (1 to: 100)
+Interval from: 1 to: 100 
+--> (1 to: 100)
 ]]]
 
 The ==printString== of this interval reveals that the class ==Number== provides
 us with a convenience method called ==to:== to generate intervals:
 
 [[[
-(Interval from: 1 to: 100) = (1 to: 100) --> true
+(Interval from: 1 to: 100) = (1 to: 100) 
+--> true
 ]]]
 
 We can use ==Interval class>>from:to:by:== or ==Number>>to:by:== to specify the
 step between two numbers as follow:
 
 [[[
-(Interval from: 1 to: 100 by: 0.5) size --> 199
-(1 to: 100 by: 0.5) at: 198 --> 99.5
-(1/2 to: 54/7 by: 1/3) last --> (15/2)
+(Interval from: 1 to: 100 by: 0.5) size 
+--> 199
+(1 to: 100 by: 0.5) at: 198 
+--> 99.5
+(1/2 to: 54/7 by: 1/3) last 
+--> (15/2)
 ]]]
 
 !!!==Dictionary==
 
 Dictionaries are important collections whose elements are accessed using keys.
-Among the most commonly used messages of dictionary you will find ==at:==,
-==at:put:==, ==at:ifAbsent:==, ==keys== and ==values==.
+Among the most commonly used messages of dictionary you will find ==at: aKey==,
+==at: aKey put: aValue==, ==at: aKey ifAbsent: aBlock==, ==keys==, and ==values==.
 
 [[[
 colors := Dictionary new.
 colors at: #yellow put: Color yellow.
 colors at: #blue put: Color blue.
 colors at: #red put: Color red.
-colors at: #yellow --> Color yellow
-colors keys          --> a Set(#blue #yellow #red)
-colors values       --> {Color blue. Color yellow. Color red}
+colors at: #yellow 
+--> Color yellow
+colors keys
+--> a Set(#blue #yellow #red)
+colors values
+--> {Color blue . Color yellow . Color red}
 ]]]
 
 Dictionaries compare keys by equality. Two keys are considered to be the same if
@@ -399,9 +392,10 @@ associations (key value) created using the message ==->==. We can create a
 to an array of associations.
 
 [[[
-colors := Dictionary newFrom: { #blue->Color blue . #red->Color red . #yellow->Color yellow }.
+colors := Dictionary newFromPairs: { #blue->Color blue . #red->Color red . #yellow->Color yellow }.
 colors removeKey: #blue.
-colors associations --> {#yellow->Color yellow. #red->Color red}
+colors associations 
+--> {#yellow->Color yellow. #red->Color red}
 ]]]
 
 !!!!!==IdentityDictionary==
@@ -470,7 +464,7 @@ You can also create sets using ==Set class>>newFrom:== or the conversion message
 
 ==asSet== offers us a convenient way to eliminate duplicates from a collection:
 
-[[[language=smalltalk
+[[[
 { Color black. Color white. (Color red + Color blue + Color green) } asSet size --> 2
 ]]]
 
@@ -478,7 +472,7 @@ Note that ""red"" ==\+== ""blue"" ==\+== ""green"" ==\=== ""white"".
 
 A ==Bag== is much like a ==Set== except that it does allow duplicates:
 
-[[[language=smalltalk
+[[[
 { Color black. Color white. (Color red + Color blue + Color green) } asBag size --> 3
 ]]]
 
@@ -515,7 +509,7 @@ SortedCollection new add: 5; add: 2; add: 50; add: -10; yourself. --> a SortedCo
 More usually, though, one will send the conversion message
 ==asSortedCollection== to an existing collection:
 
-[[[language=smalltalk
+[[[
 #(5 2 50 -10) asSortedCollection --> a SortedCollection(-10 2 5 50)
 ]]]
 
@@ -543,7 +537,7 @@ It is possible to have different kinds of elements in a ==SortedCollection== as
 long as they are all comparable. For example we can mix different kinds of
 numbers such as integers, floats and fractions:
 
-[[[language=smalltalk
+[[[
 { 5. 2/-3. 5.21 } asSortedCollection --> a SortedCollection((-2/3) 5 5.21)
 ]]]
 
@@ -731,7 +725,7 @@ representation by sending the message ==printString== and converting it to a
 string by sending the message ==asString==. Here is an example of the
 difference.
 
-[[[language=smalltalk
+[[[
 #ASymbol printString --> '#ASymbol'
 #ASymbol asString    --> 'ASymbol'
 ]]]
@@ -758,7 +752,7 @@ The method ==do:== is the basic collection iterator. It applies its argument (a
 block taking a single argument) to each element of the receiver. The following
 example prints all the strings contained in the receiver to the transcript.
 
-[[[language=smalltalk
+[[[
 #('bob' 'joe' 'toto') do: [:each | Transcript show: each; cr].
 ]]]
 
@@ -772,7 +766,7 @@ For the indexed collections (==Array==, ==OrderedCollection==,
 current index. This method is related to ==to:do:== which is defined in class
 ==Number==.
 
-[[[language=smalltalk
+[[[
 #('bob' 'joe' 'toto') doWithIndex: [:each :i | (each = 'joe') ifTrue: [ ^ i ] ] --> 2
 ]]]
 
@@ -830,7 +824,7 @@ The method ==collect:== executes its argument block for each element and returns
 a new collection containing the results. Using ==collect:== instead, the code is
 much simpler:
 
-[[[language=smalltalk
+[[[
 #(1 2 3 4 5 6) collect: [:e | 2 * e] --> #(2 4 6 8 10 12)
 ]]]
 
@@ -847,7 +841,7 @@ result --> #(2 3 4 35 4 11)
 
 Contrast the above with the much simpler following expression:
 
-[[[language=smalltalk
+[[[
 #( 2 -3 4 -35 4 -11) collect: [:each | each abs ] --> #(2 3 4 35 4 11)
 ]]]
 
