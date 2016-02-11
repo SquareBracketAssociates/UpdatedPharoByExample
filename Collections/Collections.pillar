@@ -61,12 +61,10 @@ understand the ==testing== messages ==includes:==, ==isEmpty== and
 ==inject:into:== (which performs a left fold) and many more. It is the ubiquity
 of this protocol, as well as its variety, that makes it so powerful.
 
-% Figure *@fig:protocols* %
+
 The table below summarizes the standard protocols supported by most of
 the classes in the collection hierarchy. These methods are defined, redefined,
 optimized or occasionally even forbidden by subclasses of ==Collection==.
-
-% \caption{Standard Collection protocols\figlabel{protocols}}
 
 |!Protocol |!Methods |
 | ==accessing== | ==size==, ==capacity==, ==at:==, ==at:put:== |
@@ -224,7 +222,7 @@ creates an array of size 5. (Note: the value of each element is initialized to =
 
 !!!!!Creation using ==with:==
 
-The ==with:== messages allow one to specify the value of the elements. The following
+The ==with:*== messages allow one to specify the value of the elements. The following
 code creates an array of three elements consisting of the number ==4==, the
 fraction ==3/2== and the string =='lulu'==.
 
@@ -235,8 +233,7 @@ Array with: 4 with: 3/2 with: 'lulu'
 
 
 !!!!!Literal creation with ==#()==
-The expression ==#()== creates literal arrays with static (or ''literal'') elements that have
-to be known when the expression is compiled, and not when it is executed. The following code creates an array of size 2 where the first element is the (literal) number ==1== and the second the (literal) string =='here'==.
+The expression ==#()== creates literal arrays with constants or ''literal'' elements that have to be known when the expression is compiled, and not when it is executed. The following code creates an array of size 2 where the first element is the (literal) number ==1== and the second the (literal) string =='here'==.
 
 [[[language=smalltalk
 #(1 'here') size 
@@ -253,12 +250,12 @@ Now, if you execute the expression ==#(1+2)==, you do not get an array with a si
 ]]]
 
 This occurs because the construct ==#()== does not execute the expressions it contains. 
-The elements are only objects that are created when parsing the expression (called literal objects). The expression is scanned and the resulting elements are fed to a new array. Literal arrays contain numbers, ==nil==, ==true==, ==false==, symbols, strings and other literal arrays.
+The elements are only objects that are created when parsing the expression (called literal objects). The expression is scanned and the resulting elements are fed to a new array. Literal arrays contain numbers, ==nil==, ==true==, ==false==, symbols, strings and other literal arrays. During the execution of ==#()== expressions, there are no messages sent.
 
 !!!!!Dynamic creation with =={ . }==
 
-Finally, you can create a dynamic array using the construct =={ . }==. The expression =={ a . b }== is equivalent to ==Array with: a with: b==. This means in particular that the
-expressions enclosed by =={== and ==}== are executed.
+Finally, you can create a dynamic array using the construct =={ . }==. The expression =={ a . b }== is totally equivalent to ==Array with: a with: b==. This means in particular that the
+expressions enclosed by =={== and ==}== are executed (contrary to the case of ==#()==)
 
 [[[language=smalltalk
 { 1 + 2 } 
@@ -282,15 +279,15 @@ anArray at: 3
 --> 33
 ]]]
 
-Be careful with code that modifies literal arrays! The compiler tries to
-allocate space just once for literal arrays. Unless you copy the array, the
-second time you evaluate the code your ''literal'' array may not have the value
-you expect. (Without cloning, the second time around, the literal ==#(1 2 3 4 5 6)== will actually be ==#(1 2 33 4 5 6)==!) Dynamic arrays do not have this problem.
+Be careful as a general principle do not modify literal arrays!
+Literal arrays are kept in compiled method literal frame (a space where literals appearing in the method are stored), therefore unless you copy the array, the
+second time you execute the code your ''literal'' array may not have the value
+you expect. (Without cloning, the second time around, the literal ==#(1 2 3 4 5 6)== will actually be ==#(1 2 33 4 5 6)==!) Dynamic arrays do not have this problem because they are not stored in literal frames. 
 
 !!!==OrderedCollection==
 
 ==OrderedCollection== is one of the collections that can grow, and to which
-elements can be added sequentially. It offers a variety of methods such as
+elements can be added sequentially. It offers a variety of messages such as
 ==add:==, ==addFirst:==, ==addLast:==, and ==addAll:==.
 
 [[[
@@ -341,7 +338,7 @@ Interval from: 1 to: 100
 --> (1 to: 100)
 ]]]
 
-The ==printString== of this interval reveals that the class ==Number== provides
+The result of ==printString== reveals that the class ==Number== provides
 us with a convenience method called ==to:== to generate intervals:
 
 [[[
