@@ -542,9 +542,9 @@ class>>withAll:== or ==Object>>as:==:
 [[[
 'hello' asSortedCollection as: String
 --> 'ehllo'
-String newFrom: ('hello' asSortedCollection)
+String newFrom: 'hello' asSortedCollection
 --> 'ehllo'
-String withAll: ('hello' asSortedCollection)
+String withAll: 'hello' asSortedCollection
 --> 'ehllo'
 ]]]
 
@@ -553,7 +553,7 @@ long as they are all comparable. For example, we can mix different kinds of
 numbers such as integers, floats and fractions:
 
 [[[language=smalltalk
-{ 5. 2/-3. 5.21 } asSortedCollection 
+{ 5 . 2/-3 . 5.21 } asSortedCollection 
 --> a SortedCollection((-2/3) 5 5.21)
 ]]]
 
@@ -565,8 +565,9 @@ the method ==<\===, but we can specify a block stating that the colors should be
 sorted according to their luminance (a measure of brightness).
 
 [[[
-col := SortedCollection sortBlock: [:c1 :c2 | c1 luminance <= c2 luminance].
-col addAll: { Color red. Color yellow. Color white. Color black }.
+col := SortedCollection 
+         sortBlock: [ :c1 :c2 | c1 luminance <= c2 luminance ].
+col addAll: { Color red . Color yellow . Color white . Color black }.
 col 
 --> a SortedCollection(Color black Color red Color yellow Color white)
 ]]]
@@ -591,6 +592,16 @@ String newFrom: #($h $e $l $l $o)
 ]]]
 
 In actual fact, ==String== is abstract. When we instantiate a ==String== we actually get either an 8-bit ==ByteString== or a 32-bit ==WideString==. To keep things simple, we usually ignore the difference and just talk about instances of ==String==.
+
+While strings are delimited by single quotes, a string can contain a single quote: to define a string with a single quote we should type it twice. Note that the string will contain only one element and not two as shown below:
+
+[[[
+'l''idiot' at: 2 
+--> $'
+'l''idiot' at: 3 
+--> $i
+]]]
+
 
 Two instances of ==String== can be concatenated with a comma.
 
@@ -691,9 +702,9 @@ generally on collections.
 --> false
 'Hello' includes: $a 
 --> false
-'JOE' anySatisfy: [:c | c isLowercase] 
+'JOE' anySatisfy: [ :c | c isLowercase ] 
 --> false
-'Joe' anySatisfy: [:c | c isLowercase] 
+'Joe' anySatisfy: [ :c | c isLowercase ] 
 --> true
 ]]]
 
@@ -733,21 +744,29 @@ The class ==String== offers numerous other utilities including the messages
 ==asLowercase==, ==asUppercase== and ==capitalized==.
 
 [[[
-'XYZ' asLowercase --> 'xyz'
-'xyz' asUppercase   --> 'XYZ'
-'hilaire' capitalized   --> 'Hilaire'
-'1.54' asNumber      --> 1.54
-'this sentence is without a doubt far too long' contractTo: 20 --> 'this sent...too long'
+'XYZ' asLowercase
+--> 'xyz'
+'xyz' asUppercase
+--> 'XYZ'
+'hilaire' capitalized
+--> 'Hilaire'
+'Hilaire' uncapitalized
+--> 'hilaire'
+'1.54' asNumber
+--> 1.54
+'this sentence is without a doubt far too long' contractTo: 20 
+--> 'this sent...too long'
 ]]]
 
 Note that there is generally a difference between asking an object its string
 representation by sending the message ==printString== and converting it to a
-string by sending the message ==asString==. Here is an example of the
-difference.
+string by sending the message ==asString==. Here is an example of the difference.
 
 [[[language=smalltalk
-#ASymbol printString --> '#ASymbol'
-#ASymbol asString    --> 'ASymbol'
+#ASymbol printString 
+--> '#ASymbol'
+#ASymbol asString    
+--> 'ASymbol'
 ]]]
 
 A symbol is similar to a string but is guaranteed to be globally unique. For
@@ -759,7 +778,7 @@ more about ==String== and ==Symbol==.
 !!Collection iterators
 @sec:iterators
 
-In Smalltalk loops and conditionals are simply messages sent to collections or
+In Pharo loops and conditionals are simply messages sent to collections or
 other objects such as integers or blocks (see also Chapter *: Syntax in a Nutshell>../SyntaxNutshell/SyntaxNutshell.pillar@cha:syntax*).
 In addition to low-level messages such as ==to:do:== which evaluates a block with
 an argument ranging from an initial to a final number, the collection
@@ -787,7 +806,9 @@ current index. This method is related to ==to:do:== which is defined in class
 ==Number==.
 
 [[[language=smalltalk
-#('bob' 'joe' 'toto') doWithIndex: [:each :i | (each = 'joe') ifTrue: [ ^ i ] ] --> 2
+#('bob' 'joe' 'toto') 
+    doWithIndex: [ :each :i | (each = 'joe') ifTrue: [ ^ i ] ] 
+--> 2
 ]]]
 
 For ordered collections, ==reverseDo:== walks the collection in the reverse
@@ -798,8 +819,11 @@ executes the second block only in between two elements.
 
 [[[
 res := ''.
-#('bob' 'joe' 'toto') do: [:e | res := res, e ] separatedBy: [res := res, '.'].
-res --> 'bob.joe.toto'
+#('bob' 'joe' 'toto') 
+   do: [ :e | res := res, e ] 
+   separatedBy: [ res := res, '.' ].
+res 
+--> 'bob.joe.toto'
 ]]]
 
 Note that this code is not especially efficient since it creates intermediate
@@ -807,7 +831,9 @@ strings and it would be better to use a write stream to buffer the result (see
 Chapter *: Streams>../Streams/Streams.pillar@cha:streams*):
 
 [[[
-String streamContents: [:stream | #('bob' 'joe' 'toto') asStringOn: stream delimiter: '.' ] --> 'bob.joe.toto'
+String streamContents: [ :stream | 
+   #('bob' 'joe' 'toto') asStringOn: stream delimiter: '.' ] 
+--> 'bob.joe.toto'
 ]]]
 
 !!!!Dictionaries
@@ -819,15 +845,15 @@ on keys, values or associations.
 
 [[[
 colors := Dictionary newFrom: { #yellow -> Color yellow. #blue -> Color blue. #red -> Color red }.
-colors keysDo: [:key | Transcript show: key; cr].                   "displays the keys"
-colors valuesDo: [:value | Transcript show: value; cr].           "displays the values"
-colors associationsDo: [:value | Transcript show: value; cr]. "displays the associations"
+colors keysDo: [ :key | Transcript show: key; cr ].
+colors valuesDo: [ :value | Transcript show: value; cr ].
+colors associationsDo: [:value | Transcript show: value; cr].
 ]]]
 
 !!!Collecting results (==collect:==)
 
-If you want to process the elements of a collection and produce a new collection
-as a result, rather than using ==do:==, you are probably better off using
+If you want to apply a function to the elements of a collection and get a new collection
+with the results, rather than using ==do:==, you are probably better off using
 ==collect:==, or one of the other iterator methods. Most of these can be found
 in the ==enumerating== protocol of ==Collection== and its subclasses.
 
@@ -836,8 +862,9 @@ another collection. Using the method ==do:== we must write the following:
 
 [[[
 double := OrderedCollection new.
-#(1 2 3 4 5 6) do: [:e | double add: 2 * e].
-double --> an OrderedCollection(2 4 6 8 10 12)
+#(1 2 3 4 5 6) do: [ :e | double add: 2 * e ].
+double 
+--> an OrderedCollection(2 4 6 8 10 12)
 ]]]
 
 The method ==collect:== executes its argument block for each element and returns
@@ -845,30 +872,31 @@ a new collection containing the results. Using ==collect:== instead, the code is
 much simpler:
 
 [[[language=smalltalk
-#(1 2 3 4 5 6) collect: [:e | 2 * e] --> #(2 4 6 8 10 12)
+#(1 2 3 4 5 6) collect: [ :e | 2 * e ] 
+--> #(2 4 6 8 10 12)
 ]]]
 
-The advantages of ==collect:== over ==do:== are even more dramatic in the
+The advantages of ==collect:== over ==do:== are even more important in the
 following example, where we take a collection of integers and generate as a
 result a collection of absolute values of these integers:
 
 [[[
 aCol :=  #( 2 -3 4 -35 4 -11).
 result := aCol species new: aCol size.
-1 to: aCol size do: [ :each | result at: each put: (aCol at: each) abs].
-result --> #(2 3 4 35 4 11)
+1 to: aCol size do: [ :each | result at: each put: (aCol at: each) abs ].
+result 
+--> #(2 3 4 35 4 11)
 ]]]
 
 Contrast the above with the much simpler following expression:
 
 [[[language=smalltalk
-#( 2 -3 4 -35 4 -11) collect: [:each | each abs ] --> #(2 3 4 35 4 11)
+#( 2 -3 4 -35 4 -11) collect: [ :each | each abs ] 
+--> #(2 3 4 35 4 11)
 ]]]
 
 A further advantage of the second solution is that it will also work for sets
-and bags.
-
-Generally you should avoid using ==do:==, unless you want to send messages to
+and bags. Generally you should avoid using ==do:==, unless you want to send messages to
 each of the elements of a collection.
 
 Note that sending the message ==collect:== returns the same kind of collection
@@ -876,14 +904,16 @@ as the receiver. For this reason the following code fails. (A ==String== cannot
 hold integer values.)
 
 [[[
-'abc' collect: [:ea | ea asciiValue ]      "error!"
+'abc' collect: [ :ea | ea asciiValue ]
+--> "error!"
 ]]]
 
 Instead we must first convert the string to an ==Array== or an
 ==OrderedCollection==:
 
 [[[
-'abc' asArray collect: [:ea | ea asciiValue ] --> #(97 98 99)
+'abc' asArray collect: [ :ea | ea asciiValue ]
+--> #(97 98 99)
 ]]]
 
 Actually ==collect:== is not guaranteed to return a collection of exactly the
@@ -891,7 +921,8 @@ same class as the receiver, but only the same ''species''. In the case of
 an ==Interval==, the species is actually an ==Array==!
 
 [[[
-(1 to: 5) collect: [ :ea | ea * 2 ] --> #(2 4 6 8 10)
+(1 to: 5) collect: [ :ea | ea * 2 ] 
+--> #(2 4 6 8 10)
 ]]]
 
 !!!Selecting and rejecting elements
@@ -900,12 +931,14 @@ an ==Interval==, the species is actually an ==Array==!
 condition:
 
 [[[
-(2 to: 20) select: [:each | each isPrime] --> #(2 3 5 7 11 13 17 19)
+(2 to: 20) select: [ :each | each isPrime ] 
+--> #(2 3 5 7 11 13 17 19)
 ]]]
 
 ==reject:== does the opposite:
 [[[
-(2 to: 20) reject: [:each | each isPrime] --> #(4 6 8 9 10 12 14 15 16 18 20)
+(2 to: 20) reject: [ :each | each isPrime ] 
+--> #(4 6 8 9 10 12 14 15 16 18 20)
 ]]]
 
 !!!Identifying an element with ==detect:==
@@ -914,14 +947,18 @@ The method ==detect:== returns the first element of the receiver that matches
 block argument.
 
 [[[
-'through' detect: [:each | each isVowel] --> $o
+'through' detect: [ :each | each isVowel ] 
+--> $o
 ]]]
 
 The method ==detect:ifNone:== is a variant of the method ==detect:==. Its second
 block is evaluated when there is no element matching the block.
 
 [[[
-Smalltalk allClasses detect: [:each | '*cobol*' match: each asString] ifNone: [ nil ] --> nil
+Smalltalk globals allClasses 
+    detect: [:each | '*cobol*' match: each asString] 
+    ifNone: [ nil ] 
+--> nil
 ]]]
 
 !!!Accumulating results with ==inject:into:==
@@ -940,17 +977,20 @@ of numbers. Following Gauss, in Pharo we could write this expression to sum the
 first 100 integers:
 
 [[[
-(1 to: 100) inject: 0 into: [:sum :each | sum + each ] --> 5050
+(1 to: 100) inject: 0 into: [ :sum :each | sum + each ] 
+--> 5050
 ]]]
 
 Another example is the following one-argument block which computes factorials:
 
 [[[
-factorial := [:n | (1 to: n) inject: 1 into: [:product :each | product * each ] ].
-factorial value: 10 --> 3628800
+factorial := [ :n | (1 to: n) inject: 1 into: [ :product :each | product * each ] ].
+factorial value: 10 
+--> 3628800
 ]]]
 
 !!!Other messages
+There are many other iterator messages. Just check the ==Collection== class.
 
 !!!!! ==count:==
 
@@ -958,7 +998,9 @@ The message ==count:== returns the number of elements satisfying a condition.
 The condition is represented as a boolean block.
 
 [[[
-Smalltalk allClasses count: [:each | 'Collection*' match: each asString ] --> 6
+Smalltalk globals allClasses 
+   count: [ :each | 'Collection*' match: each asString ] 
+--> 6
 ]]]
 
 !!!!! ==includes:==
@@ -967,8 +1009,9 @@ The message ==includes:== checks whether the argument is contained in the
 collection.
 
 [[[
-colors := {Color white. Color yellow. Color red. Color blue. Color orange}.
-colors includes: Color blue. --> true
+colors := {Color white . Color yellow .  Color blue . Color orange}.
+colors includes: Color blue. 
+--> true
 ]]]
 
 !!!!! ==anySatisfy:==
@@ -977,7 +1020,8 @@ The message ==anySatisfy:== answers true if at least one element of the
 collection satisfies the condition represented by the argument.
 
 [[[
-colors anySatisfy: [:c | c red > 0.5] --> true
+colors anySatisfy: [ :c | c red > 0.5 ] 
+--> true
 ]]]
 
 !!Some hints for using collections
@@ -988,7 +1032,8 @@ The following error is one of the most frequent Smalltalk mistakes.
 
 [[[
 collection := OrderedCollection new add: 1; add: 2.
-collection --> 2
+collection 
+--> 2
 ]]]
 
 Here the variable ==collection== does not hold the newly created collection but
@@ -1000,14 +1045,16 @@ The following code yields the expected result:
 [[[
 collection := OrderedCollection new.
 collection add: 1; add: 2.
-collection --> an OrderedCollection(1 2)
+collection 
+--> an OrderedCollection(1 2)
 ]]]
 
 You can also use the message ==yourself== to return the receiver of a cascade of
 messages:
 
 [[[
-collection := OrderedCollection new add: 1; add: 2; yourself --> an OrderedCollection(1 2)
+collection := OrderedCollection new add: 1; add: 2; yourself 
+--> an OrderedCollection(1 2)
 ]]]
 
 !!!!!Removing an element of the collection you are iterating on
@@ -1017,8 +1064,10 @@ currently iterating over.
 
 [[[
 range := (2 to: 20) asOrderedCollection.
-range do: [:aNumber | aNumber isPrime ifFalse: [ range remove: aNumber ] ].
-range --> an OrderedCollection(2 3 5 7 9 11 13 15 17 19)
+range do: [ :aNumber | aNumber isPrime 
+                            ifFalse: [ range remove: aNumber ] ].
+range 
+--> an OrderedCollection(2 3 5 7 9 11 13 15 17 19)
 ]]]
 
 This result is clearly incorrect since 9 and 15 should have been filtered out!
@@ -1027,8 +1076,10 @@ The solution is to copy the collection before going over it.
 
 [[[
 range := (2 to: 20) asOrderedCollection.
-range copy do: [:aNumber | aNumber isPrime ifFalse: [ range remove: aNumber ] ].
-range --> an OrderedCollection(2 3 5 7 11 13 17 19)
+range copy do: [ :aNumber | aNumber isPrime 
+                              ifFalse: [ range remove: aNumber ] ].
+range 
+--> an OrderedCollection(2 3 5 7 11 13 17 19)
 ]]]
 
 !!!!!Redefining ==\=== but not ==hash==
@@ -1042,8 +1093,8 @@ and authors are the same. Then we would redefine not only ==\=== but also
 
 [[[caption=Redefining ==\=== and ==hash==.
 Book>>>= aBook
-   self class = aBook class ifFalse: [^ false].
-   ^ title = aBook title and: [ authors = aBook authors]
+   self class = aBook class ifFalse: [ ^ false ].
+   ^ title = aBook title and: [ authors = aBook authors ]
 
 Book>>>hash
    ^ title hash xor: authors hash
@@ -1055,13 +1106,13 @@ to a ==Dictionary==. Don't do this unless you love debugging!
 
 !!Chapter summary
 
-The Smalltalk collection hierarchy provides a common vocabulary for uniformly
+The collection hierarchy provides a common vocabulary for uniformly
 manipulating a variety of different kinds of collections.
 
 -A key distinction is between ==SequenceableCollection==s, which maintain their elements in a given order, ==Dictionary== and its subclasses, which maintain key-to-value associations, and ==Set==s and ==Bag==s, which are unordered.
 -You can convert most collections to another kind of collection by sending them the messages ==asArray==, ==asOrderedCollection== etc..
 -To sort a collection, send it the message ==asSortedCollection==.
--Literal ==Array==s are created with the special syntax ==#( ... )==. Dynamic ==Array==s are created with the syntax =={ ... }==.
+- ==#( ... )== creates arrays containing only literal objects (i.e., objects created without sending messages). =={ ... }== creates dynamic arrays using a compact form.
 -A ==Dictionary== compares keys by equality. It is most useful when keys are instances of ==String==. An ==IdentityDictionary== instead uses object identity to compare keys. It is more suitable when ==Symbol==s are used as keys, or when mapping object references to values.
 -==String==s also understand the usual collection messages. In addition, a ==String== supports a simple form of pattern-matching. For more advanced application, look instead at the RegEx package.
 -The basic iteration message is ==do:==. It is useful for imperative code, such as modifying each element of a collection, or sending each element a message.
