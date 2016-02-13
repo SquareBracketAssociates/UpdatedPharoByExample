@@ -70,7 +70,7 @@ Since everything is an object, an ordered collection in Pharo is also an object.
 
 [[[
 OrderedCollection withAll: #(4 5 6 1 2 3)
-	--> an OrderedCollection(4 5 6 1 2 3)
+--> an OrderedCollection(4 5 6 1 2 3)
 ]]]
 
 Every object is an instance of a class. The class of an ordered collection is
@@ -78,7 +78,7 @@ the class ==OrderedCollection==:
 
 [[[
 (OrderedCollection withAll: #(4 5 6 1 2 3)) class
-	--> OrderedCollection
+--> OrderedCollection
 ]]]
 
 Interestingly, if we send the message ==asSortedCollection==, we get an instance
@@ -86,7 +86,7 @@ of a different class, namely ==SortedCollection==:
 
 [[[
 (OrderedCollection withAll: #(4 5 6 1 2 3)) asSortedCollection class
-	--> SortedCollection
+--> SortedCollection
 ]]]
 
 By Rule 3, every class has a superclass. The superclass of ==SortedCollection==
@@ -94,15 +94,19 @@ is ==OrderedCollection==, and the superclass of ==OrderedCollection== is
 ==SequenceableCollection==:
 
 [[[
-SortedCollection superclass --> OrderedCollection
-OrderedCollection superclass --> SequenceableCollection
-SequenceableCollection --> Collection
-Collection --> Object
+SortedCollection superclass
+--> OrderedCollection
+OrderedCollection superclass
+--> SequenceableCollection
+SequenceableCollection
+--> Collection
+Collection
+--> Object
 ]]]
 
 [[[
 (OrderedCollection withAll: #(4 5 6 1 2 3)) at: 1
-	--> 4
+--> 4
 ]]]
 
 Everything happens by sending messagess (Rule 4), so we can deduce that
@@ -128,9 +132,12 @@ if it is in an ''is a'' relationship with a given class:
 
 [[[
 sortedCollection := (OrderedCollection withAll: #(4 5 6 1 2 3)) asSortedCollection.
-sortedCollection isKindOf: SortedCollection --> true
-sortedCollection isKindOf: OrderedCollection --> true
-sortedCollection isKindOf: Object                  --> true
+sortedCollection isKindOf: SortedCollection
+--> true
+sortedCollection isKindOf: OrderedCollection
+--> true
+sortedCollection isKindOf: Object
+--> true
 ]]]
 
 !!Every class is an instance of a metaclass
@@ -151,8 +158,10 @@ instance. The class of ==SortedCollection==, for instance, is ==SortedCollection
 class==, and the class of ==Object== is ==Object class==:
 
 [[[
-SortedCollection class   --> Color class
-Object class --> Object class
+SortedCollection class
+--> Color class
+Object class
+--> Object class
 ]]]
 
 Figure *@fig:translucentmetaclasses* shows how each class is an instance of its
@@ -166,12 +175,18 @@ The fact that classes are also objects makes it easy for us to query them by
 sending messages. Let's have a look:
 
 [[[
-OrderedCollection subclasses        --> {SortedCollection . ObjectFinalizerCollection . WeakOrderedCollection . OCLiteralList . GLMMultiValue}
-SortedCollection subclasses         --> #()
-SortedCollection allSuperclasses  --> an OrderedCollection(OrderedCollection SequenceableCollection Collection Object ProtoObject)
-SortedCollection instVarNames     --> #('sortBlock')
-SortedCollection allInstVarNames --> #('array' 'firstIndex' 'lastIndex' 'sortBlock')
-SortedCollection selectors             -->  #(#indexForInserting: #sort:to: #addAll: #reSort #sortBlock: #copyEmpty #addFirst: #insert:before: #defaultSort:to: #median #at:put: #add: #= #collect: #flatCollect: #sort: #join: #sortBlock)
+OrderedCollection subclasses
+--> {SortedCollection . ObjectFinalizerCollection . WeakOrderedCollection . OCLiteralList . GLMMultiValue}
+SortedCollection subclasses
+--> #()
+SortedCollection allSuperclasses
+--> an OrderedCollection(OrderedCollection SequenceableCollection Collection Object ProtoObject)
+SortedCollection instVarNames
+--> #('sortBlock')
+SortedCollection allInstVarNames
+--> #('array' 'firstIndex' 'lastIndex' 'sortBlock')
+SortedCollection selectors
+-->  #(#indexForInserting: #sort:to: #addAll: #reSort #sortBlock: #copyEmpty #addFirst: #insert:before: #defaultSort:to: #median #at:put: #add: #= #collect: #flatCollect: #sort: #join: #sortBlock)
 ]]]
 
 !!The metaclass hierarchy parallels the class hierarchy
@@ -181,8 +196,10 @@ is constrained to be the metaclass of the superclass of the metaclass's unique
 instance.
 
 [[[
-SortedCollection class superclass --> OrderedCollection class
-SortedCollection superclass class --> OrderedCollection class
+SortedCollection class superclass
+--> OrderedCollection class
+SortedCollection superclass class
+--> OrderedCollection class
 ]]]
 
 This is what we mean by the metaclass hierarchy being parallel to the class
@@ -192,10 +209,14 @@ hierarchy. Figure *@fig:parallelHierarchies* shows how this works in the
 +The metaclass hierarchy parallels the class hierarchy.>file://figures/SortedCollectionMetaclassHierarchy.png|label=fig:parallelHierarchies+
 
 [[[
-SortedCollection class                                     --> SortedCollection class
-SortedCollection class superclass                   --> OrderedCollection class
-SortedCollection class superclass superclass --> SequenceableCollection class
-SortedCollection class superclass superclass superclass superclass--> Object class
+SortedCollection class
+--> SortedCollection class
+SortedCollection class superclass
+--> OrderedCollection class
+SortedCollection class superclass superclass
+--> SequenceableCollection class
+SortedCollection class superclass superclass superclass superclass
+--> Object class
 ]]]
 
 !!!!Uniformity between Classes and Objects
@@ -214,7 +235,8 @@ metaclass hierarchy until it is found in ==Collection class== (see Figure
 *@fig:metaclasslookup*).
 
 [[[
-OrderedCollection withAll: #(4 5 6 1 2 3) --> an OrderedCollection (4 5 6 1 2 3)
+OrderedCollection withAll: #(4 5 6 1 2 3)
+--> an OrderedCollection (4 5 6 1 2 3)
 ]]]
 
 Note that we get as a result an ordinary ==Color blue==, and not a translucent
@@ -276,7 +298,8 @@ looked up in the class ==Behavior==! ==new== always returns an instance of
 another class.
 
 [[[
-SortedCollection new class --> SortedCollection    "not Behavior!"
+SortedCollection new class 
+--> SortedCollection    "not Behavior!"
 ]]]
 
 +==new== is an ordinary message looked up in the metaclass chain.>file://figures/SortedOrderedSendingNew.png|label=fig:sendingnew+
@@ -360,29 +383,39 @@ class==, not ==Class==. In Pharo, we must go one superclass higher
 to reach ==Class==.)
 
 [[[caption=The class hierarchy
-TranslucentColor superclass --> Color
-Color superclass                   --> Object
+Color superclass 
+--> Object
 ]]]
 
 [[[caption=The parallel metaclass hierarchy
-TranslucentColor class superclass   --> Color class
-Color class superclass                     --> Object class
-Object class superclass superclass --> Class    "NB: skip ProtoObject class"
-Class superclass                              --> ClassDescription
-ClassDescription superclass            --> Behavior
-Behavior superclass                         --> Object
+Color class superclass
+--> Object class
+Object class superclass superclass 
+--> Class    "NB: skip ProtoObject class"
+Class superclass
+--> ClassDescription
+ClassDescription superclass
+--> Behavior
+Behavior superclass
+--> Object
 ]]]
 
 [[[caption=Instances of Metaclass
-TranslucentColor class class --> Metaclass
-Color class class                   --> Metaclass
-Object class class                 --> Metaclass
-Behavior class class              --> Metaclass
+TranslucentColor class class 
+--> Metaclass
+Color class class
+--> Metaclass
+Object class class
+--> Metaclass
+Behavior class class
+--> Metaclass
 ]]]
 
 [[[captionMetaclass class is a Metaclass
-Metaclass class class --> Metaclass
-Metaclass superclass --> ClassDescription
+Metaclass class class
+--> Metaclass
+Metaclass superclass
+--> ClassDescription
 ]]]
 
 !!Chapter summary
@@ -398,4 +431,4 @@ superclasses.
 -The metaclass hierarchy parallels the class hierarchy. Method lookup for classes parallels method lookup for ordinary objects, and follows the metaclass's superclass chain.
 -Every metaclass inherits from ==Class== and ==Behavior==. Every class ''is a'' ==Class==. Since metaclasses are classes too, they must also inherit from ==Class==. ==Behavior== provides behaviour common to all entities that have instances.
 -Every metaclass is an instance of ==Metaclass==. ==ClassDescription== provides everything that is common to ==Class== and ==Metaclass==.
--The metaclass of ==Metaclass== is an instance of ==Metaclass==. The ''instance-of'' relation forms a closed loop, so ==Metaclass class class --> Metaclass==.
+-The metaclass of ==Metaclass== is an instance of ==Metaclass==. The ''instance-of'' relation forms a closed loop, so ==Metaclass class class== is ==Metaclass==.
