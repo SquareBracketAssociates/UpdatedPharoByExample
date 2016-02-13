@@ -3,10 +3,9 @@
 
 The Pharo programming model is heavily inspired by that of Smalltalk. It
 is simple and uniform: everything is an object, and objects communicate only by
-sending each other messages. Methods are all public and dynamically looked up (late-bound).
- This simplicity and uniformity, however, can be a source of difficulty for programmers used to other languages. In this chapter we
-present the core concepts of the Pharo object model. In particular we discuss
-the consequences of representing classes as objects. This will be extended in
+sending each other messages. Instance variables are private to the object. Methods are all public and dynamically looked up (late-bound).
+In this chapter we present the core concepts of the Pharo object model. We revisit concepts such as ==self== and ==super== and define
+precisely their semantics.  Then we discuss the consequences of representing classes as objects. This will be extended in
 Chapter: *Classes and Metaclasses>../Metaclasses/Metaclasses.pillar@cha:metaclasses*.
 
 !!The rules of the model
@@ -36,9 +35,9 @@ can send messages to them, just as you do to any other object.
 
 [[[
 3 + 4
-  --> 7    "send '+ 4' to 3, yielding 7"
+--> 7    "send '+ 4' to 3, yielding 7"
 20 factorial
-   --> 2432902008176640000   "send factorial, yielding a big number"
+--> 2432902008176640000   "send factorial, yielding a big number"
 ]]]
 
 The object ==7== is different than the object returned by ==20 factorial==, but because they are 
@@ -68,17 +67,17 @@ Every object has a class; you can find out which by sending it the message
 
 [[[
 1 class
-   --> SmallInteger
+--> SmallInteger
 20 factorial class
-   --> LargePositiveInteger
+--> LargePositiveInteger
 'hello' class
-   --> ByteString
+--> ByteString
 #(1 2 3) class
-   --> Array
+--> Array
 (4@5) class
-   --> Point
+--> Point
 Object new class
-   --> Object
+--> Object
 ]]]
 
 A class defines the ''structure'' of its instances via instance variables, and
@@ -138,7 +137,7 @@ Point >> dist: aPoint
 
 [[[
 1@1 dist: 4@5
-   --> 5.0
+--> 5.0
 ]]]
 
 The key reason to prefer instance-based encapsulation to class-based
@@ -186,8 +185,7 @@ they were a single thing with two "sides": the ''instance side'' and the ''class
 side'', as shown in Figure *@fig:colorInstanceClassSide*. By default, when you
 select a class in the browser, you're browsing the ''instance'' side (i.e., the
 methods that are executed when messages are sent to an ''instance'' of
-==Color==). Clicking on the ""Class side"" button (located under the class
-pane) switches you over to the ''class side'' (the methods that will be executed
+==Color==). Clicking on the ""Class side"" button switches you over to the ''class side'' (the methods that will be executed
 when messages are sent to the ''class'' ==Color== itself).
 
 For example, ==Color blue== sends the message ==blue== to the class ==Color==.
@@ -197,11 +195,11 @@ You will therefore find the method ==blue== defined on the class side of
 [[[
 aColor := Color blue.     "Class-side method blue (convenient instance creation method)"
 aColor
-	--> Color blue   "Color instances are self-evaluating"
+--> Color blue   "Color instances are self-evaluating"
 aColor red
-	--> 0.0          "Instance-side accessor method red (returns the red RGB value)"
+--> 0.0          "Instance-side accessor method red (returns the red RGB value)"
 aColor blue
-	--> 1.0          "Instance-side accessor method blue (returns the blue RGB value)"
+--> 1.0          "Instance-side accessor method blue (returns the blue RGB value)"
 ]]]
 
 You define a class by filling in the template proposed on the instance side.
@@ -308,16 +306,20 @@ it explicitly here. By default class initialize methods are automatically execut
 [[[label=scr:dogCount2
 Dog initialize.
 Hyena initialize.
-Dog count      --> 0
-Hyena count    --> 0
+Dog count
+--> 0
+Hyena count
+--> 0
 
 aDog := Dog new.
-Dog count      --> 1  "Incremented"
-Hyena count    --> 0  "Still the same"
+Dog count
+--> 1  "Incremented"
+Hyena count
+--> 0  "Still the same"
 ]]]
 
 Class instance variables are private to a class in exactly the same way that
-instance variables are private to the instance. Since classes and their
+instance variables are private to an instance. Since classes and their
 instances are different objects, this has the following consequences:
 
 ""1."" A class does not have access to the instance variables of its own
@@ -376,10 +378,10 @@ describe the instance of the class ==WebServer class== i.e. the class ==WebServe
 
 [[[label=scr:instance|caption=New state for classes
 Object class allInstVarNames
-   -->  "#('superclass' 'methodDict' 'format' 'layout' 'instanceVariables' 'organization' 'subclasses' 'name' 'classPool' 'sharedPools' 'environment' 'category' 'traitComposition' 'localSelectors')"
+-->  "#('superclass' 'methodDict' 'format' 'layout' 'instanceVariables' 'organization' 'subclasses' 'name' 'classPool' 'sharedPools' 'environment' 'category' 'traitComposition' 'localSelectors')"
 
 WebServer class allInstVarNames 
-   -->"#('superclass' 'methodDict' 'format' 'layout' 'instanceVariables' 'organization' 'subclasses' 'name' 'classPool' 'sharedPools' 'environment' 'category' 'traitComposition' 'localSelectors' #uniqueInstance)"
+-->"#('superclass' 'methodDict' 'format' 'layout' 'instanceVariables' 'organization' 'subclasses' 'name' 'classPool' 'sharedPools' 'environment' 'category' 'traitComposition' 'localSelectors' #uniqueInstance)"
 ]]]
 
 We can now define a class method named ==uniqueInstance==, as shown below. This
@@ -389,8 +391,8 @@ variable ==uniqueInstance==. Finally the value of ==uniqueInstance== is
 returned. Since ==uniqueInstance== is a class instance variable, this method can
 directly access it.
 
-[[[label=scr:uniqueInstance|caption=Class-side accessor method ==uniqueInstance==
-WebServer class>>uniqueInstance
+[[[language=smalltalk|label=scr:uniqueInstance|caption=Class-side accessor method ==uniqueInstance==
+WebServer class >> uniqueInstance
      uniqueInstance ifNil: [ uniqueInstance := self new ].
      ^ uniqueInstance
 ]]]
@@ -402,7 +404,7 @@ instead of creating a new one. (This pattern, checking if a variable is nil
 in an accessor method, and initializing its value if it is nil, is called
 ''lazy initialization'').
 
-Note that the instance creation code inside the conditional in Script *@scr:uniqueInstance*
+Note that the instance creation code in Script *@scr:uniqueInstance*
 is written as ==self new== and not as ==WebServer new==. What is the difference?
 Since the ==uniqueInstance== method is defined in ==WebServer class==, you might
 think that there is no difference. And indeed, until someone creates a subclass
@@ -440,12 +442,18 @@ structure from a single ''superclass''. This means that Smalltalk has single
 inheritance.
 
 [[[
-SmallInteger superclass --> Integer
-Integer superclass          --> Number
-Number superclass        --> Magnitude
-Magnitude superclass    --> Object
-Object superclass           --> ProtoObject
-ProtoObject superclass  --> nil
+SmallInteger superclass 
+--> Integer
+Integer superclass
+--> Number
+Number superclass
+--> Magnitude
+Magnitude superclass
+--> Object
+Object superclass
+--> ProtoObject
+ProtoObject superclass
+--> nil
 ]]]
 
 Traditionally the root of an inheritance hierarchy is the class
@@ -462,7 +470,7 @@ its subclasses.
 A new class is normally created by sending the message ==subclass:
 instanceVariableNames: ...== to an existing class. There are a few other methods
 to create classes. To see what they are, have a look at ==Class== and its
-==subclass creation== protocol (found in the ==Kernel-Classes== package).
+==subclass creation== protocol.
 
 Although Pharo does not provide multiple inheritance, it supports a mechanism
 called Traits for sharing behaviour across unrelated classes. Traits are
@@ -546,7 +554,7 @@ creation template, below.
 [[[label=scr:tauthor|caption=Defining a new trait
 Trait named: #TAuthor
     uses: { }
-    category: 'PBE-LightsOut'
+    package: 'PBE-LightsOut'
 ]]]
 
 Here we define the trait ==TAuthor== in the package ==PBE-LightsOut==. This
@@ -578,14 +586,15 @@ BorderedMorph subclass: #LOGame
     instanceVariableNames: 'cells'
     classVariableNames: ''
     poolDictionaries: ''
-    category: 'PBE-LightsOut'
+    package: 'PBE-LightsOut'
 ]]]
 
 If we now instantiate ==LOGame==, it will respond to the ==author== message as
 expected.
 
 [[[
-LOGame new author --> 'on'
+LOGame new author 
+--> 'on'
 ]]]
 
 Trait composition expressions may combine multiple traits using the ==+==
@@ -603,7 +612,7 @@ Object subclass: #Behavior
     instanceVariableNames: 'superclass methodDict format'
     classVariableNames: 'ObsoleteSubclasses'
     poolDictionaries: ''
-    category: 'Kernel-Classes'
+    package: 'Kernel-Classes'
 ]]]
 
 Here we see that the method ==addTraitSelector:withMethod:== defined in the
@@ -618,10 +627,8 @@ In procedural programming (and in some static features of some object-oriented l
 the choice of which piece of code to execute when a procedure is called is made
 by the caller. The caller chooses the procedure to execute ''statically'', by name.
 
-In Pharo, we do ''not'' "invoke methods". Instead, we ''send
-messages.'' This is just a terminology point but it is significant. It implies that 
-this is not the responsibility of the client to select the method to be executed, the one of the 
-receiver of the message. 
+In Pharo, we do ''not'' "invoke methods". Instead, we ''send messages.'' This is just a terminology point but it is significant. 
+It implies that this is not the responsibility of the client to select the method to be executed, the one of the receiver of the message. 
 
 When sending a message, we do not decide which method will be executed. 
 Instead, we ''tell'' an object to do something for us by sending it a message. 
@@ -631,8 +638,10 @@ objects may have different methods for responding to the same message, the
 method must be chosen ''dynamically'', when the message is received.
 
 [[[
-3 + 4         --> 7          "send message + with argument 4 to integer 3"
-(1@2) + 4 --> 5@6    "send message + with argument 4 to point (1@2)"
+3 + 4
+--> 7          "send message + with argument 4 to integer 3"
+(1@2) + 4
+--> 5@6    "send message + with argument 4 to point (1@2)"
 ]]]
 
 As a consequence, we can send the ''same message'' to different objects, each of
@@ -682,16 +691,21 @@ object-oriented style. Joseph Pelrine also states this very nicely:
 !!Method lookup follows the inheritance chain
 
 What exactly happens when an object receives a message?
+This is a two step process: method lookup and method execution. 
 
-The process is quite simple:
+""Lookup."" First, the method having the same name as the message is looked up.
+
+""Method Execution."" Second, the found method is applied to the receiver with the message arguments: 
+When the method is found, the arguments are bound to the parameters of
+the method, and the virtual machine executes it.
+
+The lookup process is quite simple:
 
 ""1."" The class of the receiver looks up the method to use to handle the message.
 
 ""2."" If this class does not have that method method defined, it asks its
 superclass, and so on, up the inheritance chain.
 
-""3."" When the method is found, the arguments are bound to the parameters of
-the method, and the virtual machine executes it.
 
 It is essentially as simple as that. Nevertheless there are a few questions that
 need some care to answer:
@@ -721,16 +735,16 @@ If we now send this object the message ==defaultColor==, we get the result
 ==Color yellow==.
 
 [[[
-anEllipse defaultColor --> Color yellow
+anEllipse defaultColor 
+--> Color yellow
 ]]]
 
 The class ==EllipseMorph== implements ==defaultColor==, so the appropriate
 method is found immediately.
 
 [[[label=scr:defaultColor|caption=A locally implemented method
-EllipseMorph>>defaultColor
+EllipseMorph >> defaultColor
      "Answer the default color/fill style for the receiver"
-
      ^ Color yellow
 ]]]
 
@@ -743,7 +757,6 @@ class ==Morph== (see Figure *@fig:openInWorldLookup*).
 [[[label=scr:openInWorld|caption=An inherited method
 Morph>>openInWorld
      "Add this morph to the world."
-
      self openInWorld: self currentWorld
 ]]]
 
@@ -766,15 +779,16 @@ value of the last statement in the method. Again, this is not the case in Pharo,
 instead you can imagine that a method without an explicit return ends with
 ==^ self==.
 
+@@important ==self== represents the receiver of the message.
+
 This suggests that ==openInWorld== is equivalent to ==openInWorldReturnSelf==,
 defined below.
 
 [[[label=scr:openInWorldReturnSelf|caption=Explicitly returning ==self==
 Morph>>openInWorld
     "Add this morph to the world."
-
     self openInWorld: self currentWorld
-    ^ self		"Don't do this unless you mean it!"
+    ^ self		
 ]]]
 
 Why is explicitly writing ==^ self== not a so good thing to do? When you
@@ -784,10 +798,12 @@ are saying that you expect the sender to use the returned value. This is not the
 case here, so it is best not to explicitly return ==self==. We only return ==self==
 on special case to stress that the receiver is returned. 
 
-This is a common idiom in Smalltalk, which Kent Beck refers to as ''Interesting
+This is a common idiom in Pharo, which Kent Beck refers to as ''Interesting
 return value'':
 
 ''"Return a value only when you intend for the sender to use the value."''
+
+@@important By default (if not specified differently) a method returns the message receiver.
 
 !!!Overriding and extension
 
@@ -824,35 +840,66 @@ BorderedMorph>>initialize
     self borderInitialize
 ]]]
 
-@@important It is a good practice that an ==initialize== method start by sending ==super initialize==.
+We need ==super== sends to compose inherited behaviour that would otherwise be overridden. 
 
+@@important It is a good practice that an ==initialize== method start by sending ==super initialize==.
 !!!Self sends and super sends
 
-@@todo we should redo completely this example since the code is not there anymore. So either build up one or find one that exists in Pharo 50.
+==self== represents the receiver of the message and the lookup of the method  starts
+in the class of the receiver. Now what is ==super==?  ==super== is ''not'' the superclass! It is a common and natural
+mistake to think this. It is also a mistake to think that lookup starts in the superclass of the class of the receiver.
 
-We need ==super== sends to compose inherited behaviour that would otherwise be
-overridden. The usual way to compose methods, whether inherited or not, however,
-is by means of ==self== sends.
+@@important ==self== represents the receiver of the message and the method lookup starts in the class of the receiver.
 
-How do ==self== sends differ from ==super== sends? Like ==self==, ==super==
-represents the receiver of the message. The only thing that changes is the
-method lookup. Instead of lookup starting in the class of the receiver, it
+!!!! How do ==self== sends differ from ==super== sends? 
+
+Like ==self==, ==super== represents the receiver of the message. Yes you read it well!
+The only thing that changes is the method lookup. Instead of lookup starting in the class of the receiver, it
 starts in the ''superclass of the class of the method where the ==super== send
 occurs''.
 
-Note that ==super== is ''not'' the superclass! It is a common and natural
-mistake to think this. It is also a mistake to think that lookup starts in the
-superclass of the class of the receiver. We shall see with the following example precisely
-how this works.
+@@important ==super== represents the receiver of the message and the method lookup starts in the superclass of the class of the method where the ==super== send occurs.
 
-Consider the message ==constructorString==, which we can send to any morph:
 
-[[[
-anEllipse constructorString
-    --> '(EllipseMorph newBounds: (0@0 corner: 50@40) color: Color yellow)'
+
+
+
+We shall see with the following example precisely how this works.
+Imagine that we define the following three methods:
+
+First we define the method ==fullPrintOn:== on class ==Morph== that just sends the message ==printOn:==. 
+
+[[[label=scr:morphfullPrintOn|caption=A ==self== send
+Morph >> fullPrintOn: aStream 
+	aStream nextPutAll: self class name, ' new'
 ]]]
 
-The return value is a string that can be evaluated to recreate the morph.
+Second we define the method ==constructorString== that send the message ==fullPrintOn:==. 
+[[[label=scr:constructorString|caption=A ==self== send
+Morph >> constructorString
+    ^ String streamContents: [ :s | self fullPrintOn: s  ].
+]]]
+
+Finally, we define the method ==fullPrintOn:== on the class ==BorderedMorph== superclass of ==EllipseMorph==.
+This new method extends the superclass behavior: it invokes it and adds extra behavior.
+
+[[[label=scr:fullPrintOn|caption=Combining ==super== and ==self== sends
+BorderedMorph >> fullPrintOn: aStream
+    aStream nextPutAll: '('.
+    super fullPrintOn: aStream.
+    aStream 
+        nextPutAll: ') setBorderWidth: '; 
+        print: borderWidth;
+        nextPutAll: ' borderColor: ', (self colorString: borderColor)
+]]]
+
+Consider the message ==constructorString== sent to an instance of ==EllipseMorph==:
+
+[[[
+EllipseMorph new constructorString
+--> '(EllipseMorph new) setBorderWidth: 1 borderColor: Color black'
+]]]
+
 
 How exactly is this result obtained through a combination of ==self== and
 ==super== sends? First, ==anEllipse constructorString== will cause the method
@@ -861,36 +908,14 @@ How exactly is this result obtained through a combination of ==self== and
 
 +==self== and ==super== sends>file://figures/constructorStringLookup.png|label=fig:constructorStringLookup|width=90+
 
-[[[label=scr:constructorString|caption=A ==self== send
-Morph>>constructorString
-    ^ String streamContents: [:s | self printConstructorOn: s indent: 0].
-]]]
+
 
 The method ==Morph>>constructorString== performs a ==self== send of
-==printConstructorOn:indent:==. This message is also looked up, starting in the
-class ==EllipseMorph==, and found in ==Morph==. This method in turn does a
-==self== send of ==printConstructorOn:indent:nodeDict:==, which does a ==self==
-send of ==fullPrintOn:==. Once again, ==fullPrintOn:== is looked up starting in
-the class ==EllipseMorph==, and ==BorderedMorph>>fullPrintOn:== is found in
-==BorderedMorph== (see Figure *@fig:constructorStringLookup* once again). What
+==fullPrintOn:==. The message ==fullPrintOn:== is looked up starting in
+the class ==EllipseMorph==, and the method ==BorderedMorph>>fullPrintOn:== is found in
+==BorderedMorph== (see Figure *@fig:constructorStringLookup*). What
 is critical to notice is that the ==self== send causes the method lookup to
 start again in the class of the receiver, namely the class of ==anEllipse==.
-
-A ==self== send is dynamic in the sense that by looking at the method containing it, we cannot predict which method will be executed. 
-Indeed an instance of a subclass may receive the message containing the self expression and redefine the method in that subclass. 
-
-@@todo put an exemple.
-
-
-@@important A ==self== send triggers a ''dynamic method lookup starting in the class of the receiver.'' A ==self== send is dynamic in the sense that by looking at the method containing it, we cannot predict which method will be executed. 
-
-[[[label=scr:fullPrintOn|caption=Combining ==super== and ==self== sends
-BorderedMorph>>fullPrintOn: aStream
-    aStream nextPutAll: '('.
-    super fullPrintOn: aStream.
-    aStream nextPutAll: ') setBorderWidth: '; print: borderWidth;
-        nextPutAll: ' borderColor: ', (self colorString: borderColor)
-]]]
 
 At this point, ==BorderedMorph>>fullPrintOn:== does a ==super== send to extend
 the ==fullPrintOn:== behaviour it inherits from its superclass. Because this is
@@ -898,11 +923,22 @@ a ==super== send, the lookup now starts in the superclass of the class where the
 ==super== send occurs, namely in ==Morph==. We then immediately find and
 evaluate ==Morph>>fullPrintOn:==.
 
+!!!! Stepping back
+
+A ==self== send is dynamic in the sense that by looking at the method containing it, we cannot predict which method will be executed.
+Indeed an instance of a subclass may receive the message containing the self expression and redefine the method in that subclass.
+Here ==EllipseMorph== could redefine the method ==fullPrintOn:== and this method would be executed by method ==constructorString==.
+Note that we cannot predict which ==fullPrintOn:== method (either the one of EllipseMorph or BorderedMorph, or Morph) will be executed 
+when executing the method ==constructorString==, since it depends on the receiver the ==constructorString== message. 
+
+@@important A ==self== send triggers a ''method lookup starting in the class of the receiver.'' A ==self== send is dynamic in the sense 
+that by looking at the method containing it, we cannot predict which method will be executed. 
+
+
 Note that the ==super== lookup did not start in the superclass of the receiver.
 This would have caused lookup to start from ==BorderedMorph==, resulting in an
 infinite loop!
 
-@@important A ==super== send triggers a method lookup starting in the ''superclass of the class of the method performing the ==super== send''. We say that super sends are ''static'' because just looking at the method we know the class where the lookup should start.
 
 If you think carefully about ==super== send and Figure
 *@fig:constructorStringLookup*, you will realize that ==super== bindings are
@@ -910,6 +946,10 @@ static: all that matters is the class in which the text of the ==super== send is
 found. By contrast, the meaning of ==self== is dynamic: it always represents the
 receiver of the currently executing message. This means that  ''all''  messages
 sent to ==self== are looked up by starting in the receiver's class.
+
+@@important A ==super== send triggers a method lookup starting in the ''superclass of the class of the method performing the ==super== send''. We say that super sends are ''static'' because just looking at the method we know the class where the lookup should start (the class above the class containing the method).
+
+
 
 !!!Message not understood
 
@@ -1056,7 +1096,7 @@ Object subclass: #Color
 	classVariableNames: 'BlueShift CachedColormaps ColorRegistry ComponentMask
     ComponentMax GrayToIndexMap GreenShift HalfComponentMask IndexedColors
     MaskingMap RandomStream RedShift'
-	category: 'Graphics-Primitives'
+	package: 'Graphics-Primitives'
 ]]]
 
 The class variable ==ColorRegistry== is an instance of ==IdentityDictionary==
@@ -1124,7 +1164,7 @@ ArrayedCollection subclass: #Text
         instanceVariableNames: 'string runs'
         classVariableNames: ''
         poolDictionaries: 'TextConstants'
-        category: 'Collections-Text'
+        package: 'Collections-Text'
 ]]]
 
 This allows methods of the class ==Text== to access the ''keys'' of the dictionary
