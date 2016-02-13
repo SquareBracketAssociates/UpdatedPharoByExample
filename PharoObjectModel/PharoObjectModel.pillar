@@ -928,11 +928,9 @@ evaluate ==Morph>>fullPrintOn:==.
 A ==self== send is dynamic in the sense that by looking at the method containing it, we cannot predict which method will be executed.
 Indeed an instance of a subclass may receive the message containing the self expression and redefine the method in that subclass.
 Here ==EllipseMorph== could redefine the method ==fullPrintOn:== and this method would be executed by method ==constructorString==.
-Note that we cannot predict which ==fullPrintOn:== method (either the one of EllipseMorph or BorderedMorph, or Morph) will be executed 
-when executing the method ==constructorString==, since it depends on the receiver the ==constructorString== message. 
+Note that by only looking at the method ==constructorString==, we cannot predict which ==fullPrintOn:== method (either the one of ==EllipseMorph==, ==BorderedMorph==, or ==Morph==) will be executed when executing the method ==constructorString==, since it depends on the receiver the ==constructorString== message. 
 
-@@important A ==self== send triggers a ''method lookup starting in the class of the receiver.'' A ==self== send is dynamic in the sense 
-that by looking at the method containing it, we cannot predict which method will be executed. 
+@@important A ==self== send triggers a ''method lookup starting in the class of the receiver.'' A ==self== send is dynamic in the sense that by looking at the method containing it, we cannot predict which method will be executed. 
 
 
 Note that the ==super== lookup did not start in the superclass of the receiver.
@@ -1018,15 +1016,18 @@ This namespace includes ==Smalltalk== itself since it is a global variable. The 
 the symbols that name the global objects in Pharo code. So, for example:
 
 [[[
-Smalltalk globals at: #Boolean --> Boolean
+Smalltalk globals at: #Boolean 
+--> Boolean
 ]]]
 
 Since ==Smalltalk== is itself a global variable:
 
 [[[
-Smalltalk globals at: #Smalltalk  --> Smalltalk
+Smalltalk globals at: #Smalltalk
+--> Smalltalk
 
-(Smalltalk globals at: #Smalltalk) == Smalltalk   --> true
+(Smalltalk globals at: #Smalltalk) == Smalltalk
+--> true
 ]]]
 
 
