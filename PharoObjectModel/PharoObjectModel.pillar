@@ -1,7 +1,7 @@
 { "title": "The Pharo object model" }
 @cha:model
 
-The Pharo programming model is heavily inspired by that of Smalltalk. It
+The Pharo programming model is heavily inspired by the one of Smalltalk. It
 is simple and uniform: everything is an object, and objects communicate only by
 sending each other messages. Instance variables are private to the object. Methods are all public and dynamically looked up (late-bound).
 In this chapter we present the core concepts of the Pharo object model. We revisit concepts such as ==self== and ==super== and define
@@ -62,7 +62,7 @@ differences between these three kinds of object.
 
 !!Every object is an instance of a class
 
-Every object has a class; you can find out which by sending it the message
+Every object has a class; you can find out which one by sending it the message
 ==class==.
 
 [[[
@@ -93,7 +93,7 @@ will not need to think about metaclasses, and may happily ignore them. (We will
 have a closer look at metaclasses in Chapter *: Classes and Metaclasses>../Metaclasses/Metaclasses.pillar@cha:metaclasses*.)
 
 !! Instance structure and behavior
-Now we will briefly present how we specify structure and behavior of instances.
+Now we will briefly present how we specify the structure and behavior of instances.
 
 !!!Instance variables
 
@@ -162,13 +162,13 @@ such a "private" method.
 Methods can access all instance variables of the object. Some developers prefer
 to access instance variables only through accessors. This practice has some
 value, but it also clutters the interface of your classes, and worse, exposes
-private state to the world.
+its private state to the world.
 
 !! The instance side and the class side
 
 Since classes are objects, they can have their own instance variables and their own methods. 
 We call these ''class instance variables'' and ''class methods'', but they are really no different from ordinary instance variables and methods:
-They simply operate on different objects (class in their case).
+They simply operate on different objects (classes in this case).
 An instance variable describes instance state and a method describes instance behavior. Similarly, 
 class instance variables are just instance variables defined by a metaclass (and describe the state of classes - instances of metaclasses), and
 class methods are just methods defined by a metaclass (and that will be executed on classes).
@@ -417,8 +417,7 @@ would clearly expect ==ReliableWebServer uniqueInstance== to answer a
 ==ReliableWebServer== will each have a different value for their
 ==uniqueInstance== instance variable.
 
-!!!!A note on lazy initialization
-
+!!!!! A note on lazy initialization.
 ''Do not over-use the lazy initialization pattern.'' The setting of initial
 values for instances of objects generally belongs in the ==initialize== method.
 Putting initialization calls only in ==initialize== helps from a readability
@@ -483,13 +482,13 @@ classes without duplicating code.
 An abstract class is a class that exists to be subclassed, rather than to be
 instantiated. An abstract class is usually incomplete, in the sense that it
 does not define all of the methods that it uses. The "placeholder" methods, those
-that the other methods assume but which are not themselves defined, are called
+that the other methods assume to be (re)defined are called
 abstract methods.
 
 Pharo has no dedicated syntax to specify that a method or a class is
 abstract. Instead, by convention, the body of an abstract method consists of the
 expression ==self subclassResponsibility==. This indicates that subclasses have 
-the responsibility to define aconcrete version of the method. ==self subclassResponsibility== methods should
+the responsibility to define a concrete version of the method. ==self subclassResponsibility== methods should
 always be overridden, and thus should never be executed. If you forget to
 override one, and it is executed, an exception will be raised.
 
@@ -628,7 +627,7 @@ the choice of which piece of code to execute when a procedure is called is made
 by the caller. The caller chooses the procedure to execute ''statically'', by name.
 
 In Pharo, we do ''not'' "invoke methods". Instead, we ''send messages.'' This is just a terminology point but it is significant. 
-It implies that this is not the responsibility of the client to select the method to be executed, the one of the receiver of the message. 
+It implies that this is not the responsibility of the client to select the method to be executed, it is the one of the receiver of the message. 
 
 When sending a message, we do not decide which method will be executed. 
 Instead, we ''tell'' an object to do something for us by sending it a message. 
@@ -867,7 +866,8 @@ occurs''.
 We shall see with the following example precisely how this works.
 Imagine that we define the following three methods:
 
-First we define the method ==fullPrintOn:== on class ==Morph== that just sends the message ==printOn:==. 
+First we define the method ==fullPrintOn:== on class ==Morph== that just adds to the stream the name of the class followed by the string ' new' - the idea is that we
+could execute the resulting string and gets back an instance similar to the receiver. 
 
 [[[label=scr:morphfullPrintOn|caption=A ==self== send
 Morph >> fullPrintOn: aStream 
