@@ -31,7 +31,8 @@ Let us look at each of these rules in some detail.
 The mantra ''everything is an object'' is highly contagious. After only a short
 while working with Pharo, you will start to be surprised at how this rule
 simplifes everything you do. Integers, for example, are truly objects, so you
-can send messages to them, just as you do to any other object.
+can send messages to them, just as you do to any other object. At the end of this chapter, we added an implementation 
+note on the object implementation for the curious reader.
 
 [[[
 3 + 4
@@ -50,15 +51,7 @@ is a truly reflective system, which gives a great deal of expressive power to de
 
 @@important Classes are objects too.
 
-!!!!! Implementation note. 
-Deep in the implementation of Pharo, there are three different kinds of objects:
 
-# ordinary objects with instance variables that are passed by references
-# ''small integers'' that are passed by value
-# indexable objects like arrays that hold a contiguous portion of memory
-
-The beauty of Pharo is that you normally don't need to care about the
-differences between these three kinds of object.
 
 !!Every object is an instance of a class
 
@@ -1179,6 +1172,21 @@ Text>>testCR
 
 Once again, we recommend that you avoid the use of pool variables and pool
 dictionaries.
+
+!! Internal object implementation note
+Here is an implementation note for people that really want to go deep inside the way Pharo represents internally objects. 
+The implementation distinguished between two different kinds of objects:
+# Objects with zero or more fields that are passed by reference and exist on the Pharo heap.
+# Immediate objects that are passed by value. Depending on version, these are a range of the integers called SmallInteger, all ==Character== objects and possibly a sub-range of 64-bit floating-point numbers called ==SmallFloat64==.  In the implementation, such immediate objects occupy an object pointer, most of whose bits encode the immediate's value and some of the bits encode the object's class.
+
+The first kind of object, an ordinary object, comes in a number of varieties:
+# Normal objects that have zero or more named instance variables, such as ==Point== which has an x and a y instance variable.  Each instance variable holds an object pointer, which can be a reference to another ordinary object or an immediate.
+# Indexable objects like arrays that have zero or more indexed instance variables numbered from 1 to N.  Each indexed instance variable holds an object pointer, which can be a reference to another ordinary object or an immediate.  Indexable objects are accessed using the messages ==at:== and ==at:put:==.  For example ==((Array new: 1) at: 1 put: 2; at: 1)== answers 2.
+# Objects like Closure or Context that have both named instance variables and indexed instance variables.  In the object, the indexed instance variables follow the named instance variables.
+# Objects like ==ByteString== or ==Bitmap== that have indexed instance variables numbered from 1 to N that contain raw data.  Each datum may occupy 8, 16 or 32-bits, depending on its class definition.  The data can be accessed as either integers, characters or floating-point numbers, depending on how methods ==at:== and ==at:put:== are implemented.  The ==at:== and ==at:put:== methods convert between Pharo objects and raw data, hiding the internal representation, but allowing the system to represent efficiently data such as strings, and bitmaps.
+
+A beauty of Pharo is that you normally don't need to care about the differences between these three kinds of object.
+
 
 !!Chapter summary
 
