@@ -71,7 +71,7 @@ optimized or occasionally even forbidden by subclasses of ==Collection==.
 | ==testing==	| ==isEmpty==, ==includes:==, ==contains:==, ==occurrencesOf:== |
 | ==adding==    | ==add:==, ==addAll:==
 | ==removing==	| ==remove:==, ==remove:ifAbsent:==, ==removeAll:==
-| ==enumerating== | ==do:==, ==collect:==, ==select:==, == reject:==
+| ==enumerating== | ==do:==, ==collect:==, ==select:==, ==reject:==
 | | ==detect:==, ==detect:ifNone:==, ==inject:into:==
 | ==converting== | ==asBag==, ==asSet==, ==asOrderedCollection==, ==asSortedCollection==,
 | | ==asArray==, ==asSortedCollection:==
@@ -97,7 +97,7 @@ same requests. Let us briefly survey some of the key differences:
 ;==Accepts duplicates:==
 :A ==Set== filters out duplicates, but a ==Bag== does not. Classes ==Dictionary==, ==Set== and ==Bag== use the ==\=== method provided by the elements; the ==Identity== variants of these classes use the ==\=\=== method, which tests whether the arguments are the same object, and the ==Pluggable== variants use an arbitrary equivalence relation supplied by the creator of the collection.
 ;==Heterogeneous:==
-:Most collections will hold any kind of element. A ==String==, ==CharacterArray== or ==Symbol==, however, only holds ==Character==s. An ==Array== will hold any mix of objects, but a ==ByteArray== only holds Bytes, an ==IntegerArray== only holds Integers and a ==FloatArray== only holds Floats. A ==LinkedList== is constrained to hold elements that conform to the ==Link== ==accessing== protocol.
+:Most collections will hold any kind of element. A ==String==, ==CharacterArray== or ==Symbol==, however, only holds ==Character==s. An ==Array== will hold any mix of objects, but a ==ByteArray== only holds Bytes. A ==LinkedList== is constrained to hold elements that conform to the ==Link== ==accessing== protocol.
 
 !!Collection Implementations
 
@@ -280,7 +280,7 @@ anArray at: 3
 ]]]
 
 Be careful: as a general principle do not modify literal arrays!
-Literal arrays are kept in compiled method literal frame (a space where literals appearing in the method are stored), therefore unless you copy the array, the second time you execute the code your ''literal'' array may not have the value you expect. (Without cloning, the second time around, the literal ==#(1 2 3 4 5 6)== will actually be ==#(1 2 33 4 5 6)==!) Dynamic arrays do not have this problem because they are not stored in literal frames. 
+Literal arrays are kept in compiled method literal frames (a space where literals appearing in a method are stored), therefore unless you copy the array, the second time you execute the code your ''literal'' array may not have the value you expect. In the example, without copying the array, the second time around, the literal ==#(1 2 3 4 5 6)== will actually be ==#(1 2 33 4 5 6)==! Dynamic arrays do not have this problem because they are not stored in literal frames. 
 
 !!!==OrderedCollection==
 
@@ -384,7 +384,7 @@ is to use as key an object whose ==\=== method has been redefined but not its
 when comparing objects.
 
 In its implementation, a ==Dictionary== can be seen as consisting of a set of
-associations (key value) created using the message ==->==. We can create a
+(key value) associations created using the message ==->==. We can create a
 ==Dictionary== from a collection of associations, or we may convert a dictionary
 to an array of associations.
 
@@ -666,7 +666,7 @@ the pattern and not the string to be matched.
 [[[
 'Linux *' match: 'Linux mag'
 --> true
-'GNU/Linux #ag' match: 'GNU/Linux tag'
+'GNU#Linux #ag' match: 'GNU/Linux tag'
 --> true
 ]]]
 
@@ -690,7 +690,7 @@ For substring manipulation we can use messages like ==first==, ==first:==, ==all
 --> 'p' (not $p)
 ]]]
 
-Be aware that result type can be different, depending on the method used. Most of the substring-related methods return ==String== instances. But the messages that always return one element of the ==String== collection, return a ==Character== instance (for example, =='alphabet' at: 6== returns the character==$b==). For complete list of substring-related messages, browse the ==SequenceableCollection== class (especially the ==accessing== protocol).
+Be aware that result type can be different, depending on the method used. Most of the substring-related methods return ==String== instances. But the messages that always return one element of the ==String== collection, return a ==Character== instance (for example, =='alphabet' at: 6== returns the character ==$b==). For a complete list of substring-related messages, browse the ==SequenceableCollection== class (especially the ==accessing== protocol).
 
 !!!!!Some tests on strings
 
@@ -923,7 +923,7 @@ Instead we must first convert the string to an ==Array== or an
 
 Actually ==collect:== is not guaranteed to return a collection of exactly the
 same class as the receiver, but only the same ''species''. In the case of
-an ==Interval==, the species is actually an ==Array==!
+an ==Interval==, the species is an ==Array==!
 
 [[[
 (1 to: 5) collect: [ :ea | ea * 2 ] 
@@ -978,7 +978,7 @@ two-argument block which is applied to the result this far, and each element in
 turn.
 
 A trivial application of ==inject:into:== is to produce the sum of a collection
-of numbers. Following Gauss, in Pharo we could write this expression to sum the
+of numbers. In Pharo we could write this expression to sum the
 first 100 integers:
 
 [[[
