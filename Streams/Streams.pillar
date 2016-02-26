@@ -19,21 +19,21 @@ five characters. This stream is in its original position, i.e., there is no
 element in the past. You can go back to this position using the message
 ==PositionableStream>>reset==.
 
-+A stream positioned at its beginning.>file://figures/_abcdeStef.png|width=100|label=fig:_abcde+
++A stream positioned at its beginning.>file://figures/_abcdeStef.png|width=70|label=fig:_abcde+
 
 Reading an element conceptually means removing the first element of the future
 element sequence  and putting it after the last element in the past element
 sequence. After having read one element using the message ==next==, the state of
 your stream is that shown in Figure *@fig:a_bcde*.
 
-+The same stream after the execution of the method ==next==: the character ==a== is ''in the past'' whereas ==b==, ==c==, ==d== and ==e== are ''in the future''.>file://figures/a_bcdeStef.png|width=100|label=fig:a_bcde+
++The same stream after the execution of the method ==next==: the character ==a== is ''in the past'' whereas ==b==, ==c==, ==d== and ==e== are ''in the future''.>file://figures/a_bcdeStef.png|width=70|label=fig:a_bcde+
 
 Writing an element means replacing the first element of the future sequence by
 the new one and moving it to the past. Figure *@fig:ax_cde* shows the state of
 the same stream after having written an ==x== using the message
 ==Stream>>nextPut: anElement==.
 
-+The same stream after having written an ==x==.>file://figures/ax_cdeStef.png|width=100|label=fig:ax_cde+
++The same stream after having written an ==x==.>file://figures/ax_cdeStef.png|width=70|label=fig:ax_cde+
 
 !!Streams vs. collections
 
@@ -81,7 +81,7 @@ StandardFileStream
   do: [:str | str
                 nextPutAll: '123';
                 cr;
-                nextPutAll: 'abcd'].
+                nextPutAll: 'abcd' ].
 ]]]
 
 The following sections present the protocols in more depth.
@@ -124,7 +124,7 @@ the next element in the stream without going forward.
 stream := ReadStream on: '-143'.
 negative := (stream peek = $-).    "look at the first element without reading it"
 negative. --> true
-negative ifTrue: [stream next].       "ignores the minus character"
+negative ifTrue: [stream next ].       "ignores the minus character"
 number := stream upToEnd.
 number. --> '143'
 ]]]
@@ -167,7 +167,7 @@ stream position: 2.
 stream peek --> $c
 ]]]
 
-+A stream at position 2>file://figures/ab_cdeStef.png|width=100|label=fig:ab_cde+
++A stream at position 2.>file://figures/ab_cdeStef.png|width=70|label=fig:ab_cde+
 
 To position the stream at the beginning or the end, you can use
 ==PositionableStream>>reset== or ==PositionableStream>>setToEnd==.
@@ -207,18 +207,18 @@ Here is a possible implementation of an algorithm using ==atEnd== that takes two
 sorted collections as parameters and merges those collections into another
 sorted collection:
 
-[[[language=smalltalk|label=src:mergeStreams
+[[[label=src:mergeStreams
 stream1 := #(1 4 9 11 12 13) readStream.
 stream2 := #(1 2 3 4 5 10 13 14 15) readStream.
 
 "The variable result will contain the sorted collection."
 result := OrderedCollection new.
-[stream1 atEnd not & stream2 atEnd not]
+[stream1 atEnd not & stream2 atEnd not ]
   whileTrue: [
     stream1 peek < stream2 peek
         "Remove the smallest element from either stream and add it to the result."
-        ifTrue: [result add: stream1 next]
-        ifFalse: [result add: stream2 next]].
+        ifTrue: [result add: stream1 next ]
+        ifFalse: [result add: stream2 next ] ].
 
 "One of the two streams might not be at its end. Copy whatever remains."
 result
@@ -238,7 +238,7 @@ using a ==ReadStream==. We'll now learn how to create collections using
 various locations. They are often used to construct strings that are based on
 static and dynamic parts, as in this example:
 
-[[[language=smalltalk|label=src:writeStreamExample
+[[[label=src:writeStreamExample
 stream := String new writeStream.
 stream
   nextPutAll: 'This Smalltalk image contains: ';
@@ -255,9 +255,9 @@ This technique is used in the different implementations of the method
 ==printOn:==, for example. There is a simpler and more efficient way of creating
 strings if you are only interested in the content of the stream:
 
-[[[language=smalltalk|label=src:stringFromStreamContents
+[[[label=src:stringFromStreamContents
 string := String streamContents:
-		[:stream |
+		[ :stream |
 			stream
                  print: #(1 2 3);
                  space;
@@ -265,7 +265,7 @@ string := String streamContents:
                  space;
                  nextPut: $=;
                  space;
-                 print: 3.	].
+                 print: 3.	 ].
 string. -->   '#(1 2 3) size = 3'
 ]]]
 
@@ -295,17 +295,17 @@ Using ==WriteStream>>nextPut:== and ==WriteStream>>nextPutAll:== on a
 ==WriteStream== is often the best way to concatenate characters. Using the comma
 concatenation operator (==,==) is far less efficient:
 
-[[[language=smalltalk|label=src:concatenationComparison
+[[[label=src:concatenationComparison
 [| temp |
   temp := String new.
   (1 to: 100000)
-    do: [:i | temp := temp, i asString, ' ']] timeToRun --> 115176 "(milliseconds)"
+    do: [:i | temp := temp, i asString, ' ' ] ] timeToRun --> 115176 "(milliseconds)"
 
 [| temp |
   temp := WriteStream on: String new.
   (1 to: 100000)
-    do: [:i | temp nextPutAll: i asString; space].
-  temp contents] timeToRun --> 1262 "(milliseconds)"
+    do: [:i | temp nextPutAll: i asString; space ].
+  temp contents ] timeToRun --> 1262 "(milliseconds)"
 ]]]
 
 The reason that using a stream can be much more efficient is that using a
@@ -319,10 +319,10 @@ is a well-known optimization.
 In fact, you can use ==SequenceableCollection class>>streamContents:==
 (mentioned earlier) to help you do this:
 
-[[[language=smalltalk|label=src:streamContentsUsage
+[[[label=src:streamContentsUsage
 String streamContents: [ :tempStream |
   (1 to: 100000)
-       do: [:i | tempStream nextPutAll: i asString; space]]
+       do: [:i | tempStream nextPutAll: i asString; space ] ]
 ]]]
 
 !!!Reading and writing at the same time
@@ -332,30 +332,30 @@ the same time. Imagine you want to create a ==History== class which will manage
 backward and forward buttons in a web browser. A history would react as in
 figures *@fig:emptyStream* to *@fig:page4*.
 
-+A new history is empty. Nothing is displayed in the web browser.>file://figures/emptyStef.png|width=100|label=fig:emptyStream+
++A new history is empty. Nothing is displayed in the web browser.>file://figures/emptyStef.png|width=50|label=fig:emptyStream+
 
-+The user opens to page 1.>file://figures/page1Stef.png|width=100|label=fig:page1+
++The user opens to page 1.>file://figures/page1Stef.png|width=50|label=fig:page1+
 
-+The user clicks on a link to page 2.>file://figures/page2Stef.png|width=100|label=fig:page2+
++The user clicks on a link to page 2.>file://figures/page2Stef.png|width=50|label=fig:page2+
 
-+The user clicks on a link to page 3.>file://figures/page3Stef.png|width=100|label=fig:page3+
++The user clicks on a link to page 3.>file://figures/page3Stef.png|width=50|label=fig:page3+
 
-+The user clicks on the Back button. They are now viewing page 2 again.>file://figures/page2_Stef.png|width=100|label=fig:page2_+
++The user clicks on the Back button. They are now viewing page 2 again.>file://figures/page2_Stef.png|width=50|label=fig:page2_+
 
-+The user clicks again the back button. Page 1 is now displayed.>file://figures/page1_Stef.png|width=100|label=fig:page1_+
++The user clicks again the back button. Page 1 is now displayed.>file://figures/page1_Stef.png|width=50|label=fig:page1_+
 
-+From page 1, the user clicks on a link to page 4. The history forgets pages 2 and 3.>file://figures/page4Stef.png|width=100|label=fig:page4+
++From page 1, the user clicks on a link to page 4. The history forgets pages 2 and 3.>file://figures/page4Stef.png|width=50|label=fig:page4+
 
 This behaviour can be implemented using a ==ReadWriteStream==.
 
-[[[language=smalltalk|label=src:historyClass
+[[[label=src:historyClass
 Object subclass: #History
   instanceVariableNames: 'stream'
   classVariableNames: ''
   poolDictionaries: ''
   category: 'PBE-Streams'
 
-History>>initialize
+History >> initialize
     super initialize.
     stream := ReadWriteStream on: Array new.
 ]]]
@@ -365,14 +365,14 @@ The stream is created during the ==initialize== method.
 
 We need methods to go backward and forward:
 
-[[[language=smalltalk|label=src:history2
-History>>goBackward
-  self canGoBackward ifFalse: [self error: 'Already on the first element'].
+[[[label=src:history2
+History >> goBackward
+  self canGoBackward ifFalse: [self error: 'Already on the first element' ].
   stream skip: -2.
   ^ stream next.
 
-History>>goForward
-  self canGoForward ifFalse: [self error: 'Already on the last element'].
+History >> goForward
+  self canGoForward ifFalse: [self error: 'Already on the last element' ].
   ^ stream next
 ]]]
 
@@ -380,8 +380,8 @@ Up to this point, the code is pretty straightforward. Next, we have to deal with
 ==goTo:== method which should be activated when the user clicks on a link. A
 possible implementation is:
 
-[[[language=smalltalk|label=src:history3
-History>>goTo: aPage
+[[[label=src:history3
+History >> goTo: aPage
     stream nextPut: aPage.
 ]]]
 
@@ -390,8 +390,8 @@ link, there should be no more future pages to go to, ''i.e.'', the forward
 button must be deactivated. To do this, the simplest solution is to write
 ==nil== just after, to indicate that history is at the end:
 
-[[[language=smalltalk|label=src:history4
-History>>goTo: anObject
+[[[label=src:history4
+History >> goTo: anObject
   stream nextPut: anObject.
   stream nextPut: nil.
   stream back.
@@ -403,24 +403,24 @@ A stream is always positioned between two elements. To go backward, there must
 be two pages before the current position: one page is the current page, and the
 other one is the page we want to go to.
 
-[[[language=smalltalk|label=src:history5
-History>>canGoBackward
+[[[label=src:history5
+History >> canGoBackward
   ^ stream position > 1
 
-History>>canGoForward
-  ^ stream atEnd not and: [stream peek notNil]
+History >> canGoForward
+  ^ stream atEnd not and: [stream peek notNil ]
 ]]]
 
 Let us add a method to peek at the contents of the stream:
 
-[[[language=smalltalk|label=src:history6
-History>>contents
+[[[label=src:history6
+History >> contents
   ^ stream contents
 ]]]
 
 And the history works as advertised:
 
-[[[language=smalltalk|label=src:history7
+[[[label=src:history7
 History new
 	goTo: #page1;
 	goTo: #page2;
@@ -484,13 +484,13 @@ evaluating a block that sets its contents.
 [[[
 FileStream
     forceNewFileNamed: 'test.txt'
-    do: [:stream |
+    do: [ :stream |
         stream
             nextPutAll: 'This text is written in a file named ';
-            print: stream localName].
+            print: stream localName ].
 string := FileStream
             readOnlyFileNamed: 'test.txt'
-            do: [:stream | stream contents].
+            do: [ :stream | stream contents ].
 string --> 'This text is written in a file named ''test.txt'''
 ]]]
 
@@ -515,19 +515,19 @@ time, you have to pass a ==ByteArray== as argument.
 [[[
 FileStream
   forceNewFileNamed: 'test.bin'
-  do: [:stream |
+  do: [ :stream |
           stream
             binary;
-            nextPutAll: #(145 250 139 98) asByteArray].
+            nextPutAll: #(145 250 139 98) asByteArray ].
 
 FileStream
   readOnlyFileNamed: 'test.bin'
-  do: [:stream |
+  do: [ :stream |
           stream binary.
           stream size.         --> 4
           stream next.         --> 145
-          stream upToEnd. --> #[250 139 98]
-      ].
+          stream upToEnd. --> #[250 139 98 ]
+       ].
 ]]]
 
 Here is another example which creates a picture in a file named ==test.pgm==
@@ -537,7 +537,7 @@ drawing program.
 [[[
 FileStream
   forceNewFileNamed: 'test.pgm'
-  do: [:stream |
+  do: [ :stream |
 	stream
 		nextPutAll: 'P5'; cr;
 		nextPutAll: '4 4'; cr;
@@ -547,7 +547,7 @@ FileStream
 		nextPutAll: #(0 255 0 255) asByteArray;
 		nextPutAll: #(255 0 255 0) asByteArray;
 		nextPutAll: #(0 255 0 255) asByteArray
-	]
+	 ]
 ]]]
 
 This creates a 4x4 checkerboard as shown in *@fig:checkerboard4x4*.
