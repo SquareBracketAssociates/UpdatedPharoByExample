@@ -313,7 +313,7 @@ cellsPerSide
 
 +Defining ==cellsPerSide== in the debugger>file://figures/cellPerSideInDebugger.png|width=100|label=fig:cellPerSideInDebugger+
 
-Define the method ==celsPerSide== in the debugger. Do not forget to compile the method definition by using ""Accept"". You should obtain a situation as shown by Figure *@fig:cellPerSideInDebugger*.
+Define the method ==cellsPerSide== in the debugger. Do not forget to compile the method definition by using ""Accept"". You should obtain a situation as shown by Figure *@fig:cellPerSideInDebugger*.
 If you press the button ""Proceed"" the program will continue its execution - here it will stop since we did not define the method ==newCellAt:==. We could use the same process but for now we stop to explain a bit what we did so far. Close the debugger, and look at the class definition once again (which you can do by clicking on ""LOGame"" on the second pane of the ""System Browser""), you will see that the browser has modified it to include the instance variable ==cells==.
 
 
