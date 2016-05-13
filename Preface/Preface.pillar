@@ -24,8 +24,8 @@ from within Pharo itself.  Pharo is the vehicle for a
 wide range of innovative projects, from multimedia applications and educational
 platforms to commercial web development environments.
 
-There is an important principle behind Pharo. Pharo is not just be a copy of
-the past, but reinvent the essence behind Smalltalk. However we realize that Big Bang style approaches
+There is an important principle behind Pharo: Pharo doesn't just copy
+the past, but it reinvents the essence behind Smalltalk. However we realize that Big Bang style approaches
 rarely succeed.  Pharo instead favors evolutionary and incremental changes.
 Rather than leaping for the final perfect solution in one big step,
 a multitude of small changes keeps even the bleeding edge relatively stable
