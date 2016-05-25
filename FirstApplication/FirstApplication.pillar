@@ -25,7 +25,7 @@ you how to define these classes using the Pharo programming tools.
 @fstApp:Packages
 
 We have already seen the browser in Chapter *: A Quick Tour of Pharo>../PharoTour/PharoTour.pillar@cha:tour* where we
-learned how to navigate to pakages, classes and methods, and saw how to define new
+learned how to navigate to packages, classes and methods, and saw how to define new
 methods. Now we will see how to create packages and classes.
 
 +Create a Package and class template>file://figures/createPackageFull.png|width=90|label=fig:createPackage+
