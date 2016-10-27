@@ -36,20 +36,18 @@ metaprogramming.
 Using the inspector, you can look at an object, change the values of its
 instance variables, and even send messages to it.
 
-Evaluate the following code in a workspace:
+Evaluate the following code in a playground:
 
 [[[
-w := Workspace new.
-w openLabel: 'My Workspace'.
+w := GTPlayground openLabel: 'My Playground'.
 w inspect
 ]]]
 
-This will open a second workspace and an inspector. The inspector shows the
-internal state of this new workspace, listing its instance variables on the left
-(==dependents==, ==contents==, ==bindings==...) and the value of the
-selected instance variable on the right. The ==contents== instance variable
-represents whatever the workspace is displaying in its text area, so if you
-select it, the right part will show an empty string.
+This will open a second playground and an inspector. The inspector shows the
+internal state of this new playground, listing its instance variables on the left
+(==borderColor==, ==borderWidth==, ==bounds==...) and the value of the
+selected instance variable on the right. The ==bounds== instance variable
+represents the precise area occupied by the playground.
 
 +Inspecting a ==Workspace==.>file://figures/workspaceInspector.png|label=fig:workspaceInspector+
 
