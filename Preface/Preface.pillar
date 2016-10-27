@@ -2,16 +2,16 @@
 
 !!What is Pharo?
 
-Pharo is a modern, open-source, dynamically typed language supporting live coding inspired from Smalltalk. Pharo and its ecosystems is composed of the six fundamental elements:
+Pharo is a modern, open-source, dynamically typed language supporting live coding inspired by Smalltalk. Pharo and its ecosystems is composed of the six fundamental elements:
 
 - A dynamically-typed language with a syntax so simple it can fit on a postcard and yet is readable even for someone not familiar with it.
-- A live coding enviroment that allows the coder to modify its code while the code executes, without any need to slow down his or her worfkflow.
+- A live coding environment that allows the coder to modify its code while the code executes, without any need to slow down his or her workflow.
 - A powerful IDE providing all the tools to help manage complex code and promote good code design.
-- A rich library that creates an enviroment so powerful that it can be viewed even as a virtual OS, including a very fast JITing VM and full access to OS libraries and features via its FFI.
+- A rich library that creates an environment so powerful that it can be viewed even as a virtual OS, including a very fast JITing VM and full access to OS libraries and features via its FFI.
 - A culture where changes and improvements are encouraged and highly valued.
 - A community that welcomes coders from any corner of the world with any skill and any programming languages.
 
-Pharo strives to offer a lean, open platform for professional software development, as well as a  robust and stable platform for research and development into dynamic languagesand environments. Pharo serves as the reference implementation for the Seaside web development framework available at *http://www.seaside.st*.
+Pharo strives to offer a lean, open platform for professional software development, as well as a  robust and stable platform for research and development into dynamic languages and environments. Pharo serves as the reference implementation for the Seaside web development framework available at *http://www.seaside.st*.
 
 Pharo core contains only code that has been contributed under the MIT license.
 The Pharo project started in March 2008 as a fork of Squeak (a modern implementation of Smalltalk), and the first 1.0 beta version was
