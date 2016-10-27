@@ -17,8 +17,8 @@ The latest versions of *Updated Pharo by Example* can be found at the following 
     Latest PDF: [UpdatedPharoByExample.pdf](https://ci.inria.fr/pharo-contribution/view/Books/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/book-result/UpdatedPharoByExample.pdf). All Chapters: [UpdatedPharoByExample build artifacts](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/book-result/)
 * Travis
   ![Build Status](https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample.svg?branch=master)(https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample)
-  * Individual can be viewed online or be downloaded in pdf format in the
-    following section:
+* Individual chapters can also be viewed online or be downloaded in pdf format
+  in the following section:
 
 #### Chapter Progress
 
