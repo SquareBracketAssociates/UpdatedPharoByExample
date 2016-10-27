@@ -2,7 +2,7 @@
 @cha:firstApp
 
 In this chapter, we will develop a simple game: LightsOut (*http://en.wikipedia.org/wiki/Lights_Out_(game))*. Along the way we will
-show most of the tools that Pharo programmers use to construct and debug their programs, and show how programs are shared with other developers. We will see the browser, the object inspector, the debugger and the Monticello package browser. 
+show most of the tools that Pharo programmers use to construct and debug their programs, and show how programs are shared with other developers. We will see the browser, the object inspector, the debugger and the Monticello package browser.
 
 In Pharo you can develop in a traditional way, by defining a class, then its instance variables, then its methods. However, in Pharo your development flow can be much more productive than that! You can define instance variables and methods on the fly. You can also code in the debugger using the exact context of currently executed objects. This chapter will sketch such alternate way and show you how you can be really productive.
 
@@ -34,9 +34,9 @@ From the ==World== menu, open a ""System Browser"". Right-click on an existing
 package in the Package pane and select ==Add package...== from the menu. Type the name of the new package (we
  use ==PBE-LightsOut==) in the dialog box and click ==OK== (or just
 press the return key). The new package is created, and positioned
-alphabetically in the list of packages (see Figure *@fig:createPackage*). 
+alphabetically in the list of packages (see Figure *@fig:createPackage*).
 
-""Hints:"" You can type ==PBE== in the filter to get your package filtered out the other ones (See Figure *@fig:createPackageFiltered*). 
+""Hints:"" You can type ==PBE== in the filter to get your package filtered out the other ones (See Figure *@fig:createPackageFiltered*).
 
 +Filtering our package to work more efficiently>file://figures/createPackageFullFiltered.png|width=90|label=fig:createPackageFiltered+
 
@@ -77,7 +77,7 @@ instance variable, which we will use to define what action the cell should take
 if the mouse should click on it.
 
 At this point you still have not created anything. Note that the top right of
-the panel changed to orange. This means that there are unsaved changes. 
+the panel changed to orange. This means that there are unsaved changes.
 To actually send this subclass message, you must save
 (accept) the source code. Either right-click and select ==Accept==, or use the shortcut ==CMD-s== (for
 "Save"). The message will be sent to ==SimpleSwitchMorph==, which will cause the
@@ -90,28 +90,28 @@ new class to be compiled. You should get the situation depicted in Figure *@fig:
 Once the class definition is accepted, the class is created and appears in
 the class pane of the browser (see Figure *@fig:pannelAtNewClass*). The editing
 pane now shows the class definition. Below you get the Quality Assistant's feedback: It runs automatically quality
- rules on your code and reports them. 
+ rules on your code and reports them.
 
 
 !!! About comments
 
-Pharoers put a very high value on the readability of their code, but also good quality 
-comments. 
+Pharoers put a very high value on the readability of their code, but also good quality
+comments.
 
 !!!!!Method comments.
-People got the tendency to believe that it is not necessary to comment well written methods: 
+People got the tendency to believe that it is not necessary to comment well written methods:
 it is plain wrong and encourages sloppiness. Of course, bad code should renamed and refactored.
 Obviously commenting trivial methods makes no sense.
-A comment should not be the code written in english but an explanation of what the method is doing, 
-its context, or the rationale behind its implementation. When reading a comment, the reader should be 
-comforted that his hypotheses are correct. 
+A comment should not be the code written in english but an explanation of what the method is doing,
+its context, or the rationale behind its implementation. When reading a comment, the reader should be
+comforted that his hypotheses are correct.
 
-!!!!! Class comments. 
-For the class comment, the Pharo class comment template gives a good idea of a strong class comment. 
-Read it! It is based on CRC for Class Responsibility Collaborators. 
+!!!!! Class comments.
+For the class comment, the Pharo class comment template gives a good idea of a strong class comment.
+Read it! It is based on CRC for Class Responsibility Collaborators.
 So in a nutshell the comments state the responsibility of the class in a couple of sentences and how it collaborates
-with other classes to achieve this responsibilities. In addition we can state the API (main messages an object understands), give an example 
-(usually in Pharo we define examples as class methods), and some details about internal representation or 
+with other classes to achieve this responsibilities. In addition we can state the API (main messages an object understands), give an example
+(usually in Pharo we define examples as class methods), and some details about internal representation or
 implementation rationale.
 
 Select the comment button and define a class comment following this template
@@ -120,9 +120,9 @@ Select the comment button and define a class comment following this template
 !!!On categories vs. packages
 
 Historically, Pharo packages were implemented as "categories" (a group of classes). With the newer
-versions of Pharo, the term ""category"" is being deprecated, and replaced exclusively by ""package"". 
+versions of Pharo, the term ""category"" is being deprecated, and replaced exclusively by ""package"".
 
-If you use an older version of Pharo or an old tutorial, the class template will be as follow: 
+If you use an older version of Pharo or an old tutorial, the class template will be as follow:
 
 [[[
 SimpleSwitchMorph subclass: #LOCell
@@ -223,7 +223,7 @@ detail of the instance variable (see Figure *@fig:inspectBounds*).
 
 +An LOCell open in world>file://figures/LOCellOpenInWorld.png|width=100|label=fig:LOCellOpenInWorld+
 
-!!!!! Executing expressions. 
+!!!!! Executing expressions.
 The bottom pane of the inspector is a mini-playground. It's useful because in
 this playground the pseudo-variable ==self== is bound to the object selected.
 
@@ -288,7 +288,7 @@ instance variable.
 
 !!! Taking advantage of the debugger
 
-At this stage if you open a ==Playground==, type ==LOGame new==, and ""Do it"", 
+At this stage if you open a ==Playground==, type ==LOGame new==, and ""Do it"",
 Pharo will complain that it doesn't know the meaning of some of the terms (see
 Figure *@fig:doesntKnowCellsPerSide*). It will tell you that it doesn't know of
 a message ==cellsPerSide==, and will open a debugger. But ==cellsPerSide== is not a mistake; it is just a method that we haven't yet defined. We will do so, shortly.
@@ -382,10 +382,10 @@ browser, you don't have to type the class name or the ==>>==; instead, you just
 make sure that the appropriate class is selected in the class pane.
 
 
-!! Finishing the game 
+!! Finishing the game
 
 Now let's define the other  method that are used by ==LOGame >> initialize==.
-Let's define ==LOGame >> newCellAt: at:== in the  ==initialization== protocol. 
+Let's define ==LOGame >> newCellAt: at:== in the  ==initialization== protocol.
 
 [[[caption=An initialization helper method|label=scr:NewCellAt
 LOGame >> newCellAt: i at: j
@@ -399,7 +399,7 @@ LOGame >> newCellAt: i at: j
 	c mouseAction: [ self toggleNeighboursOfCellAt: i at: j ]
 ]]]
 
-!!!!!Formatting. 
+!!!!!Formatting.
 As you can see there are some tabulation and empty lines. In order to keep the
 same convention you can right-click on the method edit area and click on
 ==Format== (or use ==CMD-Shift-u== shortcut). This will format your method.
@@ -445,7 +445,7 @@ value of an instance variable in this way is called a ''setter method''; a metho
 that answers the current value of an instance variable is called a ''getter
 method''.
 
-!!!!! Setter/Getter convention. 
+!!!!! Setter/Getter convention.
 If you are used to getters and setters in other programming languages, you might
 expect these methods to be called ==setMouseAction== and ==getMouseAction==. The
 Pharo convention is different. A getter always has the same name as the
@@ -472,7 +472,7 @@ LOCell >> mouseUp: anEvent
 What this method does is to send the message ==value== to the object stored in
 the instance variable ==mouseAction==. In ==LOGame >> newCellAt: i
 at: j== we created the ''block'' ==[self toggleNeighboursOfCellAt: i at: j ]==
-which is toggling all the neighbours of a cell and we assigned this block to the ==mouseAction== of 
+which is toggling all the neighbours of a cell and we assigned this block to the ==mouseAction== of
 the cell. Therefore sending the ==value== message causes this block to be evaluated, and
 consequently the state of the cells will toggle.
 
@@ -490,7 +490,7 @@ error occurred (see Figure *@fig:debuggerHighlight*).
 
 +The debugger, with the method ==toggleNeighboursOfCell:at:== selected>file://figures/debuggerHighlight.png|width=85|label=fig:debuggerHighlight+
 
-At the bottom of the debugger is a variable zone. You can inspect the object that is the receiver of the message that caused the selected method to execute, so you can look here to see the values of the instance variables. You can also set the values of the method arguments. 
+At the bottom of the debugger is a variable zone. You can inspect the object that is the receiver of the message that caused the selected method to execute, so you can look here to see the values of the instance variables. You can also set the values of the method arguments.
 
 Using the debugger, you can execute code step by step, inspect objects in
 parameters and local variables, evaluate code just as you can in a playground,
@@ -533,7 +533,7 @@ was in the initialization of an object, rather than in the method that failed,
 the easiest thing to do is to close the debugger window, destroy the running
 instance of the game (with the halo ==CMD-Alt-Shift== and click), and create a new one.
 
-Execute ==LOGame new openInWorld== again because if you use the old game instance it will still contain the block with the old logic. 
+Execute ==LOGame new openInWorld== again because if you use the old game instance it will still contain the block with the old logic.
 
 Now the game should work properly... or nearly so. If we happen to move the
 mouse between clicking and releasing, then the cell the mouse is over will also
@@ -548,8 +548,8 @@ LOGame >> mouseMove: anEvent
 Finally we are done!
 
 !!!!! About the debugger.
-By default when an error occurs in Pharo, the system displays a debugger. However, we can fully control this behavior. For example we can write the error in a file. We can even serialize the execution stack in a file, zip and reopen it in another image. Now when we are in development 
-mode the debugger is available to let us go as fast as possible. In production system, developers often control the debugger to hide their mistakes from their clients. 
+By default when an error occurs in Pharo, the system displays a debugger. However, we can fully control this behavior. For example we can write the error in a file. We can even serialize the execution stack in a file, zip and reopen it in another image. Now when we are in development
+mode the debugger is available to let us go as fast as possible. In production system, developers often control the debugger to hide their mistakes from their clients.
 
 
 !!Saving and sharing Pharo code
@@ -637,7 +637,7 @@ Add the ==PBE-LightsOut== package to your Monticello browser using the
 !!!SmalltalkHub: a Github for Pharo
 
 We think that the best way to save your code and share it is to create an
-account for your project on a SqueakSource server. SmalltalkHub is like GitHub:
+account for your project in SmalltalkHub. SmalltalkHub is like GitHub:
 it is a web front-end to a HTTP Monticello server that lets you manage your
 projects. There is a public server at
 *http://www.smalltalkhub.com/>http://www.smalltalkhub.com/*.
@@ -659,8 +659,8 @@ MCHttpRepository
     password: 'Optional_Password'
 ]]]
 
-Copy the contents and go back to Pharo. Once your project has been created on SmalltalkHub, 
-you have to tell your Pharo system to use it. 
+Copy the contents and go back to Pharo. Once your project has been created on SmalltalkHub,
+you have to tell your Pharo system to use it.
 With the ==PBE-LightsOut== package selected, click the ""+Repository"" button in the Monticello browser.
 You will see a list of the different Repository types that are available. To add
 a SmalltalkHub repository select ==smalltalkhub.com==. You will be presented
@@ -681,10 +681,7 @@ idea of what your commit contains (see Figure
 
 +Do your first commit>file://figures/firstCommit.png|width=60|label=fig:firstCommit+
 
-To load a package into your image, you must first select a particular version.
-You can do this in the repository browser, which you can open using the button
-or the right-click menu. Once you have selected a version, you can load it onto
-your image.
+To load a package into your image, open Monticello , select the repository where the package is located and click open button. It will open a new window with two columns, left one is the Package to be loaded, the right one is the version of the package to be loaded. Select the Package and the version you want to load and click the load button.
 
 Open the ==PBE-LightsOut== repository you have just saved. You should see the package you just saved.
 
@@ -692,8 +689,8 @@ Monticello has many more capabilities, which will be discussed in depth in
 Chapter *: Sharing Code and Source Control>./SharingCode/SharingCode.pillar@cha:sharingCode*.
 
 
-!!!!! About Git. 
-If you are already familiar with Git and Github there are several solutions to manage your projects with Git. 
+!!!!! About Git.
+If you are already familiar with Git and Github there are several solutions to manage your projects with Git.
 This blog posts provides a summary: *http://blog.yuriy.tymch.uk/2015/07/pharo-and-github-versioning-revision-2.html#!>http://blog.yuriy.tymch.uk/2015/07/pharo-and-github-versioning-revision-2.html#!*
 There is a chapter in preparation on about how to use Git with Pharo. Request it on the Pharo mailing-list.
 
