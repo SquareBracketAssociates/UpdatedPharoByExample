@@ -6,7 +6,19 @@
 
 This version focuses on the latest stable version of Pharo (Pharo 5.0, at the time of writing).
 
-You can find more info and documentation about Pharo at [Pharo.org](http://pharo.org/).
+You can find more info and documentation about Pharo at
+[Pharo.org](http://pharo.org/).
+
+## Latest Builds
+
+The latest versions of *Updated Pharo by Example* can be found at the following sites:
+
+* Jenkins ![Build Status](https://ci.inria.fr/pharo-contribution/buildStatus/icon?job=UpdatedPharoByExample)
+    Latest PDF: [UpdatedPharoByExample.pdf](https://ci.inria.fr/pharo-contribution/view/Books/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/book-result/UpdatedPharoByExample.pdf). All Chapters: [UpdatedPharoByExample build artifacts](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/book-result/)
+* Travis
+  ![Build Status](https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample.svg?branch=master)(https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample)
+  * Individual can be viewed online or be downloaded in pdf format in the
+    following section:
 
 #### Chapter Progress
 
@@ -39,7 +51,7 @@ GitHub workflow for contributions:
 
 2. For each modification, create a quick topic branch named in the form of...
 
-   * initials_ChapterName_my_topic_description   
+   * initials_ChapterName_my_topic_description
 
    example: `git checkout -b dz_PharoTour_update_screen_snapshots`
 
@@ -123,13 +135,6 @@ Please keep in mind the following:
 * All inline code mentions (objects, messages, variables, packages) should use the
     Pillar monospace notation: `==Object==`.
 
-## Latest Builds
-
-The latest versions of *Updated Pharo by Example* can be found at the following sites:
-
-* Jenkins ![Build Status](https://ci.inria.fr/pharo-contribution/buildStatus/icon?job=UpdatedPharoByExample)
-    Latest PDF: [UpdatedPharoByExample.pdf](https://ci.inria.fr/pharo-contribution/view/Books/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/book-result/UpdatedPharoByExample.pdf). All Chapters: [UpdatedPharoByExample build artifacts](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/book-result/)
-* Travis ![Build Status](https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample.svg?branch=master)(https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample)
 
 ## License
 This book is licensed under a
