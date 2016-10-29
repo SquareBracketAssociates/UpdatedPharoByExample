@@ -27,13 +27,11 @@ Pharo source code that exploits a simple naming convention.
 
 Let's explain this using an example. Suppose that you are developing a framework
 named to facilitate the use of relational databases from Pharo. You have decided
-to call your framework ==PharoLink==, and have created a series of categories to
-contain all of the classes that you have written. That is, category
-=='PharoLink-Connections'== contains ==OracleConnection MySQLConnection
-PostgresConnection== and category =='PharoLink-Model'== contains ==DBTable DBRow
-DBQuery==, and so on. However, not all of your code will reside in these
-classes. For example, you may also have a series of methods to convert objects
-into an SQL-friendly format:
+to call your framework ==PharoLink==, and have created a couple of classes 
+such as  ==OracleConnection==, ==MySQLConnection==, ==PostgresConnection== but also ==DBTable==, 
+==DBRow==, ==DBQuery==, and so on. These classes are placed inside a package called ==PharoLink==. 
+However, not all of your code will reside in these classes. For example, you may also have a series 
+of methods to convert objects into an SQL-friendly format:
 
 [[[
 Object>>asSQL
@@ -41,32 +39,28 @@ String>>asSQL
 Date>>asSQL
 ]]]
 
-These methods belong in the same package as the classes in the categories
-==PharoLink-Connections== and ==PharoLink-Model==. But clearly the whole of
+These methods belong in the same package as the classes. But clearly the whole of
 class ==Object== does not belong in your package! So you need a way of putting
 certain ''methods'' in a package, even though the rest of the class is in
 another package.
 
 The way that you do this is by placing those methods in a protocol (of
 ==Object==, ==String==, ==Date==, and so on) named ==\*PharoLink== (note the
-initial asterisk). The combination of the ==PharoLink-...== categories and
-the ==\*PharoLink== protocols form a package named ==PharoLink==. To be
+initial asterisk). The ==\*PharoLink== protocols added to the package named ==PharoLink==. To be
 precise, the rules for what goes in a package are as follows.
 
 A package named ==Foo== contains:
 
 @sec:packageRules
 
-""1."" All ''class definitions'' of classes in the category ==Foo==, or in
-categories with names starting with ==Foo-==.
+""1."" All ''class definitions'' of classes in the package ==Foo==.
 
 ""2."" All ''methods'' in ''any class'' in protocols named ==\*Foo== or ==\*foo==
 (When performing this comparison, the case of the letters in the names is
 ignored.), or whose name starts with ==\*Foo-== or ==\*foo-==.
 
-""3."" All ''methods'' in classes in the category ==Foo==, or in a category
-whose name starts with ==Foo-==, ''except'' for those methods in protocols whose
-names start with ==\*==.
+""3."" All ''methods'' in classes in the package ==Foo== ''except'' for those methods 
+in protocols whose names start with ==\*==.
 
 A consequence of these rules is that each class definition and each method
 belongs to exactly one package. The ''except'' in the last rule has to be there
@@ -75,39 +69,22 @@ case in rule 2 is that, by convention, protocol names are
 typically (but not necessarily) lower case (and may include spaces), while
 category names use CamelCase (and don't include spaces).
 
-The class ==PackageInfo== implements these rules, and one way to get a feel for
-them is to experiment with this class.
+The class ==RPackage== represents packages. The class ==RPackageOrganizer== implements a singleton that holds all the Pharo packages. The following expressions are examples of the queries that you can perform. 
 
-(do this) Evalute the following expression in a workspace:
+[[[
+(RPackageOrganizer default packageNamed: 'AST-Core') definedClassNames
 
-[[[language=Smalltalk
-mc := PackageInfo named: 'Monticello'
+(RPackageOrganizer default packageNamed: 'AST-Core') extendedClasses 
 ]]]
 
-It is now possible to introspect on this package. For example, printing ==mc
-classes== in the workspace pane will return the long list of classes that make
-up the Monticello package. ==mc coreMethods== will return a list of
-==MethodReference==s for all of the methods in those classes. ==mc
-extensionMethods== is perhaps one of the most interesting queries: it will
-return a list of all methods contained in the ==Monticello== package but not
-contained within a ==Monticello== class.
-
-Packages are a relatively new addition to Pharo, but since the package naming
-conventions were based on those already in use, it is possible to use
-==PackageInfo== to analyze older code that has not been explicitly adapted to
-work with it.
-
-(do this) Print ==(PackageInfo named: 'Collections') externalSubclasses==; this
-expression will answer a list of all subclasses of ==Collection== that are
-''not'' in the ==Collections== package.
 
 !!!Basic Monticello
 
-Monticello is named after the mountaintop home of Thomas Jefferson, third
-president of the United States and author of the ''Statute of Virginia for
-Religious Freedom''. The name means ''little mountain'' in Italian, and so it is
-always pronounced with an Italian ==c==, which sounds like the ==ch== in chair:
-Mont-y'-che-llo.
+%Monticello is named after the mountaintop home of Thomas Jefferson, third
+%president of the United States and author of the ''Statute of Virginia for
+%Religious Freedom''. The name means ''little mountain'' in Italian, and so it is
+%always pronounced with an Italian ==c==, which sounds like the ==ch== in chair:
+%Mont-y'-che-llo.
 
 +The Monticello browser.>file://figures/freshMonticello.png|label=fig:freshMonticello+
 
