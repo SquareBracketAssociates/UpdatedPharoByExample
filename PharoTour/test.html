@@ -1,0 +1,988 @@
+<a id="cha:tour"></a>
+<p>
+This chapter will take you on a high level tour of Pharo, to help you get
+comfortable with the environment. There will be plenty of opportunities to try
+things out, so it would be a good idea if you have a computer handy when you
+read this chapter.
+</p>
+<p>
+In particular, you will fire up Pharo, learn about the different ways of
+interacting with the system, and discover some of the basic tools. You will also
+learn how to define a new method, create an object and send it messages.
+</p>
+<p>
+<em>Note:</em> Most of the introductory material in this book will work with any
+Pharo version, so if you already have one installed, you may as well continue to
+use it. However, since this book is written for Pharo 4.0/5.0, if you notice
+differences between the appearance or behaviour of your system and what is
+described here, do not be surprised.
+</p>
+
+<h2>Installing Pharo</h2>
+
+<h3>Downloading Pharo</h3>
+
+<p>
+Pharo is available as a free download from
+<a href="http://pharo.org/download">http://pharo.org/download</a>. Click the button for your
+operating system to download the appropriate <code>.zip</code> file. For example, the
+full Pharo 4.0 distribution for OS X will be available at
+<a href="http://files.pharo.org/platform/Pharo4.0-mac.zip">http://files.pharo.org/platform/Pharo4.0-mac.zip</a>.
+</p>
+<p>
+Once that file is unzipped, it will contain everything you need to run
+Pharo (this includes the VM, the image, and the sources, as explained below).
+</p>
+<h5>Using handy scripts.</h5>
+<p>
+<a href="http://files.pharo.org/get/">http://files.pharo.org/get/</a> offers a collection of scripts to download specific versions of Pharo. 
+This is really handy to automate the process. 
+</p>
+<p>
+To download the latest 40 full system, use the following snippet. 
+</p>
+<figure><pre><code>wget -O- get.pharo.org/40+vm | bash</code></pre><figcaption></figcaption></figure>
+
+<h3>Installing Pharo</h3>
+
+<p>
+Pharo does not need to install anything in your system, as it's perfectly
+capable of running standalone. Depending on your platform, download the
+appropriate zip file, uncompress it in a directory of your choice and now you
+are ready to launch Pharo. In case of Ubuntu Linux, there is also the extra
+option of installing Pharo via the Pharo PPA. Pharo can be also installed via the command line.
+</p>
+
+
+
+<h2>Pharo: File components</h2>
+
+<p>
+Pharo consists of four main component files.
+Although you do not need to deal with them directly for the purposes
+of this book, it is useful to understand the roles they play.
+</p>
+<p>
+<strong>1.</strong> The <strong>virtual machine</strong> (VM) is the only component that is
+different for each operating system. The VM is the execution engine (similar to a JVM). It takes Pharo bytcode that is generated each time user compiles a piece of code, converts it to machine code and executes it. Pharo comes with the Cog VM a very fast JITing VM.
+The VM executable is named:
+</p><ul>
+<li><code>Pharo.exe</code> for Windows;</li>
+<li><code>pharo</code> for Linux ; and</li>
+<li><code>Pharo</code> for OSX (inside a package also named <code>Pharo.app</code>).</li>
+</ul>
+
+<p>
+The other components below are portable across operating systems, and can be copied and run on any appropriate virtual machine.
+</p>
+<p>
+<strong>2.</strong> The <strong>sources</strong> file contains source code for parts of
+Pharo that don't change frequently. Sources file is important because the image file format stores only objects including compiled methods and their bytecode and not their source code. Typically a new <strong>sources</strong> file is generated once per major release of Pharo. For Pharo 4.0, this file is named <code>PharoV40.sources</code>.
+</p>
+
+<p>
+<strong>3.</strong> The <strong>changes</strong> file logs of all source code modifications (especially all the changes you did while programming) since the <code>.sources</code> file was generated. Each release provides a near empty file named for the release, for example <code>Pharo4.0.changes</code>. This facilitates a per method history for diffs or reverting. It means that even if you did not manage to save the image file on a crash or you just forgot, you can recover your changes from this file.  A changes file is always coupled with a image file. They work in pair. 
+</p>
+<p>
+<strong>4.</strong> The <strong>image</strong> file provides a frozen in time snapshot of a running Pharo system. This is the file where all objects are stored and as such it's a cross platform format. An image file contains the live state of all objects of the system (including classes and compiled methods, since they are objects too) at a given point. An image is a virtual object container. The file is named for the release (like <code>Pharo4.0.image</code>) and it is synched with the <code>Pharo4.0.changes</code> file. 
+</p>
+
+<h3>Image/Change pair</h3>
+
+<p>
+The <code>.image</code> and <code>.changes</code> files provided by a Pharo release are the starting point for a live environment that you adapt to your needs. As you work in Pharo, these files are modified, so you need to make sure that they are writable. Pay attention to remove the changes and image files from the list 
+of files to be checked by anti-viruses.  The <code>.image</code> and <code>.changes</code> files are intimately linked
+and should always be kept together, with matching base filenames. 
+Never edit them directly with a text editor, as <code>.images</code> holds your live object runtime memory, which indexes into the <code>.changes</code> files for the source.
+It is a good idea to keep a backup copy of the downloaded <code>.image</code> and <code>.changes</code> files so you can always start from a fresh image and reload your code. However, the most efficient way for backing up code is to use a version control system that will provide an easier and powerful way to back up and track your changes.
+</p>
+<h3>Common setup</h3>
+
+<p>
+The four main component files above can be placed in the same directory,
+but it's a common practice to put the Virtual Machine and sources file in a
+separate directory where everyone has read-only access to them.
+</p>
+<p>
+Do whatever works best for your style of working and your operating system.
+</p>
+
+<h2>Launching Pharo</h2>
+
+<p>
+To start Pharo, do whatever your operating system expects: drag the .image file onto the icon of the virtual machine, or double-click the .image file, or at the command line type the name of the virtual machine followed by the path to the .image file. 
+</p>
+<ul>
+<li>On <strong>OS X</strong>, double click the <code>Pharo4.0.app</code> bundle in the unzipped download.</li>
+<li>On <strong>Linux</strong>, double click (or invoke from the command line) the <code>pharo</code> executable bash script from the unzipped Pharo folder.</li>
+<li>On <strong>Windows</strong>, enter the unzipped Pharo folder and double click <code>Pharo.exe</code>.</li>
+</ul>
+
+<p>
+In general, Pharo tries to &quot;do the right thing&quot;. If you double click on the VM, it looks for an image file in the default location. If you double click on an
+<code>.image</code> file, it tries to find the nearest VM to launch it with.
+</p>
+<p>
+If you have multiple VMs installed on your machine, the operating system may no longer be able to guess the right one. In this
+case, it is safer to specify exactly which ones you meant to launch, either by dragging and dropping the image file onto the VM, 
+or specifying the image on the command line (see the next section).
+</p>
+<h3>Launching Pharo via the command line</h3>
+
+<p>
+The general pattern for launching Pharo from a terminal is:
+</p>
+<figure><pre><code>&lt;Pharo executable&gt; &lt;path to Pharo image&gt;</code></pre><figcaption><a id="src:launchingPattern"></a>Launching pattern</figcaption></figure>
+
+<h5>Linux command line.</h5>
+<p>
+For Linux, assuming that you're in the unzipped <code>pharo4.0</code> folder:
+</p>
+<figure><pre><code>./pharo shared/Pharo4.0.image</code></pre><figcaption><a id="src:launchingFromLinux"></a>Launching Pharo from Linux</figcaption></figure>
+
+<h5>OS X command line.</h5>
+<p>
+For OS X, assuming that you're in the directory with the unzipped
+<code>Pharo4.0.app</code> bundle:
+</p>
+<figure><pre><code>Pharo4.0.app/Contents/MacOS/Pharo Pharo4.0.app/Contents/Resources/Pharo4.0.image</code></pre><figcaption><a id="src:launchingFromMac"></a>Launching Pharo from Mac OS X</figcaption></figure>
+
+<p>
+When using a Pharo bundle, you need to right-click on <code>Pharo4.0.app</code> and select 'Show Package Contents'
+to get access to the image. If you need this often, just download a separated image/changes pair and drop 
+that image into the <code>Pharo4.0.app</code>.
+</p>
+<h5>Windows command line.</h5>
+<p>
+For Windows, assuming that you're in the unzipped <code>Pharo4.0</code> folder:
+</p>
+<figure><pre><code>Pharo.exe Pharo4.0.image</code></pre><figcaption><a id="src:launchingFromWindows"></a>Launching Pharo from Windows</figcaption></figure>
+
+<h2>PharoLauncher</h2>
+
+<p>
+<strong>PharoLauncher</strong> is a tool that helps you download and manage Pharo images. It is very useful for getting new versions of Pharo (as well as updates to the existing versions that contain important bug fixes). It also gives you access to images preloaded with specific libraries that make it very easy to use those tools without having to manually install and configure them.
+</p>
+<p>
+<strong>PharoLauncher</strong> can be found on SmalltalkHub at <a href="http://smalltalkhub.com/#!/~Pharo/PharoLauncher">http://smalltalkhub.com/#!/~Pharo/PharoLauncher</a> together with installation instructions and download links depending on your platform. <strong>PharoLauncher</strong> is basically composed of two columns.
+</p>
+<p>
+<a id="fig:PharoLauncher"></a>
+<figure>
+	<img src="figures/PharoLauncher.png" width="70%"/>
+	<figcaption>PharoLauncher - GUI</figcaption>
+</figure>
+</p>
+<p>
+After installing PharoLauncher and opening it (like you would do for any Pharo image), you should get a GUI similar to Figure <a href="#fig:PharoLauncher"></a>. 
+</p>
+<ul>
+<li>The left column lists images that live locally on your machine (usually in a shared system folder). You can launch any local image directly (either by double-clicking, or by selecting it and pressing the <code>Launch</code> button). A right-click context menu provides several useful functions like copying and renaming your images, as well as locating them on the file system.</li>
+<li>The right column lists Templates, which are remote images available for download. To download a remote image, select it and click the <code>Create image</code> button (located on the top right, next to the <code>Refresh template list</code> button).</li>
+</ul>
+
+<p>
+You can use your own local images with <strong>PharoLauncher</strong>, in addition to working with the images you donwloaded. To do so, simply ensure that your .image and its associated
+.changes files are placed in a folder (with the same name as your image) in your default image location. You can find the location in the <strong>PharoLauncher</strong> settings.
+</p>
+<h2>The World Menu</h2>
+
+<p>
+Once Pharo is running, you should see a single large window, possibly containing
+some open playground windows (see Figure <a href="#fig:worldMenu"></a>). You might notice a
+menu bar, but Pharo mainly makes use of context-dependent pop-up menus.
+</p>
+<p>
+<a id="fig:worldMenu"></a>
+<figure>
+	<img src="figures/Pharo40.png" width="100%"/>
+	<figcaption>Clicking anywhere on the Pharo window background activates the World Menu</figcaption>
+</figure>
+</p>
+<p>
+Clicking anywhere on the background of the Pharo window will display the
+<strong>World Menu</strong>, which contains many of the Pharo tools, utilities and settings.
+</p>
+<p>
+At the top of the <strong>World Menu</strong>, you will see a list of several core tools in
+Pharo, including the System Browser, the Playground, the Monticello package
+manager, and others. We will discuss them in more detail in the coming chapters.
+</p>
+<h3>Interacting with Pharo</h3>
+
+<p>
+Pharo offers three ways to interact with the system using a mouse or other
+pointing device.
+</p>
+<p>
+<strong>click</strong> (or left-click): this is the most often used mouse button, and is
+normally equivalent to left-clicking (or clicking a single-mouse button without
+any modifier key). For example, click on the background of the Pharo window to
+bring up the <code>World</code> menu (Figure <a href="#fig:worldMenu"></a>).
+</p>
+<p>
+<strong>action-click</strong> (or right-click): this is the next most used button. It is used
+to bring up a contextual menu that offers different sets of actions depending on
+where the mouse is pointing (see Figure <a href="#fig:operating"></a>). If you do not have a
+multi-button mouse, then normally you will configure the control modifier key to
+action-click with the mouse button.
+</p>
+<p>
+<strong>meta-click</strong>: Finally, you may meta-click on any object displayed in the image
+to activate the &quot;morphic halo&quot;, an array of handles that are used to perform
+operations on the on-screen objects themselves, such as inspecting or resizing
+them (see Figure <a href="#fig:halos"></a>). If you let the mouse linger over a handle, a
+help balloon will explain its function. In Pharo, how you meta-click depends on
+your operating system: either you must hold <code>Shift-Ctrl</code> or <code>Shift-Alt</code> (on
+Windows or Linux) or <code>Shift-Option</code> (on OS X) while clicking.
+</p>
+<p>
+<a id="fig:operating"></a>
+<figure>
+	<img src="figures/operating.png" width="60%"/>
+	<figcaption>Action Click (right click) brings the contextual menu.</figcaption>
+</figure>
+</p>
+<p>
+<a id="fig:halos"></a>
+<figure>
+	<img src="figures/addHalo.png" width="60%"/>
+	<figcaption>Meta-Clicking on a window opens the Halos</figcaption>
+</figure>
+</p>
+<h2>Sending messages</h2>
+
+<p>
+In the Pharo window, click on an open space to open the <strong>World Menu</strong>, and then
+select the <strong>Playground</strong> menu option. The <strong>Playground</strong> tool will open (you may
+recognize it as the <strong>Workspace</strong> tool, from previous versions of Pharo). We can
+use <strong>Playground</strong> to quickly execute Pharo code. Enter the following code in
+it, then right click and select <code>Do it</code>:
+</p>
+<figure><pre><code>	ProfStef go.</code></pre><figcaption><a id="src:pharoTutorial"></a>Open ProfStef in the <code>Playground</code>.</figcaption></figure>
+
+<p>
+<a id="fig:pharotutorial"></a>
+<figure>
+	<img src="figures/PharoTutorialOption.png" width="60%"/>
+	<figcaption>Executing an expression is simple with the <code>Do it</code> menu item.</figcaption>
+</figure>
+</p>
+<p>
+This expression will trigger the Pharo tutorial (as shown in Figure
+<a href="#fig:ProfStef"></a>). It is a simple and interactive tutorial that will teach you
+the basics of Pharo.
+</p>
+<p>
+Congratulations, you have just sent your first message! Pharo is based on
+the concept of sending messages to objects. The Pharo objects are like your
+soldiers ready to obey once you send them a message they can understand. We
+will see how an object can understand a message, later on.
+</p>
+<p>
+<a id="fig:ProfStef"></a>
+<figure>
+	<img src="figures/ProfStef.png" width="60%"/>
+	<figcaption>PharoTutorial is a simple interactive tutorial to learn about Pharo</figcaption>
+</figure>
+</p>
+<p>
+If you talk to Pharoers for a while, you will notice that they generally do not
+use expressions like <em>call an operation</em> or <em>invoke a method</em>, as developers do
+in other programming languages. Instead they will say <em>send a message</em>. This
+reflects the idea that objects are responsible for their own actions and that the method
+associated with the message is looked up dynamically. 
+When sending a message to an object, the object, and not the sender, selects the appropriate
+method for responding to your message. In most cases, the method with the same name as the message is executed.
+</p>
+<p>
+As a user you don't need to understand how each message works, the only thing
+you need to know is what the available messages are for the objects that
+interest you. This way an object can hide its complexity, and coding can be kept
+as simple as possible without losing flexibility.
+</p>
+<p>
+How to find the available messages for each object is something we will explore later on.
+</p>
+
+<h2>Saving, quitting and restarting a Pharo session</h2>
+
+<p>
+You can exit Pharo at any point, by closing the Pharo window as you do any other
+application window. Additionally you can use the <strong>World Menu</strong> and select either
+<code>Save and quit</code> or <code>Quit</code>.
+</p>
+<p>
+In any case, Pharo will display a prompt to ask you about saving your image. If
+you do save your image and reopen it, you will see that things are <em>exactly</em>
+as you left them. This happens because the image file stores all the objects
+(edited text, window positions, added methods... of course since they are all objects) that Pharo has loaded into your memory so that nothing is lost on exit.
+</p>
+<p>
+When you start Pharo for the first time, the Pharo virtual machine loads the
+image file that you specified. This file contains a snapshot of a large number
+of objects, including a vast amount of pre-existing code and programming tools
+(all of which are objects). As you work with Pharo, you will send messages to
+these objects, you will create new objects, and some of these objects will die
+and their memory will be reclaimed (garbage-collected).
+</p>
+<p>
+When you quit Pharo, you will normally save a snapshot that contains all of your
+objects. If you save normally, you will overwrite your old image file with the
+new snapshot. Alternatively, you may save the image under a new name.
+</p>
+<p>
+As mentioned earlier, in addition to the <code>.image</code> file, there is also a
+<code>.changes</code> file. This file contains a log of all the changes to the source
+code that you have made using the standard tools. Most of the time you do not
+need to worry about this file at all. As we shall see, however, the <code>.changes</code>
+file can be very useful for recovering from errors, or replaying lost changes.
+More about this later!
+</p>
+<p>
+It may seem like the image is the key mechanism for storing and managing
+software projects, but that is not the case. As we shall see soon, there are
+much better tools for managing code and sharing software developed by teams.
+Images are very useful, but you should learn to be very cavalier about creating
+and throwing away images, since versioning tools like <code>Monticello</code> offer much better ways
+to manage versions and share code amongst developers. In addition, if you need
+to persist objects, you can use several systems such as <code>Fuel</code> (a fast object
+binary serializer), <code>STON</code> (a textual object serializer) or a database.
+</p>
+<h2>Playgrounds and Transcripts</h2>
+
+<p>
+Let us start with some exercises:
+</p>
+<ol><li>Close all open windows within Pharo.</li>
+<li>Open a Transcript and a Playground/workspace. (The Transcript can be opened from the <code>World &gt; Tools &gt; ...</code> submenu.)</li>
+<li>Position and resize the transcript and playground windows so that the playground just overlaps the transcript (see Figure <a href="#fig:HelloWorld"></a>).</li>
+</ol>
+
+<p>
+You can resize windows by dragging one of the corners. At any time only one window is active; it is in front and has its border highlighted. 
+</p>
+<h5>About Transcript.</h5>
+<p>
+The <code>Transcript</code> is an object that is often used for logging system messages. It is a kind of <em>system console</em>.
+</p>
+<h5>About Playground. </h5>
+<p>
+<code>Playgrounds</code> are useful for typing snippets of code that you would like to
+experiment with. You can also use playgrounds simply for typing any text
+that you would like to remember, such as to-do lists or instructions for anyone
+who will use your image. 
+</p>
+<p>
+Type the following text into the playground:
+</p><figure><pre><code>	Transcript show: 'hello world'; cr.</code></pre><figcaption></figcaption></figure>
+
+<p>
+Try double-clicking at various points on the text you have just typed. Notice
+how an entire word, entire string, or all of the text is selected, depending on
+whether you click within a word, at the end of the string, or at the end of the
+entire expression. In particular, if you place the cursor before the first
+character or after the last character and double-click, you select the complete
+paragraph.
+</p>
+<p>
+Select the text you have typed, right click and select <code>Do it</code>. Notice how the text &quot;hello world&quot; appears in the transcript window (See Figure <a href="#fig:HelloWorld"></a>). Do it again.
+</p>
+<p>
+<a id="fig:HelloWorld"></a>
+<figure>
+	<img src="figures/HelloWorld_new.png" width="100%"/>
+	<figcaption>Executing an expresssion: displaying a string in the Transcript.</figcaption>
+</figure>
+</p>
+<h2>Keyboard shortcuts</h2>
+
+<p>
+If you want to evaluate an expression, you do not always have to right click.
+Instead, you can use keyboard shortcuts shown in menu items. Even though Pharo may seem like a mouse driven enviroment it contains over 200 shortcuts that allow you operate a variaty of tools, as well as the facility to assign a keyboard shortcut to any of the 800000 methods contained in the Pharo image. To have a look at the available shortcuts go to World Menu <code>&gt;</code> System <code>&gt;</code> Keymap Browser.
+</p>
+<p>
+Depending on your platform, you may have to press one of the
+modifier keys which are Control, Alt, and Command. We will use <code>CMD</code> in the rest of the book: so each time you see something like <code>CMD-d</code>, just replace it with the appropriate modifier key depending on your OS. The corresponding modifier key in Windows is <code>ALT</code>, and in Linux is either <code>ALT</code> or <code>CTRL</code>, so each time you see something like <code>CMD-d</code>, just replace it with the appropriate modifier key depending on your OS.
+</p>
+<p>
+In addition to <code>Do it</code>, you might have noticed <code>Do it and go</code>, <code>Print
+it</code>, <code>Inspect it</code> and several other options in the context menu. Let's have a quick look at each
+of these.
+</p>
+<h3>Doing vs. printing</h3>
+<p>
+Type the expression <code>3 + 4</code> into the playground. Now <code>Do it</code> with the
+keyboard shortcut.
+</p>
+<p>
+Do not be surprised if you saw nothing happen! What you just did is send the
+message <code>+</code> with argument 4 to the number 3. Normally the resulting 7 would
+have been computed and returned to you, but since the playground did not know
+what to do with this answer, it simply did not show the answer. If you want to see
+the result, you should <code>Print it</code> instead. <code>Print it</code> actually compiles the
+expression, executes it, sends the message <code>printString</code> to the result, and
+displays the resulting string.
+</p>
+<p>
+Select <code>3+4</code> and <code>Print it</code> (<code>CMD-p</code>). This time we see the result we expect.
+</p>
+<figure><pre><code>3 + 4 --&gt; 7</code></pre><figcaption></figcaption></figure>
+
+<p>
+We use the notation <code>--&gt;</code> as a convention in this book to indicate that a
+particular Pharo expression yields a given result when you <code>Print it</code>.
+</p>
+<p>
+<a id="fig:inspector"></a>
+<figure>
+	<img src="figures/inspector.png" width="80%"/>
+	<figcaption>Inspecting a simple number using <code>Inspect</code></figcaption>
+</figure>
+</p>
+<h3>Inspect</h3>
+<p>
+Select or place the cursor on the line of <code>3+4</code>, and this time <code>Inspect it</code> (<code>CMD-i</code>).
+</p>
+<p>
+Now you should see a new window titled &quot;Inspector on a SmallInteger(7)&quot; as shown in Figure <a href="#fig:inspector"></a>.
+The inspector is an extremely useful tool that allows you to browse and interact with any object in the system. The title tells us that 7 is an instance of the class <code>SmallInteger</code>. The top panel allows us to browse the instance variables of an object and their values.  The bottom panel can be used to write expressions to send messages to the object. The inspector presents specific tabs that will show different information and views on the object depending on the kind of object you are inspecting. Inspect <code>Morph new openInWorld</code> you should get a situation similar to the one of Figure <a href="#fig:inspectorMorph"></a>.
+</p>
+<p>
+Type <code>self squared</code> in the bottom panel of the inspector, and <code>Print it</code>.
+</p>
+<p>
+<a id="fig:inspectorMorph"></a>
+<figure>
+	<img src="figures/inspectMorph.png" width="80%"/>
+	<figcaption>Inspecting a Morph using <code>Inspect</code></figcaption>
+</figure>
+</p>
+
+<h3>Other operations</h3>
+
+<p>
+Other right-click options that may be used are the following:
+</p>
+<ul>
+<li><code>Do it and go</code> additionally opens a <em>navigable</em> inspector on the side of the playground. It allows us to navigate the object structure. Try with the previous expression <code>Morph new openInWorld</code> and navigate the structure. </li>
+</ul>
+
+<ul>
+<li><code>Basic Inspect it</code> opens the classic inspector that offers a more minimal GUI and live updates of changes to the object.</li>
+</ul>
+
+<ul>
+<li><code>Debug it</code> opens the debuger on the code.</li>
+</ul>
+
+<ul>
+<li><code>Profile it</code> profiles the code with the Pharo profile tool which shows how much time is spent for each message sent.</li>
+</ul>
+
+<ul>
+<li><code>Code search</code> offers several options provided by System Browser, such as browsing the source code of an expression, searching for senders and implementors, and so on.</li>
+</ul>
+
+
+<h2>The System Browser</h2>
+
+<p>
+The <code>System Browser</code>, also known as &quot;Class Browser&quot;, is one of the key tools used for programming. As we shall see, there are several interesting browsers available for Pharo, but this is the basic one you will find in any image.  The current implementation of the System Browser is called Nautilus (this is the name of the Jules Verne's submarine).
+</p>
+<h3>Opening the System Browser on a given method </h3>
+
+<p>
+<a id="fig:systemBrowser"></a>
+<figure>
+	<img src="figures/system-browser-annotated.png" width="100%"/>
+	<figcaption>The System Browser showing the <code>factorial</code> method of class <code>Integer</code></figcaption>
+</figure>
+</p>
+
+<p>
+This is not the usual way that we open a browser on a method: we use more advanced tools! Now for the sake of this presentation, execute the following snippet:
+</p>
+<figure><pre><code>Nautilus openOnMethod: Integer&gt;&gt;#factorial</code></pre><figcaption></figcaption></figure>
+<p>
+ 
+It will open a system browser on the method <code>factorial</code>. We should get a System Browser like in Figure <a href="#fig:systemBrowser"></a>. The title bar indicates that we are browsing the class <code>Integer</code> and its method <code>factorial</code>.
+ Figure <a href="#fig:systemBrowser"></a> shows the different entities displayed by the browser: packages, classes, protocols, methods and method definition.
+</p>
+
+<p>
+In Pharo, the default System Browser is Nautilus. However, it is possible to have other System Browsers installed in the Pharo enviroment such as AltBrowser. Each System Browser may
+have its own GUI that may be very diffirent from the Nautilus GUI. From now on,
+we will use the terms <code>Browser</code>, <code>System Browser</code> and (occasionally)
+<code>Nautilus</code> interchangeably.
+</p>
+
+<h3>Navigating using the System Browser</h3>
+<p>
+Pharo has <strong>Spotter</strong> (see below) to navigate the system. Now we just want to show you the working flow of the System Browser. Usually with <strong>Spotter</strong> we go directly to the class or the method. 
+</p>
+<p>
+Let us look how to find the <code>printString</code> method defined in class <code>Object</code>. At the end of the navigation, we will get the situation depicted in <a href="#fig:systemBrowser2"></a>.
+</p>
+<p>
+<a id="fig:systemBrowser2"></a>
+<figure>
+	<img src="figures/browsingprintString.png" width="100%"/>
+	<figcaption>The System Browser showing the <code>printString</code> method of class <code>Object</code></figcaption>
+</figure>
+</p>
+
+<h5>Open the Browser by selecting <code>World &gt; System Browser</code>. </h5>
+<p>
+When a new System Browser window first opens, all panes but the leftmost are empty. This first pane lists all known packages, which contain groups of related classes. 
+</p>
+<h5>Filter packages.</h5>
+<p>
+Type part of the name of the package in the left most filter. It filters the list of packages to be shown in the list under it. Type 'Kern' for example.
+</p>
+<h5>Expand the <code>Kernel</code> package and select the <code>Objects</code> element.</h5>
+<p>
+When we select a package, it causes the second pane to show a list of all of the
+classes in the selected package. You should see the hierarchy of <code>ProtoObject</code>
+</p>
+<h5>Select the <code>Object</code> class.</h5>
+<p>
+When a class is selected, the remaining two panes will be populated. The
+third pane displays the protocols of the currently selected class. These are
+convenient groupings of related methods. If no protocol is selected you should
+see all methods in the fourth pane.
+</p>
+<h5>Select the <code>printing</code> protocol.</h5>
+<p>
+You may have to scroll down to find it. You can also click on the third pane and
+type <code>pr</code>, to typeahead-find the <code>printing</code> protocol. Now select it, and you
+will see in the fourth pane only methods related to printing.
+</p>
+<h5>Select the <code>printString</code> method.</h5>
+<p>
+Now we see in the bottom pane the source code of the <code>printString</code> method,
+shared by all objects in the system (except those that override it).
+</p>
+
+<p>
+There are much better way to find a method and we will look at them now. 
+</p>
+
+
+<h2>Finding classes</h2>
+
+<p>
+There are several ways to find a class in Pharo. The first, as we have just
+seen above, is to know (or guess) what package it is in, and to navigate to it
+using the browser.
+</p>
+<p>
+A second way is to send the <code>browse</code> message to the class, asking it to open a
+browser on itself. Suppose we want to browse the class <code>Point</code>.
+</p>
+<h3>Using the message <code>browse</code></h3>
+
+<p>
+Type <code>Point browse</code> into a playground and <code>Do it</code>. A browser will open on the <code>Point</code> class.
+</p>
+<h3>Using <code>CMD-b</code> to browse</h3>
+
+<p>
+There is also a keyboard shortcut <code>CMD-b</code> (browse) that you can use in any
+text pane; select the word and press <code>CMD-b</code>. Use this keyboard shortcut to browse the class <code>Point</code>.
+</p>
+<p>
+Notice that when the <code>Point</code> class is selected but no protocol or method is
+selected, instead of the source code of a method, we see a class definition.
+This is nothing more than an ordinary message that is sent to the parent class,
+asking it to create a subclass. Here we see that the class <code>Object</code> is being
+asked to create a subclass named <code>Point</code> with two instance variables, class
+variables, and to put the class <code>Point</code> in the
+<code>Kernel-BasicObjects</code> package. If you click on the <code>Comments</code> button at the
+bottom of the class pane, you can see the class comment in a dedicated pane.
+</p>
+<p>
+In addition the system supports the following mouse shortcuts
+</p>
+<ul>
+<li><code>CMD-Click</code> on a word: open the definition of a class when the word is a class name. You get also the implementors of the message when you click on a selector that is in the body of a method.</li>
+<li><code>CMD-Shift-Click</code> on a word: open a list browser with all the refs of the class when the word is a class name. You get also the senders of the message when you click on a selector that is in the body of a method.</li>
+</ul>
+
+
+<h3>Using Spotter</h3>
+
+<p>
+The fastest (and probably the coolest) way to find a class is to use <strong>Spotter</strong>. Pressing <code>Shift+Enter</code> opens <code>Spotter</code>, a very powerful tool for finding classes, methods, and many other related actions. Figure <a href="#fig:spotter"></a> shows that we look for <code>Point</code>. 
+</p>
+<p>
+<a id="fig:spotter"></a>
+<figure>
+	<img src="figures/spotter.png" width="80%"/>
+	<figcaption>Opening Spotter</figcaption>
+</figure>
+</p>
+<p>
+<strong>Spotter</strong> offers several possibilities as shown in Figure <a href="#fig:spotter"></a>.
+You can specify to Spotter the kind of <em>categories</em> you are interested in.
+For example, using <code>#class</code> followed by the word you look for, indicates that you are
+interested in classes. This is the default so you do not need to type <code>#class</code>.
+</p>
+<p>
+Figure <a href="#fig:spotter2"></a> shows how we can ask <strong>Spotter</strong> to show all the implementors of a given messages. We do not have to type the full category name. 
+Other Categories are menu, packages, method (<code>#implementor</code>), examples (<code>#example</code>), pragma (<code>#pragma</code>), senders (<code>#sender</code>), class references (<code>#reference</code>) but also playground code snippets (using <code>#playground</code>).You can just type the beginning of the category to identify it i.e., <code>#ref Point</code> will give all the reference to the class <code>Point</code>. 
+</p>
+<p>
+<a id="fig:spotter2"></a>
+<figure>
+	<img src="figures/Spotter2.png" width="80%"/>
+	<figcaption>Looking for implementors matching <code>printString</code></figcaption>
+</figure>
+</p>
+<p>
+<strong>Spotter</strong> can be used even to browse through the OS file system, and has a history
+category where previous searches are stored for quickly going back to popular
+searches.
+</p>
+
+<h4>Navigating results</h4>
+<p>
+In addition we can use <strong>Spotter</strong> to navigate to our search results similarly to how we use
+System Browser. Spotter categorizes its search results: for example, classes are
+under Classes category, methods under the Implementors category, help topics
+under Help Topics category, etc.  
+</p>
+<p>
+Clicking on the right arrow will take us to our
+selection and create a tab on top that we can click to go back to where we were.
+Depending on what we click on, we step into our selection and are exposed to
+more categories.
+</p>
+<p>
+For example, if our selection is the <code>Point</code> class, we will dive inside a
+group of categories made for instance methods, class methods, super instance
+methods etc.
+</p>
+<p>
+The interface is fully controllable through the keyboard. The user can move with
+<code>Up</code>/<code>Down</code> arrows between items or <code>Cmd-Shift-Up</code>/<code>Cmd-Shift-Down</code>
+arrows (note that on Windows and Linux <code>Cmd</code> key is the <code>Alt</code> key) through
+categories. At the same time, the search field has the focus, so the user can
+switch seamlessly between selecting items and refining the search. Pressing
+<code>Enter</code> on a selection opens the System Browser on that specific selected
+search result.
+</p>
+<h4>Using 'Find class' in System Browser</h4>
+<p>
+In the SystemBrowser you can also search for a class via its name. For example,
+suppose that you are looking for some unknown class that represents dates and
+times.
+</p>
+<p>
+In the System Browser, click anywhere in the package pane or the class pane, and
+launch the Class Search window by typing <code>CMD-f CMD-c</code>, or selecting <code>Find
+class (f,c)</code> from the right-click context menu. Type <code>time</code> in the dialog box
+and click <code>OK</code> (or press <code>Enter</code>).
+</p>
+<p>
+A list of classes is displayed, whose names contain the substring
+<code>time</code>. Choose one (say, <code>Time</code>), and the browser will show it, along with a
+class comment that suggests other classes that might be useful. If you want to
+browse one of the others, select its name (in any text pane), and type
+<code>CMD-b</code>.
+</p>
+<p>
+Note that if you type the complete (and correctly capitalized) name of a class
+in the find dialog, the browser will go directly to that class without showing
+you the list of options.
+</p>
+<h4>Using the Finder</h4>
+<p>
+You can also open the <code>Finder</code> that is available from the <code>World &gt; Tools...</code>
+menu, and type part of the name of the class and change the Selectors to Classes in the right combo box. It is less efficient than using <strong>Spotter</strong> or the SystemBrowser as explained above. The Finder is more useful
+for other types of code searches such as find methods based on examples, as we will show later.
+</p>
+
+<h2>Finding methods</h2>
+
+<p>
+Sometimes you can guess the name of a method, or at least part of the name of a
+method, more easily than the name of a class. For example, if you are interested
+in the current time, you might expect that there would be a method called &quot;now&quot;,
+or containing &quot;now&quot; as a substring. But where might it be? <strong>Spotter</strong> and <strong>Finder</strong>
+can help you.
+</p>
+<h3>Spotter</h3>
+
+<p>
+With <strong>Spotter</strong> you can also find methods. Either by getting a class and navigating or using category such as: 
+</p><ul>
+<li><code>#implementor a method name</code> will display all the methods that are implemented and have the same name. For example you will get all the <code>do:</code> methods.</li>
+<li><code>#selector a method name</code> will display all the selectors that matches this name</li>
+</ul>
+
+<h3>With Finder</h3>
+
+<p>
+Select <code>World Menu &gt; Tools &gt; Finder</code>. Type <code>now</code> in the top left search box, click <code>Search</code> (or just press the <code>Enter</code> key).
+You should see a list of results similar to the one in Figure <a href="#fig:finder"></a>.
+</p>
+<p>
+The Finder will display a list of all the method names that contain the
+substring &quot;now&quot;. To scroll to <code>now</code> itself, move the cursor to the list and
+type &quot;n&quot;; this type-ahead trick works in all scrolling windows. Expanding the
+&quot;now&quot; item shows you the classes that implement a method with this name.
+Selecting any one of them will display the source code for the implementation
+in the code pane on the bottom.
+</p>
+<p>
+<a id="fig:finder"></a>
+<figure>
+	<img src="figures/finder.png" width="80%"/>
+	<figcaption>The Finder showing all classes defining a method named <code>now</code>.</figcaption>
+</figure>
+</p>
+
+
+<h3>Finding methods using examples</h3>
+
+<p>
+At other times, you may have a good idea that a method exists, but will have no
+idea what it might be called. The Finder can still help! For example,
+suppose that you would like to find a method that turns a string into upper
+case (for example, transforming <code>'eureka'</code> into <code>'EUREKA'</code>). We can give the
+inputs and expected output of a method and the Finder will try to find it for
+you.
+</p>
+<p>
+The <strong>Finder</strong> has a really powerful functionality: you can give the receiver,
+arguments and expected result and the finder tries to find the corresponding
+message.
+</p>
+<h3>Trying Finder</h3>
+
+<p>
+In the Finder, select the <strong>&quot;Examples</strong> mode using the second combo-box (the one that
+shows <code>Selectors</code> by default).
+</p>
+<p>
+Type <code>'eureka' . 'EUREKA'</code> into the search box and press the <code>Enter</code> key.
+</p>
+<p>
+The <strong>Finder</strong> will then suggest a method that does what you were looking for, as
+well as display a list of classes that implement methods with the same name. In this case,
+it determined that the <code>asUppercase</code> method is the one that performed the
+operation that fit your example.
+</p>
+<p>
+Click on the <code>'eureka' asUppercase --&gt; 'EUREKA'</code> expression, to show the list
+of classes that implement that method.
+</p>
+<p>
+An asterisk at the beginning of a line in the list of classes
+indicates that this method is the one that was actually used to obtain the
+requested result. So, the asterisk in front of <code>String</code> lets us
+know that the method <code>asUppercase</code> defined in the class <code>String</code> was
+executed and returned the result we wanted. The classes that do not have an
+asterisk are just other implementors of <code>asUppercase</code>, which share the method
+name but were <em>not</em> used to return the wanted result. So
+<code>Character&gt;&gt;asUppercase</code> was not executed in our example, because <code>'eureka'</code>
+is not a <code>Character</code> instance (but is instead a <code>String</code>).
+</p>
+<p>
+You can also use the Finder to search for methods by arguments and results. For
+example, if you are looking for a method that will find the greatest common
+factor of two integers, you might try <code>25 . 35 . 5</code> as an example. You can also
+give the method finder multiple examples to narrow the search space; the help
+text in the bottom pane explains how.
+</p>
+<h2>Defining a new method</h2>
+
+<p>
+The advent of Test Driven Development (TDD) has changed the way we write
+code. The idea behind TDD is that we write a test that defines the desired
+behaviour of our code before we write the code itself. Only then do we write the
+code that satisfies the test.
+</p>
+<p>
+Suppose that our assignment is to write a method that &quot;says something loudly and
+with emphasis&quot;. What exactly could that mean? What would be a good name for such
+a method? How can we make sure that programmers who may have to maintain our
+method in the future have an unambiguous description of what it should do? We
+can answer all of these questions by giving an example.
+</p>
+<p>
+Our goal is to define a new method named <code>shout</code> in the class <code>String</code>. The
+idea is that this message should turn a string into its uppercase version as
+shown in the example below:
+</p>
+<figure><pre><code>'No panic' shout
+--&gt; 'NO PANIC!'</code></pre><figcaption></figcaption></figure>
+
+<p>
+However, before creating the <code>shout</code> method itself, we must first create a
+test method! In the next section, we can use the &quot;No Panic&quot; example to
+create our test method.
+</p>
+<h3>Defining a new test method</h3>
+
+<p>
+How do we create a new method in Pharo? First, we have to decide which class the
+method should belong to. In this case, the <code>shout</code> method that we are testing
+will go in class <code>String</code>, so the corresponding test will, by convention, go
+in a class called <code>StringTest</code>.
+</p>
+<p>
+First, open a browser on the class <code>StringTest</code>, and select an appropriate
+protocol for our method, in this case <code>'tests - converting'</code>. The highlighted
+text in the bottom pane is a template that reminds you what a Pharo method looks
+like. Delete this template code (remember, you can either click on the beginning
+or the end of the text, or press <code>CMD-a</code>, to &quot;Select All&quot;), and start typing
+your method. We can turn our &quot;No Panic&quot; code example into the test method
+itself:
+</p>
+<figure><pre><code>testShout
+	self assert: ('No panic' shout = 'NO PANIC!')</code></pre><figcaption></figcaption></figure>
+
+<p>
+Once you have typed the text into the browser, notice that the corner is orange.
+This is a reminder that the pane contains unsaved changes. So, select <code>Accept
+(s)</code> by right clicking in the bottom pane, or just type <code>CMD-s</code>, to compile
+and save your method. You should see a situation similar to the one depicted in
+Figure <a href="#fig:testshout"></a>.
+</p>
+<p>
+<a id="fig:testshout"></a>
+<figure>
+	<img src="figures/testshout-00.png" width="70%"/>
+	<figcaption>Defining a test method in the class <code>StringTest</code>.</figcaption>
+</figure>
+</p>
+<p>
+If this is the first time you have accepted any code in your image, you will
+likely be prompted to enter your name. Since many people have contributed code
+to the image, it is important to keep track of everyone who creates or modifies
+methods. Simply enter your first and last names, without any spaces.
+</p>
+<p>
+Because there is as yet no method called <code>shout</code>, the browser will ask you to
+confirm that this is the name that you really want. It will also suggest some
+other names that you might have intended. This can be quite useful if you have
+merely made a typing mistake, but in this case, we really do mean <code>shout</code>,
+since that is the method we are about to create. We confirm this by selecting
+the first option from the menu of choices.
+</p>
+<h3>Running your test method</h3>
+
+<p>
+Run your newly created test: open the <strong>Test Runner</strong> from the World Menu (or press on the circle icon in front of the method name this is faster and cooler). 
+</p>
+<p>
+In the <strong>Test Runner</strong> the leftmost two panes are a bit like the top panes in the System Browser. The
+left pane contains a list of packages, but it's restricted to those packages
+that contain test classes.
+</p>
+<p>
+Select <code>CollectionsTests-Strings</code> package, and the pane to the right will show
+all of the test classes in it, which includes the class <code>StringTest</code>. Class names are already selected, 
+so click <code>Run Selected</code> to run all these tests.
+</p>
+
+<p>
+You should see the upper right pane turn red, which indicates that there was an
+error in running the tests. The list of tests that gave rise to errors is shown
+in the bottom right pane. As you can see, <code>StringTest&gt;&gt;testShout</code> is the
+culprit. (Note that <code>StringTest&gt;&gt;testShout</code> is the Pharo way of identifying
+the <code>testShout</code> method of the <code>StringTest</code> class.) If you click on that
+method in the bottom right pane, the erroneous test will run again, this time in
+such a way that you see the error happen: <code>MessageNotUnderstood:
+ByteString&gt;&gt;shout</code> (see Figure <a href="#fig:shoutError"></a>).
+</p>
+
+<p>
+<a id="fig:shoutError"></a>
+<figure>
+	<img src="figures/testshout-0.png" width="70%"/>
+	<figcaption>Looking at the error in the debugger.</figcaption>
+</figure>
+</p>
+<p>
+The window that opens with the error message is the Pharo debugger. We will look
+at the debugger and how to use it in Chapter: <a href="#cha:env">The Pharo Environment</a>.
+</p>
+<p>
+<a id="fig:createPromptWhichClass"></a>
+<figure>
+	<img src="figures/preview-2.png" width="50%"/>
+	<figcaption>Pressing the Create button in the debugger prompts you to select in which class to create the new method. </figcaption>
+</figure>
+</p>
+<h3>Implementing the tested method</h3>
+
+<p>
+The error is, of course, exactly what we expected: running the test generates an
+error because we haven't yet written a method that tells strings how to shout.
+Nevertheless, it's good practice to make sure that the test fails because this
+confirms that we have set up the testing machinery correctly and that the new
+test is actually being run. Once you have seen the error, you can <code>Abandon</code>
+the running test, which will close the debugger window.
+</p>
+<p>
+<a id="fig:shoutShouldBeImplemented"></a>
+<figure>
+	<img src="figures/shoutInDebugger-4.png" width="70%"/>
+	<figcaption>The automatically created <code>shout</code> method waiting for a real definition.</figcaption>
+</figure>
+</p>
+<h4>Coding in the debugger</h4>
+<p>
+Instead of pressing <code>Abandon</code>, you can define the missing method using the
+<code>Create</code> button right in the debugger. This will prompt you to select a class
+in which to define the new method (see Figure <a href="#fig:createPromptWhichClass"></a>), then
+prompt you to select a protocol for that method, and finally take you to a code
+editor window in the debugger, in which you can edit the code for this new
+method. Note that since the system cannot implement the method
+for you, it creates a generic method that is tagged as to be implemented (see Figure <a href="#fig:shoutShouldBeImplemented"></a>). 
+</p>
+
+<p>
+Now let's define the method that will make the test succeed! Right inside the debugger 
+edit the <code>shout</code> method with this definition:
+</p>
+<figure><pre><code>shout
+  ^ self asUppercase,'!'</code></pre><figcaption></figcaption></figure>
+
+<p>
+The comma is the string concatenation operation, so the body of this method
+appends an exclamation mark to an upper-case version of whatever String object
+the shout message was sent to. The <code>^</code> tells Pharo that the expression that
+follows is the answer to be returned from the method, in this case the new
+concatenated string.
+</p>
+<p>
+When you've finished implementing the method, do not forget to compile it using <code>CMD-s</code> and you can press <code>Proceed</code> and continue with the tests. Note that <code>Proceed</code> simply continues on running the test suite, and does not re-run the failed method.
+</p>
+<h5>Does this method work? </h5>
+<p>
+Let's run the tests and see. Click on <code>Run Selected</code> again in the Test Runner, and this time you should see a green bar and text indicating that all of the tests ran with no failures and
+no errors. When you get to a green bar, it's a good idea to save your work by saving the
+image (<code>World Menu &gt; Save</code>), and take a break. So, do that right now!
+</p>
+<h2>Chapter summary</h2>
+
+<p>
+This chapter has introduced you to the Pharo environment and shown you how to
+use some of the major tools, such as the System Browser, Spotter, the Finder,
+the Debugger, and the Test Runner. You have also seen a little of Pharo's
+syntax, even though you may not understand it all yet.
+</p>
+<ul>
+<li>A running Pharo system consists of a <em>virtual machine</em>, a <code>.sources</code> file, and <code>.image</code> and <code>.changes</code> files. Only these last two change, as they record a snapshot of the running system.</li>
+<li>When you open a Pharo image, you will find yourself in exactly the same state (i.e., with exactly the same running objects) that you had when you last saved that image.</li>
+<li>You can click on the Pharo background to bring up the <strong>World Menu</strong> and launch various tools.</li>
+<li>A <strong>Playground</strong> is a tool for writing and evaluating snippets of code. You can also use it to store arbitrary text.</li>
+<li>You can use keyboard shortcuts on text in the playground, or any other tool, to evaluate code. The most important of these are <code>Do it</code> (<code>CMD-d</code>), <code>Print it</code> (<code>CMD-p</code>), <code>Inspect it</code> (<code>CMD-i</code>), and <code>Browse it</code> (<code>CMD-b</code>).</li>
+<li>The <strong>System Browser</strong> is the main tool for browsing Pharo code and for developing new code.</li>
+<li>The <strong>Test runner</strong> is a tool for running unit tests, and aids in Test Driven Development.</li>
+<li>The <strong>Debugger</strong> allows you to examine errors and exceptions (such as errors or failures encountered when running tests). You can even create new methods right in the debugger.</li>
+</ul>
