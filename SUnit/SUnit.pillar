@@ -30,11 +30,11 @@ core practice and by emphasizing ''automated'' tests, has helped to make testing
 productive and fun, rather than a chore that programmers dislike. The Smalltalk
 community has a long tradition of testing because of the incremental style of
 development supported by its programming environment. In traditional Smalltalk
-development, the programmer would write tests in a workspace as soon as a method
+development, the programmer would write tests in a playground as soon as a method
 was finished. Sometimes a test would be incorporated as a comment at the head of
 the method that it exercised, or tests that needed some set up would be included
 as example methods in the class. The problem with these practices is that tests
-in a workspace are not available to other programmers who modify the code.
+in a playground are not available to other programmers who modify the code.
 Comments and example methods are better in this respect, but there is still no
 easy way to keep track of them and to run them automatically. Tests that are not
 run do not help you to find bugs! Moreover, an example method does not inform
@@ -46,7 +46,7 @@ the test itself defines what the correct result should be. It also helps us to
 organize tests into groups, to describe the context in which the tests must run,
 and to run a group of tests automatically. In less than two minutes you can
 write tests using SUnit, so instead of writing small code snippets in a
-workspace, we encourage you to use SUnit and get all the advantages of stored
+playgound, we encourage you to use SUnit and get all the advantages of stored
 and automatically executable tests.
 
 !!Why testing is important
@@ -67,7 +67,7 @@ that they cover. This documentation is active: watching the tests pass
 tells you that the documentation is up to date. Second, tests help developers to
 confirm that some changes that they have just made to a package have not broken
 anything else in the system, and to find the parts that break when that
-confidence turns out to be misplaced. Finally, writing tests during, or even before, 
+confidence turns out to be misplaced. Finally, writing tests during, or even before,
 programming forces you to think about the functionality that
 you want to design, ''and how it should appear to the client code'', rather than
 about how to implement it.
@@ -303,7 +303,7 @@ argument is true, the test passes; when the argument is false, the test fails.
 There are actually three possible outcomes of a test: ''passing'', ''failing'', and ''raising an error''.
 
 - ""Passing"". The outcome that we hope for is that all of the assertions in the test are true, in which case the test passes. In the test runner, when all of the tests pass, the bar at the top turns green. However, there are two other ways that running a test can go wrong.
-- ""Failing"". The obvious way is that one of the assertions can be false, causing the test to ''fail''. 
+- ""Failing"". The obvious way is that one of the assertions can be false, causing the test to ''fail''.
 - ""Error"". The other possibility is that some kind of error occurs during the execution of the test, such as a ''message not understood'' error or an ''index out of bounds'' error. If an error occurs, the assertions in the test method may not have been executed at all, so we can't say that the test has failed; nevertheless, something is clearly wrong!
 
 In the ''test runner'', failing tests cause the bar at the top to turn yellow, and are listed in the middle pane on
@@ -461,13 +461,13 @@ By default, the resources of a ==TestSuite== are the union of the resources of t
 
 Here is an example. We define a subclass of ==TestResource== called
 ==MyTestResource==. Then we associate it with ==MyTestCase== by overriding the
-class method ==MyTestCase class>>resources== to return an array of the test resource classes that ==MyTestCase== will use. 
+class method ==MyTestCase class>>resources== to return an array of the test resource classes that ==MyTestCase== will use.
 
 [[[caption=An example of a TestResource subclass
 TestResource subclass: #MyTestResource
 	instanceVariableNames: ''
 	...
-	
+
 MyTestCase class>>resources
 	"Associate the resource with this class of test cases"
 
@@ -496,7 +496,7 @@ Create new classes ==MyTestResource== and ==MyTestCase== which are subclasses of
 that the following messages are written to the ==Transcript== when you run your
 tests.
 
-!!!!!Solution. 
+!!!!!Solution.
 You will need to write the following six methods.
 
 [[[
@@ -566,8 +566,8 @@ testAsDate
 	self assert: aDateAndTime asDate = ('February 29, 2004' asDate translateTo: 2 hours).
 
 testAsDate
-	self 
-		assert: aDateAndTime asDate 
+	self
+		assert: aDateAndTime asDate
 		equals: ('February 29, 2004' asDate translateTo: 2 hours).
 ]]]
 

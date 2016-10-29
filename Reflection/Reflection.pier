@@ -36,28 +36,24 @@ metaprogramming.
 Using the inspector, you can look at an object, change the values of its
 instance variables, and even send messages to it.
 
-Evaluate the following code in a workspace:
+Evaluate the following code in a playground:
 
 [[[
-w := Workspace new.
-w openLabel: 'My Workspace'.
+w := GTPlayground openLabel: 'My Playground'.
 w inspect
 ]]]
 
-This will open a second workspace and an inspector. The inspector shows the
-internal state of this new workspace, listing its instance variables on the left
-(==dependents==, ==contents==, ==bindings==...) and the value of the
-selected instance variable on the right. The ==contents== instance variable
-represents whatever the workspace is displaying in its text area, so if you
-select it, the right part will show an empty string.
+This will open a second playground and an inspector. The inspector shows the
+internal state of this new playground, listing its instance variables on the left
+(==borderColor==, ==borderWidth==, ==bounds==...) and the value of the
+selected instance variable on the right. The ==bounds== instance variable
+represents the precise area occupied by the playground.
 
-+Inspecting a ==Workspace==.>file://figures/workspaceInspector.png|label=fig:workspaceInspector+
++Inspecting a ==Workspace==.>file://figures/playgroundInspector.png|label=fig:playgroundInspector+
 
-Now type =='hello'== in place of that empty string, then ''Accept'' it.
+Now choose the inspector and click the playground area of the inspector which has a comment on top mentioning the class of the object which is a GLMSystemWindow. Type =='self bounds: (Rectangle origin: 10@10 corner: 300@300 )'== in it of select and then ''Do It'' like you do with a code of a Playground.
 
-The value of the ==contents== variable will change, but the workspace window
-will not notice it, so it does not redisplay itself. To trigger the window
-refresh, evaluate ==self contentsChanged== in the lower part of the inspector.
+Immediately you will see the Playground we created change and resize itself.
 
 !!!Accessing instance variables
 
@@ -76,7 +72,7 @@ For instance, you can change the value of the ==w== binding of the first
 workspace by evaluating:
 
 [[[
-w instVarNamed: 'contents' put: 'howdy!'; contentsChanged
+w instVarNamed:'bounds' put: (Rectangle origin: 10@10 corner: 500@500 ).
 ]]]
 
 @@important ''Caveat: Although these methods are useful for building development tools, using them to develop conventional applications is a bad idea: these reflective methods break the encapsulation boundary of your objects and can therefore make your code much harder to understand and maintain.''

@@ -74,7 +74,7 @@ variables, class variables, pool dictionaries or class names. ==Processor== is
 a global variable, an instance of the class ==ProcessScheduler==.
 
 ""The receiver."" ==self== is a keyword that refers to the object inside which
-the current method is executing. We call it "the receiver" because this object has 
+the current method is executing. We call it "the receiver" because this object has
 received the message that caused the method to execute.
 ==self== is called a "pseudo-variable" since we cannot assign to it.
 
@@ -251,7 +251,7 @@ This has precisely the same effect as the previous example.
 !!Method syntax
 
 Whereas expressions may be evaluated anywhere in Pharo (for example, in a
-workspace, in a debugger, or in a browser), methods are normally defined in a
+playground, in a debugger, or in a browser), methods are normally defined in a
 browser window, or in the debugger. Methods can also be filed in from an
 external medium, but this is not the usual way to program in Pharo.
 
@@ -260,9 +260,9 @@ class is defined by sending a message to an existing class, asking it to create
 a subclass, so there is no special syntax required for defining classes.
 
 Here is the method ==lineCount== in the class ==String==. The usual ''convention''
-is to refer to methods as ClassName\>\>methodName. Here the method is then  String\>\>lineCount. 
-Note that  ClassName\>\>methodName is not part of the Pharo syntax just 
-a convention used in books to clearly define a method. 
+is to refer to methods as ClassName\>\>methodName. Here the method is then  String\>\>lineCount.
+Note that  ClassName\>\>methodName is not part of the Pharo syntax just
+a convention used in books to clearly define a method.
 
 [[[
 String >> lineCount
@@ -325,8 +325,8 @@ arguments:
 
 [[[language=smalltalk
 [ :x :y |
-	| z | 
-	z := x + y. 
+	| z |
+	z := x + y.
 	z ] value: 1 value: 2 --> 3
 ]]]
 

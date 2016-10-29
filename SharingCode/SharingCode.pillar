@@ -71,8 +71,10 @@ category names use CamelCase (and don't include spaces).
 
 The class ==RPackage== represents packages. The class ==RPackageOrganizer== implements a singleton that holds all the Pharo packages. The following expressions are examples of the queries that you can perform. 
 
+
 [[[
 (RPackageOrganizer default packageNamed: 'AST-Core') definedClassNames
+
 
 (RPackageOrganizer default packageNamed: 'AST-Core') extendedClasses 
 ]]]
@@ -396,9 +398,7 @@ change anything, including things that are vital to make Pharo work!
 
 The good news is that you need never lose any work, even if you crash and go
 back to the last saved version of your image, which might be hours old. This is
-because all of the code that you executed is saved in the ''.changes'' file. All
-of it! This includes one liners that you evaluate in a workspace, as well as
-code that you add to a class while programming.
+because all of the code that you executed is saved in the ''.changes'' file. This excludes Playground snippets , those are stored inside ''/pharo-local/play-chace''and they can be searched using Spotter (the results are displayed under Playground-cached pages section).
 
 So here are the instructions on how to get your code back. There is no need to
 read this until you need it. However, when you do need it, you'll find it here
