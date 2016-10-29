@@ -1,9 +1,9 @@
-{ "title": "The Pharo programming environment" }
+{ "title": "Some of the key tools of the Pharo environment" }
 @cha:env
 
 %TODO : A better par about the finder at the end of the chapter.
 
-The goal of this chapter is to show you how to develop programs in the Pharo
+The goal of this chapter is to present the main tools of the Pharo
 programming environment. You have already seen how to define methods and classes
 using the browser; this chapter will show you more of its features,
 and introduce you to some of the other browsers.
