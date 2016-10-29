@@ -62,7 +62,7 @@ sending the message ==printString== to an instance executes the methods defined 
 ==Object==.
 
 [[[
-GTPlayground new printString 
+GTPlayground new printString
   --> 'a GTPlayground(id=42544640 title=Playground pane=a GLMPane(1012947200 root))'
 ]]]
 
@@ -81,7 +81,7 @@ Color >> printOn: aStream
 ]]]
 
 [[[
-Color red printString 
+Color red printString
   --> 'Color red'
 ]]]
 
@@ -99,7 +99,7 @@ Pharo, messages (expressions) return objects (values). Some objects have the
 nice property that their value is themselves. For example, the value of the
 object ==true== is itself i.e., the object ==true==. We call such objects
 ''self-evaluating objects''. You can see a ''printed'' version of an object
-value when you print the object in a workspace. Here are some examples of such
+value when you print the object in a playground. Here are some examples of such
 self-evaluating expressions.
 
 [[[
@@ -325,8 +325,8 @@ a1 at: 1 put: a2.
 a1 deepCopy --> !''... does not terminate!''!
 ]]]
 
-An alternate solution is to use message ==copy==. It is implemented on 
-==Object== as follows: 
+An alternate solution is to use message ==copy==. It is implemented on
+==Object== as follows:
 
 [[[caption=Copying objects as a template method
 Object >> copy
@@ -342,10 +342,10 @@ Object >> postCopy
     ^ self
 ]]]
 
-By default ==postCopy== returns self. It means that by default ==copy== is doing 
+By default ==postCopy== returns self. It means that by default ==copy== is doing
 the same as ==shallowCopy== but each subclass can decide to customise the ==postCopy== method
 which acts as a hook. You should override ==postCopy== to copy any instance variables that should not
-be shared. In addition there is a good chance that ==postCopy== should always do a ==super postCopy== to ensure that state of the superclass is also copied. 
+be shared. In addition there is a good chance that ==postCopy== should always do a ==super postCopy== to ensure that state of the superclass is also copied.
 
 !!!Debugging
 
@@ -389,9 +389,9 @@ This protocol contains several methods useful for signaling run-time errors.
 
 !!!!! ==deprecated:==.
 Sending ==self deprecated:== signals that the current method should no longer be
-used, if deprecation has been turned on. You can turn it on/off in the Debugging section using the 
-Settings browser. The argument should describe  an alternative. 
-Look for senders of the message ==deprecated:== to get an idea. 
+used, if deprecation has been turned on. You can turn it on/off in the Debugging section using the
+Settings browser. The argument should describe  an alternative.
+Look for senders of the message ==deprecated:== to get an idea.
 
 
 !!!!! ==doesNotUnderstand:==.
@@ -445,7 +445,7 @@ The ==testing== methods have nothing to do with SUnit testing! A testing method
 is one that lets you ask a question about the state of the receiver and returns
 a ==Boolean==.
 
-Numerous testing methods are provided by ==Object==. There are ==isArray==, ==isBoolean==, 
+Numerous testing methods are provided by ==Object==. There are ==isArray==, ==isBoolean==,
 ==isBlock==, ==isCollection== and so on. Generally such methods are to be avoided since
 querying an object for its class is a form of violation of encapsulation.
 Instead of testing an object for its class, one should simply send a request and
@@ -503,7 +503,7 @@ as values are automatically converted as needed.
 
 ==Magnitude== is the parent not only of the ==Number== classes, but also of
 other classes supporting comparison operations, such as ==Character==,
-==Duration== and ==Timespan==. 
+==Duration== and ==Timespan==.
 
 Methods ==<== and ===== are abstract. The remaining operators are generically
 defined. For example:
@@ -558,7 +558,7 @@ Unsurprisingly ==Number== overrides ==isNumber==. More interestingly,
 The following example works surprisingly well in Pharo:
 
 [[[
-1000 factorial / 999 factorial 
+1000 factorial / 999 factorial
 --> 1000
 ]]]
 
@@ -612,7 +612,7 @@ methods, it also adds a few methods specific to integers, such as ==factorial==,
 instead of being stored as a reference, a ==SmallInteger== is represented
 directly using the bits that would otherwise be used to hold a reference. The
 first bit of an object reference indicates whether the object is a
-==SmallInteger== or not. Now the virtual machine abstracts that from you, therefore you cannot 
+==SmallInteger== or not. Now the virtual machine abstracts that from you, therefore you cannot
 see this directly when inspecting the object.
 
 The class methods ==minVal== and ==maxVal== tell us the range of a
@@ -777,8 +777,8 @@ method ==ifTrue:ifFalse:==, which takes two ==Blocks== as arguments.
 
 [[[
 4 factorial > 20
-	ifTrue: [ 'bigger' ] 
-	ifFalse: [ 'smaller' ] 
+	ifTrue: [ 'bigger' ]
+	ifFalse: [ 'smaller' ]
 --> 'bigger'
 ]]]
 
@@ -793,7 +793,7 @@ False >> ifTrue: trueAlternativeBlock ifFalse: falseAlternativeBlock
     ^ falseAlternativeBlock value
 ]]]
 
-Each of them execute the correct block depending on the receiver of the message. 
+Each of them execute the correct block depending on the receiver of the message.
 In fact, this is the essence of OOP: when a message is sent to an object, the
 object itself determines which method will be used to respond. In this case an
 instance of ==True== simply executes the ''true'' alternative, while an

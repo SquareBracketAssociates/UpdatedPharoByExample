@@ -92,7 +92,7 @@ with available icon sets in the next pulldown in that section.
 Please note that you may have to close and reopen existing windows to redraw
 them correctly with the new dark theme.
 
-If you are using Pharo 5 and above, you can use the ==Catalog Browser== to
+You can use the ==Catalog Browser== to
 install additional themes. Open ==World > Tools > Catalog Browser== and search
 for ==theme== in the search box. For example, if you want something more
 colorful, you can download the Nireas theme, which is a blue theme inspired by

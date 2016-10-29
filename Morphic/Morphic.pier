@@ -462,7 +462,7 @@ CrossMorph>>#step
 
 To start things off, you can open an inspector on a ==CrossMorph== using the
 debug handle (see Figure *@fig:debugHandle*) in the morphic halo, type ==self
-startStepping== in the small workspace pane at the bottom, and ==Do it==.
+startStepping== in the small playground pane at the bottom, and ==Do it==.
 
 +The debug handle button>file://figures/debugHandle.png|width=3|label=fig:debugHandle+
 

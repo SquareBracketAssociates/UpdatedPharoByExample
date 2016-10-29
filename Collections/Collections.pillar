@@ -1091,7 +1091,7 @@ range
 
 A difficult error to spot is when you redefine ==\=== but not ==hash==. The
 symptoms are that you will lose elements that you put in sets or other strange
-behaviour. One solution proposed by Kent Beck is to use ==xor:== to redefine
+behaviour. One solution proposed by Kent Beck is to use ==bitXor:== to redefine
 ==hash==. Suppose that we want two books to be considered equal if their titles
 and authors are the same. Then we would redefine not only ==\=== but also
 ==hash== as follows:
@@ -1102,7 +1102,7 @@ Book>>>= aBook
    ^ title = aBook title and: [ authors = aBook authors ]
 
 Book>>>hash
-   ^ title hash xor: authors hash
+   ^ title hash bitXor: authors hash
 ]]]
 
 Another nasty problem arises if you use a mutable object, i.e., an object

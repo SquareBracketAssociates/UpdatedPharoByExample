@@ -78,14 +78,14 @@ category names use CamelCase (and don't include spaces).
 The class ==PackageInfo== implements these rules, and one way to get a feel for
 them is to experiment with this class.
 
-(do this) Evalute the following expression in a workspace:
+(do this) Evalute the following expression in a playground:
 
 [[[language=Smalltalk
 mc := PackageInfo named: 'Monticello'
 ]]]
 
 It is now possible to introspect on this package. For example, printing ==mc
-classes== in the workspace pane will return the long list of classes that make
+classes== in the playground pane will return the long list of classes that make
 up the Monticello package. ==mc coreMethods== will return a list of
 ==MethodReference==s for all of the methods in those classes. ==mc
 extensionMethods== is perhaps one of the most interesting queries: it will
@@ -419,9 +419,7 @@ change anything, including things that are vital to make Pharo work!
 
 The good news is that you need never lose any work, even if you crash and go
 back to the last saved version of your image, which might be hours old. This is
-because all of the code that you executed is saved in the ''.changes'' file. All
-of it! This includes one liners that you evaluate in a workspace, as well as
-code that you add to a class while programming.
+because all of the code that you executed is saved in the ''.changes'' file. This excludes Playground snippets , those are stored inside ''/pharo-local/play-chace''and they can be searched using Spotter (the results are displayed under Playground-cached pages section).
 
 So here are the instructions on how to get your code back. There is no need to
 read this until you need it. However, when you do need it, you'll find it here
