@@ -100,10 +100,10 @@ tried. This also allows the debugger to be started on primitive methods.
 Although it is possible to modify the code of primitive methods, beware that
 this can be risky business for the stability of your Pharo system.
 
-+Displaying all instance variables of a ==Workspace==.>file://figures/allInstanceVariables.png|label=fig:allInstanceVariables+
++Displaying all instance variables of a ==GTPlayground==.>file://figures/allInstanceVariables.png|label=fig:allInstanceVariables+
 
 Figure *@fig:allInstanceVariables* shows how to display the values of the
-instance variables of an arbitrary instance (==w==) of class ==Workspace==. The
+instance variables of an arbitrary instance (==w==) of class ==GTPlayground==. The
 method ==allInstVarNames== returns all the names of the instance variables of a
 given class.
 
@@ -119,43 +119,16 @@ w class allInstVarNames collect: [:each | each -> (w instVarNamed: each)]
 ]]]
 
 In the same spirit, it is possible to gather instances that have specific
-properties. For instance, to get all instances of class ==SketchMorph== whose
-instance variable ==owner== is set to the World morph (''i.e.'', images
-currently displayed), try this expression:
+properties iterating over instances of a class using an iterator such ==select:== For instance, to get all objects whose
+are directly included in the world morph (the main root of the graphical displayed elements), try this expression:
 
 [[[
-SketchMorph allInstances select: [:c | (c instVarNamed: 'owner') isWorldMorph]
+Morph allSubInstances 
+	select: [ :each | 
+				| own |
+				own := (each instVarNamed: 'owner').
+				own isNotNil and: [ own  isWorldMorph ]]
 ]]]
-
-!!!Iterating over instance variables
-
-Let us consider the message ==instanceVariableValues==, which returns a
-collection of all values of instance variables defined by this class, excluding
-the inherited instance variables.
-
-For instance:
-
-[[[
-(1@2) instanceVariableValues -> an OrderedCollection(1 2)
-]]]
-
-The method is implemented in ==Object== as follows:
-
-[[[
-Object>>>instanceVariableValues
-	"Answer a collection whose elements are the values of those instance variables of the receiver which were added by the receiver's class."
-	| c |
-	c := OrderedCollection new.
-	self class superclass instSize + 1
-		to: self class instSize
-		do: [ :i | c add: (self instVarAt: i)].
-	^ c
-]]]
-
-This method iterates over the indices of instance variables that the class
-defines, starting just after the last index used by the superclasses. (The
-method ==instSize== returns the number of all named instance variables that a
-class defines.)
 
 !!!Querying classes and interfaces
 
@@ -205,13 +178,13 @@ it needs some refactoring!
 
 [[[
 Morph allSuperclasses size.  -->       2 "inheritance depth"
-Morph allSelectors size.        --> 1378 "number of methods"
+Morph allSelectors size.        --> 1304 "number of methods"
 Morph allInstVarNames size. -->      6 "number of instance variables"
-Morph selectors size.             -->  998 "number of new methods"
+Morph selectors size.             -->  896 "number of new methods"
 Morph instVarNames size.     -->      6 "number of new variables"
-Morph subclasses size.          -->    45 "direct subclasses"
-Morph allSubclasses size.      -->  326 "total subclasses"
-Morph linesOfCode.               --> 5968 "total lines of code!"
+Morph subclasses size.          -->    63 "direct subclasses"
+Morph allSubclasses size.      -->  376 "total subclasses"
+Morph linesOfCode.               --> 4964 "total lines of code!"
 ]]]
 
 One of the most interesting metrics in the domain of object-oriented languages
