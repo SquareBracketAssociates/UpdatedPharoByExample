@@ -1,12 +1,12 @@
 { "title": "Reflection" }
 @cha:reflection
 
-Pharo, like all Smalltalks, is a reflective programming language. In a nutshell,
+Pharo is a reflective programming language. In a nutshell,
 this means that programs are able to ''reflect'' on their own execution and
 structure. More technically, this means that the ''metaobjects'' of the runtime
 system can be ''reified'' as ordinary objects, which can be queried and
 inspected. The metaobjects in Pharo are classes, metaclasses, method
-dictionaries, compiled methods, the run-time stack, and so on. This form of
+dictionaries, compiled methods, but also the run-time stack, processes, and so on. This form of
 reflection is also called ''introspection'', and is supported by many modern
 programming languages.
 
@@ -16,6 +16,8 @@ Conversely, it is possible in Pharo to modify reified metaobjects and
 ''reflect'' these changes back to the runtime system (see Figure *@fig:reflect*).
 This is also called ''intercession'', and is supported mainly by dynamic
 programming languages, and only to a very limited degree by static languages.
+So pay attention when people say that Java is a reflective language, it is an introspective one
+not a reflective one.
 
 A program that manipulates other programs (or even itself) is a ''metaprogram''.
 For a programming language to be reflective, it should support both
@@ -51,7 +53,7 @@ represents the precise area occupied by the playground.
 
 +Inspecting a ==Workspace==.>file://figures/playgroundInspector.png|label=fig:playgroundInspector+
 
-Now choose the inspector and click the playground area of the inspector which has a comment on top mentioning the class of the object which is a GLMSystemWindow. Type =='self bounds: (Rectangle origin: 10@10 corner: 300@300 )'== in it of select and then ''Do It'' like you do with a code of a Playground.
+Now choose the inspector and click the playground area of the inspector which has a comment on top and type ==self bounds: (Rectangle origin: 10@10 corner: 300@300 )== in it of select asshown in Figure *@fig:playgroundInspector* and then ''Do It'' like you do with a code of a Playground.
 
 Immediately you will see the Playground we created change and resize itself.
 
@@ -61,7 +63,7 @@ How does the inspector work? In Pharo, all instance variables are protected.
 In theory, it is impossible to access them from another object if the class
 doesn't define any accessor. In practice, the inspector can access instance
 variables without needing accessors, because it uses the reflective abilities of
-Pharo. In most Smalltalks, classes define instance variables either by name or by
+Pharo. Classes define instance variables either by name or by
 numeric indices. The inspector uses methods defined by the ==Object== class to
 access them: ==instVarAt: index== and ==instVarNamed: aString== can be used to
 get the value of the instance variable at position ==index== or identified by
@@ -72,7 +74,7 @@ For instance, you can change the value of the ==w== binding of the first
 workspace by evaluating:
 
 [[[
-w instVarNamed:'bounds' put: (Rectangle origin: 10@10 corner: 500@500 ).
+w instVarNamed:'bounds' put: (Rectangle origin: 10@10 corner: 500@500).
 ]]]
 
 @@important ''Caveat: Although these methods are useful for building development tools, using them to develop conventional applications is a bad idea: these reflective methods break the encapsulation boundary of your objects and can therefore make your code much harder to understand and maintain.''
@@ -83,7 +85,7 @@ you consult the code of these methods, you will see the special pragma syntax
 ==<primitive: N>== where ==N== is an integer.
 
 [[[
-Object>>>instVarAt: index
+Object >> instVarAt: index
 	"Primitive. Answer a fixed variable in an object. ..."
 
 	<primitive: 73>
@@ -104,6 +106,17 @@ Figure *@fig:allInstanceVariables* shows how to display the values of the
 instance variables of an arbitrary instance (==w==) of class ==Workspace==. The
 method ==allInstVarNames== returns all the names of the instance variables of a
 given class.
+
+[[[
+GTPlayground allInstVarNames
+> 
+#(#registry #suspendAll #suspendedAnnouncemets #logger #pane #title #titleIcon #transformation #actions #condition #implicitNotNil #dynamicActionsBlock #color #customValidation #shouldValidate #acceptsSelection #parentPrototype #registeredAnnouncers #updateActions #selectionActions #selectionDynamicActionsBlock #implicitAllNil #rawSelectionTransmissions #statusPane #sourceLink #initializationBlock #cachedDisplayedValue #labelActionBlock #portChangeActions #wantsSteps #stepTime #stepCondition #presentations #arrangement)
+]]]
+
+[[[
+w := GTPlayground someInstance.
+w class allInstVarNames collect: [:each | each -> (w instVarNamed: each)] 
+]]]
 
 In the same spirit, it is possible to gather instances that have specific
 properties. For instance, to get all instances of class ==SketchMorph== whose
