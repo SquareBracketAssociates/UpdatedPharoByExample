@@ -99,7 +99,7 @@ Pharoers put a very high value on the readability of their code, but also good q
 comments.
 
 !!!!!Method comments.
-People got the tendency to believe that it is not necessary to comment well written methods:
+People have the tendency to believe that it is not necessary to comment well written methods:
 it is plain wrong and encourages sloppiness. Of course, bad code should renamed and refactored.
 Obviously commenting trivial methods makes no sense.
 A comment should not be the code written in english but an explanation of what the method is doing,
