@@ -402,7 +402,7 @@ LOGame >> newCellAt: i at: j
 !!!!!Formatting.
 As you can see there are some tabulation and empty lines. In order to keep the
 same convention you can right-click on the method edit area and click on
-==Format== (or use ==CMD-Shift-u== shortcut). This will format your method.
+==Format== (or use ==CMD-Shift-f== shortcut). This will format your method.
 
 The method defined above created a new ==LOCell==, initialized to position (i,
 j) in the Matrix of cells. The last line defines the new cell's ==mouseAction==
