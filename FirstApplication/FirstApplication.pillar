@@ -490,7 +490,7 @@ error occurred (see Figure *@fig:debuggerHighlight*).
 
 +The debugger, with the method ==toggleNeighboursOfCell:at:== selected>file://figures/debuggerHighlight.png|width=85|label=fig:debuggerHighlight+
 
-At the bottom of the debugger is a variable zone. You can inspect the object that is the receiver of the message that caused the selected method to execute, so you can look here to see the values of the instance variables. You can also set the values of the method arguments.
+At the bottom of the debugger is a variable zone. You can inspect the object that is the receiver of the message that caused the selected method to execute, so you can look here to see the values of the instance variables. You can also see the values of the method arguments.
 
 Using the debugger, you can execute code step by step, inspect objects in
 parameters and local variables, evaluate code just as you can in a playground,
