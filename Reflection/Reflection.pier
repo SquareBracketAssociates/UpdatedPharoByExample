@@ -316,7 +316,7 @@ Evaluate ==Point explore==.
 In Figure *@fig:CompiledMethod*, the explorer shows the structure of class
 ==Point==. You can see that the class stores its methods in a dictionary,
 indexing them by their selector. The selector ==#\*== points to the decompiled
-bytecode of ==Point>>>\*==.
+bytecode of ==Point>>\*==.
 
 +Explorer class ==Point== and the bytecode of its ==#\*== method.>file://figures/CompiledMethod.png|label=fig:CompiledMethod+
 
@@ -408,7 +408,7 @@ message== and action-click to select ==browse==.
 
 In Figure *@fig:sendDifferentSuper* we can see that 19 such methods have been
 found within the ==Collection== hierarchy, including
-==Collection>>>printNameOn:==, which sends ==super printOn:==. +Finding methods
+==Collection>>printNameOn:==, which sends ==super printOn:==. +Finding methods
 that send a different super
 message.>file://figures/sendDifferentSuper.png|label=fig:sendDifferentSuper+
 
@@ -463,11 +463,11 @@ series of chained ==MethodContext== objects.
 
 We can easily experiment with this mechanism ourselves.
 
-Change the definition of ==Integer>>>factorial== by inserting the underlined
+Change the definition of ==Integer>>factorial== by inserting the underlined
 expression as shown below:
 
 [[[
-Integer>>>factorial
+Integer>>factorial
 	"Answer the factorial of the receiver."
 	self = 0 ifTrue: [thisContext explore. self halt. ^ 1].
 	self > 0 ifTrue: [^ self * (self - 1) factorial].
@@ -497,7 +497,7 @@ As it turns out, one of the most common applications is to discover the sender
 of a message. Here is a typical application:
 
 [[[
-Object>>>subclassResponsibility
+Object>>subclassResponsibility
 	"This message sets up a framework for the behavior of the class' subclasses.
 	Announce that the subclass should have implemented this message."
 
@@ -517,20 +517,20 @@ and a debugger window will open at the breakpoint. Unfortunately this poses
 problems for methods that are intensively used in the system.
 
 Suppose, for instance, that we want to explore the execution of
-==OrderedCollection>>>add:==. Setting a breakpoint in this method is
+==OrderedCollection>>add:==. Setting a breakpoint in this method is
 problematic.
 
 Take a ''fresh'' image and set the following breakpoint:
 
 [[[
-OrderedCollection>>>add: newObject
+OrderedCollection>>add: newObject
 	self halt.
 	^self addLast: newObject
 ]]]
 
 Notice how your image immediately freezes!  We do not even get a debugger
 window. The problem is clear once we understand that 1)
-==OrderedCollection>>>add:== is used by many parts of the system, so the
+==OrderedCollection>>add:== is used by many parts of the system, so the
 breakpoint is triggered very soon after we accept the change, but 2) ''the
 debugger itself'' sends ==add:== to an instance of ==OrderedCollection==,
 preventing the debugger from opening! What we need is a way to ''conditionally
@@ -538,12 +538,12 @@ halt'' only if we are in a context of interest. This is exactly what
 ==Object>>haltIf:== offers.
 
 Suppose now that we only want to halt if ==add:== is sent from, say, the context
-of ==OrderedCollectionTest>>>testAdd==.
+of ==OrderedCollectionTest>>testAdd==.
 
 Fire up a fresh image again, and set the following breakpoint:
 
 [[[
-OrderedCollection>>>add: newObject
+OrderedCollection>>add: newObject
 	self haltIf: #testAdd.
 	^self addLast: newObject
 ]]]
@@ -554,7 +554,7 @@ This time the image does not freeze. Try running the ==OrderedCollectionTest==.
 How does this work? Let's have a look at ==Object>>haltIf:==.
 
 [[[
-Object>>>haltIf: condition
+Object>>haltIf: condition
 	| cntxt |
 	condition isSymbol ifTrue: [
 		"only halt if a method with selector symbol is in callchain"
@@ -634,13 +634,13 @@ instance variables and we provide an accessor for the message count. Initially
 the ==subject== variable points to the proxy object itself.
 
 [[[
-LoggingProxy>>>initialize
+LoggingProxy>>initialize
 	invocationCount := 0.
 	subject := self.
 ]]]
 
 [[[
-LoggingProxy>>>invocationCount
+LoggingProxy>>invocationCount
 	^ invocationCount
 ]]]
 
@@ -649,7 +649,7 @@ We simply intercept all messages not understood, print them to the
 subject.
 
 [[[
-LoggingProxy>>>doesNotUnderstand: aMessage
+LoggingProxy>>doesNotUnderstand: aMessage
 	Transcript show: 'performing ', aMessage printString; cr.
 	invocationCount := invocationCount + 1.
 	^ aMessage sendTo: subject
@@ -724,7 +724,7 @@ point invocationCount --> 1
 Our proxy has been cheated out of two ==self==-sends in the ==rect:== method:
 
 [[[
-Point>>>rect: aPoint
+Point>>rect: aPoint
 	^ Rectangle  origin: (self min: aPoint) corner: (self max: aPoint)
 ]]]
 
@@ -747,7 +747,7 @@ Let us look at a simple variant of this technique where we have a class that
 automatically adds accessors for its instance variables on demand:
 
 [[[
-DynamicAcccessors>>>doesNotUnderstand: aMessage
+DynamicAcccessors>>doesNotUnderstand: aMessage
 	| messageName |
 	messageName := aMessage selector asString.
 	(self class instVarNames includes: messageName)
@@ -870,7 +870,7 @@ test coverage. Let's have a quick look at how it works.
 The entry point for test coverage is the method ==TestRunner>>runCoverage==:
 
 [[[
-TestRunner>>>runCoverage
+TestRunner>>runCoverage
 	| packages methods |
 	... "identify methods to check for coverage"
 	self collectCoverageFor: methods
@@ -880,7 +880,7 @@ The method ==TestRunner>>collectCoverageFor:== clearly illustrates the coverage
 checking algorithm:
 
 [[[
-TestRunner>>>collectCoverageFor: methods
+TestRunner>>collectCoverageFor: methods
 	| wrappers suite |
 	wrappers := methods collect: [ :each | TestCoverage on: each ].
 	suite := self
@@ -904,10 +904,10 @@ instance variables, ==hasRun==, ==reference== and ==method==. They are
 initialized as follows:
 
 [[[
-TestCoverage class>>>on: aMethodReference
+TestCoverage class>>on: aMethodReference
 	^ self new initializeOn: aMethodReference
 
-TestCoverage>>>initializeOn: aMethodReference
+TestCoverage>>initializeOn: aMethodReference
 	hasRun := false.
 	reference := aMethodReference.
 	method := reference compiledMethod
@@ -917,12 +917,12 @@ The install and uninstall methods simply update the method dictionary in the
 obvious way:
 
 [[[
-TestCoverage>>>install
+TestCoverage>>install
 	reference actualClass methodDictionary
 		at: reference methodSymbol
 		put: self
 
-TestCoverage>>>uninstall
+TestCoverage>>uninstall
 	reference actualClass methodDictionary
 		at: reference methodSymbol
 		put: method
@@ -982,7 +982,7 @@ coverage. This is the case of the ==documentation== method in ==SplitJointTest
 class==:
 
 [[[
-SplitJointTest class>>>documentation
+SplitJointTest class>>documentation
 	<ignoreForCoverage>
 	"self showDocumentation"
 
@@ -1023,7 +1023,7 @@ Reflection refers to the ability to query, examine and even modify the
 metaobjects of the runtime system as ordinary objects.
 
 -The Inspector uses ==instVarAt:== and related methods to view ''private'' instance variables of objects.
--Send ==Behavior>>>allInstances== to query instances of a class.
+-Send ==Behavior>>allInstances== to query instances of a class.
 -The messages ==class==, ==isKindOf:==, ==respondsTo:== etc. are useful for gathering metrics or building development tools, but they should be avoided in regular applications: they violate the encapsulation of objects and make your code harder to understand and maintain.
 -==SystemNavigation== is a utility class holding many useful queries for navigation and browsing the class hierarchy. For example, use ==SystemNavigation default browseMethodsWithSourceString: 'pharo'.== to find and browse all methods with a given source string. (Slow, but thorough!)
 -Every Pharo class points to an instance of ==MethodDictionary== which maps selectors to instances of ==CompiledMethod==. A compiled method knows its class, closing the loop.
