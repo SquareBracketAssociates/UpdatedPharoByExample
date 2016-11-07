@@ -311,14 +311,14 @@ SystemNavigation default browseAllSelect: [:method | method sendsToSuper ].
 Since classes are objects, we can inspect or explore them just like any other
 object.
 
-Evaluate ==Point explore==.
+Evaluate ==Point inspect==.
 
-In Figure *@fig:CompiledMethod*, the explorer shows the structure of class
+In Figure *@fig:CompiledMethod*, the inspector shows the structure of class
 ==Point==. You can see that the class stores its methods in a dictionary,
 indexing them by their selector. The selector ==#\*== points to the decompiled
 bytecode of ==Point>>\*==.
 
-+Explorer class ==Point== and the bytecode of its ==#\*== method.>file://figures/CompiledMethod.png|label=fig:CompiledMethod+
++Inspector on class ==Point== and the bytecode of its ==#\*== method.>file://figures/CompiledMethod.png|label=fig:CompiledMethod+
 
 Let us consider the relationship between classes and methods. In Figure
 *@fig:MethodsAsObjects* we see that classes and metaclasses have the common
@@ -326,7 +326,7 @@ superclass ==Behavior==. This is where ==new== is defined, amongst other key
 methods for classes. Every class has a method dictionary, which maps method
 selectors to compiled methods. Each compiled method knows the class in which it
 is installed. In Figure *@fig:CompiledMethod* we can even see that this is stored
-in an association in ==literal5==.
+in an association in ==literal6==.
 
 +Classes, method dictionaries and compiled methods>file://figures/MethodsAsObjects.png|label=fig:MethodsAsObjects+
 
@@ -382,45 +382,36 @@ reference for a compiled method.
 !!Browsing environments
 
 Although ==SystemNavigation== offers some useful ways to programmatically query
-and browse system code, there is a better way. The Refactoring Browser, which
-is integrated into Pharo, provides both interactive and programmatic ways to
-pose complex queries.
+and browse system code, there are more ways. The Browser, which
+is integrated into Pharo, allows us to restrict the environment in which a search 
+is to perform.
 
-Suppose we are interested to discover which methods in the ==Collection==
-hierarchy send a message to ==super== which is different from the method's
-selector. This is normally considered to be a bad code smell, since such a
-==super==-send should normally be replaced by a ==self==-send. (Think about it —
-you only ''need'' ==super== to extend a method you are overriding; all other
-inherited methods can be accessed by sending to ==self==!)
+Suppose we are interested to discover which classes refer to the class  ==Point==
+but only in its own package.
 
-The refactoring browser provides us with an elegant way to restrict our query to
-just the classes and methods we are interested in.
+Open a browser on the class ==Point==.
 
-Open a browser on the class ==Collection==.
+Action-click on the top level package ==Kernel== in the package pane and select
+==Browse scoped==. A new browser opens, showing only the package ==Kernel== and all
+classes within this package (and some classes which have extension methods from this package).
+Now, in this browser, select again the class ==Point==, Action-click on the class name and
+select ==Analyse > Class refs==. This will show all methods that have references to the class 
+==Point== but only those from the package ==Kernel==. 
+Compare this result with the search from a Browser without restricted scope.
 
-Action-click on the class name and select ==Refactoring > Subclasses with==.
-This will open a new Browser Environment on just the ==Collection== hierarchy.
-Within this restricted scope select ==refactoring scope>super-sends== to open a
-new environment with all methods that perform super-sends within the
-==Collection== hierarchy. Now click on any method and select ==refactor>code
-critics==. Navigate to ==Lint checks>Possible bugs>Sends different super
-message== and action-click to select ==browse==.
-
-In Figure *@fig:sendDifferentSuper* we can see that 19 such methods have been
-found within the ==Collection== hierarchy, including
-==Collection>>printNameOn:==, which sends ==super printOn:==. +Finding methods
-that send a different super
-message.>file://figures/sendDifferentSuper.png|label=fig:sendDifferentSuper+
+This scope is what we call a ''Browsing Environment'' (class ==RBBrowserEnvironment==). 
+All other searches, like 
+''senders of a method'' or ''implementors of a method'' from within this browser 
+are restricted to this environments too.
 
 Browser environments can also be created programmatically. Here, for example, we
-create a new ==BrowserEnvironment== for ==Collection== and its subclasses,
-select the super-sending methods, and open the resulting environment.
+create a new ==RBBrowserEnvironment== for ==Collection== and its subclasses,
+select the super-sending methods, and browse the resulting environment.
 
 [[[
-((BrowserEnvironment new forClasses: (Collection withAllSubclasses))
+((RBBrowserEnvironment new forClasses: (Collection withAllSubclasses))
 	selectMethods: [:method | method sendsToSuper])
-	label: 'Collection methods sending super';
-	open.
+	browse.
 ]]]
 
 Note how this is considerably more compact than the earlier, equivalent example
@@ -430,18 +421,36 @@ Finally, we can find just those methods that send a different super message
 programmatically as follows:
 
 [[[
-((BrowserEnvironment new forClasses: (Collection withAllSubclasses))
+((RBBrowserEnvironment new forClasses: (Collection withAllSubclasses))
 	selectMethods: [:method |
 		method sendsToSuper
 		and: [(method parseTree superMessages includes: method selector) not]])
-	label: 'Collection methods sending different super';
-	open
+	browse
 ]]]
 
 Here we ask each compiled method for its (Refactoring Browser) parse tree, in
 order to find out whether the super messages differ from the method's selector.
 Have a look at the ==querying== protocol of the class ==RBProgramNode== to see
 some the things we can ask of parse trees.
+
+Instead of browsing the environment in a System Browser, we can spawn a ==MessageBrower==
+from the list of all methods in this environment.
+
+[[[
+MessageBrowser browse: ((RBBrowserEnvironment new forClasses: (Collection withAllSubclasses))
+	selectMethods: [:method |
+		method sendsToSuper
+		and: [(method parseTree superMessages includes: method selector) not]]) methods
+	title:  'Collection methods sending different super'
+]]]
+
+In Figure *@fig:sendDifferentSuper* we can see that 5 such methods have been
+found within the ==Collection== hierarchy, including
+==Collection>>printNameOn:==, which sends ==super printOn:==. +Finding methods
+that send a different super
+message.>file://figures/sendDifferentSuper.png|label=fig:sendDifferentSuper+
+
+
 
 !!Accessing the run-time context
 
@@ -459,30 +468,30 @@ Actually, there is nothing magical about the debugger. The secret is the
 pseudo-variable ==thisContext==, which we have encountered only in passing
 before. Whenever ==thisContext== is referred to in a running method, the entire
 run-time context of that method is reified and made available to the image as a
-series of chained ==MethodContext== objects.
+series of chained ==Context== objects.
 
 We can easily experiment with this mechanism ourselves.
 
-Change the definition of ==Integer>>factorial== by inserting the underlined
-expression as shown below:
+Change the definition of ==Integer>>factorial== by inserting the expression ==thisContext inspect. self halt.== as shown below:
 
 [[[
 Integer>>factorial
 	"Answer the factorial of the receiver."
-	self = 0 ifTrue: [thisContext explore. self halt. ^ 1].
+	self = 0 ifTrue: [thisContext inspect. self halt. ^ 1].
 	self > 0 ifTrue: [^ self * (self - 1) factorial].
 	self error: 'Not valid for negative integers'
 ]]]
 
 Now evaluate ==3 factorial== in a workspace. You should obtain both a debugger
-window and an explorer, as shown in Figure *@fig:exploringThisContext*.
+window and an inspector, as shown in Figure *@fig:exploringThisContext*.
 
-+Exploring ==thisContext==.>file://figures/exploringThisContext.png|label=fig:exploringThisContext+
++Inspecting ==thisContext==.>file://figures/exploringThisContext.png|label=fig:exploringThisContext+
 
-Welcome to the poor man's debugger! If you now browse the class of the explored
+Inspecting thisContext gives you full access to the current execution context, the stack, the local tempories and arguments, the senders chain and the receiver. Welcome to the poor man's debugger! 
+If you now browse the class of the explored
 object (''i.e.'', by evaluating ==self browse== in the bottom pane of the
-explorer) you will discover that it is an instance of the class
-==MethodContext==, as is each ==sender== in the chain.
+inspector) you will discover that it is an instance of the class
+==Context==, as is each ==sender== in the chain.
 
 ==thisContext== is not intended to be used for day-to-day programming, but it is
 essential for implementing tools like debuggers, and for accessing information
@@ -490,18 +499,18 @@ about the call stack. You can evaluate the following expression to discover
 which methods make use of ==thisContext==:
 
 [[[
-SystemNavigation default browseMethodsWithSourceString: 'thisContext'
+SystemNavigation default browseMethodsWithSourceString: 'thisContext' matchCase: true
 ]]]
 
 As it turns out, one of the most common applications is to discover the sender
 of a message. Here is a typical application:
 
 [[[
-Object>>subclassResponsibility
+subclassResponsibility
 	"This message sets up a framework for the behavior of the class' subclasses.
 	Announce that the subclass should have implemented this message."
 
-	self error: 'My subclass should have overridden ', thisContext sender selector printString
+	SubclassResponsibility signalFor: thisContext sender selector
 ]]]
 
 By convention, methods that send ==self subclassResponsibility==
@@ -523,53 +532,57 @@ problematic.
 Take a ''fresh'' image and set the following breakpoint:
 
 [[[
-OrderedCollection>>add: newObject
-	self halt.
-	^self addLast: newObject
+Morph>>openInWorld
+        "Add this morph to the world."
+        self halt.
+        self openInWorld: self currentWorld
 ]]]
 
-Notice how your image immediately freezes!  We do not even get a debugger
-window. The problem is clear once we understand that 1)
-==OrderedCollection>>add:== is used by many parts of the system, so the
-breakpoint is triggered very soon after we accept the change, but 2) ''the
-debugger itself'' sends ==add:== to an instance of ==OrderedCollection==,
+Notice how your image immediately freezes as soon as you try to open any new Morph (Menu/Window/...)!  
+We do not even get a debugger window. The problem is clear once we understand that 1)
+==Morph>>openInWorld== is used by many parts of the system, so the
+breakpoint is triggered very soon after we interact with the user interface, but 2) ''the
+debugger itself'' sends ==openInWorld== as soon as it opens a window,
 preventing the debugger from opening! What we need is a way to ''conditionally
 halt'' only if we are in a context of interest. This is exactly what
 ==Object>>haltIf:== offers.
 
-Suppose now that we only want to halt if ==add:== is sent from, say, the context
-of ==OrderedCollectionTest>>testAdd==.
+Suppose now that we only want to halt if ==openInWorld== is sent from, say, the context
+of ==MorphTest>>testOpenInWorld==.
 
 Fire up a fresh image again, and set the following breakpoint:
 
 [[[
-OrderedCollection>>add: newObject
-	self haltIf: #testAdd.
-	^self addLast: newObject
+Morph>>openInWorld
+        "Add this morph to the world."
+        self haltIf:#testOpenInWorld.
+        self openInWorld: self currentWorld
 ]]]
 
-This time the image does not freeze. Try running the ==OrderedCollectionTest==.
-(You can find it in the ==CollectionsTests-Sequenceable== package.)
-
-How does this work? Let's have a look at ==Object>>haltIf:==.
+This time the image does not freeze. Try running the ==MorphTest==.
 
 [[[
-Object>>haltIf: condition
-	| cntxt |
-	condition isSymbol ifTrue: [
-		"only halt if a method with selector symbol is in callchain"
-		cntxt := thisContext.
-		[cntxt sender isNil] whileFalse: [
-			cntxt := cntxt sender.
-			(cntxt selector = condition) ifTrue: [Halt signal]. ].
-		^self.
-	].
-	...
+MorphTest run:#testOpenInWorld.
 ]]]
 
-Starting from ==thisContext==, ==haltIf:== goes up through the execution stack,
+
+How does this work? Let's have a look at ==Object>>haltIf:==. It first calls
+==if:== with the condition to the ==Exception== class ==Halt==. This method itself
+will check if the condition is a symbol, which is true in this case and finally calls
+
+[[[
+Object>>haltIfCallChainContains: aSelector
+
+		| cntxt |
+	cntxt := thisContext.
+		[cntxt sender isNil] whileFalse: [
+			cntxt := cntxt sender. 
+			(cntxt selector = aSelector) ifTrue: [self signal]].
+]]]
+
+Starting from ==thisContext==, ==haltIfCallChainContains:== goes up through the execution stack,
 checking if the name of the calling method is the same as the one passed as
-parameter. If this is the case, then it raises an exception which, by default,
+parameter. If this is the case, then it signals itself, the exception which, by default,
 summons the debugger.
 
 It is also possible to supply a boolean or a boolean block as an argument to
@@ -617,15 +630,14 @@ We define a ==LoggingProxy== as follows:
 ProtoObject subclass: #LoggingProxy
 	instanceVariableNames: 'subject invocationCount'
 	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'PBE-Reflection'
+	package: 'PBE-Reflection'
 ]]]
 
 Note that we subclass ==ProtoObject== rather than ==Object== because we do not
-want our proxy to inherit over 400 methods (!) from ==Object==.
+want our proxy to inherit around 400 methods (!) from ==Object==.
 
 [[[
-Object methodDict size --> 408
+Object methodDict size --> 397
 ]]]
 
 Our proxy has two instance variables: the ==subject== it is a proxy for, and a
@@ -680,9 +692,9 @@ This works nicely in most cases, but there are some shortcomings:
 point class --> LoggingProxy
 ]]]
 
-Curiously, the method ==class== is not even implemented in ==ProtoObject== but
-in ==Object==, which ==LoggingProxy== does not inherit from! The answer to this
-riddle is that ==class== is never sent as a message but is directly answered by
+Actually the method ==class== is implemented in ==ProtoObject==, but
+even if it were implemented in ==Object==, which ==LoggingProxy== does not inherit from,
+it isn't actually send to the LoggingProxy or its subject. The message is directly answered by
 the virtual machine. ==yourself== is also never truly sent.
 
 Other messages that may be directly interpreted by the VM, depending on the
@@ -704,10 +716,10 @@ transformed to comparison and jump bytecodes:
 ==caseOf: caseOf:otherwise:==
 ==ifNil: ifNotNil:  ifNil:ifNotNil: ifNotNil:ifNil:==
 
-Attempts to send these messages to non-boolean objects can be intercepted and
-execution can be resumed with a valid boolean value by overriding
-==mustBeBoolean== in the receiver or by catching the ==NonBooleanReceiver==
-exception.
+Attempts to send these messages to non-boolean normally results in an exception from the VM
+as it can not use the inlined dispatching for non-boolean receivers. You can intercept
+this and define the proper behavior by overriding ==mustBeBoolean== in the receiver or 
+by catching the ==NonBooleanReceiver== exception.
 
 Even if we can ignore such special message sends, there is another fundamental
 problem which cannot be overcome by this approach: ==self==-sends cannot be
@@ -717,7 +729,7 @@ intercepted:
 point := 1@2.
 LoggingProxy new become: point.
 point invocationCount --> 0
-point rect: (3@4)        --> 1@2 corner: 3@4
+point rectangle: (3@4)        --> 1@2 corner: 3@4
 point invocationCount --> 1
 ]]]
 
@@ -787,7 +799,7 @@ compiled method to the method dictionary of ==DynamicAccessors==. Finally,
 The same technique can be used to generate setters for instance variables, or
 other kinds of boilerplate code, such as visiting methods for a Visitor.
 
-Note the use of ==Object>>perform:== in step (13) which can be used to send
+Note the use of ==Object>>perform:== in step (12) which can be used to send
 messages that are composed at run-time:
 
 [[[
@@ -841,11 +853,11 @@ Demo methodDict removeKey: #answer42 ifAbsent: []
 ]]]
 
 If we take a closer look at ==ObjectsAsMethodsExample==, we will see that its
-superclass also implements the methods ==flushcache==, ==methodClass:== and
+superclass also implements some methods like ==flushcache==, ==methodClass:== and
 ==selector:==, but they are all empty. These messages may be sent to a compiled
 method, so they need to be implemented by an object pretending to be a compiled
 method. (==flushcache== is the most important method to be implemented; others
-may be required depending on whether the method is installed using
+may be required by some tools and depending on whether the method is installed using
 ==Behavior>>addSelector:withMethod:== or directly using
 ==MethodDictionary>>at:put:==.)
 
@@ -884,14 +896,16 @@ TestRunner>>collectCoverageFor: methods
 	| wrappers suite |
 	wrappers := methods collect: [ :each | TestCoverage on: each ].
 	suite := self
-		reset;
-		suiteAll.
+		resetResult;
+		suiteForAllSelected.
+	
 	[ wrappers do: [ :each | each install ].
-	  [ self runSuite: suite ] ensure: [ wrappers do: [ :each | each uninstall ] ] ] valueUnpreemptively.
-	wrappers := wrappers reject: [ :each | each hasRun ].
-	wrappers isEmpty
-		ifTrue:
-			[ UIManager default inform: 'Congratulations. Your tests cover all code under analysis.' ]
+	[ self runSuite: suite ] ensure: [ wrappers do: [ :each | each uninstall ] ] ] valueUnpreemptively.
+
+	wrappers := wrappers reject: [:each | each hasRun].
+	wrappers := wrappers collect: [:each | each reference].
+	wrappers isEmpty 
+		ifTrue:  [ UIManager default inform: 'Congratulations. Your tests cover all code under analysis.' ]
 		ifFalse: ...
 ]]]
 
@@ -918,13 +932,13 @@ obvious way:
 
 [[[
 TestCoverage>>install
-	reference actualClass methodDictionary
-		at: reference methodSymbol
+	reference actualClass methodDict
+		at: reference selector
 		put: self
 
 TestCoverage>>uninstall
-	reference actualClass methodDictionary
-		at: reference methodSymbol
+	reference actualClass methodDict
+		at: reference selector
 		put: method
 ]]]
 
@@ -971,9 +985,9 @@ Smalltalk statement. Each pragma is in effect a static message send with literal
 arguments.
 
 We briefly saw pragmas when we introduced primitives earlier in this chapter. A
-primitive is nothing more than a pragma declaration. Consider ==<primitive:
-73>== as contained in ==instVarAt:==. The pragma's selector is ==primitive:==
-and its arguments is an immediate literal value, ==73==.
+primitive is nothing more than a pragma declaration. Consider ==<primitive: 173 error:ec>== as contained in ==instVarAt:==. 
+The pragma's selector is ==primitive:error:== and its arguments is an immediate literal value, ==173==.
+The variable ==ec== is an error code, filled by the VM in case the execution of the implementation on the VM side failed. 
 
 The compiler is probably the bigger user of pragmas. SUnit is another tool that
 makes use of annotations. SUnit is able to estimate the coverage of an
@@ -1028,7 +1042,7 @@ metaobjects of the runtime system as ordinary objects.
 -==SystemNavigation== is a utility class holding many useful queries for navigation and browsing the class hierarchy. For example, use ==SystemNavigation default browseMethodsWithSourceString: 'pharo'.== to find and browse all methods with a given source string. (Slow, but thorough!)
 -Every Pharo class points to an instance of ==MethodDictionary== which maps selectors to instances of ==CompiledMethod==. A compiled method knows its class, closing the loop.
 -==MethodReference== is a leightweight proxy for a compiled method, providing additional convenience methods, and used by many Pharo tools.
--==BrowserEnvironment==, part of the Refactoring Browser infrastructure, offers a more refined interface than ==SystemNavigation== for querying the system, since the result of a query can be used as a the scope of a new query. Both GUI and programmatic interfaces are available.
+-==RBBrowserEnvironment==, part of the Refactoring Browser infrastructure, offers a more refined interface than ==SystemNavigation== for querying the system, since the result of a query can be used as a the scope of a new query. Both GUI and programmatic interfaces are available.
 -==thisContext== is a pseudo-variable that reifies the runtime stack of the virtual machine. It is mainly used by the debugger to dynamically construct an interactive view of the stack. It is also especially useful for dynamically determining the sender of a message.
 -Intelligent breakpoints can be set using ==haltIf:==, taking a method selector as its argument. ==haltIf:== halts only if the named method occurs as a sender in the run-time stack.
 -A common way to intercept messages sent to a given target is to use a ''minimal object'' as a proxy for that target. The proxy implements as few methods as possible, and traps all message sends by implementing ==doesNotunderstand:==. It can then perform some additional action and then forward the message to the original target.
