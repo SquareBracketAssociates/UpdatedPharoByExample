@@ -128,6 +128,8 @@ of all of the packages in the repository; if you select one, then the pane on
 the right will show all of the versions of the selected package in this
 repository.
 
+!!!! Browsing versions
+
 If you select one of the versions, you can ==Browse== it (without loading
 it into your image), ==Load== it, or look at the ==Changes== that will
 be made to your image by loading the selected version. You can also make a
@@ -141,6 +143,7 @@ correct operation of Monticello depends on them! Monticello version files are
 just zip archives, and if you are curious you can unpack them with a zip tool,
 but the best way to look at their contents is using Monticello itself.
 
+!!!! Creating a package 
 To create a package with Monticello, you have to do two things: write some code,
 and tell Monticello about it.
 
