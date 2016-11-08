@@ -120,7 +120,7 @@ MCHttpRepository
 	password: ''
 ]]]
 
-+A Repository browser.>file://figures/SqueakSource-PBE.png|label=fig:SqueakSource:PBE+
++A Repository browser.>file://figures/SqueakSource-PBE.png|width=60|label=fig:SqueakSource:PBE+
 
 Click on ==Open== to open a repository browser on this repository.
 You should see something like Figure *@fig:SqueakSource:PBE*. On the left is a list
@@ -147,22 +147,19 @@ but the best way to look at their contents is using Monticello itself.
 To create a package with Monticello, you have to do two things: write some code,
 and tell Monticello about it.
 
-(do this) Create a package called ==PBE-Monticello==, and put a couple of
+(do this) Create a package called ==PBE==, and put a couple of
 classes in it, as shown in Figure *@fig:MCnewcategory*. Also, create a method in an
 existing class, such as ==Object==, and put it in the same package as your
 classes \-\- see Figure *@fig:MCnewmethod*.
 
-+Two classes in the ==PBE== package.>file://figures/MCnewcategory.png|label=fig:MCnewcategory+
++Two classes and one extension in the ==PBE== package.>file://figures/MCnewcategory.png|label=fig:MCnewcategory+
 
-+An extension method that will also be in the ==PBE== package.>file://figures/MCnewmethod.png|label=fig:MCnewmethod+
++An extension method that is also be in the ==PBE== package.>file://figures/MCnewmethod.png|label=fig:MCnewmethod+
 
-To tell Monticello about your package, click on ==\+Package==, and type the
-name of the package, in this case ==PBE==. Monticello will add ==PBE== to its
-list of packages; the package entry will be marked with an asterisk to show that
-the version in the image has not yet been written to any repository. Note that
-you now should have two packages in Monticello, one called ==PBE== and another
-called ==PBE-Monticello==. That's alright because ==PBE== will contain
-==PBE-Monticello==, and any other packages starting with ==PBE-==.
+!!!! Committing a package
+When you add a package via the class browser, Monticello automatically  add the package to its list. 
+==PBE== is now in list of packages; the package entry will be marked with an asterisk to show that
+the version in the image has not yet been written to any repository (It is said to be ''dirty'').
 
 Initially, the only repository associated with this package will be your package
 cache, as shown in Figure *@fig:MCPBE*. That's OK: you can still save the code,
@@ -173,6 +170,7 @@ message, Monticello will save your package. To indicate this, the asterisk
 decorating the name in Monticello's package pane will be removed, and the
 version number added.
 
+!!! Introducing a change
 If you then make a change to the package \-\- say by adding a method to one of
 the classes \-\- the asterisk will re-appear, showing that you have unsaved
 changes. If you open a repository browser on the package cache, you can select
@@ -180,9 +178,9 @@ the saved version, and use ==Changes== and the other buttons. You can of
 course save the new version to the repository too; once you ==Refresh== the
 repository view, it should look like Figure *@fig:package-cache-browser*.
 
-+The as-yet-unsaved PBE package in Monticello.>file://figures/MCPBE.png|label=fig:MCPBE+
++The as-yet-unsaved PBE package in Monticello.>file://figures/MCPBE.png|width=60|label=fig:MCPBE+
 
-+Providing a log message for a new version of a package.>file://figures/PBEon.png|label=fig:PBEon+
++Providing a log message for a new version of a package.>file://figures/PBEon.png|width=50|label=fig:PBEon+
 
 +Two versions of our package are now in the package cache.>file://figures/package-cache-browser.png|label=fig:package-cache-browser+
 
