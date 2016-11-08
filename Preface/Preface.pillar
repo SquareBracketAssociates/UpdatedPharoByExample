@@ -15,8 +15,8 @@ Pharo strives to offer a lean, open platform for professional software developme
 
 Pharo core contains only code that has been contributed under the MIT license.
 The Pharo project started in March 2008 as a fork of Squeak (a modern implementation of Smalltalk), and the first 1.0 beta version was
-released on July 31, 2009. The current version is Pharo 4.0, released in April
-2015. Pharo 5.0 is in alpha development and planned for release in April 2016.
+released on July 31, 2009. The current version is Pharo 5.0, released in May
+2016. Pharo 6.0 is in alpha development and planned for release in April 2017.
 
 Pharo is highly portable. Pharo can run on OS X, Windows, Linux, Android, iOS, and Raspberry Pi. Its virtual machine is written entirely in
 a subset of Smalltalk, making it easy to simulate, debug, analyze, and change
@@ -37,7 +37,7 @@ on which Pharo depends for its success. Finally Pharo is not read-only, Pharo in
 !!Who should read this book?
 
 The previous revision of this book was based on Pharo 1.4.
-This revision has been liberally updated to align with Pharo 4.0/5.0.
+This revision has been liberally updated to align with Pharo 5.0.
 Various aspects of Pharo are presented, starting with the basics then proceeding to intermediate topics.
 Advanced topics are presented in """Deep into Pharo""", a book on the internals of Pharo
 that is freely available at *http://books.pharo.org*. In addition for readers interested in web development, a new book ""Enterprise Pharo: a Web Perspective"" 
