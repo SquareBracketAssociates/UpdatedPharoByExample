@@ -296,7 +296,7 @@ a message ==cellsPerSide==, and will open a debugger. But ==cellsPerSide== is no
 +Pharo detecting an unknown selector>file://figures/doesntKnowCellsPerSide.png|width=100|label=fig:doesntKnowCellsPerSide+
 
 Now let us do it: type ==LOGame new== and ""Do it"". Do not close the debugger.
-Click on the button ==Create== of the debugger, when prompted, select ""LOGame"", the class which will contain the method, click on ""ok"", then when prompted for a method protocol enter ==accessing==. The debugger will create the method ==cellsPerSide== on the fly and invoke it immediately. As there is no magic, the created method will simply raise and exception
+Click on the button ==Create== of the debugger, when prompted, select ""LOGame"", the class which will contain the method, click on ""ok"", then when prompted for a method protocol enter ==accessing==. The debugger will create the method ==cellsPerSide== on the fly and invoke it immediately. As there is no magic, the created method will simply raise an exception
 and the debugger will stop again (as shown in Figure *@fig:cellsPerSideShould*) giving you the opportunity to define the behavior of the method.
 
 
