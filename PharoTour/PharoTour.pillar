@@ -675,9 +675,9 @@ likely be prompted to enter your name. Since many people have contributed code
 to the image, it is important to keep track of everyone who creates or modifies
 methods. Simply enter your first and last names, without any spaces.
 
-Because there is as yet no method called ==shout==, the browser will ask you to
-confirm that this is the name that you really want. It will also suggest some
-other names that you might have intended. This can be quite useful if you have
+Because there is as yet no method called ==shout==, the automatic code checker
+(Quality Assitance) in the lower browser pane will inform you, that the message
+==shout== is sent but not implemented. This can be quite useful if you have
 merely made a typing mistake, but in this case, we really do mean ==shout==,
 since that is the method we are about to create. We confirm this by selecting
 the first option from the menu of choices.
