@@ -3,21 +3,19 @@
 
 The consequence of programming in a world of live objects rather than with files
 and a text editor is that you have to do something explicit to export your
-program from your Pharo image. The original way of doing this is by creating a ''fileout'' or a ''change set'', which
+program from your Pharo image. The old way of doing this is by creating a ''fileout'' or a ''change set'', which
 are essentially encoded text files that can be imported into another system. The
 preferred way of sharing code in Pharo is to save packages and share them using a versioned repository
 on a server. This is done using a tool called Monticello, and is a much
-more powerful and effective way to work, especially when working in a team.
+more powerful and effective way to work, especially when working in a team. In the future Pharo will offer support for Git and hosting
+on servers such as GitHub, BitBucket and more. 
 
-!!Monticello
 
 We gave you a quick overview of Monticello, Pharo's packaging tool, in
 Chapter *: A First Application>../FirstApplication/FirstApplication.pier@fstApp:Monticello*. However, Monticello has many more features than were
-discussed there. Because Monticello manages ''packages'', before telling you
-more about Monticello, it's important that we first explain exactly what a
-package is.
+discussed there. Because Monticello manages ''packages'', before telling you more about Monticello, it's important that we first explain exactly what a package is.
 
-!!!Packages: groups of classes and methods
+!!Packages: groups of classes and methods
 @sec:packages
 
 We have pointed out earlier, in Chapter *: A First Application>../FirstApplication/FirstApplication.pillar@fstApp:Packages* that packages are
@@ -26,7 +24,7 @@ relationship is. The package system is a simple, lightweight way of organizing
 Pharo source code that exploits a simple naming convention.
 
 Let's explain this using an example. Suppose that you are developing a framework
-named to facilitate the use of relational databases from Pharo. You have decided
+ to facilitate the use of relational databases from Pharo. You have decided
 to call your framework ==PharoLink==, and have created a couple of classes 
 such as  ==OracleConnection==, ==MySQLConnection==, ==PostgresConnection== but also ==DBTable==, 
 ==DBRow==, ==DBQuery==, and so on. These classes are placed inside a package called ==PharoLink==. 
@@ -34,9 +32,9 @@ However, not all of your code will reside in these classes. For example, you may
 of methods to convert objects into an SQL-friendly format:
 
 [[[
-Object>>asSQL
-String>>asSQL
-Date>>asSQL
+Object >> asSQL
+String >> asSQL
+Date >> asSQL
 ]]]
 
 These methods belong in the same package as the classes. But clearly the whole of
@@ -60,15 +58,12 @@ A package named ==Foo== contains:
 ignored.), or whose name starts with ==\*Foo-== or ==\*foo-==.
 
 ""3."" All ''methods'' in classes in the package ==Foo== ''except'' for those methods 
-in protocols whose names start with ==\*==.
+in protocols whose names start with ==\*==: Because classes of package ==Foo== can be also extended by other packages.
 
 A consequence of these rules is that each class definition and each method
-belongs to exactly one package. The ''except'' in the last rule has to be there
-because those methods must belong to other packages. The reason for ignoring
-case in rule 2 is that, by convention, protocol names are
-typically (but not necessarily) lower case (and may include spaces), while
-category names use CamelCase (and don't include spaces).
+belongs to exactly one package. 
 
+!!!! Accessing packages
 The class ==RPackage== represents packages. The class ==RPackageOrganizer== implements a singleton that holds all the Pharo packages. The following expressions are examples of the queries that you can perform. 
 
 
