@@ -95,6 +95,8 @@ knows about, usually because it has loaded code from them. If you select a
 package in the left pane, the right pane is filtered to show only those
 repositories that contain versions of the selected package.
 
+!!!! The package-cache 
+
 One of the repositories is a directory named ''package-cache'', which is a
 sub-directory of the directory in which your image is running. When you load
 code from or write code to a remote repository, a copy is also saved in the
@@ -102,6 +104,8 @@ package cache. This can be useful if the network is not available and you need
 to access a package. Also, if you are given a Monticello (.mcz) file directly,
 for example as an email attachment, the most convenient way to access it is to
 place it in the package-cache directory.
+
+!!!! Adding repositories
 
 To add a new repository to the list, click the ==\+Repository==, and choose
 the kind of repository from the pop-up menu. Let's add an HTTP repository.
