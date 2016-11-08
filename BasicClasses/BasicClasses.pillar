@@ -686,18 +686,12 @@ $a                  --> $a
 $a printString --> '$a'
 ]]]
 
-Every ascii ==Character== is a unique instance, stored in the class variable
-==CharacterTable==:
+Like ==SmallInteger==, a ==Character== is a immediate value not a object reference. Most of the time you won't see 
+any difference and can use objects of class ==Character== like any other too. But this means, equal value characters
+are always ''identical'':
 
 [[[
 (Character value: 97) == $a --> true
-]]]
-
-==Characters== outside the range 0 to 255 are not unique, however:
-
-[[[
-Character characterTable size                               --> 256
-(Character value: 500) == (Character value: 500) --> false
 ]]]
 
 !!Strings
@@ -838,7 +832,7 @@ is executed only if the first argument is ==true==.
 - Override the hook method ==initialize== to properly initialize instances.
 - ==Number== methods automatically convert between ==Float==s, ==Fraction==s and ==Integer==s.
 - ==Fraction==s truly represent rational numbers rather than floats.
-- Ascii ==Character==s are unique instances.
+- All ==Character==s are like unique instances.
 - ==String==s are mutable; ==Symbol==s are not. Take care not to mutate string literals, however!
 - ==Symbol==s are unique; ==String==s are not.
 - ==String==s and ==Symbol==s are ==Collection==s and therefore support the usual ==Collection== methods.
