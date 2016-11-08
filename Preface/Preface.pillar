@@ -97,8 +97,8 @@ select an expression and from its context menu choose ""print it"":
 
 [[[label=scr:script1|caption=Small example|language=Smalltalk
 3 + 4
-	--> 7 
-	"if you select 3+4 and 'print it', you will see 7"
+--> 7 
+"if you select 3+4 and 'print it', you will see 7"
 ]]]
 
 In case you want to play with these code snippets in Pharo, you can download a
@@ -127,6 +127,6 @@ project, as well as for all the translations of the first edition of ""Pharo by
 Example"".
 
 Thanks to Manfred Kröhnert, Markus Schlager, Werner Kassens for the typos and feedback. 
-Thanks to Dmitri Zagidulin for helping in the book update.
+Special thanks to Damien Cassou, Dmitri Zagidulin and Nicolai Hess for their great help in the book update.
 Finally we want to thank Inria for its steady and important financial support,
 and the RMoD team members for the constant energy pushing Pharo forward.
