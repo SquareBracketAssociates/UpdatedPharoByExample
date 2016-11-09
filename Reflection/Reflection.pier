@@ -88,15 +88,30 @@ you consult the code of these methods, you will see the special pragma syntax
 Object >> instVarAt: index
 	"Primitive. Answer a fixed variable in an object. ..."
 
-	<primitive: 73>
-	"Access beyond fixed variables."
-	^self basicAt: index - self class instSize
+	<primitive: 173 error: ec>
+	self primitiveFailed
 ]]]
 
-Typically, the code after the primitive invocation is not executed. It is
-executed only if the primitive fails. In this specific case, if we try to access
-a variable that does not exist, then the code following the primitive will be
-tried. This also allows the debugger to be started on primitive methods.
+Any Pharo code after the primitive declaration is executed only if the 
+primitive fails. This also allows the debugger to be started on primitive methods.
+In this specific case, there is no way to implement this method, so the whole
+method just fails. 
+
+Other methods are implemented on the VM for faster execution.
+For example some arithmetic operations on ==SmallInteger== :
+
+[[[
+* aNumber 
+	"Primitive. Multiply the receiver by the argument and answer with the
+	result if it is a SmallInteger. Fail if the argument or the result is not a
+	SmallInteger. Essential. No Lookup. See Object documentation whatIsAPrimitive."
+
+	<primitive: 9>
+	^ super * aNumber
+]]]
+
+If this primitive fails, for example if the VM does not handle the type of the argument,
+the Pharo code is executed.
 Although it is possible to modify the code of primitive methods, beware that
 this can be risky business for the stability of your Pharo system.
 
@@ -108,8 +123,7 @@ method ==allInstVarNames== returns all the names of the instance variables of a
 given class.
 
 [[[
-GTPlayground allInstVarNames
-> 
+GTPlayground allInstVarNames --> 
 #(#registry #suspendAll #suspendedAnnouncemets #logger #pane #title #titleIcon #transformation #actions #condition #implicitNotNil #dynamicActionsBlock #color #customValidation #shouldValidate #acceptsSelection #parentPrototype #registeredAnnouncers #updateActions #selectionActions #selectionDynamicActionsBlock #implicitAllNil #rawSelectionTransmissions #statusPane #sourceLink #initializationBlock #cachedDisplayedValue #labelActionBlock #portChangeActions #wantsSteps #stepTime #stepCondition #presentations #arrangement)
 ]]]
 
@@ -119,7 +133,7 @@ w class allInstVarNames collect: [:each | each -> (w instVarNamed: each)]
 ]]]
 
 In the same spirit, it is possible to gather instances that have specific
-properties iterating over instances of a class using an iterator such ==select:== For instance, to get all objects whose
+properties iterating over instances of a class using an iterator such as ==select:==. For instance, to get all objects who
 are directly included in the world morph (the main root of the graphical displayed elements), try this expression:
 
 [[[
@@ -141,9 +155,10 @@ Here are a few other messages that might be useful to build development tools:
 of one of its superclasses. For instance:
 
 [[[
-1.5 class                     --> Float
-1.5 isKindOf: Number --> true
-1.5 isKindOf: Integer   --> false
+1.5 class	--> BoxedFloat64
+1.5 isKindOf: Float --> true
+1.5 isKindOf: Number	--> true
+1.5 isKindOf: Integer	--> false
 ]]]
 
 ==respondsTo: aSymbol== returns true if the receiver has a method whose selector
@@ -230,17 +245,10 @@ reflection.
 ; ==whichSelectorsReferTo:==
 : returns the selectors of methods that send a given message
 
-; ==crossReference==
-: associates each message with the set of methods that send it.
-
 [[[
-Point whichSelectorsAccess: 'x'    --> an IdentitySet(#'\\' #= #scaleBy: ...)
-Point whichSelectorsStoreInto: 'x' --> an IdentitySet(#setX:setY: ...)
-Point whichSelectorsReferTo: #+  --> an IdentitySet(#rotateBy:about: ...)
-Point crossReference --> an Array(
-		an Array('*' an IdentitySet(#rotateBy:about: ...))
-		an Array('+' an IdentitySet(#rotateBy:about: ...))
-		...)
+Point whichSelectorsAccess: 'x'    --> #(#degrees #grid: #roundTo: #nearestPointAlongLineFrom:to: ...)
+Point whichSelectorsStoreInto: 'x' --> #(#bitShiftPoint: #setR:degrees: #setX:setY: #fromSton:)
+Point whichSelectorsReferTo: #+  --> an OrderedCollection(#degrees #reflectedAbout: #grid: ...)
 ]]]
 
 The following messages take inheritance into account:
@@ -267,9 +275,9 @@ SystemNavigation default allClassesImplementing: #yourself --> {Object}
 The following messages should also be self-explanatory:
 
 [[[
-SystemNavigation default allSentMessages size          --> 24930
-SystemNavigation default allUnsentMessages size      --> 6431
-SystemNavigation default allUnimplementedCalls size --> 270
+SystemNavigation default allSentMessages size	-->370
+(SystemNavigation default allUnsentMessagesIn: Object selectors) size	--> 31
+SystemNavigation default allUnimplementedCalls size   --> 521
 ]]]
 
 Note that messages implemented but not sent are not necessarily useless, since
@@ -278,7 +286,7 @@ not implemented, however, are more problematic, because the methods sending
 these messages will fail at runtime. They may be a sign of unfinished
 implementation, obsolete APIs, or missing libraries.
 
-==SystemNavigation default allCallsOn: #Point== returns all messages sent
+==Point allCallsOn== returns all messages sent
 explicitly to ==Point== as a receiver.
 
 All these features are integrated into the programming environment of Pharo, in
@@ -297,12 +305,12 @@ SystemNavigation default browseAllImplementorsOf: #ifTrue:
 +Browse all implementations of ==ifTrue:==.>file://figures/implementors.png|label=fig:implementors+
 
 Particularly useful are the methods ==browseAllSelect:== and
-==browseMethodsWithSourceString:==. Here are two different ways to browse all
+==browseMethodsWithSourceString:matchCase:==. Here are two different ways to browse all
 methods in the system that perform super sends (the first way is rather brute
 force, the second way is better and eliminates some false positives):
 
 [[[
-SystemNavigation default browseMethodsWithSourceString: 'super'.
+SystemNavigation default browseMethodsWithSourceString: 'super' matchCase: true.
 SystemNavigation default browseAllSelect: [:method | method sendsToSuper ].
 ]]]
 
@@ -365,18 +373,18 @@ SystemNavigation default
   browseMessageList: (class withAllSubclasses gather: [:each |
     each methodDict associations
       select: [:assoc | assoc value sendsToSuper]
-      thenCollect: [:assoc | MethodReference class: each selector: assoc key]])
+      thenCollect: [:assoc | RGMethodDefinition realClass: each selector: assoc key]])
   name: 'Supersends of ', class name, ' and its subclasses'
 ]]]
 
 Note how we navigate from classes to method dictionaries to compiled methods to
-identify the methods we are interested in. A ==MethodReference== is a
+identify the methods we are interested in. A ==RGMethodDefinition== is a
 lightweight proxy for a compiled method that is used by many tools. There is a
 convenience method ==CompiledMethod>>methodReference== to return the method
 reference for a compiled method.
 
 [[[
-(Object>>#=) methodReference methodSymbol --> #=
+(Object>>#=) methodReference selector --> #=
 ]]]
 
 !!Browsing environments
