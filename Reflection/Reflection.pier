@@ -534,7 +534,7 @@ and a debugger window will open at the breakpoint. Unfortunately this poses
 problems for methods that are intensively used in the system.
 
 Suppose, for instance, that we want to explore the execution of
-==OrderedCollection>>add:==. Setting a breakpoint in this method is
+==Morph>>openInWorld==. Setting a breakpoint in this method is
 problematic.
 
 Take a ''fresh'' image and set the following breakpoint:
