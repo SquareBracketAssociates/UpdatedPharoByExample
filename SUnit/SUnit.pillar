@@ -299,7 +299,7 @@ MyExampleSetTest debug: #testRemove
 The method ==assert:== is defined in the class ==TestAsserter==. This is a superclass
 of ==TestCase== and therefore all other ==TestCase== subclasses and is responsible for
 all kind of test result assertions.
-The ==assert: method expects a boolean argument, usually the value of a tested expression. When the
+The ==assert:== method expects a boolean argument, usually the value of a tested expression. When the
 argument is true, the test passes; when the argument is false, the test fails.
 
 There are actually three possible outcomes of a test: ''passing'', ''failing'', and ''raising an error''.
