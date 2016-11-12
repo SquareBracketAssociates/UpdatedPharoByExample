@@ -14,24 +14,22 @@ Pharo is a modern, open-source, dynamically typed language supporting live codin
 Pharo strives to offer a lean, open platform for professional software development, as well as a  robust and stable platform for research and development into dynamic languages and environments. Pharo serves as the reference implementation for the Seaside web development framework available at *http://www.seaside.st*.
 
 Pharo core contains only code that has been contributed under the MIT license.
-The Pharo project started in March 2008 as a fork of Squeak (a modern implementation of Smalltalk), and the first 1.0 beta version was
+The Pharo project started in March 2008 as a fork of Squeak (a modern implementation of Smalltalk-80), and the first 1.0 beta version was
 released on July 31, 2009. The current version is Pharo 5.0, released in May
 2016. Pharo 6.0 is in alpha development and planned for release in April 2017.
 
 Pharo is highly portable. Pharo can run on OS X, Windows, Linux, Android, iOS, and Raspberry Pi. Its virtual machine is written entirely in
-a subset of Smalltalk, making it easy to simulate, debug, analyze, and change
-from within Pharo itself.  Pharo is the vehicle for a
-wide range of innovative projects, from multimedia applications and educational
-platforms to commercial web development environments.
+a subset of Pharo itself, making it easy to simulate, debug, analyze, and change from within Pharo itself.  Pharo is the vehicle for a
+wide range of innovative projects, from multimedia applications and educational platforms to commercial web development environments.
 
-There is an important principle behind Pharo: Pharo doesn't just copy
-the past, but it reinvents the essence behind Smalltalk. However we realize that Big Bang style approaches
-rarely succeed.  Pharo instead favors evolutionary and incremental changes.
+There is an important principle behind Pharo: Pharo doesn't just copy the past, but it reinvents the essence behind Smalltalk. However we realize that Big Bang style approaches rarely succeed.  Pharo instead favors evolutionary and incremental changes.
 Rather than leaping for the final perfect solution in one big step,
 a multitude of small changes keeps even the bleeding edge relatively stable
 while experimenting with important new features and libraries.
 This facilitates rapid feedback and contributions from the community,
-on which Pharo depends for its success. Finally Pharo is not read-only, Pharo integrates changes made by the community, daily. You can have an impact on Pharo, too!
+on which Pharo depends for its success. Finally Pharo is not read-only, Pharo integrates changes made by the community, daily. 
+Pharo got 100 contributors from all over the world. 
+You can have an impact on Pharo, too!
 
 
 !!Who should read this book?
@@ -40,8 +38,7 @@ The previous revision of this book was based on Pharo 1.4.
 This revision has been liberally updated to align with Pharo 5.0.
 Various aspects of Pharo are presented, starting with the basics then proceeding to intermediate topics.
 Advanced topics are presented in """Deep into Pharo""", a book on the internals of Pharo
-that is freely available at *http://books.pharo.org*. In addition for readers interested in web development, a new book ""Enterprise Pharo: a Web Perspective"" 
-is freely available at *http://books.pharo.org*.
+that is freely available at *http://books.pharo.org*. In addition for readers interested in web development, a new book ""Enterprise Pharo: a Web Perspective"" is freely available at *http://books.pharo.org*.
 
 This book will not teach you how to program. The reader should have some
 familiarity with programming languages.  Some background with object-oriented
@@ -50,10 +47,7 @@ programming would also be helpful.
 This book will introduce the Pharo programming environment, the language and the
 associated tools.  You will be exposed to common idioms and practices, but the
 focus is on the technology, not on object-oriented design.  Wherever possible,
-we will show you lots of examples. We have been inspired by Alec Sharp's
-excellent book on Smalltalk  (Alec Sharp,
-*Smalltalk by Example>Http://stephane.ducasse.free.fr/FreeBooks/ByExample*, McGraw-Hill,
-1997).
+we will show you lots of examples.
 
 There are numerous other books on Smalltalk freely available on the web at *http://stephane.ducasse.free.fr/FreeBooks.html*.
 
@@ -97,14 +91,12 @@ select an expression and from its context menu choose ""print it"":
 
 [[[label=scr:script1|caption=Small example|language=Smalltalk
 3 + 4
---> 7 "if you select 3+4 and 'print it', you will see 7"
+>>> 7 "if you select 3+4 and 'print it', you will see 7"
 ]]]
 
 In case you want to play with these code snippets in Pharo, you can download a
 plain text file with all the example code from the Resources sidebar of the book's web site:
-*http://www.pharoByExample.org>http://www.pharoByExample.org*.
-
-@@todo TODO: When book is finished, confirm this code snippet file is synchronised.
+*http://books.pharo.org>http://books.pharo.org*.
 
 
 !!Acknowledgments
@@ -126,8 +118,12 @@ project, as well as for all the translations of the first edition of ""Pharo by
 Example"".
 
 !!Hyper special acknowledgments
+We want to thank the original authors of this book! Without this initial version it would have been difficult to make this one. 
+Pharo by Example is a central book to welcome newcomers and it has a great value.
 
-Thanks to Manfred Kröhnert, Markus Schlager, Werner Kassens for the typos and feedback. 
-Special thanks to Damien Cassou, Dmitri Zagidulin and Nicolai Hess for their great help in the book update.
+Thanks to Manfred Kröhnert, Markus Schlager, Werner Kassens, Michael OKeefe, Aryeh Hoffman, Paul MacIntosh, Gaurav Singh, Jigyasa Grover, Craig Allen, Serge Stinckwich, avh-on1, Yuriy Timchuk, zio-pietro  for the typos and feedback. 
+Special thanks to Damien Cassou and Cyril Ferlicot for their great help in the book update.
 Finally we want to thank Inria for its steady and important financial support,
 and the RMoD team members for the constant energy pushing Pharo forward.
+
+Super special thanks to Damien Pollet for this great book template. 
