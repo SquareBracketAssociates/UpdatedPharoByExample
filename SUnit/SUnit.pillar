@@ -154,7 +154,7 @@ like this:
 TestCase subclass: #MyExampleSetTest
 	instanceVariableNames: 'full empty'
 	classVariableNames: ''
-	category: 'MySetTest'
+	package: 'MySetTest'
 ]]]
 
 We will use the class ==MyExampleSetTest== to group all the tests related to the
@@ -170,7 +170,7 @@ your class is a subclass of ==TestCase==.
 
 !!!Step 2: Initialize the test context
 
-The message ==TestCase>>setUp== defines the context in which the tests will run,
+The message ==TestCase >> setUp== defines the context in which the tests will run,
 a bit like an initialize method. ==setUp== is invoked before the execution of
 each test method defined in the test class.
 
@@ -179,7 +179,7 @@ refer to an empty set and the ==full== variable to refer to a set containing two
 elements.
 
 [[[caption=Setting up a fixture
-MyExampleSetTest>>setUp
+MyExampleSetTest >> setUp
 	empty := Set new.
 	full := Set with: 5 with: 6
 ]]]
@@ -199,7 +199,7 @@ the ==includes:== method of ==Set==. The test says that sending the message
 test relies on the fact that the ==setUp== method has already run.
 
 [[[caption=Testing set membership
-MyExampleSetTest>>testIncludes
+MyExampleSetTest >> testIncludes
 	self assert: (full includes: 5).
 	self assert: (full includes: 6)
 ]]]
@@ -209,7 +209,7 @@ number of occurrences of 5 in ==full== set is equal to one, even if we
 add another element 5 to the set.
 
 [[[caption=Testing occurrences
-MyExampleSetTest>>testOccurrences
+MyExampleSetTest >> testOccurrences
 	self assert: (empty occurrencesOf: 0) = 0.
 	self assert: (full occurrencesOf: 5) = 1.
 	full add: 5.
@@ -220,13 +220,13 @@ Finally, we test that the set no longer contains the element 5 after we have
 removed it.
 
 [[[caption=Testing removal
-MyExampleSetTest>>testRemove
+MyExampleSetTest >> testRemove
 	full remove: 5.
 	self assert: (full includes: 6).
 	self deny: (full includes: 5)
 ]]]
 
-Note the use of the method ==TestCase>>deny:== to assert something that should
+Note the use of the method ==TestCase >> deny:== to assert something that should
 not be true. ==aTest deny: anExpression== is equivalent to
 ==aTest assert: anExpression not==, but is much more readable.
 
@@ -267,18 +267,18 @@ Some people include an executable comment in their test methods that allows
 running a test method with a ''Do it'' from the browser, as shown below.
 
 [[[caption=Executable comments in test methods
-MyExampleSetTest>>testRemove
+MyExampleSetTest >> testRemove
 	"self run: #testRemove"
 	full remove: 5.
 	self assert: (full includes: 6).
 	self deny: (full includes: 5)
 ]]]
 
-Introduce a bug in ==MyExampleSetTest>>testRemove== and run the tests again. For
+Introduce a bug in ==MyExampleSetTest >> testRemove== and run the tests again. For
 example, change ==6== to ==7==, as in:
 
 [[[caption=Introducing a bug in a test
-MyExampleSetTest>>testRemove
+MyExampleSetTest >> testRemove
 	full remove: 5.
 	self assert: (full includes: 7).
 	self deny: (full includes: 5)
@@ -296,8 +296,10 @@ MyExampleSetTest debug: #testRemove
 
 !!!Step 5: Interpret the results
 
-The method ==TestCase>>assert:==, which is defined in the class ==TestCase==,
-expects a boolean argument, usually the value of a tested expression. When the
+The method ==assert:== is defined in the class ==TestAsserter==. This is a superclass
+of ==TestCase== and therefore all other ==TestCase== subclasses and is responsible for
+all kind of test result assertions.
+The ==assert: method expects a boolean argument, usually the value of a tested expression. When the
 argument is true, the test passes; when the argument is false, the test fails.
 
 There are actually three possible outcomes of a test: ''passing'', ''failing'', and ''raising an error''.
@@ -324,20 +326,20 @@ GUI to run tests, but there are situations where you may not want to use it.
 In addition to ==assert:== and ==deny:==, there are several other methods that
 can be used to make assertions.
 
-First, ==TestCase>>assert:description:== and ==TestCase>>deny:description:==
+First, ==TestAsserter >> assert:description:== and ==TestAsserter >> deny:description:==
 take a second argument which is a message string that describes
 the reason for the failure, if it is not obvious from the test itself. These
 methods are described in Section *@sec:descriptionStrings*.
 
-Next, SUnit provides two additional methods, ==TestCase>>should:raise:== and
-==TestCase>>shouldnt:raise:== for testing exception propagation.
+Next, SUnit provides two additional methods, ==TestAsserter >> should:raise:== and
+==TestAsserter >> shouldnt:raise:== for testing exception propagation.
 
 For example, you would use ==self should: aBlock raise: anException== to test
 that a particular exception is raised during the execution of ==aBlock==. The
 method below illustrates the use of ==should:raise:==.
 
 [[[caption=Testing error raising
-	MyExampleSetTest>>testIllegal
+	MyExampleSetTest >> testIllegal
 		self should: [ empty at: 5 ] raise: Error.
 		self should: [ empty at: 5 put: #zork ] raise: Error
 ]]]
@@ -383,7 +385,7 @@ SUnit consists of four main classes: ==TestCase==, ==TestSuite==,
 notion of a ''test resource'' represents a resource that is expensive to set-up
 but which can be used by a whole series of tests. A ==TestResource== specifies
 a ==setUp== method that is executed just once before a suite of tests; this is
-in distinction to the ==TestCase>>setUp== method, which is executed before each
+in distinction to the ==TestCase >> setUp== method, which is executed before each
 test.
 
 +The four classes representing the core of
@@ -461,14 +463,14 @@ By default, the resources of a ==TestSuite== are the union of the resources of t
 
 Here is an example. We define a subclass of ==TestResource== called
 ==MyTestResource==. Then we associate it with ==MyTestCase== by overriding the
-class method ==MyTestCase class>>resources== to return an array of the test resource classes that ==MyTestCase== will use.
+class method ==MyTestCase class >> resources== to return an array of the test resource classes that ==MyTestCase== will use.
 
 [[[caption=An example of a TestResource subclass
 TestResource subclass: #MyTestResource
 	instanceVariableNames: ''
 	...
 
-MyTestCase class>>resources
+MyTestCase class >> resources
 	"Associate the resource with this class of test cases"
 
 	^{ MyTestResource }
@@ -481,14 +483,14 @@ set up is run before and after each test in a sequence. Let's see if you can
 obtain this trace yourself.
 
 [[[
-MyTestResource>>setUp has run.
-MyTestCase>>setUp has run.
-MyTestCase>>testOne has run.
-MyTestCase>>tearDown has run.
-MyTestCase>>setUp has run.
-MyTestCase>>testTwo has run.
-MyTestCase>>tearDown has run.
-MyTestResource>>tearDown has run.
+MyTestResource >> setUp has run.
+MyTestCase >> setUp has run.
+MyTestCase >> testOne has run.
+MyTestCase >> tearDown has run.
+MyTestCase >> setUp has run.
+MyTestCase >> testTwo has run.
+MyTestCase >> tearDown has run.
+MyTestResource >> tearDown has run.
 ]]]
 
 Create new classes ==MyTestResource== and ==MyTestCase== which are subclasses of
@@ -500,25 +502,25 @@ tests.
 You will need to write the following six methods.
 
 [[[
-MyTestCase>>setUp
+MyTestCase >> setUp
 	Transcript show: 'MyTestCase>>setUp has run.'; cr
 
-MyTestCase>>tearDown
+MyTestCase >> tearDown
 	Transcript show: 'MyTestCase>>tearDown has run.'; cr
 
-MyTestCase>>testOne
+MyTestCase >> testOne
 	Transcript show: 'MyTestCase>>testOne has run.'; cr
 
-MyTestCase>>testTwo
+MyTestCase >> testTwo
 	Transcript show: 'MyTestCase>>testTwo has run.'; cr
 
-MyTestCase class>>resources
+MyTestCase class >> resources
 	^ Array with: MyTestResource
 
-MyTestResource>>setUp
+MyTestResource >> setUp
 	Transcript show: 'MyTestResource>>setUp has run'; cr
 
-MyTestResource>>tearDown
+MyTestResource >> tearDown
 	Transcript show: 'MyTestResource>>tearDown has run.'; cr
 ]]]
 
@@ -530,7 +532,7 @@ logging support, the ability to skip tests, and resumable test failures.
 !!!Assertion description strings
 @sec:descriptionStrings
 
-The ==TestCase== assertion protocol includes a number of methods that allow the
+The ==TestAsserter== assertion protocol includes a number of methods that allow the
 programmer to supply a description of the assertion. The description is a
 ==String==; if the test case fails, this string will be displayed by the test
 runner. Of course, this string can be constructed dynamically.
@@ -542,7 +544,7 @@ self assert: e = 23 description: 'expected 23, got ', e printString
 ...
 ]]]
 
-The relevant methods in ==TestCase== are:
+The relevant methods in ==TestAsserter== are:
 
 [[[
 assert:description:
@@ -582,11 +584,11 @@ by overriding ==failureLog== to answer an appropriate stream. By default, the ==
 
 Sometimes in the middle of a development, you may want to skip a test instead of
 removing it or renaming it to prevent it from running. You can simply invoke the
-==TestCase== message ==skip== on your test case instance. For example, the
+==TestAsserter== message ==skip== on your test case instance. For example, the
 following test uses it to define a conditional test.
 
 [[[
-OCCompiledMethodIntegrityTest>>testPragmas
+OCCompiledMethodIntegrityTest >> testPragmas
 
 	| newCompiledMethod originalCompiledMethod |
 	(Smalltalk globals hasClassNamed: #Compiler) ifFalse: [ ^ self skip ].
@@ -636,12 +638,12 @@ run.==
 
 +Running one test>file://figures/sunit-scenario.png|width=60|label=fig:sunit-scenario+
 
-The method ==TestCase>>run== creates an instance of ==TestResult== that will
+The method ==TestCase >> run== creates an instance of ==TestResult== that will
 accumulate the results of the test, then it sends itself the message
-==TestCase>>run:== (See Figure *@fig:sunit-scenario*).
+==TestCase >> run:== (See Figure *@fig:sunit-scenario*).
 
 [[[
-TestCase>>run
+TestCase >> run
 	| result |
 	result := self classForTestResult new.
 	[ self run: result ]
@@ -649,21 +651,21 @@ TestCase>>run
 	^ result
 ]]]
 
-The method ==TestCase>>run:== sends the message ==runCase:== to the test result:
+The method ==TestCase >> run:== sends the message ==runCase:== to the test result:
 
 [[[caption=Passing the test case to the test result
-TestCase>>run: aResult
+TestCase >> run: aResult
 	aResult runCase: self
 ]]]
 
-The method ==TestResult>>runCase:== sends the message ==TestCase>>runCase== to
-an individual test, to execute the test. ==TestResult>>runCase== deals with any
+The method ==TestResult >> runCase:== sends the message ==TestCase >> runCase== to
+an individual test, to execute the test. ==TestResult >> runCase== deals with any
 exceptions that may be raised during the execution of a test, runs a
 ==TestCase== by sending it the ==runCase==, and counts the errors, failures, and
 passes.
 
 [[[caption=Catching test case errors and failures
-TestResult>>runCase: aTestCase
+TestResult >> runCase: aTestCase
 	[
 	aTestCase announce: TestCaseStarted withResult: self.
 	aTestCase runCase.
@@ -673,11 +675,11 @@ TestResult>>runCase: aTestCase
 		do: [ :ex | ex sunitAnnounce: aTestCase toResult: self ]
 ]]]
 
-The method ==TestCase>>runCase== sends the messages ==TestCase>>setUp== and
-==TestCase>>tearDown== as shown below.
+The method ==TestCase >> runCase== sends the messages ==TestCase >> setUp== and
+==TestCase >> tearDown== as shown below.
 
 [[[
-TestCase>>runCase
+TestCase >> runCase
 		self resources do: [ :each | each availableFor: self ].
 		[ self setUp.
 		self performTest ] ensure: [
@@ -690,17 +692,17 @@ TestCase>>runCase
 To run more than one test, we send the message ==run== to a ==TestSuite== that contains the relevant tests. ==TestCase class== provides some functionality to build a test suite from its methods. The expression ==MyTestCase buildSuiteFromSelectors== returns a suite containing all the tests defined in the ==MyTestCase== class. The core of this process is:
 
 [[[caption=Auto-building the test suite
-TestCase class>>testSelectors
+TestCase class >> testSelectors
 	^(self selectors select: [ :each | (each beginsWith: 'test') and: [ each numArgs isZero ]])
 ]]]
 
-The method ==TestSuite>>run== creates an instance of ==TestResult==, verifies
+The method ==TestSuite >> run== creates an instance of ==TestResult==, verifies
 that all the resources are available, and then sends itself the message
-==TestSuite>>run:==, which runs all the tests in the suite. All the resources
+==TestSuite >> run:==, which runs all the tests in the suite. All the resources
 are then released.
 
 [[[
-TestSuite>>run: aResult
+TestSuite >> run: aResult
 	self setUp.
 	[ self tests
 		do: [ :each |
@@ -709,27 +711,27 @@ TestSuite>>run: aResult
 			self changed: each ] ]
 		ensure: [ self tearDown ]
 
-TestSuite>>setUp
+TestSuite >> setUp
 	self resources do: [ :each |
 				each isAvailable ifFalse: [ each signalInitializationError ]
 		].
 
-TestSuite>>tearDown
+TestSuite >> tearDown
 	self resourceClass resetResources: self resources
 ]]]
 
 The class ==TestResource== and its subclasses keep track of their currently
 created singleton instances that can be accessed and created using the
-class method ==TestResource class>>current==. This instance is cleared when the
+class method ==TestResource class >> current==. This instance is cleared when the
 tests have finished running and the resources are reset.
 
 The resource availability check makes it possible for the resource to be
 re-created if needed, as shown in the class method ==TestResource
-class>>isAvailable==. During the ==TestResource== instance creation, it is
+class >> isAvailable==. During the ==TestResource== instance creation, it is
 initialized and the message ==setUp== is sent to a test resource.
 
 [[[caption=Test resource availability
-TestResource class>>isAvailable
+TestResource class >> isAvailable
 	"This is (and must be) a lazy method. If my current has a value, an attempt to make me available has already been made: trust its result. If not, try to make me available."
 
 	current ifNil: [ self makeAvailable ].
@@ -737,7 +739,7 @@ TestResource class>>isAvailable
 ]]]
 
 [[[caption=Test resource creation
-TestResource class>>current
+TestResource class >> current
 	"This is a lazy accessor: the assert of self isAvailable does no work unless current isNil. However this method should normally be sent only to a resource that should already have been made available, e.g. in a test whose test case class has the resource class in its #resources, so should never be able to fail the assert.
 	If the intent is indeed to access a possibly-unprepared or reset-in-earlier-test resource lazily, then preface the call of 'MyResource current' with 'MyResource availableFor: self'."
 
