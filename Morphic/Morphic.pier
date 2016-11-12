@@ -62,7 +62,7 @@ that we get a coloured rectangle instead.
 Open a browser on the ==Color== class and add the following method to it:
 
 [[[language=smalltalk|caption=Getting a morph for an instance of ==Color==|label=scr:asMorphInColor
-Color>>>asMorph
+Color >> asMorph
 	^ Morph new color: self
 ]]]
 
@@ -174,14 +174,13 @@ Using the browser, define a new class ==CrossMorph== inheriting from ==Morph==:
 Morph subclass: #CrossMorph
 	instanceVariableNames: ''
 	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'PBE-Morphic'
+	package: 'PBE-Morphic'
 ]]]
 
 We can define the ==drawOn:== method like this:
 
 [[[language=smalltalk|caption=Drawing a ==CrossMorph==|label=scr:firstDrawOn
-drawOn: aCanvas
+CrossMorph >> drawOn: aCanvas
 	| crossHeight crossWidth horizontalBar verticalBar |
 	crossHeight := self height / 3.0.
 	crossWidth := self width / 3.0.
@@ -213,7 +212,7 @@ cross shape, we need to override the ==containsPoint:== method.
 Define the following method in class ==CrossMorph==:
 
 [[[language=smalltalk|caption=Shaping the sensitive zone of the ==CrossMorph==|label=scr:firstContains
-containsPoint: aPoint
+CrossMorph >> containsPoint: aPoint
 	| crossHeight crossWidth horizontalBar verticalBar |
 	crossHeight := self height / 3.0.
 	crossWidth := self width / 3.0.
@@ -235,14 +234,14 @@ forget to change one of the two occurrences. The solution is to factor out these
 calculations into two new methods, which we put in the ==private== protocol:
 
 [[[language=smalltalk|caption===horizontalBar==|label=scr:horizontalBar
-horizontalBar
+CrossMorph >> horizontalBar
 	| crossHeight |
 	crossHeight := self height / 3.0.
 	^ self bounds insetBy: 0 @ crossHeight
 ]]]
 
 [[[language=smalltalk|caption===verticalBar==|label=scr:verticalBar
-verticalBar
+CrossMorph >> verticalBar
 	| crossWidth |
 	crossWidth := self width / 3.0.
 	^ self bounds insetBy: crossWidth @ 0
@@ -250,14 +249,14 @@ verticalBar
 
 We can then define both ==drawOn:== and ==containsPoint:== using these methods:
 
-[[[language=smalltalk|caption=Refactored ==CrossMorph>>>drawOn:==|label=scr:refactorDrawOn
-drawOn: aCanvas
+[[[language=smalltalk|caption=Refactored ==CrossMorph >> drawOn:==|label=scr:refactorDrawOn
+CrossMorph >> drawOn: aCanvas
 	aCanvas fillRectangle: self horizontalBar color: self color.
 	aCanvas fillRectangle: self verticalBar color: self color
 ]]]
 
-[[[language=smalltalk|caption=Refactored ==CrossMorph>>>containsPoint:==|label=scr:refactorContainsPoint
-containsPoint: aPoint
+[[[language=smalltalk|caption=Refactored ==CrossMorph >> containsPoint:==|label=scr:refactorContainsPoint
+CrossMorph >> containsPoint: aPoint
 	^ (self horizontalBar containsPoint: aPoint) or: [ self verticalBar containsPoint: aPoint ]
 ]]]
 
@@ -286,8 +285,8 @@ top and bottom. Once again we find a method in class ==Rectangle== that does the
 hard work for us: ==r1 areasOutside: r2== answers an array of rectangles
 comprising the parts of ==r1== outside ==r2==. Here is the revised code:
 
-[[[language=smalltalk|caption=The revised ==CrossMorph>>>drawOn:== method, which fills the center of the cross once|label=scr:correctionOfBug
-drawOn: aCanvas
+[[[language=smalltalk|caption=The revised ==CrossMorph >> drawOn:== method, which fills the center of the cross once|label=scr:correctionOfBug
+CrossMorph >> drawOn: aCanvas
 	| topAndBottom |
 	aCanvas fillRectangle: self horizontalBar color: self color.
 	topAndBottom := self verticalBar areasOutside: self horizontalBar.
@@ -302,15 +301,15 @@ to rounding: when the size of the rectangle to be filled is not an integer,
 pixels unfilled. We can work around this by rounding explicitly when we
 calculate the sizes of the bars.
 
-[[[language=smalltalk|caption===CrossMorph>>>horizontalBar== with explicit rounding|label=scr:improveHorizontalBar
-horizontalBar
+[[[language=smalltalk|caption===CrossMorph >> horizontalBar== with explicit rounding|label=scr:improveHorizontalBar
+CrossMorph >> horizontalBar
 	| crossHeight |
 	crossHeight := (self height / 3.0) rounded.
 	^ self bounds insetBy: 0 @ crossHeight
 ]]]
 
-[[[language=smalltalk|caption===CrossMorph>>>verticalBar== with explicit rounding|label=scr:improveVerticalBar
-verticalBar
+[[[language=smalltalk|caption===CrossMorph >> verticalBar== with explicit rounding|label=scr:improveVerticalBar
+CrossMorph >> verticalBar
 	| crossWidth |
 	crossWidth := (self width / 3.0) rounded.
 	^ self bounds insetBy: crossWidth @ 0
@@ -339,7 +338,7 @@ all crossMorphs answer ==true== to the ==handlesMouseDown:== message.
 Add this method to ==CrossMorph==:
 
 [[[language=smalltalk|caption=Declaring that ==CrossMorph== will react to mouse clicks|label=scr:mouseEvent
-CrossMorph>>#handlesMouseDown: anEvent
+CrossMorph >> handlesMouseDown: anEvent
 	^ true
 ]]]
 
@@ -349,7 +348,7 @@ yellow. This can be accomplished by the ==mouseDown:== method (Script
 *@scr:mouseDown*).
 
 [[[language=smalltalk|caption=Reacting to mouse clicks by changing the morph's color|label=scr:mouseDown
-CrossMorph>>#mouseDown: anEvent
+CrossMorph >> mouseDown: anEvent
 	anEvent redButtonPressed
 		ifTrue: [ self color: Color red ].	"click"
 	anEvent yellowButtonPressed
@@ -391,7 +390,7 @@ morph answers ==true== to the ==handlesMouseOver:== message
 Declare that ==CrossMorph== will react when it is under the mouse pointer.
 
 [[[language=smalltalk|caption=We want to handle ''mouse over'' events|label=scr:mouseEventDeclaration
-CrossMorph>>#handlesMouseOver: anEvent
+CrossMorph >> handlesMouseOver: anEvent
 	^true
 ]]]
 
@@ -403,17 +402,17 @@ Define two methods so that ==CrossMorph== catches and releases the keyboard
 focus, and a third method to actually handle the keystrokes.
 
 [[[language=smalltalk|caption=Getting the keyboard focus when the mouse enters the morph|label=scr:gettingFocus
-CrossMorph>>#mouseEnter: anEvent
+CrossMorph >> mouseEnter: anEvent
 	anEvent hand newKeyboardFocus: self
 ]]]
 
 [[[language=smalltalk|caption=Handing back the focus when the pointer goes away|label=scr:givebackFocus
-CrossMorph>>#mouseLeave: anEvent
+CrossMorph >> mouseLeave: anEvent
 	anEvent hand newKeyboardFocus: nil
 ]]]
 
 [[[language=smalltalk|label=scr:handleKeystroke|caption=Receiving and handling keyboard events
-CrossMorph>>#handleKeystroke: anEvent
+CrossMorph >> handleKeystroke: anEvent
 	| keyValue |
 	keyValue := anEvent keyValue.
 	keyValue = 30	 "up arrow"
@@ -449,12 +448,12 @@ currently being stepped.
 Make ==CrossMorph== blink by defining these methods as follows:
 
 [[[language=smalltalk|caption=Defining the animation time interval|label=scr:animationTime
-CrossMorph>>#stepTime
+CrossMorph >> stepTime
 	^ 100
 ]]]
 
 [[[language=smalltalk|caption=Making a step in the animation|label=scr:stepInMorph
-CrossMorph>>#step
+CrossMorph >> step
 	(self color diff: Color black) < 0.1
 		ifTrue: [self color: Color red]
 		ifFalse: [self color: self color darker]
@@ -516,14 +515,13 @@ Let's first define the receiver morph:
 Morph subclass: #ReceiverMorph
 	instanceVariableNames: ''
 	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'PBE-Morphic'
+	package: 'PBE-Morphic'
 ]]]
 
 Now define the initialization method in the usual way:
 
 [[[language=smalltalk|caption=Initializing ==ReceiverMorph==|label=scr:initializeReceiverMorph
-ReceiverMorph>>#initialize
+ReceiverMorph >> initialize
 	super initialize.
 	color := Color red.
 	bounds := 0 @ 0 extent: 200 @ 200
@@ -540,7 +538,7 @@ it likes the morph onto which it is being dropped, by responding to the message
 ==Morph==) answers ==true==.
 
 [[[language=smalltalk|caption=Accept dropped morphs based on their color|label=scr:acceptDropMorph
-ReceiverMorph>>#wantsDroppedMorph: aMorph event: anEvent
+ReceiverMorph >> wantsDroppedMorph: aMorph event: anEvent
 	^ aMorph color = Color blue
 ]]]
 
@@ -552,7 +550,7 @@ by the receiver answering ==true== to the message ==repelsMorph:event:== when it
 doesn't want the dropped morph:
 
 [[[language=smalltalk|caption=Changing the behaviour of the dropped morph when it is rejected|label=scr:repelsMorph
-ReceiverMorph>>#repelsMorph: aMorph event: anEvent
+ReceiverMorph >> repelsMorph: aMorph event: anEvent
 	^ (self wantsDroppedMorph: aMorph event: anEvent) not
 ]]]
 
@@ -582,12 +580,11 @@ experiment a bit more:
 Morph subclass: #DroppedMorph
 	instanceVariableNames: ''
 	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'PBE-Morphic'
+	package: 'PBE-Morphic'
 ]]]
 
 [[[language=smalltalk|caption=Initializing ==DroppedMorph==|label=scr:initializeDropMorph
-DroppedMorph>>#initialize
+DroppedMorph >> initialize
 	super initialize.
 	color := Color blue.
 	self position: 250 @ 100
@@ -597,7 +594,7 @@ Now we can specify what the dropped morph should do when it is rejected by the
 receiver; here it will stay attached to the mouse pointer:
 
 [[[language=smalltalk|caption=Reacting when the morph was dropped but rejected|label=rejectDropMorph|label=scr:rejectDrop
-DroppedMorph>>#rejectDropMorphEvent: anEvent
+DroppedMorph >> rejectDropMorphEvent: anEvent
 	| h |
 	h := anEvent hand.
 	WorldState addDeferredUIMessage: [ h grabMorph: self ].
@@ -636,8 +633,7 @@ we will make use of the border.
 BorderedMorph subclass: #DieMorph
 	instanceVariableNames: 'faces dieValue isStopped'
 	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'PBE-Morphic'
+	package: 'PBE-Morphic'
 ]]]
 
 The instance variable ==faces== records the number of faces on the die; we allow
@@ -647,7 +643,7 @@ running. To create a die instance, we define the ==faces: n== method on the
 ''class'' side of ==DieMorph== to create a new die with ==n== faces.
 
 [[[language=smalltalk|caption=Creating a new die with the number of faces we like|label=scr:facesClass
-DieMorph class>>#faces: aNumber
+DieMorph class >> faces: aNumber
 	^ self new faces: aNumber
 ]]]
 
@@ -656,7 +652,7 @@ remember that ==new== automatically sends ==initialize== to the newly-created
 instance.
 
 [[[language=smalltalk|caption=Initializing instances of ==DieMorph==|label=scr:initializeDie
-DieMorph>>#initialize
+DieMorph >> initialize
 	super initialize.
 	self extent: 50 @ 50.
 	self
@@ -677,7 +673,7 @@ the visible face. We define the instance method ==faces:== to check for a valid
 parameter as follows:
 
 [[[language=smalltalk|caption=Setting the number of faces of the die|label=scr:numberOfFaces
-DieMorph>>#faces: aNumber
+DieMorph >> faces: aNumber
 	"Set the number of faces"
 
 	((aNumber isInteger and: [ aNumber > 0 ]) and: [ aNumber <= 9 ])
@@ -687,33 +683,33 @@ DieMorph>>#faces: aNumber
 It may be good to review the order in which the messages are sent when a die is
 created. For instance, if we start by evaluating ==DieMorph faces: 9==:
 
--The class method ==DieMorph class>>>faces:== sends ==new== to ==DieMorph class==.
+-The class method ==DieMorph class >> faces:== sends ==new== to ==DieMorph class==.
 -The method for ==new== (inherited by ==DieMorph class== from ==Behavior==) creates the new instance and sends it the ==initialize== message.
 -The ==initialize== method in ==DieMorph== sets ==faces== to an initial value of 6.
--==DieMorph class>>>new== returns to the class method ==DieMorph class>>>faces:==, which then sends the message ==faces: 9== to the new instance.
--The instance method ==DieMorph>>>faces:== now executes, setting the ==faces== instance variable to 9.
+-==DieMorph class >> new== returns to the class method ==DieMorph class >> faces:==, which then sends the message ==faces: 9== to the new instance.
+-The instance method ==DieMorph >> faces:== now executes, setting the ==faces== instance variable to 9.
 
 Before defining ==drawOn:==, we need a few methods to place the dots on the
 displayed face:
 
 [[[language=smalltalk|caption=Nine methods for placing points on the faces of the die|label=scr:placeDots
-DieMorph>>#face1
+DieMorph >> face1
 	^ {(0.5 @ 0.5)}
-DieMorph>>#face2
+DieMorph >> face2
 	^{0.25@0.25 . 0.75@0.75}
-DieMorph>>#face3
+DieMorph >> face3
 	^{0.25@0.25 . 0.75@0.75 . 0.5@0.5}
-DieMorph>>#face4
+DieMorph >> face4
 	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75}
-DieMorph>>#face5
+DieMorph >> face5
 	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.5@0.5}
-DieMorph>>#face6
+DieMorph >> face6
 	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.25@0.5 . 0.75@0.5}
-DieMorph>>#face7
+DieMorph >> face7
 	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.25@0.5 . 0.75@0.5 . 0.5@0.5}
-DieMorph >>#face8
+DieMorph >> face8
 	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.25@0.5 . 0.75@0.5 . 0.5@0.5 . 0.5@0.25}
-DieMorph >>#face9
+DieMorph >> face9
 	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.25@0.5 . 0.75@0.5 . 0.5@0.5 . 0.5@0.25 . 0.5@0.75}
 ]]]
 
@@ -725,7 +721,7 @@ The ==drawOn:== method does two things: it draws the die background with the
 ==super==-send, and then draws the dots.
 
 [[[language=smalltalk|caption=Drawing the die morph|label=scr:drawOnDie
-DieMorph>>#drawOn: aCanvas
+DieMorph >> drawOn: aCanvas
 	super drawOn: aCanvas.
 	(self perform: ('face', dieValue asString) asSymbol)
 		do: [:aPoint | self drawDotOn: aCanvas at: aPoint]
@@ -740,7 +736,7 @@ dieValue asString) asSymbol==. You will encounter this use of ==perform:== quite
 regularly.
 
 [[[language=smalltalk|caption=Drawing a single dot on a face|label=scr:drawDotOn
-DieMorph>>#drawDotOn: aCanvas at: aPoint
+DieMorph >> drawDotOn: aCanvas at: aPoint
 	aCanvas
 		fillOval: (Rectangle
 			center: self position + (self extent * aPoint)
@@ -764,7 +760,7 @@ To change the displayed face, we create an accessor that we can use as ==myDie
 dieValue: 5==:
 
 [[[language=smalltalk|caption=Setting the current value of the die|label=scr:dieValue
-DieMorph>>#dieValue: aNumber
+DieMorph >> dieValue: aNumber
 	((aNumber isInteger and: [ aNumber > 0 ]) and: [ aNumber <= faces ])
 		ifTrue: [
 			dieValue := aNumber.
@@ -776,10 +772,10 @@ DieMorph>>#dieValue: aNumber
 Now we will use the animation system to show quickly all the faces:
 
 [[[language=smalltalk|caption=Animating the die|label=scr:stepDie
-DieMorph>>#stepTime
+DieMorph >> stepTime
 	^ 100
 
-DieMorph>>#step
+DieMorph >> step
 	isStopped ifFalse: [self dieValue: (1 to: faces) atRandom]
 ]]]
 
@@ -789,10 +785,10 @@ To start or stop the animation by clicking, we will use what we learned
 previously about mouse events. First, activate the reception of mouse events:
 
 [[[language=smalltalk|caption=Handling mouse clicks to start and stop the animation|label=scr:handleMouseDie
-DieMorph>>#handlesMouseDown: anEvent
+DieMorph >> handlesMouseDown: anEvent
 	^ true
 
-DieMorph>>#mouseDown: anEvent
+DieMorph >> mouseDown: anEvent
 	anEvent redButtonPressed
 		ifTrue: [isStopped := isStopped not]
 ]]]
@@ -821,7 +817,7 @@ To use a canvas with a 0.5 alpha-transparency in ==DieMorph==, redefine
 ==drawOn:== like this:
 
 [[[language=smalltalk|caption=Drawing a translucent die|label=scr:translucentDie
-DieMorph>>#drawOn: aCanvas
+DieMorph >> drawOn: aCanvas
 	| theCanvas |
 	theCanvas := aCanvas asAlphaBlendingCanvas: 0.5.
 	super drawOn: theCanvas.
@@ -844,4 +840,4 @@ dynamically composed.
 -You can subclass an existing morph class and redefine key methods, like ==initialize== and ==drawOn:==.
 -You can control how a morph reacts to mouse and keyboard events by redefining the methods ==handlesMouseDown:==, ==handlesMouseOver:==, etc.
 -You can animate a morph by defining the methods ==step== (what to do) and ==stepTime== (the number of milliseconds between steps).
--Various pre-defined morphs, like ==PopUpMenu== and ==FillInTheBlank==, are available for interacting with users.
+
