@@ -218,12 +218,9 @@ It is convenient to place utility methods on the class side because they can be
 executed without having to create any additional objects first. Indeed, many of
 them will contain a comment designed to make it easy to execute them.
 
-% Commenting out for the moment: showColorCube is no longer in the image.
-% TODO: create a different example
-%Browse method ==Color class>>showColorCube==, double-click just inside the
-%quotes on the comment =="Color showColorCube"== and press ==CMD-d==. You will
-%see the effect of executing this method. Select
-%==World > System > Restore display (r)== to undo the effects.
+Browse method ==Color class>>wheel:==, double-click just at the beginning of the 
+comment =="(Color wheel: 12) inspect"== and press ==CMD-d==. You will see the effect of 
+executing this method.
 
 For those familiar with Java and C\+\+, class methods may seem similar to static
 methods. However, the uniformity of the Pharo object model (where classes are
