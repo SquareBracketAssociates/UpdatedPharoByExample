@@ -139,7 +139,7 @@ It is equivalent to the one we mentioned earlier. In this book we only use the t
 Now let's add some methods to our class. Select the protocol =='no messages'== in the protocol pane. You will see a template for method creation in the editing pane. Select the template text, and
 replace it by the following (Do not forget to compile it):
 
-[[[lineNumber=true|caption=Initializing instance of LOCell|label=scr:InitLOCell
+[[[caption=Initializing instance of LOCell|label=scr:InitLOCell
 initialize
 	super initialize.
 	self label: ''.
