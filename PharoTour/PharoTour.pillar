@@ -353,9 +353,10 @@ particular Pharo expression yields a given result when you ==Print it==.
 Select or place the cursor on the line of ==3\+4==, and this time ==Inspect it== (==CMD-i==).
 
 Now you should see a new window titled "Inspector on a SmallInteger(7)" as shown in Figure *@fig:inspector*.
-The inspector is an extremely useful tool that allows you to browse and interact with any object in the system. The title tells us that 7 is an instance of the class ==SmallInteger==. The top panel allows us to browse the instance variables of an object and their values.  The bottom panel can be used to write expressions to send messages to the object. The inspector presents specific tabs that will show different information and views on the object depending on the kind of object you are inspecting. Inspect ==Morph new openInWorld== you should get a situation similar to the one of Figure *@fig:inspectorMorph*.
+The inspector is an extremely useful tool that allows you to browse and interact with any object in the system. The title tells us that 7 is an instance of the class ==SmallInteger==. The top panel allows us to browse the instance variables of an object and their values.  The bottom panel can be used to write expressions to send messages to the object. Type ==self squared== in the bottom panel of the inspector, and ==Print it==.
 
-Type ==self squared== in the bottom panel of the inspector, and ==Print it==.
+The inspector presents specific tabs that will show different information and views on the object depending on the kind of object you are inspecting. Inspect ==Morph new openInWorld== you should get a situation similar to the one of Figure *@fig:inspectorMorph*.
+
 
 +Inspecting a Morph using ==Inspect==>file://figures/inspectMorph.png|width=80|label=fig:inspectorMorph+
 
