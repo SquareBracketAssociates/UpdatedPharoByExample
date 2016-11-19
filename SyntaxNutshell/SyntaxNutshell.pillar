@@ -203,7 +203,8 @@ Unary messages have the highest precedence, then binary messages, and finally
 keyword messages, so:
 
 [[[
-2 raisedTo: 1 + 3 factorial --> 128
+2 raisedTo: 1 + 3 factorial
+>>> 128
 ]]]
 
 First we send ==factorial== to 3, then we send ==\+ 6== to 1, and finally we
@@ -213,13 +214,15 @@ to show the result of evaluating an expression.
 Precedence aside, execution is strictly from left to right, so:
 
 [[[
-1 + 2 * 3 --> 9
+1 + 2 * 3 
+>>> 9
 ]]]
 
 return 9 and not 7. Parentheses must be used to alter the order of evaluation:
 
 [[[
-1 + (2 * 3) --> 7
+1 + (2 * 3) 
+>>> 7
 ]]]
 
 !!!!!Periods and semi-colons.
@@ -292,16 +295,21 @@ starting with upper-case letters are assumed to be global variables. Class
 names, like ==Character==, for example, are simply global variables referring to
 the object representing that class.
 
+[[[
+[ 3 = 3 ifTrue: [ ^ 33 ]. 44 ] value
+>>> 44
+]]]
+
 !!Block syntax
 
 Blocks (lexical closures) provide a mechanism to defer the execution of expressions. A block is
 essentially an anonymous function with a definition context. A block is executed by sending it the
 message ==value==. The block answers the value of the last expression in its
-body, unless there is an explicit return (with ^), in which case it does not
-answer any value.
+body, unless there is an explicit return (with ^) in which case it returns the value of the returned expression.
 
 [[[language=smalltalk
-[ 1 + 2 ] value --> 3
+[ 1 + 2 ] value 
+>>> 3
 ]]]
 
 Blocks may take parameters, each of which is declared with a leading colon. A
@@ -311,8 +319,10 @@ one argument. A two-parameter block must be sent ==value:value:==, and so on, up
 to 4 arguments.
 
 [[[language=smalltalk
-[ :x | 1 + x ] value: 2 --> 3
-[ :x :y | x + y ] value: 1 value: 2 --> 3
+[ :x | 1 + x ] value: 2 
+>>> 3
+[ :x :y | x + y ] value: 1 value: 2 
+>>> 3
 ]]]
 
 If you have a block with more than four parameters, you must use
@@ -327,7 +337,8 @@ arguments:
 [ :x :y |
 	| z |
 	z := x + y.
-	z ] value: 1 value: 2 --> 3
+	z ] value: 1 value: 2 
+>>> 3
 ]]]
 
 Blocks are actually lexical closures, since they can refer to variables of the
@@ -337,7 +348,8 @@ enclosing environment:
 [[[
 | x |
 x := 1.
-[ :y | x + y ] value: 2 --> 3
+[ :y | x + y ] value: 2 
+>>> 3
 ]]]
 
 Blocks are instances of the class ==BlockClosure==. This means that they are
@@ -360,7 +372,8 @@ for more about booleans.
 [[[
 (17 * 13 > 220)
 	ifTrue: [ 'bigger' ]
-	ifFalse: [ 'smaller' ] -->'bigger'
+	ifFalse: [ 'smaller' ] 
+>>>'bigger'
 ]]]
 
 !!! Some loops
@@ -372,7 +385,8 @@ procedural loop:
 [[[
 n := 1.
 [ n < 1000 ] whileTrue: [ n := n*2 ].
-n --> 1024
+n 
+>>> 1024
 ]]]
 
 ==whileFalse:== reverses the exit condition.
@@ -380,7 +394,8 @@ n --> 1024
 [[[
 n := 1.
 [ n > 1000 ] whileFalse: [ n := n*2 ].
-n --> 1024
+n 
+>>> 1024
 ]]]
 
 ==timesRepeat:== offers a simple way to implement a fixed iteration:
@@ -388,7 +403,8 @@ n --> 1024
 [[[
 n := 1.
 10 timesRepeat: [ n := n*2 ].
-n --> 1024
+n 
+>>> 1024
 ]]]
 
 We can also send the message ==to:do:== to a number which then acts as the
@@ -398,7 +414,8 @@ block that takes the current value of the loop counter as its argument:
 [[[
 result := String new.
 1 to: 10 do: [:n | result := result, n printString, ' '].
-result --> '1 2 3 4 5 6 7 8 9 10 '
+result 
+>>> '1 2 3 4 5 6 7 8 9 10 '
 ]]]
 
 !!! High-order iterators
@@ -416,7 +433,8 @@ is a block that is evaluated for each element of the collection.
 [[[
 result := String new.
 (1 to: 10) do: [:n | result := result, n printString, ' '].
-result --> '1 2 3 4 5 6 7 8 9 10 '
+result 
+>>> '1 2 3 4 5 6 7 8 9 10 '
 ]]]
 
 ==collect:== builds a new collection of the same size, transforming each
@@ -424,7 +442,8 @@ element. (You can think of ==collect:== as the Map in the MapReduce
 programming model).
 
 [[[
-(1 to:10) collect: [ :each | each * each ] --> #(1 4 9 16 25 36 49 64 81 100)
+(1 to:10) collect: [ :each | each * each ] 
+>>> #(1 4 9 16 25 36 49 64 81 100)
 ]]]
 
 ==select:== and ==reject:== build new collections, each containing a subset of
@@ -435,9 +454,12 @@ that strings are also collections (of characters), so you can iterate over all
 the characters.
 
 [[[
-'hello there' select: [ :char | char isVowel ] --> 'eoee'
-'hello there' reject: [ :char | char isVowel ] --> 'hll thr'
-'hello there' detect: [ :char | char isVowel ] --> $e
+'hello there' select: [ :char | char isVowel ] 
+>>> 'eoee'
+'hello there' reject: [ :char | char isVowel ] 
+>>> 'hll thr'
+'hello there' detect: [ :char | char isVowel ] 
+>>> $e
 ]]]
 
 Finally, you should be aware that collections also support a functional-style
@@ -447,7 +469,8 @@ result using an expression that starts with a seed value and injects each
 element of the collection. Sums and products are typical examples.
 
 [[[
-(1 to: 10) inject: 0 into: [ :sum :each | sum + each] --> 55
+(1 to: 10) inject: 0 into: [ :sum :each | sum + each] 
+>>> 55
 ]]]
 
 This is equivalent to ==0\+\1\+2\+3\+4\+5\+6\+7\+8\+9\+10==.
@@ -487,14 +510,27 @@ In Pharo, the angle bracket syntax is also used for method annotations called pr
 
 !!Chapter summary
 
--Pharo has only six reserved identifiers (also called pseudo-variables): ==true==, ==false==, ==nil==, ==self==, ==super==, and ==thisContext==.
--There are five kinds of literal objects: numbers (5, 2.5, 1.9e15, 2r111), characters (==$a==), strings (=='hello'==), symbols (==#hello==), and arrays (==#('hello' #hi)== or =={ 1 . 2 . 1 + 2 }== )
--Strings are delimited by single quotes, comments by double quotes. To get a quote inside a string, double it.
--Unlike strings, symbols are guaranteed to be globally unique.
--Use ==#( ... )== to define a literal array. Use =={ ... }== to define a dynamic array. Note that ==#(1\+2) size== \-\-> 3, but ==\{1\+2\} size== \-\-> 1
--There are three kinds of messages: unary (e.g., ==1 asString==, ==Array new==), binary (e.g., ==3 \+ 4==, =='hi', ' there'==), and keyword (e.g., =='hi' at: 2 put: $o==)
--A cascaded message send is a sequence of messages sent to the same target, separated by semi-colons: ==OrderedCollection new add: #calvin; add: #hobbes; size== \-\-> 2
+- Pharo has only six reserved identifiers (also called pseudo-variables): ==true==, ==false==, ==nil==, ==self==, ==super==, and ==thisContext==.
+- There are five kinds of literal objects: numbers (5, 2.5, 1.9e15, 2r111), characters (==$a==), strings (=='hello'==), symbols (==#hello==), and arrays (==#('hello' #hi)== or =={ 1 . 2 . 1 + 2 }== )
+- Strings are delimited by single quotes, comments by double quotes. To get a quote inside a string, double it.
+- Unlike strings, symbols are guaranteed to be globally unique.
+- Use ==#( ... )== to define a literal array. Use =={ ... }== to define a dynamic array. Note that 
+
+[[[
+#(1+2) size
+>>> 3
+=={1+2} size== 
+>>>1
+]]]
+
+- There are three kinds of messages: unary (e.g., ==1 asString==, ==Array new==), binary (e.g., ==3 \+ 4==, =='hi', ' there'==), and keyword (e.g., =='hi' at: 2 put: $o==)
+- A cascaded message send is a sequence of messages sent to the same target, separated by semi-colons: 
+[[[
+OrderedCollection new add: #calvin; add: #hobbes; size
+>>> 2
+]]]
+
 -Local variables are declared with vertical bars. Use ==:= == for assignment. ==\|x\| x := 1 ==
 -Expressions consist of message sends, cascades and assignments, evaluated left to right (and optionally grouped with parentheses). Statements are expressions separated by periods.
--Block closures are expressions enclosed in square brackets. Blocks may take arguments and can contain temporary variables. The expressions in the block are not evaluated until you send the block a value message with the correct number of arguments. ==[ :x | x + 2 ] value: 4 --> 6==
+-Block closures are expressions enclosed in square brackets. Blocks may take arguments and can contain temporary variables. The expressions in the block are not evaluated until you send the block a value message with the correct number of arguments. ==[ :x | x + 2 ] value: 4==
 -There is no dedicated syntax for control constructs, just messages that conditionally evaluate blocks.
