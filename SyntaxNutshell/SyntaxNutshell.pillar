@@ -295,10 +295,7 @@ starting with upper-case letters are assumed to be global variables. Class
 names, like ==Character==, for example, are simply global variables referring to
 the object representing that class.
 
-[[[
-[ 3 = 3 ifTrue: [ ^ 33 ]. 44 ] value
->>> 44
-]]]
+
 
 !!Block syntax
 
@@ -310,6 +307,12 @@ body, unless there is an explicit return (with ^) in which case it returns the v
 [[[language=smalltalk
 [ 1 + 2 ] value 
 >>> 3
+]]]
+
+
+[[[language=smalltalk
+[ 3 = 3 ifTrue: [ ^ 33 ]. 44 ] value
+>>> 33
 ]]]
 
 Blocks may take parameters, each of which is declared with a leading colon. A
@@ -516,10 +519,10 @@ In Pharo, the angle bracket syntax is also used for method annotations called pr
 - Unlike strings, symbols are guaranteed to be globally unique.
 - Use ==#( ... )== to define a literal array. Use =={ ... }== to define a dynamic array. Note that 
 
-[[[
+[[[language=smalltalk
 #(1+2) size
 >>> 3
-=={1+2} size== 
+{1+2} size
 >>>1
 ]]]
 
