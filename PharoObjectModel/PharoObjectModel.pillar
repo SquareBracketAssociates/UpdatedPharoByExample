@@ -35,10 +35,15 @@ can send messages to them, just as you do to any other object. At the end of thi
 note on the object implementation for the curious reader.
 
 [[[
+"send '+ 4' to 3, yielding 7"
 3 + 4
---> 7    "send '+ 4' to 3, yielding 7"
+>>> 7    
+]]]
+
+[[[
+"send factorial, yielding a big number"
 20 factorial
---> 2432902008176640000   "send factorial, yielding a big number"
+>>> 2432902008176640000   
 ]]]
 
 The object ==7== is different than the object returned by ==20 factorial==, but because they are 
@@ -60,17 +65,27 @@ Every object has a class; you can find out which one by sending it the message
 
 [[[
 1 class
---> SmallInteger
+>>> SmallInteger
+]]]
+
+[[[
 20 factorial class
---> LargePositiveInteger
+>>> LargePositiveInteger
+]]]
+
+[[[
 'hello' class
---> ByteString
-#(1 2 3) class
---> Array
+>>> ByteString
+]]]
+
+[[[
 (4@5) class
---> Point
+>>> Point
+]]]
+
+[[[
 Object new class
---> Object
+>>> Object
 ]]]
 
 A class defines the ''structure'' of its instances via instance variables, and
@@ -130,7 +145,7 @@ Point >> dist: aPoint
 
 [[[
 1@1 dist: 4@5
---> 5.0
+>>> 5.0
 ]]]
 
 The key reason to prefer instance-based encapsulation to class-based
@@ -139,8 +154,7 @@ abstraction to coexist. For example, the method ==dist:== need not know or
 care whether the argument ==aPoint== is an instance of the same class as the
 receiver. The argument object might be represented in polar coordinates, or as
 a record in a database, or on another computer in a distributed system. As long
-as it can respond to the messages ==x== and ==y==, the code of method ==dist== (shown in Script
-*@scr:distance*) will still work.
+as it can respond to the messages ==x== and ==y==, the code of method ==dist== (shown above) will still work.
 
 !!!Methods
 
@@ -178,21 +192,28 @@ they were a single thing with two "sides": the ''instance side'' and the ''class
 side'', as shown in Figure *@fig:colorInstanceClassSide*. By default, when you
 select a class in the browser, you're browsing the ''instance'' side (i.e., the
 methods that are executed when messages are sent to an ''instance'' of
-==Color==). Clicking on the ""Class side"" button switches you over to the ''class side'' (the methods that will be executed
-when messages are sent to the ''class'' ==Color== itself).
+==Color==). Clicking on the ""Class side"" button switches you over to the ''class side'' (the methods that will be executed when messages are sent to the ''class'' ==Color== itself).
 
 For example, ==Color blue== sends the message ==blue== to the class ==Color==.
 You will therefore find the method ==blue== defined on the class side of
 ==Color==, not on the instance side.
 
 [[[
-aColor := Color blue.     "Class-side method blue (convenient instance creation method)"
-aColor
---> Color blue   "Color instances are self-evaluating"
-aColor red
---> 0.0          "Instance-side accessor method red (returns the red RGB value)"
-aColor blue
---> 1.0          "Instance-side accessor method blue (returns the blue RGB value)"
+"Class-side method blue (convenient instance creation method)"
+aColor := Color blue.
+>>> Color blue   
+"Color instances are self-evaluating"
+]]]
+
+[[[
+"Instance-side accessor method red (returns the red RGB value)"
+Color blue red
+>>> 0.0
+]]]
+[[[
+"Instance-side accessor method blue (returns the blue RGB value)"
+Color blue blue
+>>> 1.0
 ]]]
 
 You define a class by filling in the template proposed on the instance side.
@@ -257,10 +278,12 @@ Object subclass: #Dog
     instanceVariableNames: ''
     classVariableNames: ''
     package: 'PBE-CIV'
-
+]]]
+[[[
 Dog class
     instanceVariableNames: 'count'
-
+]]]	
+[[[
 Dog subclass: #Hyena
     instanceVariableNames: ''
     classVariableNames: ''
@@ -273,11 +296,13 @@ Now suppose we define class methods for ==Dog== to initialize its ==count== to
 [[[caption=Keeping count of new dogs|label=scr:dogCount
 Dog class >> initialize
     count := 0.
-
+]]]
+[[[
 Dog class >> new
     count := count +1.
     ^ super new
-
+]]]
+[[[
 Dog class >> count
     ^ count
 ]]]
@@ -297,15 +322,17 @@ it explicitly here. By default class initialize methods are automatically execut
 Dog initialize.
 Hyena initialize.
 Dog count
---> 0
+>>> 0
 Hyena count
---> 0
-
+>>> 0
+]]]
+[[[
+| aDog |
 aDog := Dog new.
 Dog count
---> 1  "Incremented"
+>>> 1  "Incremented"
 Hyena count
---> 0  "Still the same"
+>>> 0  "Still the same"
 ]]]
 
 Class instance variables are private to a class in exactly the same way that
@@ -368,10 +395,10 @@ describe the instance of the class ==WebServer class== i.e. the class ==WebServe
 
 [[[label=scr:instance|caption=New state for classes
 Object class allInstVarNames
--->  "#('superclass' 'methodDict' 'format' 'layout' 'instanceVariables' 'organization' 'subclasses' 'name' 'classPool' 'sharedPools' 'environment' 'category' 'traitComposition' 'localSelectors')"
+>>>  "#('superclass' 'methodDict' 'format' 'layout' 'instanceVariables' 'organization' 'subclasses' 'name' 'classPool' 'sharedPools' 'environment' 'category' 'traitComposition' 'localSelectors')"
 
 WebServer class allInstVarNames 
--->"#('superclass' 'methodDict' 'format' 'layout' 'instanceVariables' 'organization' 'subclasses' 'name' 'classPool' 'sharedPools' 'environment' 'category' 'traitComposition' 'localSelectors' #uniqueInstance)"
+>>>"#('superclass' 'methodDict' 'format' 'layout' 'instanceVariables' 'organization' 'subclasses' 'name' 'classPool' 'sharedPools' 'environment' 'category' 'traitComposition' 'localSelectors' #uniqueInstance)"
 ]]]
 
 We can now define a class method named ==uniqueInstance==, as shown below. This
@@ -432,17 +459,27 @@ inheritance.
 
 [[[
 SmallInteger superclass 
---> Integer
+>>> Integer
+]]]
+[[[
 Integer superclass
---> Number
+>>> Number
+]]]
+[[[
 Number superclass
---> Magnitude
+>>> Magnitude
+]]]
+[[[
 Magnitude superclass
---> Object
+>>> Object
+]]]
+[[[
 Object superclass
---> ProtoObject
+>>> ProtoObject
+]]]
+[[[
 ProtoObject superclass
---> nil
+>>> nil
 ]]]
 
 Traditionally the root of an inheritance hierarchy is the class
@@ -583,7 +620,7 @@ expected.
 
 [[[
 LOGame new author 
---> 'on'
+>>> 'on'
 ]]]
 
 Trait composition expressions may combine multiple traits using the ==+==
@@ -628,9 +665,11 @@ method must be chosen ''dynamically'', when the message is received.
 
 [[[
 3 + 4
---> 7          "send message + with argument 4 to integer 3"
+>>> 7          "send message + with argument 4 to integer 3"
+]]]
+[[[
 (1@2) + 4
---> 5@6    "send message + with argument 4 to point (1@2)"
+>>> 5@6    "send message + with argument 4 to point (1@2)"
 ]]]
 
 As a consequence, we can send the ''same message'' to different objects, each of
@@ -725,7 +764,7 @@ If we now send this object the message ==defaultColor==, we get the result
 
 [[[
 anEllipse defaultColor 
---> Color yellow
+>>> Color yellow
 ]]]
 
 The class ==EllipseMorph== implements ==defaultColor==, so the appropriate
@@ -887,7 +926,7 @@ Consider the message ==constructorString== sent to an instance of ==EllipseMorph
 
 [[[
 EllipseMorph new constructorString
---> '(EllipseMorph new) setBorderWidth: 1 borderColor: Color black'
+>>> '(EllipseMorph new) setBorderWidth: 1 borderColor: Color black'
 ]]]
 
 
@@ -995,7 +1034,7 @@ The variable ==Processor== names an instance of ==ProcessScheduler==, the main p
 
 [[[
 Processor class 
-   --> ProcessorScheduler
+>>> ProcessorScheduler
 ]]]
 
 !!!!Other useful global variables
@@ -1007,17 +1046,17 @@ the symbols that name the global objects in Pharo code. So, for example:
 
 [[[
 Smalltalk globals at: #Boolean 
---> Boolean
+>>> Boolean
 ]]]
 
 Since ==Smalltalk== is itself a global variable:
 
 [[[
 Smalltalk globals at: #Smalltalk
---> Smalltalk
+>>> Smalltalk
 
 (Smalltalk globals at: #Smalltalk) == Smalltalk
---> true
+>>> true
 ]]]
 
 
