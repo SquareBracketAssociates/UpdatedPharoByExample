@@ -97,12 +97,18 @@ a succession of characters not containing ==:== (e.g., ==factorial==,
 ==open==, ==class==).
 
 [[[
-89 sin           --> 0.860069405812453
-3 sqrt           --> 1.732050807568877
-Float pi         --> 3.141592653589793
-'blop' size     --> 4
-true not        --> false
-Object class --> Object class  "The class of Object is Object class (BANG)"
+89 sin           
+>>> 0.860069405812453
+3 sqrt           
+>>> 1.732050807568877
+Float pi         
+>>> 3.141592653589793
+'blop' size     
+>>> 4
+true not        
+>>> false
+Object class 
+>>> Object class  "The class of Object is Object class (BANG)"
 ]]]
 
 @@important Unary messages are messages that do not require any argument. They follow the syntactic template: ==receiver selector==.
@@ -114,17 +120,17 @@ selector consists of a sequence of one or more characters from the set: ==\+==, 
 
 [[[
 100@100
-	--> 100@100  "creates a Point object"
+>>> 100@100  "creates a Point object"
 3 + 4
-	--> 7
+>>> 7
 10 - 1
-	--> 9
+>>> 9
 4 <= 3
-	--> false
+>>> false
 (4/3) * 3 == 4
-	--> true "equality is just a binary message, and Fractions are exact"
+>>> true "equality is just a binary message, and Fractions are exact"
 (3/4) == (3/4)
-	--> false "two equal Fractions are not the same object"
+>>> false "two equal Fractions are not the same object"
 ]]]
 
 @@important Binary messages are messages that require exactly one argument ''and'' whose selector is composed of a sequence of characters from: ==\+==, ==-==, ==\*==, ==/==, ==\&==, ==\===, ==>==, ==|==, ==<==, ==~==, and ==@==. ==-\-== is not possible. They follow the syntactic template: ==receiver selector argument==.
@@ -146,15 +152,22 @@ which creates the color red. Note that the colons are part of the selector.
 
 [[[
 1 to: 10
-	--> (1 to: 10)  "creates an interval"
-Color r: 1 g: 0 b: 0
-	--> Color red  "creates a new color"
+>>> (1 to: 10)  "creates an interval"
+]]]
+[[[
+Color r: 1 g: 0 b: 0 
+>>> Color red  "creates a new color"
+]]]
+[[[
 12 between: 8 and: 15
-	--> true
+>>> true
+]]]
 
+[[[
 nums := Array newFrom: (1 to: 5).
 nums at: 1 put: 6.
-nums --> #(6 2 3 4 5)
+nums
+>>> #(6 2 3 4 5)
 ]]]
 
 @@important Keyword messages are messages that require one or more arguments. Their selector consists of one or more keywords each ending in a colon (==:==). They follow the syntactic template: ==receiver selectorWordOne: argumentOne wordTwo: argumentTwo==.
@@ -194,9 +207,9 @@ can be read in a natural way:
 
 [[[
 1000 factorial / 999 factorial
-	--> 1000
+>>> 1000
 2 raisedTo: 1 + 3 factorial
-	--> 128
+>>> 128
 ]]]
 
 Unfortunately the rules are a bit too simplistic for arithmetic message sends,
@@ -205,9 +218,9 @@ binary operators:
 
 [[[
 1 + 2 * 3
-	--> 9
+>>> 9
 1 + (2 * 3)
-	--> 7
+>>> 7
 ]]]
 
 %The following example, which is a bit more complex, offers a nice
@@ -242,7 +255,7 @@ message ==aPen color: aColor== (2) as shown in Script *@scr:decColor*. Figure
 [[[label=scr:decColor|caption=Decomposing the evaluation of aPen color: Color yellow
         aPen color: Color yellow
 (1)                       Color yellow        "unary message is sent first"
-                        --> aColor
+                        >>> aColor
 (2)   aPen color: aColor                 "keyword message is sent next"
 ]]]
 
@@ -257,7 +270,7 @@ message send is executed (Script *@scr:decColor2*)
 [[[label=scr:decColor2|caption=Decomposing aPen go: 100 + 20
       aPen go: 100 + 20
 (1)                 100 + 20           "binary message first"
-                   -->   120
+>>>   120
 (2)  aPen go: 120                   "then keyword message"
 ]]]
 
@@ -277,9 +290,9 @@ Parenthesised messages are sent prior to other messages.
 
 [[[
 3 + 4 factorial
-	--> 27    "(not 5040)"
+>>> 27    "(not 5040)"
 (3 + 4) factorial
---> 5040
+>>> 5040
 ]]]
 
 Here we need the parentheses to force sending ==lowMajorScaleOn:== before
@@ -311,13 +324,13 @@ down>file://figures/ucompoUn.png|width=45|label=fig:unaryMessages+
 [[[label=scr:decExtent|caption=Example of Parentheses.
       (65@325 extent: 134@100) center
 (1)   65@325                                                    "binary"
-    --> aPoint
+>>> aPoint
 (2)                                134@100                     "binary"
-                                 --> anotherPoint
+>>> anotherPoint
 (3)   aPoint extent: anotherPoint                       "keyword"
-      --> aRectangle
+>>> aRectangle
 (4)   aRectangle center                                     "unary"
-      --> 132@375
+>>> 132@375
 ]]]
 
 !!!From left to right
@@ -331,7 +344,7 @@ of the same type reduces the need for parentheses.
 
 [[[label=scr:Parentheses|caption=Example of Parentheses.
 1.5 tan rounded asString = (((1.5 tan) rounded) asString)
-	--> true    "parentheses not needed here"
+>>> true    "parentheses not needed here"
 ]]]
 
 @@important ''Rule three''. When the messages are of the same kind, the order of evaluation is from left to right.
@@ -350,17 +363,17 @@ Here we see the common situations where extra parentheses are needed.
 
 [[[
 3 + 4 * 5
-	--> 35    "(not 23)  Binary messages sent from left to right"
+>>> 35    "(not 23)  Binary messages sent from left to right"
 3 + (4 * 5)
-	--> 23
+>>> 23
 1 + 1/3
-	--> (2/3)    "and not 4/3"
+>>> (2/3)    "and not 4/3"
 1 + (1/3)
-	--> (4/3)
+>>> (4/3)
 1/3 + 2/3
-	--> (7/9)    "and not 1"
+>>> (7/9)    "and not 1"
 (1/3) + (2/3)
-	--> 1
+>>> 1
 ]]]
 
 !!!!!Example 6.
@@ -375,8 +388,10 @@ the result as shown in Script *@scr:decomposing* and Figure *@fig:wrongcompo*.
 even if by the rules of arithmetic the * should be sent first."
 
       20 + 2 * 5
-(1)  20 + 2 --> 22
-(2)  22       * 5 --> 110
+(1)  20 + 2 
+>>> 22
+(2)  22       * 5 
+>>> 110
 ]]]
 
 +The two messages \+ and \* are of the same kind so their execution is from left to right.>file://figures/ucompoNoBracketPar.png|width=45|label=fig:wrongcompo+
@@ -393,8 +408,10 @@ are enclosed in parentheses, they are evaluated first. Hence the message send
 "The messages surrounded by parentheses are evaluated first therefore * is sent prior to + which produces the correct behaviour."
 
 20 + (2 * 5)
-(1)        (2 * 5) --> 10
-(2) 20 + 10      --> 30
+(1)        (2 * 5) 
+>>> 10
+(2) 20 + 10      
+>>> 30
 ]]]
 
 +Parenthesed expressions are executed first.>file://figures/ucompoNumberBracket.png|width=45|label=fig:okcompo+
@@ -510,7 +527,8 @@ Therefore a final period is optional.
 [[[
 | box |
 box := 20@30 corner: 60@90.
-box containsPoint: 40@50 --> true
+box containsPoint: 40@50 
+>>> true
 ]]]
 
 !!Cascaded messages
@@ -543,7 +561,8 @@ resulting from the evaluation of ==Point new==, and ''not'' ==Point==. The
 subsequent message ==isZero== is sent to that same receiver.
 
 [[[
-Point new setX: 25 setY: 35; isZero --> false
+Point new setX: 25 setY: 35; isZero 
+>>> false
 ]]]
 
 @@important ==expression msg1. expression msg2== is equivalent to ==expression msg1; msg2==
