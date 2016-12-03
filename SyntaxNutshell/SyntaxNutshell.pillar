@@ -60,7 +60,7 @@ We can see examples of the various syntactic elements in the Table below.
 |==3 + 4==| binary message ==+==
 |==2 raisedTo: 6 modulo: 10==| keyword message ==raisedTo:modulo:==
 |==^ true==| return the value true
-|==Transcript show: 'hello' . Transcript cr==| expression separator (==.==)
+|==x := 2 . x := x + x==| expression separator (==.==)
 |==Transcript show: 'hello'; cr==| message cascade (==;==)
 
 ""Local variables."" ==startPoint== is a variable name, or identifier. By

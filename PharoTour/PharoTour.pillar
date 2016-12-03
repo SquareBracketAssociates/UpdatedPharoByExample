@@ -341,10 +341,11 @@ displays the resulting string.
 Select ==3\+4== and ==Print it== (==CMD-p==). This time we see the result we expect.
 
 [[[
-3 + 4 --> 7
+3 + 4 
+>>> 7
 ]]]
 
-We use the notation ==-\->== as a convention in this book to indicate that a
+We use the notation ==>>>== as a convention in this book to indicate that a
 particular Pharo expression yields a given result when you ==Print it==.
 
 +Inspecting a simple number using ==Inspect==>file://figures/inspector.png|width=80|label=fig:inspector+
@@ -636,7 +637,7 @@ shown in the example below:
 
 [[[
 'No panic' shout
---> 'NO PANIC!'
+>>> 'NO PANIC!'
 ]]]
 
 However, before creating the ==shout== method itself, we must first create a
