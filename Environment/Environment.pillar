@@ -19,7 +19,7 @@ This makes it possible to get very rapid feedback while programming, which makes
 you more productive. There is a tool that let you look at, and indeed
 change, live objects: the ''inspector''.
 
-!!Pharo Environment Overview
+!!Pharo environment overview
 @sec:overview
 
 Smalltalk and modern graphical interfaces were developed together. Even before
@@ -66,7 +66,7 @@ typing ==CMD-.== to interrupt a running process, or by inserting a
 % THINK ABOUT : add documentation about the Versionner, Kommiter, Configuration
 % Browser etc...
 
-!!!Window Groups
+!!!Window groups
 
 Managing multiple windows within a Pharo image can become a tedious process.
 Window Groups are windows that offer tab support similar to the one you are used
@@ -80,7 +80,7 @@ Each new window that you drag onto the tab bar will be added as a new tab.
 
 +Window Group with two tabs, one with Playground and one with System Browser>file://figures/WindowGroup.png|width=70|label=fig:WindowGroup+
 
-!!!Themes and Icon Sets
+!!!Themes and icon sets
 
 If, like some of us, you are not a fan of the default bright theme, there is
 also a dark theme that can be used with Pharo. It can be found in the Settings
@@ -103,10 +103,10 @@ is not your thing.
 Of course, if you are feeling especially adventurous, you can even make your own
 themes using existing ones as templates.
 
-!!The Browser
+!!The main code browser
 @sec:browser
 
-+The Browser.>file://figures/SystemBrowser.png|label=fig:SystemBrowser+
++The main code browser.>file://figures/SystemBrowser.png|label=fig:SystemBrowser+
 
 Many different class browsers have been developed over the years for Pharo.
 Pharo simplifies this story by offering a single browser that integrates various
@@ -119,7 +119,7 @@ mode provide a view of the files on the disk. The leftmost pane lists
 ''packages'' of classes; select one (say ==Kernel==) and the pane immediately to
 the right will then show all of the classes in that package.
 
-+Browser with the class ==Boolean== selected>file://figures/SystemBrowser1.png|label=fig:SystemBrowser1+
++The browser with the class ==Boolean== selected.>file://figures/SystemBrowser1.png|label=fig:SystemBrowser1+
 
 Similarly, if you select one of the classes in the second pane, say, ==Boolean==
 (see Figure *@fig:SystemBrowser1*), the third pane will show all of the
@@ -134,7 +134,7 @@ version. If you select class ==Boolean==, protocol ==controlling== and the
 method ==or:==, the browser should look like Figure
 *@fig:SystemBrowserOr*.
 
-+Browser showing the ==or:== method in class ==Boolean==>file://figures/SystemBrowserOr.png|label=fig:SystemBrowserOr+
++Browsing the ==or:== method in class ==Boolean==.>file://figures/SystemBrowserOr.png|label=fig:SystemBrowserOr+
 
 Unlike directories in a file browser, the four top panes of the browser
 are not quite equal. Whereas classes and methods are part of the Smalltalk
@@ -182,7 +182,7 @@ which you want the method to live, and then select a protocol. The browser will
 display a method-creation template, as shown in
 Figure *@fig:SystemBrowserMethodTemplate*, which you can fill-in or edit.
 
-+Browser showing the method-creation template>file://figures/SystemBrowserMethodTemplate.png|label=fig:SystemBrowserMethodTemplate+
++Showing the method-creation template.>file://figures/SystemBrowserMethodTemplate.png|label=fig:SystemBrowserMethodTemplate+
 
 !!!Navigating the code space
 
@@ -203,14 +203,16 @@ keyboard shortcut.
 instance ==Morph==), select it, and then press ==CMD-b==. This trick is often
 useful; it works in any text window.
 
-!!!!Senders and implementors of a message
+
+
+
+!!!!Message senders
 @sec:sendersImplementors
 
 While writing new code, refactoring existing code, or while trying to learn how
 to use unfamiliar libraries, you will frequently want to know the senders and
 implementors of various messages.
 
-!!!!!Message senders
 
 There are several ways of discovering where in the codebase a message is used,
 by listing its senders:
@@ -275,7 +277,7 @@ Figure *@fig:SendersOfAddAll*).
 
 +Finding senders of a keyword message in the code pane>file://figures/SendersOfAddAll.png|label=fig:SendersOfAddAll+
 
-!!!!!Message implementors
+!!!!Message implementors
 
 Similarly, you may come across a message, and want to see how it's implemented.
 This is what the ==Implementors== browser is for. It works in the same way as
@@ -330,7 +332,7 @@ Figure *@fig:MorphInheritanceOverriding*).
 
 +==ImageMorph\>\>drawOn:== and the methods that it overrides. The siblings of the selected methods are shown in the scrolling lists.>file://figures/MorphInheritanceOverriding.png|label=fig:MorphInheritanceOverriding+
 
-!!!!The Hierarchy view
+!!!!Hierarchy view
 @sec:hierarchy
 
 By default, the browser presents a list of packages in the leftmost pane.
@@ -370,7 +372,7 @@ You can use a similar method to look at direct variable assignments (that is,
 places that modify the variable without using accessor methods). Right-click
 on the class and select ==Analyze > Inst var assignments==.
 
-!!!!Bytecode Source
+!!!!Bytecode source
 @sec:sources
 
 You have the possibility of browsing the bytecode of a method. To do that,
@@ -380,7 +382,7 @@ back to the normal view.
 
 +Bytecode of ImageMorph\>\>#DrawOn:>file://figures/ByteCode.png|label=fig:ByteCode+
 
-!!!!Refactoring
+!!!!Refactorings
 
 The contextual menus offer a large number of standard refactorings. Simply
 right-click in any of the four panes to see the currently available refactoring
@@ -391,7 +393,7 @@ refactoring browser, but it can now be accessed from any browser.
 
 +Refactoring operations.>file://figures/refactoring.png|label=fig:refactoring+
 
-!!!The browser menus
+!!!Browser menus
 
 Many additional functions are available by right-clicking in the browser panes.
 Even if the labels on the menu items are the same, their ''meaning'' may be
@@ -460,7 +462,7 @@ SystemNavigation default browseAllImplementorsOf: #drawOn:
 To learn more about what is available, explore the class ==SystemNavigation==
 with the browser.
 
-!!The Inspector
+!!The inspector
 @sec:inspector
 
 One of the things that makes Pharo so different from many other programming
@@ -478,7 +480,7 @@ now== in a playground, and then right-click and choose ==Inspect it==
 Note that it's often not necessary to select the text before using the menu; if
 no text is selected, the menu operations work on the whole of the current line.
 
-+Inspecting ==DateAndTime now==>file://figures/inspectTimeNow1.png|label=fig:inspectTimeNow1+
++Inspecting ==DateAndTime now==.>file://figures/inspectTimeNow1.png|label=fig:inspectTimeNow1+
 
 A window like that shown in Figure *@fig:inspectTimeNow1* will appear. This is
 an inspector, and can be thought of as a window onto the internals of a
@@ -534,7 +536,7 @@ of the object being inspected. Provided that you have accessor methods defined
 for those variables, you can send messages to the root ==self== and change its
 variables via those accessor methods.
 
-!!The Debugger
+!!The debugger
 @sec:debugger
 
 The debugger is arguably the most powerful tool in the Pharo tool suite. It is
@@ -573,7 +575,7 @@ information is encoded in the next line of the stack trace,
 ==suffix== sent ==detect:==... and eventually ==detect:ifNone== sent
 ==errorNotFound:==.
 
-+The debugger.>file://figures/debuggerDetectIfNone.png|label=fig:debuggerDetectIfNone+
++The debugger showing the execution stack and the state of various objects.>file://figures/debuggerDetectIfNone.png|label=fig:debuggerDetectIfNone+
 
 To find out ''why'' the dot was not found, we need the debugger itself, so click
 on ==Debug==. You can also open the debugger by clicking on any of the lines on
@@ -632,7 +634,7 @@ returns to the first statement of the current method. The blue highlight shows
 that the next message to be sent will be ==do:== (see Figure
 *@fig:RestartDetectIfNone*).
 
-+The debugger after restarting the ==detect:ifFound:IfNone:== method>file://figures/RestartDetectIfNone.png|label=fig:RestartDetectIfNone+
++The debugger after restarting the ==detect:ifFound:IfNone:== method.>file://figures/RestartDetectIfNone.png|label=fig:RestartDetectIfNone+
 
 The ==Into== and ==Over== buttons give us two different ways to step
 through the execution. If you click ==Over==, Pharo executes the current
@@ -677,12 +679,12 @@ If you select ==dot== in the context inspector, you will see that its value is =
 And now you see why they are not equal: the seventh character of
 =='readme.txt'== is of course a ==Character==, while ==dot== is a ==String==.
 
-+The debugger showing why =='readme.txt' at: 7== is not equal to ==dot==>file://figures/dotIsAString.png|label=fig:dotIsAString+
++The debugger showing why =='readme.txt' at: 7== is not equal to ==dot==.>file://figures/dotIsAString.png|label=fig:dotIsAString+
 
 Now that we see the bug, the fix is obvious: we have to convert ==dot== to a
 character before starting to search for it.
 
-+Changing the ==suffix== method in the debugger: asking for confirmation of the exit from an inner block>file://figures/revertDialog.png|label=fig:revertDialog+
++Changing the ==suffix== method in the debugger: asking for confirmation of the exit from an inner block.>file://figures/revertDialog.png|label=fig:revertDialog+
 
 Change the code right in the debugger so that the assignment reads
 ==dot := $.== and accept the change.
@@ -718,7 +720,7 @@ error, as we are doing in Figure *@fig:fixOffByOne*. It is then only a second of
 work to click on the ==Run Failures== button in the SUnit Test Runner, and
 confirm that the test now passes.
 
-+Changing the ==suffix== method in the debugger: fixing the off-by-one error after an SUnit assertion failure>file://figures/fixOffByOne.png|label=fig:fixOffByOne+
++Changing the ==suffix== method in the debugger: fixing the off-by-one error after an SUnit assertion failure.>file://figures/fixOffByOne.png|label=fig:fixOffByOne+
 
 Here is a better test:
 
@@ -777,14 +779,14 @@ We will learn more about SUnit in Chapter *: SUnit>../SUnit/SUnit.pillar@cha:sun
 
 % section debugger (end)
 
-!!The Process Browser
+!!The process browser
 
 Pharo is a multi-threaded system, and there are many lightweight processes (also known
 as threads) running concurrently in your image. In the future the Pharo virtual
 machine may take advantage of multiple processors when they are available, but at
 present, concurrency is implemented by time-slicing.
 
-+The Process Browser>file://figures/processBrowser.png|label=fig:processBrowser+
++The Process Browser showing all the active thread by priority.>file://figures/processBrowser.png|label=fig:processBrowser+
 
 The Process Browser is a cousin of the debugger that lets you look at the
 various processes running inside Pharo. You can open it using the ==World
