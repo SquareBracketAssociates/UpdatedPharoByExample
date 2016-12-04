@@ -595,7 +595,7 @@ they occur in the hierarchy.
 We might do this as follows:
 
 [[[label=scr:author|caption=An author method|lang=smalltalk
-TAuthor>>author
+TAuthor >> author
     "Returns author initials"
 
     ^ 'on'    "oscar nierstrasz"
@@ -783,7 +783,7 @@ is not immediately found, since the class ==EllipseMorph== does not implement
 class ==Morph== (see Figure *@fig:openInWorldLookup*).
 
 [[[label=scr:openInWorld|caption=An inherited method
-Morph>>openInWorld
+Morph >> openInWorld
      "Add this morph to the world."
      self openInWorld: self currentWorld
 ]]]
@@ -813,7 +813,7 @@ This suggests that ==openInWorld== is equivalent to ==openInWorldReturnSelf==,
 defined below.
 
 [[[label=scr:openInWorldReturnSelf|caption=Explicitly returning ==self==
-Morph>>openInWorld
+Morph >> openInWorld
     "Add this morph to the world."
     self openInWorld: self currentWorld
     ^ self		
@@ -861,7 +861,7 @@ It is therefore good practice whenever implementing an ==initialize== method to 
 ==super initialize== before performing any further initialization:
 
 [[[label=scr:morphinit|caption=Super initialize
-BorderedMorph>>initialize
+BorderedMorph >> initialize
     "initialize the state of the receiver"
 
     super initialize.
@@ -1160,7 +1160,7 @@ Another solution is to override the class method ==initialize== (we've seen this
 before in Scripts *@scr:dogCount* and *@scr:dogCount2*).
 
 [[[label=scr:colorClassInit|caption=Initializing the ==Color== class
-Color class>>initialize
+Color class >> initialize
     ...
     self initializeColorRegistry.
     ...
@@ -1202,7 +1202,7 @@ in the method body ''directly'', i.e., by using variable syntax rather than an
 explicit dictionary lookup. For example, we can write the following method.
 
 [[[label=scr:textTestCR|caption===Text>>testCR==
-Text>>testCR
+Text >> testCR
     ^ CR == Character cr
 ]]]
 
