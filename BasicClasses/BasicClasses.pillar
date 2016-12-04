@@ -57,7 +57,7 @@ frequently override. This method takes as its argument a ==Stream== on which a
 implementation simply writes the class name preceded by ''==a=='' or ''==an==''.
 ==Object>>printString== returns the ==String== that is written.
 
-For example, the class ==Browser== does not redefine the method ==printOn:== and
+For example, the class ==GTPlayground== does not redefine the method ==printOn:== and
 sending the message ==printString== to an instance executes the methods defined in
 ==Object==.
 
@@ -384,13 +384,14 @@ be shared. In addition there is a good chance that ==postCopy== should always do
 !!!Debugging
 
 !!!!! ==halt==.
-The most important method here is ==halt==. In order to set a breakpoint in a
+The most important method here is ==halt==. To set a breakpoint in a
 method, simply insert the expression send ==self halt== at some point in the body
 of the method. (Note that since ==halt== is defined on ==Object== you can also write ==1 halt==).
  When this message is sent, execution will be interrupted and a
-debugger will open to this point in your program. (See
-Chapter *: The Pharo Environment>../Environment/Environment.pillar@cha:env* for more details about the debugger.)
+debugger will open to this point in your program (See
+Chapter *: The Pharo Environment>../Environment/Environment.pillar@cha:env* for more details about the debugger.).
 
+You can also use ==Halt once== or ==Halt if: aCondition==. Have a look at the class ==Halt== which is an special exception.
 
 !!!!! ==assert:==.
 The next most important message is ==assert:==, which expects a block as its
@@ -524,7 +525,7 @@ Of course numbers are implemented efficiently in the virtual machine, but the
 ==Number== hierarchy is as perfectly accessible and extensible as any other
 portion of the class hierarchy.
 
-+The Number Hierarchy>file://figures/NumberHierarchy.png+
++The number hierarchy.>file://figures/NumberHierarchy.png+
 
 The abstract root of this hierarchy is ==Magnitude==, which represents all kinds of classes supporting
 comparison operators. ==Number== adds various arithmetic and other operators as
@@ -660,15 +661,20 @@ denominator, which should be ==Integer==s. ==Fraction==s are normally created by
 ==Fraction>>numerator:denominator:==):
 
 [[[
-6/8             --> (3/4)
-(6/8) class --> Fraction
+6/8             
+>>> (3/4)
+]]]
+[[[
+(6/8) class 
+>>> Fraction
 ]]]
 
 Multiplying a ==Fraction== by an ==Integer== or another ==Fraction== may yield
 an ==Integer==:
 
 [[[
-6/8 * 4 --> 3
+6/8 * 4 
+>>> 3
 ]]]
 
 !!!Integer
@@ -691,6 +697,8 @@ The class methods ==minVal== and ==maxVal== tell us the range of a
 [[[
 SmallInteger maxVal = ((2 raisedTo: 30) - 1)     
 >>> true
+]]]
+[[[
 SmallInteger minVal = (2 raisedTo: 30) negated 
 >>> true
 ]]]
@@ -701,6 +709,8 @@ a ==LargePositiveInteger== or a ==LargeNegativeInteger==, as needed:
 [[[
 (SmallInteger maxVal + 1) class 
 >>> LargePositiveInteger
+]]]
+[[[
 (SmallInteger minVal - 1) class  
 >>> LargeNegativeInteger
 ]]]
@@ -713,6 +723,7 @@ evaluating a block repeatedly. We have already seen a similar example in
 Chapter *: Syntax in a Nutshell>../SyntaxNutshell/SyntaxNutshell.pillar@cha:syntax*.
 
 [[[
+| n |
 n := 2.
 3 timesRepeat: [ n := n * n ].
 n 
@@ -746,10 +757,16 @@ generate characters offers the most appropriate representation:
 [[[
 Character value: 1   
 >>> Character home
+]]]
+[[[
 Character value: 2   
 >>> Character value: 2
+]]]
+[[[
 Character value: 32 
 >>> Character space
+]]]
+[[[
 Character value: 97 
 >>> $a
 ]]]
@@ -764,8 +781,12 @@ results:
 [[[
 $a asString    
 >>> 'a'
-$a                  
+]]]
+[[[
+$a
 >>> $a
+]]]
+[[[
 $a printString 
 >>> '$a'
 ]]]
@@ -902,11 +923,15 @@ False >> not
 lazy conjunctions and disjunctions.
 
 [[[
-(1>2) & (3<4)              
+( 1 > 2 ) & ( 3 < 4 )              
 >>> false    "Eager, must evaluate both sides"
-(1>2) and: [ 3<4 ]        
+]]]
+[[[
+( 1 > 2 ) and: [ 3 < 4 ]        
 >>> false    "Lazy, only evaluate receiver"
-(1>2) and: [ (1/0) > 0 ] 
+]]]
+[[[
+( 1 > 2 ) and: [ ( 1 / 0 ) > 0 ] 
 >>> false    "argument block is never executed, so no exception"
 ]]]
 
