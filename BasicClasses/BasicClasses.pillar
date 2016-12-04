@@ -1,4 +1,4 @@
-{ "title": "Basic Classes" }
+{ "title": "Basic classes" }
 @cha:basicClasses
 
 Pharo is a really simple language but powerful language.  Part of its power
@@ -63,7 +63,7 @@ sending the message ==printString== to an instance executes the methods defined 
 
 [[[
 GTPlayground new printString
-  --> 'a GTPlayground(id=42544640 title=Playground pane=a GLMPane(1012947200 root))'
+>>> 'a GTPlayground(id=42544640 title=Playground pane=a GLMPane(1012947200 root))'
 ]]]
 
 The class ==Color== shows an example of ==printOn:== specialization. It prints
@@ -82,7 +82,7 @@ Color >> printOn: aStream
 
 [[[
 Color red printString
-  --> 'Color red'
+>>> 'Color red'
 ]]]
 
 Note that the message ==printOn:== is not the same as ==storeOn:==. The message
@@ -103,11 +103,16 @@ value when you print the object in a playground. Here are some examples of such
 self-evaluating expressions.
 
 [[[
-true         --> true
-3@4       --> (3@4)
-$a           --> $a
-#(1 2 3)   --> #(1 2 3)
-Color red --> Color red
+true         
+>>> true
+3@4
+>>> (3@4)
+$a
+>>> $a
+#(1 2 3)
+>>> #(1 2 3)
+Color red 
+>>> Color red
 ]]]
 
 Note that some objects such as arrays are self-evaluating or not depending on
@@ -115,16 +120,19 @@ the objects they contain. For example, an array of booleans is self-evaluating,
 whereas an array of persons is not. The following example shows that a dynamic
 array is self-evaluating only if its elements are:
 
-[[[language=smalltalk
-{10@10. 100@100}           --> {(10@10). (100@100)}
-{Nautilus new . 100@100} --> an Array(a Nautilus (100@100))
+[[[
+{10@10. 100@100}
+>>> {(10@10). (100@100)}
+{Nautilus new . 100@100} 
+>>> an Array(a Nautilus (100@100))
 ]]]
 
 Remember that literal arrays can only contain literals. Hence the following
 array does not contain two points but rather six literal elements.
 
-[[[language=smalltalk
-#(10@10 100@100) --> #(10 #@ 10 100 #@ 100)
+[[[
+#(10@10 100@100) 
+>>> #(10 #@ 10 100 #@ 100)
 ]]]
 
 Lots of ==printOn:== method specializations implement self-evaluating behavior.
@@ -157,7 +165,8 @@ Interval >> printOn: aStream
 ]]]
 
 [[[
-1 to: 10 --> (1 to: 10)    "intervals are self-evaluating"
+1 to: 10 
+>>> (1 to: 10)    "intervals are self-evaluating"
 ]]]
 
 !!!Identity and equality
@@ -180,24 +189,27 @@ This is a method that you will frequently want to override. Consider the case of
 ==Complex== numbers as defined in the SciSmalltalk packages (SciSmalltalk is a set of packages that offer support for numerical methods):
 
 [[[
-(1 + 2 i) = (1 + 2 i)   --> true     "same value"
-(1 + 2 i) == (1 + 2 i) --> false    "but different objects"
+(1 + 2 i) = (1 + 2 i)   
+>>> true     "same value"
+(1 + 2 i) == (1 + 2 i) 
+>>> false    "but different objects"
 ]]]
 
 This works because ==Complex== overrides ===== as follows:
 
 [[[caption=Equality for complex numbers
 Complex >> = anObject
-    anObject isComplex
-        ifTrue: [^ (real = anObject real) & (imaginary = anObject imaginary)]
-        ifFalse: [^ anObject adaptToComplex: self andSend: #=]
+    ^ anObject isComplex
+        ifTrue: [ (real = anObject real) & (imaginary = anObject imaginary)]
+        ifFalse: [ anObject adaptToComplex: self andSend: #=]
 ]]]
 
 The default implementation of ==Object>>~=== (a test for inequality) simply negates ==Object>>===, and
 should not normally need to be changed.
 
 [[[
-(1 + 2 i) ~= (1 + 4 i) --> true
+(1 + 2 i) ~= (1 + 4 i) 
+>>> true
 ]]]
 
 If you override =====, you should consider overriding ==hash==. If instances of
@@ -218,9 +230,11 @@ Note that Pharo has some strange equality behaviour compared to other Smalltalks
 example a symbol and a string can be equal. (We consider this to be a bug, not a
 feature.)
 
-[[[language=smalltalk
-#'lulu' = 'lulu' --> true
-'lulu' = #'lulu' --> true
+[[[
+#'lulu' = 'lulu'
+>>> true
+'lulu' = #'lulu' 
+>>> true
 ]]]
 
 !!!Class membership
@@ -232,7 +246,8 @@ Several methods allow you to query the class of an object.
 You can ask any object about its class using the message ==class==.
 
 [[[
-1 class --> SmallInteger
+1 class 
+>>> SmallInteger
 ]]]
 
 !!!!!==isMemberOf:==.
@@ -240,10 +255,14 @@ You can ask any object about its class using the message ==class==.
 Conversely, you can ask if an object is an instance of a specific class:
 
 [[[
-1 isMemberOf: SmallInteger --> true    "must be precisely this class"
-1 isMemberOf: Integer          --> false
-1 isMemberOf: Number        --> false
-1 isMemberOf: Object           --> false
+1 isMemberOf: SmallInteger 
+>>> true    "must be precisely this class"
+1 isMemberOf: Integer          
+>>> false
+1 isMemberOf: Number        
+>>> false
+1 isMemberOf: Object           
+>>> false
 ]]]
 
 Since Pharo is written in itself, you can really navigate through its
@@ -256,14 +275,21 @@ Chapter *: Classes and Metaclasses>../Metaclasses/Metaclasses.pillar@cha:metacla
 as, or a subclass of the argument class.
 
 [[[
-1 isKindOf: SmallInteger --> true
-1 isKindOf: Integer          --> true
-1 isKindOf: Number         --> true
-1 isKindOf: Object           --> true
-1 isKindOf: String            --> false
+1 isKindOf: SmallInteger 
+>>> true
+1 isKindOf: Integer          
+>>> true
+1 isKindOf: Number         
+>>> true
+1 isKindOf: Object           
+>>> true
+1 isKindOf: String            
+>>> false
 
-1/3 isKindOf: Number      --> true
-1/3 isKindOf: Integer        --> false
+1/3 isKindOf: Number      
+>>> true
+1/3 isKindOf: Integer        
+>>> false
 ]]]
 
 ==1/3== which is a ==Fraction== is a kind of ==Number==, since the class
@@ -276,7 +302,8 @@ as, or a subclass of the argument class.
 selector given as an argument.
 
 [[[
-1 respondsTo: #, --> false
+1 respondsTo: #, 
+>>> false
 ]]]
 
 A note on the usage of ==respondsTo:==. Normally it is a bad idea to query an
@@ -293,12 +320,16 @@ references to instance variables with the original object:
 
 [[[
 a1 := { { 'harry' } }.
-a1 --> #(#('harry'))
+a1 
+>>> #(#('harry'))
 a2 := a1 shallowCopy.
-a2 --> #(#('harry'))
+a2 
+>>> #(#('harry'))
 (a1 at: 1) at: 1 put: 'sally'.
-a1 --> #(#('sally'))
-a2 --> #(#('sally'))    "the subarray is shared!"
+a1 
+>>> #(#('sally'))
+a2 
+>>> #(#('sally'))    "the subarray is shared!"
 ]]]
 
 ==Object>>shallowCopy== is a primitive method that creates a shallow copy of an
@@ -311,8 +342,10 @@ reference to the nested ==Array== that they contain.
 a1 := { { { 'harry' } } } .
 a2 := a1 deepCopy.
 (a1 at: 1) at: 1 put: 'sally'.
-a1 --> #(#('sally'))
-a2 --> #(#(#('harry')))
+a1 
+>>> #(#('sally'))
+a2 
+>>> #(#(#('harry')))
 ]]]
 
 The problem with ==deepCopy== is that it will not terminate when applied to a
@@ -322,7 +355,8 @@ mutually recursive structure:
 a1 := { 'harry' }.
 a2 := { a1 }.
 a1 at: 1 put: a2.
-a1 deepCopy --> !''... does not terminate!''!
+a1 deepCopy 
+>>> !''... does not terminate!''!
 ]]]
 
 An alternate solution is to use message ==copy==. It is implemented on
@@ -425,7 +459,8 @@ Object >> subclassResponsibility
 classes that we shall see shortly in this chapter.
 
 [[[
-Number new + 1 --> !''Error: My subclass should have overridden #+''!
+Number new + 1 
+>>> !''Error: My subclass should have overridden #+''!
 ]]]
 
 !!!!! ==shouldNotImplement==.
@@ -543,23 +578,51 @@ Unsurprisingly ==Number== overrides ==isNumber==. More interestingly,
 ==fractionPart== and so on.
 
 [[[
-1 + 2.5     --> 3.5             "Addition of two numbers"
-3.4 * 5      --> 17.0           "Multiplication of two numbers"
-8 / 2         --> 4                 "Division of two numbers"
-10 - 8.3   --> 1.7              "Subtraction of two numbers"
-12 = 11    --> false           "Equality between two numbers"
-12 ~= 11 --> true            "Test if two numbers are different"
-12 > 9      --> true            "Greater than"
-12 >= 10  --> true            "Greater or equal  than"
-12 < 10    --> false           "Smaller than"
-100@10   --> 100@10    "Point creation"
+1 + 2.5     
+>>> 3.5             "Addition of two numbers"
+]]]
+[[[
+3.4 * 5      
+>>> 17.0           "Multiplication of two numbers"
+]]]
+[[[
+8 / 2         
+>>> 4                 "Division of two numbers"
+]]]
+[[[
+10 - 8.3   
+>>> 1.7              "Subtraction of two numbers"
+]]]
+[[[
+12 = 11    
+>>> false           "Equality between two numbers"
+]]]
+[[[
+12 ~= 11 
+>>> true            "Test if two numbers are different"
+]]]
+[[[
+12 > 9      
+>>> true            "Greater than"
+]]]
+[[[
+12 >= 10  
+>>> true            "Greater or equal  than"
+]]]
+[[[
+12 < 10
+>>> false           "Smaller than"
+]]]
+[[[
+100@10
+>>> 100@10    "Point creation"
 ]]]
 
 The following example works surprisingly well in Pharo:
 
 [[[
 1000 factorial / 999 factorial
---> 1000
+>>> 1000
 ]]]
 
 Note that ==1000 factorial== is really calculated, which in many other languages
@@ -577,9 +640,16 @@ provides methods to return the following ''constants'': ==e==, ==infinity==,
 ==nan== and ==pi==.
 
 [[[
-Float pi                      --> 3.141592653589793
-Float infinity               --> Infinity
-Float infinity isInfinite --> true
+Float pi                      
+>>> 3.141592653589793
+]]]
+[[[
+Float infinity               
+>>> Infinity
+]]]
+[[[
+Float infinity isInfinite 
+>>> true
 ]]]
 
 !!!Fraction
@@ -619,16 +689,20 @@ The class methods ==minVal== and ==maxVal== tell us the range of a
 ==SmallInteger==:
 
 [[[
-SmallInteger maxVal = ((2 raisedTo: 30) - 1)      --> true
-SmallInteger minVal = (2 raisedTo: 30) negated --> true
+SmallInteger maxVal = ((2 raisedTo: 30) - 1)     
+>>> true
+SmallInteger minVal = (2 raisedTo: 30) negated 
+>>> true
 ]]]
 
 When a ==SmallInteger== goes out of this range, it is automatically converted to
 a ==LargePositiveInteger== or a ==LargeNegativeInteger==, as needed:
 
 [[[
-(SmallInteger maxVal + 1) class --> LargePositiveInteger
-(SmallInteger minVal - 1) class  --> LargeNegativeInteger
+(SmallInteger maxVal + 1) class 
+>>> LargePositiveInteger
+(SmallInteger minVal - 1) class  
+>>> LargeNegativeInteger
 ]]]
 
 Large integers are similarly converted back to small integers when appropriate.
@@ -641,7 +715,8 @@ Chapter *: Syntax in a Nutshell>../SyntaxNutshell/SyntaxNutshell.pillar@cha:synt
 [[[
 n := 2.
 3 timesRepeat: [ n := n * n ].
-n --> 256
+n 
+>>> 256
 ]]]
 
 !!Characters
@@ -650,7 +725,8 @@ n --> 256
 For example:
 
 [[[
-$a < $b --> true
+$a < $b 
+>>> true
 ]]]
 
 Non-printing characters can be generated by various class methods. ==Character
@@ -660,17 +736,22 @@ characters== contains a number of convenience constructor methods such as
 ==backspace==, ==cr==, ==escape==, ==euro==, ==space==, ==tab==, and so on.
 
 [[[
-Character space = (Character value: Character space asciiValue) --> true
+Character space = (Character value: Character space asciiValue) 
+>>> true
 ]]]
 
 The ==printOn:== method is clever enough to know which of the three ways to
 generate characters offers the most appropriate representation:
 
 [[[
-Character value: 1   --> Character home
-Character value: 2   --> Character value: 2
-Character value: 32 --> Character space
-Character value: 97 --> $a
+Character value: 1   
+>>> Character home
+Character value: 2   
+>>> Character value: 2
+Character value: 32 
+>>> Character space
+Character value: 97 
+>>> $a
 ]]]
 
 Various convenient ''testing'' methods are built in: ==isAlphaNumeric==,
@@ -681,9 +762,12 @@ To convert a ==Character== to the string containing just that character, send
 results:
 
 [[[
-$a asString    --> 'a'
-$a                  --> $a
-$a printString --> '$a'
+$a asString    
+>>> 'a'
+$a                  
+>>> $a
+$a printString 
+>>> '$a'
 ]]]
 
 Like ==SmallInteger==, a ==Character== is a immediate value not a object reference. Most of the time you won't see 
@@ -691,7 +775,8 @@ any difference and can use objects of class ==Character== like any other too. Bu
 are always ''identical'':
 
 [[[
-(Character value: 97) == $a --> true
+(Character value: 97) == $a 
+>>> true
 ]]]
 
 !!Strings
@@ -704,7 +789,8 @@ In fact, ==String== is abstract and Pharo strings are actually instances of
 the concrete class ==ByteString==.
 
 [[[
-'hello world' class --> ByteString
+'hello world' class 
+>>> ByteString
 ]]]
 
 The other important subclass of ==String== is ==Symbol==. The key difference is
@@ -714,29 +800,34 @@ separately constructed ==String==s that happen to contain the same sequence of
 characters will often be different objects.
 
 [[[
-'hel','lo' == 'hello' --> false
+'hel','lo' == 'hello' 
+>>> false
 ]]]
 
 [[[
-('hel','lo') asSymbol == #hello --> true
+('hel','lo') asSymbol == #hello 
+>>> true
 ]]]
 
 Another important difference is that a ==String== is mutable, whereas a
 ==Symbol== is immutable.
 
 [[[
-'hello' at: 2 put: $u; yourself --> 'hullo'
+'hello' at: 2 put: $u; yourself 
+>>> 'hullo'
 ]]]
 
 [[[language=smalltalk
-#hello at: 2 put: $u --> error!
+#hello at: 2 put: $u 
+>>> error!
 ]]]
 
 It is easy to forget that since strings are collections, they understand the
 same messages that other collections do:
 
 [[[language=smalltalk
-#hello indexOf: $o --> 5
+#hello indexOf: $o 
+>>> 5
 ]]]
 
 Although ==String== does not inherit from ==Magnitude==, it does support the
@@ -744,7 +835,8 @@ usual ==comparing== methods, ==<==, ===== and so on. In addition,
 ==String>>match:== is useful for some basic glob-style pattern-matching:
 
 [[[
-'*or*' match: 'zorro' --> true
+'*or*' match: 'zorro' 
+>>> true
 ]]]
 
 Regular expressions will be discussed in more detail in
@@ -764,7 +856,7 @@ The class ==Boolean== offers a fascinating insight into how much of the
 Pharo language has been pushed into the class library. ==Boolean== is the
 abstract superclass of the ==Singleton== classes ==True== and ==False==.
 
-+The Boolean Hierarchy>file://figures/BooleanHierarchy.png|label=fig:booleans|width=40+
++The Boolean Hierarchy.>file://figures/BooleanHierarchy.png|label=fig:booleans|width=40+
 
 Most of the behaviour of ==Boolean==s can be understood by considering the
 method ==ifTrue:ifFalse:==, which takes two ==Blocks== as arguments.
@@ -773,7 +865,7 @@ method ==ifTrue:ifFalse:==, which takes two ==Blocks== as arguments.
 4 factorial > 20
 	ifTrue: [ 'bigger' ]
 	ifFalse: [ 'smaller' ]
---> 'bigger'
+>>> 'bigger'
 ]]]
 
 The method ==ifTrue:ifFalse:== is abstract in class ==Boolean==. The implementations in its concrete
@@ -810,9 +902,12 @@ False >> not
 lazy conjunctions and disjunctions.
 
 [[[
-(1>2) & (3<4)              --> false    "Eager, must evaluate both sides"
-(1>2) and: [ 3<4 ]        --> false    "Lazy, only evaluate receiver"
-(1>2) and: [ (1/0) > 0 ] --> false    "argument block is never executed, so no exception"
+(1>2) & (3<4)              
+>>> false    "Eager, must evaluate both sides"
+(1>2) and: [ 3<4 ]        
+>>> false    "Lazy, only evaluate receiver"
+(1>2) and: [ (1/0) > 0 ] 
+>>> false    "argument block is never executed, so no exception"
 ]]]
 
 In the first example, both ==Boolean== subexpressions are executed, since ==&==
