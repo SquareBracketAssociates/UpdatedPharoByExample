@@ -237,7 +237,7 @@ the icon of the class name, or on an individual test method, and select ''Run
 tests (t)'' or press the icon. The test methods will be flagged green or red,
 depending on whether they pass or not (as shown in *@fig:browsertests*).
 
-+Running SUnit tests from the System Browser>file://figures/updatedbrowsertests.png|width=80|label=fig:browsertests+
++Running SUnit tests from the System Browser.>file://figures/updatedbrowsertests.png|width=80|label=fig:browsertests+
 
 You can also select sets of test suites to run, and obtain a more detailed log
 of the results using the SUnit Test Runner, which you can open by selecting
@@ -254,8 +254,7 @@ of ==ClassTestCase== are indented more than subclasses of ==TestCase==.
 ==ClassTestCase== is a class offering utilities methods to compute test
 coverage.
 
-+Running SUnit tests using the
-''TestRunner''>file://figures/updatedtestRunner.png|width=80|label=fig:test-runner+
++Running SUnit tests using the ''TestRunner''.>file://figures/updatedtestRunner.png|width=80|label=fig:test-runner+
 
 Open a Test Runner, select the package ''MySetTest'', and click the ==Run Selected==
 button.
@@ -314,7 +313,7 @@ the bottom pane on the right.
 
 Modify your tests to provoke both errors and failures.
 
-!!The SUnit cook book
+!!The SUnit cookbook
 
 This section will give you more details on how to use SUnit. If you have used
 another testing framework such as JUnit, much of this will be familiar, since
@@ -355,7 +354,7 @@ can execute ==TestRunner open==. You can also run a single test as follows:
 
 [[[
 MyExampleSetTest run: #testRemove
---> 1 run, 1 passed, 0 failed, 0 errors
+>>> 1 run, 1 passed, 0 failed, 0 errors
 ]]]
 
 !!!Running all the tests in a test class
@@ -367,7 +366,8 @@ the string ''test''.
 To run the tests in the suite, send it the message ==run==. For example:
 
 [[[
-MyExampleSetTest suite run --> 5 run, 5 passed, 0 failed, 0 errors
+MyExampleSetTest suite run 
+>>> 5 run, 5 passed, 0 failed, 0 errors
 ]]]
 
 !!!Must I subclass TestCase?
@@ -388,8 +388,7 @@ a ==setUp== method that is executed just once before a suite of tests; this is
 in distinction to the ==TestCase >> setUp== method, which is executed before each
 test.
 
-+The four classes representing the core of
-SUnit>file://figures/sunit-classes.png|width=80|label=fig:sunit-classes+
++The four classes representing the core of SUnit.>file://figures/sunit-classes.png|width=80|label=fig:sunit-classes+
 
 !!!TestCase
 
@@ -473,7 +472,7 @@ TestResource subclass: #MyTestResource
 MyTestCase class >> resources
 	"Associate the resource with this class of test cases"
 
-	^{ MyTestResource }
+	^ { MyTestResource }
 ]]]
 
 !!!Exercise
@@ -693,7 +692,7 @@ To run more than one test, we send the message ==run== to a ==TestSuite== that c
 
 [[[caption=Auto-building the test suite
 TestCase class >> testSelectors
-	^(self selectors select: [ :each | (each beginsWith: 'test') and: [ each numArgs isZero ]])
+	^ (self selectors select: [ :each | (each beginsWith: 'test') and: [ each numArgs isZero ]])
 ]]]
 
 The method ==TestSuite >> run== creates an instance of ==TestResult==, verifies
@@ -735,7 +734,7 @@ TestResource class >> isAvailable
 	"This is (and must be) a lazy method. If my current has a value, an attempt to make me available has already been made: trust its result. If not, try to make me available."
 
 	current ifNil: [ self makeAvailable ].
-	^self isAlreadyAvailable
+	^ self isAlreadyAvailable
 ]]]
 
 [[[caption=Test resource creation
