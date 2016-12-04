@@ -99,7 +99,7 @@ same requests. Let us briefly survey some of the key differences:
 ;==Heterogeneous:==
 :Most collections will hold any kind of element. A ==String==, ==CharacterArray== or ==Symbol==, however, only holds ==Character==s. An ==Array== will hold any mix of objects, but a ==ByteArray== only holds Bytes. A ==LinkedList== is constrained to hold elements that conform to the ==Link== ==accessing== protocol.
 
-!!Collection Implementations
+!!Collection implementations
 
 @sec:implementation
 
