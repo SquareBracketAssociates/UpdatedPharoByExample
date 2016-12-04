@@ -53,19 +53,25 @@ the following snippet creates a stream on an interval, then it reads two
 elements.
 
 [[[
+| r |
 r := ReadStream on: (1 to: 1000).
-r next.   --> 1
-r next.   --> 2
-r atEnd.  --> false
+r next.
+>>> 1
+r next.
+>>> 2
+r atEnd.
+>>> false
 ]]]
 
 ==WriteStream==s can write data to the collection:
 
 [[[
+| w |
 w := WriteStream on: (String new: 5).
 w nextPut: $a.
 w nextPut: $b.
-w contents.    -->  'ab'
+w contents.    
+>>>  'ab'
 ]]]
 
 It is also possible to create ==ReadWriteStream==s that support both the reading
@@ -103,18 +109,27 @@ Methods ==ReadStream>>next== and ==ReadStream>>next:== are used to retrieve one
 or more elements from the collection.
 
 [[[
+| stream |
 stream := ReadStream on: #(1 (a b c) false).
-stream next. -->   1
-stream next. -->   #(#a #b #c)
-stream next. -->   false
+stream next. 
+>>>   1
+stream next. 
+>>>   #(#a #b #c)
+stream next. 
+>>>   false
 ]]]
 
 [[[
+| stream |
 stream := ReadStream on: 'abcdef'.
-stream next: 0. -->   ''
-stream next: 1. -->   'a'
-stream next: 3. -->   'bcd'
-stream next: 2. -->   'ef'
+stream next: 0. 
+>>>   ''
+stream next: 1. 
+>>>   'a'
+stream next: 3. 
+>>>   'bcd'
+stream next: 2. 
+>>>   'ef'
 ]]]
 
 The message ==PositionableStream>>peek== is used when you want to know what is
@@ -122,11 +137,15 @@ the next element in the stream without going forward.
 
 [[[
 stream := ReadStream on: '-143'.
-negative := (stream peek = $-).    "look at the first element without reading it"
-negative. --> true
-negative ifTrue: [stream next ].       "ignores the minus character"
+"look at the first element without consuming it."
+negative := (stream peek = $-).
+negative. 
+>>> true
+"ignores the minus character"
+negative ifTrue: [ stream next ].       
 number := stream upToEnd.
-number. --> '143'
+number. 
+>>> '143'
 ]]]
 
 This code sets the boolean variable ==negative== according to the sign of the
@@ -137,9 +156,12 @@ of the stream and sets the stream to its end. This code can be simplified using
 equals the parameter and doesn't move otherwise.
 
 [[[
+| stream |
 stream := '-143' readStream.
-(stream peekFor: $-) --> true
-stream upToEnd         --> '143'
+(stream peekFor: $-) 
+>>> true
+stream upToEnd
+>>> '143'
 ]]]
 
 ==peekFor:== also returns a boolean indicating if the parameter equals the
@@ -162,9 +184,11 @@ You can obtain the state of the stream depicted in *@fig:ab_cde* with the
 following code:
 
 [[[
+| stream |
 stream := 'abcde' readStream.
 stream position: 2.
-stream peek --> $c
+stream peek 
+>>> $c
 ]]]
 
 +A stream at position 2.>file://figures/ab_cdeStef.png|width=70|label=fig:ab_cde+
@@ -178,17 +202,24 @@ all elements in the stream until it finds an element equal to its parameter.
 Note that it positions the stream after the matched element.
 
 [[[
+| stream |
 stream := 'abcdef' readStream.
-stream next.        --> $a    "stream is now positioned just after the a"
+stream next.        
+>>> $a    "stream is now positioned just after the a"
 stream skip: 3.                           "stream is now after the d"
-stream position.  -->   4
+stream position.  
+>>>   4
 stream skip: -2.                          "stream is after the b"
-stream position.  --> 2
+stream position.  
+>>> 2
 stream reset.
-stream position.  --> 0
+stream position.  
+>>> 0
 stream skipTo: $e.                      "stream is just after the e now"
-stream next.        --> $f
-stream contents. --> 'abcdef'
+stream next.        
+>>> $f
+stream contents. 
+>>> 'abcdef'
 ]]]
 
 As you can see, the letter ==e== has been skipped.
@@ -208,6 +239,7 @@ sorted collections as parameters and merges those collections into another
 sorted collection:
 
 [[[label=src:mergeStreams
+| stream1 stream2 result |
 stream1 := #(1 4 9 11 12 13) readStream.
 stream2 := #(1 2 3 4 5 10 13 14 15) readStream.
 
@@ -225,7 +257,8 @@ result
   addAll: stream1 upToEnd;
   addAll: stream2 upToEnd.
 
-result. -->   an OrderedCollection(1 1 2 3 4 4 5 9 10 11 12 13 13 14 15)
+result. 
+>>>   an OrderedCollection(1 1 2 3 4 4 5 9 10 11 12 13 13 14 15)
 ]]]
 
 !!!Writing to collections
@@ -239,6 +272,7 @@ various locations. They are often used to construct strings that are based on
 static and dynamic parts, as in this example:
 
 [[[label=src:writeStreamExample
+| stream |
 stream := String new writeStream.
 stream
   nextPutAll: 'This Smalltalk image contains: ';
@@ -247,7 +281,8 @@ stream
   cr;
   nextPutAll: 'This is really a lot.'.
 
-stream contents. --> 'This Smalltalk image contains: 2322 classes.
+stream contents.
+>>> 'This Smalltalk image contains: 2322 classes.
 This is really a lot.'
 ]]]
 
@@ -256,6 +291,7 @@ This technique is used in the different implementations of the method
 strings if you are only interested in the content of the stream:
 
 [[[label=src:stringFromStreamContents
+| string |
 string := String streamContents:
 		[ :stream |
 			stream
@@ -266,7 +302,8 @@ string := String streamContents:
                  nextPut: $=;
                  space;
                  print: 3.	 ].
-string. -->   '#(1 2 3) size = 3'
+string. 
+>>>   '#(1 2 3) size = 3'
 ]]]
 
 The method ==SequenceableCollection class>>streamContents:== creates a
@@ -299,13 +336,16 @@ concatenation operator (==,==) is far less efficient:
 [| temp |
   temp := String new.
   (1 to: 100000)
-    do: [:i | temp := temp, i asString, ' ' ] ] timeToRun --> 115176 "(milliseconds)"
-
+    do: [:i | temp := temp, i asString, ' ' ] ] timeToRun 
+>>> 115176 "(milliseconds)"
+]]]
+[[[
 [| temp |
   temp := WriteStream on: String new.
   (1 to: 100000)
     do: [:i | temp nextPutAll: i asString; space ].
-  temp contents ] timeToRun --> 1262 "(milliseconds)"
+  temp contents ] timeToRun 
+>>> 1262 "(milliseconds)"
 ]]]
 
 The reason that using a stream can be much more efficient is that using a
@@ -428,7 +468,8 @@ History new
 	goBackward;
 	goBackward;
 	goTo: #page4;
-	contents --> #(#page1 #page4 nil nil)
+	contents 
+>>> #(#page1 #page4 nil nil)
 ]]]
 
 !!Using streams for file access
@@ -461,6 +502,7 @@ You have to remember that each time you open a stream on a file, you have to
 close it too. This is done through the ==FileStream>>close== method.
 
 [[[
+| stream |
 stream := FileStream forceNewFileNamed: 'test.txt'.
 stream
     nextPutAll: 'This text is written in a file named ';
@@ -468,7 +510,8 @@ stream
 stream close.
 
 stream := FileStream readOnlyFileNamed: 'test.txt'.
-stream contents. --> 'This text is written in a file named ''test.txt'''
+stream contents. 
+>>> 'This text is written in a file named ''test.txt'''
 stream close.
 ]]]
 
@@ -482,6 +525,7 @@ class>>forceNewFileNamed:do:== to automatically close a new stream after
 evaluating a block that sets its contents.
 
 [[[
+| string |
 FileStream
     forceNewFileNamed: 'test.txt'
     do: [ :stream |
@@ -491,7 +535,8 @@ FileStream
 string := FileStream
             readOnlyFileNamed: 'test.txt'
             do: [ :stream | stream contents ].
-string --> 'This text is written in a file named ''test.txt'''
+string 
+>>> 'This text is written in a file named ''test.txt'''
 ]]]
 
 The stream creation methods that take a block as an argument first create a
@@ -519,7 +564,9 @@ FileStream
           stream
             binary;
             nextPutAll: #(145 250 139 98) asByteArray ].
+]]]
 
+[[[
 FileStream
   readOnlyFileNamed: 'test.bin'
   do: [ :stream |
@@ -546,8 +593,7 @@ FileStream
 		nextPutAll: #(255 0 255 0) asByteArray;
 		nextPutAll: #(0 255 0 255) asByteArray;
 		nextPutAll: #(255 0 255 0) asByteArray;
-		nextPutAll: #(0 255 0 255) asByteArray
-	 ]
+		nextPutAll: #(0 255 0 255) asByteArray ]
 ]]]
 
 This creates a 4x4 checkerboard as shown in *@fig:checkerboard4x4*.
