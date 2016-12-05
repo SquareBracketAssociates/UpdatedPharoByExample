@@ -1,4 +1,4 @@
-{ "title": "Sharing Code and Source Control" }
+{ "title": "Sharing code and source control" }
 @cha:sharingCode
 
 The consequence of programming in a world of live objects rather than with files
@@ -6,20 +6,18 @@ and a text editor is that you have to do something explicit to export your
 program from your Pharo image. The old way of doing this is by creating a ''fileout'' or a ''change set'', which
 are essentially encoded text files that can be imported into another system. The
 preferred way of sharing code in Pharo is to save packages and share them using a versioned repository
-on a server. This is done using a tool called Monticello, and is a much
-more powerful and effective way to work, especially when working in a team. In the future Pharo will offer support for Git and hosting
-on servers such as GitHub, BitBucket and more. 
-
+on a server. Up to Pharo 50, this is done using a tool called Monticello, and is a much
+more powerful and effective way to work, especially when working in a team. 
+In the future Pharo will officially offer support for Git and hosting on servers such as GitHub, BitBucket and more. 
 
 We gave you a quick overview of Monticello, Pharo's packaging tool, in
-Chapter *: A First Application>../FirstApplication/FirstApplication.pier@fstApp:Monticello*. However, Monticello has many more features than were
-discussed there. Because Monticello manages ''packages'', before telling you more about Monticello, it's important that we first explain exactly what a package is.
+Chapter *: A First Application>../FirstApplication/FirstApplication.pier@fstApp:Monticello*. However, Monticello has many more features than were discussed there. Because Monticello manages ''packages'', before telling you more about Monticello, it's important that we first explain exactly what a package is.
 
 !!Packages: groups of classes and methods
 @sec:packages
 
-We have pointed out earlier, in Chapter *: A First Application>../FirstApplication/FirstApplication.pillar@fstApp:Packages* that packages are
-more or less a group of classes and methods. Now we will see exactly what the
+We have pointed out earlier (in Chapter *: A First Application>../FirstApplication/FirstApplication.pillar@fstApp:Packages*)
+ packages are more or less a group of classes and methods. Now we will see exactly what the
 relationship is. The package system is a simple, lightweight way of organizing
 Pharo source code that exploits a simple naming convention.
 
@@ -30,12 +28,7 @@ such as  ==OracleConnection==, ==MySQLConnection==, ==PostgresConnection== but a
 ==DBRow==, ==DBQuery==, and so on. These classes are placed inside a package called ==PharoLink==. 
 However, not all of your code will reside in these classes. For example, you may also have a series 
 of methods to convert objects into an SQL-friendly format:
-
-[[[
-Object >> asSQL
-String >> asSQL
-Date >> asSQL
-]]]
+==Object>>#asSQL==, ==String>>#asSQL==, or ==Date>>#asSQL==.
 
 These methods belong in the same package as the classes. But clearly the whole of
 class ==Object== does not belong in your package! So you need a way of putting
@@ -195,10 +188,10 @@ save a new version by selecting the repository and the package in the Monticello
 Browser, and clicking ==Save==. Of course, you must have permission to
 write to a repository. The ==PharoByExample== repository on SqueakSource is
 world readable but not world writable, so if you try and save there, you will
-see an error message. However, you can create your own repository on SqueakSource by
-using the web interface at *www.squeaksource.com>http://www.squeaksource.com*, and use this to
-save your work. This is especially useful as a mechanism to share your code with
-others, or if you use multiple computers.
+see an error message. 
+
+However, you can create your own repository and save your code there. Nowadays the favorite code repositories are *http://www.smalltalkhub.org* and *http://www.squeaksource3.*. 
+This is especially useful as a mechanism to share your code with others, or if you use multiple computers.
 
 +Adding a repository to the set of repositories associated with a package.>file://figures/MCaddToPackage.png|label=fig:associateRepository+
 
@@ -208,57 +201,45 @@ editing the repository information (right-click in the Monticello Browser) or
 choosing a different repository, and then using ==Copy== from the
 package-cache browser.
 
-!!Source Control
+!!Source control
 
 !!!Versions of a method
 @sec:versions
 
-When you save a new version of a method, the old one is not
-lost. Pharo keeps all of the old versions, and allows you to compare different
-versions and to go back (==revert==) to an old version.
+When you save a new version of a method, the old one is not lost. Pharo keeps all of the old versions (assuming that you are using the same image and that you saved it), and allows you to compare different versions and to go back (==revert==) to an old version.
 
-+The versions browser showing two versions of the ==TheWorldMenu\>\>buildWorldMenu:== method>file://figures/Versions.png|label=fig:Versions+
++The versions browser showing two versions of the ==ObjTest\>\>testIVOffset== method.>file://figures/Versions.png|label=fig:Versions+
 
 The ==browse > versions (v)== menu item gives access to the successive
 modifications made to the selected method. In Figure *@fig:Versions* we
-can see two versions of the ==buildWorldMenu:== method.
+can see two versions of a method.
 
 The top pane displays one line for each version of the method, listing the
 name of the programmer who wrote it, the date and time at which it was
 saved, the names of the class and the method, and the protocol in which it was
-defined. The current (active) version is at the top of the list; whichever
-version is selected is displayed in the bottom pane.
-
-% If the ==diffs== checkbox is selected, as it is in Figure *@fig:mouseUpVersions*, the display also shows the differences between the selected version and the one immediately older.
-
-Buttons are also provided for displaying the differences between the selected
-method and the current version, and for reverting to the selected version.
-
-% The ==prettyDiffs== checkbox is useful if there have been changes to layout: it pretty-prints both versions before differencing, so that the differences that are displayed exclude formatting changes.
+defined. The current (active) version is at the top of the list. 
 
 The existence of the versions browser means that you never have to worry about
-preserving code that you think might no longer be needed: just delete it. If
+preserving code that you think might no longer be needed. If
 you find that you ''do'' need it, you can always revert to the old version, or
 copy the needed code fragment out of the old version and paste it into a another
 method. Get into the habit of using versions; commenting out code that is
 no longer needed is a bad practice because it makes the current code harder to
-read. Smalltalkers rate code readability extremely highly.
+read. Pharoers rate code readability extremely highly.
 
 ''Hint:'' What if you delete a method entirely, and then decide that you want it
 back? You can find the deletion in a change set, where you can ask to see
 versions by right-clicking. The change set browser is described in
 section *@sec:changeSet*.
 
-!!!Change sets and the Change Sorter
+!!!Change sets and the changesorter
 @sec:changeSet
 
 Whenever you are working in Pharo, any changes that you make to methods and
 classes are recorded in a ''change set''. This includes creating new classes,
 re-naming classes, changing categories, adding methods to existing
 classes \-\- just about everything of significance. However, arbitrary
-''Do it''s are not included, so if, for example, you create a new global variable
-by assigning to it in a playground, the variable creation will not make it into a
-change set.
+''Do it''s are not included.
 
 At any time, many change sets exist, but only one of them \-\-
 ==ChangeSet current== \-\- is collecting the changes that are being made to the
@@ -266,9 +247,9 @@ image. You can see which change set is current and can examine all of the change
 sets using the change sorter, available by selecting ==World > Tools... > Change
 Sorter==.
 
-+The Change Sorter>file://figures/changeSorter.png|label=fig:changeSorter+
++The Change Sorter showing all the changes of one changeset and offering actions to move changes to other changesets.>file://figures/changeSorter.png|label=fig:changeSorter+
 
-Figure *@fig:changeSorter* shows this browser. The title bar shows which change set
+Figure *@fig:changeSorter* shows the dual change sorter browser. The title bar shows which change set
 is current, and this change set is selected when the change sorter opens.
 
 Other change sets can be selected in the top-left pane; the right-click menu
@@ -277,10 +258,7 @@ set. The next pane lists all of the classes affected by the selected change set
 (with their categories). Selecting one of the classes displays the names of
 its methods that are also in the change set (''not'' all of the methods
 in the class) in the left central pane, and selecting a method name displays the
-method definition in the bottom pane. Note that the change sorter does ''not''
-show you whether the creation of the class itself is part of the change set,
-although this information is stored in the object structure that is used to
-represent the change set.
+method definition in the bottom pane. 
 
 The change sorter also lets you delete classes and methods from the change set
 using the right-click menu on the corresponding items.
@@ -296,43 +274,24 @@ It is also possible to copy individual methods from one side to the other.
 You may be wondering why you should care about the composition of a change set.
 the answer is that change sets provide a simple mechanism for exporting code
 from Pharo to the file system, from where it can be imported into another Pharo
-image, or into another non-Pharo Smalltalk. Change set export is known as
+image. Change set export is known as
 ==Filing-out==, and can be accomplished using the right-click menu on any change
 set, class or method in either browser. Repeated file outs create new versions
 of the file, but change sets are not a versioning tool like Monticello: they do
 not keep track of dependencies.
 
 Before the advent of Monticello, change sets were the main means for exchanging
-code between Smalltalkers. They have the advantage of simplicity (the file out
+code between Pharoers. They have the advantage of simplicity (the file out
 is just a text file, although we ''don't'' recommend that you try to edit them
 with a text editor), and a degree of portability.
 
 The main drawback of change sets, compared to Monticello packages, is that
-they do not support the notion of dependencies. A filed-out change set is a set
-of ''actions'' that change any image into which it is loaded. To successfully
-load a change set requires that the image be in an appropriate state. For
-example, the change set might contain an action to add a method to a class; this
-can only be accomplished if the class is already defined in the image.
-Similarly, the change set might rename or re-categorize a class, which obviously
-will only work if the class is present in the image; methods may use instance
-variables that were declared when they were filed out, but which do not exist in
-the image into which they are imported. The problem is that change sets do not
-explicitly describe the conditions under which they can be filed in: the file in
-process just hopes for the best, usually resulting in a cryptic error message
-and a stack trace when things go wrong. Even if the file in works, one change
-set might silently undo a change made by another change set.
-
-In contrast, Monticello packages represent code in a declarative fashion: they
-describe the state of the image should be in after they have been loaded. This
-permits Monticello to warn you about conflicts (when two packages require
-contradictory final states) and to offer to load a series of packages in
-dependency order.
-
-In spite of these shortcomings, change sets still have their uses. In
+they do not support the notion of dependencies. In spite of these shortcomings, change sets still have their uses. In
 particular, you may find change sets on the Internet that you want to look at
 and perhaps use. So, having filed out a change set using the change sorter, we
 will now tell you how to file one in. This requires the use of another tool, the
-file list browser.
+file list browser. Note that dropping a changeset on Pharo itself works brings a pop up to ask you whether you want to load
+or browse the code contained in a changeset.
 
 !!The File List Browser
 
@@ -356,18 +315,12 @@ changing the pattern. (Note that a ==\*== is implicitly prepended and appended
 to the pattern that you type.) The sort order of the files can be changed using
 the ==name==, ==date== and ==size== buttons. The rest of the
 buttons depend on the name of the file selected in the browser. In
-Figure *@fig:fileList*, the file name has the suffix ==.cs==, so the browser assumes
-that it is a change set, and provides buttons to ==install== it (which
+Figure *@fig:fileList*, the file name has the suffix ==.st==, so the browser assumes
+that it is pharo code, and provides buttons to ==install== it (which
 ''files it in'' to a new change set whose name is derived from the name of
 the file), to browse the ==changes== in the file, to examine the
 ==code== in the file, and to ==File in== the code into the ''current''
-change set. You might think that the ==conflicts== button would tell you
-about changes in the change set that conflicted with existing code in the image,
-but it doesn't.
-% AB: Does anyone know what it does do? I've never found it useful.
-% ON: I tried it and found that it complained about linefeeds.
-Instead it just checks for potential problems in the file that might indicate that the
-file cannot properly be loaded (such as the presence of linefeeds).
+change set. 
 
 +A File Contents Browser>file://figures/fileContentsBrowser.png|label=fig:fileContentsBrowser+
 
@@ -388,7 +341,7 @@ current version and the version in the file. Contextual menu items in each of
 the top four panes will also let you file in the whole of the change set, or the
 corresponding class, protocol or method.
 
-!!In Smalltalk, you can't lose code
+!!In Pharo, you can't lose code
 @sec:cantLoseCode
 
 It is quite possible to crash Pharo: as an experimental system, Pharo lets you
