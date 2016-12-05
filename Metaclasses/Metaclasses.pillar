@@ -74,7 +74,7 @@ the same example.
 
 [[[
 OrderedCollection withAll: #(4 5 6 1 2 3)
---> an OrderedCollection(4 5 6 1 2 3)
+>>> an OrderedCollection(4 5 6 1 2 3)
 ]]]
 
 ""Rule 2."" Every object is an instance of a class. The class of an ordered collection is
@@ -82,7 +82,7 @@ the class ==OrderedCollection==:
 
 [[[
 (OrderedCollection withAll: #(4 5 6 1 2 3)) class
---> OrderedCollection
+>>> OrderedCollection
 ]]]
 
 
@@ -92,11 +92,15 @@ the class ==OrderedCollection==:
 
 [[[
 OrderedCollection superclass
---> SequenceableCollection
+>>> SequenceableCollection
+]]]
+[[[
 SequenceableCollection superclass
---> Collection
+>>> Collection
+]]]
+[[[
 Collection superclass
---> Object
+>>> Object
 ]]]
 
 
@@ -105,7 +109,7 @@ a sorted collection. We verify simply as follows:
 
 [[[
 (OrderedCollection withAll: #(4 5 6 1 2 3)) asSortedCollection class
---> SortedCollection
+>>> SortedCollection
 ]]]
 
 ""Rule 4."" Everything happens by sending messagess, so we can deduce that
@@ -143,15 +147,17 @@ class==, and the class of ==Object== is ==Object class==:
 
 [[[
 SortedCollection class
---> Color class
+>>> Color class
+]]]
+[[[
 Object class
---> Object class
+>>> Object class
 ]]]
 
 In fact metaclasses are not truly anonymous, their name is deduced from the one of their single instance
 [[[
 SortedCollection class name
---> 'SortedCollection class'
+>>> 'SortedCollection class'
 ]]]
 
 Figure *@fig:translucentmetaclasses* shows how each class is an instance of its
@@ -168,17 +174,27 @@ sending messages. Let's have a look:
 
 [[[
 OrderedCollection subclasses
---> {SortedCollection . ObjectFinalizerCollection . WeakOrderedCollection . OCLiteralList . GLMMultiValue}
+>>> {SortedCollection . ObjectFinalizerCollection . WeakOrderedCollection . OCLiteralList . GLMMultiValue}
+]]]
+[[[
 SortedCollection subclasses
---> #()
+>>> #()
+]]]
+[[[
 SortedCollection allSuperclasses
---> an OrderedCollection(OrderedCollection SequenceableCollection Collection Object ProtoObject)
+>>> an OrderedCollection(OrderedCollection SequenceableCollection Collection Object ProtoObject)
+]]]
+[[[
 SortedCollection instVarNames
---> #('sortBlock')
+>>> #('sortBlock')
+]]]
+[[[
 SortedCollection allInstVarNames
---> #('array' 'firstIndex' 'lastIndex' 'sortBlock')
+>>> #('array' 'firstIndex' 'lastIndex' 'sortBlock')
+]]]
+[[[
 SortedCollection selectors
--->  #(#indexForInserting: #sort:to: #addAll: #reSort #sortBlock: #copyEmpty #addFirst: #insert:before: #defaultSort:to: #median #at:put: #add: #= #collect: #flatCollect: #sort: #join: #sortBlock)
+>>>  #(#indexForInserting: #sort:to: #addAll: #reSort #sortBlock: #copyEmpty #addFirst: #insert:before: #defaultSort:to: #median #at:put: #add: #= #collect: #flatCollect: #sort: #join: #sortBlock)
 ]]]
 
 !!The metaclass hierarchy parallels the class hierarchy
@@ -189,9 +205,11 @@ instance.
 
 [[[
 SortedCollection class superclass
---> OrderedCollection class
+>>> OrderedCollection class
+]]]
+[[[
 SortedCollection superclass class
---> OrderedCollection class
+>>> OrderedCollection class
 ]]]
 
 This is what we mean by the metaclass hierarchy being parallel to the class
@@ -202,13 +220,19 @@ hierarchy. Figure *@fig:parallelHierarchies* shows how this works in the
 
 [[[
 SortedCollection class
---> SortedCollection class
+>>> SortedCollection class
+]]]
+[[[
 SortedCollection class superclass
---> OrderedCollection class
+>>> OrderedCollection class
+]]]
+[[[
 SortedCollection class superclass superclass
---> SequenceableCollection class
+>>> SequenceableCollection class
+]]]
+[[[
 SortedCollection class superclass superclass superclass superclass
---> Object class
+>>> Object class
 ]]]
 
 !!!!Uniformity between Classes and Objects
@@ -229,7 +253,7 @@ metaclass hierarchy until it is found in ==Collection class== (see Figure
 
 [[[
 OrderedCollection withAll: #(4 5 6 1 2 3)
---> an OrderedCollection (4 5 6 1 2 3)
+>>> an OrderedCollection (4 5 6 1 2 3)
 ]]]
 
 +Message lookup for classes is the same as for ordinary objects.>file://figures/InstanceMessage.png|label=fig:metaclasslookup|width=100+
@@ -292,7 +316,7 @@ another class.
 
 [[[
 SortedCollection new class 
---> SortedCollection    "not Behavior!"
+>>> SortedCollection    "not Behavior!"
 ]]]
 
 +==new== is an ordinary message looked up in the metaclass chain.>file://figures/SortedOrderedSendingNew.png|label=fig:sendingnew+
@@ -375,36 +399,36 @@ to reach ==Class==.)
 
 [[[caption=The class hierarchy
 Collection superclass 
---> Object
+>>> Object
 ]]]
 
 [[[caption=The parallel metaclass hierarchy
 Collection class superclass
---> Object class
+>>> Object class
 Object class superclass superclass 
---> Class    "NB: skip ProtoObject class"
+>>> Class    "NB: skip ProtoObject class"
 Class superclass
---> ClassDescription
+>>> ClassDescription
 ClassDescription superclass
---> Behavior
+>>> Behavior
 Behavior superclass
---> Object
+>>> Object
 ]]]
 
 [[[caption=Instances of Metaclass
 Collection class class 
---> Metaclass
+>>> Metaclass
 Object class class
---> Metaclass
+>>> Metaclass
 Behavior class class
---> Metaclass
+>>> Metaclass
 ]]]
 
 [[[caption=Metaclass class is a Metaclass
 Metaclass class class
---> Metaclass
+>>> Metaclass
 Metaclass superclass
---> ClassDescription
+>>> ClassDescription
 ]]]
 
 !!Chapter summary
