@@ -295,7 +295,7 @@ or browse the code contained in a changeset.
 
 !!The File List Browser
 
-+A file list browser>file://figures/fileList.png|label=fig:fileList+
++A file list browser.>file://figures/fileList.png|label=fig:fileList+
 
 The file list browser is in fact a general-purpose tool for browsing the
 file system (as well as FTP servers) from Pharo. You can open it from the
@@ -316,13 +316,9 @@ to the pattern that you type.) The sort order of the files can be changed using
 the ==name==, ==date== and ==size== buttons. The rest of the
 buttons depend on the name of the file selected in the browser. In
 Figure *@fig:fileList*, the file name has the suffix ==.st==, so the browser assumes
-that it is pharo code, and provides buttons to ==install== it (which
-''files it in'' to a new change set whose name is derived from the name of
-the file), to browse the ==changes== in the file, to examine the
-==code== in the file, and to ==File in== the code into the ''current''
-change set. 
+that it is pharo code, and provides  the possible actions as buttons. 
 
-+A File Contents Browser>file://figures/fileContentsBrowser.png|label=fig:fileContentsBrowser+
++A File Contents Browser opened on a package .>file://figures/fileContentsBrowser.png|label=fig:fileContentsBrowser+
 
 Because the choice of buttons to display depends on the file's ''name'', and not
 on its contents, sometimes the button that you want won't be on the screen.
@@ -330,16 +326,8 @@ However, the full set of options is always available from the right-click
 ==more...== menu, so you can easily work around this problem.
 
 The ==code== button is perhaps the most useful for working with change
-sets; it opens a browser on the contents of the change set file; an example is
-shown in Figure *@fig:fileContentsBrowser*. The file contents browser is similar to
-the browser except that it does not show categories, just classes, protocols and
-methods. For each class, the browser will tell you whether the class already
-exists in the system and whether it is defined in the file (but ''not'' whether
-the definitions are identical). It will show the methods in each class, and (as
-shown in Figure *@fig:fileContentsBrowser*) will show you the differences between the
-current version and the version in the file. Contextual menu items in each of
-the top four panes will also let you file in the whole of the change set, or the
-corresponding class, protocol or method.
+sets; it opens a browser on the contents of the change set file or even an MC package; an example is shown in Figure *@fig:fileContentsBrowser*. The file contents browser is similar to
+the browser except that the code is not loaded in memory. 
 
 !!In Pharo, you can't lose code
 @sec:cantLoseCode
@@ -347,9 +335,7 @@ corresponding class, protocol or method.
 It is quite possible to crash Pharo: as an experimental system, Pharo lets you
 change anything, including things that are vital to make Pharo work!
 
-(do this) To maliciously crash Pharo, try ==Object become: nil==.
-
-The good news is that you need never lose any work, even if you crash and go
+The good news is that you will never lose any work, even if you crash and go
 back to the last saved version of your image, which might be hours old. This is
 because all of the code that you executed is saved in the ''.changes'' file. This excludes Playground snippets , those are stored inside ''/pharo-local/play-chace''and they can be searched using Spotter (the results are displayed under Playground-cached pages section).
 
