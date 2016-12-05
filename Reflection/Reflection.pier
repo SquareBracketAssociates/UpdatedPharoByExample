@@ -123,7 +123,8 @@ method ==allInstVarNames== returns all the names of the instance variables of a
 given class.
 
 [[[
-GTPlayground allInstVarNames --> 
+GTPlayground allInstVarNames 
+>>> 
 #(#registry #suspendAll #suspendedAnnouncemets #logger #pane #title #titleIcon #transformation #actions #condition #implicitNotNil #dynamicActionsBlock #color #customValidation #shouldValidate #acceptsSelection #parentPrototype #registeredAnnouncers #updateActions #selectionActions #selectionDynamicActionsBlock #implicitAllNil #rawSelectionTransmissions #statusPane #sourceLink #initializationBlock #cachedDisplayedValue #labelActionBlock #portChangeActions #wantsSteps #stepTime #stepCondition #presentations #arrangement)
 ]]]
 
@@ -155,19 +156,36 @@ Here are a few other messages that might be useful to build development tools:
 of one of its superclasses. For instance:
 
 [[[
-1.5 class	--> BoxedFloat64
-1.5 isKindOf: Float --> true
-1.5 isKindOf: Number	--> true
-1.5 isKindOf: Integer	--> false
+1.5 class
+>>> BoxedFloat64
+]]]
+[[[
+1.5 isKindOf: Float 
+>>> true
+]]]
+[[[
+1.5 isKindOf: Number	
+>>> true
+]]]
+[[[
+1.5 isKindOf: Integer	
+>>> false
 ]]]
 
 ==respondsTo: aSymbol== returns true if the receiver has a method whose selector
 is ==aSymbol==. For instance:
 
 [[[
-1.5 respondsTo: #floor      --> true    "since Number implements floor"
-1.5 floor                            --> 1
-Exception respondsTo: #, --> true    "exception classes can be grouped"
+1.5 respondsTo: #floor      
+>>> true    "since Number implements floor"
+]]]
+[[[
+1.5 floor                            
+>>> 1
+]]]
+[[[
+Exception respondsTo: #, 
+>>> true    "exception classes can be grouped"
 ]]]
 
 !!!!!Important Caveat:
@@ -192,14 +210,44 @@ that it is a huge class, and that it is at the root of a huge hierarchy. Maybe
 it needs some refactoring!
 
 [[[
-Morph allSuperclasses size.  -->       2 "inheritance depth"
-Morph allSelectors size.        --> 1304 "number of methods"
-Morph allInstVarNames size. -->      6 "number of instance variables"
-Morph selectors size.             -->  896 "number of new methods"
-Morph instVarNames size.     -->      6 "number of new variables"
-Morph subclasses size.          -->    63 "direct subclasses"
-Morph allSubclasses size.      -->  376 "total subclasses"
-Morph linesOfCode.               --> 4964 "total lines of code!"
+"inheritance depth"
+Morph allSuperclasses size.
+>>> 2 
+]]]
+[[[
+"number of methods"
+Morph allSelectors size.
+>>> 1304 
+]]]
+[[[
+"number of instance variables"
+Morph allInstVarNames size. 
+>>> 6 
+]]]
+[[[
+"number of new methods"
+Morph selectors size.
+>>> 896 
+]]]
+[[[
+"number of new variables"
+Morph instVarNames size.    
+>>> 6 
+]]]
+[[[
+"direct subclasses"
+Morph subclasses size.
+>>> 63 
+]]]
+[[[
+"total subclasses"
+Morph allSubclasses size.
+>>>  376 
+]]]
+[[[
+"total lines of code!"
+Morph linesOfCode.
+>>> 4964 
 ]]]
 
 One of the most interesting metrics in the domain of object-oriented languages
@@ -219,16 +267,24 @@ For example, you can obtain a random instance of a given class by sending it
 the message ==someInstance==.
 
 [[[
-Point someInstance --> 0@0
+Point someInstance 
+>>> 0@0
 ]]]
 
 You can also gather all the instances with ==allInstances==, or the number of
 active instances in memory with ==instanceCount==.
 
 [[[
-ByteString allInstances        --> #('collection' 'position'  ...)
-ByteString instanceCount    --> 104565
-String allSubInstances size -->  101675
+ByteString allInstances
+>>> #('collection' 'position'  ...)
+]]]
+[[[
+ByteString instanceCount
+>>> 104565
+]]]
+[[[
+String allSubInstances size
+>>>  101675
 ]]]
 
 These features can be very useful when debugging an application, because you can
@@ -246,9 +302,16 @@ reflection.
 : returns the selectors of methods that send a given message
 
 [[[
-Point whichSelectorsAccess: 'x'    --> #(#degrees #grid: #roundTo: #nearestPointAlongLineFrom:to: ...)
-Point whichSelectorsStoreInto: 'x' --> #(#bitShiftPoint: #setR:degrees: #setX:setY: #fromSton:)
-Point whichSelectorsReferTo: #+  --> an OrderedCollection(#degrees #reflectedAbout: #grid: ...)
+Point whichSelectorsAccess: 'x'
+>>> #(#degrees #grid: #roundTo: #nearestPointAlongLineFrom:to: ...)
+]]]
+[[[
+Point whichSelectorsStoreInto: 'x'
+>>> #(#bitShiftPoint: #setR:degrees: #setX:setY: #fromSton:)
+]]]
+[[[
+Point whichSelectorsReferTo: #+
+>>> an OrderedCollection(#degrees #reflectedAbout: #grid: ...)
 ]]]
 
 The following messages take inheritance into account:
@@ -260,8 +323,12 @@ The following messages take inheritance into account:
 : returns the list of instance variables that are neither used in the receiver class nor any of its subclasses
 
 [[[
-Rectangle whichClassIncludesSelector: #inspect --> Object
-Rectangle unreferencedInstanceVariables            --> #()
+Rectangle whichClassIncludesSelector: #inspect 
+>>> Object
+]]]
+[[[
+Rectangle unreferencedInstanceVariables
+>>> #()
 ]]]
 
 ==SystemNavigation== is a facade that supports various useful methods for
@@ -269,15 +336,23 @@ querying and browsing the source code of the system. ==SystemNavigation
 default== returns an instance you can use to navigate the system. For example:
 
 [[[
-SystemNavigation default allClassesImplementing: #yourself --> {Object}
+SystemNavigation default allClassesImplementing: #yourself 
+>>> {Object}
 ]]]
 
 The following messages should also be self-explanatory:
 
 [[[
-SystemNavigation default allSentMessages size	-->370
-(SystemNavigation default allUnsentMessagesIn: Object selectors) size	--> 31
-SystemNavigation default allUnimplementedCalls size   --> 521
+SystemNavigation default allSentMessages size
+>>>370
+]]]
+[[[
+(SystemNavigation default allUnsentMessagesIn: Object selectors) size	
+>>> 31
+]]]
+[[[
+SystemNavigation default allUnimplementedCalls size
+>>> 521
 ]]]
 
 Note that messages implemented but not sent are not necessarily useless, since
@@ -343,10 +418,10 @@ about the system. For example, to discover which methods are newly introduced in
 a given class, ''i.e.'', do not override superclass methods, we can navigate
 from the class to the method dictionary as follows:
 
-[[[language=smalltalk
+[[[
 [:aClass| aClass methodDict keys select: [:aMethod |
   (aClass superclass canUnderstand: aMethod) not ]] value: SmallInteger
-  --> an IdentitySet(#threeDigitName #printStringBase:nDigits: ...)
+>>> an IdentitySet(#threeDigitName #printStringBase:nDigits: ...)
 ]]]
 
 A compiled method does not simply store the bytecode of a method. It is also an
@@ -355,10 +430,10 @@ method is ==isAbstract== (which tells if the method sends
 ==subclassResponsibility==). We can use it to identify all the abstract methods
 of an abstract class.
 
-[[[language=smalltalk
+[[[
 [:aClass| aClass methodDict keys select: [:aMethod |
   (aClass>>aMethod) isAbstract ]] value: Number
-  --> an IdentitySet(#storeOn:base: #printOn:base: #+ #- #* #/ ...)
+>>> an IdentitySet(#storeOn:base: #printOn:base: #+ #- #* #/ ...)
 ]]]
 
 Note that this code sends the ==>>== message to a class to obtain the compiled
@@ -384,7 +459,8 @@ convenience method ==CompiledMethod>>methodReference== to return the method
 reference for a compiled method.
 
 [[[
-(Object>>#=) methodReference selector --> #=
+(Object>>#=) methodReference selector
+>>> #=
 ]]]
 
 !!Browsing environments
@@ -537,13 +613,14 @@ Suppose, for instance, that we want to explore the execution of
 ==Morph>>openInWorld==. Setting a breakpoint in this method is
 problematic.
 
+Pay attention the following experiment will break everything!
 Take a ''fresh'' image and set the following breakpoint:
 
 [[[
-Morph>>openInWorld
-        "Add this morph to the world."
-        self halt.
-        self openInWorld: self currentWorld
+Morph >> openInWorld
+     "Add this morph to the world."
+     self halt.
+     self openInWorld: self currentWorld
 ]]]
 
 Notice how your image immediately freezes as soon as you try to open any new Morph (Menu/Window/...)!  
@@ -562,9 +639,9 @@ Fire up a fresh image again, and set the following breakpoint:
 
 [[[
 Morph>>openInWorld
-        "Add this morph to the world."
-        self haltIf:#testOpenInWorld.
-        self openInWorld: self currentWorld
+   "Add this morph to the world."
+   self haltIf: #testOpenInWorld.
+   self openInWorld: self currentWorld
 ]]]
 
 This time the image does not freeze. Try running the ==MorphTest==.
@@ -579,9 +656,9 @@ How does this work? Let's have a look at ==Object>>haltIf:==. It first calls
 will check if the condition is a symbol, which is true in this case and finally calls
 
 [[[
-Object>>haltIfCallChainContains: aSelector
+Object >> haltIfCallChainContains: aSelector
 
-		| cntxt |
+	| cntxt |
 	cntxt := thisContext.
 		[cntxt sender isNil] whileFalse: [
 			cntxt := cntxt sender. 
@@ -645,7 +722,8 @@ Note that we subclass ==ProtoObject== rather than ==Object== because we do not
 want our proxy to inherit around 400 methods (!) from ==Object==.
 
 [[[
-Object methodDict size --> 397
+Object methodDict size 
+>>> 397
 ]]]
 
 Our proxy has two instance variables: the ==subject== it is a proxy for, and a
@@ -654,13 +732,13 @@ instance variables and we provide an accessor for the message count. Initially
 the ==subject== variable points to the proxy object itself.
 
 [[[
-LoggingProxy>>initialize
+LoggingProxy >> initialize
 	invocationCount := 0.
 	subject := self.
 ]]]
 
 [[[
-LoggingProxy>>invocationCount
+LoggingProxy >> invocationCount
 	^ invocationCount
 ]]]
 
@@ -669,7 +747,7 @@ We simply intercept all messages not understood, print them to the
 subject.
 
 [[[
-LoggingProxy>>doesNotUnderstand: aMessage
+LoggingProxy >> doesNotUnderstand: aMessage
 	Transcript show: 'performing ', aMessage printString; cr.
 	invocationCount := invocationCount + 1.
 	^ aMessage sendTo: subject
@@ -689,15 +767,19 @@ refer to the proxy, and vice versa. Most importantly, the proxy's ==subject==
 instance variable will now refer to the point!
 
 [[[
-point invocationCount --> 0
-point + (3@4)             --> 4@6
-point invocationCount --> 1
+point invocationCount 
+>>> 0
+point + (3@4)             
+>>> 4@6
+point invocationCount 
+>>> 1
 ]]]
 
 This works nicely in most cases, but there are some shortcomings:
 
 [[[
-point class --> LoggingProxy
+point class 
+>>> LoggingProxy
 ]]]
 
 Actually the method ==class== is implemented in ==ProtoObject==, but
@@ -736,15 +818,18 @@ intercepted:
 [[[
 point := 1@2.
 LoggingProxy new become: point.
-point invocationCount --> 0
-point rectangle: (3@4)        --> 1@2 corner: 3@4
-point invocationCount --> 1
+point invocationCount 
+>>> 0
+point rectangle: (3@4)        
+>>> 1@2 corner: 3@4
+point invocationCount 
+>>> 1
 ]]]
 
 Our proxy has been cheated out of two ==self==-sends in the ==rect:== method:
 
 [[[
-Point>>rect: aPoint
+Point >> rect: aPoint
 	^ Rectangle  origin: (self min: aPoint) corner: (self max: aPoint)
 ]]]
 
@@ -767,7 +852,7 @@ Let us look at a simple variant of this technique where we have a class that
 automatically adds accessors for its instance variables on demand:
 
 [[[
-DynamicAcccessors>>doesNotUnderstand: aMessage
+DynamicAcccessors >> doesNotUnderstand: aMessage
 	| messageName |
 	messageName := aMessage selector asString.
 	(self class instVarNames includes: messageName)
@@ -787,7 +872,8 @@ dynamically and retrieve the value:
 
 [[[
 myDA := DynamicAccessors new.
-myDA x --> nil
+myDA x 
+>>> nil
 ]]]
 
 Let us step through what happens the first time the message ==x== is sent to our
@@ -811,9 +897,16 @@ Note the use of ==Object>>perform:== in step (12) which can be used to send
 messages that are composed at run-time:
 
 [[[
-5 perform: #factorial                                             --> 120
-6 perform: ('fac', 'torial') asSymbol                       --> 720
-4 perform: #max: withArguments: (Array with: 6) --> 6
+5 perform: #factorial                                             
+>>> 120
+]]]
+[[[
+6 perform: ('fac', 'torial') asSymbol
+>>> 720
+]]]
+[[[
+4 perform: #max: withArguments: (Array with: 6) 
+>>> 6
 ]]]
 
 !!Objects as method wrappers
@@ -890,7 +983,7 @@ test coverage. Let's have a quick look at how it works.
 The entry point for test coverage is the method ==TestRunner>>runCoverage==:
 
 [[[
-TestRunner>>runCoverage
+TestRunner >> runCoverage
 	| packages methods |
 	... "identify methods to check for coverage"
 	self collectCoverageFor: methods
@@ -900,7 +993,7 @@ The method ==TestRunner>>collectCoverageFor:== clearly illustrates the coverage
 checking algorithm:
 
 [[[
-TestRunner>>collectCoverageFor: methods
+TestRunner >> collectCoverageFor: methods
 	| wrappers suite |
 	wrappers := methods collect: [ :each | TestCoverage on: each ].
 	suite := self
@@ -926,10 +1019,10 @@ instance variables, ==hasRun==, ==reference== and ==method==. They are
 initialized as follows:
 
 [[[
-TestCoverage class>>on: aMethodReference
+TestCoverage class >> on: aMethodReference
 	^ self new initializeOn: aMethodReference
 
-TestCoverage>>initializeOn: aMethodReference
+TestCoverage >> initializeOn: aMethodReference
 	hasRun := false.
 	reference := aMethodReference.
 	method := reference compiledMethod
@@ -939,12 +1032,12 @@ The install and uninstall methods simply update the method dictionary in the
 obvious way:
 
 [[[
-TestCoverage>>install
+TestCoverage >> install
 	reference actualClass methodDict
 		at: reference selector
 		put: self
 
-TestCoverage>>uninstall
+TestCoverage >> uninstall
 	reference actualClass methodDict
 		at: reference selector
 		put: method
@@ -1004,7 +1097,7 @@ coverage. This is the case of the ==documentation== method in ==SplitJointTest
 class==:
 
 [[[
-SplitJointTest class>>documentation
+SplitJointTest class >> documentation
 	<ignoreForCoverage>
 	"self showDocumentation"
 
@@ -1020,8 +1113,9 @@ of pragmas.
 
 [[[
 (SplitJoinTest class >> #showDocumentation) pragmas.
-  --> an Array(<ignoreForCoverage>)
-(Float>>#+) pragmas --> an Array(<primitive: 41>)
+>>> an Array(<ignoreForCoverage>)
+(Float>>#+) pragmas 
+>>> an Array(<primitive: 41>)
 ]]]
 
 Methods defining a particular query may be retrieved from a class. The class
@@ -1029,7 +1123,8 @@ side of ==SplitJoinTest== contains some methods annotated with
 ==<ignoreForCoverage>==:
 
 [[[
-Pragma allNamed: #ignoreForCoverage in: SplitJoinTest class  --> an Array(<ignoreForCoverage> <ignoreForCoverage> <ignoreForCoverage>)
+Pragma allNamed: #ignoreForCoverage in: SplitJoinTest class  
+>>> an Array(<ignoreForCoverage> <ignoreForCoverage> <ignoreForCoverage>)
 ]]]
 
 A variant of ==allNamed:in:== may be found on the class side of ==Pragma==.
