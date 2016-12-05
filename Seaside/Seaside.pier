@@ -141,7 +141,7 @@ performance of the application. ==XHTML== can be used to validate the generated
 web page, but works only when the web page is publicly accessible from the
 Internet, because it uses the W3C validation service.
 
-+The Seaside Welcome application at ==http://localhost:8080/==>file://figures/seasideStartup.png|label=fig:seasideStartup+
++The Seaside Welcome application at ==http://localhost:8080/==.>file://figures/seasideStartup.png|label=fig:seasideStartup+
 
 +The counter.>file://figures/counter.png|label=fig:counter+
 
@@ -153,7 +153,7 @@ them is that they are instances of classes that inherit from the Seaside
 framework class ==WAComponent==. We can explore components and their classes
 from the Pharo image, or directly from the web interface using halos.
 
-+Halos>file://figures/counterHalos.png|label=fig:counterHalos+
++Halos.>file://figures/counterHalos.png|label=fig:counterHalos+
 
 Click on the ==Halos== link at the bottom of the page to toggle on halo
 functionality. You'll see a number of nested components each with their own
@@ -180,7 +180,7 @@ a display, or if it is in remote place. However, when you are first developing a
 Seaside application, the server will be running locally, and it is easy to use
 the ordinary Pharo development tools in the server image.
 
-+Debugging the running Counter application in the Pharo image>file://figures/haltingCounter.png|label=fig:haltingCounter+
++Debugging the running Counter application in the Pharo image.>file://figures/haltingCounter.png|label=fig:haltingCounter+
 
 Using the Object Inspector link in the web browser, open an inspector on the
 underlying Pharo counter object, type ==self halt== and click the ==doIt==
@@ -196,7 +196,7 @@ browser and notice that the Counter application is running again.
 
 Seaside components can be instantiated multiple times and in different contexts.
 
-+Independent subcomponents>file://figures/multiCounterHalos.png|label=fig:multiCounterHalos+
++Independent subcomponents.>file://figures/multiCounterHalos.png|label=fig:multiCounterHalos+
 
 Now, point your web browser to *http://localhost:8080/examples/multicounter*.
 
@@ -226,7 +226,7 @@ Figure *@fig:counter2*). On the next screen, set the ==Root Component== to
 installed at *http://localhost:8080/seaside/examples/counter2*. Use the same
 configuration interface to remove this entry point.
 
-+Configuring a new application>file://figures/counter2.png|label=fig:counter2+
++Configuring a new application.>file://figures/counter2.png|label=fig:counter2+
 
 Seaside operates in two modes: ''development'' mode, which is what we have seen
 so far, and ''deployment'' mode, in which the toolbar is not available.
@@ -284,7 +284,7 @@ entry point called ==hello==, and set its root component to be ==WAHelloWorld==.
 Now navigate to *http://localhost:8080/seaside/hello*. That's it! You
 should see a web page similar to Figure *@fig:WAHelloWorld*.
 
-+''Hello World'' in Seaside>file://figures/WAHelloWorld.png|label=fig:WAHelloWorld+
++''Hello World'' in Seaside.>file://figures/WAHelloWorld.png|label=fig:WAHelloWorld+
 
 !!!State backtracking and the ==Counter== application
 
@@ -367,7 +367,7 @@ it contains. It renders itself by rendering each of its subcomponents, separated
 by a horizontal rule. Aside from instance and class-side initialization methods,
 there is nothing else to the multi-counter!
 
-+WAMultiCounter>file://figures/WAMultiCounter.png|label=fig:WAMultiCounter+
++WAMultiCounter.>file://figures/WAMultiCounter.png|label=fig:WAMultiCounter+
 
 !!!More about rendering HTML
 
@@ -411,7 +411,7 @@ examples:
 html horizontalRule.
 ]]]
 
-+RenderingDemo>file://figures/RenderingDemo.png|label=fig:RenderingDemo+
++RenderingDemo.>file://figures/RenderingDemo.png|label=fig:RenderingDemo+
 
 In Figure *@fig:RenderingDemo* we can see the output of many of the basic
 brushes offered by Seaside. (The source code for method *@scr:renderdemo* is in
@@ -787,7 +787,7 @@ convenience methods to save you the trouble of writing components like
 *@fig:dialogs*. We can see these convenience methods being used within
 ==SeasideDialogDemo>>renderContentOn:==
 
-+Some standard dialogs>file://figures/dialogs-flat.png|label=fig:dialogs+
++Some standard dialogs.>file://figures/dialogs-flat.png|label=fig:dialogs+
 
 The message ==request:== performs a call to a component that will let you edit a
 text field. The component answers the edited string. An optional label and
@@ -881,7 +881,7 @@ WAConvenienceTest >> informCheese
 
 The generated dialogues are shown in Figure *@fig:chooseCheese*.
 
-+A simple task>file://figures/chooseCheese-flat.png|label=fig:chooseCheese+
++A simple task.>file://figures/chooseCheese-flat.png|label=fig:chooseCheese+
 
 !!!Transactions
 
@@ -905,7 +905,7 @@ back to it. The corresponding pages are ''invalidated'', and any attempt to go
 back to them will cause Seaside to generate a warning and redirect the user to
 the most recent valid page.
 
-+The Sushi Store>file://figures/sushiStore|label=fig:sushiStore+
++The Sushi Store.>file://figures/sushiStore|label=fig:sushiStore+
 
 The Seaside ''Sushi Store'' is sample application that illustrates many of the
 features of Seaside, including transactions. This application is bundled with
@@ -1015,7 +1015,7 @@ value on top of the stack, and the other which shows us the complete state of
 the stack. The calculator with the two display options is shown in Figure
 *@fig:stackMachine*.
 
-+RPN calculator and its stack machine>file://figures/stackMachine-flat.png|label=fig:stackMachine+
++RPN calculator and its stack machine.>file://figures/stackMachine-flat.png|label=fig:stackMachine+
 
 We begin by implementing the stack machine and its tests.
 
@@ -1153,7 +1153,7 @@ table with class ==keypad==. Now the calculator should display a single cell
 containing the value 0. If you toggle the halos, you should see something like
 this:
 
-+Displaying the top of the stack>file://figures/firstStackDisplay|label=fig:firstStackDisplay+
++Displaying the top of the stack.>file://figures/firstStackDisplay|label=fig:firstStackDisplay+
 
 Now let's implement an interface to interact with the stack.
 
@@ -1423,7 +1423,7 @@ MyCalculator class >> initialize
 		addLibrary: SULibrary
 ]]]
 
-+Seaside AJAX processing (simplified)>file://figures/ajax-processing.png|label=fig:ajax-processing+
++Seaside AJAX processing (simplified).>file://figures/ajax-processing.png|label=fig:ajax-processing+
 
 Try the revised application. Note that the feedback is much more natural. In
 particular, a new URL is not generated with each keystroke.
