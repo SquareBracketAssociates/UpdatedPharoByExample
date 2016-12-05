@@ -63,7 +63,7 @@ In addition, the Wiki on the Seaside GitHub repository
 (*https://github.com/seasidest/seaside/wiki*) provides some crucial
 documentation, including the Release Notes for each version of Seaside.
 
-!!!Installing Seaside using the One-Click Experience image
+!!!Installing Seaside using the one-click experience image
 
 +Start up the Seaside One-Click Experience image.>file://figures/seasideOneClickExperience.png|label=fig:seasideOneClickExperience+
 
@@ -96,7 +96,7 @@ server adapters. For example, you can add a ==ZnZincServerAdaptor==, specify
 a port number, then start it using the ==Start== button on the control panel,
 which launches a new Seaside server that listens on that port.
 
-[[[language=smalltalk|caption=Starting and stopping Seaside using the Zinc Server adaptor|label=scr:startingStoppingSeaside
+[[[caption=Starting and stopping Seaside using the Zinc Server adaptor|label=scr:startingStoppingSeaside
 ZnZincServerAdaptor startOn: 8080.  "start on port 8080"
 ZnZincServerAdaptor stop.
 ]]]
@@ -105,7 +105,7 @@ You can also start and stop the Seaside web server from a playground, by
 sendning the ==startOn:== and ==stop== messages to your server adapter of
 choice.
 
-!!!The Seaside Welcome page
+!!!The Seaside welcome page
 
 Once the Seaside server is running, navigate to *http://localhost:8080/* in
 your web browser. You should see a web page that looks like Figure
@@ -262,7 +262,7 @@ instance of ==WAHtmlCanvas==, which knows how to render HTML.
 Implement the following method, and put it in a protocol called ==rendering==:
 
 [[[
-WAHelloWorld>>>renderContentOn: html
+WAHelloWorld >> renderContentOn: html
 	html text: 'hello world'
 ]]]
 
@@ -272,7 +272,7 @@ application.
 Implement the following method on the class side of ==WAHelloWorld==.
 
 [[[
-WAHelloWorld class>>>canBeRoot
+WAHelloWorld class >> canBeRoot
 	^ true
 ]]]
 
@@ -286,7 +286,7 @@ should see a web page similar to Figure *@fig:WAHelloWorld*.
 
 +''Hello World'' in Seaside>file://figures/WAHelloWorld.png|label=fig:WAHelloWorld+
 
-!!!State backtracking and the ==Counter== Application
+!!!State backtracking and the ==Counter== application
 
 The ''counter'' application is only slightly more complex than the ''hello
 world'' application.
@@ -314,7 +314,7 @@ instance side: ==states== should answer an array containing all the objects to
 be tracked. In this case, the ==WACounter== object adds itself to Seaside's
 table of backtrackable objects by returning ==Array with: self==.
 
-!!!!!Backtracking Caveat
+!!!!!Backtracking caveat
 
 There is a subtle but important point to watch for when declaring objects for
 backtracking. Seaside tracks state by making a ''copy'' of all the objects
@@ -369,7 +369,7 @@ there is nothing else to the multi-counter!
 
 +WAMultiCounter>file://figures/WAMultiCounter.png|label=fig:WAMultiCounter+
 
-!!!More about Rendering HTML
+!!!More about rendering HTML
 
 As you can see from these examples, Seaside does not use templates to generate
 web pages. Instead it generates HTML programmatically. The basic idea is that
@@ -394,7 +394,7 @@ The message ==render: anyObject== can be sent to an HTML canvas to render
 itself be sent the message ==renderContentOn:== this is what happens in the
 multi-counter (see Figure *@fig:WAMultiCounter*).
 
-!!!Using Brushes
+!!!Using brushes
 @sec:brushes
 
 A canvas provides a number of ''brushes'' that can be used to render (''i.e.'',
@@ -422,7 +422,7 @@ the package ==PBE-SeasideDemo== in the project
 ==SeasideDialogDemo==, as shown in method *@scr:renderdemo*.
 
 [[[label=scr:renderdemo
-SeasideDemo>>>renderContentOn: html
+SeasideDemo >> renderContentOn: html
 	html heading: 'Rendering Demo'.
 	html heading
 		level: 2;
@@ -437,7 +437,7 @@ Recall that a root component must always declare its children, or Seaside will
 refuse to render them.
 
 [[[
-SeasideDemo>>>children
+SeasideDemo >> children
 	^ { htmlDemo . formDemo . editDemo . dialogDemo }
 ]]]
 
@@ -461,7 +461,7 @@ The ==SeasideHtmlDemo== component demonstrates many of the most basic brushes.
 Most of the code should be self-explanatory.
 
 [[[
-SeasideHtmlDemo>>>renderContentOn: html
+SeasideHtmlDemo >> renderContentOn: html
 	self renderParagraphsOn: html.
 	self renderListsAndTablesOn: html.
 	self renderDivsAndSpansOn: html.
@@ -485,7 +485,7 @@ complex elements are specified using blocks. This is a simple convention to help
 you structure your rendering code.
 
 [[[
-SeasideHtmlDemo>>>renderParagraphsOn: html
+SeasideHtmlDemo >> renderParagraphsOn: html
 	html paragraph: 'A plain text paragraph.'.
 	html paragraph: [
 		html
@@ -505,7 +505,7 @@ how to generate lists and tables. A table uses two levels of blocks to display
 each of its rows and the cells within the rows.
 
 [[[
-SeasideHtmlDemo>>>renderListsAndTablesOn: html
+SeasideHtmlDemo >> renderListsAndTablesOn: html
 	html orderedList: [
 		html listItem: 'An ordered list item'].
 	html unorderedList: [
@@ -522,7 +522,7 @@ The next example shows how we can specify ==class== or ==id== attributes for
 these HTML elements should be displayed (see Section *@sec:css*).
 
 [[[
-SeasideHtmlDemo>>>renderDivsAndSpansOn: html
+SeasideHtmlDemo >> renderDivsAndSpansOn: html
 	html div
 		id: 'author';
 		with: [
@@ -538,7 +538,7 @@ subsequent text to toggle between ==true== and ==false== by toggling the
 instance variable ==toggleValue==.
 
 [[[
-SeasideHtmlDemo>>>renderLinkWithCallbackOn: html
+SeasideHtmlDemo >> renderLinkWithCallbackOn: html
 	html paragraph: [
 		html text: 'An anchor with a local action: '.
 		html span with: [
@@ -562,7 +562,7 @@ Forms are rendered just like the other examples that we have already seen. Here
 is the code for the ==SeasideFormDemo== component in Figure *@fig:RenderingDemo*.
 
 [[[
-SeasideFormDemo>>>renderContentOn: html
+SeasideFormDemo >> renderContentOn: html
 	| radioGroup |
 	html heading: heading.
 	html form: [
@@ -646,7 +646,7 @@ is a ''declaration'' which sets a number of attributes for that element.
 
 [[[label=scr:democss|caption===SeasideDemoWidget== common style sheet.
 
-SeasideDemoWidget>>>style
+SeasideDemoWidget >> style
 	^ '
 body {
 	font: 10pt Arial, Helvetica, sans-serif, Times New Roman;
@@ -737,7 +737,7 @@ an answer.
 (We underline the ==call:== and ==answer:== sends to draw attention to them.)
 
 [[[
-SeasideEditCallDemo>>>renderContentOn: html
+SeasideEditCallDemo >> renderContentOn: html
 	html span
 		class: 'field';
 		with: self text.
@@ -762,7 +762,7 @@ renders a form with a text field. The submit button is bound to a callback that
 will answer the final value of the text field.
 
 [[[
-SeasideEditAnswerDemo>>>renderContentOn: html
+SeasideEditAnswerDemo >> renderContentOn: html
 	html form: [
 		html textInput
 			on: #text of: self.
@@ -794,7 +794,7 @@ text field. The component answers the edited string. An optional label and
 default value may also be specified.
 
 [[[
-SeasideDialogDemo>>>renderContentOn: html
+SeasideDialogDemo >> renderContentOn: html
 	html anchor
 		callback: [ self request: 'edit this' label: 'done' default: 'some text' ];
 		with: 'self request:'.
@@ -846,7 +846,7 @@ implementing the method ==go==.
 click ==Restart==.
 
 [[[
-WAConvenienceTest>>>go
+WAConvenienceTest >> go
 	[ self chooseCheese.
 	  self confirmCheese ] whileFalse.
 	self informCheese
@@ -857,7 +857,7 @@ convenience method ==chooseFrom: caption:==, is a ==WAChoiceDialog== that asks
 the user to choose a cheese.
 
 [[[
-WAConvenienceTest>>>chooseCheese
+WAConvenienceTest >> chooseCheese
 	cheese := self
 		chooseFrom: #('Greyerzer' 'Tilsiter' 'Sbrinz')
 		caption: 'What''s your favorite Cheese?'.
@@ -868,14 +868,14 @@ The second is a ==WAYesOrNoDialog== to confirm the choice (generated by the
 convenience method ==confirm:==).
 
 [[[
-WAConvenienceTest>>>confirmCheese
+WAConvenienceTest >> confirmCheese
 	^self confirm: 'Is ', cheese,  ' your favorite cheese?'
 ]]]
 
 Finally a ==WAFormDialog== is called (via the convenience method ==inform:==).
 
 [[[
-WAConvenienceTest>>>informCheese
+WAConvenienceTest >> informCheese
 	self inform: 'Your favorite cheese is ', cheese, '.'
 ]]]
 
@@ -931,7 +931,7 @@ store is an instance of ==WAStore==. It does nothing but render the title bar,
 and then it renders ==task==, an instance of ==WAStoreTask==.
 
 [[[
-WAStore>>>renderContentOn: html
+WAStore >> renderContentOn: html
 	"... render the title bar ..."
 	html div id: 'body'; with: task
 ]]]
@@ -951,21 +951,21 @@ it. This is done by sending ==isolate:== to a task with the transactional block
 as its argument. We can see this in the sushi store workflow as follows:
 
 [[[
-WAStoreTask>>>go
+WAStoreTask >> go
 	| shipping billing creditCard |
 	cart := WAStoreCart new.
 	self isolate:
-		[[self fillCart.
-		self confirmContentsOfCart]
-			whileFalse].
+		[[ self fillCart.
+		self confirmContentsOfCart ]
+			whileFalse ].
 
 	self isolate:
-		[shipping := self getShippingAddress.
+		[ shipping := self getShippingAddress.
 		billing := (self useAsBillingAddress: shipping)
-					ifFalse: [self getBillingAddress]
-					ifTrue: [shipping].
+					ifFalse: [ self getBillingAddress ]
+					ifTrue: [ shipping ].
 		creditCard := self getPaymentInfo.
-		self shipTo: shipping billTo: billing payWith: creditCard].
+		self shipTo: shipping billTo: billing payWith: creditCard ].
 
 	self displayConfirmation.
 ]]]
@@ -984,7 +984,7 @@ class ==WANestedTransaction==. The first ==isolate:== takes as argument a block
 that contains another, nested ==isolate:==
 
 [[[
-WANestedTransaction>>>go
+WANestedTransaction >> go
 	self inform: 'Before parent txn'.
 	self isolate:
 			[self inform: 'Inside parent txn'.
@@ -1023,7 +1023,7 @@ First, Define a new class called ==MyStackMachine== with an instance variable
 ==contents== initialized to a new ==OrderedCollection==.
 
 [[[
-MyStackMachine>>>initialize
+MyStackMachine >> initialize
 	super initialize.
 	contents := OrderedCollection new.
 ]]]
@@ -1036,7 +1036,7 @@ Write some tests for the stack operations and then implement these operations.
 Here is a sample test:
 
 [[[
-MyStackMachineTest>>>testDiv
+MyStackMachineTest >> testDiv
 	stack
 		push: 3;
 		push: 4;
@@ -1093,7 +1093,7 @@ Here is a minimal CSS for the application. You can make it more fancy if you
 like.
 
 [[[
-MyRPNWidget>>>style
+MyRPNWidget >> style
 	^ 'table.keypad { float: left; }
 td.key {
 	border: 1px solid grey;
@@ -1117,7 +1117,7 @@ Define ==MyCalculator== to be a root component and register itself as an
 application (''i.e.'', implement ==canBeRoot== and ==initialize== on the class
 side).
 
-Implement ==MyCalculator>>>renderContentOn:== to render something trivial (such
+Implement ==MyCalculator>>renderContentOn:== to render something trivial (such
 as its name), and verify that the application runs in a browser.
 
 ==MyCalculator== is responsible for instantiating ==MyStackMachine==,
@@ -1161,18 +1161,18 @@ First, define the following helper methods, which will make it easier to script
 the interface:
 
 [[[
-MyKeypad>>>renderStackButton: text callback: aBlock colSpan: anInteger on: html
+MyKeypad >> renderStackButton: text callback: aBlock colSpan: anInteger on: html
 	html tableData
 		class: 'key';
 		colSpan: anInteger;
 		with:
-				[html anchor
+				[ html anchor
 					callback: aBlock;
-					with: [html html: text]]
+					with: [ html html: text ]]
 ]]]
 
 [[[
-MyKeypad>>>renderStackButton: text callback: aBlock on: html
+MyKeypad >> renderStackButton: text callback: aBlock on: html
 	self
 		renderStackButton: text
 		callback: aBlock
@@ -1190,7 +1190,7 @@ Use the two helper methods to script the keypad as follows.
 arithmetic operators.)
 
 [[[
-MyKeypad>>>renderContentOn: html
+MyKeypad >> renderContentOn: html
   self ensureStackMachineNotEmpty.
   html table
     class: 'keypad';
@@ -1224,18 +1224,18 @@ typed digit. You will need to convert the top value to a string, update it, and
 convert it back to an integer, something like this:
 
 [[[
-MyKeypad>>>type: aString
+MyKeypad >> type: aString
 	stackMachine push: (stackMachine pop asString, aString) asNumber.
 ]]]
 
 Now when you click on the digit keys the display should be updated. (Be sure
 that ==MyStackMachine>>pop== returns the value popped, or this will not work!)
 
-Next, we must implement ==MyKeypad>>>stackOp:==. Something like this will do the
+Next, we must implement ==MyKeypad>>stackOp:==. Something like this will do the
 trick:
 
 [[[
-MyKeypad>>>stackOp: op
+MyKeypad >> stackOp: op
 	[ stackMachine perform: op ] on: AssertionFailure do: [ ].
 ]]]
 
@@ -1262,7 +1262,7 @@ pushed), or ==#clear== (after you have performed ==Enter== and the top value
 should be cleared before typing). The new ==type:== method might look like this:
 
 [[[
-MyKeypad>>>type: aString
+MyKeypad >> type: aString
 	self inPushMode ifTrue: [
 		stackMachine push: stackMachine top.
 		self stackClearTop ].
@@ -1295,7 +1295,7 @@ Define the rendering method of ==MyDisplayStack== to display all of the values
 on the stack.
 
 (You will either need to define an accessor for the stack machine's ==contents==
-or you can define ==MyStackMachine>>>do:== to iterate over the stack values.)
+or you can define ==MyStackMachine>>do:== to iterate over the stack values.)
 The stack display should also have a button labelled ==close== whose callback
 will simply perform ==self answer==.
 
@@ -1355,7 +1355,7 @@ example (==PBE-SeasideRPN==) from *http://www.squeaksource.com/PharoByExample*
 and apply the suggested changes to the classes ==RPN*== instead of ==My*==.
 
 [[[
-MyCalculator>>>renderContentOn: html
+MyCalculator >> renderContentOn: html
 	html div id: 'keypad'; with: keypad.
 	html div id: 'display'; with: display.
 ]]]
@@ -1369,7 +1369,7 @@ we are able to assign some JavaScript code to the buttons by updating
 ==MyKeypad>>renderStackButton:callback:colSpan:on:== as follows:
 
 [[[
-MyKeypad>>>renderStackButton: text callback: aBlock colSpan: anInteger on: html
+MyKeypad >> renderStackButton: text callback: aBlock colSpan: anInteger on: html
 	html tableData
 		class: 'key';
 		colSpan: anInteger;
@@ -1418,7 +1418,7 @@ Instead of manually adding the library, you may also do it programmatically when
 you register the application:
 
 [[[
-MyCalculator class>>>initialize
+MyCalculator class >> initialize
 	(self registerAsApplication: 'rpn')
 		addLibrary: SULibrary
 ]]]
