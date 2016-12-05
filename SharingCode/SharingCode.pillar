@@ -182,18 +182,15 @@ to first make sure that Monticello knows about the repository, adding it if
 necessary. Then you can use the ==Copy== in the package-cache repository
 browser, and select the repository to which the package should be copied. You
 can also associate the desired repository with the package by right-clicking on
-the repository and selecting ==add to package...==, as shown in
-Figure *@fig:associateRepository*. Once the package knows about a repository, you can
-save a new version by selecting the repository and the package in the Monticello
-Browser, and clicking ==Save==. Of course, you must have permission to
-write to a repository. The ==PharoByExample== repository on SqueakSource is
-world readable but not world writable, so if you try and save there, you will
+the repository and selecting ==add to package...== and select the corresponding package. 
+Once the package knows about a repository, you can save a new version by selecting the repository and the package in the Monticello Browser, and clicking ==Save==. Of course, you must have permission to write to a repository. The ==PharoByExample== repository on SqueakSource is world readable but not world writable, so if you try and save there, you will
 see an error message. 
 
-However, you can create your own repository and save your code there. Nowadays the favorite code repositories are *http://www.smalltalkhub.org* and *http://www.squeaksource3.*. 
-This is especially useful as a mechanism to share your code with others, or if you use multiple computers.
+However, you can create your own repository and save your code there. Nowadays the favorite code repositories are *http://www.smalltalkhub.org* and *http://http://ss3.gemstone.com*. 
+This is especially useful as a mechanism to share your code with others and to make sure that 
+you can use automated build systems such as Jenkins or Travis. 
 
-+Adding a repository to the set of repositories associated with a package.>file://figures/MCaddToPackage.png|label=fig:associateRepository+
+%+Adding a repository to the set of repositories associated with a package.>file://figures/MCaddToPackage.png|label=fig:associateRepository+
 
 If you do try and save to a repository where you don't have write permission, a
 version will nevertheless be written to the package-cache. So you can recover by
