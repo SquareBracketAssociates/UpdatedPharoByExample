@@ -1,5 +1,5 @@
 { "title": "Seaside by example" }
-@cha:seaside
+@cha:seaside 
 
 Seaside is a framework for building web applications in Smalltalk, originally
 developed by Avi Bryant and Julian Fitzell in 2002. Once mastered, Seaside makes

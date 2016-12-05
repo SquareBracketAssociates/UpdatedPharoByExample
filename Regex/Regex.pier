@@ -1,4 +1,4 @@
-{ "title": "Regular Expressions in Pharo" }
+{ "title": "Regular expressions in Pharo" }
 @cha:regex
 
 Regular expressions are widely used in many scripting languages such as Perl,
@@ -16,11 +16,24 @@ pattern that matches a set of strings. For example, the regular expression
 will not match =='hi'== or =='yo'==. We can see this in Pharo as follows:
 
 [[[
-'ho' matchesRegex: 'h.*o'     --> true
-'hiho' matchesRegex: 'h.*o'  --> true
-'hello' matchesRegex: 'h.*o' --> true
-'hi' matchesRegex: 'h.*o'      --> false
-'yo' matchesRegex: 'h.*o'     --> false
+'ho' matchesRegex: 'h.*o'
+>>> true
+]]]
+[[[
+'hiho' matchesRegex: 'h.*o'
+>>> true
+]]]
+[[[
+'hello' matchesRegex: 'h.*o'
+>>> true
+]]]
+[[[
+'hi' matchesRegex: 'h.*o'
+>>> false
+]]]
+[[[
+'yo' matchesRegex: 'h.*o'
+>>> false
 ]]]
 
 In this chapter we will start with a small tutorial example in which we will
@@ -66,14 +79,14 @@ Also define class-side methods to prompt the user for the location of the web
 site on your computer, as follows:
 
 [[[
-WebDir>>setDir: dir home: path
+WebDir >> setDir: dir home: path
 	webDir := dir.
 	homePath := path
 
-WebDir class>>onDir: dir
+WebDir class >> onDir: dir
 	^ self new setDir: dir home: dir pathName
 
-WebDir class>>selectHome
+WebDir class >> selectHome
 	^ self onDir: FileList modalFolderSelector
 ]]]
 
@@ -83,7 +96,7 @@ directory containing your web pages, and you will be able to verify that
 ==webDir== and ==homePath== are properly initialized to the directory holding
 your web site and the full path name of this directory.
 
-+A WebDir instance>file://figures/aWebDir.png|label=fig:aWebDir+
++A WebDir instance.>file://figures/aWebDir.png|label=fig:aWebDir+
 
 It would be nice to be able to programmatically instantiate a ==WebDir==, so
 let's add another creation method.
@@ -109,39 +122,77 @@ file extension ==.html==. The regex that we need is =='.\*\\.html'==. The first
 dot will match any character except a newline:
 
 [[[
-'x' matchesRegex: '.' --> true
-' ' matchesRegex: '.'  --> true
-Character cr asString matchesRegex: '.' --> true
+'x' matchesRegex: '.'
+>>> true
 ]]]
+[[[
+' ' matchesRegex: '.'
+>>> true
+]]]
+[[[
+Character cr asString matchesRegex: '.'
+>>> true
+]]]
+
 
 The ==\*== (known as the ''Kleene star'', after Stephen Kleene, who invented it)
 is a regex operator that will match the preceding regex any number of times
 (including zero).
 
 [[[
-'' matchesRegex: 'x*'     --> true
-'x' matchesRegex: 'x*'   --> true
-'xx' matchesRegex: 'x*' --> true
-'y' matchesRegex: 'x*'   --> false
+'' matchesRegex: 'x*'
+>>> true
+]]]
+[[[
+'x' matchesRegex: 'x*'
+>>> true
+]]]
+[[[
+'xx' matchesRegex: 'x*'
+>>> true
+]]]
+[[[
+'y' matchesRegex: 'x*'
+>>> false
 ]]]
 
 Since the dot is a special character in regexes, if we want to literally match a
 dot, then we must escape it.
 
 [[[
-'.' matchesRegex: '.'   --> true
-'x' matchesRegex: '.'  --> true
-'.' matchesRegex: '\.'  --> true
-'x' matchesRegex: '\.' --> false
+'.' matchesRegex: '.'
+>>> true
+]]]
+[[[
+'x' matchesRegex: '.'
+>>> true
+]]]
+[[[
+'.' matchesRegex: '\.'
+>>> true
+]]]
+[[[
+'x' matchesRegex: '\.'
+>>> false
 ]]]
 
 Now let's check our regex to find HTML files works as expected.
 
 [[[
-'index.html' matchesRegex: '.*\.html' --> true
-'foo.html' matchesRegex: '.*\.html'    --> true
-'style.css' matchesRegex: '.*\.html'   --> false
-'index.htm' matchesRegex: '.*\.html' --> false
+'index.html' matchesRegex: '.*\.html'
+>>> true
+]]]
+[[[
+'foo.html' matchesRegex: '.*\.html'
+>>> true
+]]]
+[[[
+'style.css' matchesRegex: '.*\.html'
+>>> false
+]]]
+[[[
+'index.htm' matchesRegex: '.*\.html'
+>>> false
 ]]]
 
 Looks good. Now let's try it out in our application.
@@ -149,7 +200,7 @@ Looks good. Now let's try it out in our application.
 @@todo Add the following method to ==WebDir== and try it out on your test web site.
 
 [[[
-WebDir>>htmlFiles
+WebDir >> htmlFiles
 	^ webDir fileNames select: [ :each | each matchesRegex: '.*\.html' ]
 ]]]
 
@@ -157,7 +208,8 @@ If you send ==htmlFiles== to a ==WebDir== instance and ==print it==, you should
 see something like this:
 
 [[[
-(WebDir onPath: '...') htmlFiles --> #('index.html' ...)
+(WebDir onPath: '...') htmlFiles 
+>>> #('index.html' ...)
 ]]]
 
 !!!Caching the regex
@@ -171,10 +223,10 @@ to every file in a web site, it is smarter to create just one instance of
 @@todo Add a new instance variable ==htmlRegex== to ==WebDir== and initialize it by sending ==asRegex== to our regex string.  Modify ==WebDir>>htmlFiles== to use the same regex each time as follows:
 
 [[[
-WebDir>>initialize
+WebDir >> initialize
 	htmlRegex := '.*\.html' asRegex
 
-WebDir>>htmlFiles
+WebDir >> htmlFiles
 	^ webDir fileNames select: [ :each | htmlRegex matches: each ]
 ]]]
 
@@ -190,11 +242,11 @@ instances.
 @@todo Define a class ==WebPage== with instance variables ==path==, to identify the HTML file, and ==homePath==, to identify the root directory of the web site.  (We will need this to correctly generate links from the root of the web site to the files it contains.) Define an initialization method on the instance side and a creation method on the class side.
 
 [[[
-WebPage>>initializePath: filePath homePath: dirPath
+WebPage >> initializePath: filePath homePath: dirPath
 	path := filePath.
 	homePath := dirPath
 
-WebPage class>>on: filePath forHome: homePath
+WebPage class >> on: filePath forHome: homePath
 	^ self new initializePath: filePath homePath: homePath
 ]]]
 
@@ -204,7 +256,7 @@ contains.
 @@todo Add the following method to ==WebDir==, and inspect the return value to verify that it works correctly.
 
 [[[
-WebDir>>webPages
+WebDir >> webPages
 	^ self htmlFiles collect:
 		[ :each | WebPage
 			on: webDir pathName, '/', each
@@ -214,7 +266,8 @@ WebDir>>webPages
 You should see something like this:
 
 [[[
-(WebDir onPath: '...') webPages --> an Array(a WebPage a WebPage ...)
+(WebDir onPath: '...') webPages 
+>>> an Array(a WebPage a WebPage ...)
 ]]]
 
 !!!String substitutions
@@ -229,7 +282,8 @@ The ==String== extension method ==copyWithRegex:matchesReplacedWith:== does what
 we want:
 
 [[[
-'hello' copyWithRegex: '[elo]+' matchesReplacedWith: 'i' --> 'hi'
+'hello' copyWithRegex: '[elo]+' matchesReplacedWith: 'i' 
+>>> 'hi'
 ]]]
 
 In this example the regex ==[elo]== matches any of the characters ==e==, ==l==
@@ -241,7 +295,7 @@ entire substring =='ello'== and replay it in a fresh string with the letter
 @@todo Add the following method and verify that it works as expected.
 
 [[[
-WebPage>>fileName
+WebPage >> fileName
 	^ path copyWithRegex: '.*/' matchesReplacedWith: ''
 ]]]
 
@@ -249,7 +303,7 @@ Now you should see something like this on your test web site:
 
 [[[
 (WebDir onPath: '...') webPages collect: [:each | each fileName ]
-  --> #('index.html' ...)
+>>> #('index.html' ...)
 ]]]
 
 !!!Extracting regex matches
@@ -260,7 +314,7 @@ get at the contents of each page. This is straightforward.
 @@todo Add the following method and try it out.
 
 [[[
-WebPage>>contents
+WebPage >> contents
 	^ (FileStream oldFileOrNoneNamed: path) contents
 ]]]
 
@@ -268,7 +322,7 @@ Actually, you might have problems if your web pages contain non-ascii
 characters, in which case you might be better off with the following code:
 
 [[[
-WebPage>>contents
+WebPage >> contents
 	^ (FileStream oldFileOrNoneNamed: path)
 		converter: Latin1TextConverter new;
 		contents
@@ -277,7 +331,8 @@ WebPage>>contents
 You should now be able to see something like this:
 
 [[[
-(WebDir onPath: '...') webPages first contents --> '<head>
+(WebDir onPath: '...') webPages first contents 
+>>> '<head>
 <title>Home Page</title>
 ...
 '
@@ -299,11 +354,16 @@ we will try to match a ''prefix'' of the string =='pharo'== and extract the
 submatches:
 
 [[[
+| re |	
 re := '([CARETaeiou]+)([aeiou]+)' asRegex.
-re matchesPrefix: 'pharo' --> true
-re subexpression: 1         --> 'pha'
-re subexpression: 2         --> 'ph'
-re subexpression: 3         --> 'a'
+re matchesPrefix: 'pharo'
+>>> true
+re subexpression: 1
+>>> 'pha'
+re subexpression: 2
+>>> 'ph'
+re subexpression: 3
+>>> 'a'
 ]]]
 
 After successfully matching a regex against a string, you can always send it the
@@ -316,7 +376,7 @@ We will use the same trick to extract the title from an HTML file.
 @@todo Define the following method:
 
 [[[
-WebPage>>title
+WebPage >> title
 	| re |
 	re := '[\w\W]*<title>(.*)</title>' asRegexIgnoringCase.
 	^ (re matchesPrefix: self contents)
@@ -338,7 +398,8 @@ the same trick with the subexpression.)
 Now we can test our title extractor, and we should see something like this:
 
 [[[
-(WebDir onPath: '...') webPages first title --> 'Home page'
+(WebDir onPath: '...') webPages first title 
+>>> 'Home page'
 ]]]
 
 !!!More string substitutions
@@ -354,8 +415,12 @@ end in a ==/==, we must append one, so that relative path does not include a
 leading ==/==. Notice the difference between the following two results:
 
 [[[
-'/home/testweb/index.html' copyWithRegex: '/home/testweb' matchesReplacedWith: '' --> '/index.html'
-'/home/testweb/index.html' copyWithRegex: '/home/testweb/' matchesReplacedWith: '' -->  'index.html'
+'/home/testweb/index.html' copyWithRegex: '/home/testweb' matchesReplacedWith: '' 
+>>> '/index.html'
+]]]
+[[[
+'/home/testweb/index.html' copyWithRegex: '/home/testweb/' matchesReplacedWith: '' 
+>>>  'index.html'
 ]]]
 
 The first result would give us an absolute path, which is probably not what we
@@ -364,19 +429,20 @@ want.
 @@todo Define the following methods:
 
 [[[
-WebPage>>relativePath
+WebPage >> relativePath
 	^ path
 		copyWithRegex: homePath, '/'
 		matchesReplacedWith: ''
 
-WebPage>>link
+WebPage >> link
 	^ '<a href="', self relativePath, '">', self title, '</a>'
 ]]]
 
 You should now be able to see something like this:
 
 [[[
-(WebDir onPath: '...') webPages first link --> '<a href="index.html">Home Page</a>'
+(WebDir onPath: '...') webPages first link 
+>>> '<a href="index.html">Home Page</a>'
 ]]]
 
 !!!Generating the site map
@@ -389,7 +455,7 @@ site map.  We just need a few more methods to complete the application.
 If our web site has subdirectories, we need a way to access them:
 
 [[[
-WebDir>>webDirs
+WebDir >> webDirs
 	^ webDir directoryNames
 		collect: [ :each | WebDir onPath: webDir pathName, '/', each home: homePath ]
 ]]]
@@ -398,7 +464,7 @@ We need to generate HTML bullet lists containing links for each web page of a
 web directory. Subdirectories should be indented in their own bullet list.
 
 [[[
-WebDir>>printTocOn: aStream
+WebDir >> printTocOn: aStream
 	self htmlFiles
 		ifNotEmpty: [
 			aStream nextPutAll: '<ul>'; cr.
@@ -415,10 +481,10 @@ We create a file called ''toc.html'' in the root web directory and dump the site
 map there.
 
 [[[
-WebDir>>tocFileName
+WebDir >> tocFileName
 	^ 'toc.html'
 
-WebDir>>makeToc
+WebDir >> makeToc
 	| tocStream |
 	tocStream := webDir newFileNamed: self tocFileName.
 	self printTocOn: tocStream.
@@ -431,7 +497,7 @@ Now we can generate a table of contents for an arbitrary web directory!
 WebDir selectHome makeToc
 ]]]
 
-+A small site map>file://figures/PBE-toc.png|label=fig:PBE-toc+
++A small site map.>file://figures/PBE-toc.png|label=fig:PBE-toc+
 
 !!Regex syntax
 
@@ -443,9 +509,16 @@ character. A sequence of characters matches a string with exactly the same
 sequence of characters:
 
 [[[
-'a' matchesRegex: 'a'                  --> true
-'foobar' matchesRegex: 'foobar'  --> true
-'blorple' matchesRegex: 'foobar' --> false
+'a' matchesRegex: 'a'
+>>> true
+]]]
+[[[
+'foobar' matchesRegex: 'foobar'
+>>> true
+]]]
+[[[
+'blorple' matchesRegex: 'foobar'
+>>> false
 ]]]
 
 Operators are applied to regular expressions to produce more complex regular
@@ -457,10 +530,20 @@ expression followed by an asterisk matches any number (including 0) of matches
 of the original expression. For example:
 
 [[[
-'ab' matchesRegex: 'a*b'         --> true
-'aaaaab' matchesRegex: 'a*b' --> true
-'b' matchesRegex: 'a*b'           --> true
-'aac' matchesRegex: 'a*b'	    --> false    "b does not match"
+'ab' matchesRegex: 'a*b'
+>>> true
+]]]
+[[[
+'aaaaab' matchesRegex: 'a*b'
+>>> true
+]]]
+[[[
+'b' matchesRegex: 'a*b'
+>>> true
+]]]
+[[[
+'aac' matchesRegex: 'a*b'
+>>> false    "b does not match"
 ]]]
 
 The Kleene star has higher precedence than sequencing. A star applies to the
@@ -469,16 +552,24 @@ shortest possible subexpression that precedes it. For example, ==ab\*== means
 occurrences of ==ab=='':
 
 [[[
-'abbb' matchesRegex: 'ab*' --> true
-'abab' matchesRegex: 'ab*' --> false
+'abbb' matchesRegex: 'ab*'
+>>> true
+]]]
+[[[
+'abab' matchesRegex: 'ab*'
+>>> false
 ]]]
 
 To obtain a regex that matches ''zero or more occurrences of ==ab=='', we must
 enclose ==ab== in parentheses:
 
 [[[
-'abab' matchesRegex: '(ab)*'   --> true
-'abcab' matchesRegex: '(ab)*' --> false    "c spoils the fun"
+'abab' matchesRegex: '(ab)*'
+>>> true
+]]]
+[[[
+'abcab' matchesRegex: '(ab)*'
+>>> false    "c spoils the fun"
 ]]]
 
 Two other useful operators similar to ==\*== are ==\+== and ==?==. ==\+==
@@ -486,10 +577,20 @@ matches one or more instances of the regex it modifies, and ==?== will match
 zero or one instance.
 
 [[[
-'ac' matchesRegex: 'ab*c'	   --> true
-'ac' matchesRegex: 'ab+c'	  --> false    "need at least one b"
-'abbc' matchesRegex: 'ab+c' --> true
-'abbc' matchesRegex: 'ab?c' --> false    "too many b's"
+'ac' matchesRegex: 'ab*c'
+>>> true
+]]]
+[[[
+'ac' matchesRegex: 'ab+c'
+>>> false    "need at least one b"
+]]]
+[[[
+'abbc' matchesRegex: 'ab+c'
+>>> true
+]]]
+[[[
+'abbc' matchesRegex: 'ab?c'
+>>> false    "too many b's"
 ]]]
 
 As we have seen, the characters ==\*==, ==\+==, ==?==, ==(==, and ==)== have
@@ -499,9 +600,16 @@ backslash is also special character, and needs to be escaped for a literal
 match. The same holds for all further special characters we will see.
 
 [[[
-'ab*' matchesRegex: 'ab*'  --> false    "star in the right string is special"
-'ab*' matchesRegex: 'ab\*' --> true
-'a\c' matchesRegex: 'a\\c'  --> true
+'ab*' matchesRegex: 'ab*'
+>>> false    "star in the right string is special"
+]]]
+[[[
+'ab*' matchesRegex: 'ab\*'
+>>> true
+]]]
+[[[
+'a\c' matchesRegex: 'a\\c'
+>>> true
 ]]]
 
 The last operator is ==|==, which expresses choice between two subexpressions.
@@ -511,18 +619,32 @@ has the lowest precedence — even lower than sequencing. For example,
 number of a's'':
 
 [[[
-'abb' matchesRegex: 'ab*|ba*'   --> true
-'baa' matchesRegex: 'ab*|ba*'	--> true
-'baab' matchesRegex: 'ab*|ba*' --> false
+'abb' matchesRegex: 'ab*|ba*'
+>>> true
+]]]
+[[[
+'baa' matchesRegex: 'ab*|ba*'
+>>> true
+]]]
+[[[
+'baab' matchesRegex: 'ab*|ba*'
+>>> false
 ]]]
 
 A bit more complex example is the expression ==c(a|d)\+r==, which matches the
 name of any of the Lisp-style car, cdr, caar, cadr, ... functions:
 
 [[[
-'car' matchesRegex: 'c(a|d)+r'   --> true
-'cdr' matchesRegex: 'c(a|d)+r'   --> true
-'cadr' matchesRegex: 'c(a|d)+r' --> true
+'car' matchesRegex: 'c(a|d)+r'
+>>> true
+]]]
+[[[
+'cdr' matchesRegex: 'c(a|d)+r'
+>>> true
+]]]
+[[[
+'cadr' matchesRegex: 'c(a|d)+r'
+>>> true
 ]]]
 
 It is possible to write an expression that matches an empty string, for example
@@ -536,16 +658,27 @@ character if it appears between the brackets. For example, ==[01]== matches
 either ==0== or ==1==:
 
 [[[
-'0' matchesRegex: '[01]'   --> true
-'3' matchesRegex: '[01]'   --> false
-'11' matchesRegex: '[01]' --> false  "a set matches only one character"
+'0' matchesRegex: '[01]'
+>>> true
+]]]
+[[[
+'3' matchesRegex: '[01]'
+>>> false
+]]]
+[[[
+'11' matchesRegex: '[01]'
+>>> false  "a set matches only one character"
 ]]]
 
 Using plus operator, we can build the following binary number recognizer:
 
 [[[
-'10010100' matchesRegex: '[01]+' --> true
-'10001210' matchesRegex: '[01]+' --> false
+'10010100' matchesRegex: '[01]+'
+>>> true
+]]]
+[[[
+'10001210' matchesRegex: '[01]+' 
+>>> false
 ]]]
 
 If the first character after the opening bracket is ==CARET==, the set is
@@ -553,8 +686,12 @@ inverted: it matches any single character ''not'' appearing between the
 brackets:
 
 [[[
-'0' matchesRegex: '[CARET01]' --> false
-'3' matchesRegex: '[CARET01]' --> true
+'0' matchesRegex: '[CARET01]'
+>>> false
+]]]
+[[[
+'3' matchesRegex: '[CARET01]' 
+>>> true
 ]]]
 
 For convenience, a set may include ranges: pairs of characters separated by a
@@ -564,9 +701,16 @@ are ==CARET==, ==-==, and ==]==, which closes the set. Below are examples how to
 literally match them in a set:
 
 [[[
-'CARET' matchesRegex: '[01CARET]'   --> true    "put the caret anywhere except the start"
-'-' matchesRegex: '[01-]' --> true    "put the hyphen at the end"
-']' matchesRegex: '[]01]'   --> true    "put the closing bracket at the start"
+'CARET' matchesRegex: '[01CARET]'
+>>> true    "put the caret anywhere except the start"
+]]]
+[[[
+'-' matchesRegex: '[01-]'
+>>> true    "put the hyphen at the end"
+]]]
+[[[
+']' matchesRegex: '[]01]'
+>>> true    "put the closing bracket at the start"
 ]]]
 
 Thus, empty and universal sets cannot be specified.
@@ -605,46 +749,90 @@ for defining such regexes. For example, non-negative numbers can be matched with
 the regex ==\\d\+==:
 
 [[[
-'42' matchesRegex: '\d+' --> true
-'-1' matchesRegex: '\d+' --> false
+'42' matchesRegex: '\d+'
+>>> true
+]]]
+[[[
+'-1' matchesRegex: '\d+'
+>>> false
 ]]]
 
 Better yet, we might want to specify that non-zero numbers should not start with
 the digit 0:
 
 [[[
-'0' matchesRegex: '0|([1-9]\d*)'     --> true
-'1' matchesRegex: '0|([1-9]\d*)'     --> true
-'42' matchesRegex: '0|([1-9]\d*)'   --> true
-'099' matchesRegex: '0|([1-9]\d*)' --> false    "leading 0"
+'0' matchesRegex: '0|([1-9]\d*)'
+>>> true
+]]]
+[[[
+'1' matchesRegex: '0|([1-9]\d*)'
+>>> true
+]]]
+[[[
+'42' matchesRegex: '0|([1-9]\d*)'
+>>> true
+]]]
+[[[
+'099' matchesRegex: '0|([1-9]\d*)'
+>>> false    "leading 0"
 ]]]
 
 We can check for negative and positive numbers as well:
 
 [[[
-'0' matchesRegex: '(0|((\+|-)?[1-9]\d*))'     --> true
-'-1' matchesRegex: '(0|((\+|-)?[1-9]\d*))'   --> true
-'42' matchesRegex: '(0|((\+|-)?[1-9]\d*))'   --> true
-'+99' matchesRegex: '(0|((\+|-)?[1-9]\d*))' --> true
-'-0' matchesRegex: '(0|((\+|-)?[1-9]\d*))'   --> false    "negative zero"
-'01' matchesRegex: '(0|((\+|-)?[1-9]\d*))'   --> false    "leading zero"
+'0' matchesRegex: '(0|((\+|-)?[1-9]\d*))'
+>>> true
+]]]
+[[[
+'-1' matchesRegex: '(0|((\+|-)?[1-9]\d*))'
+>>> true
+]]]
+[[[
+'42' matchesRegex: '(0|((\+|-)?[1-9]\d*))'
+>>> true
+]]]
+[[[
+'+99' matchesRegex: '(0|((\+|-)?[1-9]\d*))'
+>>> true
+]]]
+[[[
+'-0' matchesRegex: '(0|((\+|-)?[1-9]\d*))'
+>>> false    "negative zero"
+]]]
+[[[
+'01' matchesRegex: '(0|((\+|-)?[1-9]\d*))'
+>>> false    "leading zero"
 ]]]
 
 Floating point numbers should require at least one digit after the dot:
 
 [[[
-'0' matchesRegex: '(0|((\+|-)?[1-9]\d*))(\.\d+)?'      --> true
-'0.9' matchesRegex: '(0|((\+|-)?[1-9]\d*))(\.\d+)?'   --> true
-'3.14' matchesRegex: '(0|((\+|-)?[1-9]\d*))(\.\d+)?' --> true
-'-42' matchesRegex: '(0|((\+|-)?[1-9]\d*))(\.\d+)?'  --> true
-'2.' matchesRegex: '(0|((\+|-)?[1-9]\d*))(\.\d+)?'     --> false    "need digits after ."
+'0' matchesRegex: '(0|((\+|-)?[1-9]\d*))(\.\d+)?'
+>>> true
+]]]
+[[[
+'0.9' matchesRegex: '(0|((\+|-)?[1-9]\d*))(\.\d+)?'
+>>> true
+]]]
+[[[
+'3.14' matchesRegex: '(0|((\+|-)?[1-9]\d*))(\.\d+)?'
+>>> true
+]]]
+[[[
+'-42' matchesRegex: '(0|((\+|-)?[1-9]\d*))(\.\d+)?'
+>>> true
+]]]
+[[[
+'2.' matchesRegex: '(0|((\+|-)?[1-9]\d*))(\.\d+)?'
+>>> false    "need digits after ."
 ]]]
 
 For dessert, here is a recognizer for a general number format: anything like
 ==999==, or ==999.999==, or ==-999.999e\+21==.
 
 [[[
-'-999.999e+21' matchesRegex: '(\+|-)?\d+(\.\d*)?((e|E)(\+|-)?\d+)?' --> true
+'-999.999e+21' matchesRegex: '(\+|-)?\d+(\.\d*)?((e|E)(\+|-)?\d+)?' 
+>>> true
 ]]]
 
 Character classes can also include the following grep(1)-compatible elements:
@@ -669,7 +857,8 @@ expression.  For example, a non-empty string of digits would be represented as
 many implementations of regular expressions.
 
 [[[
-'42' matchesRegex: '[[:digit:]]+' --> true
+'42' matchesRegex: '[[:digit:]]+' 
+>>> true
 ]]]
 
 !!!Special character classes
@@ -689,11 +878,24 @@ that matches a non-empty string of digits: ==[0-9]\+==, ==\\d\+==, ==[\\d]\+==,
 ==[[:digit:]]\+==, ==:isDigit:\+==.
 
 [[[
-'42' matchesRegex: '[0-9]+'      --> true
-'42' matchesRegex: '\d+'           --> true
-'42' matchesRegex: '[\d]+'         --> true
-'42' matchesRegex: '[[:digit:]]+' --> true
-'42' matchesRegex: ':isDigit:+'  --> true
+'42' matchesRegex: '[0-9]+'
+>>> true
+]]]
+[[[
+'42' matchesRegex: '\d+'
+>>> true
+]]]
+[[[
+'42' matchesRegex: '[\d]+'
+>>> true
+]]]
+[[[
+'42' matchesRegex: '[[:digit:]]+'
+>>> true
+]]]
+[[[
+'42' matchesRegex: ':isDigit:+'
+>>> true
 ]]]
 
 !!!Matching boundaries
@@ -710,8 +912,12 @@ boundaries of strings.
 | ==\\>== | match an empty string at the end of a word
 
 [[[
-'hello world' matchesRegex: '.*\bw.*' --> true      "word boundary before w"
-'hello world' matchesRegex: '.*\bo.*'  --> false    "no boundary before o"
+'hello world' matchesRegex: '.*\bw.*'
+>>> true      "word boundary before w"
+]]]
+[[[
+'hello world' matchesRegex: '.*\bo.*'
+>>> false    "no boundary before o"
 ]]]
 
 !!Regex API
@@ -732,11 +938,24 @@ the whole receiver is not expected to match the regular expression passed as the
 argument; matching just a prefix of it is enough.
 
 [[[
-'abacus' matchesRegex: '(a|b)+'                                --> false
-'abacus' prefixMatchesRegex: '(a|b)+'                       --> true
-'ABBA' matchesRegexIgnoringCase: '(a|b)+'            --> true
-'Abacus' matchesRegexIgnoringCase: '(a|b)+'          --> false
-'Abacus' prefixMatchesRegexIgnoringCase: '(a|b)+' --> true
+'abacus' matchesRegex: '(a|b)+'
+>>> false
+]]]
+[[[
+'abacus' prefixMatchesRegex: '(a|b)+'
+>>> true
+]]]
+[[[
+'ABBA' matchesRegexIgnoringCase: '(a|b)+'
+>>> true
+]]]
+[[[
+'Abacus' matchesRegexIgnoringCase: '(a|b)+'
+>>> false
+]]]
+[[[
+'Abacus' prefixMatchesRegexIgnoringCase: '(a|b)+'
+>>> true
 ]]]
 
 !!!Enumeration interface
@@ -749,9 +968,11 @@ familiar ==Collection==-like enumeration protocol.
 regular expression within the receiver string.
 
 [[[
+| list |
 list := OrderedCollection new.
 'Jack meet Jill' regex: '\w+' matchesDo: [:word | list add: word].
-list --> an OrderedCollection('Jack' 'meet' 'Jill')
+list 
+>>> an OrderedCollection('Jack' 'meet' 'Jill')
 ]]]
 
 ==regex:matchesCollect:== evaluates a one-argument ==aBlock== for every match of
@@ -759,14 +980,16 @@ the regular expression within the receiver string. It then collects the results
 and answers them as a ==SequenceableCollection==.
 
 [[[
-'Jack meet Jill' regex: '\w+' matchesCollect: [:word | word size]                          --> an OrderedCollection(4 4 4)
+'Jack meet Jill' regex: '\w+' matchesCollect: [:word | word size]
+>>> an OrderedCollection(4 4 4)
 ]]]
 
 ==allRegexMatches:== returns a collection of all matches (substrings of the
 receiver string) of the regular expression.
 
 [[[
-'Jack and Jill went up the hill' allRegexMatches: '\w+'                                            --> an OrderedCollection('Jack' 'and' 'Jill' 'went' 'up' 'the' 'hill')
+'Jack and Jill went up the hill' allRegexMatches: '\w+'
+>>> an OrderedCollection('Jack' 'and' 'Jill' 'went' 'up' 'the' 'hill')
 ]]]
 
 !!!Replacement and translation
@@ -775,7 +998,8 @@ It is possible to replace all matches of a regular expression with a certain
 string using the message ==copyWithRegex:matchesReplacedWith:==.
 
 [[[
-'Krazy hates Ignatz' copyWithRegex: '\<[[:lower:]]+\>' matchesReplacedWith: 'loves' --> 'Krazy loves Ignatz'
+'Krazy hates Ignatz' copyWithRegex: '\<[[:lower:]]+\>' matchesReplacedWith: 'loves' 
+>>> 'Krazy loves Ignatz'
 ]]]
 
 A more general substitution is match translation. This message evaluates a block
@@ -784,7 +1008,8 @@ answers a copy of the receiver with the block results spliced into it in place
 of the respective matches.
 
 [[[
-'Krazy loves Ignatz' copyWithRegex: '\b[a-z]+\b' matchesTranslatedUsing: [:each | each asUppercase] --> 'Krazy LOVES Ignatz'
+'Krazy loves Ignatz' copyWithRegex: '\b[a-z]+\b' matchesTranslatedUsing: [:each | each asUppercase]
+>>> 'Krazy LOVES Ignatz'
 ]]]
 
 All messages of enumeration and replacement protocols perform a case-sensitive
@@ -816,14 +1041,22 @@ can create a matcher using one of the following methods:
 Here we send ==matchesIn:== to collect all the matches found in a string:
 
 [[[
+| octal |
 octal := '8r[0-9A-F]+' asRegex.
-octal matchesIn: '8r52 = 16r2A' --> an OrderedCollection('8r52')
-
+octal matchesIn: '8r52 = 16r2A' 
+>>> an OrderedCollection('8r52')
+]]]
+[[[
+| hex |
 hex := '16r[0-9A-F]+' asRegexIgnoringCase.
-hex matchesIn: '8r52 = 16r2A'   --> an OrderedCollection('16r2A')
-
+hex matchesIn: '8r52 = 16r2A'
+>>> an OrderedCollection('16r2A')
+]]]
+[[[
+| hex |
 hex := RxMatcher forString: '16r[0-9A-Fa-f]+' ignoreCase: true.
-hex matchesIn: '8r52 = 16r2A'   --> an OrderedCollection('16r2A')
+hex matchesIn: '8r52 = 16r2A'
+>>> an OrderedCollection('16r2A')
 ]]]
 
 !!!Matching
@@ -834,14 +1067,16 @@ successful match or search, and ==false== otherwise):
 ==matches: aString== — true if the whole argument string (==aString==) matches.
 
 [[[
-'\w+' asRegex matches: 'Krazy' --> true
+'\w+' asRegex matches: 'Krazy' 
+>>> true
 ]]]
 
 ==matchesPrefix: aString== — true if some prefix of the argument string (not
 necessarily the whole string) matches.
 
 [[[
-'\w+' asRegex matchesPrefix: 'Ignatz hates Krazy' --> true
+'\w+' asRegex matchesPrefix: 'Ignatz hates Krazy' 
+>>> true
 ]]]
 
 ==search: aString== — Search the string for the first occurrence of a matching
@@ -851,7 +1086,8 @@ this method would answer success given a string =='baaa'==, while the previous
 two would fail.
 
 [[[
-'\b[a-z]+\b' asRegex search: 'Ignatz hates Krazy' --> true    "finds 'hates'"
+'\b[a-z]+\b' asRegex search: 'Ignatz hates Krazy' 
+>>> true    "finds 'hates'"
 ]]]
 
 The matcher also stores the outcome of the last match attempt and can report it:
@@ -859,18 +1095,22 @@ The matcher also stores the outcome of the last match attempt and can report it:
 If no matches were attempted, the answer is unspecified.
 
 [[[
+| number |
 number := '\d+' asRegex.
 number search: 'Ignatz throws 5 bricks'.
-number lastResult --> true
+number lastResult 
+>>> true
 ]]]
 
 ==matchesStream:==, ==matchesStreamPrefix:== and ==searchStream:== are analogous
 to the above three messages, but takes streams as their argument.
 
 [[[
+| ignatz names |
 ignatz := ReadStream on: 'Ignatz throws bricks at Krazy'.
 names := '\<[A-Z][a-z]+\>' asRegex.
-names matchesStreamPrefix: ignatz --> true
+names matchesStreamPrefix: ignatz 
+>>> true
 ]]]
 
 !!!Subexpression matches
@@ -911,17 +1151,27 @@ string or stream where the given subexpression match has started and ended,
 respectively.
 
 [[[
+| items |
 items := '((\d+)\s*(\w+))' asRegex.
 items search: 'Ignatz throws 1 brick at Krazy'.
-items subexpressionCount --> 4
-items subexpression: 1      --> '1 brick'    "complete expression"
-items subexpression: 2      --> '1 brick'    "top subexpression"
-items subexpression: 3      --> '1'             "first leaf subexpression"
-items subexpression: 4      --> 'brick'       "second leaf subexpression"
-items subBeginning: 3       --> 14
-items subEnd: 3                 --> 15
-items subBeginning: 4       --> 16
-items subEnd: 4                 --> 21
+items subexpressionCount 
+>>> 4
+items subexpression: 1      
+>>> '1 brick'    "complete expression"
+items subexpression: 2      
+>>> '1 brick'    "top subexpression"
+items subexpression: 3      
+>>> '1'             "first leaf subexpression"
+items subexpression: 4      
+>>> 'brick'       "second leaf subexpression"
+items subBeginning: 3
+>>> 14
+items subEnd: 3
+>>> 15
+items subBeginning: 4
+>>> 16
+items subEnd: 4
+>>> 21
 ]]]
 
 As a more elaborate example, the following piece of code uses a ==MMM DD, YYYY==
@@ -929,13 +1179,15 @@ date format recognizer to convert a date to a three-element array with year,
 month, and day strings:
 
 [[[
+| date result |
 date := '(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d\d?)\s*,\s*19(\d\d)' asRegex.
 result := (date matches: 'Aug 6, 1996')
        ifTrue: [{ (date subexpression: 4) .
 				(date subexpression: 2) .
 				(date subexpression: 3) } ]
         ifFalse: ['no match'].
-result --> #('96' 'Aug' '6')
+result
+>>> #('96' 'Aug' '6')
 ]]]
 
 !!!Enumeration and Replacement
@@ -951,16 +1203,17 @@ strings:
 ==copy:translatingMatchesUsing:==.
 
 [[[
+| seuss aWords |
 seuss := 'The cat in the hat is back'.
 aWords := '\<([^aeiou]|[a])+\>' asRegex.    "match words with 'a' in them"
 aWords matchesIn: seuss
-    --> an OrderedCollection('cat' 'hat' 'back')
+>>> an OrderedCollection('cat' 'hat' 'back')
 aWords matchesIn: seuss collect: [:each | each asUppercase ]
-    --> an OrderedCollection('CAT' 'HAT' 'BACK')
+>>> an OrderedCollection('CAT' 'HAT' 'BACK')
 aWords copy: seuss replacingMatchesWith: 'grinch'
-    --> 'The grinch in the grinch is grinch'
+>>> 'The grinch in the grinch is grinch'
 aWords copy: seuss translatingMatchesUsing: [ :each | each asUppercase ]
-    --> 'The CAT in the HAT is BACK'
+>>> 'The CAT in the HAT is BACK'
 ]]]
 
 There are also the following methods for iterating over matches within streams:
@@ -995,7 +1248,7 @@ Smalltalk exception handling mechanism to catch and handle them.
 
 [[[language=smalltalk
 ['+' asRegex] on: RegexError do: [:ex | ^ ex printString ]
---> 'RegexSyntaxError:  nullable closure'
+>>> 'RegexSyntaxError:  nullable closure'
 ]]]
 
 !!Implementation Notes by Vassili Bykov
