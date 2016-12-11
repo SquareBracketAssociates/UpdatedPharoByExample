@@ -216,31 +216,44 @@ You can use the Seaside web interface to configure, copy or remove individual
 applications (which are root-level components). Try making the following
 configuration change.
 
-Point your web browser to *http://localhost:8080/seaside/config*.
+Point your web browser to *http://localhost:8080/config*.
 
-Supply the login and password (==admin== and ==seaside== by default). Select
-__Configure__ next to ==examples==. Under the heading ==Add entry point==, enter
-the new name ==counter2== for the type ==Application== and click on ==Add== (see
-Figure *@fig:counter2*). On the next screen, set the ==Root Component== to
-==WACounter==, then click ==Save== and ==Close==. Now we have a new counter
-installed at *http://localhost:8080/seaside/examples/counter2*. Use the same
-configuration interface to remove this entry point.
+If you are asked for a login, supply the default login and password (==admin== and ==seaside==).
+You can see a list of a registered applications and dispatchers. Change into the ==examples==
+dispatcher list by clicking on the link on the left side. With the buttons at the topbar, we can
+add new request handlers, open the current, copy, remove or set it as the default page.
+We want to add a new example application. Select ==Add==, enter the name ==counter2== and choose the 
+type ==Application==, click ==OK==. (see Figure *@fig:counter2*)
 
-+Configuring a new application.>file://figures/counter2.png|label=fig:counter2+
+On the next screen, set the ==Root Component== to
+==WACounter==, apply the changes. (Figure *@fig:counter2_config*)
+
+Now we have a new counter
+installed at *http://localhost:8080/examples/counter2*. Use the same
+==Remove==-button in the configuration interface to remove this entry point.
+
++Add a new application.>file://figures/counter2.png|width=100|label=fig:counter2+
+
++Configure the new application.>file://figures/counter2_config.png|width=100|label=fig:counter2_config+
 
 Seaside operates in two modes: ''development'' mode, which is what we have seen
 so far, and ''deployment'' mode, in which the toolbar is not available.
 
-You can put Seaside into deployment mode using either the configuration page
-(navigate to the entry for the application and click on the __Configure__ link)
-or click the ==Configure== button in the toolbar. In either case, set the
-deployment mode to ''true''. Note that this affects new sessions only. You can
-also set the mode globally by evaluating ==WAGlobalConfiguration
-setDeploymentMode== or ==WAGlobalConfiguration setDevelopmentMode==.
+You can put a Seaside Application into deployment mode by removing the
+inherited ==Root Decoration Class== (again, see figure *@fig:counter2_config*).
 
-The configuration web page is just another Seaside application, so it too can be
-controlled from the configuration page. If you remove the ''config''
-application, you can get it back by evaluating ==WADispatcherEditor initialize==.
+Alternatively, you can disable the development toolbar for all new
+aplications by evaluating the code:
+
+[[[
+AAdmin applicationDefaults
+    removeParent: WADevelopmentConfiguration instance
+]]]
+
+If you want to enable the password protection, you need to add the ==WAAuthConfiguration==
+in the ==Inherited Configuration==. Choose ==WAAuthConfiguration== from the list of
+possible parents, after adding this configuration, you can define the ==Login== and ==Password==
+setting.
 
 !!Seaside components
 @sec:components
@@ -278,10 +291,10 @@ WAHelloWorld class >> canBeRoot
 
 We are almost done!
 
-Point your web browser at *http://localhost:8080/seaside/config*, add a new
+Point your web browser at *http://localhost:8080/config*, add a new
 entry point called ==hello==, and set its root component to be ==WAHelloWorld==.
 
-Now navigate to *http://localhost:8080/seaside/hello*. That's it! You
+Now navigate to *http://localhost:8080/hello*. That's it! You
 should see a web page similar to Figure *@fig:WAHelloWorld*.
 
 +''Hello World'' in Seaside.>file://figures/WAHelloWorld.png|label=fig:WAHelloWorld+
@@ -402,7 +415,7 @@ A canvas provides a number of ''brushes'' that can be used to render (''i.e.'',
 element — paragraphs, tables, lists, and so on. To see the full protocol of
 brushes and convenience methods, you should browse the class ==WACanvas== and
 its subclasses. The argument to ==renderContentOn:== is actually an instance of
-the subclass ==WARenderCanvas==.
+the subclass ==WARender==.
 
 We have already seen the following brush used in the counter and multi-counter
 examples:
@@ -607,7 +620,7 @@ colour on the HTML form to update the ==color== variable, and to bind the result
 of the checkbox to the ==checked== variable. Many other examples can be found in
 the functional tests for Seaside. Have a look at the package
 ==Seaside-Tests-Functional==, or just point your browser to
-*http://localhost:8080/seaside/tests/alltests*. Select ==WAInputTest== and click
+*http://localhost:8080/tests/functional*. Select ==WAInputPostFunctionalTest== and click
 on the ==Restart== button to see most of the features of forms.
 
 Don't forget, if you toggle ==Halos==, you can browse the source code of the
@@ -842,11 +855,11 @@ implementing the method ==go==.
 
 ==WAConvenienceTest== is a simple example of a task defined in the package
 ==Seaside-Tests-Functional==. To see its effect, just point your browser to
-*http://localhost:8080/seaside/tests/alltests*, select ==WAConvenienceTest== and
+*http://localhost:8080/tests/functional*, select ==WAFlowConvenienceFunctionalTest== and
 click ==Restart==.
 
 [[[
-WAConvenienceTest >> go
+WAFlowConvenienceFunctionalTest >> go
 	[ self chooseCheese.
 	  self confirmCheese ] whileFalse.
 	self informCheese
@@ -857,7 +870,7 @@ convenience method ==chooseFrom: caption:==, is a ==WAChoiceDialog== that asks
 the user to choose a cheese.
 
 [[[
-WAConvenienceTest >> chooseCheese
+WAFlowConvenienceFunctionalTest >> chooseCheese
 	cheese := self
 		chooseFrom: #('Greyerzer' 'Tilsiter' 'Sbrinz')
 		caption: 'What''s your favorite Cheese?'.
@@ -868,14 +881,14 @@ The second is a ==WAYesOrNoDialog== to confirm the choice (generated by the
 convenience method ==confirm:==).
 
 [[[
-WAConvenienceTest >> confirmCheese
+WAFlowConvenienceFunctionalTest >> confirmCheese
 	^self confirm: 'Is ', cheese,  ' your favorite cheese?'
 ]]]
 
 Finally a ==WAFormDialog== is called (via the convenience method ==inform:==).
 
 [[[
-WAConvenienceTest >> informCheese
+WAFlowConvenienceFunctionalTest >> informCheese
 	self inform: 'Your favorite cheese is ', cheese, '.'
 ]]]
 
@@ -993,7 +1006,7 @@ WANestedTransaction >> go
 	self inform: 'Outside parent txn'
 ]]]
 
-Go to *http://localhost:8080/seaside/tests/alltests*, select
+Go to *http://localhost:8080/tests/functionals*, select
 ==WATransactionTest== and click on ==Restart==. Try to navigate back and forth
 within the parent and child transaction by clicking the ''Back'' button and then
 clicking ==Ok==. Note that as soon as a transaction is complete, you can no
