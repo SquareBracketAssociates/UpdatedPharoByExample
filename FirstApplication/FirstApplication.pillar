@@ -542,7 +542,7 @@ be toggled. This turns out to be behavior that we inherit from
 nothing:
 
 [[[caption=Overriding mouse move actions|label=scr:MouseMove
-LOGame >> mouseMove: anEvent
+LOCell >> mouseMove: anEvent
 ]]]
 
 Finally we are done!
