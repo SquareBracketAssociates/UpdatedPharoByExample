@@ -17,7 +17,7 @@ rely on it. For this reason, most of the ==Stream== classes are subclasses of
 ==PositionableStream==. Figure *@fig:_abcde* presents a stream which contains
 five characters. This stream is in its original position, i.e., there is no
 element in the past. You can go back to this position using the message
-==PositionableStream>>reset==.
+==reset== defined in ==PositionableStream==.
 
 +A stream positioned at its beginning.>file://figures/_abcdeStef.png|width=70|label=fig:_abcde+
 
@@ -31,7 +31,7 @@ your stream is that shown in Figure *@fig:a_bcde*.
 Writing an element means replacing the first element of the future sequence by
 the new one and moving it to the past. Figure *@fig:ax_cde* shows the state of
 the same stream after having written an ==x== using the message
-==Stream>>nextPut: anElement==.
+==nextPut: anElement== defined in ==Stream==.
 
 +The same stream after having written an ==x==.>file://figures/ax_cdeStef.png|width=70|label=fig:ax_cde+
 
@@ -40,7 +40,7 @@ the same stream after having written an ==x== using the message
 The collection protocol supports the storage, removal and enumeration of the
 elements of a collection, but does not allow these operations to be
 intermingled. For example, if the elements of an ==OrderedCollection== are
-processed by a ==OrderedCollection>>do:== method, it is not possible to add or
+processed by a ==do:== method, it is not possible to add or
 remove elements from inside the ==do:== block. Nor does the collection protocol
 offer ways to iterate over two collections at the same time, choosing which
 collection goes forward and which does not. Procedures like these require that a
@@ -105,7 +105,7 @@ collection. That pointer will move forward on reading, and you can place it
 wherever you want. The class ==ReadStream== should be used to read elements
 from collections.
 
-Methods ==ReadStream>>next== and ==ReadStream>>next:== are used to retrieve one
+Messages ==next== and ==next:== defined in ==ReadStream== are used to retrieve one
 or more elements from the collection.
 
 [[[
@@ -132,7 +132,7 @@ stream next: 2.
 >>>   'ef'
 ]]]
 
-The message ==PositionableStream>>peek== is used when you want to know what is
+The message ==peek== defined in ==PositionableStream== is used when you want to know what is
 the next element in the stream without going forward.
 
 [[[
@@ -149,10 +149,10 @@ number.
 ]]]
 
 This code sets the boolean variable ==negative== according to the sign of the
-number in the stream, and ==number== to its absolute value. The method
-==ReadStream>>upToEnd== returns everything from the current position to the end
-of the stream and sets the stream to its end. This code can be simplified using
-==PositionableStream>>peekFor:==, which moves forward if the following element
+number in the stream, and ==number== to its absolute value. The message ==upToEnd==
+defined in ==ReadStream== returns everything from the current position to the end
+of the stream and sets the stream to its end. This code can be simplified using the message ==peekFor:==
+defined in ==PositionableStream==, which moves forward if the following element
 equals the parameter and doesn't move otherwise.
 
 [[[
@@ -168,15 +168,15 @@ stream upToEnd
 element.
 
 You might have noticed a new way of constructing a stream in the above example:
-one can simply send ==SequenceableCollection>>readStream== to a sequenceable
+one can simply send the message ==readStream== to a sequenceable
 collection (such as a ==String==) to get a reading stream on that particular
 collection.
 
 !!!!Positioning
 
-There are methods to position the stream pointer. If you have the index, you can
-go directly to it using ==PositionableStream>>position:==. You can request the
-current position using ==PositionableStream>>position==. Please remember that a
+There are messages to position the stream pointer. If you have the index, you can
+go directly to it using ==position:== defined in ==PositionableStream==. You can request the
+current position using ==position==. Please remember that a
 stream is not positioned on an element, but between two elements. The index
 corresponding to the beginning of the stream is 0.
 
@@ -194,8 +194,8 @@ stream peek
 +A stream at position 2.>file://figures/ab_cdeStef.png|width=70|label=fig:ab_cde+
 
 To position the stream at the beginning or the end, you can use
-==PositionableStream>>reset== or ==PositionableStream>>setToEnd==.
-==PositionableStream>>skip:== and ==PositionableStream>>skipTo:== are used to go
+the message ==reset== or ==setToEnd==.
+The messages ==skip:== and ==skipTo:== are used to go
 forward to a location relative to the current position: ==skip:== accepts a
 number as argument and skips that number of elements whereas ==skipTo:== skips
 all elements in the stream until it finds an element equal to its parameter.
@@ -224,14 +224,13 @@ stream contents.
 
 As you can see, the letter ==e== has been skipped.
 
-The method ==PositionableStream>>contents== always returns a copy of the entire
-stream.
+The message ==contents== always returns a copy of the entire stream.
 
 !!!!Testing
 
-Some methods allow you to test the state of the current stream:
-==PositionableStream>>atEnd== returns ==true== if and only if no more elements can
-be read, whereas ==PositionableStream>>isEmpty== returns ==true== if and only if
+Some messages allow you to test the state of the current stream:
+==atEnd== returns ==true== if and only if no more elements can
+be read, whereas ==isEmpty== returns ==true== if and only if
 there are no elements at all in the collection.
 
 Here is a possible implementation of an algorithm using ==atEnd== that takes two
@@ -306,7 +305,7 @@ string.
 >>>   '#(1 2 3) size = 3'
 ]]]
 
-The method ==SequenceableCollection class>>streamContents:== creates a
+The message ==streamContents:== defined ==SequenceableCollection== creates a
 collection and a stream on that collection for you. It then executes the block
 you gave passing the stream as a parameter. When the block ends,
 ==streamContents:== returns the contents of the collection.
@@ -320,17 +319,13 @@ The following ==WriteStream== methods are especially useful in this context:
 ;==print:==
 :adds the textual representation of the parameter to the stream.
 
-There are also convenient methods for printing useful characters to a stream,
-such as ==WriteStream>>space==, ==WriteStream>>tab== and ==WriteStream>>cr==
-(carriage return). Another useful method is ==WriteStream>>ensureASpace== which
-ensures that the last character in the stream is a space; if the last character
-isn't a space it adds one.
+There are also convenient messages for printing useful characters to a stream,
+such as ==space==, ==tab== and ==cr== (carriage return). Another useful method is ==ensureASpace== which
+ensures that the last character in the stream is a space; if the last character isn't a space it adds one.
 
 !!!!About String Concatenation
 
-Using ==WriteStream>>nextPut:== and ==WriteStream>>nextPutAll:== on a
-==WriteStream== is often the best way to concatenate characters. Using the comma
-concatenation operator (==,==) is far less efficient:
+Using ==nextPut:== and ==nextPutAll:== on a ==WriteStream== is often the best way to concatenate characters. Using the comma concatenation operator (==,==) is far less efficient:
 
 [[[label=src:concatenationComparison
 [| temp |
@@ -339,6 +334,7 @@ concatenation operator (==,==) is far less efficient:
     do: [:i | temp := temp, i asString, ' ' ] ] timeToRun 
 >>> 115176 "(milliseconds)"
 ]]]
+
 [[[
 [| temp |
   temp := WriteStream on: String new.
@@ -356,7 +352,7 @@ characters that must be copied goes up exponentially. This also creates a lot of
 garbage, which must be collected. Using a stream instead of string concatenation
 is a well-known optimization.
 
-In fact, you can use ==SequenceableCollection class>>streamContents:==
+In fact, you can use the message ==streamContents:== defined in ==SequenceableCollection class==
 (mentioned earlier) to help you do this:
 
 [[[label=src:streamContentsUsage
@@ -392,8 +388,7 @@ This behaviour can be implemented using a ==ReadWriteStream==.
 Object subclass: #History
   instanceVariableNames: 'stream'
   classVariableNames: ''
-  poolDictionaries: ''
-  category: 'PBE-Streams'
+  package: 'PBE-Streams'
 
 History >> initialize
     super initialize.
@@ -485,7 +480,7 @@ streams, as we shall now see.
 @sec:creat-file-stre
 
 To create file streams, you will have to use one of the following instance
-creation methods offered by the class ==FileStream==:
+creation messages offered by the class ==FileStream==:
 
 ;==fileNamed:==
 :Open a file with the given name for reading and writing. If the file already exists, its prior contents may be modified or replaced, but the file will not be truncated on close. If the name has no directory part, then the file will be created in the default directory.
@@ -499,7 +494,7 @@ creation methods offered by the class ==FileStream==:
 :Open an existing file with the given name for reading.
 
 You have to remember that each time you open a stream on a file, you have to
-close it too. This is done through the ==FileStream>>close== method.
+close it too. This is done through the ===close== message defined in ==FileStream==.
 
 [[[
 | stream |
@@ -515,14 +510,11 @@ stream contents.
 stream close.
 ]]]
 
-The method ==FileStream>>localName== answers the last component of the name of
-the file. You can also access the full path name using the method
-==StandardFileStream>>fullName==.
+The message ==localName== defined in class ==FileStream== answers the last component of the name of
+the file. You can also access the full path name using the message ==fullName==.
 
 You will soon notice that manually closing the file stream is painful and
-error-prone. That's why ==FileStream== offers a message called ==FileStream
-class>>forceNewFileNamed:do:== to automatically close a new stream after
-evaluating a block that sets its contents.
+error-prone. That's why ==FileStream== offers a message called ==forceNewFileNamed:do:== to automatically close a new stream after evaluating a block that sets its contents.
 
 [[[
 | string |
@@ -551,7 +543,7 @@ the previous example to get the content of the file and put it in the variable
 
 By default, created streams are text-based which means you will read and write
 characters. If your stream must be binary, you have to send the message
-==FileStream>>binary== to your stream.
+==binary== to your stream.
 
 When your stream is in binary mode, you can only write numbers from 0 to 255 (1
 Byte). If you want to use ==nextPutAll:== to write more than one number at a
@@ -571,9 +563,12 @@ FileStream
   readOnlyFileNamed: 'test.bin'
   do: [ :stream |
           stream binary.
-          stream size.         --> 4
-          stream next.         --> 145
-          stream upToEnd. --> #[250 139 98 ]
+          stream size.         
+		  >>> 4
+          stream next.         
+		  >>> 145
+          stream upToEnd. 
+		  >>> #[250 139 98 ]
        ].
 ]]]
 
