@@ -252,7 +252,7 @@ selecting ==Add Class==). Edit the code so that it reads as follows, and
 BorderedMorph subclass: #LOGame
 	instanceVariableNames: ''
 	classVariableNames: ''
-	category: 'PBE-LightsOut'
+	package: 'PBE-LightsOut'
 ]]]
 
 Here we subclass ==BorderedMorph==. ==Morph== is the superclass of all of the
