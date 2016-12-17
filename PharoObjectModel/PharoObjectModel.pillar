@@ -421,7 +421,8 @@ instead of creating a new one. (This pattern, checking if a variable is nil
 in an accessor method, and initializing its value if it is nil, is called
 ''lazy initialization'').
 
-Note that the instance creation code in Script *@scr:uniqueInstance*
+Note that the instance creation code in the code above. 
+%Script *@scr:uniqueInstance*
 is written as ==self new== and not as ==WebServer new==. What is the difference?
 Since the ==uniqueInstance== method is defined in ==WebServer class==, you might
 think that there is no difference. And indeed, until someone creates a subclass
@@ -554,8 +555,9 @@ of the abstract method ==<==).
 
 ==Character== is a subclass of ==Magnitude==; it overrides the
 ==<== method (which, if you recall, is marked as abstract in ==Magnitude== by
-the use of ==self subclassResponsibility==) with its own version (see
-Script *@scr:characterLessThan*). ==Character== also explicitly defines methods
+the use of ==self subclassResponsibility==) with its own version (see the method definition below).
+%Script *@scr:characterLessThan*). 
+==Character== also explicitly defines methods
 ===== and ==hash==; it inherits from ==Magnitude== the methods ==>===, ==<===,
 ==~=== and others.
 
@@ -1115,7 +1117,7 @@ access these shared variables.
 
 A class variable is declared in the class definition template. For example, the
 class ==Color== defines a large number of class variables to speed up color
-creation; its definition is shown below, in Script *@scr:classDefColor*.
+creation; its definition is shown below.% in Script *@scr:classDefColor*.
 
 [[[label=scr:classDefColor|caption=Color and its class variables
 Object subclass: #Color
