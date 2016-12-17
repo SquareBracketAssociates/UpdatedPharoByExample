@@ -225,7 +225,8 @@ anArray := Array new: 5.
 anArray at: 1 put: 4.
 anArray at: 2 put: 3/2.
 anArray at: 3 put: 'ssss'.
-anArray at: 1 >>> 4
+anArray at: 1 
+>>> 4
 ]]]
 
 
@@ -881,14 +882,14 @@ example prints all the strings contained in the receiver to the transcript.
 #('bob' 'joe' 'toto') do: [:each | Transcript show: each; cr].
 ]]]
 
-!!!!!Variants
+!!!!!Variants.
 
 There are a lot of variants of ==do:==, such as ==do:without:==,
 ==doWithIndex:== and ==reverseDo:==.
 
 For the indexed collections (==Array==, ==OrderedCollection==,
-==SortedCollection==) the method ==doWithIndex:== also gives access to the
-current index. This method is related to ==to:do:== which is defined in class
+==SortedCollection==) the message ==doWithIndex:== also gives access to the
+current index. This message is related to ==to:do:== which is defined in class
 ==Number==.
 
 
@@ -898,7 +899,7 @@ current index. This method is related to ==to:do:== which is defined in class
 >>> 2
 ]]]
 
-For ordered collections, ==reverseDo:== walks the collection in the reverse
+For ordered collections, the message ==reverseDo:== walks the collection in the reverse
 order.
 
 The following code shows an interesting message: ==do:separatedBy:== which
@@ -927,7 +928,7 @@ String streamContents: [ :stream |
 !!!!Dictionaries
 
 When the message ==do:== is sent to a dictionary, the elements taken into
-account are the values, not the associations. The proper methods to use are
+account are the values, not the associations. The proper messages to use are
 ==keysDo:==, ==valuesDo:==, and ==associationsDo:==, which iterate respectively
 on keys, values or associations.
 
@@ -956,7 +957,7 @@ double
 >>> an OrderedCollection(2 4 6 8 10 12)
 ]]]
 
-The method ==collect:== executes its argument block for each element and returns
+The message ==collect:== executes its argument block for each element and returns
 a new collection containing the results. Using ==collect:== instead, the code is
 much simpler:
 
@@ -979,7 +980,6 @@ result
 ]]]
 
 Contrast the above with the much simpler following expression:
-
 
 [[[
 #( 2 -3 4 -35 4 -11) collect: [ :each | each abs ] 
@@ -1018,7 +1018,7 @@ an ==Interval==, the species is an ==Array==!
 
 !!!Selecting and rejecting elements
 
-==select:== returns the elements of the receiver that satisfy a particular
+The message ==select:== returns the elements of the receiver that satisfy a particular
 condition:
 
 [[[
@@ -1026,7 +1026,7 @@ condition:
 >>> #(2 3 5 7 11 13 17 19)
 ]]]
 
-==reject:== does the opposite:
+The message ==reject:== does the opposite:
 [[[
 (2 to: 20) reject: [ :each | each isPrime ] 
 >>> #(4 6 8 9 10 12 14 15 16 18 20)
@@ -1034,7 +1034,7 @@ condition:
 
 !!!Identifying an element with ==detect:==
 
-The method ==detect:== returns the first element of the receiver that matches
+The message ==detect:== returns the first element of the receiver that matches
 block argument.
 
 [[[
@@ -1042,7 +1042,7 @@ block argument.
 >>> $o
 ]]]
 
-The method ==detect:ifNone:== is a variant of the method ==detect:==. Its second
+The message ==detect:ifNone:== is a variant of the method ==detect:==. Its second
 block is evaluated when there is no element matching the block.
 
 [[[
