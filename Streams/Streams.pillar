@@ -402,12 +402,14 @@ We need methods to go backward and forward:
 
 [[[label=src:history2
 History >> goBackward
-  self canGoBackward ifFalse: [self error: 'Already on the first element' ].
+  self canGoBackward 
+  	ifFalse: [ self error: 'Already on the first element' ].
   stream skip: -2.
   ^ stream next.
 
 History >> goForward
-  self canGoForward ifFalse: [self error: 'Already on the last element' ].
+  self canGoForward 
+  	ifFalse: [ self error: 'Already on the last element' ].
   ^ stream next
 ]]]
 
