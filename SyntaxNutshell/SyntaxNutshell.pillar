@@ -517,7 +517,7 @@ In Pharo, the angle bracket syntax is also used for method annotations called pr
 - There are five kinds of literal objects: numbers (5, 2.5, 1.9e15, 2r111), characters (==$a==), strings (=='hello'==), symbols (==#hello==), and arrays (==#('hello' #hi)== or =={ 1 . 2 . 1 + 2 }== )
 - Strings are delimited by single quotes, comments by double quotes. To get a quote inside a string, double it.
 - Unlike strings, symbols are guaranteed to be globally unique.
-- Use ==#( ... )== to define a literal array. Use =={ ... }== to define a dynamic array. Note that 
+- Use ==#( ... )== to define a literal array. Use =={ ... }== to define a dynamic array.  
 
 [[[language=smalltalk
 #(1+2) size
