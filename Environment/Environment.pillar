@@ -13,7 +13,7 @@ expect. Pharo has an excellent debugger, but like most powerful tools, it can be
 confusing on first use. We will walk you through a debugging session and
 demonstrate some of the features of the debugger.
 
-One of the unique features of Smalltalk is that while you are programming, you
+One of the unique features of Pharo (and its ancestors) is that while you are programming, you
 are living in a world of live objects, not in a world of static program text.
 This makes it possible to get very rapid feedback while programming, which makes
 you more productive. There is a tool that let you look at, and indeed
@@ -22,11 +22,11 @@ change, live objects: the ''inspector''.
 !!Pharo environment overview
 @sec:overview
 
-Smalltalk and modern graphical interfaces were developed together. Even before
-the first public release of Smalltalk in 1983, Smalltalk had a self-hosting
-graphical development environment, and all Smalltalk development was taking
-place in it. With this in mind, let's start by looking at the main
-tools in Pharo.
+%Smalltalk and modern graphical interfaces were developed together. Even before
+%the first public release of Smalltalk in 1983, Smalltalk had a self-hosting
+%graphical development environment, and all Smalltalk development was taking
+%place in it. With this in mind, let's start by looking at the main
+%tools in Pharo.
 
 The ==System Browser== is the central development tool. You will use it to
 create, define, and organize your classes and methods. Using it you can also
@@ -231,7 +231,7 @@ right-click on the highlighted selector and choose ==Code search... > senders of
 it (n)==. Alternatively, you can use the shortcut ==CMD-n== instead of
 right-clicking.
 
-+The ==Senders Of...(b,n)== menu item>file://figures/SendersOfDrawOn.png|witdth=80|label=fig:SendersOfDrawOn+
++The ==Senders Of...(b,n)== menu item.>file://figures/SendersOfDrawOn.png|witdth=80|label=fig:SendersOfDrawOn+
 
 ""3."" ''Using Spotter.'' Bring up a particular method in Spotter (press
 ==SHIFT-Enter== to bring up the Spotter search box, type in the message
@@ -275,7 +275,7 @@ and press ==CMD-n== (or right-click and select
 ==Code Search > senders of it (n)==), to bring up the list of senders (see
 Figure *@fig:SendersOfAddAll*).
 
-+Finding senders of a keyword message in the code pane>file://figures/SendersOfAddAll.png|label=fig:SendersOfAddAll+
++Finding senders of a keyword message in the code pane.>file://figures/SendersOfAddAll.png|label=fig:SendersOfAddAll+
 
 !!!!Message implementors
 
@@ -380,7 +380,7 @@ right-click on your method and select ==Toggle Bytecodes==, or use the shortcut
 ==CMD-b CMD-b== (see Figure *@fig:ByteCode*). Use the same shortcut to come
 back to the normal view.
 
-+Bytecode of ImageMorph\>\>#DrawOn:>file://figures/ByteCode.png|label=fig:ByteCode+
++Bytecode of the ImageMorph\>\>#DrawOn: compiled method.>file://figures/ByteCode.png|label=fig:ByteCode+
 
 !!!!Refactorings
 
