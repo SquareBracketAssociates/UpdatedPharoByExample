@@ -158,7 +158,7 @@ as it can respond to the messages ==x== and ==y==, the code of method ==dist== (
 
 !!!Methods
 
-All methods are ''public''. Methods are grouped into ''protocols'' that indicate their
+All methods are ''public'' and virtual (i.e., dynamically looked up). Methods are grouped into ''protocols'' that indicate their
 intent. Some common protocol names have been established by convention, for
 example, ==accessing== for all accessor methods, and ==initialization== for
 establishing a consistent initial state for the object. The protocol ==private==
@@ -530,8 +530,8 @@ compared to each other. Subclasses of ==Magnitude== should implement the methods
 ==<==, ===== and ==hash==. Using such messages, ==Magnitude== defines other
 methods such as ==>==, ==>===, ==<===, ==max:==, ==min:== ==between:and:== and
 others for comparing objects. Such methods are inherited by subclasses. The
-method ==Magnitude>><== is abstract, and defined as shown in Script
-*@scr:MagnitudeLessThan*.
+method ==Magnitude>><== is abstract, and defined as shown in the following script.
+%*@scr:MagnitudeLessThan*.
 
 [[[label=scr:MagnitudeLessThan|caption===Magnitude>> <==
 < aMagnitude
@@ -611,7 +611,6 @@ BorderedMorph subclass: #LOGame
     uses: TAuthor
     instanceVariableNames: 'cells'
     classVariableNames: ''
-    poolDictionaries: ''
     package: 'PBE-LightsOut'
 ]]]
 
@@ -637,7 +636,6 @@ Object subclass: #Behavior
     uses: TPureBehavior @ {#basicAddTraitSelector:withMethod:->#addTraitSelector:withMethod:}
     instanceVariableNames: 'superclass methodDict format'
     classVariableNames: 'ObsoleteSubclasses'
-    poolDictionaries: ''
     package: 'Kernel-Classes'
 ]]]
 
@@ -792,9 +790,8 @@ Morph >> openInWorld
 
 !!!Returning self
 
-Notice that ==EllipseMorph>>defaultColor== (Script *@scr:defaultColor*)
-explicitly returns ==Color yellow==, whereas ==Morph>>openInWorld== (Script
-*@scr:openInWorld*) does not appear to return anything.
+Notice that ==EllipseMorph>>defaultColor==
+explicitly returns ==Color yellow==, whereas ==Morph>>openInWorld== does not appear to return anything.
 
 Actually a method ''always'' answers a message with a value (which is, of course,
 an object). The answer may be defined by the ==^== construct in the method, but
@@ -1123,8 +1120,7 @@ creation; its definition is shown below, in Script *@scr:classDefColor*.
 [[[label=scr:classDefColor|caption=Color and its class variables
 Object subclass: #Color
 	instanceVariableNames: 'rgb cachedDepth cachedBitPattern alpha'
-	classVariableNames: 'BlueShift CachedColormaps ColorRegistry ComponentMask
-    ComponentMax GrayToIndexMap GreenShift HalfComponentMask IndexedColors
+	classVariableNames: 'BlueShift CachedColormaps ColorRegistry ComponentMask GrayToIndexMap GreenShift HalfComponentMask IndexedColors
     MaskingMap RandomStream RedShift'
 	package: 'Graphics-Primitives'
 ]]]
@@ -1157,7 +1153,8 @@ is no longer shared.
 % \end{method}
 
 Another solution is to override the class method ==initialize== (we've seen this
-before in Scripts *@scr:dogCount* and *@scr:dogCount2*).
+before in the Dog example). 
+% in Scripts *@scr:dogCount* and *@scr:dogCount2*).
 
 [[[label=scr:colorClassInit|caption=Initializing the ==Color== class
 Color class >> initialize

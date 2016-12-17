@@ -608,7 +608,7 @@ requested result. So, the asterisk in front of ==String== lets us
 know that the method ==asUppercase== defined in the class ==String== was
 executed and returned the result we wanted. The classes that do not have an
 asterisk are just other implementors of ==asUppercase==, which share the method
-name but were ''not'' used to return the wanted result. So
+name but were ''not'' used to return the wanted result. So the method 
 ==Character>>asUppercase== was not executed in our example, because =='eureka'==
 is not a ==Character== instance (but is instead a ==String==).
 
@@ -700,7 +700,7 @@ so click ==Run Selected== to run all these tests.
 
 You should see the upper right pane turn red, which indicates that there was an
 error in running the tests. The list of tests that gave rise to errors is shown
-in the bottom right pane. As you can see, ==StringTest>>testShout== is the
+in the bottom right pane. As you can see, the method ==StringTest>>testShout== is the
 culprit. (Note that ==StringTest>>testShout== is the Pharo way of identifying
 the ==testShout== method of the ==StringTest== class.) If you click on that
 method in the bottom right pane, the erroneous test will run again, this time in
