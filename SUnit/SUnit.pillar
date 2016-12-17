@@ -635,7 +635,7 @@ execution of a test.
 To execute one test, we execute the expression ==(aTestClass selector: aSymbol)
 run.==
 
-+Running one test>file://figures/sunit-scenario.png|width=60|label=fig:sunit-scenario+
++Running one test.>file://figures/sunit-scenario.png|width=60|label=fig:sunit-scenario+
 
 The method ==TestCase >> run== creates an instance of ==TestResult== that will
 accumulate the results of the test, then it sends itself the message
@@ -750,7 +750,7 @@ TestResource class >> current
 	^ current
 ]]]
 
-!!Some advice on testing
+!!A piece of advices on testing
 
 While the mechanics of testing are easy, writing good tests is not. Here is some
 advice on how to design tests.
