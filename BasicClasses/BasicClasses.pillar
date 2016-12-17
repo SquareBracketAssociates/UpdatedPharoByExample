@@ -186,7 +186,7 @@ Object >> = anObject
 ]]]
 
 This is a method that you will frequently want to override. Consider the case of
-==Complex== numbers as defined in the SciSmalltalk packages (SciSmalltalk is a set of packages that offer support for numerical methods):
+==Complex== numbers as defined in the SciSmalltalk/PolyMath packages (PolyMath is a set of packages that offer support for numerical methods):
 
 [[[
 (1 + 2 i) = (1 + 2 i)   
@@ -568,7 +568,7 @@ methods''  which generate ==Duration==s, such as ==hour==, ==day== and ==week==.
 ==Numbers== directly support common ''math functions'' such as ==sin==, ==log==,
 ==raiseTo:==, ==squared==, ==sqrt== and so on.
 
-==Number>>printOn:== is implemented in terms of the abstract method
+The method ==Number>>printOn:== is implemented in terms of the abstract method
 ==Number>>printOn:base:==. (The default base is 10.)
 
 Testing methods include ==even==, ==odd==, ==positive== and ==negative==.
@@ -804,7 +804,7 @@ are always ''identical'':
 
 A ==String== is an indexed ==Collection== that holds only ==Character==s.
 
-+The String Hierarchy>file://figures/StringHierarchy.png|label=fig:strings|width=40+
++The String Hierarchy.>file://figures/StringHierarchy.png|label=fig:strings|width=40+
 
 In fact, ==String== is abstract and Pharo strings are actually instances of
 the concrete class ==ByteString==.
