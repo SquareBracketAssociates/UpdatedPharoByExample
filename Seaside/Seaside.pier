@@ -3,10 +3,10 @@
 
 Seaside is a framework for building web applications in Smalltalk, originally
 developed by Avi Bryant and Julian Fitzell in 2002. Once mastered, Seaside makes
-web applications almost as easy to write as desktop applications.
-
-SmalltalkHub (*http://SmalltalkHub.com*) itself is written using Seaside, as was
-the original SqueakSource (*http://SqueakSource.com*).
+web applications almost as easy to write as desktop applications. Seaside is really interesting 
+for developing fast complex applications. For example http://allstocker.com is a Seaside commercial 
+applications or the Quuve, FinWorks and CableExpertise application from http://www.pharo.org/success 
+have been developed in Seaside. 
 
 Seaside is unusual in that it is thoroughly object-oriented: there are no HTML
 templates, no complicated control flows through web pages, and no encoding of
@@ -690,7 +690,7 @@ td {
 '
 ]]]
 
-Script *@scr:democss* illustrates a simple style sheet for the rendering demo
+The previous method illustrates a simple style sheet for the rendering demo
 shown earlier in Figure *@fig:RenderingDemo*. The first rule specifies a
 preference for the fonts to use for the ==body== of the web page. The next few
 rules specify properties of second-level headings (==h2==), tables (==table==),
