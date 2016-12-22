@@ -1164,7 +1164,7 @@ on the stack in case it is empty. (Define and use
 ==MyKeypad>>ensureMyStackMachineNotEmpty==.) Also make it display an empty
 table with class ==keypad==. Now the calculator should display a single cell
 containing the value 0. If you toggle the halos, you should see something like
-this:
+this: Figure *@fig:firstStackDisplay*
 
 +Displaying the top of the stack.>file://figures/firstStackDisplay|label=fig:firstStackDisplay+
 
@@ -1218,7 +1218,7 @@ MyKeypad >> renderContentOn: html
           self renderStackButton: '1' callback: [self type: '1'] on: html.
           self renderStackButton: '2' callback: [self type: '2'] on: html.
           self renderStackButton: '3' callback: [self type: '3'] on: html.
-          self renderStackButton: 'Drop' callback: [self stackOp: #pop]
+          self renderStackButton: 'Drop' callback: [self stackPopIfNotEmpty]
           	colSpan: 2 on: html ].
 " and so on ... "
         html tableRow: [
@@ -1238,7 +1238,24 @@ convert it back to an integer, something like this:
 
 [[[
 MyKeypad >> type: aString
-	stackMachine push: (stackMachine pop asString, aString) asNumber.
+	stackMachine push: (self stackPopTopOrZero asString, aString) asNumber.
+]]]
+
+
+The two methods ==stackPopTopOrZero== and ==stackPopIfNotEmpty== are used to 
+guard against operating on an empty stack.
+
+[[[
+MyKeypad >> stackPopTopOrZero
+	^ stackMachine isEmpty
+		ifTrue: [ 0 ]
+		ifFalse: [ stackMachine pop ]
+]]]
+
+[[[
+MyKeypad >> stackPopIfNotEmpty
+	stackMachine isEmpty
+		ifFalse: [ stackMachine pop ]
 ]]]
 
 Now when you click on the digit keys the display should be updated. (Be sure
@@ -1280,7 +1297,7 @@ MyKeypad >> type: aString
 		stackMachine push: stackMachine top.
 		self stackClearTop ].
 	self inClearMode ifTrue: [ self stackClearTop ].
-	stackMachine push: (stackMachine pop asString, aString) asNumber.
+	stackMachine push: (self stackPopTopOrZero asString, aString) asNumber.
 ]]]
 
 Typing might work better now, but it is still frustrating not to be able to see
