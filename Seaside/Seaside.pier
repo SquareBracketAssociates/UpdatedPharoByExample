@@ -427,12 +427,12 @@ html horizontalRule.
 +RenderingDemo.>file://figures/RenderingDemo.png|label=fig:RenderingDemo+
 
 In Figure *@fig:RenderingDemo* we can see the output of many of the basic
-brushes offered by Seaside. (The source code for method *@scr:renderdemo* is in
+brushes offered by Seaside. (The source code for method ==SeasideDemo >> renderContentOn:== defined below is in
 the package ==PBE-SeasideDemo== in the project
 *http://www.squeaksource.com/PharoByExample*.) The root component
 ==SeasideDemo== simply renders its subcomponents, which are instances of
 ==SeasideHtmlDemo==, ==SeasideFormDemo==, ==SeasideEditCallDemo== and
-==SeasideDialogDemo==, as shown in method *@scr:renderdemo*.
+==SeasideDialogDemo==, as shown below.
 
 [[[label=scr:renderdemo
 SeasideDemo >> renderContentOn: html
@@ -462,7 +462,7 @@ Many of the available brushes can be used in these two ways.
 
 @@important If you send a cascade of messages to a brush including the message ==with:==, then ==with:== should be the ''final'' message. ==with:==  both sets the content and renders the result.
 
-In method *@scr:renderdemo*, the first heading is at level 1, since this is the
+In method ==renderContentOn: == above,  the first heading is at level 1, since this is the
 default. We explicitly set the level of the second heading to 2. The
 subcomponent is rendered as an HTML ''div'' with the CSS class
 ''subcomponent''. (More on CSS in Section *@sec:css*.) Also note that the
