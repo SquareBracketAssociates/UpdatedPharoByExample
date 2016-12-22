@@ -4,8 +4,8 @@
 Seaside is a framework for building web applications in Smalltalk, originally
 developed by Avi Bryant and Julian Fitzell in 2002. Once mastered, Seaside makes
 web applications almost as easy to write as desktop applications. Seaside is really interesting 
-for developing fast complex applications. For example http://allstocker.com is a Seaside commercial 
-applications or the Quuve, FinWorks and CableExpertise application from http://www.pharo.org/success 
+for developing fast complex applications. For example *http://allstocker.com* is a Seaside commercial 
+applications or the Quuve, FinWorks and CableExpertise application from *http://www.pharo.org/success* 
 have been developed in Seaside. 
 
 Seaside is unusual in that it is thoroughly object-oriented: there are no HTML
