@@ -1161,7 +1161,7 @@ with class ==stackcell==.
 
 Change the rendering method of the keypad to ensure that the number 0 is pushed
 on the stack in case it is empty. (Define and use
-==MyKeypad>>ensureMyStackMachineNotEmpty==.) Also make it display an empty
+==MyKeypad>>ensureStackMachineNotEmpty==.) Also make it display an empty
 table with class ==keypad==. Now the calculator should display a single cell
 containing the value 0. If you toggle the halos, you should see something like
 this: Figure *@fig:firstStackDisplay*
@@ -1365,7 +1365,7 @@ All ready made images have the Scriptaculous package extensions already loaded.
 The latest version is available from *http://www.squeaksource.com/Seaside*. An
 online demo is available at *http://scriptaculous.seasidehosting.st*.
 Alternatively, if you have a enabled image running, simply go to
-*http://localhost:8080/seaside/tests/scriptaculous*.
+*http://localhost:8080/javascript/scriptaculous*.
 
 The Scriptaculous extensions follow the same approach as Seaside itself — simply
 configure Pharo objects to model your application, and the needed Javascript
@@ -1407,7 +1407,7 @@ MyKeypad >> renderStackButton: text callback: aBlock colSpan: anInteger on: html
 			html anchor
 				callback: aBlock;
 				onClick:				"handle Javascript event"
-					(html updater
+					(html scriptaculous updater
 						id: 'display';
 						callback: [ :r |
 							aBlock value.
@@ -1417,7 +1417,7 @@ MyKeypad >> renderStackButton: text callback: aBlock colSpan: anInteger on: html
 ]]]
 
 ==onClick:== specifies a JavaScript event handler. ==html updater== returns an
-instance of ==SUUpdater==, a Smalltalk object representing the JavaScript AJAX
+instance of ==PTUpdater==, a Smalltalk object representing the JavaScript AJAX
 Updater object (*http://www.prototypejs.org/api/ajax/updater*). This object
 performs AJAX requests and updates a container's contents based on the response
 text. ==id:== tells the updater what HTML DOM element to update, in this case
@@ -1442,16 +1442,23 @@ it. Now we will enable the Javascript event handling.
 
 Click on the __Configure__ link in the toolbar of the calculator.
 
-Select ''Add Library:'' ==SULibrary==, click the ==Add== button and ==Close==.
+==Configure== the ==Libraries== attribute under the ==General== section.
+(You may need to enable the modification of this attribute, by first selecting
+==Modify==).
+From the list of available libraries, select ==PTDevelopmentLibrary== and 
+apply the changes.
 
 Instead of manually adding the library, you may also do it programmatically when
 you register the application:
 
 [[[
 MyCalculator class >> initialize
-	(self registerAsApplication: 'rpn')
-		addLibrary: SULibrary
+	(WAAdmin register: self asApplicationAt: self applicationName)
+		addLibrary: PTDevelopmentLibrary
 ]]]
+
+For this example the ==PTDevelopmentLibrary== is sufficient, but for the full set of the scriptaculous extensions you need to
+add the ==SUDevelopmentLibrary==, too.
 
 +Seaside AJAX processing (simplified).>file://figures/ajax-processing.png|label=fig:ajax-processing+
 
@@ -1475,7 +1482,7 @@ return false
 ]]]
 
 For more advanced examples, have a further look at
-*http://localhost:8080/seaside/tests/scriptaculous*.
+*http://localhost:8080/javascript/scriptaculous*.
 
 !!!!Hints
 
@@ -1486,12 +1493,12 @@ debugger FireBug (*http://www.getfirebug.com/*) plugin enabled.
 !!Chapter summary
 
 -The easiest way to get started is to download the ''Seaside One-Click Experience'' from *http://seaside.st*
--Turn the server on and off by evaluating ==WAKom startOn: 8080== and ==WAKom stop==.
--Reset the administrator login and password by evaluating ==WADispatcherEditor initialize==.
+-Turn the server on and off by evaluating ==ZnZincServerAdaptor startOn: 8080== and ==ZnZincServerAdaptor stop==.
 -==Toggle Halos== to directly view application source code, run-time objects, CSS and HTML.
--Send ==WAGlobalConfiguration setDeploymentMode== to hide the toolbar.
+-Remove the root decoration class ==WAToolDecoration== in the application configuration, to disable the toolbar
+-Send ==WAAdmin applicationDefaults removeParent: WADevelopmentConfiguration instance==, to disable toolbar for new Components
 -Seaside web applications are composed of components, each of which is an instance of a subclass of ==WAComponent==.
--Only a root component may be registered as an application. It should implement ==canBeRoot== on the class side. Alternatively it may register itself as an application in its class-side ==initialize== method by sending ==self registerAsApplication:== ''application path''. If you override ==description== it is possible to return a descriptive application name that will be displayed in the configuration editor.
+-Only a root component may be registered as an application. It should implement ==canBeRoot== on the class side. Alternatively it may register itself as an application in its class-side ==initialize== method by sending ==WAAdmin register: self asApplicationAt:== ''application path''. If you override ==description== it is possible to return a descriptive application name that will be displayed in the configuration editor.
 -To backtrack state, a component must implement the ==states== method to answer an array of objects whose state will be restored if the user clicks the browser's ''Back'' button.
 -A component renders itself by implementing ==renderContentOn:==. The argument to this method is an HTML rendering ''canvas'' (usually called ==html==).
 -A component can render a subcomponent by sending ==self render:== ''subcomponent''.
