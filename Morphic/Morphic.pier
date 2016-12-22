@@ -495,7 +495,7 @@ UIManager default
 	lines: #(2 4) message: 'Choose a shape'
 ]]]
 
-bRowse the ==UIManager== class and try out some of the interaction methods
+Browse the ==UIManager== class and try out some of the interaction methods
 offered.
 
 !!Drag-and-drop

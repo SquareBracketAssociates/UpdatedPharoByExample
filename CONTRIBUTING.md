@@ -22,6 +22,23 @@ chapter, pass the file's path to the script: `./compile.sh
 Example/Example.pillar`. If you have `pdflatex` installed and available in your
 system's `PATH`, the script will also generate pdf files.
 
+
+### Generating the book on Windows
+
+The provided scripts are Linux/Unix only, however it is fairly easy to generate the html pages
+on Windows.
+
+1. Duplicate a Pharo5 image and save it as `pillar.img`.
+2. Open the `pillar.img` image with Pharo.
+3. Install Pillar in the image from the Catalog Browser (this takes some time).
+4. Save and quit the image and write down the path.
+5. Open a cmd window in the root of the checked out repository and execute the following command: 
+
+   ```cmd
+   c:\path\to\Pharo.exe c:\path\to\pillar.image pillar export --baseDirectory=c:\path\to\UpdatedPharoByExample
+   ```
+6. The html output will appear in the `book-result` folder.
+
 #### Installing `pdflatex` on Mac OS X
 If you're on a recent Mac OS X version, you will need to do the following:
 
