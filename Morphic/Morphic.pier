@@ -225,7 +225,7 @@ be colored in by ==drawOn==. Notice how we leverage the ==containsPoint:==
 method in class ==Rectangle== to do the hard work.
 
 There are two problems with the code in the two methods above.
- %*@scr:firstDrawOn* and *@scr:firstContains*. 
+%*@scr:firstDrawOn* and *@scr:firstContains*. 
 The most obvious is that we have duplicated code. This is a cardinal error: if we find that we need to change the way that ==horizontalBar== or ==verticalBar== are calculated, we are quite likely to
 forget to change one of the two occurrences. The solution is to factor out these
 calculations into two new methods, which we put in the ==private== protocol:
