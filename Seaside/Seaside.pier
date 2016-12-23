@@ -70,8 +70,8 @@ documentation, including the Release Notes for each version of Seaside.
 The easiest way to get started is to download the ==Seaside One-Click Experience
 3.1== from the Pharo Downloads section of the Seaside web site
 (*http://www.seaside.st/download/pharo*). This is a prepackaged version of the
-latest stable version of Seaside (currently 3.1) for Mac OSX, Linux and Windows,
-built on Pharo 4. These are full Pharo distributions, which include the Pharo
+latest stable version of Seaside  for Mac OSX, Linux and Windows,
+built on Pharo 4. The current latest Seaside version is 3.2. These are full Pharo distributions, which include the Pharo
 VM as well as a development image with many Seaside-related packages preloaded,
 and a helpful Seaside control panel that starts when you open the image.
 
@@ -223,10 +223,10 @@ You can see a list of a registered applications and dispatchers. Change into the
 dispatcher list by clicking on the link on the left side. With the buttons at the topbar, we can
 add new request handlers, open the current, copy, remove or set it as the default page.
 We want to add a new example application. Select ==Add==, enter the name ==counter2== and choose the 
-type ==Application==, click ==OK==. (see Figure *@fig:counter2*)
+type ==Application==, click ==OK== (see Figure *@fig:counter2*).
 
 On the next screen, set the ==Root Component== to
-==WACounter==, apply the changes. (Figure *@fig:counter2_config*)
+==WACounter==, apply the changes (Figure *@fig:counter2_config*).
 
 Now we have a new counter
 installed at *http://localhost:8080/examples/counter2*. Use the same
@@ -240,7 +240,7 @@ Seaside operates in two modes: ''development'' mode, which is what we have seen
 so far, and ''deployment'' mode, in which the toolbar is not available.
 
 You can put a Seaside Application into deployment mode by removing the
-inherited ==Root Decoration Class== (again, see figure *@fig:counter2_config*).
+inherited ==Root Decoration Class== (again, see Figure *@fig:counter2_config*).
 
 Alternatively, you can disable the development toolbar for all new
 aplications by evaluating the code:
