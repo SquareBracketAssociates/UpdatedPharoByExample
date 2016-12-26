@@ -37,7 +37,7 @@ You can have an impact on Pharo, too!
 The previous revision of this book was based on Pharo 1.4.
 This revision has been liberally updated to align with Pharo 5.0.
 Various aspects of Pharo are presented, starting with the basics then proceeding to intermediate topics.
-Advanced topics are presented in """Deep into Pharo""", a book on the internals of Pharo
+Advanced topics are presented in ""Deep into Pharo"", a book on the internals of Pharo
 that is freely available at *http://books.pharo.org*. In addition for readers interested in web development, a new book ""Enterprise Pharo: a Web Perspective"" is freely available at *http://books.pharo.org*.
 
 This book will not teach you how to program. The reader should have some
