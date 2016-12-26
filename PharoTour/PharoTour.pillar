@@ -589,7 +589,7 @@ message.
 
 !!! Trying Finder
 
-In the Finder, select the """Examples"" mode using the second combo-box (the one that
+In the Finder, select the ""Examples"" mode using the second combo-box (the one that
 shows ==Selectors== by default).
 
 Type =='eureka' . 'EUREKA'== into the search box and press the ==Enter== key.
