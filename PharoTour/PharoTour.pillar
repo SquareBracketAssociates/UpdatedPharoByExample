@@ -397,7 +397,7 @@ It will open a system browser on the method ==factorial==. We should get a Syste
 
 
 In Pharo, the default System Browser is Nautilus. However, it is possible to have other System Browsers installed in the Pharo enviroment such as AltBrowser. Each System Browser may
-have its own GUI that may be very diffirent from the Nautilus GUI. From now on,
+have its own GUI that may be very different from the Nautilus GUI. From now on,
 we will use the terms ==Browser==, ==System Browser== and (occasionally)
 ==Nautilus== interchangeably.
 
