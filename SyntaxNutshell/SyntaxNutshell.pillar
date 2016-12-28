@@ -208,7 +208,7 @@ keyword messages, so:
 ]]]
 
 First we send ==factorial== to 3, then we send ==\+ 6== to 1, and finally we
-send ==raisedTo: 7== to 2. Recall that we use the notation expression ==-\->==
+send ==raisedTo: 7== to 2. Recall that we use the notation expression ==>>>==
 to show the result of evaluating an expression.
 
 Precedence aside, execution is strictly from left to right, so:
