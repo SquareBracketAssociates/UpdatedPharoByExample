@@ -489,7 +489,7 @@ work done by invoking virtual machine primitives.
 
 For example, the following are all implemented as primitives: memory allocation
 (==new==, ==new:==), bit manipulation (==bitAnd:==, ==bitOr:==, ==bitShift:==),
-pointer and integer arithmetic (\+, \-, \<, \>, \*, \/, \, \=, \=\=...), and
+pointer and integer arithmetic (\+, \-, \<, \>, \*, \/, \=, \=\=...), and
 array access (==at:==, ==at:put:==).
 
 Primitives are invoked with the syntax ==<primitive: aNumber>==. A method that
