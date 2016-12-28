@@ -70,8 +70,8 @@ instance variable, method or block argument, or temporary variable must be lower
 case. This indicates to the reader that the variable has a private scope.
 
 ""Shared variables."" Identifiers that start with upper case letters are global
-variables, class variables, pool dictionaries or class names. ==Processor== is
-a global variable, an instance of the class ==ProcessScheduler==.
+variables, class variables, pool dictionaries or class names. ==Transcript== is
+a global variable, an instance of the class ==ThreadSafeTranscript==.
 
 ""The receiver."" ==self== is a keyword that refers to the object inside which
 the current method is executing. We call it "the receiver" because this object has
