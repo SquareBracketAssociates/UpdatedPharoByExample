@@ -232,7 +232,7 @@ by instances of that class (and of its subclasses).
 Class methods can be quite useful; browse ==Color class== for some good
 examples. You will see that there are two kinds of methods defined on a class:
 ''instance creation methods'', like ==Color class>>blue==, and those that perform
-a utility function, like ==Dictionary class>>removeUnreferencedKeys==. This is
+a utility function, like ==Color class>>wheel:==. This is
 typical, although you will occasionally find class methods used in other ways.
 
 It is convenient to place utility methods on the class side because they can be
