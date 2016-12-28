@@ -1117,7 +1117,8 @@ access these shared variables.
 
 A class variable is declared in the class definition template. For example, the
 class ==Color== defines a large number of class variables to speed up color
-creation; its definition is shown below.% in Script *@scr:classDefColor*.
+creation; its definition is shown below.
+% in Script *@scr:classDefColor*.
 
 [[[label=scr:classDefColor|caption=Color and its class variables
 Object subclass: #Color
