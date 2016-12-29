@@ -119,7 +119,7 @@ mode provide a view of the files on the disk. The leftmost pane lists
 ''packages'' of classes; select one (say ==Kernel==) and the pane immediately to
 the right will then show all of the classes in that package.
 
-+The browser with the class ==Boolean== selected.>file://figures/SystemBrowser1.png|label=fig:SystemBrowser1+
++The browser with the class ==Boolean== selected.>file://figures/SystemBrowserBoolean.png|label=fig:SystemBrowser1+
 
 Similarly, if you select one of the classes in the second pane, say, ==Boolean==
 (see Figure *@fig:SystemBrowser1*), the third pane will show all of the
@@ -199,9 +199,7 @@ typing, and another to browse around the system to see how things work. You can
 open a browser on a class named by any selected text using the ==CMD-b==
 keyboard shortcut.
 
-(do this) Try this: in a playground window, type the name of a class (for
-instance ==Morph==), select it, and then press ==CMD-b==. This trick is often
-useful; it works in any text window.
+@@todo Try this: In a playground window, type the name of a class (for instance ==Morph==), select it, and then press ==CMD-b==. This trick is often useful; it works in any text window.
 
 
 
@@ -264,10 +262,7 @@ need to understand how you can ''use'' a method: it lets you navigate quickly
 through example uses. Since all of the methods with the same selector should be
 used in the same way, all of the uses of a given message ought to be similar.
 
-(do this) Switch to the ==Dictionary== class in the browser (remember, you can
-right-click in the package or class pane and select ==Find class...==, or just
-use the ==CMD-f CMD-c== shortcut), and select the ==addAll:== method in the
-method pane.
+@@todo Switch to the ==Dictionary== class in the browser (remember, you can right-click in the package or class pane and select ==Find class...==, or just use the ==CMD-f CMD-c== shortcut), and select the ==addAll:== method in the method pane.
 
 Looking at the source code, suppose you wanted to see all of the senders of the
 ==at: key put: value== message. You can simply highlight the whole message send,
@@ -330,7 +325,7 @@ methods.) Now right-click on it in the method pane, and select ==Inheritance==.
 The inheritance browser shows you the hierarchy of overridden methods (see
 Figure *@fig:MorphInheritanceOverriding*).
 
-+==ImageMorph\>\>drawOn:== and the methods that it overrides. The siblings of the selected methods are shown in the scrolling lists.>file://figures/MorphInheritanceOverriding.png|label=fig:MorphInheritanceOverriding+
++==ImageMorph\>\>drawOn:== and the hierarchy of classes overriding it.>file://figures/MorphInheritanceOverriding.png|label=fig:MorphInheritanceOverriding+
 
 !!!!Hierarchy view
 @sec:hierarchy
@@ -338,12 +333,12 @@ Figure *@fig:MorphInheritanceOverriding*).
 By default, the browser presents a list of packages in the leftmost pane.
 However it is possible to switch to a class hierarchy view. Simply select a
 particular class of interest, such as ==ImageMorph== and then click on the
-==Hierarchy== button. You will then see in the second pane a class hierarchy
+==Hierarchy== button (==Hier.==). You will then see in the second pane a class hierarchy
 displaying all superclasses and subclasses of the selected class.
 
 Notice that the package pane is disabled, and the packages are greyed out.
 When you are in Hierarchy view, you cannot change packages. To be able to change
-them again, toggle out of the Hierarchy view by clicking on the ==Flat== button.
+them again, toggle out of the Hierarchy view by clicking on the ==Hierarchy== button again.
 
 In Figure *@fig:hierarchyBrowser*, the hierarchy view reveals that the direct
 superclass of ==ImageMorph== is ==Morph==.
@@ -356,17 +351,16 @@ superclass of ==ImageMorph== is ==Morph==.
 By right-clicking on a class in the class pane, and selecting ==Analyze > Inst
 var references...== or ==Analyze > Class var refs...==, you can find out where
 an instance variable or a class variable is used. You can also have  access to
-those views by clicking on the ==I== or ==C== buttons to the right of the code
-pane. Once you click on the button or select the menu item, you will be
+those views by clicking on the ==Variables== button, above the package list. Once you click on the button or select the menu item, you will be
 presented with a dialog that invites you to choose a variable from all of the
 variables defined in the current class, and all of the variables that it
 inherits. The list is in inheritance order; it can often be useful to bring up
 this list just to remind yourself of the name of an instance variable. If you
 click outside the list, it will go away and no variable browser will be created.
-If you click on a variable, ==bounds== for example, a ''chasing browser'' will
+If you click on a variable, ==bounds== for example, a ''Message Browser'' will
 be created (Figure *@fig:chasingBrowser*).
 
-+A chasing browser for ==bounds== variable of ==Morph==.>file://figures/chasingBrowser.png|label=fig:chasingBrowser+
++A ==Message Browser== for accesses to ==bounds== variable of ==Morph==.>file://figures/chasingBrowser.png|label=fig:chasingBrowser+
 
 You can use a similar method to look at direct variable assignments (that is,
 places that modify the variable without using accessor methods). Right-click
@@ -377,7 +371,7 @@ on the class and select ==Analyze > Inst var assignments==.
 
 You have the possibility of browsing the bytecode of a method. To do that,
 right-click on your method and select ==Toggle Bytecodes==, or use the shortcut
-==CMD-b CMD-b== (see Figure *@fig:ByteCode*). Use the same shortcut to come
+==CMD-b CMD-b== (see Figure *@fig:ByteCode*). Reselect the method again to get 
 back to the normal view.
 
 +Bytecode of the ImageMorph\>\>#DrawOn: compiled method.>file://figures/ByteCode.png|label=fig:ByteCode+
@@ -411,7 +405,7 @@ or class panes. Most of us do not know the package contents of the whole system,
 it is much faster to type ==CMD-f CMD-c== followed by the first few characters
 of the name of a class than to guess which package it might be in.
 
-The ==History Navigator== pulldown, found below the protocol and method panes,
+The ==History Navigator== pulldown, found above the protocol and method panes,
 can also help you quickly go back to a class or method that you have browsed
 recently,  even if you have forgotten its name.
 
@@ -425,7 +419,7 @@ mouse in the method pane, and type the first letter of the name of the method
 that you are looking for. This will usually scroll the pane so that the
 sought-for method name is visible.
 
-(do this) Try both ways of navigating to ==OrderedCollection>>removeAt:==
+@@todo Try both ways of navigating to ==OrderedCollection>>removeAt:==
 
 There are many other options available in the menus. It pays to spend a few
 minutes working with the browser and seeing what is there.
@@ -436,8 +430,7 @@ The class ==SystemNavigation== provides a number of utility methods that
 are useful for navigating around the system. Many of the functions offered by
 the system browser are implemented by ==SystemNavigation==.
 
-(do this) Open a playground and evaluate the following code to browse the senders
-of ==drawOn:==:
+Open a playground and evaluate the following code to browse the senders of ==drawOn:==:
 
 [[[language=smalltalk
 SystemNavigation default browseAllSendersOf: #drawOn:
@@ -459,7 +452,7 @@ The programmatic equivalent to the ==Implementors of...== menu item is:
 SystemNavigation default browseAllImplementorsOf: #drawOn:
 ]]]
 
-To learn more about what is available, explore the class ==SystemNavigation==
+@@todo To learn more about what is available, explore the class ==SystemNavigation==
 with the browser.
 
 !!The inspector
@@ -599,20 +592,25 @@ in the top pane. The method body is displayed in the center pane; the blue
 highlight around the message ==value== shows that the current method has sent
 the message ==value== and is waiting for an answer.
 
-The four panes at the bottom of the debugger are really two mini-inspectors
-(without playground panes). The inspector on the left shows the current object,
-that is, the object named ==self== in the center pane. As you select different
-stack frames, the identity of ==self== may change, and so will the contents of the
-==self==-inspector. If you click on ==self== in the bottom-left pane, you will see
-that ==self== is the interval ==(10 to: 1 by -1)==, which is what we expect. The
-playground panes are not needed in the debugger's mini-inspectors because all of
-the variables are also in scope in the method pane; you should feel free to type
-or select expressions in this pane and evaluate them. You can always ==Cancel
+The ==Variables== pane at the bottom of the debugger is actually like a inspector
+(without playground pane). You can select one variable and open another inspector pane
+with the well-known inspector panes (Raw, ...), and an ==Evaluator== acting as a
+Playground for evaluating code within the context of the selected variable.
+The variables list has up to four types variables it shows. 
+- ""parameter"" any parameter passed to this method.
+- ""temp"" any temporaries used in this method.
+- ""attribute"" any instance variable accessible from the context of the current receiver.
+- ""implicit"" pseudo variables (==self==, ==thisContext==, ==stackTop==) used in the current context.
+
+As you select different stack frames, the identity of ==self== may change, and so will the contents of the
+==Variables== list. If you click on ==self== in the bottom-left pane, you will see
+that ==self== is the interval ==(10 to: 1 by -1)==, which is what we expect. 
+You can always select ==self== and select the ==Evaluator== pane to evaluate some code
+in the content of the current receiver. But because all of the variables are also in scope in the method pane; 
+you should feel free to type or select expressions directly in the method pane and evaluate them. You can always ==Cancel
 (l)== your changes using the menu or ==CMD-l==.
 
-The inspector on the right shows the temporary variables of the current context.
-In Figure *@fig:debuggerDetectIfNone*, ==value== was sent to the parameter
-==exceptionBlock==.
+Selecting ==thisContext== from the list of (""implicit"") variables, shows the current context object.
 
 As we can see one method lower in the stack trace, the ==exceptionBlock== is
 ==[self errorNotFound: ...]==, so, it is not surprising that we see the
@@ -629,7 +627,7 @@ should never have reached the final line. Pharo does not let us run an execution
 backwards, but it does let us start a method again, which works very well in
 code that does not mutate objects, but instead creates new ones.
 
-Click ==Restart==, and you will see that the locus of execution
+Click ==Restart==, and you will see that the focus of execution
 returns to the first statement of the current method. The blue highlight shows
 that the next message to be sent will be ==do:== (see Figure
 *@fig:RestartDetectIfNone*).
