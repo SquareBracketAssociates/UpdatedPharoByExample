@@ -103,8 +103,7 @@ place it in the package-cache directory.
 To add a new repository to the list, click the ==\+Repository==, and choose
 the kind of repository from the pop-up menu. Let's add an HTTP repository.
 
-(do this) Open Monticello, click on ==\+Repository==, and select ==HTTP==.
-Edit the dialog to read:
+@@todo Open Monticello, click on ==\+Repository==, and select ==HTTP==. Edit the dialog to read:
 
 [[[language=Smalltalk
 MCHttpRepository
@@ -140,10 +139,7 @@ but the best way to look at their contents is using Monticello itself.
 To create a package with Monticello, you have to do two things: write some code,
 and tell Monticello about it.
 
-(do this) Create a package called ==PBE==, and put a couple of
-classes in it, as shown in Figure *@fig:MCnewcategory*. Also, create a method in an
-existing class, such as ==Object==, and put it in the same package as your
-classes \-\- see Figure *@fig:MCnewmethod*.
+@@todo Create a package called ==PBE==, and put a couple of classes in it, as shown in Figure *@fig:MCnewcategory*. Also, create a method in an existing class, such as ==Object==, and put it in the same package as your classes \-\- see Figure *@fig:MCnewmethod*.
 
 +Two classes and one extension in the ==PBE== package.>file://figures/MCnewcategory.png|label=fig:MCnewcategory+
 
@@ -186,7 +182,7 @@ the repository and selecting ==add to package...== and select the corresponding 
 Once the package knows about a repository, you can save a new version by selecting the repository and the package in the Monticello Browser, and clicking ==Save==. Of course, you must have permission to write to a repository. The ==PharoByExample== repository on SqueakSource is world readable but not world writable, so if you try and save there, you will
 see an error message. 
 
-However, you can create your own repository and save your code there. Nowadays the favorite code repositories are *http://www.smalltalkhub.org* and *http://http://ss3.gemstone.com*. 
+However, you can create your own repository and save your code there. Nowadays the favorite code repositories are *http://www.smalltalkhub.org* and *http://ss3.gemstone.com*. 
 This is especially useful as a mechanism to share your code with others and to make sure that 
 you can use automated build systems such as Jenkins or Travis. 
 
@@ -361,7 +357,7 @@ snapshot. (You can get much the same effect by editing ==ChangeList
 browseRecent: 2000== so that the number ==2000== becomes something else, using
 trial and error.)
 
-One you have a ''recent changes'' browser, showing, say, changes back as far as
+Once you have a ''recent changes'' browser, showing, say, changes back as far as
 your last snapshot, you will have a list of everything that you have done to
 Pharo during that time. You can delete items from this list using the right-click
 menu. When you are satisfied, you can file-in what is left, thus incorporating
