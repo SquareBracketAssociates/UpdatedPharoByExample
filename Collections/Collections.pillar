@@ -592,7 +592,7 @@ numbers such as integers, floats and fractions:
 
 
 [[[language=smalltalk
-{ 5 . 2/-3 . 5.21 } asSortedCollection 
+{ 5 . 2/ -3 . 5.21 } asSortedCollection 
 >>> a SortedCollection((-2/3) 5 5.21)
 ]]]
 
