@@ -326,7 +326,6 @@ ordCol
 The message ==remove:== ==anObject== removes the first occurrence of an object from the collection. If the collection does not include such an object, it raises an error.
 
 [[[
-| ordCol |
 ordCol add: 'Monticello'.
 ordCol remove: 'Monticello'.
 ordCol 
