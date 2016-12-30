@@ -423,7 +423,7 @@ to an array of associations.
 
 [[[
 | colors |
-colors := Dictionary newFromPairs: { #blue->Color blue . #red->Color red . #yellow->Color yellow }.
+colors := Dictionary newFrom: { #blue->Color blue . #red->Color red . #yellow->Color yellow }.
 colors removeKey: #blue.
 colors associations 
 >>> {#yellow->Color yellow. #red->Color red}
