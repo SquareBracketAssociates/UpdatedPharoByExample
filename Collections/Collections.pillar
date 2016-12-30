@@ -469,12 +469,12 @@ subclass of ==IdentityDictionary==, hence all its keys are ==Symbol==s
 (actually, ==ByteSymbol==s, which contain only 8-bit characters).
 
 [[[
-Smalltalk globals keys collect: [ :each | each class ]
+Smalltalk globals keys collect: [ :each | each class ] as:Set
 >>> a Set(ByteSymbol)
 ]]]
 
-Sending ==keys== or ==values== to a ==Dictionary== results in a ==Set==, which
-we look at next.
+Here we are using ==collect:as:== to specify the result collection to be of class ==Set==,
+that way we collect each kind of class used as a key only once.
 
 !!!==Set==
 
