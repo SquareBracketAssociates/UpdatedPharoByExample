@@ -405,7 +405,7 @@ colors at: #red put: Color red.
 colors at: #yellow 
 >>> Color yellow
 colors keys
->>> a Set(#blue #yellow #red)
+>>> #(#red #blue #yellow)
 colors values
 >>> {Color blue . Color yellow . Color red}
 ]]]
