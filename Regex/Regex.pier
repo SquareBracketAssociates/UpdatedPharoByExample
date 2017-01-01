@@ -84,10 +84,10 @@ WebDir >> setDir: dir home: path
 	homePath := path
 
 WebDir class >> onDir: dir
-	^ self new setDir: dir home: dir pathName
+	^ self new setDir: dir home: dir pathString
 
 WebDir class >> selectHome
-	^ self onDir: FileList modalFolderSelector
+	^ self onDir: UIManager default chooseDirectory
 ]]]
 
 The last method opens a browser to select the directory to open. Now, if you
@@ -108,7 +108,7 @@ WebDir class>>onPath: homePath
 	^ self onPath: homePath home: homePath
 
 WebDir class>>onPath: path home: homePath
-	^ self new setDir: (FileDirectory on: path) home: homePath
+	^ self new setDir: path asFileReference home: homePath
 ]]]
 
 !!!Pattern matching HTML files
@@ -259,7 +259,7 @@ contains.
 WebDir >> webPages
 	^ self htmlFiles collect:
 		[ :each | WebPage
-			on: webDir pathName, '/', each
+			on: webDir pathString, '/', each
 			forHome: homePath ]
 ]]]
 
@@ -457,7 +457,7 @@ If our web site has subdirectories, we need a way to access them:
 [[[
 WebDir >> webDirs
 	^ webDir directoryNames
-		collect: [ :each | WebDir onPath: webDir pathName, '/', each home: homePath ]
+		collect: [ :each | WebDir onPath: webDir pathString, '/', each home: homePath ]
 ]]]
 
 We need to generate HTML bullet lists containing links for each web page of a
@@ -486,7 +486,7 @@ WebDir >> tocFileName
 
 WebDir >> makeToc
 	| tocStream |
-	tocStream := webDir newFileNamed: self tocFileName.
+	tocStream := (webDir / self tocFileName) writeStream.
 	self printTocOn: tocStream.
 	tocStream close.
 ]]]
@@ -1015,7 +1015,7 @@ of the respective matches.
 All messages of enumeration and replacement protocols perform a case-sensitive
 match.  Case-insensitive versions are not provided as part of a ==String==
 protocol.  Instead, they are accessible using the lower-level matching interface
-presented in the following question.
+presented in the following section.
 
 !!!Lower-level interface
 
