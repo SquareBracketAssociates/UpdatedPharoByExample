@@ -1142,9 +1142,9 @@ metaobjects of the runtime system as ordinary objects.
 -The Inspector uses ==instVarAt:== and related methods to view ''private'' instance variables of objects.
 -Send ==Behavior>>allInstances== to query instances of a class.
 -The messages ==class==, ==isKindOf:==, ==respondsTo:== etc. are useful for gathering metrics or building development tools, but they should be avoided in regular applications: they violate the encapsulation of objects and make your code harder to understand and maintain.
--==SystemNavigation== is a utility class holding many useful queries for navigation and browsing the class hierarchy. For example, use ==SystemNavigation default browseMethodsWithSourceString: 'pharo'.== to find and browse all methods with a given source string. (Slow, but thorough!)
+-==SystemNavigation== is a utility class holding many useful queries for navigation and browsing the class hierarchy. For example, use ==SystemNavigation default browseMethodsWithSourceString: 'pharo' matchCase:true.== to find and browse all methods with a given source string. (Slow, but thorough!)
 -Every Pharo class points to an instance of ==MethodDictionary== which maps selectors to instances of ==CompiledMethod==. A compiled method knows its class, closing the loop.
--==MethodReference== is a leightweight proxy for a compiled method, providing additional convenience methods, and used by many Pharo tools.
+-==RGMethodDefinition== is a leightweight proxy for a compiled method, providing additional convenience methods, and used by many Pharo tools.
 -==RBBrowserEnvironment==, part of the Refactoring Browser infrastructure, offers a more refined interface than ==SystemNavigation== for querying the system, since the result of a query can be used as a the scope of a new query. Both GUI and programmatic interfaces are available.
 -==thisContext== is a pseudo-variable that reifies the runtime stack of the virtual machine. It is mainly used by the debugger to dynamically construct an interactive view of the stack. It is also especially useful for dynamically determining the sender of a message.
 -Intelligent breakpoints can be set using ==haltIf:==, taking a method selector as its argument. ==haltIf:== halts only if the named method occurs as a sender in the run-time stack.

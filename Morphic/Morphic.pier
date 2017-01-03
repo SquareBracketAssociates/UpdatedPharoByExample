@@ -463,7 +463,8 @@ startStepping== in the small playground pane at the bottom, and ==Do it==.
 
 Alternatively, you can modify the ==handleKeystroke:== method so that you can
 use the ==+== and ==-== keys to start and stop stepping. Add the following code
-to the ==handleKeystroke:== method in Script *@scr:handleKeystroke*:
+to the ==handleKeystroke:== method:
+%in Script *@scr:handleKeystroke*:
 
 [[[language=smalltalk|caption=Add the beginning and the end of the steps|label=scr:startStopSteps
 	keyValue = $+ asciiValue

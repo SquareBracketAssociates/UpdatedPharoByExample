@@ -70,8 +70,8 @@ instance variable, method or block argument, or temporary variable must be lower
 case. This indicates to the reader that the variable has a private scope.
 
 ""Shared variables."" Identifiers that start with upper case letters are global
-variables, class variables, pool dictionaries or class names. ==Processor== is
-a global variable, an instance of the class ==ProcessScheduler==.
+variables, class variables, pool dictionaries or class names. ==Transcript== is
+a global variable, an instance of the class ==ThreadSafeTranscript==.
 
 ""The receiver."" ==self== is a keyword that refers to the object inside which
 the current method is executing. We call it "the receiver" because this object has
@@ -208,7 +208,7 @@ keyword messages, so:
 ]]]
 
 First we send ==factorial== to 3, then we send ==\+ 6== to 1, and finally we
-send ==raisedTo: 7== to 2. Recall that we use the notation expression ==-\->==
+send ==raisedTo: 7== to 2. Recall that we use the notation expression ==>>>==
 to show the result of evaluating an expression.
 
 Precedence aside, execution is strictly from left to right, so:
@@ -489,7 +489,7 @@ work done by invoking virtual machine primitives.
 
 For example, the following are all implemented as primitives: memory allocation
 (==new==, ==new:==), bit manipulation (==bitAnd:==, ==bitOr:==, ==bitShift:==),
-pointer and integer arithmetic (\+, \-, \<, \>, \*, \/, \, \=, \=\=...), and
+pointer and integer arithmetic (\+, \-, \<, \>, \*, \/, \=, \=\=...), and
 array access (==at:==, ==at:put:==).
 
 Primitives are invoked with the syntax ==<primitive: aNumber>==. A method that
@@ -517,23 +517,10 @@ In Pharo, the angle bracket syntax is also used for method annotations called pr
 - There are five kinds of literal objects: numbers (5, 2.5, 1.9e15, 2r111), characters (==$a==), strings (=='hello'==), symbols (==#hello==), and arrays (==#('hello' #hi)== or =={ 1 . 2 . 1 + 2 }== )
 - Strings are delimited by single quotes, comments by double quotes. To get a quote inside a string, double it.
 - Unlike strings, symbols are guaranteed to be globally unique.
-- Use ==#( ... )== to define a literal array. Use =={ ... }== to define a dynamic array.  
-
-[[[language=smalltalk
-#(1+2) size
->>> 3
-{1+2} size
->>>1
-]]]
-
+- Use ==#( ... )== to define a literal array. Use =={ ... }== to define a dynamic array. Note that ==#(1+2) size >>> 3==, but =={1+2} size >>> 1==
 - There are three kinds of messages: unary (e.g., ==1 asString==, ==Array new==), binary (e.g., ==3 \+ 4==, =='hi', ' there'==), and keyword (e.g., =='hi' at: 2 put: $o==)
-- A cascaded message send is a sequence of messages sent to the same target, separated by semi-colons: 
-[[[
-OrderedCollection new add: #calvin; add: #hobbes; size
->>> 2
-]]]
-
--Local variables are declared with vertical bars. Use ==:= == for assignment. ==\|x\| x := 1 ==
--Expressions consist of message sends, cascades and assignments, evaluated left to right (and optionally grouped with parentheses). Statements are expressions separated by periods.
--Block closures are expressions enclosed in square brackets. Blocks may take arguments and can contain temporary variables. The expressions in the block are not evaluated until you send the block a value message with the correct number of arguments. ==[ :x | x + 2 ] value: 4==
--There is no dedicated syntax for control constructs, just messages that conditionally evaluate blocks.
+- A cascaded message send is a sequence of messages sent to the same target, separated by semi-colons: ==OrderedCollection new add: #calvin; add: #hobbes; size >>> 2==
+- Local variables are declared with vertical bars. Use ==:= == for assignment. ==\|x\| x := 1 ==
+- Expressions consist of message sends, cascades and assignments, evaluated left to right (and optionally grouped with parentheses). Statements are expressions separated by periods.
+- Block closures are expressions enclosed in square brackets. Blocks may take arguments and can contain temporary variables. The expressions in the block are not evaluated until you send the block a value message with the correct number of arguments. ==[ :x | x + 2 ] value: 4==
+- There is no dedicated syntax for control constructs, just messages that conditionally evaluate blocks.

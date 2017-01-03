@@ -57,13 +57,13 @@ frequently override. This method takes as its argument a ==Stream== on which a
 implementation simply writes the class name preceded by ''==a=='' or ''==an==''.
 ==Object>>printString== returns the ==String== that is written.
 
-For example, the class ==GTPlayground== does not redefine the method ==printOn:== and
+For example, the class ==OpalCompiler== does not redefine the method ==printOn:== and
 sending the message ==printString== to an instance executes the methods defined in
 ==Object==.
 
 [[[
-GTPlayground new printString
->>> 'a GTPlayground(id=42544640 title=Playground pane=a GLMPane(1012947200 root))'
+OpalCompiler new printString
+>>> 'an OpalCompiler'
 ]]]
 
 The class ==Color== shows an example of ==printOn:== specialization. It prints
@@ -73,12 +73,13 @@ that color.
 [[[caption=printOn: redefinition.
 Color >> printOn: aStream
 	| name |
-	(name := self name) ifNotNil:
-		[ ^ aStream
-			nextPutAll: 'Color ';
-			nextPutAll: name ].
-	self storeOn: aStream
-]]]
+	(name := self name).
+	name = #unnamed
+		ifFalse: [ 
+			^ aStream
+				nextPutAll: 'Color ';
+				nextPutAll: name ].
+	self storeOn: aStream]]]
 
 [[[
 Color red printString

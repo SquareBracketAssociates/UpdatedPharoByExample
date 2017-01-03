@@ -326,7 +326,6 @@ ordCol
 The message ==remove:== ==anObject== removes the first occurrence of an object from the collection. If the collection does not include such an object, it raises an error.
 
 [[[
-| ordCol |
 ordCol add: 'Monticello'.
 ordCol remove: 'Monticello'.
 ordCol 
@@ -406,7 +405,7 @@ colors at: #red put: Color red.
 colors at: #yellow 
 >>> Color yellow
 colors keys
->>> a Set(#blue #yellow #red)
+>>> #(#red #blue #yellow)
 colors values
 >>> {Color blue . Color yellow . Color red}
 ]]]
@@ -424,7 +423,7 @@ to an array of associations.
 
 [[[
 | colors |
-colors := Dictionary newFromPairs: { #blue->Color blue . #red->Color red . #yellow->Color yellow }.
+colors := Dictionary newFrom: { #blue->Color blue . #red->Color red . #yellow->Color yellow }.
 colors removeKey: #blue.
 colors associations 
 >>> {#yellow->Color yellow. #red->Color red}
@@ -470,12 +469,12 @@ subclass of ==IdentityDictionary==, hence all its keys are ==Symbol==s
 (actually, ==ByteSymbol==s, which contain only 8-bit characters).
 
 [[[
-Smalltalk globals keys collect: [ :each | each class ]
+Smalltalk globals keys collect: [ :each | each class ] as:Set
 >>> a Set(ByteSymbol)
 ]]]
 
-Sending ==keys== or ==values== to a ==Dictionary== results in a ==Set==, which
-we look at next.
+Here we are using ==collect:as:== to specify the result collection to be of class ==Set==,
+that way we collect each kind of class used as a key only once.
 
 !!!==Set==
 
@@ -593,7 +592,7 @@ numbers such as integers, floats and fractions:
 
 
 [[[language=smalltalk
-{ 5 . 2/-3 . 5.21 } asSortedCollection 
+{ 5 . 2/ -3 . 5.21 } asSortedCollection 
 >>> a SortedCollection((-2/3) 5 5.21)
 ]]]
 
