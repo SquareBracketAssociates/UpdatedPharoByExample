@@ -876,7 +876,7 @@ For more on strings and collections, see Chapter *: Collections>../Collections/C
 
 The class ==Boolean== offers a fascinating insight into how much of the
 Pharo language has been pushed into the class library. ==Boolean== is the
-abstract superclass of the ==Singleton== classes ==True== and ==False==.
+abstract superclass of the singleton classes ==True== and ==False==.
 
 +The Boolean Hierarchy.>file://figures/BooleanHierarchy.png|label=fig:booleans|width=40+
 
