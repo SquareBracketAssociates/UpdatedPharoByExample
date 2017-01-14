@@ -489,9 +489,9 @@
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
 
-\f0\fs24 \cf0 Pharo is an open-source, elegant and pure object-oriented language that supports truly immersive and life programming experience.  More at http://www.pharo.org\
+\f0\fs24 \cf0 Pharo is an open-source, elegant and pure object-oriented language that supports truly immersive and life programming experience. Pharo offers excellent tools such as hot-debuggers and on the fly code update that change the programming experience. More at http://www.pharo.org\
 \
-Pharo is a powerful language that companies use to deliver complex business-effective applications.\
+Pharo is a powerful language and IDE that companies use to deliver complex business-effective applications.\
 More at: http://www.pharo.org/success\
 \
 In Pharo everything is an object, and anything can change at run-time under your fingers. Pharo is written in itself you can explore a complete world. You can feel and talk to objects. But Pharo does not stop there, with Pharo you can improve your object-oriented skills by rediscovering the essence of object-oriented programming. \
@@ -17207,7 +17207,7 @@ This book is available under the Creative Commons Attribution-ShareAlike 3.0 lic
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2017-01-14 15:58:52 +0000</string>
+	<string>2017-01-14 17:51:53 +0000</string>
 	<key>Modifier</key>
 	<string>ducasse</string>
 	<key>NotesVisible</key>
@@ -17253,7 +17253,7 @@ This book is available under the Creative Commons Attribution-ShareAlike 3.0 lic
 		<key>NSPaperName</key>
 		<array>
 			<string>string</string>
-			<string>AE2CD519-1624-4495-A819-5F0530F6627B</string>
+			<string>76851982-597E-4BD3-81D5-B04D4C35DCF5</string>
 		</array>
 		<key>NSPaperSize</key>
 		<array>
@@ -17318,7 +17318,7 @@ This book is available under the Creative Commons Attribution-ShareAlike 3.0 lic
 			</dict>
 		</array>
 		<key>Frame</key>
-		<string>{{-45, 0}, {2349, 1417}}</string>
+		<string>{{362, 199}, {2349, 942}}</string>
 		<key>ListView</key>
 		<true/>
 		<key>OutlineWidth</key>
@@ -17330,7 +17330,7 @@ This book is available under the Creative Commons Attribution-ShareAlike 3.0 lic
 		<key>SidebarWidth</key>
 		<integer>138</integer>
 		<key>VisibleRegion</key>
-		<string>{{-257.33333333333331, -97.333333333333329}, {1474, 880}}</string>
+		<string>{{-252.33333333333334, 0.66666666666666663}, {1464.6666666666665, 563.33333333333337}}</string>
 		<key>Zoom</key>
 		<real>1.5</real>
 		<key>ZoomValues</key>
