@@ -27,9 +27,9 @@ exist for every programming language.
 Neither testing, nor the building of test suites, is new. By now, everybody knows that
 tests are a good way to catch errors. eXtreme Programming, by making testing a
 core practice and by emphasizing ''automated'' tests, has helped to make testing
-productive and fun, rather than a chore that programmers dislike. The Smalltalk
+productive and fun, rather than a chore that programmers dislike. The Pharo
 community has a long tradition of testing because of the incremental style of
-development supported by its programming environment. In traditional Smalltalk
+development supported by its programming environment. In traditional Pharo
 development, the programmer would write tests in a playground as soon as a method
 was finished. Sometimes a test would be incorporated as a comment at the head of
 the method that it exercised, or tests that needed some set up would be included
