@@ -46,7 +46,7 @@
 	<key>Creator</key>
 	<string>Oscar Nierstrasz</string>
 	<key>DisplayScale</key>
-	<string>1 0/72 in = 1.0000 in</string>
+	<string>1.000 cm = 1.000 cm</string>
 	<key>FileType</key>
 	<string>flat</string>
 	<key>GraphDocumentVersion</key>
@@ -28940,7 +28940,7 @@ Additional material is available at www.PharoByExample.org }</string>
 	<array>
 		<dict>
 			<key>Lock</key>
-			<string>YES</string>
+			<string>NO</string>
 			<key>Name</key>
 			<string>Outline</string>
 			<key>Print</key>
@@ -28960,7 +28960,7 @@ Additional material is available at www.PharoByExample.org }</string>
 		</dict>
 		<dict>
 			<key>Lock</key>
-			<string>YES</string>
+			<string>NO</string>
 			<key>Name</key>
 			<string>Graphics</string>
 			<key>Print</key>
@@ -29001,7 +29001,7 @@ Additional material is available at www.PharoByExample.org }</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2017-01-14 15:20:20 +0000</string>
+	<string>2017-02-11 09:03:26 +0000</string>
 	<key>Modifier</key>
 	<string>ducasse</string>
 	<key>NotesVisible</key>
@@ -29047,7 +29047,7 @@ Additional material is available at www.PharoByExample.org }</string>
 		<key>NSPaperName</key>
 		<array>
 			<string>string</string>
-			<string>01FAAE42-4AF2-4DE9-BA08-CB1B702D2931</string>
+			<string>C4A644DB-2AE6-437D-9415-1464DFF062C7</string>
 		</array>
 		<key>NSPaperSize</key>
 		<array>
@@ -29112,7 +29112,7 @@ Additional material is available at www.PharoByExample.org }</string>
 			</dict>
 		</array>
 		<key>Frame</key>
-		<string>{{432, 71}, {1619, 1180}}</string>
+		<string>{{869, 237}, {1619, 1180}}</string>
 		<key>ListView</key>
 		<true/>
 		<key>OutlineWidth</key>
