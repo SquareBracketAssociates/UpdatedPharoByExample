@@ -67,7 +67,7 @@ The VM executable is named:
 The other components below are portable across operating systems, and can be copied and run on any appropriate virtual machine.
 
 ""2."" The ""sources"" file contains source code for parts of
-Pharo that don't change frequently. Sources file is important because the image file format stores only objects including compiled methods and their bytecode and not their source code. Typically a new ""sources"" file is generated once per major release of Pharo. For Pharo 5.0, this file is named ==PharoV50.sources==.
+Pharo that do not change frequently. Sources file is important because the image file format stores only objects including compiled methods and their bytecode and not their source code. Typically a new ""sources"" file is generated once per major release of Pharo. For Pharo 5.0, this file is named ==PharoV50.sources==.
 
 
 ""3."" The ""changes"" file logs of all source code modifications (especially all the changes you did while programming) since the ==.sources== file was generated. Each release provides a near empty file named for the release, for example ==Pharo5.0.changes==. This facilitates a per method history for diffs or reverting. It means that even if you did not manage to save the image file on a crash or you just forgot, you can recover your changes from this file.  A changes file is always coupled with a image file. They work in pair. 
@@ -154,7 +154,7 @@ After installing PharoLauncher and opening it (like you would do for any Pharo i
 - The left column lists images that live locally on your machine (usually in a shared system folder). You can launch any local image directly (either by double-clicking, or by selecting it and pressing the ==Launch== button). A right-click context menu provides several useful functions like copying and renaming your images, as well as locating them on the file system.
 - The right column lists Templates, which are remote images available for download. To download a remote image, select it and click the ==Create image== button (located on the top right, next to the ==Refresh template list== button).
 
-You can use your own local images with ""PharoLauncher"", in addition to working with the images you donwloaded. To do so, simply ensure that your .image and its associated
+You can use your own local images with ""PharoLauncher"", in addition to working with the images you downloaded. To do so, simply ensure that your .image and its associated
 .changes files are placed in a folder (with the same name as your image) in your default image location. You can find the location in the ""PharoLauncher"" settings.
 
 !!The World Menu
@@ -233,7 +233,7 @@ associated with the message is looked up dynamically.
 When sending a message to an object, the object, and not the sender, selects the appropriate
 method for responding to your message. In most cases, the method with the same name as the message is executed.
 
-As a user you don't need to understand how each message works, the only thing
+As a user you do not need to understand how each message works, the only thing
 you need to know is what the available messages are for the objects that
 interest you. This way an object can hide its complexity, and coding can be kept
 as simple as possible without losing flexibility.
@@ -379,14 +379,14 @@ Other right-click options that may be used are the following:
 
 !!The System Browser
 
-The ==System Browser==, also known as "Class Browser", is one of the key tools used for programming. As we shall see, there are several interesting browsers available for Pharo, but this is the basic one you will find in any image.  The current implementation of the System Browser is called Nautilus (this is the name of the Jules Verne's submarine).
+The ==System Browser==, also known as "Class Browser", is one of the key tools used for programming. As we shall see, there are several interesting browsers available for Pharo, but this is the basic one you will find in any image.  The current implementation of the System Browser is called Nautilus, named after the submarine in Jules Verne's novel Twenty Thousand Leagues Under the Sea.
 
 !!! Opening the System Browser on a given method 
 
 +The System Browser showing the ==factorial== method of class ==Integer==>file://figures/system-browser-annotated.png|width=100|label=fig:systemBrowser+
 
 
-This is not the usual way that we open a browser on a method: we use more advanced tools! Now for the sake of this presentation, execute the following snippet:
+This is not the usual way that we open a browser on a method: we use more advanced tools! But for the sake of this exercise, execute the following code snippet:
 
 [[[
 Nautilus openOnMethod: Integer>>#factorial
@@ -398,7 +398,7 @@ It will open a system browser on the method ==factorial==. We should get a Syste
 
 In Pharo, the default System Browser is Nautilus. However, it is possible to have other System Browsers installed in the Pharo enviroment such as AltBrowser. Each System Browser may
 have its own GUI that may be very different from the Nautilus GUI. From now on,
-we will use the terms ==Browser==, ==System Browser== and (occasionally)
+we will use the terms ==Browser==, ==System Browser== and 
 ==Nautilus== interchangeably.
 
 
@@ -718,7 +718,7 @@ at the debugger and how to use it in Chapter: *The Pharo Environment>../Environm
 !!!Implementing the tested method
 
 The error is, of course, exactly what we expected: running the test generates an
-error because we haven't yet written a method that tells strings how to shout.
+error because we have not yet written a method that tells strings how to shout.
 Nevertheless, it's good practice to make sure that the test fails because this
 confirms that we have set up the testing machinery correctly and that the new
 test is actually being run. Once you have seen the error, you can ==Abandon==
