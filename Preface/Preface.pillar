@@ -22,7 +22,7 @@ Pharo is highly portable. Pharo can run on OS X, Windows, Linux, Android, iOS, a
 a subset of Pharo itself, making it easy to simulate, debug, analyze, and change from within Pharo itself.  Pharo is the vehicle for a
 wide range of innovative projects, from multimedia applications and educational platforms to commercial web development environments.
 
-There is an important principle behind Pharo: Pharo doesn't just copy the past, it reinvents the essence of Smalltalk. However we realize that Big Bang style approaches rarely succeed.  Pharo instead favors evolutionary and incremental changes.
+There is an important principle behind Pharo: Pharo does not just copy the past, it reinvents the essence of Smalltalk. However we realize that Big Bang style approaches rarely succeed.  Pharo instead favors evolutionary and incremental changes.
 Rather than leaping for the final perfect solution in one big step,
 a multitude of small changes keeps even the bleeding edge relatively stable
 while experimenting with important new features and libraries.
@@ -61,7 +61,7 @@ You do not have to know everything! Alan Knight expresses this as follows:
 ''Try not to care''. Beginning Smalltalk programmers often have trouble because they think they need to understand all the details of how a thing works before they can use it.  This means it takes quite a while before they can master Transcript show: 'Hello World'. One of the great leaps in OO is to be able to answer the  question “How does this work?” with "I don't care".
 {{{latex:\end{quote} }}}{{{html:</blockquote>}}}
 
-When you don't understand something, simple or complex, do not hesitate for a second to ask us at our mailing lists (pharo-users@lists.pharo.org or pharo-dev@lists.pharo.org), irc and Slack. We love questions and we welcome people of any skill.
+When you do not understand something, simple or complex, do not hesitate for a second to ask us at our mailing lists (pharo-users@lists.pharo.org or pharo-dev@lists.pharo.org), irc and Slack. We love questions and we welcome people of any skill.
 
 !!An open book
 

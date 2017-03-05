@@ -67,7 +67,7 @@ The VM executable is named:
 The other components below are portable across operating systems, and can be copied and run on any appropriate virtual machine.
 
 ""2."" The ""sources"" file contains source code for parts of
-Pharo that don't change frequently. Sources file is important because the image file format stores only objects including compiled methods and their bytecode and not their source code. Typically a new ""sources"" file is generated once per major release of Pharo. For Pharo 5.0, this file is named ==PharoV50.sources==.
+Pharo that do not change frequently. Sources file is important because the image file format stores only objects including compiled methods and their bytecode and not their source code. Typically a new ""sources"" file is generated once per major release of Pharo. For Pharo 5.0, this file is named ==PharoV50.sources==.
 
 
 ""3."" The ""changes"" file logs of all source code modifications (especially all the changes you did while programming) since the ==.sources== file was generated. Each release provides a near empty file named for the release, for example ==Pharo5.0.changes==. This facilitates a per method history for diffs or reverting. It means that even if you did not manage to save the image file on a crash or you just forgot, you can recover your changes from this file.  A changes file is always coupled with a image file. They work in pair. 
@@ -233,7 +233,7 @@ associated with the message is looked up dynamically.
 When sending a message to an object, the object, and not the sender, selects the appropriate
 method for responding to your message. In most cases, the method with the same name as the message is executed.
 
-As a user you don't need to understand how each message works, the only thing
+As a user you do not need to understand how each message works, the only thing
 you need to know is what the available messages are for the objects that
 interest you. This way an object can hide its complexity, and coding can be kept
 as simple as possible without losing flexibility.
@@ -718,7 +718,7 @@ at the debugger and how to use it in Chapter: *The Pharo Environment>../Environm
 !!!Implementing the tested method
 
 The error is, of course, exactly what we expected: running the test generates an
-error because we haven't yet written a method that tells strings how to shout.
+error because we have not yet written a method that tells strings how to shout.
 Nevertheless, it's good practice to make sure that the test fails because this
 confirms that we have set up the testing machinery correctly and that the new
 test is actually being run. Once you have seen the error, you can ==Abandon==
