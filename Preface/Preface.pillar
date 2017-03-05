@@ -2,10 +2,10 @@
 
 !!What is Pharo?
 
-Pharo is a modern, open-source, dynamically typed language supporting live coding inspired by Smalltalk. Pharo and its ecosystems is composed of the six fundamental elements:
+Pharo is a modern, open-source, dynamically typed language supporting live coding inspired by Smalltalk. Pharo and its ecosystems are composed of six fundamental elements:
 
-- A dynamically-typed language with a syntax so simple it can fit on a postcard and yet is readable even for someone not familiar with it.
-- A live coding environment that allows the coder to modify its code while the code executes, without any need to slow down his or her workflow.
+- A dynamically-typed language with a syntax so simple it can fit on a postcard and yet is readable even for someone unfamiliar with it.
+- A live coding environment that allows the programmer to modify code while the code executes, without any need to slow down their workflow.
 - A powerful IDE providing all the tools to help manage complex code and promote good code design.
 - A rich library that creates an environment so powerful that it can be viewed even as a virtual OS, including a very fast JITing VM and full access to OS libraries and features via its FFI.
 - A culture where changes and improvements are encouraged and highly valued.
@@ -22,12 +22,12 @@ Pharo is highly portable. Pharo can run on OS X, Windows, Linux, Android, iOS, a
 a subset of Pharo itself, making it easy to simulate, debug, analyze, and change from within Pharo itself.  Pharo is the vehicle for a
 wide range of innovative projects, from multimedia applications and educational platforms to commercial web development environments.
 
-There is an important principle behind Pharo: Pharo doesn't just copy the past, but it reinvents the essence behind Smalltalk. However we realize that Big Bang style approaches rarely succeed.  Pharo instead favors evolutionary and incremental changes.
+There is an important principle behind Pharo: Pharo doesn't just copy the past, it reinvents the essence of Smalltalk. However we realize that Big Bang style approaches rarely succeed.  Pharo instead favors evolutionary and incremental changes.
 Rather than leaping for the final perfect solution in one big step,
 a multitude of small changes keeps even the bleeding edge relatively stable
 while experimenting with important new features and libraries.
-This facilitates rapid feedback and contributions from the community,
-on which Pharo depends for its success. Finally Pharo is not read-only, Pharo integrates changes made by the community, daily. 
+This facilitates contributions and rapid feedback from the community,
+on which Pharo relies on for its success. Finally Pharo is not read-only, Pharo integrates changes made by the community, daily. 
 Pharo has around 100 contributors, based all over the world. 
 You can have an impact on Pharo too!
 
