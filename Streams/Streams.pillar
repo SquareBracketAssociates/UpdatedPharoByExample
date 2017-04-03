@@ -70,7 +70,7 @@ r atEnd.
 w := WriteStream on: (String new: 5).
 w nextPut: $a.
 w nextPut: $b.
-w contents.    
+w contents.
 >>>  'ab'
 ]]]
 
@@ -105,60 +105,61 @@ collection. That pointer will move forward on reading, and you can place it
 wherever you want. The class ==ReadStream== should be used to read elements
 from collections.
 
-Messages ==next== and ==next:== defined in ==ReadStream== are used to retrieve one
-or more elements from the collection.
+Messages ==next== and ==next:== defined in ==ReadStream== are used to retrieve
+one or more elements from the collection.
 
 [[[
 | stream |
 stream := ReadStream on: #(1 (a b c) false).
-stream next. 
+stream next.
 >>>   1
-stream next. 
+stream next.
 >>>   #(#a #b #c)
-stream next. 
+stream next.
 >>>   false
 ]]]
 
 [[[
 | stream |
 stream := ReadStream on: 'abcdef'.
-stream next: 0. 
+stream next: 0.
 >>>   ''
-stream next: 1. 
+stream next: 1.
 >>>   'a'
-stream next: 3. 
+stream next: 3.
 >>>   'bcd'
-stream next: 2. 
+stream next: 2.
 >>>   'ef'
 ]]]
 
-The message ==peek== defined in ==PositionableStream== is used when you want to know what is
-the next element in the stream without going forward.
+The message ==peek== defined in ==PositionableStream== is used when you want to
+know what is the next element in the stream without going forward.
 
 [[[
 stream := ReadStream on: '-143'.
 "look at the first element without consuming it."
 negative := (stream peek = $-).
-negative. 
+negative.
 >>> true
 "ignores the minus character"
-negative ifTrue: [ stream next ].       
+negative ifTrue: [ stream next ].
 number := stream upToEnd.
-number. 
+number.
 >>> '143'
 ]]]
 
 This code sets the boolean variable ==negative== according to the sign of the
-number in the stream, and ==number== to its absolute value. The message ==upToEnd==
-defined in ==ReadStream== returns everything from the current position to the end
-of the stream and sets the stream to its end. This code can be simplified using the message ==peekFor:==
-defined in ==PositionableStream==, which moves forward if the following element
-equals the parameter and doesn't move otherwise.
+number in the stream, and ==number== to its absolute value. The message
+==upToEnd== defined in ==ReadStream== returns everything from the current
+position to the end of the stream and sets the stream to its end. This code can
+be simplified using the message ==peekFor:== defined in ==PositionableStream==,
+which moves forward if the following element equals the parameter and doesn't
+move otherwise.
 
 [[[
 | stream |
 stream := '-143' readStream.
-(stream peekFor: $-) 
+(stream peekFor: $-)
 >>> true
 stream upToEnd
 >>> '143'
@@ -174,9 +175,9 @@ collection.
 
 !!!!Positioning
 
-There are messages to position the stream pointer. If you have the index, you can
-go directly to it using ==position:== defined in ==PositionableStream==. You can request the
-current position using ==position==. Please remember that a
+There are messages to position the stream pointer. If you have the index, you
+can go directly to it using ==position:== defined in ==PositionableStream==. You
+can request the current position using ==position==. Please remember that a
 stream is not positioned on an element, but between two elements. The index
 corresponding to the beginning of the stream is 0.
 
@@ -187,15 +188,14 @@ following code:
 | stream |
 stream := 'abcde' readStream.
 stream position: 2.
-stream peek 
+stream peek
 >>> $c
 ]]]
 
 +A stream at position 2.>file://figures/ab_cdeStef.png|width=70|label=fig:ab_cde+
 
-To position the stream at the beginning or the end, you can use
-the message ==reset== or ==setToEnd==.
-The messages ==skip:== and ==skipTo:== are used to go
+To position the stream at the beginning or the end, you can use the message
+==reset== or ==setToEnd==. The messages ==skip:== and ==skipTo:== are used to go
 forward to a location relative to the current position: ==skip:== accepts a
 number as argument and skips that number of elements whereas ==skipTo:== skips
 all elements in the stream until it finds an element equal to its parameter.
@@ -204,21 +204,21 @@ Note that it positions the stream after the matched element.
 [[[
 | stream |
 stream := 'abcdef' readStream.
-stream next.        
+stream next.
 >>> $a    "stream is now positioned just after the a"
 stream skip: 3.                           "stream is now after the d"
-stream position.  
+stream position.
 >>>   4
 stream skip: -2.                          "stream is after the b"
-stream position.  
+stream position.
 >>> 2
 stream reset.
-stream position.  
+stream position.
 >>> 0
 stream skipTo: $e.                      "stream is just after the e now"
-stream next.        
+stream next.
 >>> $f
-stream contents. 
+stream contents.
 >>> 'abcdef'
 ]]]
 
@@ -229,9 +229,9 @@ The message ==contents== always returns a copy of the entire stream.
 !!!!Testing
 
 Some messages allow you to test the state of the current stream:
-==atEnd== returns ==true== if and only if no more elements can
-be read, whereas ==isEmpty== returns ==true== if and only if
-there are no elements at all in the collection.
+==atEnd== returns ==true== if and only if no more elements can be read, whereas
+==isEmpty== returns ==true== if and only if there are no elements at all in the
+collection.
 
 Here is a possible implementation of an algorithm using ==atEnd== that takes two
 sorted collections as parameters and merges those collections into another
@@ -256,7 +256,7 @@ result
   addAll: stream1 upToEnd;
   addAll: stream2 upToEnd.
 
-result. 
+result.
 >>>   an OrderedCollection(1 1 2 3 4 4 5 9 10 11 12 13 13 14 15)
 ]]]
 
@@ -301,7 +301,7 @@ string := String streamContents:
                  nextPut: $=;
                  space;
                  print: 3.	 ].
-string. 
+string.
 >>>   '#(1 2 3) size = 3'
 ]]]
 
@@ -320,18 +320,21 @@ The following ==WriteStream== methods are especially useful in this context:
 :adds the textual representation of the parameter to the stream.
 
 There are also convenient messages for printing useful characters to a stream,
-such as ==space==, ==tab== and ==cr== (carriage return). Another useful method is ==ensureASpace== which
-ensures that the last character in the stream is a space; if the last character isn't a space it adds one.
+such as ==space==, ==tab== and ==cr== (carriage return). Another useful method
+is ==ensureASpace== which ensures that the last character in the stream is a
+space; if the last character isn't a space it adds one.
 
 !!!!About String Concatenation
 
-Using ==nextPut:== and ==nextPutAll:== on a ==WriteStream== is often the best way to concatenate characters. Using the comma concatenation operator (==,==) is far less efficient:
+Using ==nextPut:== and ==nextPutAll:== on a ==WriteStream== is often the best
+way to concatenate characters. Using the comma concatenation operator (==,==) is
+far less efficient:
 
 [[[label=src:concatenationComparison
 [| temp |
   temp := String new.
   (1 to: 100000)
-    do: [:i | temp := temp, i asString, ' ' ] ] timeToRun 
+    do: [:i | temp := temp, i asString, ' ' ] ] timeToRun
 >>> 115176 "(milliseconds)"
 ]]]
 
@@ -340,7 +343,7 @@ Using ==nextPut:== and ==nextPutAll:== on a ==WriteStream== is often the best wa
   temp := WriteStream on: String new.
   (1 to: 100000)
     do: [:i | temp nextPutAll: i asString; space ].
-  temp contents ] timeToRun 
+  temp contents ] timeToRun
 >>> 1262 "(milliseconds)"
 ]]]
 
@@ -352,8 +355,8 @@ characters that must be copied goes up exponentially. This also creates a lot of
 garbage, which must be collected. Using a stream instead of string concatenation
 is a well-known optimization.
 
-In fact, you can use the message ==streamContents:== defined in ==SequenceableCollection class==
-(mentioned earlier) to help you do this:
+In fact, you can use the message ==streamContents:== defined in
+==SequenceableCollection class== (mentioned earlier) to help you do this:
 
 [[[label=src:streamContentsUsage
 String streamContents: [ :tempStream |
@@ -402,19 +405,19 @@ We need methods to go backward and forward:
 
 [[[label=src:history2
 History >> goBackward
-  self canGoBackward 
+  self canGoBackward
   	ifFalse: [ self error: 'Already on the first element' ].
   stream skip: -2.
   ^ stream next.
 
 History >> goForward
-  self canGoForward 
+  self canGoForward
   	ifFalse: [ self error: 'Already on the last element' ].
   ^ stream next
 ]]]
 
-Up to this point, the code is pretty straightforward. Next, we have to deal with the
-==goTo:== method which should be activated when the user clicks on a link. A
+Up to this point, the code is pretty straightforward. Next, we have to deal with
+the ==goTo:== method which should be activated when the user clicks on a link. A
 possible implementation is:
 
 [[[label=src:history3
@@ -434,7 +437,8 @@ History >> goTo: anObject
   stream back.
 ]]]
 
-Now, only methods ==canGoBackward== and ==canGoForward== remain to be implemented.
+Now, only methods ==canGoBackward== and ==canGoForward== remain to be
+implemented.
 
 A stream is always positioned between two elements. To go backward, there must
 be two pages before the current position: one page is the current page, and the
@@ -465,7 +469,7 @@ History new
 	goBackward;
 	goBackward;
 	goTo: #page4;
-	contents 
+	contents
 >>> #(#page1 #page4 nil nil)
 ]]]
 
@@ -496,7 +500,8 @@ creation messages offered by the class ==FileStream==:
 :Open an existing file with the given name for reading.
 
 You have to remember that each time you open a stream on a file, you have to
-close it too. This is done through the ===close== message defined in ==FileStream==.
+close it too. This is done through the ===close== message defined in
+==FileStream==.
 
 [[[
 | stream |
@@ -507,16 +512,19 @@ stream
 stream close.
 
 stream := FileStream readOnlyFileNamed: 'test.txt'.
-stream contents. 
+stream contents.
 >>> 'This text is written in a file named ''test.txt'''
 stream close.
 ]]]
 
-The message ==localName== defined in class ==FileStream== answers the last component of the name of
-the file. You can also access the full path name using the message ==fullName==.
+The message ==localName== defined in class ==FileStream== answers the last
+component of the name of the file. You can also access the full path name using
+the message ==fullName==.
 
 You will soon notice that manually closing the file stream is painful and
-error-prone. That's why ==FileStream== offers a message called ==forceNewFileNamed:do:== to automatically close a new stream after evaluating a block that sets its contents.
+error-prone. That's why ==FileStream== offers a message called
+==forceNewFileNamed:do:== to automatically close a new stream after evaluating a
+block that sets its contents.
 
 [[[
 | string |
@@ -529,7 +537,7 @@ FileStream
 string := FileStream
             readOnlyFileNamed: 'test.txt'
             do: [ :stream | stream contents ].
-string 
+string
 >>> 'This text is written in a file named ''test.txt'''
 ]]]
 
@@ -565,11 +573,11 @@ FileStream
   readOnlyFileNamed: 'test.bin'
   do: [ :stream |
           stream binary.
-          stream size.         
+          stream size.
 		  >>> 4
-          stream next.         
+          stream next.
 		  >>> 145
-          stream upToEnd. 
+          stream upToEnd.
 		  >>> #[250 139 98 ]
        ].
 ]]]

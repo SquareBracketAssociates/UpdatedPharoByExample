@@ -13,11 +13,11 @@ expect. Pharo has an excellent debugger, but like most powerful tools, it can be
 confusing on first use. We will walk you through a debugging session and
 demonstrate some of the features of the debugger.
 
-One of the unique features of Pharo (and its ancestors) is that while you are programming, you
-are living in a world of live objects, not in a world of static program text.
-This makes it possible to get very rapid feedback while programming, which makes
-you more productive. There is a tool that let you look at, and indeed
-change, live objects: the ''inspector''.
+One of the unique features of Pharo (and its ancestors) is that while you are
+programming, you are living in a world of live objects, not in a world of static
+program text. This makes it possible to get very rapid feedback while
+programming, which makes you more productive. There is a tool that let you look
+at, and indeed change, live objects: the ''inspector''.
 
 !!Pharo environment overview
 @sec:overview
@@ -110,8 +110,8 @@ themes using existing ones as templates.
 
 Many different class browsers have been developed over the years for Pharo.
 Pharo simplifies this story by offering a single browser that integrates various
-views. Figure *@fig:SystemBrowser* shows the browser as it appears when you first
-open it.
+views. Figure *@fig:SystemBrowser* shows the browser as it appears when you
+first open it.
 
 The four small panes at the top of the browser represent a hierarchic view of
 the methods in the system, much in the same way as the Mac OS X Finder in column
@@ -157,13 +157,13 @@ contents.
 In contrast, to create a new class or a new method, you will actually have to
 write some Smalltalk code. If you click the currently selected package (in the
 left-most pane), the bottom browser pane will display a class creation template
-(Figure *@fig:SystemBrowserClassCreation*). You create a new class by editing this
-template: replace ==Object== by the name of the existing class of which you wish
-to create a subclass, replace ==NameOfSubclass== by the name that you would like
-to give to your new subclass, and fill in the instance variable names if you
-know them. The package for the new class is by default the currently selected
-package, but you can change this too if you like. If you already have the
-browser focused on the class that you wish to subclass, you can get the same
+(Figure *@fig:SystemBrowserClassCreation*). You create a new class by editing
+this template: replace ==Object== by the name of the existing class of which you
+wish to create a subclass, replace ==NameOfSubclass== by the name that you would
+like to give to your new subclass, and fill in the instance variable names if
+you know them. The package for the new class is by default the currently
+selected package, but you can change this too if you like. If you already have
+the browser focused on the class that you wish to subclass, you can get the same
 template with slightly different initialization by right-clicking in the class
 pane, and selecting ==Add Class==. You can also just edit the definition of an
 existing class, changing the class name to something new. In all cases, when you
@@ -201,16 +201,12 @@ keyboard shortcut.
 
 @@todo Try this: In a playground window, type the name of a class (for instance ==Morph==), select it, and then press ==CMD-b==. This trick is often useful; it works in any text window.
 
-
-
-
 !!!!Message senders
 @sec:sendersImplementors
 
 While writing new code, refactoring existing code, or while trying to learn how
 to use unfamiliar libraries, you will frequently want to know the senders and
 implementors of various messages.
-
 
 There are several ways of discovering where in the codebase a message is used,
 by listing its senders:
@@ -244,9 +240,9 @@ Let's try some of these in action.
 
 Open a browser on the ==Morph== class, select the ==Morph>>drawOn:== method in
 the method pane. If you now press ==CMD-b CMD-n== (or right-click in the method
-pane and select ==Senders of...== (Figure *@fig:SendersOfDrawOn*)), a browser will
-open with the list of all methods in the image that send the selected message
-(Figure *@fig:CanvasDraw*).
+pane and select ==Senders of...== (Figure *@fig:SendersOfDrawOn*)), a browser
+will open with the list of all methods in the image that send the selected
+message (Figure *@fig:CanvasDraw*).
 
 +The Senders Browser showing that the ==Canvas\>\>draw== method sends the ==drawOn:== message to its argument.>file://figures/CanvasDraw.png|label=fig:CanvasDraw+
 
@@ -333,12 +329,13 @@ Figure *@fig:MorphInheritanceOverriding*).
 By default, the browser presents a list of packages in the leftmost pane.
 However it is possible to switch to a class hierarchy view. Simply select a
 particular class of interest, such as ==ImageMorph== and then click on the
-==Hierarchy== button (==Hier.==). You will then see in the second pane a class hierarchy
-displaying all superclasses and subclasses of the selected class.
+==Hierarchy== button (==Hier.==). You will then see in the second pane a class
+hierarchy displaying all superclasses and subclasses of the selected class.
 
-Notice that the package pane is disabled, and the packages are greyed out.
-When you are in Hierarchy view, you cannot change packages. To be able to change
-them again, toggle out of the Hierarchy view by clicking on the ==Hierarchy== button again.
+Notice that the package pane is disabled, and the packages are greyed out. When
+you are in Hierarchy view, you cannot change packages. To be able to change them
+again, toggle out of the Hierarchy view by clicking on the ==Hierarchy== button
+again.
 
 In Figure *@fig:hierarchyBrowser*, the hierarchy view reveals that the direct
 superclass of ==ImageMorph== is ==Morph==.
@@ -351,14 +348,15 @@ superclass of ==ImageMorph== is ==Morph==.
 By right-clicking on a class in the class pane, and selecting ==Analyze > Inst
 var references...== or ==Analyze > Class var refs...==, you can find out where
 an instance variable or a class variable is used. You can also have  access to
-those views by clicking on the ==Variables== button, above the package list. Once you click on the button or select the menu item, you will be
-presented with a dialog that invites you to choose a variable from all of the
-variables defined in the current class, and all of the variables that it
-inherits. The list is in inheritance order; it can often be useful to bring up
-this list just to remind yourself of the name of an instance variable. If you
-click outside the list, it will go away and no variable browser will be created.
-If you click on a variable, ==bounds== for example, a ''Message Browser'' will
-be created (Figure *@fig:chasingBrowser*).
+those views by clicking on the ==Variables== button, above the package list.
+Once you click on the button or select the menu item, you will be presented with
+a dialog that invites you to choose a variable from all of the variables defined
+in the current class, and all of the variables that it inherits. The list is in
+inheritance order; it can often be useful to bring up this list just to remind
+yourself of the name of an instance variable. If you click outside the list, it
+will go away and no variable browser will be created. If you click on a
+variable, ==bounds== for example, a ''Message Browser'' will be created (Figure
+*@fig:chasingBrowser*).
 
 +A ==Message Browser== for accesses to ==bounds== variable of ==Morph==.>file://figures/chasingBrowser.png|label=fig:chasingBrowser+
 
@@ -371,7 +369,7 @@ on the class and select ==Analyze > Inst var assignments==.
 
 You have the possibility of browsing the bytecode of a method. To do that,
 right-click on your method and select ==Toggle Bytecodes==, or use the shortcut
-==CMD-b CMD-b== (see Figure *@fig:ByteCode*). Reselect the method again to get 
+==CMD-b CMD-b== (see Figure *@fig:ByteCode*). Reselect the method again to get
 back to the normal view.
 
 +Bytecode of the ImageMorph\>\>#DrawOn: compiled method.>file://figures/ByteCode.png|label=fig:ByteCode+
@@ -400,10 +398,10 @@ pane's item files out just the displayed method.
 
 Although this may seem obvious, it can be a source of confusion for beginners.
 
-Possibly the most useful menu item is ==Find class... (f,c)== in the package
-or class panes. Most of us do not know the package contents of the whole system, and
-it is much faster to type ==CMD-f CMD-c== followed by the first few characters
-of the name of a class than to guess which package it might be in.
+Possibly the most useful menu item is ==Find class... (f,c)== in the package or
+class panes. Most of us do not know the package contents of the whole system,
+and it is much faster to type ==CMD-f CMD-c== followed by the first few
+characters of the name of a class than to guess which package it might be in.
 
 The ==History Navigator== pulldown, found above the protocol and method panes,
 can also help you quickly go back to a class or method that you have browsed
@@ -430,7 +428,8 @@ The class ==SystemNavigation== provides a number of utility methods that
 are useful for navigating around the system. Many of the functions offered by
 the system browser are implemented by ==SystemNavigation==.
 
-Open a playground and evaluate the following code to browse the senders of ==drawOn:==:
+Open a playground and evaluate the following code to browse the senders of
+==drawOn:==:
 
 [[[language=smalltalk
 SystemNavigation default browseAllSendersOf: #drawOn:
@@ -452,8 +451,7 @@ The programmatic equivalent to the ==Implementors of...== menu item is:
 SystemNavigation default browseAllImplementorsOf: #drawOn:
 ]]]
 
-@@todo To learn more about what is available, explore the class ==SystemNavigation==
-with the browser.
+@@todo To learn more about what is available, explore the class ==SystemNavigation== with the browser.
 
 !!The inspector
 @sec:inspector
@@ -524,10 +522,10 @@ instance that you are inspecting. You can also try evaluating
 ==DateAndTime now - self==; this will tell you how long you have spent reading
 this section of this book!
 
-The bottom pane is especially useful if you wanted to change the instance variables
-of the object being inspected. Provided that you have accessor methods defined
-for those variables, you can send messages to the root ==self== and change its
-variables via those accessor methods.
+The bottom pane is especially useful if you wanted to change the instance
+variables of the object being inspected. Provided that you have accessor methods
+defined for those variables, you can send messages to the root ==self== and
+change its variables via those accessor methods.
 
 !!The debugger
 @sec:debugger
@@ -575,42 +573,47 @@ on ==Debug==. You can also open the debugger by clicking on any of the lines on
 the stack trace. If you do this, the debugger will open already focused on the
 corresponding method.
 
-The debugger is shown in Figure *@fig:debuggerDetectIfNone*; it looks intimidating at
-first, but it is quite easy to use. The title bar and the top pane are very
-similar to those that we saw in the ==PreDebugWindow==. However, the debugger
-combines the stack trace with a method browser, so when you select a line in the
-stack trace, the corresponding method is shown in the pane below. It's important
-to realize that the execution that caused the error is still in your image, but
-in a suspended state. Each line of the stack trace represents a frame on the
-execution stack that contains all of the information necessary to continue the
-execution. This includes all of the objects involved in the computation, with
-their instance variables, and all of the temporary variables of the executing
-methods.
+The debugger is shown in Figure *@fig:debuggerDetectIfNone*; it looks
+intimidating at first, but it is quite easy to use. The title bar and the top
+pane are very similar to those that we saw in the ==PreDebugWindow==. However,
+the debugger combines the stack trace with a method browser, so when you select
+a line in the stack trace, the corresponding method is shown in the pane below.
+It's important to realize that the execution that caused the error is still in
+your image, but in a suspended state. Each line of the stack trace represents a
+frame on the execution stack that contains all of the information necessary to
+continue the execution. This includes all of the objects involved in the
+computation, with their instance variables, and all of the temporary variables
+of the executing methods.
 
-In Figure *@fig:debuggerDetectIfNone* we have selected the ==detect:ifFound:IfNone:== method
-in the top pane. The method body is displayed in the center pane; the blue
-highlight around the message ==value== shows that the current method has sent
-the message ==value== and is waiting for an answer.
+In Figure *@fig:debuggerDetectIfNone* we have selected the
+==detect:ifFound:IfNone:== method in the top pane. The method body is displayed
+in the center pane; the blue highlight around the message ==value== shows that
+the current method has sent the message ==value== and is waiting for an answer.
 
-The ==Variables== pane at the bottom of the debugger is actually like a inspector
-(without playground pane). You can select one variable and open another inspector pane
-with the well-known inspector panes (Raw, ...), and an ==Evaluator== acting as a
-Playground for evaluating code within the context of the selected variable.
-The variables list has up to four types variables it shows. 
+The ==Variables== pane at the bottom of the debugger is actually like a
+inspector (without playground pane). You can select one variable and open
+another inspector pane with the well-known inspector panes (Raw, ...), and an
+==Evaluator== acting as a Playground for evaluating code within the context of
+the selected variable. The variables list has up to four types variables it
+shows.
+
 - ""parameter"" any parameter passed to this method.
 - ""temp"" any temporaries used in this method.
 - ""attribute"" any instance variable accessible from the context of the current receiver.
 - ""implicit"" pseudo variables (==self==, ==thisContext==, ==stackTop==) used in the current context.
 
-As you select different stack frames, the identity of ==self== may change, and so will the contents of the
-==Variables== list. If you click on ==self== in the bottom-left pane, you will see
-that ==self== is the interval ==(10 to: 1 by -1)==, which is what we expect. 
-You can always select ==self== and select the ==Evaluator== pane to evaluate some code
-in the content of the current receiver. But because all of the variables are also in scope in the method pane; 
-you should feel free to type or select expressions directly in the method pane and evaluate them. You can always ==Cancel
-(l)== your changes using the menu or ==CMD-l==.
+As you select different stack frames, the identity of ==self== may change, and
+so will the contents of the ==Variables== list. If you click on ==self== in the
+bottom-left pane, you will see that ==self== is the interval ==(10 to: 1 by
+-1)==, which is what we expect.  You can always select ==self== and select the
+==Evaluator== pane to evaluate some code in the content of the current receiver.
+But because all of the variables are also in scope in the method pane;  you
+should feel free to type or select expressions directly in the method pane and
+evaluate them. You can always ==Cancel (l)== your changes using the menu or
+==CMD-l==.
 
-Selecting ==thisContext== from the list of (""implicit"") variables, shows the current context object.
+Selecting ==thisContext== from the list of (""implicit"") variables, shows the
+current context object.
 
 As we can see one method lower in the stack trace, the ==exceptionBlock== is
 ==[self errorNotFound: ...]==, so, it is not surprising that we see the
@@ -655,9 +658,9 @@ button to use in this case: we want to ignore the details of the ==do:== itself
 and focus on the execution of the argument block.
 
 Select the ==detect:ifFound:IfNone:== method again and ==Restart== to get back
-to the state shown in Figure *@fig:RestartDetectIfNone*. Now click on ==Through== a
-few times. Select ==each== in the context window as you do so. You should see
-==each== count down from ==10== as the ==do:== method executes.
+to the state shown in Figure *@fig:RestartDetectIfNone*. Now click on
+==Through== a few times. Select ==each== in the context window as you do so. You
+should see ==each== count down from ==10== as the ==do:== method executes.
 
 When ==each== is ==7== we expect the ==ifTrue:== block to be executed, but it
 isn't. To see what is going wrong, go ==Into== the execution of ==value:==
@@ -673,8 +676,8 @@ Figure *@fig:dotIsAString*. It looks at first that we have gone ''back'' to the
 %If you select ==i== in the context inspector, you can see its current value, which should be ==7== if you have been following along.
 %You can then select the corresponding element of ==self== from the ==self==-inspector.
 %In Figure *@fig:dotIsAString* you can see that element ==7== of the string is character 46, which is indeed a dot.
-If you select ==dot== in the context inspector, you will see that its value is =='.'==.
-And now you see why they are not equal: the seventh character of
+If you select ==dot== in the context inspector, you will see that its value is
+=='.'==. And now you see why they are not equal: the seventh character of
 =='readme.txt'== is of course a ==Character==, while ==dot== is a ==String==.
 
 +The debugger showing why =='readme.txt' at: 7== is not equal to ==dot==.>file://figures/dotIsAString.png|label=fig:dotIsAString+
@@ -689,8 +692,8 @@ Change the code right in the debugger so that the assignment reads
 
 Because we are executing code inside a block that is inside a ==detect:==,
 several stack frames will have to be abandoned in order to make this change.
-Pharo asks us if this is what we want (see Figure *@fig:revertDialog*), and, assuming
-that we click ==yes==, will save (and compile) the new method.
+Pharo asks us if this is what we want (see Figure *@fig:revertDialog*), and,
+assuming that we click ==yes==, will save (and compile) the new method.
 
 %(do this) Click ==Restart== and then ==Proceed==; the debugger window will vanish, and the evaluation of the expression =='readme.txt' suffix== will complete, and print the answer =='.txt'==
 
@@ -779,10 +782,10 @@ We will learn more about SUnit in Chapter *: SUnit>../SUnit/SUnit.pillar@cha:sun
 
 !!The process browser
 
-Pharo is a multi-threaded system, and there are many lightweight processes (also known
-as threads) running concurrently in your image. In the future the Pharo virtual
-machine may take advantage of multiple processors when they are available, but at
-present, concurrency is implemented by time-slicing.
+Pharo is a multi-threaded system, and there are many lightweight processes (also
+known as threads) running concurrently in your image. In the future the Pharo
+virtual machine may take advantage of multiple processors when they are
+available, but at present, concurrency is implemented by time-slicing.
 
 +The Process Browser showing all the active thread by priority.>file://figures/processBrowser.png|label=fig:processBrowser+
 

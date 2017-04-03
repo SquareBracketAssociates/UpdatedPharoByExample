@@ -3,42 +3,49 @@
 
 The consequence of programming in a world of live objects rather than with files
 and a text editor is that you have to do something explicit to export your
-program from your Pharo image. The old way of doing this is by creating a ''fileout'' or a ''change set'', which
-are essentially encoded text files that can be imported into another system. The
-preferred way of sharing code in Pharo is to save packages and share them using a versioned repository
-on a server. Up to Pharo 50, this is done using a tool called Monticello, and is a much
-more powerful and effective way to work, especially when working in a team. 
-In the future Pharo will officially offer support for Git and hosting on servers such as GitHub, BitBucket and more. 
+program from your Pharo image. The old way of doing this is by creating a
+''fileout'' or a ''change set'', which are essentially encoded text files that
+can be imported into another system. The preferred way of sharing code in Pharo
+is to save packages and share them using a versioned repository on a server. Up
+to Pharo 5.0, this is done using a tool called Monticello, and is a much more
+powerful and effective way to work, especially when working in a team. In the
+future Pharo will officially offer support for Git and hosting on servers such
+as GitHub, BitBucket and more.
 
-We gave you a quick overview of Monticello, Pharo's packaging tool, in
-Chapter *: A First Application>../FirstApplication/FirstApplication.pier@fstApp:Monticello*. However, Monticello has many more features than were discussed there. Because Monticello manages ''packages'', before telling you more about Monticello, it's important that we first explain exactly what a package is.
+We gave you a quick overview of Monticello, Pharo's packaging tool, in Chapter
+*: A First Application>../FirstApplication/FirstApplication.pier@fstApp:Monticello*.
+However, Monticello has many more features than were discussed there. Because
+Monticello manages ''packages'', before telling you more about Monticello, it's
+important that we first explain exactly what a package is.
 
 !!Packages: groups of classes and methods
 @sec:packages
 
 We have pointed out earlier (in Chapter *: A First Application>../FirstApplication/FirstApplication.pillar@fstApp:Packages*)
- packages are more or less a group of classes and methods. Now we will see exactly what the
-relationship is. The package system is a simple, lightweight way of organizing
-Pharo source code that exploits a simple naming convention.
+packages are more or less a group of classes and methods. Now we will see
+exactly what the relationship is. The package system is a simple, lightweight
+way of organizing Pharo source code that exploits a simple naming convention.
 
 Let's explain this using an example. Suppose that you are developing a framework
- to facilitate the use of relational databases from Pharo. You have decided
-to call your framework ==PharoLink==, and have created a couple of classes 
-such as  ==OracleConnection==, ==MySQLConnection==, ==PostgresConnection== but also ==DBTable==, 
-==DBRow==, ==DBQuery==, and so on. These classes are placed inside a package called ==PharoLink==. 
-However, not all of your code will reside in these classes. For example, you may also have a series 
-of methods to convert objects into an SQL-friendly format:
-==Object>>#asSQL==, ==String>>#asSQL==, or ==Date>>#asSQL==.
+to facilitate the use of relational databases from Pharo. You have decided to
+call your framework ==PharoLink==, and have created a couple of classes such as
+==OracleConnection==, ==MySQLConnection==, ==PostgresConnection== but also
+==DBTable==, ==DBRow==, ==DBQuery==, and so on. These classes are placed inside
+a package called ==PharoLink==. However, not all of your code will reside in
+these classes. For example, you may also have a series of methods to convert
+objects into an SQL-friendly format: ==Object>>#asSQL==, ==String>>#asSQL==, or
+==Date>>#asSQL==.
 
-These methods belong in the same package as the classes. But clearly the whole of
-class ==Object== does not belong in your package! So you need a way of putting
-certain ''methods'' in a package, even though the rest of the class is in
-another package.
+These methods belong in the same package as the classes. But clearly the whole
+of class ==Object== does not belong in your package! So you need a way of
+putting certain ''methods'' in a package, even though the rest of the class is
+in another package.
 
 The way that you do this is by placing those methods in a protocol (of
 ==Object==, ==String==, ==Date==, and so on) named ==\*PharoLink== (note the
-initial asterisk). The ==\*PharoLink== protocols added to the package named ==PharoLink==. To be
-precise, the rules for what goes in a package are as follows.
+initial asterisk). The ==\*PharoLink== protocols added to the package named
+==PharoLink==. To be precise, the rules for what goes in a package are as
+follows.
 
 A package named ==Foo== contains:
 
@@ -46,25 +53,29 @@ A package named ==Foo== contains:
 
 ""1."" All ''class definitions'' of classes in the package ==Foo==.
 
-""2."" All ''methods'' in ''any class'' in protocols named ==\*Foo== or ==\*foo==
-(When performing this comparison, the case of the letters in the names is
-ignored.), or whose name starts with ==\*Foo-== or ==\*foo-==.
+""2."" All ''methods'' in ''any class'' in protocols named ==\*Foo== or
+==\*foo== (When performing this comparison, the case of the letters in the
+names is ignored.), or whose name starts with ==\*Foo-== or ==\*foo-==.
 
-""3."" All ''methods'' in classes in the package ==Foo== ''except'' for those methods 
-in protocols whose names start with ==\*==: Because classes of package ==Foo== can be also extended by other packages.
+""3."" All ''methods'' in classes in the package ==Foo== ''except'' for those
+methods in protocols whose names start with ==\*==: Because classes of package
+==Foo== can be also extended by other packages.
 
 A consequence of these rules is that each class definition and each method
-belongs to exactly one package. 
+belongs to exactly one package.
 
 !!!! Accessing packages
-The class ==RPackage== represents packages. The class ==RPackageOrganizer== implements a singleton that holds all the Pharo packages. The following expressions are examples of the queries that you can perform. 
+
+The class ==RPackage== represents packages. The class ==RPackageOrganizer==
+implements a singleton that holds all the Pharo packages. The following
+expressions are examples of the queries that you can perform.
 
 
 [[[
 (RPackageOrganizer default packageNamed: 'AST-Core') definedClassNames
 
 
-(RPackageOrganizer default packageNamed: 'AST-Core') extendedClasses 
+(RPackageOrganizer default packageNamed: 'AST-Core') extendedClasses
 ]]]
 
 
@@ -79,8 +90,8 @@ The class ==RPackage== represents packages. The class ==RPackageOrganizer== impl
 +The Monticello browser.>file://figures/freshMonticello.png|label=fig:freshMonticello+
 
 When you open the Monticello browser, you will see two list panes and a row of
-buttons, as shown in Figure *@fig:freshMonticello*. The left-hand pane lists all of
-the packages that have been loaded into the image that you are running; the
+buttons, as shown in Figure *@fig:freshMonticello*. The left-hand pane lists all
+of the packages that have been loaded into the image that you are running; the
 particular version of the package is shown in parentheses after the name.
 
 The right-hand pane lists all of the source code repositories that Monticello
@@ -88,7 +99,7 @@ knows about, usually because it has loaded code from them. If you select a
 package in the left pane, the right pane is filtered to show only those
 repositories that contain versions of the selected package.
 
-!!!! The package-cache 
+!!!! The package-cache
 
 One of the repositories is a directory named ''package-cache'', which is a
 sub-directory of the directory in which your image is running. When you load
@@ -114,11 +125,10 @@ MCHttpRepository
 
 +A Repository browser.>file://figures/SqueakSource-PBE.png|width=60|label=fig:SqueakSource:PBE+
 
-Click on ==Open== to open a repository browser on this repository.
-You should see something like Figure *@fig:SqueakSource:PBE*. On the left is a list
-of all of the packages in the repository; if you select one, then the pane on
-the right will show all of the versions of the selected package in this
-repository.
+Click on ==Open== to open a repository browser on this repository. You should
+see something like Figure *@fig:SqueakSource:PBE*. On the left is a list of all
+of the packages in the repository; if you select one, then the pane on the right
+will show all of the versions of the selected package in this repository.
 
 !!!! Browsing versions
 
@@ -135,7 +145,7 @@ correct operation of Monticello depends on them! Monticello version files are
 just zip archives, and if you are curious you can unpack them with a zip tool,
 but the best way to look at their contents is using Monticello itself.
 
-!!!! Creating a package 
+!!!! Creating a package
 To create a package with Monticello, you have to do two things: write some code,
 and tell Monticello about it.
 
@@ -146,9 +156,11 @@ and tell Monticello about it.
 +An extension method that is also be in the ==PBE== package.>file://figures/MCnewmethod.png|label=fig:MCnewmethod+
 
 !!!! Committing a package
-When you add a package via the class browser, Monticello automatically  add the package to its list. 
-==PBE== is now in list of packages; the package entry will be marked with an asterisk to show that
-the version in the image has not yet been written to any repository (It is said to be ''dirty'').
+
+When you add a package via the class browser, Monticello automatically add the
+package to its list. ==PBE== is now in list of packages; the package entry will
+be marked with an asterisk to show that the version in the image has not yet
+been written to any repository (It is said to be ''dirty'').
 
 Initially, the only repository associated with this package will be your package
 cache, as shown in Figure *@fig:MCPBE*. That's OK: you can still save the code,
@@ -160,6 +172,7 @@ decorating the name in Monticello's package pane will be removed, and the
 version number added.
 
 !!! Introducing a change
+
 If you then make a change to the package \-\- say by adding a method to one of
 the classes \-\- the asterisk will re-appear, showing that you have unsaved
 changes. If you open a repository browser on the package cache, you can select
@@ -178,13 +191,18 @@ to first make sure that Monticello knows about the repository, adding it if
 necessary. Then you can use the ==Copy== in the package-cache repository
 browser, and select the repository to which the package should be copied. You
 can also associate the desired repository with the package by right-clicking on
-the repository and selecting ==add to package...== and select the corresponding package. 
-Once the package knows about a repository, you can save a new version by selecting the repository and the package in the Monticello Browser, and clicking ==Save==. Of course, you must have permission to write to a repository. The ==PharoByExample== repository on SqueakSource is world readable but not world writable, so if you try and save there, you will
-see an error message. 
+the repository and selecting ==add to package...== and select the corresponding
+package. Once the package knows about a repository, you can save a new version
+by selecting the repository and the package in the Monticello Browser, and
+clicking ==Save==. Of course, you must have permission to write to a repository.
+The ==PharoByExample== repository on SqueakSource is world readable but not
+world writable, so if you try and save there, you will see an error message.
 
-However, you can create your own repository and save your code there. Nowadays the favorite code repositories are *http://www.smalltalkhub.org* and *http://ss3.gemstone.com*. 
-This is especially useful as a mechanism to share your code with others and to make sure that 
-you can use automated build systems such as Jenkins or Travis. 
+However, you can create your own repository and save your code there. Nowadays
+the favorite code repositories are *http://www.smalltalkhub.org* and
+*http://ss3.gemstone.com*. This is especially useful as a mechanism to share
+your code with others and to make sure that you can use automated build systems
+such as Jenkins or Travis.
 
 %+Adding a repository to the set of repositories associated with a package.>file://figures/MCaddToPackage.png|label=fig:associateRepository+
 
@@ -199,7 +217,10 @@ package-cache browser.
 !!!Versions of a method
 @sec:versions
 
-When you save a new version of a method, the old one is not lost. Pharo keeps all of the old versions (assuming that you are using the same image and that you saved it), and allows you to compare different versions and to go back (==revert==) to an old version.
+When you save a new version of a method, the old one is not lost. Pharo keeps
+all of the old versions (assuming that you are using the same image and that you
+saved it), and allows you to compare different versions and to go back
+(==revert==) to an old version.
 
 +The versions browser showing two versions of the ==ObjTest\>\>testIVOffset== method.>file://figures/Versions.png|label=fig:Versions+
 
@@ -210,7 +231,7 @@ can see two versions of a method.
 The top pane displays one line for each version of the method, listing the
 name of the programmer who wrote it, the date and time at which it was
 saved, the names of the class and the method, and the protocol in which it was
-defined. The current (active) version is at the top of the list. 
+defined. The current (active) version is at the top of the list.
 
 The existence of the versions browser means that you never have to worry about
 preserving code that you think might no longer be needed. If
@@ -242,8 +263,9 @@ Sorter==.
 
 +The Change Sorter showing all the changes of one changeset and offering actions to move changes to other changesets.>file://figures/changeSorter.png|label=fig:changeSorter+
 
-Figure *@fig:changeSorter* shows the dual change sorter browser. The title bar shows which change set
-is current, and this change set is selected when the change sorter opens.
+Figure *@fig:changeSorter* shows the dual change sorter browser. The title bar
+shows which change set is current, and this change set is selected when the
+change sorter opens.
 
 Other change sets can be selected in the top-left pane; the right-click menu
 allows you to make a different change set current, or to create a new change
@@ -251,7 +273,7 @@ set. The next pane lists all of the classes affected by the selected change set
 (with their categories). Selecting one of the classes displays the names of
 its methods that are also in the change set (''not'' all of the methods
 in the class) in the left central pane, and selecting a method name displays the
-method definition in the bottom pane. 
+method definition in the bottom pane.
 
 The change sorter also lets you delete classes and methods from the change set
 using the right-click menu on the corresponding items.
@@ -261,8 +283,9 @@ using the right-click menu on the corresponding items.
 The change sorter allows you to simultaneously view two change sets, one on the
 left hand side and the other on the right. This layout supports the change
 sorter's main feature, which is the ability to move or copy changes from one
-change set to another, as shown by the right-click menu in Figure *@fig:changeSorter*.
-It is also possible to copy individual methods from one side to the other.
+change set to another, as shown by the right-click menu in Figure
+*@fig:changeSorter*. It is also possible to copy individual methods from one
+side to the other.
 
 You may be wondering why you should care about the composition of a change set.
 the answer is that change sets provide a simple mechanism for exporting code
@@ -278,13 +301,14 @@ code between Pharoers. They have the advantage of simplicity (the file out
 is just a text file, although we ''don't'' recommend that you try to edit them
 with a text editor), and a degree of portability.
 
-The main drawback of change sets, compared to Monticello packages, is that
-they do not support the notion of dependencies. In spite of these shortcomings, change sets still have their uses. In
-particular, you may find change sets on the Internet that you want to look at
-and perhaps use. So, having filed out a change set using the change sorter, we
-will now tell you how to file one in. This requires the use of another tool, the
-file list browser. Note that dropping a changeset on Pharo itself works brings a pop up to ask you whether you want to load
-or browse the code contained in a changeset.
+The main drawback of change sets, compared to Monticello packages, is that they
+do not support the notion of dependencies. In spite of these shortcomings,
+change sets still have their uses. In particular, you may find change sets on
+the Internet that you want to look at and perhaps use. So, having filed out a
+change set using the change sorter, we will now tell you how to file one in.
+This requires the use of another tool, the file list browser. Note that dropping
+a changeset on Pharo itself works brings a pop up to ask you whether you want to
+load or browse the code contained in a changeset.
 
 !!The File List Browser
 
@@ -306,10 +330,10 @@ box at the top-left of the window. Initially, this pattern is ==*==, which
 matches all file names, but you can type a different string there and accept it,
 changing the pattern. (Note that a ==\*== is implicitly prepended and appended
 to the pattern that you type.) The sort order of the files can be changed using
-the ==name==, ==date== and ==size== buttons. The rest of the
-buttons depend on the name of the file selected in the browser. In
-Figure *@fig:fileList*, the file name has the suffix ==.st==, so the browser assumes
-that it is pharo code, and provides  the possible actions as buttons. 
+the ==name==, ==date== and ==size== buttons. The rest of the buttons depend on
+the name of the file selected in the browser. In Figure *@fig:fileList*, the
+file name has the suffix ==.st==, so the browser assumes that it is pharo code,
+and provides the possible actions as buttons.
 
 +A File Contents Browser opened on a package .>file://figures/fileContentsBrowser.png|label=fig:fileContentsBrowser+
 
@@ -318,9 +342,10 @@ on its contents, sometimes the button that you want won't be on the screen.
 However, the full set of options is always available from the right-click
 ==more...== menu, so you can easily work around this problem.
 
-The ==code== button is perhaps the most useful for working with change
-sets; it opens a browser on the contents of the change set file or even an MC package; an example is shown in Figure *@fig:fileContentsBrowser*. The file contents browser is similar to
-the browser except that the code is not loaded in memory. 
+The ==code== button is perhaps the most useful for working with change sets; it
+opens a browser on the contents of the change set file or even an MC package; an
+example is shown in Figure *@fig:fileContentsBrowser*. The file contents browser
+is similar to the browser except that the code is not loaded in memory.
 
 !!In Pharo, you can't lose code
 @sec:cantLoseCode
@@ -330,7 +355,10 @@ change anything, including things that are vital to make Pharo work!
 
 The good news is that you will never lose any work, even if you crash and go
 back to the last saved version of your image, which might be hours old. This is
-because all of the code that you executed is saved in the ''.changes'' file. This excludes Playground snippets , those are stored inside ''/pharo-local/play-chace''and they can be searched using Spotter (the results are displayed under Playground-cached pages section).
+because all of the code that you executed is saved in the ''.changes'' file.
+This excludes Playground snippets , those are stored inside
+''/pharo-local/play-chace''and they can be searched using Spotter (the results
+are displayed under Playground-cached pages section).
 
 So here are the instructions on how to get your code back. There is no need to
 read this until you need it. However, when you do need it, you'll find it here
@@ -359,12 +387,12 @@ trial and error.)
 
 Once you have a ''recent changes'' browser, showing, say, changes back as far as
 your last snapshot, you will have a list of everything that you have done to
-Pharo during that time. You can delete items from this list using the right-click
-menu. When you are satisfied, you can file-in what is left, thus incorporating
-the changes into your new image. It's a good idea to start a new change set,
-using the ordinary change set browser, before you do the file in, so that all of
-your recovered code will be in a new change set. You can then file out this
-change set.
+Pharo during that time. You can delete items from this list using the
+right-click menu. When you are satisfied, you can file-in what is left, thus
+incorporating the changes into your new image. It's a good idea to start a new
+change set, using the ordinary change set browser, before you do the file in, so
+that all of your recovered code will be in a new change set. You can then file
+out this change set.
 
 One useful thing to do in the ''recent changes'' browser is to ==remove doIts==.
 Usually, you won't want to file in (and thus re-execute) doIts.

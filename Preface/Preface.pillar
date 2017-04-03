@@ -2,7 +2,9 @@
 
 !!What is Pharo?
 
-Pharo is a modern, open-source, dynamically typed language supporting live coding inspired by Smalltalk. Pharo and its ecosystems are composed of six fundamental elements:
+Pharo is a modern, open-source, dynamically typed language supporting live
+coding inspired by Smalltalk. Pharo and its ecosystems are composed of six
+fundamental elements:
 
 - A dynamically-typed language with a syntax so simple it can fit on a postcard and yet is readable even for someone unfamiliar with it.
 - A live coding environment that allows the programmer to modify code while the code executes, without any need to slow down their workflow.
@@ -11,46 +13,58 @@ Pharo is a modern, open-source, dynamically typed language supporting live codin
 - A culture where changes and improvements are encouraged and highly valued.
 - A community that welcomes coders from any corner of the world with any skill and any programming languages.
 
-Pharo strives to offer a lean, open platform for professional software development, as well as a  robust and stable platform for research and development into dynamic languages and environments. Pharo serves as the reference implementation for the Seaside web development framework available at *http://www.seaside.st*.
+Pharo strives to offer a lean, open platform for professional software
+development, as well as a robust and stable platform for research and
+development into dynamic languages and environments. Pharo serves as the
+reference implementation for the Seaside web development framework available at
+*http://www.seaside.st*.
 
 Pharo core contains only code that has been contributed under the MIT license.
-The Pharo project started in March 2008 as a fork of Squeak (a modern implementation of Smalltalk-80), and the first 1.0 beta version was
+The Pharo project started in March 2008 as a fork of Squeak (a modern
+implementation of Smalltalk-80), and the first 1.0 beta version was
 released on July 31, 2009. The current version is Pharo 5.0, released in May
 2016. Pharo 6.0 is in alpha development and planned for release in April 2017.
 
-Pharo is highly portable. Pharo can run on OS X, Windows, Linux, Android, iOS, and Raspberry Pi. Its virtual machine is written entirely in
-a subset of Pharo itself, making it easy to simulate, debug, analyze, and change from within Pharo itself.  Pharo is the vehicle for a
-wide range of innovative projects, from multimedia applications and educational platforms to commercial web development environments.
+Pharo is highly portable. Pharo can run on OS X, Windows, Linux, Android, iOS,
+and Raspberry Pi. Its virtual machine is written entirely in a subset of Pharo
+itself, making it easy to simulate, debug, analyze, and change from within Pharo
+itself. Pharo is the vehicle for a wide range of innovative projects, from
+multimedia applications and educational platforms to commercial web development
+environments.
 
-There is an important principle behind Pharo: Pharo does not just copy the past, it reinvents the essence of Smalltalk. However we realize that Big Bang style approaches rarely succeed.  Pharo instead favors evolutionary and incremental changes.
-Rather than leaping for the final perfect solution in one big step,
-a multitude of small changes keeps even the bleeding edge relatively stable
-while experimenting with important new features and libraries.
-This facilitates contributions and rapid feedback from the community,
-on which Pharo relies on for its success. Finally Pharo is not read-only, Pharo integrates changes made by the community, daily. 
-Pharo has around 100 contributors, based all over the world. 
-You can have an impact on Pharo too!
+There is an important principle behind Pharo: Pharo does not just copy the past,
+it reinvents the essence of Smalltalk. However we realize that Big Bang style
+approaches rarely succeed. Pharo instead favors evolutionary and incremental
+changes. Rather than leaping for the final perfect solution in one big step, a
+multitude of small changes keeps even the bleeding edge relatively stable while
+experimenting with important new features and libraries. This facilitates
+contributions and rapid feedback from the community, on which Pharo relies on
+for its success. Finally Pharo is not read-only, Pharo integrates changes made
+by the community, daily. Pharo has around 100 contributors, based all over the
+world. You can have an impact on Pharo too!
 
 
 !!Who should read this book?
 
-The previous revision of this book was based on Pharo 1.4.
-This revision has been liberally updated to align with Pharo 5.0.
-Various aspects of Pharo are presented, starting with the basics then proceeding to intermediate topics.
-Advanced topics are presented in ""Deep into Pharo"", a book on the internals of Pharo
-that is freely available at *http://books.pharo.org*. In addition for readers interested in web development, a new book ""Enterprise Pharo: a Web Perspective"" is freely available at *http://books.pharo.org*.
+The previous revision of this book was based on Pharo 1.4. This revision has
+been liberally updated to align with Pharo 5.0. Various aspects of Pharo are
+presented, starting with the basics then proceeding to intermediate topics.
+Advanced topics are presented in ""Deep into Pharo"", a book on the internals of
+Pharo that is freely available at *http://books.pharo.org*. In addition for
+readers interested in web development, a new book ""Enterprise Pharo: a Web
+Perspective"" is freely available at *http://books.pharo.org*.
 
 This book will not teach you how to program. The reader should have some
-familiarity with programming languages.  Some background with object-oriented
+familiarity with programming languages. Some background with object-oriented
 programming would also be helpful.
 
 This book will introduce the Pharo programming environment, the language and the
-associated tools.  You will be exposed to common idioms and practices, but the
-focus is on the technology, not on object-oriented design.  Wherever possible,
+associated tools. You will be exposed to common idioms and practices, but the
+focus is on the technology, not on object-oriented design. Wherever possible,
 we will show you lots of examples.
 
-There are numerous other books on Smalltalk freely available on the web at *http://stephane.ducasse.free.fr/FreeBooks.html*.
-
+There are numerous other books on Smalltalk freely available on the web at
+*http://stephane.ducasse.free.fr/FreeBooks.html*.
 
 !!A word of advice
 
@@ -58,10 +72,13 @@ Do not be frustrated by parts of Pharo that you do not immediately understand.
 You do not have to know everything! Alan Knight expresses this as follows:
 
 {{{latex:\begin{quote} }}}{{{html:<blockquote>}}}
-''Try not to care''. Beginning Smalltalk programmers often have trouble because they think they need to understand all the details of how a thing works before they can use it.  This means it takes quite a while before they can master Transcript show: 'Hello World'. One of the great leaps in OO is to be able to answer the  question “How does this work?” with "I don't care".
+''Try not to care''. Beginning Smalltalk programmers often have trouble because they think they need to understand all the details of how a thing works before they can use it. This means it takes quite a while before they can master Transcript show: 'Hello World'. One of the great leaps in OO is to be able to answer the question “How does this work?” with "I don't care".
 {{{latex:\end{quote} }}}{{{html:</blockquote>}}}
 
-When you do not understand something, simple or complex, do not hesitate for a second to ask us at our mailing lists (pharo-users@lists.pharo.org or pharo-dev@lists.pharo.org), irc and Slack. We love questions and we welcome people of any skill.
+When you do not understand something, simple or complex, do not hesitate for a
+second to ask us at our mailing lists (pharo-users@lists.pharo.org or
+pharo-dev@lists.pharo.org), irc and Slack. We love questions and we welcome
+people of any skill.
 
 !!An open book
 
@@ -86,8 +103,9 @@ that you may find useful:
 !!Examples and exercises
 
 We have tried to provide as many examples as possible. In particular, there are
-many examples that show a fragment of code which can be evaluated. We use a long arrow to indicate the result you obtain when you
-select an expression and from its context menu choose ""print it"":
+many examples that show a fragment of code which can be evaluated. We use a long
+arrow to indicate the result you obtain when you select an expression and from
+its context menu choose ""print it"":
 
 [[[label=scr:script1|caption=Small example|language=Smalltalk
 3 + 4
@@ -95,14 +113,16 @@ select an expression and from its context menu choose ""print it"":
 ]]]
 
 In case you want to play with these code snippets in Pharo, you can download a
-plain text file with all the example code from the Resources sidebar of the book's web site:
-*http://books.pharo.org>http://books.pharo.org*.
+plain text file with all the example code from the Resources sidebar of the
+book's web site: *http://books.pharo.org>http://books.pharo.org*.
 
 
 !!Acknowledgments
 
-We would like to thank Alan Kay, Dan Ingalls and their team for making Squeak, an amazing Smalltalk development environment, that became the
-open-source project from which Pharo took roots. Pharo also would not be possible without the incredible work of the Squeak developers. 
+We would like to thank Alan Kay, Dan Ingalls and their team for making Squeak,
+an amazing Smalltalk development environment, that became the open-source
+project from which Pharo took roots. Pharo also would not be possible without
+the incredible work of the Squeak developers.
 
 We would also like to thank Hilaire Fernandes and Serge Stinckwich who allowed
 us to translate parts of their columns on Smalltalk, and Damien Cassou for
@@ -118,12 +138,17 @@ project, as well as for all the translations of the first edition of ""Pharo by
 Example"".
 
 !!Hyper special acknowledgments
-We want to thank the original authors of this book! Without this initial version it would have been difficult to make this one. 
-Pharo by Example is a central book to welcome newcomers and it has a great value.
 
-Thanks to Manfred Kröhnert, Markus Schlager, Werner Kassens, Michael OKeefe, Aryeh Hoffman, Paul MacIntosh, Gaurav Singh, Jigyasa Grover, Craig Allen, Serge Stinckwich, avh-on1, Yuriy Timchuk, zio-pietro  for the typos and feedback. 
-Special thanks to Damien Cassou and Cyril Ferlicot for their great help in the book update.
-Finally we want to thank Inria for its steady and important financial support,
-and the RMoD team members for the constant energy pushing Pharo forward.
+We want to thank the original authors of this book! Without this initial version
+it would have been difficult to make this one. Pharo by Example is a central
+book to welcome newcomers and it has a great value.
 
-Super special thanks to Damien Pollet for this great book template. 
+Thanks to Manfred Kröhnert, Markus Schlager, Werner Kassens, Michael OKeefe,
+Aryeh Hoffman, Paul MacIntosh, Gaurav Singh, Jigyasa Grover, Craig Allen, Serge
+Stinckwich, avh-on1, Yuriy Timchuk, zio-pietro for the typos and feedback.
+Special thanks to Damien Cassou and Cyril Ferlicot for their great help in the
+book update. Finally we want to thank Inria for its steady and important
+financial support, and the RMoD team members for the constant energy pushing
+Pharo forward.
+
+Super special thanks to Damien Pollet for this great book template.

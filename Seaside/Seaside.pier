@@ -1,12 +1,13 @@
 { "title": "Seaside by example" }
-@cha:seaside 
+@cha:seaside
 
 Seaside is a framework for building web applications in Smalltalk, originally
 developed by Avi Bryant and Julian Fitzell in 2002. Once mastered, Seaside makes
-web applications almost as easy to write as desktop applications. Seaside is really interesting 
-for developing fast complex applications. For example *http://allstocker.com* is a Seaside commercial 
-applications or the Quuve, FinWorks and CableExpertise application from *http://www.pharo.org/success* 
-have been developed in Seaside. 
+web applications almost as easy to write as desktop applications. Seaside is
+really interesting  for developing fast complex applications. For example
+*http://allstocker.com* is a Seaside commercial  applications or the Quuve,
+FinWorks and CableExpertise application from *http://www.pharo.org/success*
+have been developed in Seaside.
 
 Seaside is unusual in that it is thoroughly object-oriented: there are no HTML
 templates, no complicated control flows through web pages, and no encoding of
@@ -70,10 +71,11 @@ documentation, including the Release Notes for each version of Seaside.
 The easiest way to get started is to download the ==Seaside One-Click Experience
 3.1== from the Pharo Downloads section of the Seaside web site
 (*http://www.seaside.st/download/pharo*). This is a prepackaged version of the
-latest stable version of Seaside  for Mac OSX, Linux and Windows,
-built on Pharo 4. The current latest Seaside version is 3.2. These are full Pharo distributions, which include the Pharo
-VM as well as a development image with many Seaside-related packages preloaded,
-and a helpful Seaside control panel that starts when you open the image.
+latest stable version of Seaside  for Mac OSX, Linux and Windows, built on Pharo
+4. The current latest Seaside version is 3.2. These are full Pharo
+distributions, which include the Pharo VM as well as a development image with
+many Seaside-related packages preloaded, and a helpful Seaside control panel
+that starts when you open the image.
 
 Download and launch the Seaside One-Click image (feel free to refer to the
 ==Getting Started== section of
@@ -218,12 +220,13 @@ configuration change.
 
 Point your web browser to *http://localhost:8080/config*.
 
-If you are asked for a login, supply the default login and password (==admin== and ==seaside==).
-You can see a list of a registered applications and dispatchers. Change into the ==examples==
-dispatcher list by clicking on the link on the left side. With the buttons at the topbar, we can
-add new request handlers, open the current, copy, remove or set it as the default page.
-We want to add a new example application. Select ==Add==, enter the name ==counter2== and choose the 
-type ==Application==, click ==OK== (see Figure *@fig:counter2*).
+If you are asked for a login, supply the default login and password (==admin==
+and ==seaside==). You can see a list of a registered applications and
+dispatchers. Change into the ==examples== dispatcher list by clicking on the
+link on the left side. With the buttons at the topbar, we can add new request
+handlers, open the current, copy, remove or set it as the default page. We want
+to add a new example application. Select ==Add==, enter the name ==counter2==
+and choose the  type ==Application==, click ==OK== (see Figure *@fig:counter2*).
 
 On the next screen, set the ==Root Component== to
 ==WACounter==, apply the changes (Figure *@fig:counter2_config*).
@@ -250,10 +253,10 @@ AAdmin applicationDefaults
     removeParent: WADevelopmentConfiguration instance
 ]]]
 
-If you want to enable the password protection, you need to add the ==WAAuthConfiguration==
-in the ==Inherited Configuration==. Choose ==WAAuthConfiguration== from the list of
-possible parents, after adding this configuration, you can define the ==Login== and ==Password==
-setting.
+If you want to enable the password protection, you need to add the
+==WAAuthConfiguration== in the ==Inherited Configuration==. Choose
+==WAAuthConfiguration== from the list of possible parents, after adding this
+configuration, you can define the ==Login== and ==Password== setting.
 
 !!Seaside components
 @sec:components
@@ -355,9 +358,9 @@ prior value.
 !!Rendering HTML
 
 The purpose of a web application is to create, or ''render'', web pages. As we
-mentioned in Section *@sec:components*, each Seaside component is responsible for
-rendering itself. So, let's start our exploration of rendering by seeing how the
-counter component renders itself.
+mentioned in Section *@sec:components*, each Seaside component is responsible
+for rendering itself. So, let's start our exploration of rendering by seeing how
+the counter component renders itself.
 
 !!!Rendering the Counter
 
@@ -427,8 +430,9 @@ html horizontalRule.
 +RenderingDemo.>file://figures/RenderingDemo.png|label=fig:RenderingDemo+
 
 In Figure *@fig:RenderingDemo* we can see the output of many of the basic
-brushes offered by Seaside. (The source code for method ==SeasideDemo >> renderContentOn:== defined below is in
-the package ==PBE-SeasideDemo== in the project
+brushes offered by Seaside. (The source code for method
+==SeasideDemo >> renderContentOn:== defined below is in the package
+==PBE-SeasideDemo== in the project
 *http://www.squeaksource.com/PharoByExample*.) The root component
 ==SeasideDemo== simply renders its subcomponents, which are instances of
 ==SeasideHtmlDemo==, ==SeasideFormDemo==, ==SeasideEditCallDemo== and
@@ -462,13 +466,13 @@ Many of the available brushes can be used in these two ways.
 
 @@important If you send a cascade of messages to a brush including the message ==with:==, then ==with:== should be the ''final'' message. ==with:==  both sets the content and renders the result.
 
-In method ==renderContentOn: == above,  the first heading is at level 1, since this is the
-default. We explicitly set the level of the second heading to 2. The
-subcomponent is rendered as an HTML ''div'' with the CSS class
-''subcomponent''. (More on CSS in Section *@sec:css*.) Also note that the
-argument to the ==with:== keyword message need not be a literal string: it can
-be another component, or even — as in the next example — a block containing
-further rendering actions.
+In method ==renderContentOn: == above,  the first heading is at level 1, since
+this is the default. We explicitly set the level of the second heading to 2. The
+subcomponent is rendered as an HTML ''div'' with the CSS class ''subcomponent''.
+(More on CSS in Section *@sec:css*.) Also note that the argument to the
+==with:== keyword message need not be a literal string: it can be another
+component, or even — as in the next example — a block containing further
+rendering actions.
 
 The ==SeasideHtmlDemo== component demonstrates many of the most basic brushes.
 Most of the code should be self-explanatory.
@@ -620,8 +624,8 @@ colour on the HTML form to update the ==color== variable, and to bind the result
 of the checkbox to the ==checked== variable. Many other examples can be found in
 the functional tests for Seaside. Have a look at the package
 ==Seaside-Tests-Functional==, or just point your browser to
-*http://localhost:8080/tests/functional*. Select ==WAInputPostFunctionalTest== and click
-on the ==Restart== button to see most of the features of forms.
+*http://localhost:8080/tests/functional*. Select ==WAInputPostFunctionalTest==
+and click on the ==Restart== button to see most of the features of forms.
 
 Don't forget, if you toggle ==Halos==, you can browse the source code of the
 examples directly using the Seaside class browser.
@@ -717,8 +721,9 @@ but not within a div.
 
 There are numerous books and web sites to help you learn CSS. For a dramatic
 demonstration of the power of CSS, we recommend you to have a look at the CSS
-Zen Garden (*http://www.csszengarden.com/*), which shows how the same content can
-be rendered in radically different ways simply by changing the CSS style sheet.
+Zen Garden (*http://www.csszengarden.com/*), which shows how the same content
+can be rendered in radically different ways simply by changing the CSS style
+sheet.
 
 !!Managing control flow
 
@@ -855,8 +860,8 @@ implementing the method ==go==.
 
 ==WAConvenienceTest== is a simple example of a task defined in the package
 ==Seaside-Tests-Functional==. To see its effect, just point your browser to
-*http://localhost:8080/tests/functional*, select ==WAFlowConvenienceFunctionalTest== and
-click ==Restart==.
+*http://localhost:8080/tests/functional*, select
+==WAFlowConvenienceFunctionalTest== and click ==Restart==.
 
 [[[
 WAFlowConvenienceFunctionalTest >> go
@@ -984,8 +989,8 @@ WAStoreTask >> go
 ]]]
 
 Here we see quite clearly that there are two transactions. The first fills the
-cart and closes the shopping phase. (The helper methods such as ==fillCart== take
-care of instantiating and calling the right subcomponents.) Once you have
+cart and closes the shopping phase. (The helper methods such as ==fillCart==
+take care of instantiating and calling the right subcomponents.) Once you have
 confirmed the contents of the cart you cannot go back without starting a new
 session. The second transaction completes the shipping and payment data. You can
 navigate back and forth within the second transaction until you confirm payment.
@@ -1242,7 +1247,7 @@ MyKeypad >> type: aString
 ]]]
 
 
-The two methods ==stackPopTopOrZero== and ==stackPopIfNotEmpty== are used to 
+The two methods ==stackPopTopOrZero== and ==stackPopIfNotEmpty== are used to
 guard against operating on an empty stack.
 
 [[[
@@ -1445,7 +1450,7 @@ Click on the __Configure__ link in the toolbar of the calculator.
 ==Configure== the ==Libraries== attribute under the ==General== section.
 (You may need to enable the modification of this attribute, by first selecting
 ==Modify==).
-From the list of available libraries, select ==PTDevelopmentLibrary== and 
+From the list of available libraries, select ==PTDevelopmentLibrary== and
 apply the changes.
 
 Instead of manually adding the library, you may also do it programmatically when
@@ -1457,8 +1462,9 @@ MyCalculator class >> initialize
 		addLibrary: PTDevelopmentLibrary
 ]]]
 
-For this example the ==PTDevelopmentLibrary== is sufficient, but for the full set of the scriptaculous extensions you need to
-add the ==SUDevelopmentLibrary==, too.
+For this example the ==PTDevelopmentLibrary== is sufficient, but for the full
+set of the scriptaculous extensions you need to add the
+==SUDevelopmentLibrary==, too.
 
 +Seaside AJAX processing (simplified).>file://figures/ajax-processing.png|label=fig:ajax-processing+
 
