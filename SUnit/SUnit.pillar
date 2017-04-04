@@ -24,22 +24,23 @@ software quality would do well to adopt it. Indeed, developers in many languages
 have come to appreciate the power of unit testing, and versions of ''xUnit'' now
 exist for every programming language.
 
-Neither testing, nor the building of test suites, is new. By now, everybody knows that
-tests are a good way to catch errors. eXtreme Programming, by making testing a
-core practice and by emphasizing ''automated'' tests, has helped to make testing
-productive and fun, rather than a chore that programmers dislike. The Pharo
-community has a long tradition of testing because of the incremental style of
-development supported by its programming environment. In traditional Pharo
-development, the programmer would write tests in a playground as soon as a method
-was finished. Sometimes a test would be incorporated as a comment at the head of
-the method that it exercised, or tests that needed some set up would be included
-as example methods in the class. The problem with these practices is that tests
-in a playground are not available to other programmers who modify the code.
-Comments and example methods are better in this respect, but there is still no
-easy way to keep track of them and to run them automatically. Tests that are not
-run do not help you to find bugs! Moreover, an example method does not inform
-the reader of the expected result: you can run the example and see the (perhaps
-surprising) result, but you will not know if the observed behaviour is correct.
+Neither testing, nor the building of test suites, is new. By now, everybody
+knows that tests are a good way to catch errors. eXtreme Programming, by making
+testing a core practice and by emphasizing ''automated'' tests, has helped to
+make testing productive and fun, rather than a chore that programmers dislike.
+The Pharo community has a long tradition of testing because of the incremental
+style of development supported by its programming environment. In traditional
+Pharo development, the programmer would write tests in a playground as soon as a
+method was finished. Sometimes a test would be incorporated as a comment at the
+head of the method that it exercised, or tests that needed some set up would be
+included as example methods in the class. The problem with these practices is
+that tests in a playground are not available to other programmers who modify the
+code. Comments and example methods are better in this respect, but there is
+still no easy way to keep track of them and to run them automatically. Tests
+that are not run do not help you to find bugs! Moreover, an example method does
+not inform the reader of the expected result: you can run the example and see
+the (perhaps surprising) result, but you will not know if the observed behaviour
+is correct.
 
 SUnit is valuable because it allows us to write tests that are self-checking:
 the test itself defines what the correct result should be. It also helps us to
@@ -63,14 +64,13 @@ tests is quite useful now, but it will be ''extremely'' useful when your
 application, or the environment in which it runs, changes in the future.
 
 Tests play several roles. First, they provide documentation of the functionality
-that they cover. This documentation is active: watching the tests pass
-tells you that the documentation is up to date. Second, tests help developers to
-confirm that some changes that they have just made to a package have not broken
-anything else in the system, and to find the parts that break when that
-confidence turns out to be misplaced. Finally, writing tests during, or even before,
-programming forces you to think about the functionality that
-you want to design, ''and how it should appear to the client code'', rather than
-about how to implement it.
+that they cover. This documentation is active: watching the tests pass tells you
+that the documentation is up to date. Second, tests help developers to confirm
+that some changes that they have just made to a package have not broken anything
+else in the system, and to find the parts that break when that confidence turns
+out to be misplaced. Finally, writing tests during, or even before, programming
+forces you to think about the functionality that you want to design, ''and how
+it should appear to the client code'', rather than about how to implement it.
 
 By writing the tests first, i.e., before the code, you are compelled to state
 the context in which your functionality will run, the way it will
@@ -170,9 +170,9 @@ your class is a subclass of ==TestCase==.
 
 !!!Step 2: Initialize the test context
 
-The message ==TestCase >> setUp== defines the context in which the tests will run,
-a bit like an initialize method. ==setUp== is invoked before the execution of
-each test method defined in the test class.
+The message ==TestCase >> setUp== defines the context in which the tests will
+run, a bit like an initialize method. ==setUp== is invoked before the execution
+of each test method defined in the test class.
 
 Define the ==setUp== method as follows, to initialize the ==empty== variable to
 refer to an empty set and the ==full== variable to refer to a set containing two
@@ -243,8 +243,8 @@ You can also select sets of test suites to run, and obtain a more detailed log
 of the results using the SUnit Test Runner, which you can open by selecting
 ==World > Test Runner==.
 
-The ''Test Runner'', shown in Figure *@fig:test-runner*, is designed to make it easy to
-execute groups of tests.
+The ''Test Runner'', shown in Figure *@fig:test-runner*, is designed to make it
+easy to execute groups of tests.
 
 The left-most pane lists all of the packages that contain test classes (i.e.,
 subclasses of ==TestCase==). When some of these packages are selected, the test
@@ -256,11 +256,12 @@ coverage.
 
 +Running SUnit tests using the ''TestRunner''.>file://figures/updatedtestRunner.png|width=80|label=fig:test-runner+
 
-Open a Test Runner, select the package ''MySetTest'', and click the ==Run Selected==
-button.
+Open a Test Runner, select the package ''MySetTest'', and click the ==Run
+Selected== button.
 
-You can also run a single test (and print the usual pass/fail result summary) by executing a
-''Print it'' on the following code: ==MyExampleSetTest run: #testRemove==.
+You can also run a single test (and print the usual pass/fail result summary) by
+executing a ''Print it'' on the following code: ==MyExampleSetTest run:
+#testRemove==.
 
 Some people include an executable comment in their test methods that allows
 running a test method with a ''Do it'' from the browser, as shown below.
@@ -273,8 +274,8 @@ MyExampleSetTest >> testRemove
 	self deny: (full includes: 5)
 ]]]
 
-Introduce a bug in ==MyExampleSetTest >> testRemove== and run the tests again. For
-example, change ==6== to ==7==, as in:
+Introduce a bug in ==MyExampleSetTest >> testRemove== and run the tests again.
+For example, change ==6== to ==7==, as in:
 
 [[[caption=Introducing a bug in a test
 MyExampleSetTest >> testRemove
@@ -295,21 +296,22 @@ MyExampleSetTest debug: #testRemove
 
 !!!Step 5: Interpret the results
 
-The method ==assert:== is defined in the class ==TestAsserter==. This is a superclass
-of ==TestCase== and therefore all other ==TestCase== subclasses and is responsible for
-all kind of test result assertions.
-The ==assert:== method expects a boolean argument, usually the value of a tested expression. When the
+The method ==assert:== is defined in the class ==TestAsserter==. This is a
+superclass of ==TestCase== and therefore all other ==TestCase== subclasses and
+is responsible for all kind of test result assertions. The ==assert:== method
+expects a boolean argument, usually the value of a tested expression. When the
 argument is true, the test passes; when the argument is false, the test fails.
 
-There are actually three possible outcomes of a test: ''passing'', ''failing'', and ''raising an error''.
+There are actually three possible outcomes of a test: ''passing'', ''failing'',
+and ''raising an error''.
 
 - ""Passing"". The outcome that we hope for is that all of the assertions in the test are true, in which case the test passes. In the test runner, when all of the tests pass, the bar at the top turns green. However, there are two other ways that running a test can go wrong.
 - ""Failing"". The obvious way is that one of the assertions can be false, causing the test to ''fail''.
 - ""Error"". The other possibility is that some kind of error occurs during the execution of the test, such as a ''message not understood'' error or an ''index out of bounds'' error. If an error occurs, the assertions in the test method may not have been executed at all, so we can't say that the test has failed; nevertheless, something is clearly wrong!
 
-In the ''test runner'', failing tests cause the bar at the top to turn yellow, and are listed in the middle pane on
-the right, whereas tests with errors cause the bar to turn red, and are listed in
-the bottom pane on the right.
+In the ''test runner'', failing tests cause the bar at the top to turn yellow,
+and are listed in the middle pane on the right, whereas tests with errors cause
+the bar to turn red, and are listed in the bottom pane on the right.
 
 Modify your tests to provoke both errors and failures.
 
@@ -325,13 +327,13 @@ GUI to run tests, but there are situations where you may not want to use it.
 In addition to ==assert:== and ==deny:==, there are several other methods that
 can be used to make assertions.
 
-First, ==TestAsserter >> assert:description:== and ==TestAsserter >> deny:description:==
-take a second argument which is a message string that describes
-the reason for the failure, if it is not obvious from the test itself. These
-methods are described in Section *@sec:descriptionStrings*.
+First, ==TestAsserter >> assert:description:== and ==TestAsserter >>
+deny:description:== take a second argument which is a message string that
+describes the reason for the failure, if it is not obvious from the test itself.
+These methods are described in Section *@sec:descriptionStrings*.
 
-Next, SUnit provides two additional methods, ==TestAsserter >> should:raise:== and
-==TestAsserter >> shouldnt:raise:== for testing exception propagation.
+Next, SUnit provides two additional methods, ==TestAsserter >> should:raise:==
+and ==TestAsserter >> shouldnt:raise:== for testing exception propagation.
 
 For example, you would use ==self should: aBlock raise: anException== to test
 that a particular exception is raised during the execution of ==aBlock==. The
@@ -366,7 +368,7 @@ the string ''test''.
 To run the tests in the suite, send it the message ==run==. For example:
 
 [[[
-MyExampleSetTest suite run 
+MyExampleSetTest suite run
 >>> 5 run, 5 passed, 0 failed, 0 errors
 ]]]
 
@@ -381,12 +383,12 @@ The framework is there: use it.
 !!The SUnit framework
 
 SUnit consists of four main classes: ==TestCase==, ==TestSuite==,
-==TestResult==, and ==TestResource==, as shown in Figure *@fig:sunit-classes*. The
-notion of a ''test resource'' represents a resource that is expensive to set-up
-but which can be used by a whole series of tests. A ==TestResource== specifies
-a ==setUp== method that is executed just once before a suite of tests; this is
-in distinction to the ==TestCase >> setUp== method, which is executed before each
-test.
+==TestResult==, and ==TestResource==, as shown in Figure *@fig:sunit-classes*.
+The notion of a ''test resource'' represents a resource that is expensive to
+set-up but which can be used by a whole series of tests. A ==TestResource==
+specifies a ==setUp== method that is executed just once before a suite of tests;
+this is in distinction to the ==TestCase >> setUp== method, which is executed
+before each test.
 
 +The four classes representing the core of SUnit.>file://figures/sunit-classes.png|width=80|label=fig:sunit-classes+
 
@@ -457,12 +459,13 @@ One thing remains: somehow, SUnit has to be told which resources are associated
 with which test suite. A resource is associated with a particular subclass of
 ==TestCase== by overriding the ''class'' method ==resources==.
 
-By default, the resources of a ==TestSuite== are the union of the resources of the
-==TestCase==s that it contains.
+By default, the resources of a ==TestSuite== are the union of the resources of
+the ==TestCase==s that it contains.
 
 Here is an example. We define a subclass of ==TestResource== called
 ==MyTestResource==. Then we associate it with ==MyTestCase== by overriding the
-class method ==MyTestCase class >> resources== to return an array of the test resource classes that ==MyTestCase== will use.
+class method ==MyTestCase class >> resources== to return an array of the test
+resource classes that ==MyTestCase== will use.
 
 [[[caption=An example of a TestResource subclass
 TestResource subclass: #MyTestResource
@@ -531,8 +534,8 @@ logging support, the ability to skip tests, and resumable test failures.
 !!!Assertion description strings
 @sec:descriptionStrings
 
-The ==TestAsserter== assertion protocol includes a number of methods that allow the
-programmer to supply a description of the assertion. The description is a
+The ==TestAsserter== assertion protocol includes a number of methods that allow
+the programmer to supply a description of the assertion. The description is a
 ==String==; if the test case fails, this string will be displayed by the test
 runner. Of course, this string can be constructed dynamically.
 
@@ -558,9 +561,10 @@ In addition to ==assert:==, there is also ==assert:equals:== that offers a
 better report in case of error (incidentally, ==assert:equals:== uses
 ==assert:description:==).
 
-For example, the two following tests are equivalent. However, the second one will report
- the value that the test is expecting: this makes easier to understand the failure.
-In this example, we suppose that ==aDateAndTime== is an instance variable of the test class.
+For example, the two following tests are equivalent. However, the second one
+will report the value that the test is expecting: this makes easier to
+understand the failure. In this example, we suppose that ==aDateAndTime== is an
+instance variable of the test class.
 
 [[[
 testAsDate
@@ -577,7 +581,8 @@ testAsDate
 The description strings mentioned above may also be logged to a ==Stream==, such
 as the ==Transcript== or a file stream. You can choose whether to log by
 overriding ==isLogging== in your test class; you must also choose where to log
-by overriding ==failureLog== to answer an appropriate stream. By default, the ==Transcript== is used to log.
+by overriding ==failureLog== to answer an appropriate stream. By default, the
+==Transcript== is used to log.
 
 !!!Skipping tests
 
@@ -597,9 +602,9 @@ OCCompiledMethodIntegrityTest >> testPragmas
 !!Continuing after a failure
 
 SUnit also allows us to specify whether or not a test should continue after a
-failure. This is a really powerful feature that uses Pharo's exception mechanisms.
- To see what this can be used for, let's look at an example.
-Consider the following test expression:
+failure. This is a really powerful feature that uses Pharo's exception
+mechanisms. To see what this can be used for, let's look at an example. Consider
+the following test expression:
 
 [[[
 aCollection do: [ :each | self assert: each even ]
@@ -621,8 +626,9 @@ aCollection do: [ :each |
 This will print out a message on your logging stream for each element that
 fails. It doesn't accumulate failures, i.e, if the assertion fails 10 times in
 your test method, you'll still only see one failure. All the other assertion
-methods that we have seen are not resumable by default; ==assert: p description: s== is
-equivalent to ==assert: p description: s resumable: false==.
+methods that we have seen are not resumable by default;
+==assert: p description: s== is equivalent to
+==assert: p description: s resumable: false==.
 
 !!SUnit implementation
 
@@ -657,9 +663,9 @@ TestCase >> run: aResult
 	aResult runCase: self
 ]]]
 
-The method ==TestResult >> runCase:== sends the message ==TestCase >> runCase== to
-an individual test, to execute the test. ==TestResult >> runCase== deals with any
-exceptions that may be raised during the execution of a test, runs a
+The method ==TestResult >> runCase:== sends the message ==TestCase >> runCase==
+to an individual test, to execute the test. ==TestResult >> runCase== deals with
+any exceptions that may be raised during the execution of a test, runs a
 ==TestCase== by sending it the ==runCase==, and counts the errors, failures, and
 passes.
 
@@ -688,7 +694,11 @@ TestCase >> runCase
 
 !!!Running a TestSuite
 
-To run more than one test, we send the message ==run== to a ==TestSuite== that contains the relevant tests. ==TestCase class== provides some functionality to build a test suite from its methods. The expression ==MyTestCase buildSuiteFromSelectors== returns a suite containing all the tests defined in the ==MyTestCase== class. The core of this process is:
+To run more than one test, we send the message ==run== to a ==TestSuite== that
+contains the relevant tests. ==TestCase class== provides some functionality to
+build a test suite from its methods. The expression ==MyTestCase
+buildSuiteFromSelectors== returns a suite containing all the tests defined in
+the ==MyTestCase== class. The core of this process is:
 
 [[[caption=Auto-building the test suite
 TestCase class >> testSelectors
@@ -720,8 +730,8 @@ TestSuite >> tearDown
 ]]]
 
 The class ==TestResource== and its subclasses keep track of their currently
-created singleton instances that can be accessed and created using the
-class method ==TestResource class >> current==. This instance is cleared when the
+created singleton instances that can be accessed and created using the class
+method ==TestResource class >> current==. This instance is cleared when the
 tests have finished running and the resources are reset.
 
 The resource availability check makes it possible for the resource to be
@@ -772,8 +782,8 @@ break many tests at the same time. This is covered by Black's rule, below.
 
 Michael Feathers, an agile process consultant and author, writes:
 
-''A test is not a unit test if: it talks to the database, it communicates across the
-network, it touches the file system, it can't run at the same time as any of
+''A test is not a unit test if: it talks to the database, it communicates across
+the network, it touches the file system, it can't run at the same time as any of
 your other unit tests, or you have to do special things to your environment
 (such as editing config files) to run it. Tests that do these things aren't bad.
 Often they are worth writing, and they can be written in a unit test harness.
@@ -790,14 +800,15 @@ for each method that could possibly fail, and group them per class. However, for
 certain deeply recursive or complex setup situations, it is easier to write
 tests that represent a scenario in the larger application. These are called
 acceptance tests (or integration tests, or functional tests).
-Tests that break Feathers' rules may make
-good acceptance tests. Group acceptance tests according to the functionality
-that they test. For example, if you are writing a compiler, you might write
-acceptance tests that make assertions about the code generated for each possible
-source language statement. Such tests might exercise many classes, and might
-take a long time to run because they touch the file system. You can write them
-using SUnit, but you won't want to run them each time you make a small change,
-so they should be separated from the true unit tests.
+
+Tests that break Feathers' rules may make good acceptance tests. Group
+acceptance tests according to the functionality that they test. For example, if
+you are writing a compiler, you might write acceptance tests that make
+assertions about the code generated for each possible source language statement.
+Such tests might exercise many classes, and might take a long time to run
+because they touch the file system. You can write them using SUnit, but you
+won't want to run them each time you make a small change, so they should be
+separated from the true unit tests.
 
 !!!Black's Rule of Testing
 

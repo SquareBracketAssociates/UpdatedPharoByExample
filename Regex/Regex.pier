@@ -5,7 +5,7 @@ Regular expressions are widely used in many scripting languages such as Perl,
 Python and Ruby. They are useful to identify strings that match a certain
 pattern, to check that input conforms to an expected format, and to rewrite
 strings to new formats. Pharo also supports regular expressions due to the
-==Regex== package contributed by Vassili Bykov.  Regex is installed by default
+==Regex== package contributed by Vassili Bykov. Regex is installed by default
 in Pharo. If you are using an older image that does not include Regex the Regex
 package, you can install it yourself from SqueakSource
 (*http://www.squeaksource.com/Regex.html*).
@@ -53,7 +53,7 @@ side of ==RxParser==.)
 !!Tutorial example — generating a site map
 
 Our job is to write a simple application that will generate a site map for a web
-site that we have stored locally on our hard drive.  The site map will contain
+site that we have stored locally on our hard drive. The site map will contain
 links to each of the HTML files in the web site, using the title of the document
 as the text of the link. Furthermore, links will be indented to reflect the
 directory structure of the web site.
@@ -63,7 +63,7 @@ directory structure of the web site.
 @@todo If you do not have a web site on your machine, copy a few HTML files to a local directory to serve as a test bed.
 
 We will develop two classes, ==WebDir== and ==WebPage==, to represent
-directories and web pages.  The idea is to create an instance of ==WebDir==
+directories and web pages. The idea is to create an instance of ==WebDir==
 which will point to the root directory containing our web site. When we send it
 the message ==makeToc==, it will walk through the files and directories inside
 it to build up the site map. It will then create a new file, called
@@ -208,7 +208,7 @@ If you send ==htmlFiles== to a ==WebDir== instance and ==print it==, you should
 see something like this:
 
 [[[
-(WebDir onPath: '...') htmlFiles 
+(WebDir onPath: '...') htmlFiles
 >>> #('index.html' ...)
 ]]]
 
@@ -216,11 +216,11 @@ see something like this:
 
 Now, if you browse ==matchesRegex:==, you will discover that it is an extension
 method of ==String== that creates a fresh instance of ==RxParser== every time it
-is sent.  That is fine for ad hoc queries, but if we are applying the same regex
+is sent. That is fine for ad hoc queries, but if we are applying the same regex
 to every file in a web site, it is smarter to create just one instance of
 ==RxParser== and reuse it. Let's do that.
 
-@@todo Add a new instance variable ==htmlRegex== to ==WebDir== and initialize it by sending ==asRegex== to our regex string.  Modify ==WebDir>>htmlFiles== to use the same regex each time as follows:
+@@todo Add a new instance variable ==htmlRegex== to ==WebDir== and initialize it by sending ==asRegex== to our regex string. Modify ==WebDir>>htmlFiles== to use the same regex each time as follows:
 
 [[[
 WebDir >> initialize
@@ -239,7 +239,7 @@ Accessing the details of individual web pages should be the responsibility of a
 separate class, so let's define it, and let the ==WebDir== class create the
 instances.
 
-@@todo Define a class ==WebPage== with instance variables ==path==, to identify the HTML file, and ==homePath==, to identify the root directory of the web site.  (We will need this to correctly generate links from the root of the web site to the files it contains.) Define an initialization method on the instance side and a creation method on the class side.
+@@todo Define a class ==WebPage== with instance variables ==path==, to identify the HTML file, and ==homePath==, to identify the root directory of the web site. (We will need this to correctly generate links from the root of the web site to the files it contains.) Define an initialization method on the instance side and a creation method on the class side.
 
 [[[
 WebPage >> initializePath: filePath homePath: dirPath
@@ -266,7 +266,7 @@ WebDir >> webPages
 You should see something like this:
 
 [[[
-(WebDir onPath: '...') webPages 
+(WebDir onPath: '...') webPages
 >>> an Array(a WebPage a WebPage ...)
 ]]]
 
@@ -282,7 +282,7 @@ The ==String== extension method ==copyWithRegex:matchesReplacedWith:== does what
 we want:
 
 [[[
-'hello' copyWithRegex: '[elo]+' matchesReplacedWith: 'i' 
+'hello' copyWithRegex: '[elo]+' matchesReplacedWith: 'i'
 >>> 'hi'
 ]]]
 
@@ -331,7 +331,7 @@ WebPage >> contents
 You should now be able to see something like this:
 
 [[[
-(WebDir onPath: '...') webPages first contents 
+(WebDir onPath: '...') webPages first contents
 >>> '<head>
 <title>Home Page</title>
 ...
@@ -354,7 +354,7 @@ we will try to match a ''prefix'' of the string =='pharo'== and extract the
 submatches:
 
 [[[
-| re |	
+| re |
 re := '([CARETaeiou]+)([aeiou]+)' asRegex.
 re matchesPrefix: 'pharo'
 >>> true
@@ -398,28 +398,28 @@ the same trick with the subexpression.)
 Now we can test our title extractor, and we should see something like this:
 
 [[[
-(WebDir onPath: '...') webPages first title 
+(WebDir onPath: '...') webPages first title
 >>> 'Home page'
 ]]]
 
 !!!More string substitutions
 
 In order to generate our site map, we need to generate links to the individual
-web pages. We can use the document title as the name of the link.  We just need
+web pages. We can use the document title as the name of the link. We just need
 to generate the right path to the web page from the root of the web site.
 Luckily this is trivial — it is simple the full path to the web page minus the
 full path to the root directory of the web site.
 
-We must only watch out for one thing.  Since the ==homePath== variable does not
+We must only watch out for one thing. Since the ==homePath== variable does not
 end in a ==/==, we must append one, so that relative path does not include a
 leading ==/==. Notice the difference between the following two results:
 
 [[[
-'/home/testweb/index.html' copyWithRegex: '/home/testweb' matchesReplacedWith: '' 
+'/home/testweb/index.html' copyWithRegex: '/home/testweb' matchesReplacedWith: ''
 >>> '/index.html'
 ]]]
 [[[
-'/home/testweb/index.html' copyWithRegex: '/home/testweb/' matchesReplacedWith: '' 
+'/home/testweb/index.html' copyWithRegex: '/home/testweb/' matchesReplacedWith: ''
 >>>  'index.html'
 ]]]
 
@@ -441,14 +441,14 @@ WebPage >> link
 You should now be able to see something like this:
 
 [[[
-(WebDir onPath: '...') webPages first link 
+(WebDir onPath: '...') webPages first link
 >>> '<a href="index.html">Home Page</a>'
 ]]]
 
 !!!Generating the site map
 
 Actually, we are now done with the regular expressions we need to generate the
-site map.  We just need a few more methods to complete the application.
+site map. We just need a few more methods to complete the application.
 
 @@todo If you want to see the site map generation, just add the following methods.
 
@@ -504,7 +504,7 @@ WebDir selectHome makeToc
 We will now have a closer look at the syntax of regular expressions as supported
 by the Regex package.
 
-The simplest regular expression is a single character.  It matches exactly that
+The simplest regular expression is a single character. It matches exactly that
 character. A sequence of characters matches a string with exactly the same
 sequence of characters:
 
@@ -648,8 +648,8 @@ name of any of the Lisp-style car, cdr, caar, cadr, ... functions:
 ]]]
 
 It is possible to write an expression that matches an empty string, for example
-the expression ==a|== matches an empty string.  However, it is an error to apply ==\*==, ==\+==,
-or ==?== to such an expression: ==(a|)\*== is invalid.
+the expression ==a|== matches an empty string. However, it is an error to
+apply ==\*==, ==\+==, or ==?== to such an expression: ==(a|)\*== is invalid.
 
 So far, we have used only characters as the ''smallest'' components of regular
 expressions. There are other, more interesting, components. A character set is a
@@ -677,7 +677,7 @@ Using plus operator, we can build the following binary number recognizer:
 >>> true
 ]]]
 [[[
-'10001210' matchesRegex: '[01]+' 
+'10001210' matchesRegex: '[01]+'
 >>> false
 ]]]
 
@@ -690,7 +690,7 @@ brackets:
 >>> false
 ]]]
 [[[
-'3' matchesRegex: '[CARET01]' 
+'3' matchesRegex: '[CARET01]'
 >>> true
 ]]]
 
@@ -831,7 +831,7 @@ For dessert, here is a recognizer for a general number format: anything like
 ==999==, or ==999.999==, or ==-999.999e\+21==.
 
 [[[
-'-999.999e+21' matchesRegex: '(\+|-)?\d+(\.\d*)?((e|E)(\+|-)?\d+)?' 
+'-999.999e+21' matchesRegex: '(\+|-)?\d+(\.\d*)?((e|E)(\+|-)?\d+)?'
 >>> true
 ]]]
 
@@ -852,12 +852,12 @@ Character classes can also include the following grep(1)-compatible elements:
 
 Note that these elements are components of the character classes, ''i.e.'', they
 have to be enclosed in an extra set of square brackets to form a valid regular
-expression.  For example, a non-empty string of digits would be represented as
+expression. For example, a non-empty string of digits would be represented as
 ==[[:digit:]]\+==. The above primitive expressions and operators are common to
 many implementations of regular expressions.
 
 [[[
-'42' matchesRegex: '[[:digit:]]+' 
+'42' matchesRegex: '[[:digit:]]+'
 >>> true
 ]]]
 
@@ -922,7 +922,7 @@ boundaries of strings.
 
 !!Regex API
 
-Up to now we have focussed mainly on the syntax of regexes.  Now we will have a
+Up to now we have focussed mainly on the syntax of regexes. Now we will have a
 closer look at the different messages understood by strings and regexes.
 
 !!!Matching prefixes and ignoring case
@@ -961,7 +961,7 @@ argument; matching just a prefix of it is enough.
 !!!Enumeration interface
 
 Some applications need to access ''all'' matches of a certain regular expression
-within a string.  The matches are accessible using a protocol modeled after the
+within a string. The matches are accessible using a protocol modeled after the
 familiar ==Collection==-like enumeration protocol.
 
 ==regex:matchesDo:== evaluates a one-argument ==aBlock== for every match of the
@@ -971,7 +971,7 @@ regular expression within the receiver string.
 | list |
 list := OrderedCollection new.
 'Jack meet Jill' regex: '\w+' matchesDo: [:word | list add: word].
-list 
+list
 >>> an OrderedCollection('Jack' 'meet' 'Jill')
 ]]]
 
@@ -998,7 +998,7 @@ It is possible to replace all matches of a regular expression with a certain
 string using the message ==copyWithRegex:matchesReplacedWith:==.
 
 [[[
-'Krazy hates Ignatz' copyWithRegex: '\<[[:lower:]]+\>' matchesReplacedWith: 'loves' 
+'Krazy hates Ignatz' copyWithRegex: '\<[[:lower:]]+\>' matchesReplacedWith: 'loves'
 >>> 'Krazy loves Ignatz'
 ]]]
 
@@ -1013,8 +1013,8 @@ of the respective matches.
 ]]]
 
 All messages of enumeration and replacement protocols perform a case-sensitive
-match.  Case-insensitive versions are not provided as part of a ==String==
-protocol.  Instead, they are accessible using the lower-level matching interface
+match. Case-insensitive versions are not provided as part of a ==String==
+protocol. Instead, they are accessible using the lower-level matching interface
 presented in the following section.
 
 !!!Lower-level interface
@@ -1029,7 +1029,7 @@ When you send the message ==matchesRegex:== to a string, the following happens:
 
 If you repeatedly match a number of strings against the same regular expression
 using one of the messages defined in ==String==, the regular expression string
-is parsed and a new matcher is created for every match.  You can avoid this
+is parsed and a new matcher is created for every match. You can avoid this
 overhead by building a matcher for the regular expression, and then reusing the
 matcher over and over again. You can, for example, create a matcher at a class
 or instance initialization stage, and store it in a variable for future use. You
@@ -1043,7 +1043,7 @@ Here we send ==matchesIn:== to collect all the matches found in a string:
 [[[
 | octal |
 octal := '8r[0-9A-F]+' asRegex.
-octal matchesIn: '8r52 = 16r2A' 
+octal matchesIn: '8r52 = 16r2A'
 >>> an OrderedCollection('8r52')
 ]]]
 [[[
@@ -1067,7 +1067,7 @@ successful match or search, and ==false== otherwise):
 ==matches: aString== — true if the whole argument string (==aString==) matches.
 
 [[[
-'\w+' asRegex matches: 'Krazy' 
+'\w+' asRegex matches: 'Krazy'
 >>> true
 ]]]
 
@@ -1075,18 +1075,18 @@ successful match or search, and ==false== otherwise):
 necessarily the whole string) matches.
 
 [[[
-'\w+' asRegex matchesPrefix: 'Ignatz hates Krazy' 
+'\w+' asRegex matchesPrefix: 'Ignatz hates Krazy'
 >>> true
 ]]]
 
 ==search: aString== — Search the string for the first occurrence of a matching
-substring. Note that the first two methods only try matching from  the very
+substring. Note that the first two methods only try matching from the very
 beginning of the string. Using the above example with a matcher for ==a\+==,
 this method would answer success given a string =='baaa'==, while the previous
 two would fail.
 
 [[[
-'\b[a-z]+\b' asRegex search: 'Ignatz hates Krazy' 
+'\b[a-z]+\b' asRegex search: 'Ignatz hates Krazy'
 >>> true    "finds 'hates'"
 ]]]
 
@@ -1098,7 +1098,7 @@ If no matches were attempted, the answer is unspecified.
 | number |
 number := '\d+' asRegex.
 number search: 'Ignatz throws 5 bricks'.
-number lastResult 
+number lastResult
 >>> true
 ]]]
 
@@ -1109,7 +1109,7 @@ to the above three messages, but takes streams as their argument.
 | ignatz names |
 ignatz := ReadStream on: 'Ignatz throws bricks at Krazy'.
 names := '\<[A-Z][a-z]+\>' asRegex.
-names matchesStreamPrefix: ignatz 
+names matchesStreamPrefix: ignatz
 >>> true
 ]]]
 
@@ -1154,15 +1154,15 @@ respectively.
 | items |
 items := '((\d+)\s*(\w+))' asRegex.
 items search: 'Ignatz throws 1 brick at Krazy'.
-items subexpressionCount 
+items subexpressionCount
 >>> 4
-items subexpression: 1      
+items subexpression: 1
 >>> '1 brick'    "complete expression"
-items subexpression: 2      
+items subexpression: 2
 >>> '1 brick'    "top subexpression"
-items subexpression: 3      
+items subexpression: 3
 >>> '1'             "first leaf subexpression"
-items subexpression: 4      
+items subexpression: 4
 >>> 'brick'       "second leaf subexpression"
 items subBeginning: 3
 >>> 14
@@ -1236,8 +1236,8 @@ There are also the following methods for iterating over matches within streams:
 
 !!!Error Handling
 
-Several exceptions may be raised by ==RxParser== when building regexes.  The
-exceptions have the common parent ==RegexError==.  You may use the usual
+Several exceptions may be raised by ==RxParser== when building regexes. The
+exceptions have the common parent ==RegexError==. You may use the usual
 Smalltalk exception handling mechanism to catch and handle them.
 
 -==RegexSyntaxError== is raised if a syntax error is detected while parsing a
@@ -1262,7 +1262,7 @@ access the package.
 expression, and produces a syntax tree corresponding to the expression. The tree
 is made of instances of ==Rxs\*== classes.
 
-==RxMatcher==  accepts a syntax tree of a regular expression built by the parser
+==RxMatcher== accepts a syntax tree of a regular expression built by the parser
 and compiles it into a matcher: a structure made of instances of ==Rxm\*==
 classes. The ==RxMatcher== instance can test whether a string or a positionable
 stream of characters matches the original regular expression, or it can search a
@@ -1274,10 +1274,10 @@ the same functionality and are used by ==RxParser==, ==RxMatcher==, or both.
 !!!!!Caveats
 
 The matcher is similar in spirit, but ''not'' in design to Henry Spencer's
-original regular expression implementation in C.  The focus is on simplicity,
+original regular expression implementation in C. The focus is on simplicity,
 not on efficiency. I didn't optimize or profile anything. The matcher passes H.
 Spencer's test suite (see ''test suite'' protocol), with quite a few extra tests
-added, so chances are good there are not too many bugs.  But watch out anyway.
+added, so chances are good there are not too many bugs. But watch out anyway.
 
 !!!!!Acknowledgments
 

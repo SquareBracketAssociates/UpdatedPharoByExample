@@ -1,23 +1,23 @@
 { "title": "Reflection" }
 @cha:reflection
 
-Pharo is a reflective programming language. In a nutshell,
-this means that programs are able to ''reflect'' on their own execution and
-structure. More technically, this means that the ''metaobjects'' of the runtime
-system can be ''reified'' as ordinary objects, which can be queried and
-inspected. The metaobjects in Pharo are classes, metaclasses, method
-dictionaries, compiled methods, but also the run-time stack, processes, and so on. This form of
+Pharo is a reflective programming language. In a nutshell, this means that
+programs are able to ''reflect'' on their own execution and structure. More
+technically, this means that the ''metaobjects'' of the runtime system can be
+''reified'' as ordinary objects, which can be queried and inspected. The
+metaobjects in Pharo are classes, metaclasses, method dictionaries, compiled
+methods, but also the run-time stack, processes, and so on. This form of
 reflection is also called ''introspection'', and is supported by many modern
 programming languages.
 
 +Reification and reflection.>file://figures/reflect.png|label=fig:reflect+
 
 Conversely, it is possible in Pharo to modify reified metaobjects and
-''reflect'' these changes back to the runtime system (see Figure *@fig:reflect*).
-This is also called ''intercession'', and is supported mainly by dynamic
-programming languages, and only to a very limited degree by static languages.
-So pay attention when people say that Java is a reflective language, it is an introspective one
-not a reflective one.
+''reflect'' these changes back to the runtime system (see Figure
+*@fig:reflect*). This is also called ''intercession'', and is supported mainly
+by dynamic programming languages, and only to a very limited degree by static
+languages. So pay attention when people say that Java is a reflective language,
+it is an introspective one not a reflective one.
 
 A program that manipulates other programs (or even itself) is a ''metaprogram''.
 For a programming language to be reflective, it should support both
@@ -46,14 +46,17 @@ w inspect
 ]]]
 
 This will open a second playground and an inspector. The inspector shows the
-internal state of this new playground, listing its instance variables on the left
-(==borderColor==, ==borderWidth==, ==bounds==...) and the value of the
+internal state of this new playground, listing its instance variables on the
+left (==borderColor==, ==borderWidth==, ==bounds==...) and the value of the
 selected instance variable on the right. The ==bounds== instance variable
 represents the precise area occupied by the playground.
 
 +Inspecting a ==Workspace==.>file://figures/playgroundInspector.png|label=fig:playgroundInspector+
 
-Now choose the inspector and click the playground area of the inspector which has a comment on top and type ==self bounds: (Rectangle origin: 10@10 corner: 300@300 )== in it of select asshown in Figure *@fig:playgroundInspector* and then ''Do It'' like you do with a code of a Playground.
+Now choose the inspector and click the playground area of the inspector which
+has a comment on top and type ==self bounds: (Rectangle origin: 10@10 corner:
+300@300 )== in it of select asshown in Figure *@fig:playgroundInspector* and
+then ''Do It'' like you do with a code of a Playground.
 
 Immediately you will see the Playground we created change and resize itself.
 
@@ -92,16 +95,16 @@ Object >> instVarAt: index
 	self primitiveFailed
 ]]]
 
-Any Pharo code after the primitive declaration is executed only if the 
-primitive fails. This also allows the debugger to be started on primitive methods.
-In this specific case, there is no way to implement this method, so the whole
-method just fails. 
+Any Pharo code after the primitive declaration is executed only if the
+primitive fails. This also allows the debugger to be started on primitive
+methods. In this specific case, there is no way to implement this method, so the
+whole method just fails.
 
 Other methods are implemented on the VM for faster execution.
 For example some arithmetic operations on ==SmallInteger== :
 
 [[[
-* aNumber 
+* aNumber
 	"Primitive. Multiply the receiver by the argument and answer with the
 	result if it is a SmallInteger. Fail if the argument or the result is not a
 	SmallInteger. Essential. No Lookup. See Object documentation whatIsAPrimitive."
@@ -110,36 +113,38 @@ For example some arithmetic operations on ==SmallInteger== :
 	^ super * aNumber
 ]]]
 
-If this primitive fails, for example if the VM does not handle the type of the argument,
-the Pharo code is executed.
-Although it is possible to modify the code of primitive methods, beware that
-this can be risky business for the stability of your Pharo system.
+If this primitive fails, for example if the VM does not handle the type of the
+argument, the Pharo code is executed. Although it is possible to modify the code
+of primitive methods, beware that this can be risky business for the stability
+of your Pharo system.
 
 +Displaying all instance variables of a ==GTPlayground==.>file://figures/allInstanceVariables.png|label=fig:allInstanceVariables+
 
 Figure *@fig:allInstanceVariables* shows how to display the values of the
-instance variables of an arbitrary instance (==w==) of class ==GTPlayground==. The
-method ==allInstVarNames== returns all the names of the instance variables of a
-given class.
+instance variables of an arbitrary instance (==w==) of class ==GTPlayground==.
+The method ==allInstVarNames== returns all the names of the instance variables
+of a given class.
 
 [[[
-GTPlayground allInstVarNames 
->>> 
+GTPlayground allInstVarNames
+>>>
 #(#registry #suspendAll #suspendedAnnouncemets #logger #pane #title #titleIcon #transformation #actions #condition #implicitNotNil #dynamicActionsBlock #color #customValidation #shouldValidate #acceptsSelection #parentPrototype #registeredAnnouncers #updateActions #selectionActions #selectionDynamicActionsBlock #implicitAllNil #rawSelectionTransmissions #statusPane #sourceLink #initializationBlock #cachedDisplayedValue #labelActionBlock #portChangeActions #wantsSteps #stepTime #stepCondition #presentations #arrangement)
 ]]]
 
 [[[
 w := GTPlayground someInstance.
-w class allInstVarNames collect: [:each | each -> (w instVarNamed: each)] 
+w class allInstVarNames collect: [:each | each -> (w instVarNamed: each)]
 ]]]
 
 In the same spirit, it is possible to gather instances that have specific
-properties iterating over instances of a class using an iterator such as ==select:==. For instance, to get all objects who
-are directly included in the world morph (the main root of the graphical displayed elements), try this expression:
+properties iterating over instances of a class using an iterator such as
+==select:==. For instance, to get all objects who are directly included in the
+world morph (the main root of the graphical displayed elements), try this
+expression:
 
 [[[
-Morph allSubInstances 
-	select: [ :each | 
+Morph allSubInstances
+	select: [ :each |
 				| own |
 				own := (each instVarNamed: 'owner').
 				own isNotNil and: [ own  isWorldMorph ]]
@@ -160,15 +165,15 @@ of one of its superclasses. For instance:
 >>> BoxedFloat64
 ]]]
 [[[
-1.5 isKindOf: Float 
+1.5 isKindOf: Float
 >>> true
 ]]]
 [[[
-1.5 isKindOf: Number	
+1.5 isKindOf: Number
 >>> true
 ]]]
 [[[
-1.5 isKindOf: Integer	
+1.5 isKindOf: Integer
 >>> false
 ]]]
 
@@ -176,27 +181,27 @@ of one of its superclasses. For instance:
 is ==aSymbol==. For instance:
 
 [[[
-1.5 respondsTo: #floor      
+1.5 respondsTo: #floor
 >>> true    "since Number implements floor"
 ]]]
 [[[
-1.5 floor                            
+1.5 floor
 >>> 1
 ]]]
 [[[
-Exception respondsTo: #, 
+Exception respondsTo: #,
 >>> true    "exception classes can be grouped"
 ]]]
 
 !!!!!Important Caveat:
 
-Although these features are especially useful for implementing development tools,
-they are normally not appropriate for typical applications. Asking an object for
-its class, or querying it to discover which messages it understands, are typical
-signs of design problems, since they violate the principle of encapsulation.
-Development tools, however, are not normal applications, since their domain is
-that of software itself. As such these tools have a right to dig deep into the
-internal details of code.
+Although these features are especially useful for implementing development
+tools, they are normally not appropriate for typical applications. Asking an
+object for its class, or querying it to discover which messages it understands,
+are typical signs of design problems, since they violate the principle of
+encapsulation. Development tools, however, are not normal applications, since
+their domain is that of software itself. As such these tools have a right to dig
+deep into the internal details of code.
 
 !!!Code metrics
 
@@ -212,42 +217,42 @@ it needs some refactoring!
 [[[
 "inheritance depth"
 Morph allSuperclasses size.
->>> 2 
+>>> 2
 ]]]
 [[[
 "number of methods"
 Morph allSelectors size.
->>> 1304 
+>>> 1304
 ]]]
 [[[
 "number of instance variables"
-Morph allInstVarNames size. 
->>> 6 
+Morph allInstVarNames size.
+>>> 6
 ]]]
 [[[
 "number of new methods"
 Morph selectors size.
->>> 896 
+>>> 896
 ]]]
 [[[
 "number of new variables"
-Morph instVarNames size.    
->>> 6 
+Morph instVarNames size.
+>>> 6
 ]]]
 [[[
 "direct subclasses"
 Morph subclasses size.
->>> 63 
+>>> 63
 ]]]
 [[[
 "total subclasses"
 Morph allSubclasses size.
->>>  376 
+>>>  376
 ]]]
 [[[
 "total lines of code!"
 Morph linesOfCode.
->>> 4964 
+>>> 4964
 ]]]
 
 One of the most interesting metrics in the domain of object-oriented languages
@@ -267,7 +272,7 @@ For example, you can obtain a random instance of a given class by sending it
 the message ==someInstance==.
 
 [[[
-Point someInstance 
+Point someInstance
 >>> 0@0
 ]]]
 
@@ -323,7 +328,7 @@ The following messages take inheritance into account:
 : returns the list of instance variables that are neither used in the receiver class nor any of its subclasses
 
 [[[
-Rectangle whichClassIncludesSelector: #inspect 
+Rectangle whichClassIncludesSelector: #inspect
 >>> Object
 ]]]
 [[[
@@ -336,7 +341,7 @@ querying and browsing the source code of the system. ==SystemNavigation
 default== returns an instance you can use to navigate the system. For example:
 
 [[[
-SystemNavigation default allClassesImplementing: #yourself 
+SystemNavigation default allClassesImplementing: #yourself
 >>> {Object}
 ]]]
 
@@ -347,7 +352,7 @@ SystemNavigation default allSentMessages size
 >>>370
 ]]]
 [[[
-(SystemNavigation default allUnsentMessagesIn: Object selectors) size	
+(SystemNavigation default allUnsentMessagesIn: Object selectors) size
 >>> 31
 ]]]
 [[[
@@ -366,7 +371,7 @@ explicitly to ==Point== as a receiver.
 
 All these features are integrated into the programming environment of Pharo, in
 particular the code browsers. As we mentioned before, there are convenient
-keyboard shortcuts for ""b""rowsing all i""m""plementors (==CMD-b  CMD-m==) and
+keyboard shortcuts for ""b""rowsing all i""m""plementors (==CMD-b CMD-m==) and
 ""b""rowsing se""n""ders (==CMD-b CMD-n==) of a given message. What is perhaps
 not so well known is that there are many such pre-packaged queries implemented
 as methods of the ==SystemNavigation== class in the ==browsing== protocol. For
@@ -380,9 +385,10 @@ SystemNavigation default browseAllImplementorsOf: #ifTrue:
 +Browse all implementations of ==ifTrue:==.>file://figures/implementors.png|label=fig:implementors+
 
 Particularly useful are the methods ==browseAllSelect:== and
-==browseMethodsWithSourceString:matchCase:==. Here are two different ways to browse all
-methods in the system that perform super sends (the first way is rather brute
-force, the second way is better and eliminates some false positives):
+==browseMethodsWithSourceString:matchCase:==. Here are two different ways to
+browse all methods in the system that perform super sends (the first way is
+rather brute force, the second way is better and eliminates some false
+positives):
 
 [[[
 SystemNavigation default browseMethodsWithSourceString: 'super' matchCase: true.
@@ -408,8 +414,8 @@ Let us consider the relationship between classes and methods. In Figure
 superclass ==Behavior==. This is where ==new== is defined, amongst other key
 methods for classes. Every class has a method dictionary, which maps method
 selectors to compiled methods. Each compiled method knows the class in which it
-is installed. In Figure *@fig:CompiledMethod* we can even see that this is stored
-in an association in ==literal6==.
+is installed. In Figure *@fig:CompiledMethod* we can even see that this is
+stored in an association in ==literal6==.
 
 +Classes, method dictionaries and compiled methods>file://figures/MethodsAsObjects.png|label=fig:MethodsAsObjects+
 
@@ -466,27 +472,28 @@ reference for a compiled method.
 !!Browsing environments
 
 Although ==SystemNavigation== offers some useful ways to programmatically query
-and browse system code, there are more ways. The Browser, which
-is integrated into Pharo, allows us to restrict the environment in which a search 
-is to perform.
+and browse system code, there are more ways. The Browser, which is integrated
+into Pharo, allows us to restrict the environment in which a search is to
+perform.
 
-Suppose we are interested to discover which classes refer to the class  ==Point==
-but only in its own package.
+Suppose we are interested to discover which classes refer to the class
+==Point== but only in its own package.
 
 Open a browser on the class ==Point==.
 
 Action-click on the top level package ==Kernel== in the package pane and select
-==Browse scoped==. A new browser opens, showing only the package ==Kernel== and all
-classes within this package (and some classes which have extension methods from this package).
-Now, in this browser, select again the class ==Point==, Action-click on the class name and
-select ==Analyse > Class refs==. This will show all methods that have references to the class 
-==Point== but only those from the package ==Kernel==. 
-Compare this result with the search from a Browser without restricted scope.
+==Browse scoped==. A new browser opens, showing only the package ==Kernel== and
+all classes within this package (and some classes which have extension methods
+from this package). Now, in this browser, select again the class ==Point==,
+Action-click on the class name and select ==Analyse > Class refs==. This will
+show all methods that have references to the class ==Point== but only those
+from the package ==Kernel==. Compare this result with the search from a Browser
+without restricted scope.
 
-This scope is what we call a ''Browsing Environment'' (class ==RBBrowserEnvironment==). 
-All other searches, like 
-''senders of a method'' or ''implementors of a method'' from within this browser 
-are restricted to this environments too.
+This scope is what we call a ''Browsing Environment'' (class
+==RBBrowserEnvironment==). All other searches, like ''senders of a method'' or
+''implementors of a method'' from within this browser are restricted to this
+environments too.
 
 Browser environments can also be created programmatically. Here, for example, we
 create a new ==RBBrowserEnvironment== for ==Collection== and its subclasses,
@@ -517,8 +524,8 @@ order to find out whether the super messages differ from the method's selector.
 Have a look at the ==querying== protocol of the class ==RBProgramNode== to see
 some the things we can ask of parse trees.
 
-Instead of browsing the environment in a System Browser, we can spawn a ==MessageBrower==
-from the list of all methods in this environment.
+Instead of browsing the environment in a System Browser, we can spawn a
+==MessageBrower== from the list of all methods in this environment.
 
 [[[
 MessageBrowser browse: ((RBBrowserEnvironment new forClasses: (Collection withAllSubclasses))
@@ -533,8 +540,6 @@ found within the ==Collection== hierarchy, including
 ==Collection>>printNameOn:==, which sends ==super printOn:==. +Finding methods
 that send a different super
 message.>file://figures/sendDifferentSuper.png|label=fig:sendDifferentSuper+
-
-
 
 !!Accessing the run-time context
 
@@ -556,7 +561,8 @@ series of chained ==Context== objects.
 
 We can easily experiment with this mechanism ourselves.
 
-Change the definition of ==Integer>>factorial== by inserting the expression ==thisContext inspect. self halt.== as shown below:
+Change the definition of ==Integer>>factorial== by inserting the expression
+==thisContext inspect. self halt.== as shown below:
 
 [[[
 Integer>>factorial
@@ -571,10 +577,11 @@ window and an inspector, as shown in Figure *@fig:exploringThisContext*.
 
 +Inspecting ==thisContext==.>file://figures/exploringThisContext.png|label=fig:exploringThisContext+
 
-Inspecting thisContext gives you full access to the current execution context, the stack, the local tempories and arguments, the senders chain and the receiver. Welcome to the poor man's debugger! 
-If you now browse the class of the explored
-object (''i.e.'', by evaluating ==self browse== in the bottom pane of the
-inspector) you will discover that it is an instance of the class
+Inspecting ==thisContext== gives you full access to the current execution
+context, the stack, the local tempories and arguments, the senders chain and the
+receiver. Welcome to the poor man's debugger! If you now browse the class of
+the explored object (''i.e.'', by evaluating ==self browse== in the bottom pane
+of the inspector) you will discover that it is an instance of the class
 ==Context==, as is each ==sender== in the chain.
 
 ==thisContext== is not intended to be used for day-to-day programming, but it is
@@ -623,17 +630,17 @@ Morph >> openInWorld
      self openInWorld: self currentWorld
 ]]]
 
-Notice how your image immediately freezes as soon as you try to open any new Morph (Menu/Window/...)!  
-We do not even get a debugger window. The problem is clear once we understand that 1)
-==Morph>>openInWorld== is used by many parts of the system, so the
-breakpoint is triggered very soon after we interact with the user interface, but 2) ''the
-debugger itself'' sends ==openInWorld== as soon as it opens a window,
-preventing the debugger from opening! What we need is a way to ''conditionally
-halt'' only if we are in a context of interest. This is exactly what
-==Object>>haltIf:== offers.
+Notice how your image immediately freezes as soon as you try to open any new
+Morph (Menu/Window/...)! We do not even get a debugger window. The problem is
+clear once we understand that 1) ==Morph>>openInWorld== is used by many parts of
+the system, so the breakpoint is triggered very soon after we interact with the
+user interface, but 2) ''the debugger itself'' sends ==openInWorld== as soon as
+it opens a window, preventing the debugger from opening! What we need is a way
+to ''conditionally halt'' only if we are in a context of interest. This is
+exactly what ==Object>>haltIf:== offers.
 
-Suppose now that we only want to halt if ==openInWorld== is sent from, say, the context
-of ==MorphTest>>testOpenInWorld==.
+Suppose now that we only want to halt if ==openInWorld== is sent from, say, the
+context of ==MorphTest>>testOpenInWorld==.
 
 Fire up a fresh image again, and set the following breakpoint:
 
@@ -652,8 +659,9 @@ MorphTest run:#testOpenInWorld.
 
 
 How does this work? Let's have a look at ==Object>>haltIf:==. It first calls
-==if:== with the condition to the ==Exception== class ==Halt==. This method itself
-will check if the condition is a symbol, which is true in this case and finally calls
+==if:== with the condition to the ==Exception== class ==Halt==. This method
+itself will check if the condition is a symbol, which is true in this case and
+finally calls
 
 [[[
 Object >> haltIfCallChainContains: aSelector
@@ -661,14 +669,14 @@ Object >> haltIfCallChainContains: aSelector
 	| cntxt |
 	cntxt := thisContext.
 		[cntxt sender isNil] whileFalse: [
-			cntxt := cntxt sender. 
+			cntxt := cntxt sender.
 			(cntxt selector = aSelector) ifTrue: [self signal]].
 ]]]
 
-Starting from ==thisContext==, ==haltIfCallChainContains:== goes up through the execution stack,
-checking if the name of the calling method is the same as the one passed as
-parameter. If this is the case, then it signals itself, the exception which, by default,
-summons the debugger.
+Starting from ==thisContext==, ==haltIfCallChainContains:== goes up through the
+execution stack, checking if the name of the calling method is the same as the
+one passed as parameter. If this is the case, then it signals itself, the
+exception which, by default, summons the debugger.
 
 It is also possible to supply a boolean or a boolean block as an argument to
 ==haltIf:==, but these cases are straightforward and do not make use of
@@ -722,7 +730,7 @@ Note that we subclass ==ProtoObject== rather than ==Object== because we do not
 want our proxy to inherit around 400 methods (!) from ==Object==.
 
 [[[
-Object methodDict size 
+Object methodDict size
 >>> 397
 ]]]
 
@@ -767,25 +775,25 @@ refer to the proxy, and vice versa. Most importantly, the proxy's ==subject==
 instance variable will now refer to the point!
 
 [[[
-point invocationCount 
+point invocationCount
 >>> 0
-point + (3@4)             
+point + (3@4)
 >>> 4@6
-point invocationCount 
+point invocationCount
 >>> 1
 ]]]
 
 This works nicely in most cases, but there are some shortcomings:
 
 [[[
-point class 
+point class
 >>> LoggingProxy
 ]]]
 
-Actually the method ==class== is implemented in ==ProtoObject==, but
-even if it were implemented in ==Object==, which ==LoggingProxy== does not inherit from,
-it isn't actually send to the LoggingProxy or its subject. The message is directly answered by
-the virtual machine. ==yourself== is also never truly sent.
+Actually the method ==class== is implemented in ==ProtoObject==, but even if it
+were implemented in ==Object==, which ==LoggingProxy== does not inherit from, it
+isn't actually send to the LoggingProxy or its subject. The message is directly
+answered by the virtual machine. ==yourself== is also never truly sent.
 
 Other messages that may be directly interpreted by the VM, depending on the
 receiver, include:
@@ -806,10 +814,11 @@ transformed to comparison and jump bytecodes:
 ==caseOf: caseOf:otherwise:==
 ==ifNil: ifNotNil:  ifNil:ifNotNil: ifNotNil:ifNil:==
 
-Attempts to send these messages to non-boolean normally results in an exception from the VM
-as it can not use the inlined dispatching for non-boolean receivers. You can intercept
-this and define the proper behavior by overriding ==mustBeBoolean== in the receiver or 
-by catching the ==NonBooleanReceiver== exception.
+Attempts to send these messages to non-boolean normally results in an exception
+from the VM as it can not use the inlined dispatching for non-boolean receivers.
+You can intercept this and define the proper behavior by overriding
+==mustBeBoolean== in the receiver or by catching the ==NonBooleanReceiver==
+exception.
 
 Even if we can ignore such special message sends, there is another fundamental
 problem which cannot be overcome by this approach: ==self==-sends cannot be
@@ -818,11 +827,11 @@ intercepted:
 [[[
 point := 1@2.
 LoggingProxy new become: point.
-point invocationCount 
+point invocationCount
 >>> 0
-point rectangle: (3@4)        
+point rectangle: (3@4)
 >>> 1@2 corner: 3@4
-point invocationCount 
+point invocationCount
 >>> 1
 ]]]
 
@@ -872,7 +881,7 @@ dynamically and retrieve the value:
 
 [[[
 myDA := DynamicAccessors new.
-myDA x 
+myDA x
 >>> nil
 ]]]
 
@@ -897,7 +906,7 @@ Note the use of ==Object>>perform:== in step (12) which can be used to send
 messages that are composed at run-time:
 
 [[[
-5 perform: #factorial                                             
+5 perform: #factorial
 >>> 120
 ]]]
 [[[
@@ -905,7 +914,7 @@ messages that are composed at run-time:
 >>> 720
 ]]]
 [[[
-4 perform: #max: withArguments: (Array with: 6) 
+4 perform: #max: withArguments: (Array with: 6)
 >>> 6
 ]]]
 
@@ -921,7 +930,8 @@ method ==run:with:in:== and a few other important messages.
 Define an empty class ==Demo==. Evaluate ==Demo new answer42== and notice how
 the usual ''Message Not Understood'' error is raised.
 
-Now we will install a plain object in the method dictionary of our ==Demo== class.
+Now we will install a plain object in the method dictionary of our ==Demo==
+class.
 
 Evaluate ==Demo methodDict at: #answer42 put: ObjectsAsMethodsExample new.==
 
@@ -954,12 +964,12 @@ Demo methodDict removeKey: #answer42 ifAbsent: []
 ]]]
 
 If we take a closer look at ==ObjectsAsMethodsExample==, we will see that its
-superclass also implements some methods like ==flushcache==, ==methodClass:== and
-==selector:==, but they are all empty. These messages may be sent to a compiled
-method, so they need to be implemented by an object pretending to be a compiled
-method. (==flushcache== is the most important method to be implemented; others
-may be required by some tools and depending on whether the method is installed using
-==Behavior>>addSelector:withMethod:== or directly using
+superclass also implements some methods like ==flushcache==, ==methodClass:==
+and ==selector:==, but they are all empty. These messages may be sent to a
+compiled method, so they need to be implemented by an object pretending to be a
+compiled method. (==flushcache== is the most important method to be implemented;
+others may be required by some tools and depending on whether the method is
+installed using ==Behavior>>addSelector:withMethod:== or directly using
 ==MethodDictionary>>at:put:==.)
 
 !!!Using method wrappers to perform test coverage
@@ -974,7 +984,7 @@ rightful position in the method dictionary.
 In Pharo, method wrappers can be implemented more easily by implementing
 ==run:with:in:== instead of by subclassing ==CompiledMethod==. In fact, there
 exists a lightweight implementation of objects as method
-wrappers(http://www.squeaksource.com/ObjectsAsMethodsWrap.html), but it is not
+wrappers (http://www.squeaksource.com/ObjectsAsMethodsWrap.html), but it is not
 part of standard Pharo at the time of this writing.
 
 Nevertheless, the Pharo Test Runner uses precisely this technique to evaluate
@@ -999,13 +1009,13 @@ TestRunner >> collectCoverageFor: methods
 	suite := self
 		resetResult;
 		suiteForAllSelected.
-	
+
 	[ wrappers do: [ :each | each install ].
 	[ self runSuite: suite ] ensure: [ wrappers do: [ :each | each uninstall ] ] ] valueUnpreemptively.
 
 	wrappers := wrappers reject: [:each | each hasRun].
 	wrappers := wrappers collect: [:each | each reference].
-	wrappers isEmpty 
+	wrappers isEmpty
 		ifTrue:  [ UIManager default inform: 'Congratulations. Your tests cover all code under analysis.' ]
 		ifFalse: ...
 ]]]
@@ -1086,9 +1096,11 @@ Smalltalk statement. Each pragma is in effect a static message send with literal
 arguments.
 
 We briefly saw pragmas when we introduced primitives earlier in this chapter. A
-primitive is nothing more than a pragma declaration. Consider ==<primitive: 173 error:ec>== as contained in ==instVarAt:==. 
-The pragma's selector is ==primitive:error:== and its arguments is an immediate literal value, ==173==.
-The variable ==ec== is an error code, filled by the VM in case the execution of the implementation on the VM side failed. 
+primitive is nothing more than a pragma declaration. Consider ==<primitive: 173
+error:ec>== as contained in ==instVarAt:==. The pragma's selector is
+==primitive:error:== and its arguments is an immediate literal value, ==173==.
+The variable ==ec== is an error code, filled by the VM in case the execution of
+the implementation on the VM side failed.
 
 The compiler is probably the bigger user of pragmas. SUnit is another tool that
 makes use of annotations. SUnit is able to estimate the coverage of an
@@ -1114,7 +1126,7 @@ of pragmas.
 [[[
 (SplitJoinTest class >> #showDocumentation) pragmas.
 >>> an Array(<ignoreForCoverage>)
-(Float>>#+) pragmas 
+(Float>>#+) pragmas
 >>> an Array(<primitive: 41>)
 ]]]
 
@@ -1123,7 +1135,7 @@ side of ==SplitJoinTest== contains some methods annotated with
 ==<ignoreForCoverage>==:
 
 [[[
-Pragma allNamed: #ignoreForCoverage in: SplitJoinTest class  
+Pragma allNamed: #ignoreForCoverage in: SplitJoinTest class
 >>> an Array(<ignoreForCoverage> <ignoreForCoverage> <ignoreForCoverage>)
 ]]]
 

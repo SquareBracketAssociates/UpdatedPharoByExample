@@ -1,12 +1,15 @@
 { "title": "The Pharo object model" }
 @cha:model
 
-The Pharo programming model is heavily inspired by the one of Smalltalk. It
-is simple and uniform: everything is an object, and objects communicate only by
-sending each other messages. Instance variables are private to the object. Methods are all public and dynamically looked up (late-bound).
-In this chapter we present the core concepts of the Pharo object model. We revisit concepts such as ==self== and ==super== and define
-precisely their semantics.  Then we discuss the consequences of representing classes as objects. This will be extended in
-Chapter: *Classes and Metaclasses>../Metaclasses/Metaclasses.pillar@cha:metaclasses*.
+The Pharo programming model is heavily inspired by the one of Smalltalk. It is
+simple and uniform: everything is an object, and objects communicate only by
+sending each other messages. Instance variables are private to the object.
+Methods are all public and dynamically looked up (late-bound). In this chapter
+we present the core concepts of the Pharo object model. We revisit concepts such
+as ==self== and ==super== and define precisely their semantics. Then we discuss
+the consequences of representing classes as objects. This will be extended in
+Chapter:
+*Classes and Metaclasses>../Metaclasses/Metaclasses.pillar@cha:metaclasses*.
 
 !!The rules of the model
 @sec:rules
@@ -31,32 +34,33 @@ Let us look at each of these rules in some detail.
 The mantra ''everything is an object'' is highly contagious. After only a short
 while working with Pharo, you will start to be surprised at how this rule
 simplifes everything you do. Integers, for example, are truly objects, so you
-can send messages to them, just as you do to any other object. At the end of this chapter, we added an implementation 
-note on the object implementation for the curious reader.
+can send messages to them, just as you do to any other object. At the end of
+this chapter, we added an implementation note on the object implementation for
+the curious reader.
 
 [[[
 "send '+ 4' to 3, yielding 7"
 3 + 4
->>> 7    
+>>> 7
 ]]]
 
 [[[
 "send factorial, yielding a big number"
 20 factorial
->>> 2432902008176640000   
+>>> 2432902008176640000
 ]]]
 
-The object ==7== is different than the object returned by ==20 factorial==, but because they are 
-both polymorphic objects, none of the code, not even the implementation of ==factorial==, needs to know about this. 
+The object ==7== is different than the object returned by ==20 factorial==, but
+because they are both polymorphic objects, none of the code, not even the
+implementation of ==factorial==, needs to know about this.
 
-Coming back to ''everything is an object'' rule, perhaps the most fundamental consequence of this rule is 
-that classes are objects too. Classes are not second-class objects: they are really first-class
-objects that you can send messages to, inspect, and change. This means that Pharo
-is a truly reflective system, which gives a great deal of expressive power to developers.
+Coming back to ''everything is an object'' rule, perhaps the most fundamental
+consequence of this rule is that classes are objects too. Classes are not
+second-class objects: they are really first-class objects that you can send
+messages to, inspect, and change. This means that Pharo is a truly reflective
+system, which gives a great deal of expressive power to developers.
 
 @@important Classes are objects too.
-
-
 
 !!Every object is an instance of a class
 
@@ -96,12 +100,14 @@ Since ''classes are objects'', and ''every object is an instance of a class'',
 it follows that classes must also be instances of classes. A class whose
 instances are classes is called a ''metaclass''. Whenever you create a class,
 the system automatically creates a metaclass for you. The metaclass defines the
-structure and behavior of the class that is its instance. 99\%  of the time you
+structure and behavior of the class that is its instance. 99\% of the time you
 will not need to think about metaclasses, and may happily ignore them. (We will
-have a closer look at metaclasses in Chapter *: Classes and Metaclasses>../Metaclasses/Metaclasses.pillar@cha:metaclasses*.)
+have a closer look at metaclasses in Chapter
+*: Classes and Metaclasses>../Metaclasses/Metaclasses.pillar@cha:metaclasses*.)
 
 !! Instance structure and behavior
-Now we will briefly present how we specify the structure and behavior of instances.
+Now we will briefly present how we specify the structure and behavior of
+instances.
 
 !!!Instance variables
 
@@ -128,10 +134,10 @@ subclass.
 
 !!!!Instance encapsulation example
 
-The method ==Point>>dist:== computes the distance between the receiver and another
-point. The instance variables ==x== and ==y== of the receiver are accessed
-directly by the method body. However, the instance variables of the other point
-must be accessed by sending it the messages ==x== and ==y==.
+The method ==Point>>dist:== computes the distance between the receiver and
+another point. The instance variables ==x== and ==y== of the receiver are
+accessed directly by the method body. However, the instance variables of the
+other point must be accessed by sending it the messages ==x== and ==y==.
 
 [[[label=scr:distance|caption=Distance between two points
 Point >> dist: aPoint
@@ -150,21 +156,22 @@ Point >> dist: aPoint
 
 The key reason to prefer instance-based encapsulation to class-based
 encapsulation is that it enables different implementations of the same
-abstraction to coexist. For example, the method ==dist:== need not know or
-care whether the argument ==aPoint== is an instance of the same class as the
-receiver. The argument object might be represented in polar coordinates, or as
-a record in a database, or on another computer in a distributed system. As long
-as it can respond to the messages ==x== and ==y==, the code of method ==dist== (shown above) will still work.
+abstraction to coexist. For example, the method ==dist:== need not know or care
+whether the argument ==aPoint== is an instance of the same class as the
+receiver. The argument object might be represented in polar coordinates, or as a
+record in a database, or on another computer in a distributed system. As long as
+it can respond to the messages ==x== and ==y==, the code of method ==dist==
+(shown above) will still work.
 
 !!!Methods
 
-All methods are ''public'' and virtual (i.e., dynamically looked up). Methods are grouped into ''protocols'' that indicate their
-intent. Some common protocol names have been established by convention, for
-example, ==accessing== for all accessor methods, and ==initialization== for
-establishing a consistent initial state for the object. The protocol ==private==
-is sometimes used to group methods that should not be seen from outside.
-Nothing, however, prevents you from sending a message that is implemented by
-such a "private" method.
+All methods are ''public'' and virtual (i.e., dynamically looked up). Methods
+are grouped into ''protocols'' that indicate their intent. Some common protocol
+names have been established by convention, for example, ==accessing== for all
+accessor methods, and ==initialization== for establishing a consistent initial
+state for the object. The protocol ==private== is sometimes used to group
+methods that should not be seen from outside. Nothing, however, prevents you
+from sending a message that is implemented by such a "private" method.
 
 Methods can access all instance variables of the object. Some developers prefer
 to access instance variables only through accessors. This practice has some
@@ -173,12 +180,15 @@ its private state to the world.
 
 !! The instance side and the class side
 
-Since classes are objects, they can have their own instance variables and their own methods. 
-We call these ''class instance variables'' and ''class methods'', but they are really no different from ordinary instance variables and methods:
-They simply operate on different objects (classes in this case).
-An instance variable describes instance state and a method describes instance behavior. Similarly, 
-class instance variables are just instance variables defined by a metaclass (and describe the state of classes - instances of metaclasses), and
-class methods are just methods defined by a metaclass (and that will be executed on classes).
+Since classes are objects, they can have their own instance variables and their
+own methods. We call these ''class instance variables'' and ''class methods'',
+but they are really no different from ordinary instance variables and methods:
+They simply operate on different objects (classes in this case). An instance
+variable describes instance state and a method describes instance behavior.
+Similarly, class instance variables are just instance variables defined by a
+metaclass (and describe the state of classes - instances of metaclasses), and
+class methods are just methods defined by a metaclass (and that will be executed
+on classes).
 
 A class and its metaclass are two separate classes, even though the former is an
 instance of the latter. However, this is largely irrelevant to you as a
@@ -192,7 +202,9 @@ they were a single thing with two "sides": the ''instance side'' and the ''class
 side'', as shown in Figure *@fig:colorInstanceClassSide*. By default, when you
 select a class in the browser, you're browsing the ''instance'' side (i.e., the
 methods that are executed when messages are sent to an ''instance'' of
-==Color==). Clicking on the ""Class side"" button switches you over to the ''class side'' (the methods that will be executed when messages are sent to the ''class'' ==Color== itself).
+==Color==). Clicking on the ""Class side"" button switches you over to the
+''class side'' (the methods that will be executed when messages are sent to the
+''class'' ==Color== itself).
 
 For example, ==Color blue== sends the message ==blue== to the class ==Color==.
 You will therefore find the method ==blue== defined on the class side of
@@ -201,7 +213,7 @@ You will therefore find the method ==blue== defined on the class side of
 [[[
 "Class-side method blue (convenient instance creation method)"
 aColor := Color blue.
->>> Color blue   
+>>> Color blue
 "Color instances are self-evaluating"
 ]]]
 
@@ -218,30 +230,30 @@ Color blue blue
 
 You define a class by filling in the template proposed on the instance side.
 When you accept this template, the system creates not just the class that you
-defined, but also the corresponding metaclass (which you can then edit by clicking
-on the ""Class side"" button). The only part of the metaclass creation
-template that makes sense for you to edit directly is the list of the metaclass's
-instance variable names.
+defined, but also the corresponding metaclass (which you can then edit by
+clicking on the ""Class side"" button). The only part of the metaclass creation
+template that makes sense for you to edit directly is the list of the
+metaclass's instance variable names.
 
 Once a class has been created, browsing its instance side (""Class side""
- un-checked) lets you edit and browse the methods that will be possessed
-by instances of that class (and of its subclasses).
+un-checked) lets you edit and browse the methods that will be possessed by
+instances of that class (and of its subclasses).
 
 !!!Class methods
 
 Class methods can be quite useful; browse ==Color class== for some good
 examples. You will see that there are two kinds of methods defined on a class:
-''instance creation methods'', like ==Color class>>blue==, and those that perform
-a utility function, like ==Color class>>wheel:==. This is
-typical, although you will occasionally find class methods used in other ways.
+''instance creation methods'', like ==Color class>>blue==, and those that
+perform a utility function, like ==Color class>>wheel:==. This is typical,
+although you will occasionally find class methods used in other ways.
 
 It is convenient to place utility methods on the class side because they can be
 executed without having to create any additional objects first. Indeed, many of
 them will contain a comment designed to make it easy to execute them.
 
-Browse method ==Color class>>wheel:==, double-click just at the beginning of the 
-comment =="(Color wheel: 12) inspect"== and press ==CMD-d==. You will see the effect of 
-executing this method.
+Browse method ==Color class>>wheel:==, double-click just at the beginning of the
+comment =="(Color wheel: 12) inspect"== and press ==CMD-d==. You will see the
+effect of executing this method.
 
 For those familiar with Java and C\+\+, class methods may seem similar to static
 methods. However, the uniformity of the Pharo object model (where classes are
@@ -269,9 +281,10 @@ separately.
 
 !!!!Example: Class instance variables and subclasses
 
-Suppose we define the class ==Dog==, and its subclass ==Hyena==. Suppose that 
-we add a ==count== class instance variable to the class ==Dog== (i.e. we define it on the metaclass ==Dog class==). 
-==Hyena== will naturally inherit the class instance variable ==count== from ==Dog==.
+Suppose we define the class ==Dog==, and its subclass ==Hyena==. Suppose that we
+add a ==count== class instance variable to the class ==Dog== (i.e. we define it
+on the metaclass ==Dog class==). ==Hyena== will naturally inherit the class
+instance variable ==count== from ==Dog==.
 
 [[[caption=Dogs and Hyenas
 Object subclass: #Dog
@@ -282,7 +295,7 @@ Object subclass: #Dog
 [[[
 Dog class
     instanceVariableNames: 'count'
-]]]	
+]]]
 [[[
 Dog subclass: #Hyena
     instanceVariableNames: ''
@@ -307,16 +320,18 @@ Dog class >> count
     ^ count
 ]]]
 
-Now when we create a new ==Dog==, the ==count== value of the class ==Dog== is incremented, and so is that of
-the class ==Hyena== (but the hyenas are counted separately).
+Now when we create a new ==Dog==, the ==count== value of the class ==Dog== is
+incremented, and so is that of the class ==Hyena== (but the hyenas are counted
+separately).
 
 ''Side note:'' Notice the use of ==initialize== on the classes, in the following
 code. In Pharo, when you instantiate an object such as ==Dog new==,
 ==initialize== is called automatically as part of the ==new== message send (you
 can see for yourself by browsing ==Behavior>>new==). But with classes, simply
 defining them does not automatically call ==initialize==, and so we have to call
-it explicitly here. By default class initialize methods are automatically executed only when classes are loaded.
- See also the discussion about lazy initialization, below.
+it explicitly here. By default class initialize methods are automatically
+executed only when classes are loaded. See also the discussion about lazy
+initialization, below.
 
 [[[label=scr:dogCount2
 Dog initialize.
@@ -388,16 +403,17 @@ WebServer class
     instanceVariableNames: 'uniqueInstance'
 ]]]
 
-As a result, the class ==WebServer class== will have a new instance variable
-(in addition to the variables that it inherits from ==Behavior==, such as
-==superclass== and ==methodDict==). It means that the value of this extra instance variable will 
-describe the instance of the class ==WebServer class== i.e. the class ==WebServer==. 
+As a result, the class ==WebServer class== will have a new instance variable (in
+addition to the variables that it inherits from ==Behavior==, such as
+==superclass== and ==methodDict==). It means that the value of this extra
+instance variable will describe the instance of the class ==WebServer class==
+i.e. the class ==WebServer==.
 
 [[[label=scr:instance|caption=New state for classes
 Object class allInstVarNames
 >>>  "#('superclass' 'methodDict' 'format' 'layout' 'instanceVariables' 'organization' 'subclasses' 'name' 'classPool' 'sharedPools' 'environment' 'category' 'traitComposition' 'localSelectors')"
 
-WebServer class allInstVarNames 
+WebServer class allInstVarNames
 >>>"#('superclass' 'methodDict' 'format' 'layout' 'instanceVariables' 'organization' 'subclasses' 'name' 'classPool' 'sharedPools' 'environment' 'category' 'traitComposition' 'localSelectors' #uniqueInstance)"
 ]]]
 
@@ -421,7 +437,7 @@ instead of creating a new one. (This pattern, checking if a variable is nil
 in an accessor method, and initializing its value if it is nil, is called
 ''lazy initialization'').
 
-Note that the instance creation code in the code above. 
+Note that the instance creation code in the code above.
 %Script *@scr:uniqueInstance*
 is written as ==self new== and not as ==WebServer new==. What is the difference?
 Since the ==uniqueInstance== method is defined in ==WebServer class==, you might
@@ -459,7 +475,7 @@ structure from a single ''superclass''. This means that Smalltalk has single
 inheritance.
 
 [[[
-SmallInteger superclass 
+SmallInteger superclass
 >>> Integer
 ]]]
 [[[
@@ -483,16 +499,16 @@ ProtoObject superclass
 >>> nil
 ]]]
 
-Traditionally the root of an inheritance hierarchy is the class
-==Object== (since everything is an object). In Pharo, the root is actually a
-class called ==ProtoObject==, but you will normally not pay any attention to
-this class. ==ProtoObject== encapsulates the minimal set of messages that all
-objects ''must'' have and ==ProtoObject== is designed to raise as many as possible errors 
-(to support proxy definition). However, most classes inherit from ==Object==, which
-defines many additional messages that almost all objects understand
-and respond to. Unless you have a very good reason to do otherwise, when
-creating application classes you should normally subclass ==Object==, or one of
-its subclasses.
+Traditionally the root of an inheritance hierarchy is the class ==Object==
+(since everything is an object). In Pharo, the root is actually a class called
+==ProtoObject==, but you will normally not pay any attention to this class.
+==ProtoObject== encapsulates the minimal set of messages that all objects
+''must'' have and ==ProtoObject== is designed to raise as many as possible
+errors (to support proxy definition). However, most classes inherit from
+==Object==, which defines many additional messages that almost all objects
+understand and respond to. Unless you have a very good reason to do otherwise,
+when creating application classes you should normally subclass ==Object==, or
+one of its subclasses.
 
 A new class is normally created by sending the message ==subclass:
 instanceVariableNames: ...== to an existing class. There are a few other methods
@@ -508,17 +524,17 @@ classes without duplicating code.
 !!!Abstract methods and abstract classes
 
 An abstract class is a class that exists to be subclassed, rather than to be
-instantiated. An abstract class is usually incomplete, in the sense that it
-does not define all of the methods that it uses. The "placeholder" methods, those
-that the other methods assume to be (re)defined are called
-abstract methods.
+instantiated. An abstract class is usually incomplete, in the sense that it does
+not define all of the methods that it uses. The "placeholder" methods, those
+that the other methods assume to be (re)defined are called abstract methods.
 
-Pharo has no dedicated syntax to specify that a method or a class is
-abstract. Instead, by convention, the body of an abstract method consists of the
-expression ==self subclassResponsibility==. This indicates that subclasses have 
-the responsibility to define a concrete version of the method. ==self subclassResponsibility== methods should
-always be overridden, and thus should never be executed. If you forget to
-override one, and it is executed, an exception will be raised.
+Pharo has no dedicated syntax to specify that a method or a class is abstract.
+Instead, by convention, the body of an abstract method consists of the
+expression ==self subclassResponsibility==. This indicates that subclasses have
+the responsibility to define a concrete version of the method. ==self
+subclassResponsibility== methods should always be overridden, and thus should
+never be executed. If you forget to override one, and it is executed, an
+exception will be raised.
 
 Similarly, a class is considered abstract if one of its methods is abstract.
 Nothing actually prevents you from creating an instance of an abstract class;
@@ -527,11 +543,12 @@ everything will work until an abstract method is invoked.
 !!!!Example: the abstract class ==Magnitude==
 
 ==Magnitude== is an abstract class that helps us to define objects that can be
-compared to each other. Subclasses of ==Magnitude== should implement the methods
-==<==, ===== and ==hash==. Using such messages, ==Magnitude== defines other
-methods such as ==>==, ==>===, ==<===, ==max:==, ==min:== ==between:and:== and
-others for comparing objects. Such methods are inherited by subclasses. The
-method ==Magnitude>><== is abstract, and defined as shown in the following script.
+compared to each other. Subclasses of ==Magnitude== should implement the
+methods ==<==, ===== and ==hash==. Using such messages, ==Magnitude== defines
+other methods such as ==>==, ==>===, ==<===, ==max:==, ==min:==
+==between:and:== and others for comparing objects. Such methods are inherited
+by subclasses. The method ==Magnitude>><== is abstract, and defined as shown in
+the following script.
 %*@scr:MagnitudeLessThan*.
 
 [[[label=scr:MagnitudeLessThan|caption===Magnitude>> <==
@@ -555,8 +572,9 @@ of the abstract method ==<==).
 
 ==Character== is a subclass of ==Magnitude==; it overrides the
 ==<== method (which, if you recall, is marked as abstract in ==Magnitude== by
-the use of ==self subclassResponsibility==) with its own version (see the method definition below).
-%Script *@scr:characterLessThan*). 
+the use of ==self subclassResponsibility==) with its own version (see the
+method definition below).
+%Script *@scr:characterLessThan*).
 ==Character== also explicitly defines methods
 ===== and ==hash==; it inherits from ==Magnitude== the methods ==>===, ==<===,
 ==~=== and others.
@@ -620,7 +638,7 @@ If we now instantiate ==LOGame==, it will respond to the ==author== message as
 expected.
 
 [[[
-LOGame new author 
+LOGame new author
 >>> 'on'
 ]]]
 
@@ -631,7 +649,8 @@ methods (with ==-==), or by redefining these methods in the class or trait that
 you are defining. It is also possible to ''alias'' methods (with ==@==),
 providing a new name for them.
 
-Traits are used in the system kernel. One good example is the class ==Behavior==.
+Traits are used in the system kernel. One good example is the class
+==Behavior==.
 
 [[[label=scr:behaviorwithtraits|caption=Behavior defined using traits
 Object subclass: #Behavior
@@ -649,19 +668,22 @@ trait ==TPureBehavior== has been aliased to
 
 This rule captures the essence of programming in Pharo.
 
-In procedural programming (and in some static features of some object-oriented languages such as Java),
-the choice of which piece of code to execute when a procedure is called is made
-by the caller. The caller chooses the procedure to execute ''statically'', by name.
+In procedural programming (and in some static features of some object-oriented
+languages such as Java), the choice of which piece of code to execute when a
+procedure is called is made by the caller. The caller chooses the procedure to
+execute ''statically'', by name.
 
-In Pharo, we do ''not'' "invoke methods". Instead, we ''send messages.'' This is just a terminology point but it is significant. 
-It implies that this is not the responsibility of the client to select the method to be executed, it is the one of the receiver of the message. 
+In Pharo, we do ''not'' "invoke methods". Instead, we ''send messages.'' This is
+just a terminology point but it is significant. It implies that this is not the
+responsibility of the client to select the method to be executed, it is the one
+of the receiver of the message.
 
-When sending a message, we do not decide which method will be executed. 
-Instead, we ''tell'' an object to do something for us by sending it a message. 
-A message is nothing but a name and a list of arguments. The receiver then decides how to respond
-by selecting its own ''method'' for doing what was asked. Since different
-objects may have different methods for responding to the same message, the
-method must be chosen ''dynamically'', when the message is received.
+When sending a message, we do not decide which method will be executed. Instead,
+we ''tell'' an object to do something for us by sending it a message. A message
+is nothing but a name and a list of arguments. The receiver then decides how to
+respond by selecting its own ''method'' for doing what was asked. Since
+different objects may have different methods for responding to the same message,
+the method must be chosen ''dynamically'', when the message is received.
 
 [[[
 3 + 4
@@ -719,21 +741,21 @@ object-oriented style. Joseph Pelrine also states this very nicely:
 !!Method lookup follows the inheritance chain
 
 What exactly happens when an object receives a message?
-This is a two step process: method lookup and method execution. 
+This is a two step process: method lookup and method execution.
 
 ""Lookup."" First, the method having the same name as the message is looked up.
 
-""Method Execution."" Second, the found method is applied to the receiver with the message arguments: 
-When the method is found, the arguments are bound to the parameters of
-the method, and the virtual machine executes it.
+""Method Execution."" Second, the found method is applied to the receiver with
+the message arguments: When the method is found, the arguments are bound to the
+parameters of the method, and the virtual machine executes it.
 
 The lookup process is quite simple:
 
-""1."" The class of the receiver looks up the method to use to handle the message.
+""1."" The class of the receiver looks up the method to use to handle the
+message.
 
 ""2."" If this class does not have that method method defined, it asks its
 superclass, and so on, up the inheritance chain.
-
 
 It is essentially as simple as that. Nevertheless there are a few questions that
 need some care to answer:
@@ -763,7 +785,7 @@ If we now send this object the message ==defaultColor==, we get the result
 ==Color yellow==.
 
 [[[
-anEllipse defaultColor 
+anEllipse defaultColor
 >>> Color yellow
 ]]]
 
@@ -792,19 +814,19 @@ Morph >> openInWorld
 
 !!!Returning self
 
-Notice that ==EllipseMorph>>defaultColor==
-explicitly returns ==Color yellow==, whereas ==Morph>>openInWorld== does not appear to return anything.
+Notice that ==EllipseMorph>>defaultColor== explicitly returns ==Color yellow==,
+whereas ==Morph>>openInWorld== does not appear to return anything.
 
-Actually a method ''always'' answers a message with a value (which is, of course,
-an object). The answer may be defined by the ==^== construct in the method, but
-if execution reaches the end of the method without executing a ==^==, the method
-still answers a value \-\- it answers the object that received the message. We
-usually say that the method ''answers self'', because in Pharo the
-pseudo-variable ==self== represents the receiver of the message, much like the
-keyword ==this== in Java. Other languages, such as Ruby, by default return the
-value of the last statement in the method. Again, this is not the case in Pharo,
-instead you can imagine that a method without an explicit return ends with
-==^ self==.
+Actually a method ''always'' answers a message with a value (which is, of
+course, an object). The answer may be defined by the ==^== construct in the
+method, but if execution reaches the end of the method without executing a
+==^==, the method still answers a value \-\- it answers the object that
+received the message. We usually say that the method ''answers self'', because
+in Pharo the pseudo-variable ==self== represents the receiver of the message,
+much like the keyword ==this== in Java. Other languages, such as Ruby, by
+default return the value of the last statement in the method. Again, this is not
+the case in Pharo, instead you can imagine that a method without an explicit
+return ends with ==^ self==.
 
 @@important ==self== represents the receiver of the message.
 
@@ -815,7 +837,7 @@ defined below.
 Morph >> openInWorld
     "Add this morph to the world."
     self openInWorld: self currentWorld
-    ^ self		
+    ^ self
 ]]]
 
 Why is explicitly writing ==^ self== not a so good thing to do? When you
@@ -823,7 +845,7 @@ return something explicitly, you are communicating that you are returning
 something of interest to the sender. When you explicitly return ==self==, you
 are saying that you expect the sender to use the returned value. This is not the
 case here, so it is best not to explicitly return ==self==. We only return ==self==
-on special case to stress that the receiver is returned. 
+on special case to stress that the receiver is returned.
 
 This is a common idiom in Pharo, which Kent Beck refers to as ''Interesting
 return value'':
@@ -850,14 +872,15 @@ the overridden method ''in addition to'' the new functionality we are defining
 in the subclass. In Pharo, as in many object-oriented languages that support
 single inheritance, this can be done with the help of ==super== sends.
 
-A frequent application of this mechanism is in the ==initialize==
-method. Whenever a new instance of a class is initialized, it is critical to
-also initialize any inherited instance variables. However, the knowledge of how to do this is 
-already captured in the ==initialize== methods of each of the superclass in the inheritance chain. The
-subclass has no business even trying to initialize inherited instance variables!
+A frequent application of this mechanism is in the ==initialize== method.
+Whenever a new instance of a class is initialized, it is critical to also
+initialize any inherited instance variables. However, the knowledge of how to do
+this is already captured in the ==initialize== methods of each of the superclass
+in the inheritance chain. The subclass has no business even trying to initialize
+inherited instance variables!
 
-It is therefore good practice whenever implementing an ==initialize== method to send
-==super initialize== before performing any further initialization:
+It is therefore good practice whenever implementing an ==initialize== method to
+send ==super initialize== before performing any further initialization:
 
 [[[label=scr:morphinit|caption=Super initialize
 BorderedMorph >> initialize
@@ -867,56 +890,57 @@ BorderedMorph >> initialize
     self borderInitialize
 ]]]
 
-We need ==super== sends to compose inherited behaviour that would otherwise be overridden. 
+We need ==super== sends to compose inherited behaviour that would otherwise be overridden.
 
 @@important It is a good practice that an ==initialize== method start by sending ==super initialize==.
 !!!Self sends and super sends
 
-==self== represents the receiver of the message and the lookup of the method  starts
-in the class of the receiver. Now what is ==super==?  ==super== is ''not'' the superclass! It is a common and natural
-mistake to think this. It is also a mistake to think that lookup starts in the superclass of the class of the receiver.
+==self== represents the receiver of the message and the lookup of the method
+starts in the class of the receiver. Now what is ==super==? ==super== is
+''not'' the superclass! It is a common and natural mistake to think this. It is
+also a mistake to think that lookup starts in the superclass of the class of the
+receiver.
 
 @@important ==self== represents the receiver of the message and the method lookup starts in the class of the receiver.
 
-!!!! How do ==self== sends differ from ==super== sends? 
+!!!! How do ==self== sends differ from ==super== sends?
 
-Like ==self==, ==super== represents the receiver of the message. Yes you read it well!
-The only thing that changes is the method lookup. Instead of lookup starting in the class of the receiver, it
-starts in the ''superclass of the class of the method where the ==super== send
-occurs''.
+Like ==self==, ==super== represents the receiver of the message. Yes you read it
+well! The only thing that changes is the method lookup. Instead of lookup
+starting in the class of the receiver, it starts in the ''superclass of the
+class of the method where the ==super== send occurs''.
 
 @@important ==super== represents the receiver of the message and the method lookup starts in the superclass of the class of the method where the ==super== send occurs.
-
-
-
-
 
 We shall see with the following example precisely how this works.
 Imagine that we define the following three methods:
 
-First we define the method ==fullPrintOn:== on class ==Morph== that just adds to the stream the name of the class followed by the string ' new' - the idea is that we
-could execute the resulting string and gets back an instance similar to the receiver. 
+First we define the method ==fullPrintOn:== on class ==Morph== that just adds to
+the stream the name of the class followed by the string ' new' - the idea is
+that we could execute the resulting string and gets back an instance similar to
+the receiver.
 
 [[[label=scr:morphfullPrintOn|caption=A ==self== send
-Morph >> fullPrintOn: aStream 
+Morph >> fullPrintOn: aStream
 	aStream nextPutAll: self class name, ' new'
 ]]]
 
-Second we define the method ==constructorString== that send the message ==fullPrintOn:==. 
+Second we define the method ==constructorString== that send the message ==fullPrintOn:==.
 [[[label=scr:constructorString|caption=A ==self== send
 Morph >> constructorString
     ^ String streamContents: [ :s | self fullPrintOn: s  ].
 ]]]
 
-Finally, we define the method ==fullPrintOn:== on the class ==BorderedMorph== superclass of ==EllipseMorph==.
-This new method extends the superclass behavior: it invokes it and adds extra behavior.
+Finally, we define the method ==fullPrintOn:== on the class ==BorderedMorph==
+superclass of ==EllipseMorph==. This new method extends the superclass behavior:
+it invokes it and adds extra behavior.
 
 [[[label=scr:fullPrintOn|caption=Combining ==super== and ==self== sends
 BorderedMorph >> fullPrintOn: aStream
     aStream nextPutAll: '('.
     super fullPrintOn: aStream.
-    aStream 
-        nextPutAll: ') setBorderWidth: '; 
+    aStream
+        nextPutAll: ') setBorderWidth: ';
         print: borderWidth;
         nextPutAll: ' borderColor: ', (self colorString: borderColor)
 ]]]
@@ -928,7 +952,6 @@ EllipseMorph new constructorString
 >>> '(EllipseMorph new) setBorderWidth: 1 borderColor: Color black'
 ]]]
 
-
 How exactly is this result obtained through a combination of ==self== and
 ==super== sends? First, ==anEllipse constructorString== will cause the method
 ==constructorString== to be found in the class ==Morph==, as shown in Figure
@@ -936,14 +959,12 @@ How exactly is this result obtained through a combination of ==self== and
 
 +==self== and ==super== sends>file://figures/constructorStringLookup.png|label=fig:constructorStringLookup|width=90+
 
-
-
 The method ==Morph>>constructorString== performs a ==self== send of
-==fullPrintOn:==. The message ==fullPrintOn:== is looked up starting in
-the class ==EllipseMorph==, and the method ==BorderedMorph>>fullPrintOn:== is found in
-==BorderedMorph== (see Figure *@fig:constructorStringLookup*). What
-is critical to notice is that the ==self== send causes the method lookup to
-start again in the class of the receiver, namely the class of ==anEllipse==.
+==fullPrintOn:==. The message ==fullPrintOn:== is looked up starting in the
+class ==EllipseMorph==, and the method ==BorderedMorph>>fullPrintOn:== is found
+in ==BorderedMorph== (see Figure *@fig:constructorStringLookup*). What is
+critical to notice is that the ==self== send causes the method lookup to start
+again in the class of the receiver, namely the class of ==anEllipse==.
 
 At this point, ==BorderedMorph>>fullPrintOn:== does a ==super== send to extend
 the ==fullPrintOn:== behaviour it inherits from its superclass. Because this is
@@ -953,29 +974,31 @@ evaluate ==Morph>>fullPrintOn:==.
 
 !!!! Stepping back
 
-A ==self== send is dynamic in the sense that by looking at the method containing it, we cannot predict which method will be executed.
-Indeed an instance of a subclass may receive the message containing the self expression and redefine the method in that subclass.
-Here ==EllipseMorph== could redefine the method ==fullPrintOn:== and this method would be executed by method ==constructorString==.
-Note that by only looking at the method ==constructorString==, we cannot predict which ==fullPrintOn:== method (either the one of ==EllipseMorph==, ==BorderedMorph==, or ==Morph==) will be executed when executing the method ==constructorString==, since it depends on the receiver the ==constructorString== message. 
+A ==self== send is dynamic in the sense that by looking at the method containing
+it, we cannot predict which method will be executed. Indeed an instance of a
+subclass may receive the message containing the self expression and redefine the
+method in that subclass. Here ==EllipseMorph== could redefine the method
+==fullPrintOn:== and this method would be executed by method
+==constructorString==. Note that by only looking at the method
+==constructorString==, we cannot predict which ==fullPrintOn:== method (either
+the one of ==EllipseMorph==, ==BorderedMorph==, or ==Morph==) will be executed
+when executing the method ==constructorString==, since it depends on the
+receiver the ==constructorString== message.
 
-@@important A ==self== send triggers a ''method lookup starting in the class of the receiver.'' A ==self== send is dynamic in the sense that by looking at the method containing it, we cannot predict which method will be executed. 
-
+@@important A ==self== send triggers a ''method lookup starting in the class of the receiver.'' A ==self== send is dynamic in the sense that by looking at the method containing it, we cannot predict which method will be executed.
 
 Note that the ==super== lookup did not start in the superclass of the receiver.
 This would have caused lookup to start from ==BorderedMorph==, resulting in an
 infinite loop!
 
-
 If you think carefully about ==super== send and Figure
 *@fig:constructorStringLookup*, you will realize that ==super== bindings are
 static: all that matters is the class in which the text of the ==super== send is
 found. By contrast, the meaning of ==self== is dynamic: it always represents the
-receiver of the currently executing message. This means that  ''all''  messages
+receiver of the currently executing message. This means that ''all'' messages
 sent to ==self== are looked up by starting in the receiver's class.
 
 @@important A ==super== send triggers a method lookup starting in the ''superclass of the class of the method performing the ==super== send''. We say that super sends are ''static'' because just looking at the method we know the class where the lookup should start (the class above the class containing the method).
-
-
 
 !!!Message not understood
 
@@ -998,7 +1021,7 @@ object which is capable of starting a Debugger in the current execution context.
 Why do we take this convoluted path to handle such an obvious error? Well, this
 offers developers an easy way to intercept such errors and take alternative
 action. One could easily override the method ==Object>>doesNotUnderstand:== in
-any subclass of ==Object== and  provide a different way of handling the error.
+any subclass of ==Object== and provide a different way of handling the error.
 
 In fact, this can be an easy way to implement automatic delegation of messages
 from one object to another. A ==Delegator== object could simply delegate all
@@ -1029,22 +1052,24 @@ which is implemented as an instance of the class ==SystemDictionary==. Global
 variables are accessible everywhere. Every class is named by a global variable.
 In addition, a few globals are used to name special or commonly useful objects.
 
-The variable ==Processor== names an instance of ==ProcessScheduler==, the main process schedler of Pharo
+The variable ==Processor== names an instance of ==ProcessScheduler==, the main
+process schedler of Pharo.
 
 [[[
-Processor class 
+Processor class
 >>> ProcessorScheduler
 ]]]
 
 !!!!Other useful global variables
 
-""==Smalltalk=="" is the instance of ==SmalltalkImage==. It contains many functionality to manage the system.
-In particular it holds a reference to the main namespace ==Smalltalk globals==.
-This namespace includes ==Smalltalk== itself since it is a global variable. The  keys to this namespace are
-the symbols that name the global objects in Pharo code. So, for example:
+""==Smalltalk=="" is the instance of ==SmalltalkImage==. It contains many
+functionality to manage the system. In particular it holds a reference to the
+main namespace ==Smalltalk globals==. This namespace includes ==Smalltalk==
+itself since it is a global variable. The keys to this namespace are the
+symbols that name the global objects in Pharo code. So, for example:
 
 [[[
-Smalltalk globals at: #Boolean 
+Smalltalk globals at: #Boolean
 >>> Boolean
 ]]]
 
@@ -1076,37 +1101,37 @@ can sometimes help explain strange behaviour!
 
 !!!!Using globals in your code
 
-The recommended practice is to strictly limit the use of global variables. It is usually
-better to use class instance variables or class variables, and to provide class
-methods to access them. Indeed, if Pharo were to be implemented from scratch
-today, most of the global variables that are not classes would be replaced by
-singletons.
+The recommended practice is to strictly limit the use of global variables. It is
+usually better to use class instance variables or class variables, and to
+provide class methods to access them. Indeed, if Pharo were to be implemented
+from scratch today, most of the global variables that are not classes would be
+replaced by singletons.
 
 The usual way to define a global is just to perform ==Do it== on an assignment
 to a capitalized but undeclared identifier. The parser will then offer to
 declare the global for you. If you want to define a global programmatically,
-just execute ==Smalltalk globals at: #AGlobalName put: nil==. To remove it, execute
-==Smalltalk globals removeKey: #AGlobalName==.
+just execute ==Smalltalk globals at: #AGlobalName put: nil==. To remove it,
+execute ==Smalltalk globals removeKey: #AGlobalName==.
 
 !!!Class variables
 @sec:classVars
 
 Sometimes we need to share some data amongst all the instances of a class and
 the class itself. This is possible using ''class variables''. The term ''class
-variable'' indicates that the lifetime of the variable is the same as that of the
-class. However, what the term does not convey is that these variables are shared
-amongst all the instances of a class as well as the class itself, as shown in
-Figure *@fig:privateSharedVar*. Indeed, a better name would have been ''shared
-variables'' since this expresses more clearly their role, and also warns of the
-danger of using them, particularly if they are modified.
+variable'' indicates that the lifetime of the variable is the same as that of
+the class. However, what the term does not convey is that these variables are
+shared amongst all the instances of a class as well as the class itself, as
+shown in Figure *@fig:privateSharedVar*. Indeed, a better name would have been
+''shared variables'' since this expresses more clearly their role, and also
+warns of the danger of using them, particularly if they are modified.
 
 +Instance and class methods accessing different variables>file://figures/privateSharedVarColor.png|label=fig:privateSharedVar|width=70+
 
 In Figure *@fig:privateSharedVar* we see that ==rgb== and ==cachedDepth== are
 instance variables of ==Color==, hence only accessible to instances of
 ==Color==. We also see that ==superclass==, ==subclass==, ==methodDict== and so
-on are ''class instance variables'', i.e., instance variables only accessible to the
-==Color== class.
+on are ''class instance variables'', i.e., instance variables only accessible to
+the ==Color== class.
 
 But we can also see something new: ==ColorRegistry== and ==CachedColormaps== are
 ''class variables'' defined for ==Color==. The capitalization of these variables
@@ -1156,7 +1181,7 @@ is no longer shared.
 % \end{method}
 
 Another solution is to override the class method ==initialize== (we've seen this
-before in the Dog example). 
+before in the Dog example).
 % in Scripts *@scr:dogCount* and *@scr:dogCount2*).
 
 [[[label=scr:colorClassInit|caption=Initializing the ==Color== class
@@ -1169,7 +1194,7 @@ Color class >> initialize
 If you adopt this solution, you will need to remember to invoke the
 ==initialize== method after you define it (by evaluating ==Color initialize==).
 Although class side ==initialize== methods are executed automatically when code
-is loaded into memory (from a Monticello repository, for example),  they are
+is loaded into memory (from a Monticello repository, for example), they are
 ''not'' executed automatically when they are first typed into the browser and
 compiled, or when they are edited and re-compiled.
 
@@ -1197,9 +1222,10 @@ ArrayedCollection subclass: #Text
         package: 'Collections-Text'
 ]]]
 
-This allows methods of the class ==Text== to access the ''keys'' of the dictionary
-in the method body ''directly'', i.e., by using variable syntax rather than an
-explicit dictionary lookup. For example, we can write the following method.
+This allows methods of the class ==Text== to access the ''keys'' of the
+dictionary in the method body ''directly'', i.e., by using variable syntax
+rather than an explicit dictionary lookup. For example, we can write the
+following method.
 
 [[[label=scr:textTestCR|caption===Text>>testCR==
 Text >> testCR
@@ -1210,19 +1236,25 @@ Once again, we recommend that you avoid the use of pool variables and pool
 dictionaries.
 
 !! Internal object implementation note
-Here is an implementation note for people that really want to go deep inside the way Pharo represents internally objects. 
-The implementation distinguished between two different kinds of objects:
-# Objects with zero or more fields that are passed by reference and exist on the Pharo heap.
-# Immediate objects that are passed by value. Depending on version, these are a range of the integers called SmallInteger, all ==Character== objects and possibly a sub-range of 64-bit floating-point numbers called ==SmallFloat64==.  In the implementation, such immediate objects occupy an object pointer, most of whose bits encode the immediate's value and some of the bits encode the object's class.
+Here is an implementation note for people that really want to go deep inside the
+way Pharo represents internally objects. The implementation distinguished
+between two different kinds of objects: # Objects with zero or more fields that
+are passed by reference and exist on the Pharo heap. # Immediate objects that
+are passed by value. Depending on version, these are a range of the integers
+called SmallInteger, all ==Character== objects and possibly a sub-range of
+64-bit floating-point numbers called ==SmallFloat64==. In the implementation,
+such immediate objects occupy an object pointer, most of whose bits encode the
+immediate's value and some of the bits encode the object's class.
 
 The first kind of object, an ordinary object, comes in a number of varieties:
-# Normal objects that have zero or more named instance variables, such as ==Point== which has an x and a y instance variable.  Each instance variable holds an object pointer, which can be a reference to another ordinary object or an immediate.
-# Indexable objects like arrays that have zero or more indexed instance variables numbered from 1 to N.  Each indexed instance variable holds an object pointer, which can be a reference to another ordinary object or an immediate.  Indexable objects are accessed using the messages ==at:== and ==at:put:==.  For example ==((Array new: 1) at: 1 put: 2; at: 1)== answers 2.
-# Objects like Closure or Context that have both named instance variables and indexed instance variables.  In the object, the indexed instance variables follow the named instance variables.
-# Objects like ==ByteString== or ==Bitmap== that have indexed instance variables numbered from 1 to N that contain raw data.  Each datum may occupy 8, 16 or 32-bits, depending on its class definition.  The data can be accessed as either integers, characters or floating-point numbers, depending on how methods ==at:== and ==at:put:== are implemented.  The ==at:== and ==at:put:== methods convert between Pharo objects and raw data, hiding the internal representation, but allowing the system to represent efficiently data such as strings, and bitmaps.
 
-A beauty of Pharo is that you normally don't need to care about the differences between these three kinds of object.
+# Normal objects that have zero or more named instance variables, such as ==Point== which has an x and a y instance variable. Each instance variable holds an object pointer, which can be a reference to another ordinary object or an immediate.
+# Indexable objects like arrays that have zero or more indexed instance variables numbered from 1 to N. Each indexed instance variable holds an object pointer, which can be a reference to another ordinary object or an immediate.  Indexable objects are accessed using the messages ==at:== and ==at:put:==. For example ==((Array new: 1) at: 1 put: 2; at: 1)== answers 2.
+# Objects like Closure or Context that have both named instance variables and indexed instance variables. In the object, the indexed instance variables follow the named instance variables.
+# Objects like ==ByteString== or ==Bitmap== that have indexed instance variables numbered from 1 to N that contain raw data. Each datum may occupy 8, 16 or 32-bits, depending on its class definition. The data can be accessed as either integers, characters or floating-point numbers, depending on how methods ==at:== and ==at:put:== are implemented. The ==at:== and ==at:put:== methods convert between Pharo objects and raw data, hiding the internal representation, but allowing the system to represent efficiently data such as strings, and bitmaps.
 
+The beauty of Pharo is that you normally don't need to care about the
+differences between these three kinds of object.
 
 !!Chapter summary
 
@@ -1233,5 +1265,5 @@ Everything is an object, and pretty much everything happens by sending messages.
 -Every object is an instance of a class. Classes define the structure of their instances via ''private'' instance variables and the behaviour of their instances via ''public'' methods. Each class is the unique instance of its metaclass. Class variables are private variables shared by the class and all the instances of the class. Classes cannot directly access instance variables of their instances, and instances cannot access instance variables of their class. Accessors must be defined if this is needed.
 -Every class has a superclass. The root of the single inheritance hierarchy is ==ProtoObject==. Classes you define, however, should normally inherit from ==Object== or its subclasses. There is no syntax for defining abstract classes. An abstract class is simply a class with an abstract method (one whose implementation consists of the expression ==self subclassResponsibility==). Although Pharo supports only single inheritance, it is easy to share implementations of methods by packaging them as ''traits''.
 -Everything happens by sending messages. We do not ''call methods'', we ''send messages''. The receiver then chooses its own method for responding to the message.
--Method lookup follows the inheritance chain; ==self== sends are dynamic and start the method lookup in the class of the receiver, whereas ==super== sends start the method lookup in the superclass of class in which the ==super== send is written. From this perspective ==super== sends are more static than ==self== sends. 
+-Method lookup follows the inheritance chain; ==self== sends are dynamic and start the method lookup in the class of the receiver, whereas ==super== sends start the method lookup in the superclass of class in which the ==super== send is written. From this perspective ==super== sends are more static than ==self== sends.
 -There are three kinds of shared variables. Global variables are accessible everywhere in the system. Class variables are shared between a class, its subclasses and its instances. Pool variables are shared between a selected set of classes. You should avoid shared variables as much as possible.
