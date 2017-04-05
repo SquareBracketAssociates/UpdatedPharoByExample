@@ -2,9 +2,8 @@
 
 ## Introduction
 
-*Pharo by Example (vol 1)* is a practical introduction for Pharo, a Smalltalk-inspired programming language, IDE and live coding enviroment. This book is an updated version of [Pharo By Example for Pharo 1.4](https://github.com/SquareBracketAssociates/PharoByExample-english).
-
-This version focuses on the latest stable version of Pharo (Pharo 5.0, at the time of writing).
+*Pharo by Example (vol 1)* is a practical introduction for Pharo, a Smalltalk-inspired programming language, IDE and live coding enviroment. This book is an updated version of [Pharo By Example for Pharo 1.4](https://github.com/SquareBracketAssociates/PharoByExample-english),
+updated for the upcoming version, Pharo 6.0.
 
 You can find more info and documentation about Pharo at
 [Pharo.org](http://pharo.org/).
