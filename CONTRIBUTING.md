@@ -1,4 +1,7 @@
 The best way to contribute to this book is to issue Pull Request when you spot something wrong. 
+
+Doing a Pull Request
+-----
 Imagine that you want to fix a problem in the Morphic chapter. Here is the process: 
 
 1. Click on this link.
