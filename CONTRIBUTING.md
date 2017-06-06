@@ -20,7 +20,7 @@ base: master
 head fork: YourName/UpdatedPharoByExample
 compare: your new-branch-name
 ```
-Review the diff, enter PR title and comment, then click <Create pull request>.
+8. Review the diff, enter PR title and comment, then click <Create pull request>.
 
 
 Tools
