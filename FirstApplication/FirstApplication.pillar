@@ -2,7 +2,7 @@
 @cha:firstApp
 
 In this chapter, we will develop a simple game: LightsOut
-(*http://en.wikipedia.org/wiki/Lights_Out_(game))*. Along the way we will show
+(*http://en.wikipedia.org/wiki/Lights_Out_(game)*). Along the way we will show
 most of the tools that Pharo programmers use to construct and debug their
 programs, and show how programs are shared with other developers. We will see
 the browser, the object inspector, the debugger and the Monticello package
