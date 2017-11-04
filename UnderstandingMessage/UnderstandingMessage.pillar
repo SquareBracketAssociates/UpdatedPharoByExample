@@ -493,9 +493,9 @@ Let's see how keywords messages are recognized by the compiler.
 
 The characters \[, \], \( and \) delimit distinct areas. Within such an area, a
 keyword message is the longest sequence of words terminated by ==:== that is
-not cut by the characters \., or \;. When the characters \[, \], \( and \{
-surround some words with colons, these words participate in the keyword message
-''local'' to the area defined.
+not cut by the characters ==.==, or ==;==.When the characters ==[==, ==]==,
+==(== and ==)== surround some words with colons, these words participate in the 
+keyword message local to the area defined.
 
 In this example, there are two distinct keyword messages:
 ==rotateBy:magnify:smoothing:== and ==at:put:==.
@@ -508,8 +508,6 @@ aDict
           smoothing: 1)
    put: 3
 ]]]
-
-@@note The characters \[, \], \( and \) delimit distinct areas. Within such an area, a keyword message is the longest sequence of words terminated by ==:== that is not cut by the characters ==.==, or ==;==.When the characters ==[==, ==]==, ==(== and ==)== surround some words with colons, these words participate in the keyword message local to the area defined.
 
 !!!!Precedence hints
 
