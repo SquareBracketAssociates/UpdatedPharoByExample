@@ -1,6 +1,10 @@
+
 before_install:
  - sudo apt-get -qq update
+ - sudo apt-get install libc6-i386
  - sudo apt-get install --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra texlive-latex-recommended dvipng
+
+install:
  - ./prepare.sh
 
 script:
