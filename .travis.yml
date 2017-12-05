@@ -8,4 +8,4 @@ install:
  - ./prepare.sh
 
 script:
- - ./compile.sh
+ - ./compile.sh --to="HTML by chapter"
