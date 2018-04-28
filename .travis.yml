@@ -1,16 +1,11 @@
-language: pillar
-sudo: false
-cache:
-  directories:
-  - /tmp/texlive
-addons:
-  apt:
-    packages:
-    - libc6-i386
+
+before_install:
+ - sudo apt-get -qq update
+ - sudo apt-get install libc6-i386
+ - sudo apt-get install --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra texlive-latex-recommended dvipng
+
 install:
-  - if [ ! -d "/tmp/texlive/CURRENT" ]; then mkdir -p /tmp/texlive && cd /tmp/texlive && wget https://gist.github.com/urdh/ca8ffcf7cb7c6eace9ad/raw/57718dd299f2e0cd4a2966c17222330624ec9383/texlive.profile -O - | sed -e sX/usr/localX/tmpX > texlive.profile && wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz && tar -xvf install-tl-unx.tar.gz && cd install-tl-* && ./install-tl --profile=../texlive.profile; else echo "LaTeX is already in the cache. If necessary, clean it with http://docs.travis-ci.com/user/caching/#Clearing-Caches"; fi
-  - cd $TRAVIS_BUILD_DIR
-  - ./download.sh
+ - ./prepare.sh
 
 script:
-  - PATH=/tmp/texlive/CURRENT/bin/x86_64-linux:$PATH ./compile.sh
+ - ./compile.sh --to="HTML by chapter"
