@@ -354,7 +354,7 @@ Normally, you will run your tests using the Test Runner or using your code
 browser. If you don't want to launch the Test Runner from the World menu, you
 can execute ==TestRunner open==. You can also run a single test as follows:
 
-[[[
+[[[testcase=true
 MyExampleSetTest run: #testRemove
 >>> 1 run, 1 passed, 0 failed, 0 errors
 ]]]
@@ -367,7 +367,7 @@ the string ''test''.
 
 To run the tests in the suite, send it the message ==run==. For example:
 
-[[[
+[[[testcase=true
 MyExampleSetTest suite run
 >>> 5 run, 5 passed, 0 failed, 0 errors
 ]]]

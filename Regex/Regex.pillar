@@ -15,23 +15,23 @@ pattern that matches a set of strings. For example, the regular expression
 =='h.\*o'== will match the strings =='ho'==, =='hiho'== and =='hello'==, but it
 will not match =='hi'== or =='yo'==. We can see this in Pharo as follows:
 
-[[[
+[[[testcase=true
 'ho' matchesRegex: 'h.*o'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'hiho' matchesRegex: 'h.*o'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'hello' matchesRegex: 'h.*o'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'hi' matchesRegex: 'h.*o'
 >>> false
 ]]]
-[[[
+[[[testcase=true
 'yo' matchesRegex: 'h.*o'
 >>> false
 ]]]
@@ -121,15 +121,15 @@ will list all the files in a directory. We want to select just those with the
 file extension ==.html==. The regex that we need is =='.\*\\.html'==. The first
 dot will match any character except a newline:
 
-[[[
+[[[testcase=true
 'x' matchesRegex: '.'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 ' ' matchesRegex: '.'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 Character cr asString matchesRegex: '.'
 >>> true
 ]]]
@@ -139,19 +139,19 @@ The ==\*== (known as the ''Kleene star'', after Stephen Kleene, who invented it)
 is a regex operator that will match the preceding regex any number of times
 (including zero).
 
-[[[
+[[[testcase=true
 '' matchesRegex: 'x*'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'x' matchesRegex: 'x*'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'xx' matchesRegex: 'x*'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'y' matchesRegex: 'x*'
 >>> false
 ]]]
@@ -159,38 +159,38 @@ is a regex operator that will match the preceding regex any number of times
 Since the dot is a special character in regexes, if we want to literally match a
 dot, then we must escape it.
 
-[[[
+[[[testcase=true
 '.' matchesRegex: '.'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'x' matchesRegex: '.'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 '.' matchesRegex: '\.'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'x' matchesRegex: '\.'
 >>> false
 ]]]
 
 Now let's check our regex to find HTML files works as expected.
 
-[[[
+[[[testcase=true
 'index.html' matchesRegex: '.*\.html'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'foo.html' matchesRegex: '.*\.html'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'style.css' matchesRegex: '.*\.html'
 >>> false
 ]]]
-[[[
+[[[testcase=true
 'index.htm' matchesRegex: '.*\.html'
 >>> false
 ]]]
@@ -207,7 +207,7 @@ WebDir >> htmlFiles
 If you send ==htmlFiles== to a ==WebDir== instance and ==print it==, you should
 see something like this:
 
-[[[
+[[[testcase=true
 (WebDir onPath: '...') htmlFiles
 >>> #('index.html' ...)
 ]]]
@@ -265,7 +265,7 @@ WebDir >> webPages
 
 You should see something like this:
 
-[[[
+[[[testcase=true
 (WebDir onPath: '...') webPages
 >>> an Array(a WebPage a WebPage ...)
 ]]]
@@ -281,7 +281,7 @@ path.
 The ==String== extension method ==copyWithRegex:matchesReplacedWith:== does what
 we want:
 
-[[[
+[[[testcase=true
 'hello' copyWithRegex: '[elo]+' matchesReplacedWith: 'i'
 >>> 'hi'
 ]]]
@@ -301,7 +301,7 @@ WebPage >> fileName
 
 Now you should see something like this on your test web site:
 
-[[[
+[[[testcase=true
 (WebDir onPath: '...') webPages collect: [:each | each fileName ]
 >>> #('index.html' ...)
 ]]]
@@ -330,7 +330,7 @@ WebPage >> contents
 
 You should now be able to see something like this:
 
-[[[
+[[[testcase=true
 (WebDir onPath: '...') webPages first contents
 >>> '<head>
 <title>Home Page</title>
@@ -353,15 +353,21 @@ of characters, but you should not forget, they are actually the same thing.) Now
 we will try to match a ''prefix'' of the string =='pharo'== and extract the
 submatches:
 
-[[[
+[[[testcase=true
 | re |
 re := '([CARETaeiou]+)([aeiou]+)' asRegex.
 re matchesPrefix: 'pharo'
 >>> true
+]]]
+[[[testcase=true
 re subexpression: 1
 >>> 'pha'
+]]]
+[[[testcase=true
 re subexpression: 2
 >>> 'ph'
+]]]
+[[[testcase=true
 re subexpression: 3
 >>> 'a'
 ]]]
@@ -397,7 +403,7 @@ the same trick with the subexpression.)
 
 Now we can test our title extractor, and we should see something like this:
 
-[[[
+[[[testcase=true
 (WebDir onPath: '...') webPages first title
 >>> 'Home page'
 ]]]
@@ -414,11 +420,11 @@ We must only watch out for one thing. Since the ==homePath== variable does not
 end in a ==/==, we must append one, so that relative path does not include a
 leading ==/==. Notice the difference between the following two results:
 
-[[[
+[[[testcase=true
 '/home/testweb/index.html' copyWithRegex: '/home/testweb' matchesReplacedWith: ''
 >>> '/index.html'
 ]]]
-[[[
+[[[testcase=true
 '/home/testweb/index.html' copyWithRegex: '/home/testweb/' matchesReplacedWith: ''
 >>>  'index.html'
 ]]]
@@ -440,7 +446,7 @@ WebPage >> link
 
 You should now be able to see something like this:
 
-[[[
+[[[testcase=true
 (WebDir onPath: '...') webPages first link
 >>> '<a href="index.html">Home Page</a>'
 ]]]
@@ -508,15 +514,15 @@ The simplest regular expression is a single character. It matches exactly that
 character. A sequence of characters matches a string with exactly the same
 sequence of characters:
 
-[[[
+[[[testcase=true
 'a' matchesRegex: 'a'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'foobar' matchesRegex: 'foobar'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'blorple' matchesRegex: 'foobar'
 >>> false
 ]]]
@@ -529,19 +535,19 @@ We have already seen the Kleene star (==\*==) and the ==\+== operator. A regular
 expression followed by an asterisk matches any number (including 0) of matches
 of the original expression. For example:
 
-[[[
+[[[testcase=true
 'ab' matchesRegex: 'a*b'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'aaaaab' matchesRegex: 'a*b'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'b' matchesRegex: 'a*b'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'aac' matchesRegex: 'a*b'
 >>> false    "b does not match"
 ]]]
@@ -551,11 +557,11 @@ shortest possible subexpression that precedes it. For example, ==ab\*== means
 ==a== followed by zero or more occurrences of ==b==, not ''zero or more
 occurrences of ==ab=='':
 
-[[[
+[[[testcase=true
 'abbb' matchesRegex: 'ab*'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'abab' matchesRegex: 'ab*'
 >>> false
 ]]]
@@ -563,11 +569,11 @@ occurrences of ==ab=='':
 To obtain a regex that matches ''zero or more occurrences of ==ab=='', we must
 enclose ==ab== in parentheses:
 
-[[[
+[[[testcase=true
 'abab' matchesRegex: '(ab)*'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'abcab' matchesRegex: '(ab)*'
 >>> false    "c spoils the fun"
 ]]]
@@ -576,19 +582,19 @@ Two other useful operators similar to ==\*== are ==\+== and ==?==. ==\+==
 matches one or more instances of the regex it modifies, and ==?== will match
 zero or one instance.
 
-[[[
+[[[testcase=true
 'ac' matchesRegex: 'ab*c'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'ac' matchesRegex: 'ab+c'
 >>> false    "need at least one b"
 ]]]
-[[[
+[[[testcase=true
 'abbc' matchesRegex: 'ab+c'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'abbc' matchesRegex: 'ab?c'
 >>> false    "too many b's"
 ]]]
@@ -599,15 +605,15 @@ literally, it should be escaped by preceding it with a backslash ==\\ ==. Thus,
 backslash is also special character, and needs to be escaped for a literal
 match. The same holds for all further special characters we will see.
 
-[[[
+[[[testcase=true
 'ab*' matchesRegex: 'ab*'
 >>> false    "star in the right string is special"
 ]]]
-[[[
+[[[testcase=true
 'ab*' matchesRegex: 'ab\*'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'a\c' matchesRegex: 'a\\c'
 >>> true
 ]]]
@@ -618,15 +624,15 @@ has the lowest precedence — even lower than sequencing. For example,
 ==ab\*|ba\*== means ''a followed by any number of b's, or b followed by any
 number of a's'':
 
-[[[
+[[[testcase=true
 'abb' matchesRegex: 'ab*|ba*'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'baa' matchesRegex: 'ab*|ba*'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'baab' matchesRegex: 'ab*|ba*'
 >>> false
 ]]]
@@ -634,15 +640,15 @@ number of a's'':
 A bit more complex example is the expression ==c(a|d)\+r==, which matches the
 name of any of the Lisp-style car, cdr, caar, cadr, ... functions:
 
-[[[
+[[[testcase=true
 'car' matchesRegex: 'c(a|d)+r'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'cdr' matchesRegex: 'c(a|d)+r'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'cadr' matchesRegex: 'c(a|d)+r'
 >>> true
 ]]]
@@ -657,26 +663,26 @@ string of characters enclosed in square brackets. It matches any single
 character if it appears between the brackets. For example, ==[01]== matches
 either ==0== or ==1==:
 
-[[[
+[[[testcase=true
 '0' matchesRegex: '[01]'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 '3' matchesRegex: '[01]'
 >>> false
 ]]]
-[[[
+[[[testcase=true
 '11' matchesRegex: '[01]'
 >>> false  "a set matches only one character"
 ]]]
 
 Using plus operator, we can build the following binary number recognizer:
 
-[[[
+[[[testcase=true
 '10010100' matchesRegex: '[01]+'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 '10001210' matchesRegex: '[01]+'
 >>> false
 ]]]
@@ -685,11 +691,11 @@ If the first character after the opening bracket is ==CARET==, the set is
 inverted: it matches any single character ''not'' appearing between the
 brackets:
 
-[[[
+[[[testcase=true
 '0' matchesRegex: '[CARET01]'
 >>> false
 ]]]
-[[[
+[[[testcase=true
 '3' matchesRegex: '[CARET01]'
 >>> true
 ]]]
@@ -700,15 +706,15 @@ hyphen (==-==). This is equivalent to listing all characters in between:
 are ==CARET==, ==-==, and ==]==, which closes the set. Below are examples how to
 literally match them in a set:
 
-[[[
+[[[testcase=true
 'CARET' matchesRegex: '[01CARET]'
 >>> true    "put the caret anywhere except the start"
 ]]]
-[[[
+[[[testcase=true
 '-' matchesRegex: '[01-]'
 >>> true    "put the hyphen at the end"
 ]]]
-[[[
+[[[testcase=true
 ']' matchesRegex: '[]01]'
 >>> true    "put the closing bracket at the start"
 ]]]
@@ -748,11 +754,11 @@ validating user input, and character classes turn out to be especially useful
 for defining such regexes. For example, non-negative numbers can be matched with
 the regex ==\\d\+==:
 
-[[[
+[[[testcase=true
 '42' matchesRegex: '\d+'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 '-1' matchesRegex: '\d+'
 >>> false
 ]]]
@@ -760,69 +766,69 @@ the regex ==\\d\+==:
 Better yet, we might want to specify that non-zero numbers should not start with
 the digit 0:
 
-[[[
+[[[testcase=true
 '0' matchesRegex: '0|([1-9]\d*)'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 '1' matchesRegex: '0|([1-9]\d*)'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 '42' matchesRegex: '0|([1-9]\d*)'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 '099' matchesRegex: '0|([1-9]\d*)'
 >>> false    "leading 0"
 ]]]
 
 We can check for negative and positive numbers as well:
 
-[[[
+[[[testcase=true
 '0' matchesRegex: '(0|((\+|-)?[1-9]\d*))'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 '-1' matchesRegex: '(0|((\+|-)?[1-9]\d*))'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 '42' matchesRegex: '(0|((\+|-)?[1-9]\d*))'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 '+99' matchesRegex: '(0|((\+|-)?[1-9]\d*))'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 '-0' matchesRegex: '(0|((\+|-)?[1-9]\d*))'
 >>> false    "negative zero"
 ]]]
-[[[
+[[[testcase=true
 '01' matchesRegex: '(0|((\+|-)?[1-9]\d*))'
 >>> false    "leading zero"
 ]]]
 
 Floating point numbers should require at least one digit after the dot:
 
-[[[
+[[[testcase=true
 '0' matchesRegex: '(0|((\+|-)?[1-9]\d*))(\.\d+)?'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 '0.9' matchesRegex: '(0|((\+|-)?[1-9]\d*))(\.\d+)?'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 '3.14' matchesRegex: '(0|((\+|-)?[1-9]\d*))(\.\d+)?'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 '-42' matchesRegex: '(0|((\+|-)?[1-9]\d*))(\.\d+)?'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 '2.' matchesRegex: '(0|((\+|-)?[1-9]\d*))(\.\d+)?'
 >>> false    "need digits after ."
 ]]]
@@ -830,7 +836,7 @@ Floating point numbers should require at least one digit after the dot:
 For dessert, here is a recognizer for a general number format: anything like
 ==999==, or ==999.999==, or ==-999.999e\+21==.
 
-[[[
+[[[testcase=true
 '-999.999e+21' matchesRegex: '(\+|-)?\d+(\.\d*)?((e|E)(\+|-)?\d+)?'
 >>> true
 ]]]
@@ -856,7 +862,7 @@ expression. For example, a non-empty string of digits would be represented as
 ==[[:digit:]]\+==. The above primitive expressions and operators are common to
 many implementations of regular expressions.
 
-[[[
+[[[testcase=true
 '42' matchesRegex: '[[:digit:]]+'
 >>> true
 ]]]
@@ -877,23 +883,23 @@ So far we have seen the following equivalent ways to write a regular expression
 that matches a non-empty string of digits: ==[0-9]\+==, ==\\d\+==, ==[\\d]\+==,
 ==[[:digit:]]\+==, ==:isDigit:\+==.
 
-[[[
+[[[testcase=true
 '42' matchesRegex: '[0-9]+'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 '42' matchesRegex: '\d+'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 '42' matchesRegex: '[\d]+'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 '42' matchesRegex: '[[:digit:]]+'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 '42' matchesRegex: ':isDigit:+'
 >>> true
 ]]]
@@ -911,11 +917,11 @@ boundaries of strings.
 | ==\\<== | match an empty string at the beginning of a word
 | ==\\>== | match an empty string at the end of a word
 
-[[[
+[[[testcase=true
 'hello world' matchesRegex: '.*\bw.*'
 >>> true      "word boundary before w"
 ]]]
-[[[
+[[[testcase=true
 'hello world' matchesRegex: '.*\bo.*'
 >>> false    "no boundary before o"
 ]]]
@@ -937,15 +943,15 @@ The message ==prefixMatchesRegex:== is just like ==matchesRegex==, except that
 the whole receiver is not expected to match the regular expression passed as the
 argument; matching just a prefix of it is enough.
 
-[[[
+[[[testcase=true
 'abacus' matchesRegex: '(a|b)+'
 >>> false
 ]]]
-[[[
+[[[testcase=true
 'abacus' prefixMatchesRegex: '(a|b)+'
 >>> true
 ]]]
-[[[
+[[[testcase=true
 'ABBA' matchesRegexIgnoringCase: '(a|b)+'
 >>> true
 ]]]
@@ -953,7 +959,7 @@ argument; matching just a prefix of it is enough.
 'Abacus' matchesRegexIgnoringCase: '(a|b)+'
 >>> false
 ]]]
-[[[
+[[[testcase=true
 'Abacus' prefixMatchesRegexIgnoringCase: '(a|b)+'
 >>> true
 ]]]
@@ -967,7 +973,7 @@ familiar ==Collection==-like enumeration protocol.
 ==regex:matchesDo:== evaluates a one-argument ==aBlock== for every match of the
 regular expression within the receiver string.
 
-[[[
+[[[testcase=true
 | list |
 list := OrderedCollection new.
 'Jack meet Jill' regex: '\w+' matchesDo: [:word | list add: word].
@@ -979,7 +985,7 @@ list
 the regular expression within the receiver string. It then collects the results
 and answers them as a ==SequenceableCollection==.
 
-[[[
+[[[testcase=true
 'Jack meet Jill' regex: '\w+' matchesCollect: [:word | word size]
 >>> an OrderedCollection(4 4 4)
 ]]]
@@ -987,7 +993,7 @@ and answers them as a ==SequenceableCollection==.
 ==allRegexMatches:== returns a collection of all matches (substrings of the
 receiver string) of the regular expression.
 
-[[[
+[[[testcase=true
 'Jack and Jill went up the hill' allRegexMatches: '\w+'
 >>> an OrderedCollection('Jack' 'and' 'Jill' 'went' 'up' 'the' 'hill')
 ]]]
@@ -997,7 +1003,7 @@ receiver string) of the regular expression.
 It is possible to replace all matches of a regular expression with a certain
 string using the message ==copyWithRegex:matchesReplacedWith:==.
 
-[[[
+[[[testcase=true
 'Krazy hates Ignatz' copyWithRegex: '\<[[:lower:]]+\>' matchesReplacedWith: 'loves'
 >>> 'Krazy loves Ignatz'
 ]]]
@@ -1007,7 +1013,7 @@ passing it each match of the regular expression in the receiver string and
 answers a copy of the receiver with the block results spliced into it in place
 of the respective matches.
 
-[[[
+[[[testcase=true
 'Krazy loves Ignatz' copyWithRegex: '\b[a-z]+\b' matchesTranslatedUsing: [:each | each asUppercase]
 >>> 'Krazy LOVES Ignatz'
 ]]]
@@ -1040,19 +1046,19 @@ can create a matcher using one of the following methods:
 
 Here we send ==matchesIn:== to collect all the matches found in a string:
 
-[[[
+[[[testcase=true
 | octal |
 octal := '8r[0-9A-F]+' asRegex.
 octal matchesIn: '8r52 = 16r2A'
 >>> an OrderedCollection('8r52')
 ]]]
-[[[
+[[[testcase=true
 | hex |
 hex := '16r[0-9A-F]+' asRegexIgnoringCase.
 hex matchesIn: '8r52 = 16r2A'
 >>> an OrderedCollection('16r2A')
 ]]]
-[[[
+[[[testcase=true
 | hex |
 hex := RxMatcher forString: '16r[0-9A-Fa-f]+' ignoreCase: true.
 hex matchesIn: '8r52 = 16r2A'
@@ -1066,7 +1072,7 @@ successful match or search, and ==false== otherwise):
 
 ==matches: aString== — true if the whole argument string (==aString==) matches.
 
-[[[
+[[[testcase=true
 '\w+' asRegex matches: 'Krazy'
 >>> true
 ]]]
@@ -1074,7 +1080,7 @@ successful match or search, and ==false== otherwise):
 ==matchesPrefix: aString== — true if some prefix of the argument string (not
 necessarily the whole string) matches.
 
-[[[
+[[[testcase=true
 '\w+' asRegex matchesPrefix: 'Ignatz hates Krazy'
 >>> true
 ]]]
@@ -1085,7 +1091,7 @@ beginning of the string. Using the above example with a matcher for ==a\+==,
 this method would answer success given a string =='baaa'==, while the previous
 two would fail.
 
-[[[
+[[[testcase=true
 '\b[a-z]+\b' asRegex search: 'Ignatz hates Krazy'
 >>> true    "finds 'hates'"
 ]]]
@@ -1094,7 +1100,7 @@ The matcher also stores the outcome of the last match attempt and can report it:
 ==lastResult== answers a Boolean: the outcome of the most recent match attempt.
 If no matches were attempted, the answer is unspecified.
 
-[[[
+[[[testcase=true
 | number |
 number := '\d+' asRegex.
 number search: 'Ignatz throws 5 bricks'.
@@ -1105,7 +1111,7 @@ number lastResult
 ==matchesStream:==, ==matchesStreamPrefix:== and ==searchStream:== are analogous
 to the above three messages, but takes streams as their argument.
 
-[[[
+[[[testcase=true
 | ignatz names |
 ignatz := ReadStream on: 'Ignatz throws bricks at Krazy'.
 names := '\<[A-Z][a-z]+\>' asRegex.
@@ -1150,26 +1156,42 @@ string the corresponding subexpression has matched to.
 string or stream where the given subexpression match has started and ended,
 respectively.
 
-[[[
+[[[testcase=true
 | items |
 items := '((\d+)\s*(\w+))' asRegex.
 items search: 'Ignatz throws 1 brick at Krazy'.
 items subexpressionCount
 >>> 4
+]]]
+[[[testcase=true
 items subexpression: 1
 >>> '1 brick'    "complete expression"
+]]]
+[[[testcase=true
 items subexpression: 2
 >>> '1 brick'    "top subexpression"
+]]]
+[[[testcase=true
 items subexpression: 3
 >>> '1'             "first leaf subexpression"
+]]]
+[[[testcase=true
 items subexpression: 4
 >>> 'brick'       "second leaf subexpression"
+]]]
+[[[testcase=true
 items subBeginning: 3
 >>> 14
+]]]
+[[[testcase=true
 items subEnd: 3
 >>> 15
+]]]
+[[[testcase=true
 items subBeginning: 4
 >>> 16
+]]]
+[[[testcase=true
 items subEnd: 4
 >>> 21
 ]]]
@@ -1178,7 +1200,7 @@ As a more elaborate example, the following piece of code uses a ==MMM DD, YYYY==
 date format recognizer to convert a date to a three-element array with year,
 month, and day strings:
 
-[[[
+[[[testcase=true
 | date result |
 date := '(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d\d?)\s*,\s*19(\d\d)' asRegex.
 result := (date matches: 'Aug 6, 1996')
@@ -1202,16 +1224,22 @@ strings:
 ==copy:replacingMatchesWith:== and
 ==copy:translatingMatchesUsing:==.
 
-[[[
+[[[testcase=true
 | seuss aWords |
 seuss := 'The cat in the hat is back'.
 aWords := '\<([^aeiou]|[a])+\>' asRegex.    "match words with 'a' in them"
 aWords matchesIn: seuss
 >>> an OrderedCollection('cat' 'hat' 'back')
+]]]
+[[[testcase=true
 aWords matchesIn: seuss collect: [:each | each asUppercase ]
 >>> an OrderedCollection('CAT' 'HAT' 'BACK')
+]]]
+[[[testcase=true
 aWords copy: seuss replacingMatchesWith: 'grinch'
 >>> 'The grinch in the grinch is grinch'
+]]]
+[[[testcase=true
 aWords copy: seuss translatingMatchesUsing: [ :each | each asUppercase ]
 >>> 'The CAT in the HAT is BACK'
 ]]]
@@ -1246,7 +1274,7 @@ Smalltalk exception handling mechanism to catch and handle them.
 -matching (for example, if a bad selector was specified using ==':<selector>:'==
 -syntax, or because of the matcher's internal error).
 
-[[[language=smalltalk
+[[[testcase=true|language=smalltalk
 ['+' asRegex] on: RegexError do: [:ex | ^ ex printString ]
 >>> 'RegexSyntaxError:  nullable closure'
 ]]]

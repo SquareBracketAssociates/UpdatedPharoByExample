@@ -52,20 +52,24 @@ These three classes are defined to ''stream over'' some collection. For example,
 the following snippet creates a stream on an interval, then it reads two
 elements.
 
-[[[
+[[[testcase=true
 | r |
 r := ReadStream on: (1 to: 1000).
 r next.
 >>> 1
+]]]
+[[[testcase=true
 r next.
 >>> 2
+]]]
+[[[testcase=true
 r atEnd.
 >>> false
 ]]]
 
 ==WriteStream==s can write data to the collection:
 
-[[[
+[[[testcase=true
 | w |
 w := WriteStream on: (String new: 5).
 w nextPut: $a.
@@ -108,26 +112,36 @@ from collections.
 Messages ==next== and ==next:== defined in ==ReadStream== are used to retrieve
 one or more elements from the collection.
 
-[[[
+[[[testcase=true
 | stream |
 stream := ReadStream on: #(1 (a b c) false).
 stream next.
 >>>   1
+]]]
+[[[testcase=true
 stream next.
 >>>   #(#a #b #c)
+]]]
+[[[testcase=true
 stream next.
 >>>   false
 ]]]
 
-[[[
+[[[testcase=true
 | stream |
 stream := ReadStream on: 'abcdef'.
 stream next: 0.
 >>>   ''
+]]]
+[[[testcase=true
 stream next: 1.
 >>>   'a'
+]]]
+[[[testcase=true
 stream next: 3.
 >>>   'bcd'
+]]]
+[[[testcase=true
 stream next: 2.
 >>>   'ef'
 ]]]
@@ -135,12 +149,14 @@ stream next: 2.
 The message ==peek== defined in ==PositionableStream== is used when you want to
 know what is the next element in the stream without going forward.
 
-[[[
+[[[testcase=true
 stream := ReadStream on: '-143'.
 "look at the first element without consuming it."
 negative := (stream peek = $-).
 negative.
 >>> true
+]]]
+[[[testcase=true
 "ignores the minus character"
 negative ifTrue: [ stream next ].
 number := stream upToEnd.
@@ -156,11 +172,13 @@ be simplified using the message ==peekFor:== defined in ==PositionableStream==,
 which moves forward if the following element equals the parameter and doesn't
 move otherwise.
 
-[[[
+[[[testcase=true
 | stream |
 stream := '-143' readStream.
 (stream peekFor: $-)
 >>> true
+]]]
+[[[testcase=true
 stream upToEnd
 >>> '143'
 ]]]
@@ -184,7 +202,7 @@ corresponding to the beginning of the stream is 0.
 You can obtain the state of the stream depicted in *@fig:ab_cde* with the
 following code:
 
-[[[
+[[[testcase=true
 | stream |
 stream := 'abcde' readStream.
 stream position: 2.
@@ -201,23 +219,33 @@ number as argument and skips that number of elements whereas ==skipTo:== skips
 all elements in the stream until it finds an element equal to its parameter.
 Note that it positions the stream after the matched element.
 
-[[[
+[[[testcase=true
 | stream |
 stream := 'abcdef' readStream.
 stream next.
 >>> $a    "stream is now positioned just after the a"
+]]]
+[[[testcase=true
 stream skip: 3.                           "stream is now after the d"
 stream position.
 >>>   4
+]]]
+[[[testcase=true
 stream skip: -2.                          "stream is after the b"
 stream position.
 >>> 2
+]]]
+[[[testcase=true
 stream reset.
 stream position.
 >>> 0
+]]]
+[[[testcase=true
 stream skipTo: $e.                      "stream is just after the e now"
 stream next.
 >>> $f
+]]]
+[[[testcase=true
 stream contents.
 >>> 'abcdef'
 ]]]
@@ -237,7 +265,7 @@ Here is a possible implementation of an algorithm using ==atEnd== that takes two
 sorted collections as parameters and merges those collections into another
 sorted collection:
 
-[[[label=src:mergeStreams
+[[[testcase=true|label=src:mergeStreams
 | stream1 stream2 result |
 stream1 := #(1 4 9 11 12 13) readStream.
 stream2 := #(1 2 3 4 5 10 13 14 15) readStream.
@@ -270,7 +298,7 @@ using a ==ReadStream==. We'll now learn how to create collections using
 various locations. They are often used to construct strings that are based on
 static and dynamic parts, as in this example:
 
-[[[label=src:writeStreamExample
+[[[testcase=true|label=src:writeStreamExample
 | stream |
 stream := String new writeStream.
 stream
@@ -289,7 +317,7 @@ This technique is used in the different implementations of the method
 ==printOn:==, for example. There is a simpler and more efficient way of creating
 strings if you are only interested in the content of the stream:
 
-[[[label=src:stringFromStreamContents
+[[[testcase=true|label=src:stringFromStreamContents
 | string |
 string := String streamContents:
 		[ :stream |
@@ -330,7 +358,7 @@ Using ==nextPut:== and ==nextPutAll:== on a ==WriteStream== is often the best
 way to concatenate characters. Using the comma concatenation operator (==,==) is
 far less efficient:
 
-[[[label=src:concatenationComparison
+[[[testcase=true|label=src:concatenationComparison
 [| temp |
   temp := String new.
   (1 to: 100000)
@@ -338,7 +366,7 @@ far less efficient:
 >>> 115176 "(milliseconds)"
 ]]]
 
-[[[
+[[[testcase=true
 [| temp |
   temp := WriteStream on: String new.
   (1 to: 100000)
@@ -461,7 +489,7 @@ History >> contents
 
 And the history works as advertised:
 
-[[[label=src:history7
+[[[testcase=true|label=src:history7
 History new
 	goTo: #page1;
 	goTo: #page2;
@@ -503,7 +531,7 @@ You have to remember that each time you open a stream on a file, you have to
 close it too. This is done through the ===close== message defined in
 ==FileStream==.
 
-[[[
+[[[testcase=true
 | stream |
 stream := FileStream forceNewFileNamed: 'test.txt'.
 stream
@@ -526,7 +554,7 @@ error-prone. That's why ==FileStream== offers a message called
 ==forceNewFileNamed:do:== to automatically close a new stream after evaluating a
 block that sets its contents.
 
-[[[
+[[[testcase=true
 | string |
 FileStream
     forceNewFileNamed: 'test.txt'
