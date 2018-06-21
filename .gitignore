@@ -1,5 +1,8 @@
 /book-result/
 /pillarPostExport.sh
+.DS_Store
+BasicClasses/.DS_Store
+Collections/.DS_Store
 
 # Pharo stuff
 /Pharo.changes

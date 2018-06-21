@@ -125,7 +125,7 @@ instance variables of an arbitrary instance (==w==) of class ==GTPlayground==.
 The method ==allInstVarNames== returns all the names of the instance variables
 of a given class.
 
-[[[
+[[[testcase=true
 GTPlayground allInstVarNames
 >>>
 #(#registry #suspendAll #suspendedAnnouncemets #logger #pane #title #titleIcon #transformation #actions #condition #implicitNotNil #dynamicActionsBlock #color #customValidation #shouldValidate #acceptsSelection #parentPrototype #registeredAnnouncers #updateActions #selectionActions #selectionDynamicActionsBlock #implicitAllNil #rawSelectionTransmissions #statusPane #sourceLink #initializationBlock #cachedDisplayedValue #labelActionBlock #portChangeActions #wantsSteps #stepTime #stepCondition #presentations #arrangement)
@@ -160,19 +160,19 @@ Here are a few other messages that might be useful to build development tools:
 ==isKindOf: aClass== returns true if the receiver is instance of ==aClass== or
 of one of its superclasses. For instance:
 
-[[[
+[[[testcase=true
 1.5 class
 >>> BoxedFloat64
 ]]]
-[[[
+[[[testcase=true
 1.5 isKindOf: Float
 >>> true
 ]]]
-[[[
+[[[testcase=true
 1.5 isKindOf: Number
 >>> true
 ]]]
-[[[
+[[[testcase=true
 1.5 isKindOf: Integer
 >>> false
 ]]]
@@ -180,15 +180,15 @@ of one of its superclasses. For instance:
 ==respondsTo: aSymbol== returns true if the receiver has a method whose selector
 is ==aSymbol==. For instance:
 
-[[[
+[[[testcase=true
 1.5 respondsTo: #floor
 >>> true    "since Number implements floor"
 ]]]
-[[[
+[[[testcase=true
 1.5 floor
 >>> 1
 ]]]
-[[[
+[[[testcase=true
 Exception respondsTo: #,
 >>> true    "exception classes can be grouped"
 ]]]
@@ -214,42 +214,42 @@ defined methods or instance variables. Here are a few metrics for the class
 that it is a huge class, and that it is at the root of a huge hierarchy. Maybe
 it needs some refactoring!
 
-[[[
+[[[testcase=true
 "inheritance depth"
 Morph allSuperclasses size.
 >>> 2
 ]]]
-[[[
+[[[testcase=true
 "number of methods"
 Morph allSelectors size.
 >>> 1304
 ]]]
-[[[
+[[[testcase=true
 "number of instance variables"
 Morph allInstVarNames size.
 >>> 6
 ]]]
-[[[
+[[[testcase=true
 "number of new methods"
 Morph selectors size.
 >>> 896
 ]]]
-[[[
+[[[testcase=true
 "number of new variables"
 Morph instVarNames size.
 >>> 6
 ]]]
-[[[
+[[[testcase=true
 "direct subclasses"
 Morph subclasses size.
 >>> 63
 ]]]
-[[[
+[[[testcase=true
 "total subclasses"
 Morph allSubclasses size.
 >>>  376
 ]]]
-[[[
+[[[testcase=true
 "total lines of code!"
 Morph linesOfCode.
 >>> 4964
@@ -271,7 +271,7 @@ understood by all classes.
 For example, you can obtain a random instance of a given class by sending it
 the message ==someInstance==.
 
-[[[
+[[[testcase=true
 Point someInstance
 >>> 0@0
 ]]]
@@ -279,15 +279,15 @@ Point someInstance
 You can also gather all the instances with ==allInstances==, or the number of
 active instances in memory with ==instanceCount==.
 
-[[[
+[[[testcase=true
 ByteString allInstances
 >>> #('collection' 'position'  ...)
 ]]]
-[[[
+[[[testcase=true
 ByteString instanceCount
 >>> 104565
 ]]]
-[[[
+[[[testcase=true
 String allSubInstances size
 >>>  101675
 ]]]
@@ -306,15 +306,15 @@ reflection.
 ; ==whichSelectorsReferTo:==
 : returns the selectors of methods that send a given message
 
-[[[
+[[[testcase=true
 Point whichSelectorsAccess: 'x'
 >>> #(#degrees #grid: #roundTo: #nearestPointAlongLineFrom:to: ...)
 ]]]
-[[[
+[[[testcase=true
 Point whichSelectorsStoreInto: 'x'
 >>> #(#bitShiftPoint: #setR:degrees: #setX:setY: #fromSton:)
 ]]]
-[[[
+[[[testcase=true
 Point whichSelectorsReferTo: #+
 >>> an OrderedCollection(#degrees #reflectedAbout: #grid: ...)
 ]]]
@@ -327,11 +327,11 @@ The following messages take inheritance into account:
 ; ==unreferencedInstanceVariables==
 : returns the list of instance variables that are neither used in the receiver class nor any of its subclasses
 
-[[[
+[[[testcase=true
 Rectangle whichClassIncludesSelector: #inspect
 >>> Object
 ]]]
-[[[
+[[[testcase=true
 Rectangle unreferencedInstanceVariables
 >>> #()
 ]]]
@@ -340,22 +340,22 @@ Rectangle unreferencedInstanceVariables
 querying and browsing the source code of the system. ==SystemNavigation
 default== returns an instance you can use to navigate the system. For example:
 
-[[[
+[[[testcase=true
 SystemNavigation default allClassesImplementing: #yourself
 >>> {Object}
 ]]]
 
 The following messages should also be self-explanatory:
 
-[[[
+[[[testcase=true
 SystemNavigation default allSentMessages size
 >>>370
 ]]]
-[[[
+[[[testcase=true
 (SystemNavigation default allUnsentMessagesIn: Object selectors) size
 >>> 31
 ]]]
-[[[
+[[[testcase=true
 SystemNavigation default allUnimplementedCalls size
 >>> 521
 ]]]
@@ -424,7 +424,7 @@ about the system. For example, to discover which methods are newly introduced in
 a given class, ''i.e.'', do not override superclass methods, we can navigate
 from the class to the method dictionary as follows:
 
-[[[
+[[[testcase=true
 [:aClass| aClass methodDict keys select: [:aMethod |
   (aClass superclass canUnderstand: aMethod) not ]] value: SmallInteger
 >>> an IdentitySet(#threeDigitName #printStringBase:nDigits: ...)
@@ -436,7 +436,7 @@ method is ==isAbstract== (which tells if the method sends
 ==subclassResponsibility==). We can use it to identify all the abstract methods
 of an abstract class.
 
-[[[
+[[[testcase=true
 [:aClass| aClass methodDict keys select: [:aMethod |
   (aClass>>aMethod) isAbstract ]] value: Number
 >>> an IdentitySet(#storeOn:base: #printOn:base: #+ #- #* #/ ...)
@@ -464,7 +464,7 @@ lightweight proxy for a compiled method that is used by many tools. There is a
 convenience method ==CompiledMethod>>methodReference== to return the method
 reference for a compiled method.
 
-[[[
+[[[testcase=true
 (Object>>#=) methodReference selector
 >>> #=
 ]]]
@@ -729,7 +729,7 @@ ProtoObject subclass: #LoggingProxy
 Note that we subclass ==ProtoObject== rather than ==Object== because we do not
 want our proxy to inherit around 400 methods (!) from ==Object==.
 
-[[[
+[[[testcase=true
 Object methodDict size
 >>> 397
 ]]]
@@ -774,18 +774,22 @@ This has the effect of swapping all references in the image to the point to now
 refer to the proxy, and vice versa. Most importantly, the proxy's ==subject==
 instance variable will now refer to the point!
 
-[[[
+[[[testcase=true
 point invocationCount
 >>> 0
+]]]
+[[[testcase=true
 point + (3@4)
 >>> 4@6
+]]]
+[[[testcase=true
 point invocationCount
 >>> 1
 ]]]
 
 This works nicely in most cases, but there are some shortcomings:
 
-[[[
+[[[testcase=true
 point class
 >>> LoggingProxy
 ]]]
@@ -824,13 +828,17 @@ Even if we can ignore such special message sends, there is another fundamental
 problem which cannot be overcome by this approach: ==self==-sends cannot be
 intercepted:
 
-[[[
+[[[testcase=true
 point := 1@2.
 LoggingProxy new become: point.
 point invocationCount
 >>> 0
+]]]
+[[[testcase=true
 point rectangle: (3@4)
 >>> 1@2 corner: 3@4
+]]]
+[[[testcase=true
 point invocationCount
 >>> 1
 ]]]
@@ -879,7 +887,7 @@ Suppose the class ==DynamicAccessors== has an (uninitialized) instance variable
 ==x== but no pre-defined accessor. Then the following will generate the accessor
 dynamically and retrieve the value:
 
-[[[
+[[[testcase=true
 myDA := DynamicAccessors new.
 myDA x
 >>> nil
@@ -905,15 +913,15 @@ other kinds of boilerplate code, such as visiting methods for a Visitor.
 Note the use of ==Object>>perform:== in step (12) which can be used to send
 messages that are composed at run-time:
 
-[[[
+[[[testcase=true
 5 perform: #factorial
 >>> 120
 ]]]
-[[[
+[[[testcase=true
 6 perform: ('fac', 'torial') asSymbol
 >>> 720
 ]]]
-[[[
+[[[testcase=true
 4 perform: #max: withArguments: (Array with: 6)
 >>> 6
 ]]]
@@ -1123,9 +1131,11 @@ As instances of the class ==Pragma==, pragmas are first class objects. A
 compiled method answers to the message ==pragmas==. This method returns an array
 of pragmas.
 
-[[[
+[[[testcase=true
 (SplitJoinTest class >> #showDocumentation) pragmas.
 >>> an Array(<ignoreForCoverage>)
+]]]
+[[[testcase=true
 (Float>>#+) pragmas
 >>> an Array(<primitive: 41>)
 ]]]
@@ -1134,7 +1144,7 @@ Methods defining a particular query may be retrieved from a class. The class
 side of ==SplitJoinTest== contains some methods annotated with
 ==<ignoreForCoverage>==:
 
-[[[
+[[[testcase=true
 Pragma allNamed: #ignoreForCoverage in: SplitJoinTest class
 >>> an Array(<ignoreForCoverage> <ignoreForCoverage> <ignoreForCoverage>)
 ]]]

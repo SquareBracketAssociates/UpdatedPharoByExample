@@ -204,7 +204,7 @@ each keyword starts with a lower-case letter and ends with a colon.
 Unary messages have the highest precedence, then binary messages, and finally
 keyword messages, so:
 
-[[[
+[[[testcase=true
 2 raisedTo: 1 + 3 factorial
 >>> 128
 ]]]
@@ -215,14 +215,14 @@ to show the result of evaluating an expression.
 
 Precedence aside, execution is strictly from left to right, so:
 
-[[[
+[[[testcase=true
 1 + 2 * 3
 >>> 9
 ]]]
 
 return 9 and not 7. Parentheses must be used to alter the order of evaluation:
 
-[[[
+[[[testcase=true
 1 + (2 * 3)
 >>> 7
 ]]]
@@ -308,13 +308,13 @@ answers the value of the last expression in its body, unless there is an
 explicit return (with ^) in which case it returns the value of the returned
 expression.
 
-[[[language=smalltalk
+[[[testcase=true|language=smalltalk
 [ 1 + 2 ] value
 >>> 3
 ]]]
 
 
-[[[language=smalltalk
+[[[testcase=true|language=smalltalk
 [ 3 = 3 ifTrue: [ ^ 33 ]. 44 ] value
 >>> 33
 ]]]
@@ -325,9 +325,11 @@ To evaluate a block with one parameter, you must send it the message value: with
 one argument. A two-parameter block must be sent ==value:value:==, and so on, up
 to 4 arguments.
 
-[[[language=smalltalk
+[[[testcase=true|language=smalltalk
 [ :x | 1 + x ] value: 2
 >>> 3
+]]]
+[[[testcase=true
 [ :x :y | x + y ] value: 1 value: 2
 >>> 3
 ]]]
@@ -340,7 +342,7 @@ Blocks may also declare local variables, which are surrounded by vertical bars,
 just like local variable declarations in a method. Locals are declared after any
 arguments:
 
-[[[language=smalltalk
+[[[testcase=true|language=smalltalk
 [ :x :y |
 	| z |
 	z := x + y.
@@ -352,7 +354,7 @@ Blocks are actually lexical closures, since they can refer to variables of the
 surrounding environment. The following block refers to the variable ==x== of its
 enclosing environment:
 
-[[[
+[[[testcase=true
 | x |
 x := 1.
 [ :y | x + y ] value: 2
@@ -376,7 +378,7 @@ Conditionals are expressed by sending one of the messages ==ifTrue:==,
 Chapter *: Basic Classes>../BasicClasses/BasicClasses.pier@cha:basicClasses*,
 for more about booleans.
 
-[[[
+[[[testcase=true
 (17 * 13 > 220)
 	ifTrue: [ 'bigger' ]
 	ifFalse: [ 'smaller' ]
@@ -389,7 +391,7 @@ collections. Since the exit condition for a loop may be repeatedly evaluated, it
 should be a block rather than a boolean value. Here is an example of a very
 procedural loop:
 
-[[[
+[[[testcase=true
 n := 1.
 [ n < 1000 ] whileTrue: [ n := n*2 ].
 n
@@ -398,7 +400,7 @@ n
 
 ==whileFalse:== reverses the exit condition.
 
-[[[
+[[[testcase=true
 n := 1.
 [ n > 1000 ] whileFalse: [ n := n*2 ].
 n
@@ -407,7 +409,7 @@ n
 
 ==timesRepeat:== offers a simple way to implement a fixed iteration:
 
-[[[
+[[[testcase=true
 n := 1.
 10 timesRepeat: [ n := n*2 ].
 n
@@ -418,7 +420,7 @@ We can also send the message ==to:do:== to a number which then acts as the
 initial value of a loop counter. The two arguments are the upper bound, and a
 block that takes the current value of the loop counter as its argument:
 
-[[[
+[[[testcase=true
 result := String new.
 1 to: 10 do: [:n | result := result, n printString, ' '].
 result
@@ -437,7 +439,7 @@ from the starting point to the end. ==1 to: 10== represents the interval from 1
 to 10. Since it is a collection, we can send the message ==do:== to it. The
 argument is a block that is evaluated for each element of the collection.
 
-[[[
+[[[testcase=true
 result := String new.
 (1 to: 10) do: [:n | result := result, n printString, ' '].
 result
@@ -448,7 +450,7 @@ result
 element. (You can think of ==collect:== as the Map in the MapReduce
 programming model).
 
-[[[
+[[[testcase=true
 (1 to:10) collect: [ :each | each * each ]
 >>> #(1 4 9 16 25 36 49 64 81 100)
 ]]]
@@ -460,11 +462,15 @@ the elements satisfying (or not) the boolean block condition.
 that strings are also collections (of characters), so you can iterate over all
 the characters.
 
-[[[
+[[[testcase=true
 'hello there' select: [ :char | char isVowel ]
 >>> 'eoee'
+]]]
+[[[testcase=true
 'hello there' reject: [ :char | char isVowel ]
 >>> 'hll thr'
+]]]
+[[[testcase=true
 'hello there' detect: [ :char | char isVowel ]
 >>> $e
 ]]]
@@ -475,7 +481,7 @@ Reduce in the MapReduce programming model. This lets you generate a cumulative
 result using an expression that starts with a seed value and injects each
 element of the collection. Sums and products are typical examples.
 
-[[[
+[[[testcase=true
 (1 to: 10) inject: 0 into: [ :sum :each | sum + each]
 >>> 55
 ]]]

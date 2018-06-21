@@ -73,7 +73,7 @@ the same example.
 
 ""Rule 1."" Since everything is an object, an ordered collection in Pharo is also an object.
 
-[[[
+[[[testcase=true
 OrderedCollection withAll: #(4 5 6 1 2 3)
 >>> an OrderedCollection(4 5 6 1 2 3)
 ]]]
@@ -81,7 +81,7 @@ OrderedCollection withAll: #(4 5 6 1 2 3)
 ""Rule 2."" Every object is an instance of a class. The class of an ordered collection is
 the class ==OrderedCollection==:
 
-[[[
+[[[testcase=true
 (OrderedCollection withAll: #(4 5 6 1 2 3)) class
 >>> OrderedCollection
 ]]]
@@ -91,15 +91,15 @@ the class ==OrderedCollection==:
 ==SequenceableCollection== and the superclass of ==SequenceableCollection== is
 ==Collection==:
 
-[[[
+[[[testcase=true
 OrderedCollection superclass
 >>> SequenceableCollection
 ]]]
-[[[
+[[[testcase=true
 SequenceableCollection superclass
 >>> Collection
 ]]]
-[[[
+[[[testcase=true
 Collection superclass
 >>> Object
 ]]]
@@ -108,7 +108,7 @@ Let us take an example. When we send the message ==asSortedCollection==, we
 convert the ordered collection into a sorted collection. We verify simply as
 follows:
 
-[[[
+[[[testcase=true
 (OrderedCollection withAll: #(4 5 6 1 2 3)) asSortedCollection class
 >>> SortedCollection
 ]]]
@@ -146,11 +146,11 @@ always refer to them through the class that is their instance. The class of
 ==SortedCollection==, for instance, is ==SortedCollection class==, and the class
 of ==Object== is ==Object class==:
 
-[[[
+[[[testcase=true
 SortedCollection class
 >>> SortedCollection class
 ]]]
-[[[
+[[[testcase=true
 Object class
 >>> Object class
 ]]]
@@ -158,7 +158,7 @@ Object class
 In fact metaclasses are not truly anonymous, their name is deduced from the one
 of their single instance.
 
-[[[
+[[[testcase=true
 SortedCollection class name
 >>> 'SortedCollection class'
 ]]]
@@ -176,11 +176,11 @@ Their absence does not change the overall meaning.
 The fact that classes are also objects makes it easy for us to query them by
 sending messages. Let's have a look:
 
-[[[
+[[[testcase=true
 OrderedCollection subclasses
 >>> {SortedCollection . ObjectFinalizerCollection . WeakOrderedCollection . OCLiteralList . GLMMultiValue}
 ]]]
-[[[
+[[[testcase=true
 SortedCollection subclasses
 >>> #()
 ]]]
@@ -188,15 +188,15 @@ SortedCollection subclasses
 SortedCollection allSuperclasses
 >>> an OrderedCollection(OrderedCollection SequenceableCollection Collection Object ProtoObject)
 ]]]
-[[[
+[[[testcase=true
 SortedCollection instVarNames
 >>> #('sortBlock')
 ]]]
-[[[
+[[[testcase=true
 SortedCollection allInstVarNames
 >>> #('array' 'firstIndex' 'lastIndex' 'sortBlock')
 ]]]
-[[[
+[[[testcase=true
 SortedCollection selectors
 >>>  #(#indexForInserting: #sort:to: #addAll: #reSort #sortBlock: #copyEmpty #addFirst: #insert:before: #defaultSort:to: #median #at:put: #add: #= #collect: #flatCollect: #sort: #join: #sortBlock)
 ]]]
@@ -207,11 +207,11 @@ Rule 7 says that the superclass of a metaclass cannot be an arbitrary class: it
 is constrained to be the metaclass of the superclass of the metaclass's unique
 instance.
 
-[[[
+[[[testcase=true
 SortedCollection class superclass
 >>> OrderedCollection class
 ]]]
-[[[
+[[[testcase=true
 SortedCollection superclass class
 >>> OrderedCollection class
 ]]]
@@ -222,19 +222,19 @@ hierarchy. Figure *@fig:parallelHierarchies* shows how this works in the
 
 +The metaclass hierarchy parallels the class hierarchy (elided).>file://figures/SortedCollectionMetaclassHierarchy.png|label=fig:parallelHierarchies+
 
-[[[
+[[[testcase=true
 SortedCollection class
 >>> SortedCollection class
 ]]]
-[[[
+[[[testcase=true
 SortedCollection class superclass
 >>> OrderedCollection class
 ]]]
-[[[
+[[[testcase=true
 SortedCollection class superclass superclass
 >>> SequenceableCollection class
 ]]]
-[[[
+[[[testcase=true
 SortedCollection class superclass superclass superclass superclass
 >>> Object class
 ]]]
@@ -255,7 +255,7 @@ of the receiver and the receiver is ==OrderedCollection==), and proceeds up the
 metaclass hierarchy until it is found in ==Collection class== (see Figure
 *@fig:metaclasslookup*). It returns a new instance of ==OrderedCollection==.
 
-[[[
+[[[testcase=true
 OrderedCollection withAll: #(4 5 6 1 2 3)
 >>> an OrderedCollection (4 5 6 1 2 3)
 ]]]
@@ -319,7 +319,7 @@ looked up in the class ==Behavior==! ==new== always returns an instance of
 ==self==, the class that receives the message, even if it is implemented in
 another class.
 
-[[[
+[[[testcase=true
 SortedCollection new class
 >>> SortedCollection    "not Behavior!"
 ]]]
@@ -405,36 +405,48 @@ will see that we told a white lie — ==Object class superclass -\-> ProtoObject
 class==, not ==Class==. In Pharo, we must go one superclass higher
 to reach ==Class==.)
 
-[[[caption=The class hierarchy
+[[[testcase=true|caption=The class hierarchy
 Collection superclass
 >>> Object
 ]]]
 
-[[[caption=The parallel metaclass hierarchy
+[[[testcase=true|caption=The parallel metaclass hierarchy
 Collection class superclass
 >>> Object class
+[[[testcase=true
 Object class superclass superclass
 >>> Class    "NB: skip ProtoObject class"
+]]]
+[[[testcase=true
 Class superclass
 >>> ClassDescription
+]]]
+[[[testcase=true
 ClassDescription superclass
 >>> Behavior
+]]]
+[[[testcase=true
 Behavior superclass
 >>> Object
 ]]]
 
-[[[caption=Instances of Metaclass
+[[[testcase=true|caption=Instances of Metaclass
 Collection class class
 >>> Metaclass
+]]]
+[[[testcase=true
 Object class class
 >>> Metaclass
+]]]
+[[[testcase=true
 Behavior class class
 >>> Metaclass
 ]]]
-
-[[[caption=Metaclass class is a Metaclass
+[[[testcase=true|caption=Metaclass class is a Metaclass
 Metaclass class class
 >>> Metaclass
+]]]
+[[[testcase=true
 Metaclass superclass
 >>> ClassDescription
 ]]]

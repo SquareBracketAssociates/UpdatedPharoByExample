@@ -62,7 +62,7 @@ For example, the class ==OpalCompiler== does not redefine the method
 ==printOn:== and sending the message ==printString== to an instance executes the
 methods defined in ==Object==.
 
-[[[
+[[[testcase=true
 OpalCompiler new printString
 >>> 'an OpalCompiler'
 ]]]
@@ -82,7 +82,7 @@ Color >> printOn: aStream
 				nextPutAll: name ].
 	self storeOn: aStream]]]
 
-[[[
+[[[testcase=true
 Color red printString
 >>> 'Color red'
 ]]]
@@ -105,15 +105,23 @@ object ==true== is itself i.e., the object ==true==. We call such objects
 value when you print the object in a playground. Here are some examples of such
 self-evaluating expressions.
 
-[[[
+[[[testcase=true
 true
 >>> true
+]]]
+[[[testcase=true
 3@4
 >>> (3@4)
+]]]
+[[[testcase=true
 $a
 >>> $a
+]]]
+[[[testcase=true
 #(1 2 3)
 >>> #(1 2 3)
+]]]
+[[[testcase=true
 Color red
 >>> Color red
 ]]]
@@ -123,9 +131,11 @@ the objects they contain. For example, an array of booleans is self-evaluating,
 whereas an array of persons is not. The following example shows that a dynamic
 array is self-evaluating only if its elements are:
 
-[[[
+[[[testcase=true
 {10@10. 100@100}
 >>> {(10@10). (100@100)}
+]]]
+[[[testcase=true
 {Nautilus new . 100@100}
 >>> an Array(a Nautilus (100@100))
 ]]]
@@ -133,7 +143,7 @@ array is self-evaluating only if its elements are:
 Remember that literal arrays can only contain literals. Hence the following
 array does not contain two points but rather six literal elements.
 
-[[[
+[[[testcase=true
 #(10@10 100@100)
 >>> #(10 #@ 10 100 #@ 100)
 ]]]
@@ -167,7 +177,7 @@ Interval >> printOn: aStream
     aStream nextPut: $)
 ]]]
 
-[[[
+[[[testcase=true
 1 to: 10
 >>> (1 to: 10)    "intervals are self-evaluating"
 ]]]
@@ -192,9 +202,11 @@ This is a method that you will frequently want to override. Consider the case of
 ==Complex== numbers as defined in the SciSmalltalk/PolyMath packages (PolyMath
 is a set of packages that offer support for numerical methods):
 
-[[[
+[[[testcase=true
 (1 + 2 i) = (1 + 2 i)
 >>> true     "same value"
+]]]
+[[[testcase=true
 (1 + 2 i) == (1 + 2 i)
 >>> false    "but different objects"
 ]]]
@@ -211,7 +223,7 @@ Complex >> = anObject
 The default implementation of ==Object>>~=== (a test for inequality) simply negates ==Object>>===, and
 should not normally need to be changed.
 
-[[[
+[[[testcase=true
 (1 + 2 i) ~= (1 + 4 i)
 >>> true
 ]]]
@@ -234,9 +246,11 @@ Note that Pharo has some strange equality behaviour compared to other
 Smalltalks. For example a symbol and a string can be equal. (We consider this to
 be a bug, not a feature.)
 
-[[[
+[[[testcase=true
 #'lulu' = 'lulu'
 >>> true
+]]]
+[[[testcase=true
 'lulu' = #'lulu'
 >>> true
 ]]]
@@ -249,7 +263,7 @@ Several methods allow you to query the class of an object.
 
 You can ask any object about its class using the message ==class==.
 
-[[[
+[[[testcase=true
 1 class
 >>> SmallInteger
 ]]]
@@ -258,13 +272,19 @@ You can ask any object about its class using the message ==class==.
 
 Conversely, you can ask if an object is an instance of a specific class:
 
-[[[
+[[[testcase=true
 1 isMemberOf: SmallInteger
 >>> true    "must be precisely this class"
+]]]
+[[[testcase=true
 1 isMemberOf: Integer
 >>> false
+]]]
+[[[testcase=true
 1 isMemberOf: Number
 >>> false
+]]]
+[[[testcase=true
 1 isMemberOf: Object
 >>> false
 ]]]
@@ -278,20 +298,31 @@ Chapter *: Classes and Metaclasses>../Metaclasses/Metaclasses.pillar@cha:metacla
 ==Object>>isKindOf:== answers whether the receiver's class is either the same
 as, or a subclass of the argument class.
 
-[[[
+[[[testcase=true
 1 isKindOf: SmallInteger
 >>> true
+]]]
+[[[testcase=true
 1 isKindOf: Integer
 >>> true
+]]]
+[[[testcase=true
 1 isKindOf: Number
 >>> true
+]]]
+[[[testcase=true
 1 isKindOf: Object
 >>> true
+]]]
+[[[testcase=true
 1 isKindOf: String
 >>> false
-
+]]]
+[[[testcase=true
 1/3 isKindOf: Number
 >>> true
+]]]
+[[[testcase=true
 1/3 isKindOf: Integer
 >>> false
 ]]]
@@ -305,7 +336,7 @@ as, or a subclass of the argument class.
 ==Object>>respondsTo:== answers whether the receiver understands the message
 selector given as an argument.
 
-[[[
+[[[testcase=true
 1 respondsTo: #,
 >>> false
 ]]]
@@ -322,16 +353,22 @@ Copying objects introduces some subtle issues. Since instance variables are
 accessed by reference, a ''shallow copy'' of an object would share its
 references to instance variables with the original object:
 
-[[[
+[[[testcase=true
 a1 := { { 'harry' } }.
 a1
 >>> #(#('harry'))
+]]]
+[[[testcase=true
 a2 := a1 shallowCopy.
 a2
 >>> #(#('harry'))
+]]]
+[[[testcase=true
 (a1 at: 1) at: 1 put: 'sally'.
 a1
 >>> #(#('sally'))
+]]]
+[[[testcase=true
 a2
 >>> #(#('sally'))    "the subarray is shared!"
 ]]]
@@ -342,12 +379,14 @@ reference to the nested ==Array== that they contain.
 
 ==Object>>deepCopy== makes an arbitrarily deep copy of an object.
 
-[[[
+[[[testcase=true
 a1 := { { { 'harry' } } } .
 a2 := a1 deepCopy.
 (a1 at: 1) at: 1 put: 'sally'.
 a1
 >>> #(#('sally'))
+]]]
+[[[testcase=true
 a2
 >>> #(#(#('harry')))
 ]]]
@@ -355,7 +394,7 @@ a2
 The problem with ==deepCopy== is that it will not terminate when applied to a
 mutually recursive structure:
 
-[[[
+[[[testcase=true
 a1 := { 'harry' }.
 a2 := { a1 }.
 a1 at: 1 put: a2.
@@ -466,7 +505,7 @@ Object >> subclassResponsibility
 ==Magnitude==, ==Number==, and ==Boolean== are classical examples of abstract
 classes that we shall see shortly in this chapter.
 
-[[[
+[[[testcase=true
 Number new + 1
 >>> !''Error: My subclass should have overridden #+''!
 ]]]
@@ -588,50 +627,50 @@ Unsurprisingly ==Number== overrides ==isNumber==. More interestingly,
 ''Truncation'' methods include ==floor==, ==ceiling==, ==integerPart==,
 ==fractionPart== and so on.
 
-[[[
+[[[testcase=true
 1 + 2.5
 >>> 3.5             "Addition of two numbers"
 ]]]
-[[[
+[[[testcase=true
 3.4 * 5
 >>> 17.0           "Multiplication of two numbers"
 ]]]
-[[[
+[[[testcase=true
 8 / 2
 >>> 4                 "Division of two numbers"
 ]]]
-[[[
+[[[testcase=true
 10 - 8.3
 >>> 1.7              "Subtraction of two numbers"
 ]]]
-[[[
+[[[testcase=true
 12 = 11
 >>> false           "Equality between two numbers"
 ]]]
-[[[
+[[[testcase=true
 12 ~= 11
 >>> true            "Test if two numbers are different"
 ]]]
-[[[
+[[[testcase=true
 12 > 9
 >>> true            "Greater than"
 ]]]
-[[[
+[[[testcase=true
 12 >= 10
 >>> true            "Greater or equal  than"
 ]]]
-[[[
+[[[testcase=true
 12 < 10
 >>> false           "Smaller than"
 ]]]
-[[[
+[[[testcase=true
 100@10
 >>> 100@10    "Point creation"
 ]]]
 
 The following example works surprisingly well in Pharo:
 
-[[[
+[[[testcase=true
 1000 factorial / 999 factorial
 >>> 1000
 ]]]
@@ -650,15 +689,15 @@ More interestingly, ==Float class== (i.e., the class-side of ==Float==)
 provides methods to return the following ''constants'': ==e==, ==infinity==,
 ==nan== and ==pi==.
 
-[[[
+[[[testcase=true
 Float pi
 >>> 3.141592653589793
 ]]]
-[[[
+[[[testcase=true
 Float infinity
 >>> Infinity
 ]]]
-[[[
+[[[testcase=true
 Float infinity isInfinite
 >>> true
 ]]]
@@ -670,11 +709,11 @@ denominator, which should be ==Integer==s. ==Fraction==s are normally created by
 ==Integer== division (rather than using the constructor method
 ==Fraction>>numerator:denominator:==):
 
-[[[
+[[[testcase=true
 6/8
 >>> (3/4)
 ]]]
-[[[
+[[[testcase=true
 (6/8) class
 >>> Fraction
 ]]]
@@ -682,7 +721,7 @@ denominator, which should be ==Integer==s. ==Fraction==s are normally created by
 Multiplying a ==Fraction== by an ==Integer== or another ==Fraction== may yield
 an ==Integer==:
 
-[[[
+[[[testcase=true
 6/8 * 4
 >>> 3
 ]]]
@@ -704,11 +743,11 @@ therefore you cannot see this directly when inspecting the object.
 The class methods ==minVal== and ==maxVal== tell us the range of a
 ==SmallInteger==:
 
-[[[
+[[[testcase=true
 SmallInteger maxVal = ((2 raisedTo: 30) - 1)
 >>> true
 ]]]
-[[[
+[[[testcase=true
 SmallInteger minVal = (2 raisedTo: 30) negated
 >>> true
 ]]]
@@ -716,11 +755,11 @@ SmallInteger minVal = (2 raisedTo: 30) negated
 When a ==SmallInteger== goes out of this range, it is automatically converted to
 a ==LargePositiveInteger== or a ==LargeNegativeInteger==, as needed:
 
-[[[
+[[[testcase=true
 (SmallInteger maxVal + 1) class
 >>> LargePositiveInteger
 ]]]
-[[[
+[[[testcase=true
 (SmallInteger minVal - 1) class
 >>> LargeNegativeInteger
 ]]]
@@ -732,7 +771,7 @@ iterative behaviour. There is a dedicated method ==timesRepeat:== for
 evaluating a block repeatedly. We have already seen a similar example in
 Chapter *: Syntax in a Nutshell>../SyntaxNutshell/SyntaxNutshell.pillar@cha:syntax*.
 
-[[[
+[[[testcase=true
 | n |
 n := 2.
 3 timesRepeat: [ n := n * n ].
@@ -745,7 +784,7 @@ n
 ==Character== is defined a subclass of ==Magnitude==. Printable characters are represented in Pharo as ==$<char>==.
 For example:
 
-[[[
+[[[testcase=true
 $a < $b
 >>> true
 ]]]
@@ -756,7 +795,7 @@ returns the corresponding character. The protocol ==accessing untypeable
 characters== contains a number of convenience constructor methods such as
 ==backspace==, ==cr==, ==escape==, ==euro==, ==space==, ==tab==, and so on.
 
-[[[
+[[[testcase=true
 Character space = (Character value: Character space asciiValue)
 >>> true
 ]]]
@@ -764,19 +803,19 @@ Character space = (Character value: Character space asciiValue)
 The ==printOn:== method is clever enough to know which of the three ways to
 generate characters offers the most appropriate representation:
 
-[[[
+[[[testcase=true
 Character value: 1
 >>> Character home
 ]]]
-[[[
+[[[testcase=true
 Character value: 2
 >>> Character value: 2
 ]]]
-[[[
+[[[testcase=true
 Character value: 32
 >>> Character space
 ]]]
-[[[
+[[[testcase=true
 Character value: 97
 >>> $a
 ]]]
@@ -788,15 +827,15 @@ To convert a ==Character== to the string containing just that character, send
 ==asString==. In this case ==asString== and ==printString== yield different
 results:
 
-[[[
+[[[testcase=true
 $a asString
 >>> 'a'
 ]]]
-[[[
+[[[testcase=true
 $a
 >>> $a
 ]]]
-[[[
+[[[testcase=true
 $a printString
 >>> '$a'
 ]]]
@@ -806,7 +845,7 @@ reference. Most of the time you won't see any difference and can use objects of
 class ==Character== like any other too. But this means, equal value characters
 are always ''identical'':
 
-[[[
+[[[testcase=true
 (Character value: 97) == $a
 >>> true
 ]]]
@@ -820,7 +859,7 @@ A ==String== is an indexed ==Collection== that holds only ==Character==s.
 In fact, ==String== is abstract and Pharo strings are actually instances of
 the concrete class ==ByteString==.
 
-[[[
+[[[testcase=true
 'hello world' class
 >>> ByteString
 ]]]
@@ -831,12 +870,12 @@ that there is only ever a single instance of ==Symbol== with a given value.
 separately constructed ==String==s that happen to contain the same sequence of
 characters will often be different objects.
 
-[[[
+[[[testcase=true
 'hel','lo' == 'hello'
 >>> false
 ]]]
 
-[[[
+[[[testcase=true
 ('hel','lo') asSymbol == #hello
 >>> true
 ]]]
@@ -844,7 +883,7 @@ characters will often be different objects.
 Another important difference is that a ==String== is mutable, whereas a
 ==Symbol== is immutable.
 
-[[[
+[[[testcase=true
 'hello' at: 2 put: $u; yourself
 >>> 'hullo'
 ]]]
@@ -857,7 +896,7 @@ Another important difference is that a ==String== is mutable, whereas a
 It is easy to forget that since strings are collections, they understand the
 same messages that other collections do:
 
-[[[language=smalltalk
+[[[language=smalltalk|testcase=true
 #hello indexOf: $o
 >>> 5
 ]]]
@@ -866,7 +905,7 @@ Although ==String== does not inherit from ==Magnitude==, it does support the
 usual ==comparing== methods, ==<==, ===== and so on. In addition,
 ==String>>match:== is useful for some basic glob-style pattern-matching:
 
-[[[
+[[[testcase=true
 '*or*' match: 'zorro'
 >>> true
 ]]]
@@ -893,7 +932,7 @@ abstract superclass of the singleton classes ==True== and ==False==.
 Most of the behaviour of ==Boolean==s can be understood by considering the
 method ==ifTrue:ifFalse:==, which takes two ==Blocks== as arguments.
 
-[[[
+[[[testcase=true
 4 factorial > 20
 	ifTrue: [ 'bigger' ]
 	ifFalse: [ 'smaller' ]
@@ -934,15 +973,15 @@ False >> not
 ==ifFalse:==, and ==ifFalse:ifTrue==. You also have the choice between eager and
 lazy conjunctions and disjunctions.
 
-[[[
+[[[testcase=true
 ( 1 > 2 ) & ( 3 < 4 )
 >>> false    "Eager, must evaluate both sides"
 ]]]
-[[[
+[[[testcase=true
 ( 1 > 2 ) and: [ 3 < 4 ]
 >>> false    "Lazy, only evaluate receiver"
 ]]]
-[[[
+[[[testcase=true
 ( 1 > 2 ) and: [ ( 1 / 0 ) > 0 ]
 >>> false    "argument block is never executed, so no exception"
 ]]]
