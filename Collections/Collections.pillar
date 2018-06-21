@@ -158,27 +158,27 @@ Different collections will realize this behaviour differently.
 You can create collections with initial elements using the methods ==with:==, ==with:with:== etc. for up to six elements.
 
 
-[[[
+[[[testcase=true
 Array with: 1
 >>> #(1)
 ]]]
-[[[
+[[[testcase=true
 Array with: 1 with: 2
 >>> #(1 2)
 ]]]
-[[[
+[[[testcase=true
 Array with: 1 with: 2 with: 3
 >>> #(1 2 3)
 ]]]
-[[[
+[[[testcase=true
 Array with: 1 with: 2 with: 3 with: 4
 >>> #(1 2 3 4)
 ]]]
-[[[
+[[[testcase=true
 Array with: 1 with: 2 with: 3 with: 4 with: 5
 >>> #(1 2 3 4 5)
 ]]]
-[[[
+[[[testcase=true
 Array with: 1 with: 2 with: 3 with: 4 with: 5 with: 6
 >>> #(1 2 3 4 5 6)
 ]]]
@@ -187,7 +187,7 @@ You can also use message ==addAll: aCollection== to add all elements of one kind
 of collection to another kind:
 
 
-[[[
+[[[testcase=true
 (1 to: 5) asOrderedCollection addAll: '678'; yourself
 >>> an OrderedCollection(1 2 3 4 5 6 7 8)
 ]]]
@@ -196,23 +196,23 @@ Take care that ==addAll:== returns its argument, and not the receiver!
 
 You can also create many collections with ==withAll: aCollection==.
 
-[[[
+[[[testcase=true
 Array withAll: #(7 3 1 3)
 >>> #(7 3 1 3)
 ]]]
-[[[
+[[[testcase=true
 OrderedCollection withAll: #(7 3 1 3)
 >>> an OrderedCollection(7 3 1 3)
 ]]]
-[[[
+[[[testcase=true
 SortedCollection withAll: #(7 3 1 3)
 >>> a SortedCollection(1 3 3 7)
 ]]]
-[[[
+[[[testcase=true
 Set withAll: #(7 3 1 3)
 >>> a Set(7 1 3)
 ]]]
-[[[
+[[[testcase=true
 Bag withAll: #(7 3 1 3)
 >>> a Bag(7 1 3 3)
 ]]]
@@ -229,7 +229,7 @@ method ==at:== and ==at:put:==. ==at: anInteger== returns the element at index
 remove elements at the end of an array. The following code creates an array of
 size 5, puts values in the first 3 locations and returns the first element.
 
-[[[
+[[[testcase=true
 | anArray |
 anArray := Array new: 5.
 anArray at: 1 put: 4.
@@ -255,7 +255,7 @@ The ==with:*== messages allow one to specify the value of the elements. The
 following code creates an array of three elements consisting of the number
 ==4==, the fraction ==3/2== and the string =='lulu'==.
 
-[[[
+[[[testcase=true
 Array with: 4 with: 3/2 with: 'lulu'
 >>>  {4. (3/2). 'lulu'}
 ]]]
@@ -269,7 +269,7 @@ is executed. The following code creates an array of size 2 where the first
 element is the (literal) number ==1== and the second the (literal) string
 =='here'==.
 
-[[[
+[[[testcase=true
 #(1 'here') size
 >>> 2
 ]]]
@@ -278,7 +278,7 @@ Now, if you execute the expression ==#(1+2)==, you do not get an array with a
 single element ==3== but instead you get the array ==#(1 #+ 2)== i.e., with
 three elements: ==1==, the symbol ==#+== and the number ==2==.
 
-[[[
+[[[testcase=true
 #(1+2)
 >>>  #(1 #+ 2)
 ]]]
@@ -297,15 +297,15 @@ expression =={ a . b }== is totally equivalent to ==Array with: a with: b==.
 This means in particular that the expressions enclosed by =={== and ==}== are
 executed (contrary to the case of ==#()==).
 
-[[[language=smalltalk
+[[[language=smalltalk|testcase=true
 { 1 + 2 }
 >>> #(3)
 ]]]
-[[[
+[[[testcase=true
 {(1/2) asFloat} at: 1
 >>> 0.5
 ]]]
-[[[
+[[[testcase=true
 {10 atRandom. 1/3} at: 2
 >>> (1/3)
 ]]]
@@ -315,7 +315,7 @@ executed (contrary to the case of ==#()==).
 Elements of all sequenceable collections can be accessed with messages ==at:
 anIndex== and ==at: anIndex put: anObject==.
 
-[[[
+[[[testcase=true
 | anArray |
 anArray := #(1 2 3 4 5 6) copy.
 anArray at: 3 >>> 3
@@ -338,7 +338,7 @@ have this problem because they are not stored in literal frames.
 elements can be added sequentially. It offers a variety of messages such as
 ==add:==, ==addFirst:==, ==addLast:==, and ==addAll:==.
 
-[[[
+[[[testcase=true
 | ordCol |
 ordCol := OrderedCollection new.
 ordCol add: 'Seaside'; add: 'SmalltalkHub'; addFirst: 'Monticello'.
@@ -352,7 +352,7 @@ The message ==remove:== ==anObject== removes the first occurrence of an object
 from the collection. If the collection does not include such an object, it
 raises an error.
 
-[[[
+[[[testcase=true
 ordCol add: 'Monticello'.
 ordCol remove: 'Monticello'.
 ordCol
@@ -363,7 +363,7 @@ There is a variant of ==remove:== named ==remove:ifAbsent:== that allows one to
 specify as second argument a block that is executed in case the element to be
 removed is not in the collection.
 
-[[[
+[[[testcase=true
 result := ordCol remove: 'zork' ifAbsent: [33].
 result
 >>> 33
@@ -374,11 +374,11 @@ result
 It is possible to get an ==OrderedCollection== from an ==Array== (or any other
 collection) by sending the message ==asOrderedCollection==:
 
-[[[
+[[[testcase=true
 #(1 2 3) asOrderedCollection
 >>> an OrderedCollection(1 2 3)
 ]]]
-[[[
+[[[testcase=true
 'hello' asOrderedCollection
 >>> an OrderedCollection($h $e $l $l $o)
 ]]]
@@ -388,7 +388,7 @@ collection) by sending the message ==asOrderedCollection==:
 The class ==Interval== represents ranges of numbers. For example, the interval
 of numbers from 1 to 100 is defined as follows:
 
-[[[
+[[[testcase=true
 Interval from: 1 to: 100
 >>> (1 to: 100)
 ]]]
@@ -396,7 +396,7 @@ Interval from: 1 to: 100
 The result of ==printString== reveals that the class ==Number== provides
 us with a convenience method called ==to:== to generate intervals:
 
-[[[
+[[[testcase=true
 (Interval from: 1 to: 100) = (1 to: 100)
 >>> true
 ]]]
@@ -404,15 +404,15 @@ us with a convenience method called ==to:== to generate intervals:
 We can use ==Interval class>>from:to:by:== or ==Number>>to:by:== to specify the
 step between two numbers as follow:
 
-[[[
+[[[testcase=true
 (Interval from: 1 to: 100 by: 0.5) size
 >>> 199
 ]]]
-[[[
+[[[testcase=true
 (1 to: 100 by: 0.5) at: 198
 >>> 99.5
 ]]]
-[[[
+[[[testcase=true
 (1/2 to: 54/7 by: 1/3) last
 >>> (15/2)
 ]]]
@@ -424,7 +424,7 @@ Among the most commonly used messages of dictionary you will find ==at: aKey==,
 ==at: aKey put: aValue==, ==at: aKey ifAbsent: aBlock==, ==keys==, and
 ==values==.
 
-[[[
+[[[testcase=true
 | colors |
 colors := Dictionary new.
 colors at: #yellow put: Color yellow.
@@ -432,8 +432,11 @@ colors at: #blue put: Color blue.
 colors at: #red put: Color red.
 colors at: #yellow
 >>> Color yellow
+[[[testcase=true
 colors keys
 >>> #(#red #blue #yellow)
+]]]
+[[[testcase=true
 colors values
 >>> {Color blue . Color yellow . Color red}
 ]]]
@@ -449,7 +452,7 @@ In its implementation, a ==Dictionary== can be seen as consisting of a set of
 ==Dictionary== from a collection of associations, or we may convert a dictionary
 to an array of associations.
 
-[[[
+[[[testcase=true
 | colors |
 colors := Dictionary newFrom: { #blue->Color blue . #red->Color red . #yellow->Color yellow }.
 colors removeKey: #blue.
@@ -469,15 +472,18 @@ Often ==Symbol==s are used as keys, in which case it is natural to use an
 If, on the other hand, your keys are ==String==s, it is better to use a plain
 ==Dictionary==, or you may get into trouble:
 
-[[[
+[[[testcase=true
 a := 'foobar'.
 b := a copy.
 trouble := IdentityDictionary new.
 trouble at: a put: 'a'; at: b put: 'b'.
 trouble at: a
 >>> 'a'
+[[[testcase=true
 trouble at: b
 >>> 'b'
+]]]
+[[[testcase=true
 trouble at: 'foobar'
 >>> 'a'
 ]]]
@@ -496,7 +502,7 @@ Note that the expression ==Smalltalk globals== returns an instance of ==SystemDi
 are ==Symbol==s (actually, ==ByteSymbol==s, which contain only 8-bit
 characters).
 
-[[[
+[[[testcase=true
 Smalltalk globals keys collect: [ :each | each class ] as:Set
 >>> a Set(ByteSymbol)
 ]]]
@@ -512,7 +518,7 @@ elements are added using the message ==add:== and they cannot be accessed using
 the message ==at:==. Objects put in a set should implement the methods ==hash==
 and ==\===.
 
-[[[
+[[[testcase=true
 s := Set new.
 s add: 4/2; add: 4; add:2.
 s size
@@ -522,14 +528,14 @@ s size
 You can also create sets using ==Set class>>newFrom:== or the conversion message
 ==Collection>>asSet==:
 
-[[[
+[[[testcase=true
 (Set newFrom: #( 1 2 3 1 4 )) = #(1 2 3 4 3 2 1) asSet
 >>> true
 ]]]
 
 ==asSet== offers us a convenient way to eliminate duplicates from a collection:
 
-[[[language=smalltalk
+[[[language=smalltalk|testcase=true
 { Color black. Color white. (Color red + Color blue + Color green) } asSet size
 >>> 2
 ]]]
@@ -538,7 +544,7 @@ Note that ""red"" ==\+== ""blue"" ==\+== ""green"" ==\=== ""white"".
 
 A ==Bag== is much like a ==Set== except that it does allow duplicates:
 
-[[[
+[[[testcase=true
 { Color black. Color white. (Color red + Color blue + Color green) } asBag size
 >>> 3
 ]]]
@@ -548,15 +554,15 @@ implemented by the ==Collection== messages ==union:==, ==intersection:==, and
 ==includes:==. The receiver is first converted to a ==Set==, so these operations
 work for all kinds of collections!
 
-[[[
+[[[testcase=true
 (1 to: 6) union: (4 to: 10)
 >>> a Set(1 2 3 4 5 6 7 8 9 10)
 ]]]
-[[[
+[[[testcase=true
 'hello' intersection: 'there'
 >>> 'he'
 ]]]
-[[[
+[[[testcase=true
 #Smalltalk includes: $k
 >>> true
 ]]]
@@ -576,7 +582,7 @@ class ==Magnitude==, which defines the protocol of comparable objects (==<==,
 You can create a ==SortedCollection== by creating a new instance and adding
 elements to it:
 
-[[[
+[[[testcase=true
 SortedCollection new add: 5; add: 2; add: 50; add: -10; yourself.
 >>> a SortedCollection(-10 2 5 50)
 ]]]
@@ -584,12 +590,12 @@ SortedCollection new add: 5; add: 2; add: 50; add: -10; yourself.
 More usually, though, one will send the conversion message
 ==asSortedCollection== to an existing collection:
 
-[[[language=smalltalk
+[[[language=smalltalk|testcase=true
 #(5 2 50 -10) asSortedCollection
 >>> a SortedCollection(-10 2 5 50)
 ]]]
 
-[[[language=smalltalk
+[[[language=smalltalk|testcase=true
 'hello' asSortedCollection
 >>> a SortedCollection($e $h $l $l $o)
 ]]]
@@ -597,7 +603,7 @@ More usually, though, one will send the conversion message
 How do you get a ==String== back from this result? ==asString== unfortunately
 returns the ==printString== representation, which is not what we want:
 
-[[[
+[[[testcase=true
 'hello' asSortedCollection asString
 >>> 'a SortedCollection($e $h $l $l $o)'
 ]]]
@@ -605,11 +611,15 @@ returns the ==printString== representation, which is not what we want:
 The correct answer is to either use ==String class>>newFrom:==, ==String
 class>>withAll:== or ==Object>>as:==:
 
-[[[
+[[[testcase=true
 'hello' asSortedCollection as: String
 >>> 'ehllo'
+]]]
+[[[testcase=true
 String newFrom: 'hello' asSortedCollection
 >>> 'ehllo'
+]]]
+[[[testcase=true
 String withAll: 'hello' asSortedCollection
 >>> 'ehllo'
 ]]]
@@ -619,7 +629,7 @@ long as they are all comparable. For example, we can mix different kinds of
 numbers such as integers, floats and fractions:
 
 
-[[[language=smalltalk
+[[[language=smalltalk|testcase=true
 { 5 . 2/ -3 . 5.21 } asSortedCollection
 >>> a SortedCollection((-2/3) 5 5.21)
 ]]]
@@ -631,7 +641,7 @@ For example, the class ==Color== is not a Magnitude and it does not implement
 the method ==<\===, but we can specify a block stating that the colors should be
 sorted according to their luminance (a measure of brightness).
 
-[[[
+[[[testcase=true
 col := SortedCollection
          sortBlock: [ :c1 :c2 | c1 luminance <= c2 luminance ].
 col addAll: { Color red . Color yellow . Color white . Color black }.
@@ -647,19 +657,19 @@ instances. Like ==Array==s, ==String==s have a dedicated syntax, and are
 normally created by directly specifying a ==String== literal within single
 quotes, but the usual collection creation methods will work as well.
 
-[[[
+[[[testcase=true
 'Hello'
 >>> 'Hello'
 ]]]
-[[[
+[[[testcase=true
 String with: $A
 >>> 'A'
 ]]]
-[[[
+[[[testcase=true
 String with: $h with: $i with: $!
 >>> 'hi!'
 ]]]
-[[[
+[[[testcase=true
 String newFrom: #($h $e $l $l $o)
 >>> 'hello'
 ]]]
@@ -673,18 +683,18 @@ While strings are delimited by single quotes, a string can contain a single
 quote: to define a string with a single quote we should type it twice. Note that
 the string will contain only one element and not two as shown below:
 
-[[[
+[[[testcase=true
 'l''idiot' at: 2
 >>> $'
 ]]]
-[[[
+[[[testcase=true
 'l''idiot' at: 3
 >>> $i
 ]]]
 
 Two instances of ==String== can be concatenated with a comma.
 
-[[[
+[[[testcase=true
 s := 'no', ' ', 'worries'.
 s
 >>>  'no worries'
@@ -693,7 +703,7 @@ s
 Since a string is a mutable collection we can also change it using the message
 ==at:put:==.
 
-[[[
+[[[testcase=true
 s at: 4 put: $h; at: 5 put: $u.
 s
 >>> 'no hurries'
@@ -702,7 +712,7 @@ s
 Note that the comma method is defined by ==Collection==, so it will work for any
 kind of collection!
 
-[[[
+[[[testcase=truetestcase=true
 (1 to: 3), '45'
 >>> #(1 2 3 $4 $5)
 ]]]
@@ -711,10 +721,12 @@ We can also modify an existing string using ==replaceAll:with:== or
 ==replaceFrom:to:with:== as shown below. Note that the number of characters and
 the interval should have the same size.
 
-[[[
+[[[testcase=true
 s replaceAll: $n with: $N.
 s
 >>> 'No hurries'
+]]]
+[[[testcase=true
 s replaceFrom: 4 to: 5 with: 'wo'.
 s
 >>> 'No worries'
@@ -724,7 +736,7 @@ In contrast to the methods described above, the method ==copyReplaceAll:==
 creates a new string. (Curiously, here the arguments are substrings rather than
 individual characters, and their sizes do not have to match.)
 
-[[[
+[[[testcase=true
 s copyReplaceAll: 'rries' with: 'mbats'
 >>> 'No wombats'
 ]]]
@@ -733,7 +745,7 @@ A quick look at the implementation of these methods reveals that they are
 defined not only for ==String==s, but for any kind of
 ==SequenceableCollection==, so the following also works:
 
-[[[
+[[[testcase=true
 (1 to: 6) copyReplaceAll: (3 to: 5) with: { 'three' . 'etc.' }
 >>> #(1 2 'three' 'etc.' 6)
 ]]]
@@ -745,9 +757,11 @@ It is possible to ask whether a pattern matches a string by sending the
 characters and ==#== to match a single character. Note that ==match:== is sent
 to the pattern and not the string to be matched.
 
-[[[
+[[[testcase=true
 'Linux *' match: 'Linux mag'
 >>> true
+]]]
+[[[testcase=true
 'GNU#Linux #ag' match: 'GNU/Linux tag'
 >>> true
 ]]]
@@ -760,27 +774,27 @@ For substring manipulation we can use messages like ==first==, ==first:==,
 ==allButFirst:==, ==copyFrom:to:== and others, defined in
 ==SequenceableCollection==.
 
-[[[
+[[[testcase=true
 'alphabet' at: 6
 >>> $b
 ]]]
-[[[
+[[[testcase=true
 'alphabet' first
 >>> $a
 ]]]
-[[[
+[[[testcase=true
 'alphabet' first: 5
 >>> 'alpha'
 ]]]
-[[[
+[[[testcase=true
 'alphabet' allButFirst: 3
 >>> 'habet'
 ]]]
-[[[
+[[[testcase=true
 'alphabet' copyFrom: 5 to: 7
 >>> 'abe'
 ]]]
-[[[
+[[[testcase=true
 'alphabet' copyFrom: 3 to: 3
 >>> 'p' (not $p)
 ]]]
@@ -798,19 +812,19 @@ The following examples illustrate the use of ==isEmpty==, ==includes:== and
 ==anySatisfy:== which are also messages defined not only on Strings but more
 generally on collections.
 
-[[[
+[[[testcase=true
 'Hello' isEmpty
 >>> false
 ]]]
-[[[
+[[[testcase=true
 'Hello' includes: $a
 >>> false
 ]]]
-[[[
+[[[testcase=true
 'JOE' anySatisfy: [ :c | c isLowercase ]
 >>> false
 ]]]
-[[[
+[[[testcase=true
 'Joe' anySatisfy: [ :c | c isLowercase ]
 >>> true
 ]]]
@@ -820,7 +834,7 @@ generally on collections.
 There are three messages that are useful to manage string templating:
 ==format:==, ==expandMacros== and ==expandMacrosWith:==.
 
-[[[
+[[[testcase=true
 '{1} is {2}' format: {'Pharo' . 'cool'}
 >>> 'Pharo is cool'
 ]]]
@@ -830,27 +844,27 @@ The messages of the ==expandMacros== family offer variable substitution, using
 ==<3s>== for arguments (==<1p>==, ==<2p>==, surrounds the string with single
 quotes), and ==<1?value1:value2>== for conditional.
 
-[[[
+[[[testcase=true
 'look-<t>-here' expandMacros
 >>> 'look-   -here'
 ]]]
-[[[
+[[[testcase=true
 '<1s> is <2s>' expandMacrosWith: 'Pharo' with: 'cool'
 >>> 'Pharo is cool'
 ]]]
-[[[
+[[[testcase=true
 '<2s> is <1s>' expandMacrosWith: 'Pharo' with: 'cool'
 >>> 'cool is Pharo'
 ]]]
-[[[
+[[[testcase=true
 '<1p> or <1s>' expandMacrosWith: 'Pharo' with: 'cool'
 >>> '''Pharo'' or Pharo'
 ]]]
-[[[
+[[[testcase=true
 '<1?Quentin:Thibaut> plays' expandMacrosWith: true
 >>> 'Quentin plays'
 ]]]
-[[[
+[[[testcase=true
 '<1?Quentin:Thibaut> plays' expandMacrosWith: false
 >>> 'Thibaut plays'
 ]]]
@@ -860,27 +874,27 @@ quotes), and ==<1?value1:value2>== for conditional.
 The class ==String== offers numerous other utilities including the messages
 ==asLowercase==, ==asUppercase== and ==capitalized==.
 
-[[[
+[[[testcase=true
 'XYZ' asLowercase
 >>> 'xyz'
 ]]]
-[[[
+[[[testcase=true
 'xyz' asUppercase
 >>> 'XYZ'
 ]]]
-[[[
+[[[testcase=true
 'hilaire' capitalized
 >>> 'Hilaire'
 ]]]
-[[[
+[[[testcase=true
 'Hilaire' uncapitalized
 >>> 'hilaire'
 ]]]
-[[[
+[[[testcase=true
 '1.54' asNumber
 >>> 1.54
 ]]]
-[[[
+[[[testcase=true
 'this sentence is without a doubt far too long' contractTo: 20
 >>> 'this sent...too long'
 ]]]
@@ -890,11 +904,11 @@ representation by sending the message ==printString== and converting it to a
 string by sending the message ==asString==. Here is an example of the
 difference.
 
-[[[
+[[[testcase=true
 #ASymbol printString
 >>> '#ASymbol'
 ]]]
-[[[
+[[[testcase=true
 #ASymbol asString
 >>> 'ASymbol'
 ]]]
@@ -937,7 +951,7 @@ current index. This message is related to ==to:do:== which is defined in class
 ==Number==.
 
 
-[[[
+[[[testcase=true
 #('bob' 'joe' 'toto')
     doWithIndex: [ :each :i | (each = 'joe') ifTrue: [ ^ i ] ]
 >>> 2
@@ -949,7 +963,7 @@ reverse order.
 The following code shows an interesting message: ==do:separatedBy:== which
 executes the second block only in between two elements.
 
-[[[
+[[[testcase=true
 | res |
 res := ''.
 #('bob' 'joe' 'toto')
@@ -963,7 +977,7 @@ Note that this code is not especially efficient since it creates intermediate
 strings and it would be better to use a write stream to buffer the result (see
 Chapter *: Streams>../Streams/Streams.pillar@cha:streams*):
 
-[[[
+[[[testcase=true
 String streamContents: [ :stream |
    #('bob' 'joe' 'toto') asStringOn: stream delimiter: '.' ]
 >>> 'bob.joe.toto'
@@ -993,7 +1007,7 @@ be found in the ==enumerating== protocol of ==Collection== and its subclasses.
 Imagine that we want a collection containing the doubles of the elements in
 another collection. Using the method ==do:== we must write the following:
 
-[[[
+[[[testcase=true
 | double |
 double := OrderedCollection new.
 #(1 2 3 4 5 6) do: [ :e | double add: 2 * e ].
@@ -1005,7 +1019,7 @@ The message ==collect:== executes its argument block for each element and
 returns a new collection containing the results. Using ==collect:== instead, the
 code is much simpler:
 
-[[[
+[[[testcase=true
 #(1 2 3 4 5 6) collect: [ :e | 2 * e ]
 >>> #(2 4 6 8 10 12)
 ]]]
@@ -1014,7 +1028,7 @@ The advantages of ==collect:== over ==do:== are even more important in the
 following example, where we take a collection of integers and generate as a
 result a collection of absolute values of these integers:
 
-[[[
+[[[testcase=true
 aCol :=  #( 2 -3 4 -35 4 -11).
 result := aCol species new: aCol size.
 1 to: aCol size do: [ :each | result at: each put: (aCol at: each) abs ].
@@ -1024,7 +1038,7 @@ result
 
 Contrast the above with the much simpler following expression:
 
-[[[
+[[[testcase=true
 #( 2 -3 4 -35 4 -11) collect: [ :each | each abs ]
 >>> #(2 3 4 35 4 11)
 ]]]
@@ -1037,7 +1051,7 @@ Note that sending the message ==collect:== returns the same kind of collection
 as the receiver. For this reason the following code fails. (A ==String== cannot
 hold integer values.)
 
-[[[
+[[[testcase=true
 'abc' collect: [ :ea | ea asciiValue ]
 >>> "error!"
 ]]]
@@ -1045,7 +1059,7 @@ hold integer values.)
 Instead we must first convert the string to an ==Array== or an
 ==OrderedCollection==:
 
-[[[
+[[[testcase=true
 'abc' asArray collect: [ :ea | ea asciiValue ]
 >>> #(97 98 99)
 ]]]
@@ -1054,7 +1068,7 @@ Actually ==collect:== is not guaranteed to return a collection of exactly the
 same class as the receiver, but only the same ''species''. In the case of
 an ==Interval==, the species is an ==Array==!
 
-[[[
+[[[testcase=true
 (1 to: 5) collect: [ :ea | ea * 2 ]
 >>> #(2 4 6 8 10)
 ]]]
@@ -1064,13 +1078,13 @@ an ==Interval==, the species is an ==Array==!
 The message ==select:== returns the elements of the receiver that satisfy a
 particular condition:
 
-[[[
+[[[testcase=true
 (2 to: 20) select: [ :each | each isPrime ]
 >>> #(2 3 5 7 11 13 17 19)
 ]]]
 
 The message ==reject:== does the opposite:
-[[[
+[[[testcase=true
 (2 to: 20) reject: [ :each | each isPrime ]
 >>> #(4 6 8 9 10 12 14 15 16 18 20)
 ]]]
@@ -1080,7 +1094,7 @@ The message ==reject:== does the opposite:
 The message ==detect:== returns the first element of the receiver that matches
 block argument.
 
-[[[
+[[[testcase=true
 'through' detect: [ :each | each isVowel ]
 >>> $o
 ]]]
@@ -1088,7 +1102,7 @@ block argument.
 The message ==detect:ifNone:== is a variant of the method ==detect:==. Its
 second block is evaluated when there is no element matching the block.
 
-[[[
+[[[testcase=true
 Smalltalk globals allClasses
     detect: [:each | '*cobol*' match: each asString]
     ifNone: [ nil ]
@@ -1110,14 +1124,14 @@ A trivial application of ==inject:into:== is to produce the sum of a collection
 of numbers. In Pharo we could write this expression to sum the
 first 100 integers:
 
-[[[
+[[[testcase=true
 (1 to: 100) inject: 0 into: [ :sum :each | sum + each ]
 >>> 5050
 ]]]
 
 Another example is the following one-argument block which computes factorials:
 
-[[[
+[[[testcase=true
 factorial := [ :n | (1 to: n) inject: 1 into: [ :product :each | product * each ] ].
 factorial value: 10
 >>> 3628800
@@ -1131,7 +1145,7 @@ There are many other iterator messages. Just check the ==Collection== class.
 The message ==count:== returns the number of elements satisfying a condition.
 The condition is represented as a boolean block.
 
-[[[
+[[[testcase=true
 Smalltalk globals allClasses
    count: [ :each | 'Collection*' match: each asString ]
 >>> 6
@@ -1142,7 +1156,7 @@ Smalltalk globals allClasses
 The message ==includes:== checks whether the argument is contained in the
 collection.
 
-[[[
+[[[testcase=true
 | colors |
 colors := {Color white . Color yellow .  Color blue . Color orange}.
 colors includes: Color blue.
@@ -1154,7 +1168,7 @@ colors includes: Color blue.
 The message ==anySatisfy:== answers true if at least one element of the
 collection satisfies the condition represented by the argument.
 
-[[[
+[[[testcase=true
 colors anySatisfy: [ :c | c red > 0.5 ]
 >>> true
 ]]]
@@ -1165,7 +1179,7 @@ colors anySatisfy: [ :c | c red > 0.5 ]
 
 The following error is one of the most frequent Smalltalk mistakes.
 
-[[[
+[[[testcase=true
 | collection |
 collection := OrderedCollection new add: 1; add: 2.
 collection
@@ -1178,7 +1192,7 @@ element added and not the receiver.
 
 The following code yields the expected result:
 
-[[[
+[[[testcase=true
 | collection |
 collection := OrderedCollection new.
 collection add: 1; add: 2.
@@ -1189,7 +1203,7 @@ collection
 You can also use the message ==yourself== to return the receiver of a cascade of
 messages:
 
-[[[
+[[[testcase=true
 | collection |
 collection := OrderedCollection new add: 1; add: 2; yourself
 >>> an OrderedCollection(1 2)
@@ -1200,7 +1214,7 @@ collection := OrderedCollection new add: 1; add: 2; yourself
 Another mistake you may make is to remove an element from a collection you are
 currently iterating over.
 
-[[[
+[[[testcase=true
 | range |
 range := (2 to: 20) asOrderedCollection.
 range do: [ :aNumber | aNumber isPrime
@@ -1213,7 +1227,7 @@ This result is clearly incorrect since 9 and 15 should have been filtered out!
 
 The solution is to copy the collection before going over it.
 
-[[[
+[[[testcase=true
 | range |
 range := (2 to: 20) asOrderedCollection.
 range copy do: [ :aNumber | aNumber isPrime

@@ -38,13 +38,13 @@ can send messages to them, just as you do to any other object. At the end of
 this chapter, we added an implementation note on the object implementation for
 the curious reader.
 
-[[[
+[[[testcase=true
 "send '+ 4' to 3, yielding 7"
 3 + 4
 >>> 7
 ]]]
 
-[[[
+[[[testcase=true
 "send factorial, yielding a big number"
 20 factorial
 >>> 2432902008176640000
@@ -67,27 +67,27 @@ system, which gives a great deal of expressive power to developers.
 Every object has a class; you can find out which one by sending it the message
 ==class==.
 
-[[[
+[[[testcase=true
 1 class
 >>> SmallInteger
 ]]]
 
-[[[
+[[[testcase=true
 20 factorial class
 >>> LargePositiveInteger
 ]]]
 
-[[[
+[[[testcase=true
 'hello' class
 >>> ByteString
 ]]]
 
-[[[
+[[[testcase=true
 (4@5) class
 >>> Point
 ]]]
 
-[[[
+[[[testcase=true
 Object new class
 >>> Object
 ]]]
@@ -149,7 +149,7 @@ Point >> dist: aPoint
     ^ ((dx * dx) + (dy * dy)) sqrt
 ]]]
 
-[[[
+[[[testcase=true
 1@1 dist: 4@5
 >>> 5.0
 ]]]
@@ -210,19 +210,19 @@ For example, ==Color blue== sends the message ==blue== to the class ==Color==.
 You will therefore find the method ==blue== defined on the class side of
 ==Color==, not on the instance side.
 
-[[[
+[[[testcase=true
 "Class-side method blue (convenient instance creation method)"
 aColor := Color blue.
 >>> Color blue
 "Color instances are self-evaluating"
 ]]]
 
-[[[
+[[[testcase=true
 "Instance-side accessor method red (returns the red RGB value)"
 Color blue red
 >>> 0.0
 ]]]
-[[[
+[[[testcase=true
 "Instance-side accessor method blue (returns the blue RGB value)"
 Color blue blue
 >>> 1.0
@@ -333,19 +333,23 @@ it explicitly here. By default class initialize methods are automatically
 executed only when classes are loaded. See also the discussion about lazy
 initialization, below.
 
-[[[label=scr:dogCount2
+[[[testcase=true|label=scr:dogCount2
 Dog initialize.
 Hyena initialize.
 Dog count
 >>> 0
+]]]
+[[[testcase=true
 Hyena count
 >>> 0
 ]]]
-[[[
+[[[testcase=true
 | aDog |
 aDog := Dog new.
 Dog count
 >>> 1  "Incremented"
+]]]
+[[[testcase=true
 Hyena count
 >>> 0  "Still the same"
 ]]]
@@ -409,10 +413,11 @@ addition to the variables that it inherits from ==Behavior==, such as
 instance variable will describe the instance of the class ==WebServer class==
 i.e. the class ==WebServer==.
 
-[[[label=scr:instance|caption=New state for classes
+[[[testcase=true|label=scr:instance|caption=New state for classes
 Object class allInstVarNames
 >>>  "#('superclass' 'methodDict' 'format' 'layout' 'instanceVariables' 'organization' 'subclasses' 'name' 'classPool' 'sharedPools' 'environment' 'category' 'traitComposition' 'localSelectors')"
-
+]]]
+[[[testcase=true
 WebServer class allInstVarNames
 >>>"#('superclass' 'methodDict' 'format' 'layout' 'instanceVariables' 'organization' 'subclasses' 'name' 'classPool' 'sharedPools' 'environment' 'category' 'traitComposition' 'localSelectors' #uniqueInstance)"
 ]]]
@@ -474,27 +479,27 @@ Each class in Pharo inherits its behaviour and the description of its
 structure from a single ''superclass''. This means that Smalltalk has single
 inheritance.
 
-[[[
+[[[testcase=true
 SmallInteger superclass
 >>> Integer
 ]]]
-[[[
+[[[testcase=true
 Integer superclass
 >>> Number
 ]]]
-[[[
+[[[testcase=true
 Number superclass
 >>> Magnitude
 ]]]
-[[[
+[[[testcase=true
 Magnitude superclass
 >>> Object
 ]]]
-[[[
+[[[testcase=true
 Object superclass
 >>> ProtoObject
 ]]]
-[[[
+[[[testcase=true
 ProtoObject superclass
 >>> nil
 ]]]
@@ -637,7 +642,7 @@ BorderedMorph subclass: #LOGame
 If we now instantiate ==LOGame==, it will respond to the ==author== message as
 expected.
 
-[[[
+[[[testcase=true
 LOGame new author
 >>> 'on'
 ]]]
@@ -685,11 +690,11 @@ respond by selecting its own ''method'' for doing what was asked. Since
 different objects may have different methods for responding to the same message,
 the method must be chosen ''dynamically'', when the message is received.
 
-[[[
+[[[testcase=true
 3 + 4
 >>> 7          "send message + with argument 4 to integer 3"
 ]]]
-[[[
+[[[testcase=true
 (1@2) + 4
 >>> 5@6    "send message + with argument 4 to point (1@2)"
 ]]]
@@ -784,7 +789,7 @@ anEllipse := EllipseMorph new.
 If we now send this object the message ==defaultColor==, we get the result
 ==Color yellow==.
 
-[[[
+[[[testcase=true
 anEllipse defaultColor
 >>> Color yellow
 ]]]
@@ -947,7 +952,7 @@ BorderedMorph >> fullPrintOn: aStream
 
 Consider the message ==constructorString== sent to an instance of ==EllipseMorph==:
 
-[[[
+[[[testcase=true
 EllipseMorph new constructorString
 >>> '(EllipseMorph new) setBorderWidth: 1 borderColor: Color black'
 ]]]
@@ -1055,7 +1060,7 @@ In addition, a few globals are used to name special or commonly useful objects.
 The variable ==Processor== names an instance of ==ProcessScheduler==, the main
 process schedler of Pharo.
 
-[[[
+[[[testcase=true
 Processor class
 >>> ProcessorScheduler
 ]]]
@@ -1068,17 +1073,18 @@ main namespace ==Smalltalk globals==. This namespace includes ==Smalltalk==
 itself since it is a global variable. The keys to this namespace are the
 symbols that name the global objects in Pharo code. So, for example:
 
-[[[
+[[[testcase=true
 Smalltalk globals at: #Boolean
 >>> Boolean
 ]]]
 
 Since ==Smalltalk== is itself a global variable:
 
-[[[
+[[[testcase=true
 Smalltalk globals at: #Smalltalk
 >>> Smalltalk
-
+]]]
+[[[testcase=true
 (Smalltalk globals at: #Smalltalk) == Smalltalk
 >>> true
 ]]]

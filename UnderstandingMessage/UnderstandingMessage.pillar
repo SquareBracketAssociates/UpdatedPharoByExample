@@ -97,27 +97,27 @@ syntactic template: ==receiver messageName==. The selector is simply made up of
 a succession of characters not containing ==:== (e.g., ==factorial==,
 ==open==, ==class==).
 
-[[[
+[[[testcase=true
 89 sin
 >>> 0.860069405812453
 ]]]
-[[[
+[[[testcase=true
 3 sqrt
 >>> 1.732050807568877
 ]]]
-[[[
+[[[testcase=true
 Float pi
 >>> 3.141592653589793
 ]]]
-[[[
+[[[testcase=true
 'blop' size
 >>> 4
 ]]]
-[[[
+[[[testcase=true
 true not
 >>> false
 ]]]
-[[[
+[[[testcase=true
 Object class
 >>> Object class  "The class of Object is Object class (BANG)"
 ]]]
@@ -131,27 +131,27 @@ selector consists of a sequence of one or more characters from the set: ==\+==,
 ==-==, ==\*==, ==/==, ==&==, ==\===, ==>==, ==|==, ==<==, ==~==, and ==@==.
 Note that ==-\-== (double minus) is not allowed for parsing reasons.
 
-[[[
+[[[testcase=true
 100@100
 >>> 100@100  "creates a Point object"
 ]]]
-[[[
+[[[testcase=true
 3 + 4
 >>> 7
 ]]]
-[[[
+[[[testcase=true
 10 - 1
 >>> 9
 ]]]
-[[[
+[[[testcase=true
 4 <= 3
 >>> false
 ]]]
-[[[
+[[[testcase=true
 (4/3) * 3 == 4
 >>> true "equality is just a binary message, and Fractions are exact"
 ]]]
-[[[
+[[[testcase=true
 (3/4) == (3/4)
 >>> false "two equal Fractions are not the same object"
 ]]]
@@ -173,20 +173,20 @@ which creates the color red. Note that the colons are part of the selector.
 
 @@note In Java or C++, the method invocation ==Color r: 1 g: 0 b: 0== would be written ==Color.rgb(1, 0, 0)==.
 
-[[[
+[[[testcase=true
 1 to: 10
 >>> (1 to: 10)  "creates an interval"
 ]]]
-[[[
+[[[testcase=true
 Color r: 1 g: 0 b: 0
 >>> Color red  "creates a new color"
 ]]]
-[[[
+[[[testcase=true
 12 between: 8 and: 15
 >>> true
 ]]]
 
-[[[
+[[[testcase=true
 nums := Array newFrom: (1 to: 5).
 nums at: 1 put: 6.
 nums
@@ -228,11 +228,11 @@ types of messages.
 As these examples show, Pharo's syntax rules generally ensure that message sends
 can be read in a natural way:
 
-[[[
+[[[testcase=true
 1000 factorial / 999 factorial
 >>> 1000
 ]]]
-[[[
+[[[testcase=true
 2 raisedTo: 1 + 3 factorial
 >>> 128
 ]]]
@@ -241,11 +241,11 @@ Unfortunately the rules are a bit too simplistic for arithmetic message sends,
 so you need to introduce parentheses whenever you want to impose a priority over
 binary operators:
 
-[[[
+[[[testcase=true
 1 + 2 * 3
 >>> 9
 ]]]
-[[[
+[[[testcase=true
 1 + (2 * 3)
 >>> 7
 ]]]
@@ -320,9 +320,11 @@ As an exercise we let you decompose the evaluation of the message ==Pen new go:
 !!!Parentheses first
 Parenthesised messages are sent prior to other messages.
 
-[[[
+[[[testcase=true
 3 + 4 factorial
 >>> 27    "(not 5040)"
+]]]
+[[[testcase=true
 (3 + 4) factorial
 >>> 5040
 ]]]
@@ -380,7 +382,7 @@ first.
 The following script shows that execution from left to right for messages
 of the same type reduces the need for parentheses.
 
-[[[label=scr:Parentheses|caption=Example of Unnecessary Parentheses.
+[[[testcase=true|label=scr:Parentheses|caption=Example of Unnecessary Parentheses.
 1.5 tan rounded asString = (((1.5 tan) rounded) asString)
 >>> true
 ]]]
@@ -399,27 +401,27 @@ The message composition rules are simple but they result in inconsistency for
 the execution of arithmetic message sends expressed in terms of binary messages.
 Here we see the common situations where extra parentheses are needed.
 
-[[[
+[[[testcase=true
 3 + 4 * 5
 >>> 35    "(not 23)  Binary messages sent from left to right"
 ]]]
-[[[
+[[[testcase=true
 3 + (4 * 5)
 >>> 23
 ]]]
-[[[
+[[[testcase=true
 1 + 1/3
 >>> (2/3)    "and not 4/3"
 ]]]
-[[[
+[[[testcase=true
 1 + (1/3)
 >>> (4/3)
 ]]]
-[[[
+[[[testcase=true
 1/3 + 2/3
 >>> (7/9)    "and not 1"
 ]]]
-[[[
+[[[testcase=true
 (1/3) + (2/3)
 >>> 1
 ]]]
@@ -580,7 +582,7 @@ a sequence is the value of the last expression. The values returned by all the
 expressions except the last one are ignored. Note that the period is a separator
 between expressions, and not a terminator. Therefore a final period is optional.
 
-[[[
+[[[testcase=true
 | box |
 box := 20@30 corner: 60@90.
 box containsPoint: 40@50
@@ -616,7 +618,7 @@ The receiver of the cascaded message ==setX:setY:== is the newly created point
 resulting from the evaluation of ==Point new==, and ''not'' ==Point==. The
 subsequent message ==isZero== is sent to that same receiver.
 
-[[[
+[[[testcase=true
 Point new setX: 25 setY: 35; isZero
 >>> false
 ]]]

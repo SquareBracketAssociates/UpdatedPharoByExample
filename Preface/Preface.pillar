@@ -107,7 +107,7 @@ many examples that show a fragment of code which can be evaluated. We use a long
 arrow to indicate the result you obtain when you select an expression and from
 its context menu choose ""print it"":
 
-[[[label=scr:script1|caption=Small example|language=Smalltalk
+[[[testcase=true|label=scr:script1|caption=Small example|language=Smalltalk
 3 + 4
 >>> 7 "if you select 3+4 and 'print it', you will see 7"
 ]]]

@@ -405,7 +405,7 @@ and displays the resulting string.
 Select ==3\+4== and ==Print it== (==CMD-p==). This time we see the result we
 expect.
 
-[[[
+[[[testcase=true
 3 + 4
 >>> 7
 ]]]
@@ -731,7 +731,7 @@ Our goal is to define a new method named ==shout== in the class ==String==. The
 idea is that this message should turn a string into its uppercase version as
 shown in the example below:
 
-[[[
+[[[testcase=true
 'No panic' shout
 >>> 'NO PANIC!'
 ]]]
