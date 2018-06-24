@@ -6,16 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Highlight js -->
-    <link rel="stylesheet" href="../support/html/highlightjs/styles/default.css">
-    <link rel="stylesheet" href="../support/html/css/highlight-commands.css">
-    <script src="../support/html/highlightjs/highlight.pack.js"></script>
-    <script src="../support/html/js/highlight-commands.js"></script>
+    <link rel="stylesheet" href="_support/html/highlightjs/styles/default.css">
+    <link rel="stylesheet" href="_support/html/css/highlight-commands.css">
+    <script src="_support/html/highlightjs/highlight.pack.js"></script>
+    <script src="_support/html/js/highlight-commands.js"></script>
 
     <!-- Bootstrap -->
-    <link href="../support/html/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../support/html/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="_support/html/css/bootstrap.min.css" rel="stylesheet">
+    <link href="_support/html/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="_support/html/css/square-braket-associates.css" rel="stylesheet">
     <style>
-        .container { max-width: 55em; }
+/*        .container { max-width: 55em; } */
     </style>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -28,16 +29,24 @@
   <body>
 
     <div class="container text-justify">
-      {{{content}}}
+      <section>
+        <h1>{{{title}}}</h1>
+        <div class="attribution">{{{attribution}}}</div>
+
+        {{{content}}}
+      </section>
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../support/html/js/bootstrap.min.js"></script>
+    <script src="_support/html/js/bootstrap.min.js"></script>
 
     <!-- Syntax highlighting of code blocks -->
     <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- Prettify annotated paragraphs-->
+    <script src="_support/html/js/annotated-paragraphs.js"></script>
 
   </body>
 </html>

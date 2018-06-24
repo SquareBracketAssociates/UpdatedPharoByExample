@@ -1,0 +1,79 @@
+\ProvidesFile{lstsmalltalk.sty}
+    [2009/07/03 0.2 listings Smalltalk definitions file]
+%
+\RequirePackage{listings}%
+\RequirePackage{ifthen}
+% \RequirePackage{graphicx}%
+% \RequirePackage{stmaryrd}%
+%
+\newboolean{quickdefs}\setboolean{quickdefs}{true}
+\DeclareOption{nodefs}{\setboolean{quickdefs}{false}}
+\ProcessOptions\relax
+
+\ifthenelse{\boolean{quickdefs}}
+    {\lstset{
+        basicstyle=\ttfamily,
+        stringstyle=\itshape,
+        escapeinside={_}{_},
+        columns=fullflexible,
+        % frame=tb,
+        floatplacement=htb}}
+    {}
+
+\lstnewenvironment{smalltalk}[1][]
+    {\lstset{language=Smalltalk,#1}}
+    {}
+\newcommand{\st}[1]{{\lstset{language=Smalltalk}\lstinline{#1}}}
+
+
+\lstdefinelanguage{Smalltalk}{
+  morekeywords={self,super,true,false,nil,thisContext},
+  morestring=[d]',
+  morecomment=[s]{"}{"},
+  alsoletter={\#:},
+  upquote=true,
+  showstringspaces=false,
+  literate=
+%     {.}{{\bfseries .}}1
+%     {;}{{\bfseries ;}}1
+%     {[}{{\bfseries [}}1
+%     {]}{{\bfseries ]}}1
+%     {:}{{\bfseries :}}1
+% %    {|}{{\ttfamily\textbar{}}}1
+%     {\#}{{\ttfamily \#}}1
+%     {\$}{{\ttfamily \$}}1
+%     {:=}{{$\mathrel{\mathop:}=$\ }}2%$\shortleftarrow$\ }}2
+%     {^}{{\raisebox{0.5ex}{$\wedge$}}}1%\raisebox{1.5ex}{\scalebox{1}[-1]{$\lightning$}}\,}}2%\textuparrow\ }}2
+    {>>}{{\,}>>{\,}}3
+    {>>>}{>>>}3,
+  tabsize=4
+}[keywords,comments,strings]%
+\endinput
+%%%
+%%% And now for something completely different... Some stupid example,
+%%% to put in a file to test this language definition...
+%%%
+% \lstset{
+%   inputencoding=utf8,
+%   columns=fullflexible,
+%   basicstyle=\Large
+% }
+% 
+% \begin{lstlisting}[language=Smalltalk]
+% SomeClass >> testNumberOfRelationships
+%   "this is a test"
+%   | bazEntity |
+%   self assert: fooEntity numberOfOutgoingRelationships = 1.
+%   bazEntity := MyEntity named: #baz.
+%   MyRelationship from: fooEntity to: bazEntity.
+%   self assert: fooEntity numberOfOutgoingRelationships = 2.
+%   string := 'Hello, world!'
+%   aCollection do: [ each |
+%     | local |
+%     each someMessage ].
+%   ^ string
+% \end{lstlisting}
+%%%%%%%%
+% Local Variables:
+% coding: utf-8
+% End:

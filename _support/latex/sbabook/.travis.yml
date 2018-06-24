@@ -1,0 +1,18 @@
+sudo: required
+services:
+- docker
+
+before_install:
+- docker pull dpollet/texlive:base
+
+script:
+- docker run --tty --rm --volume $PWD:/work dpollet/texlive:base latexmk
+
+deploy:
+- provider: releases
+  api_key:
+    secure: 0VV/C2lRToLm/PzZd4tVWOGGVjgRi11nj4VRw/D93Y1XTy2IWoyctWg/02OpZ+vzmMjT9dk/V2ZyfsYZT/dTSVT2HVPW8n4HSlBDqHhVaEGEKEd2YxLw/V1yVehco16gAtaDAFCZITW2Kod9hiIRoRTcInkCyT4zKrco6v7XmSY=
+  skip_cleanup: true
+  file: sbabook.pdf
+  on:
+    tags: true

@@ -1,0 +1,18 @@
+% -*- mode: latex; -*-
+\ifx\wholebook\relax\else
+
+	\documentclass[10pt,twoside,ustradelulu]{_support/latex/sbabook/sbabook}
+  \usepackage{import}
+  \subimport{_support/latex/}{common.tex}
+
+	\begin{document}
+\fi
+
+{{=« »=}}
+
+«! the '&' below prevents HTML escaping. »
+«& content»
+
+\ifx\wholebook\relax\else
+\end{document}
+\fi

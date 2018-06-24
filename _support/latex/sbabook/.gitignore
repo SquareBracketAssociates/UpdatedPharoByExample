@@ -1,0 +1,12 @@
+*.aux
+*.fdb_latexmk
+*.fls
+*.gin
+*.lof
+*.log
+*.lol
+*.lot
+*.toc
+.auctex/
+/auto/
+sbabook*.pdf

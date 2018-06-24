@@ -1,0 +1,22 @@
+% -*- mode: latex; -*- mustache tags: {{=« »=}} «! the '&' below prevents HTML escaping. »
+\ifx\wholebook\relax\else
+
+	\documentclass[10pt,twoside,english]{_support/latex/sbabook/sbabook}
+  \usepackage{import}
+  \subimport{_support/latex/}{common.tex}
+
+  \hypersetup{pdfinfo = {
+    Title = {«& title»},
+    Author = {«& attribution»},
+    Keywords = {pharo, smalltalk}}}
+  \begin{document}
+\fi
+
+\chapter{«& title»}
+\chapterprecis{«& attribution»}
+
+«& content»
+
+\ifx\wholebook\relax\else
+\end{document}
+\fi

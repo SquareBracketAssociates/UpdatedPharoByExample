@@ -1,0 +1,191 @@
+\ProvidesFile{pharo-titlepage.sty}
+  [2017/05/10 0.1 title page design for SBA booklets]
+
+\DeclareOption{maketitle}{%
+  \renewcommand{\maketitle}{\pharotitle}}
+\ProcessOptions
+
+\RequirePackage{xcolor}
+\RequirePackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{svg.path}
+
+% fixup TikZ page coordinates for memoir stock & trimming
+% https://tex.stackexchange.com/questions/233455/using-tikz-current-page-node-in-memoir-class
+\newcommand\setpagenode{%
+    \expandafter\def\csname pgf@sh@ns@current page\endcsname{rectangle}%
+    \strictpagecheck%
+    \checkoddpage%
+    \ifoddpage%
+        \expandafter\def\csname pgf@sh@np@current page\endcsname{%
+          \def\southwest{\pgfpoint{\stockwidth-\paperwidth-\trimedge}%
+                                  {\stockheight-\trimtop-\paperheight}}%
+          \def\northeast{\pgfpoint{\stockwidth-\trimedge}{\stockheight-\trimtop}}%
+        }%
+    \else
+        \expandafter\def\csname pgf@sh@np@current page\endcsname{%
+          \def\southwest{\pgfpoint{\trimedge}{\stockheight-\trimtop-\paperheight}}%
+          \def\northeast{\pgfpoint{\trimedge+\paperwidth}{\stockheight-\trimtop}}%
+        }%
+    \fi
+    \expandafter\def\csname pgf@sh@nt@current page\endcsname{{1}{0}{0}{1}{0pt}{0pt}}%
+    \expandafter\def\csname pgf@sh@pi@current page\endcsname{pgfpageorigin}}
+\pgfkeys{/tikz/overlay/.add code={}{\setpagenode}}
+
+\definecolor{PharoBlue}{HTML}{2B98D8}
+\definecolor{PharoDarkBlue}{HTML}{164C6C}
+\definecolor{PharoRed}{HTML}{A10B0B}
+
+\definecolor{BeaconOrange}{HTML}{F7931E}
+\definecolor{BeaconRed}{HTML}{ED1C24}
+
+\definecolor{LightShade}{HTML}{EEEEEE}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+\newcommand\pharotitle{
+  \thispagestyle{empty}
+
+  \begin{tikzpicture}[remember picture,overlay,line width=0mm]
+    \coordinate (left) at (current page.west);
+    \coordinate (right) at (current page.east);
+    \coordinate (top) at (current page.north);
+    \coordinate (center) at (current page.center);
+    \coordinate (bottom) at (current page.south);
+
+    \coordinate (stocktopleft) at ([left=\trimedge,above=\trimtop]current page.north west);
+    \coordinate (stockbottomright) at ([right=\stockwidth,below=\stockheight]stocktopleft);
+
+    \coordinate (horizon) at ($ (top)!.618!(center) $);
+    \coordinate (depths) at ($ (center)!.618!(bottom) $);
+
+    \newcommand\beaconscaling{(.191\paperheight/120pt)} % golden ratio factor & approx. height of beacon tower
+    \coordinate (beacon) at ($ (horizon -| left) $);
+
+    \pgfdeclareverticalshading{column}{100bp}{
+      color(0)=(PharoBlue);
+      color(40)=(PharoBlue);
+      color(75)=(PharoRed);
+      color(100)=(PharoRed)}
+
+    \node[anchor=north east] at ($ (horizon -| right) + (-.1\pagewidth,-2cm) $) {
+        \begin{varwidth}{.8\pagewidth}
+          \flushright \fontsize{50pt}{60pt}\sffamily\bfseries\color{white}
+          \@title
+        \end{varwidth}
+      };
+
+    \node[anchor=south east] at ($ (depths -| right) + (-.1\pagewidth,1cm) $) {
+        \begin{varwidth}{.8\pagewidth}
+          \flushright \HUGE\sffamily\color{white}
+          \@author
+        \end{varwidth}
+      };
+
+      \node[anchor=north east] at ($ (depths -| right) + (-.1\pagewidth,-.5cm) $) {
+        \begin{varwidth}{.8\pagewidth}
+          \flushright \huge\sffamily\color{PharoDarkBlue!50!PharoBlue!50!LightShade}
+          \ifx\@empty\@series\else\@series\titlebreak\fi
+          \@date
+        \end{varwidth}
+      };
+
+    \begin{pgfonlayer}{background}
+      \fill[LightShade] (stocktopleft) rectangle (horizon -| stockbottomright);
+      \fill[PharoBlue] (horizon -| stocktopleft) rectangle (depths -| stockbottomright);
+      \fill[PharoDarkBlue] (depths -| stocktopleft) rectangle (stockbottomright);
+
+      \begin{scope}[
+        transform canvas={shift=(beacon)},
+        scale=\beaconscaling]
+
+        \pharobeacon@tikz
+
+      \end{scope}
+    \end{pgfonlayer}
+  \end{tikzpicture}
+  \newpage
+}
+
+\newcommand\pharobeacon@tikz{
+  % beacon fire
+  \shade[bottom color=BeaconRed, top color=BeaconOrange] svg {
+    m 68.58,118.36 0,-14.22 22.72,0 0,15.14 -11.16,2.74 -11.56,-3.66
+    z
+  };
+
+  % cap
+  \fill[PharoDarkBlue] svg[yscale=-1] {
+    m 0,-138
+    m 67.39,22.47
+    c 0.23,-0.63 1.25,-1.52 2.83,-2.36 2.32,-1.24 5.84,-2.38 9.79,-2.43 6.63,-0.1 12.1,2.87 12.7,4.41
+    l 0.06,0 0,-0.01
+    c -0.06,-3.58 -5.2,-10.05 -11.7,-10.26
+    l -3.15,0.11
+    c -6.05,0.62 -10.64,7.12 -10.59,10.53
+    l 0,0.01 0.06,0
+    z
+  };
+
+  % column
+  \shade[shading=column] svg[yscale=-1] {
+    % starting from top…
+    m 75.55,-107.81
+    c -6.21,0.44 -11.87,2.99 -11.87,2.99
+    l 0,0 0,5.38
+    c 0,0 -0.03,1.36 2.63,2.25
+    l 0,0 0.13,5.46
+    c -7.22,0.95 -12.04,2.56 -12.01,4.31 l 0,0
+    c 0,0.44 2.25,3.62 2.25,3.62 l 0,0
+    c 0,0 0.78,0.96 1.72,1.1 l 0,0
+    c 0.94,0.14 2.58,0.95 3.64,1.82 l 0,0
+    c 1.07,0.87 1.95,2.52 1.97,3.69 l 0,0
+    c 0.02,1.16 1.2,2.1 2.62,2.07 l 0,0 3.39,-0.05
+    c -4.06,2.31 -5.35,4.76 -6.55,6.46 l 0,0
+    c -1.24,1.74 -2.28,16.8 -2.28,16.8 l 0,0
+    c 0,0 0.57,-1.52 2.88,-5.11 l 0,0
+    c 2.31,-3.58 11.46,-8.51 18.35,-12.25 l 0,0
+    c 5.78,-3.14 11.02,-6.26 11.02,-6.26 l 0,0
+    c 1.34,-0.78 2.55,-1.43 2.55,-2.58 l 0,0
+    c 0,-1.4 0.59,-3.08 1.35,-3.73 l 0,0
+    c 0.76,-0.67 2.15,-1.33 3.09,-1.5 l 0,0
+    c 0.93,-0.16 1.68,-1.15 1.68,-1.15 l 0,0
+    c 0,0 2.14,-3.25 2.13,-3.69 l 0,0
+    c -0.02,-1.67 -4.44,-3.07 -11.12,-3.83 l 0,0 -0.13,-5.41
+    c 1.94,-0.59 3.09,-1.28 3.07,-2.02 l 0,0 0,-5.38
+    c 0,0 -5.07,-2.81 -11.83,-3.11 l 0,0
+    c -2.42,0 -6.33,0 -8.67,0.12
+    % …then the middle stripe
+    m 6.9,52.91
+    c -15.04,7.24 -22.43,10.89 -23.5,18.67 l 0,0
+    c -1.07,7.78 -2.22,15.42 -2.22,15.42 l 0,0
+    c 0.93,-5.6 11.84,-12.19 22.76,-17.5 l 0,0
+    c 10.92,-5.3 18.74,-8.75 18.23,-14.51 l 0,0
+    c -0.45,-5.14 -1.54,-12.22 -1.77,-13.67 l 0,0
+    c 0.08,1.08 -0.57,5.38 -13.49,11.6
+    % …finally the bottom stripe
+    m -2.19,34.15
+    c -20.34,9.48 -25.38,12.09 -25.97,17.91 l 0,0
+    c -0.51,5.01 -1.68,15.57 -2,18.42 l 0,0
+    c 0.39,-1.55 2.49,-5.54 13.28,-11.4 l 0,0
+    c 14.1,-7.67 36.69,-14.04 36.14,-22.06 l 0,0
+    c -0.54,-8.02 -2.06,-18.59 -2.06,-18.59 l 0,0
+    c 0,0 0.94,6.24 -19.4,15.73
+  };
+
+  % flare
+  \fill[white, opacity=.7] svg[yscale=-1] {
+    m 138.94,-165.83
+    c -78.62,68.64 -72.74,53.81 -18,45.42
+      -54.74,8.39 -63.63,-4.87 27.19,40.57
+      -90.82,-45.44 -74.9,-44.42 -48.75,-3.09
+      -26.15,-41.33 -16.29,-53.88 -30.19,38.41
+      13.9,-92.29 17.86,-76.83 -12.12,-47.32
+      29.99,-29.51 44.96,-24.01 -45.85,-16.84
+      90.82,-7.17 77.34,1.37 41.26,-26.16
+      36.08,27.52 35.48,43.47 1.84,-48.82
+      33.63,92.3 21.35,82.11 37.62,31.17
+      -16.27,50.94 -31.63,55.3 47,-13.34
+  };
+}

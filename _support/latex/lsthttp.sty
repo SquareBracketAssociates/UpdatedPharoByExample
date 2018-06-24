@@ -1,0 +1,14 @@
+\ProvidesFile{lsthttp.sty}
+    [2015/09/23 0.1 listings HTTP definitions file]
+%
+\RequirePackage{listings}%
+
+\lstdefinelanguage{HTTP}{
+  keywords={% requests
+    GET, POST, PUT, DELETE, HEAD,
+    TRACE, CONNECT, OPTIONS, PATCH,
+    HTTP, OK
+  },
+  morecomment=[l]{:}
+}%
+\endinput

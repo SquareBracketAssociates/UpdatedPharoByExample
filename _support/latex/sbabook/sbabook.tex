@@ -1,0 +1,297 @@
+\documentclass[english,twoside,openany,showtrims]{sbabook}
+
+\pagelayout{\paperbackpage}
+
+% \setotherlanguage{latin}
+% \usepackage{lipsum}
+
+\usepackage{multirow}
+\usepackage{graphicx}
+
+\usepackage{lstsmalltalk}
+
+\usepackage{url} % define and apply style to URLs
+\def\url@sfstyle{\def\UrlFont{\sf}}
+\urlstyle{sf}
+\usepackage[unicode,breaklinks,hidelinks]{hyperref} % undecorated hyperlinks
+
+\title{the Square Bracket Associates\titlebreak{}
+  \texorpdfstring{\protect\LaTeX}{LaTeX} book class}
+\author{Damien Pollet}
+
+\hypersetup{pdfinfo = {
+    Title = {\thetitle},
+    Author = {\theauthor},
+    Keywords = {LaTeX, document class, book, typography}}}
+
+\newcommand\hrefnote[3][]{% inline linked text, plus URL in footnote
+  % \hrefnote[]{URL}{link text}
+  \href{#2}{#3}\footnote{\url{#2} #1}}
+
+% a nice horizontal separator
+\newcommand{\sectionline}{%
+  \begin{center}\nointerlineskip
+    \rule{0.233\linewidth}{.7pt}%
+  \end{center}}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title page and colophon on verso
+\maketitle
+\pagestyle{titlingpage}
+\thispagestyle{titlingpage} % \pagestyle does not work on the first one…
+
+\cleartoverso
+{\small
+
+  Copyright 2015 by Damien Pollet.
+
+  The contents of this book are protected under the Creative Commons
+  Attribution-ShareAlike 3.0 Unported license.
+
+  You are \textbf{free}:
+  \begin{itemize}
+  \item to \textbf{Share}: to copy, distribute and transmit the work,
+  \item to \textbf{Remix}: to adapt the work,
+  \end{itemize}
+
+  Under the following conditions:
+  \begin{description}
+  \item[Attribution.] You must attribute the work in the manner specified by the
+    author or licensor (but not in any way that suggests that they endorse you
+    or your use of the work).
+  \item[Share Alike.] If you alter, transform, or build upon this work, you may
+    distribute the resulting work only under the same, similar or a compatible
+    license.
+  \end{description}
+
+  For any reuse or distribution, you must make clear to others the
+  license terms of this work. The best way to do this is with a link to
+  this web page: \\
+  \url{http://creativecommons.org/licenses/by-sa/3.0/}
+
+  Any of the above conditions can be waived if you get permission from
+  the copyright holder. Nothing in this license impairs or restricts the
+  author's moral rights.
+
+  \begin{center}
+    \includegraphics[width=0.2\textwidth]{CreativeCommons-BY-SA.pdf}
+  \end{center}
+
+  Your fair dealing and other rights are in no way affected by the
+  above. This is a human-readable summary of the Legal Code (the full
+  license): \\
+  \url{http://creativecommons.org/licenses/by-sa/3.0/legalcode}
+
+  \vfill
+
+  \begin{tabular}{@{}c@{\quad}l}
+    \multirow{2}{*}{\includegraphics[width=2em]{sba-logo.pdf}}
+    & Developed for the books published by Square Bracket Associates. \\
+    & \url{http://squarebracketassociates.org} \\[\smallskipamount]
+  \end{tabular}
+}
+
+
+\frontmatter
+\pagestyle{plain}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{About this document}
+
+This document is both the showcase and documentation of the SBAbook document
+class.
+You are of course encouraged to check its code, as a source of concrete examples.
+
+The primary goals of the SBAbook class are:
+\begin{itemize}
+\item to provide a nice design for the Square Bracket Associates books,
+\item to work as an export target for
+  \hrefnote{https://github.com/pillar-markup}{Pillar}, the documentation markup
+  used in the \hrefnote{http://pharo.org}{Pharo project}.
+\end{itemize}
+It is therefore meant more as a convenience class than a generic book class.
+In fact, SBAbook itself is pretty small; it relies heavily on the
+\hrefnote{https://www.ctan.org/pkg/memoir}{Memoir class} and on a selection of
+additional packages, which it parameterizes to implement a specific design, from
+page layout and typography to semantic markup.
+
+The result is a class that should work well for technical books and should still
+be pretty flexible, but which also has a few requirements and makes technical
+choices on its own.
+This document will thus only describe the specifics of SBAbook and its requirements.
+
+
+\tableofcontents*
+
+\clearpage
+\listoffigures
+
+\mainmatter
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Technical requirements}
+
+
+\section{Motivations}
+
+Reasons (fonts, packages)
+
+\begin{figure}[tb]
+  \caption{A rather large representation of the icon for the Creative Commons
+    license we at Square Bracket Associates use for our books.}
+  \includegraphics{CreativeCommons-BY-SA}
+  \label{fig:cc-by-sa-icon}
+\end{figure}
+
+
+\section{A pretty up-to-date TeXlive}
+
+how to update
+important packages
+
+
+\section{Building with Lua\LaTeX}
+
+how to run, latexmk
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Page layout and design}
+
+
+\section{Font choices}
+
+In technical writing, and especially using \LaTeX{}, it's tempting to try to use
+fonts as a semantic markup of sorts; unfortunately, this only results in a
+jumble of too many fonts and uselessly noisy paragraphs.
+Granted, a technical book can never be as minimal as a novel typeset in a single
+size, single weight roman font, but some restraint should help maintain a clear
+visual hierarchy.
+We've thus tried to keep to a minimal set of fonts with clearly defined roles.
+Thankfully, there has been several impressive open-source fonts released in the
+last years, which made several combinations possible; in the end, we settled on
+three families in Table~\ref{tab:fontRoles}, which are all packaged in the
+\TeX{}live distribution.
+
+The workhorse font is \hrefnote[--- SIL Open Font
+License]{http://software.sil.org/gentium/}{Gentium}; it's compact, very legible,
+and not as cold as the fonts we usually see in \LaTeX{} documents.
+In titles, \hrefnote[--- Apache
+License]{https://www.google.com/fonts/specimen/Open+Sans}{Open Sans} gives a
+neutral but friendly impression; it is not overpowering and is very legible in
+small sizes, making it perfect for captions and page decorations.
+Finally, the font for source code excerpts and verbatim text is \hrefnote[---
+SIL Open Font License]{https://mozilla.github.io/Fira/}{Fira Mono}.
+
+\begin{table}
+  \caption{Fonts used in the document, and their roles}
+  \begin{tabular}{ll}
+    \toprule
+    \textnormal{Gentium -- \textit{Italic}} & Primary, paragraph text \\
+    \textsf{Open Sans -- \textbf{Bold}}     & Structural and secondary text: titles, captions \\
+    \texttt{Fira Mono}                      & Verbatim text and code \\
+    \bottomrule
+  \end{tabular}
+  \label{tab:fontRoles}
+\end{table}
+
+
+\section{Text layout}
+
+ragged right
+spaced paragraphs with no indent
+hanging section numbers
+
+
+\section{Custom semantic markup}
+
+chapterprecis
+constraints on content
+
+
+\section{Source code and listings}
+
+SBAbook provides custom high-level semantic markup for source code, which
+relies on the powerful \code{listings} and \code{tcolorbox} packages.
+
+
+\paragraph{Inline source code}
+For short mentions of source code in the middle of the text, use the
+\code§\code|...|§ macro.
+This macro is an alias to \code§\lstinline§, which works like verbatim: it uses
+an arbitrary delimiter.
+
+Using this macro with curly braces like \code§\code{this}§ is possible, but this
+is an experimental feature of \code{listings}, and it breaks in some cases; it's
+fine when used in paragraph text, but things get weird as soon as it's part of
+the argument of some other macro.
+Table~\ref{tab:codeDelims} lists a few characters in the ASCII range that are
+convenient as delimiters.
+
+\begin{table}
+  \caption{Some convenient delimiters for inline code}
+  \begin{tabular}{ll@{\qquad}ll}
+    \toprule
+    \code_\code|...|_ & pipe                      & \code¶\code§...§¶ & section sign \\
+    \code|\code_..._| & underscore                & \code§\code¶...¶§ & pilcrow      \\
+    \code¡\code!...!¡ & exclamation point         & \code~\code$...$~ & dollar sign  \\
+    \code!\code¡...¡! & inverse exclamation point & \code$\code~...~$ & tilde        \\
+    \code¿\code?...?¿ & question mark             & \code`\code^...^` & circumflex   \\
+    \code?\code¿...¿? & inverse question mark     & \code^\code`...`^ & backquote    \\
+    \bottomrule
+  \end{tabular}
+  \label{tab:codeDelims}
+\end{table}
+
+
+\paragraph{Displayed source code}
+For multi-line excerpts of source code that should appear in the flow of the
+text, use the \code{displaycode} environment.
+You have to specify the language each excerpt of code is written in, as an
+argument; any language known to the \code{listings} package works.
+
+\begin{displaycode}{[Visual]Basic}
+10 PRINT "Hello SBAbook!"
+20 PRINT "This is a paragraph-level listing."
+25 PRINT "UTF-8 in Basic: élèves français, Ελλάδα, Здравствуй, мир!"
+30 GOTO 10
+\end{displaycode}
+
+
+\paragraph{Referenced listings}
+If you need a numbered source code listing that is referenced in the table of
+contents, use the \code{listing} environment, providing a descriptive caption as
+a second mandatory argument.
+To reference that listing from the text, the label must be provided as
+\code{label=something} in the optional argument, as in
+listing~\ref{lst:fooNewWith} below.
+Similarly, use the \code{list text} option from \code{tcolorbox} if the caption
+should be worded differently in the table of contents.
+
+\begin{listing}[label=lst:fooNewWith]{Smalltalk}
+{A factory method in class \code{Foo}}
+Foo class>>with: parameter
+  ^ self new
+    initializeWith: parameter
+\end{listing}
+
+
+\paragraph{Floating listings}
+To make a floating listing, simply add the \code{float} option in the
+environment's optional parameter.
+In case you really need to specify the placement, the usual specifiers can also
+be passed: \code{float=htbp}.
+
+
+\section{Packages and conventions}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+% \textlatin{\lipsum[2-7]}
+
+\end{document}

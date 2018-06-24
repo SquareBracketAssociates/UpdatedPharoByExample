@@ -1,0 +1,108 @@
+%%
+%% This is file `overcolored.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% overcolored.dtx  (with options: `package')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2011-2012 by Raphaël Pinson <raphink@gmail.com>
+%% --------------------------------------------------------------------------
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\ProvidesPackage{overcolored}
+    [2011/09/15 0.1 Typeset colored overfull rules]
+\ProvidesPackage{overcolored}
+\RequirePackage{xcolor}
+\RequirePackage{kvoptions}
+\RequirePackage{ifluatex}
+\SetupKeyvalOptions{
+   family=overcolored,
+   prefix=overcolored@,
+}
+\DeclareStringOption[magenta]{color}
+\DeclareStringOption[0.5em]{width}
+\DeclareStringOption[3ex]{height}
+\ProcessKeyvalOptions*
+\def\overcoloredboxtex{%
+  \hbox to\wd0{%
+    \setbox0=\hbox to\wd0{\unhbox0}%
+    \unhbox0 \ifnum\badness>10000 \smash{%
+      \rlap{\color{\overcolored@color}{%
+        \rule{\overcolored@width}{\overcolored@height}}}}%
+    \fi%
+  }%
+}
+\def\overuncoloredtex{%
+  \let\output=\orioutput
+}
+\ifluatex
+   \RequirePackage{luatexbase,luacode}
+   \overfullrule \overcolored@width
+   \begin{luacode}
+      magentabox = function(head)
+        while head do
+          if head.id == 0 or head.id == 1 then
+            -- go through the hlists (the rows)
+            magentabox(head.head)
+
+          -- if there's a rule after the rightskip, this is the overfull box
+          -- node id 10 == glue, glue subtype 9 is rightskip, node id 2 is a rule
+
+          elseif head.id == 10 and head.subtype == 9 and head.next and head.next.id == 2 then
+             -- this must be an overfull box
+             local w1, w2
+             w1 = node.new("whatsit","pdf_literal")
+             w1.data = "q 1 0 1 rg"
+             w1.mode = 1
+             w2 = node.new("whatsit","pdf_literal")
+             w2.data = " Q"
+             w2.mode = 1
+
+             w1.next = head.next -- the rule
+             head.next = w1      -- color start
+             w1.next.next = w2   -- color end
+
+             node.slide(head)    -- adjust prev pointers
+          end
+          head = head.next
+        end
+        return true
+      end
+      luatexbase.add_to_callback("post_linebreak_filter",magentabox,"magentabox")
+   \end{luacode}
+\else
+   \interlinepenalty=-50000 % force the break between each two lines
+   \maxdeadcycles=50        % allow upto 50 \outputs with no \shipout
+   \newtoks\orioutput \orioutput=\output % wrap the original \output routine
+   \output
+       {\ifnum\outputpenalty>-20000 \the\orioutput
+        \else \ifnum\outputpenalty<-\maxdimen \the\orioutput
+        \else
+        \unvbox255        % flush the entire list back
+        \setbox0=\lastbox % strip the very last box
+        \nointerlineskip  % avoid doubled interline glue
+        \overcoloredboxtex   % make the test and return the box back.
+        \advance\outputpenalty by50000
+        \penalty\outputpenalty % weak lie that nothing happened...
+        \fi\fi}
+\fi
+\def\overuncolored{%
+\ifluatex
+   \PackageError{overuncolored is not implemented for LuaTeX}
+\else
+   \overuncoloredtex
+\fi
+}
+\endinput
+%%
+%% End of file `overcolored.sty'.

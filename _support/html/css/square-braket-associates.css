@@ -1,0 +1,44 @@
+h5, .h5 {
+    font-size: 16px;
+}
+
+.annotated-paragraph {
+    margin: 20px 0;
+    padding: 15px 30px 15px 15px;
+    border-left: 5px solid #eee;
+}
+
+.annotated-paragraph h4 {
+    margin-top: 0;
+}
+
+.annotated-paragraph p:last-child {
+    margin-bottom: 0;
+}
+
+.note {
+    background-color: #f0f7fd;
+    border-color: #d0e3f0;
+}
+
+.note h4 {
+    color: #3a87ad;
+}
+
+.todo {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.todo h4 {
+    color: #3c763d;
+}
+
+.authorToDo {
+    background-color: #ff0000;
+    border: 4px solid black;
+}
+
+.authorToDo h4 {
+    color: #3c763d;
+}

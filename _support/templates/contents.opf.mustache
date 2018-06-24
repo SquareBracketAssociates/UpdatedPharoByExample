@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package version="3.1" xmlns="http://www.idpf.org/2007/opf" unique-identifier="pub-id">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/"
+      xmlns:dcterms="http://purl.org/dc/terms/"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:opf="http://www.idpf.org/2007/opf">
+    <dc:identifier id="pub-id">
+        {{{epub-id}}}
+    </dc:identifier>    <!-- required -->
+    <dc:title>{{{title}}}</dc:title>
+    <dc:language>{{{language}}}</dc:language>
+    <dc:creator>{{{attribution}}}</dc:creator>
+    <dc:rights>{{{rights}}}</dc:rights>
+  </metadata>
+  <manifest>
+    <!--item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+    <item id="style" href="stylesheet.css" media-type="text/css" />
+    <item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" -->
+    {{{manifestItems}}}
+  </manifest>
+  <spine>
+{{{spineItems}}}
+  </spine>
+  <guide>
+    <reference type="toc" title="{{{title}}}" href="nav.xhtml" />
+  </guide>
+</package>

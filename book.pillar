@@ -1,0 +1,17 @@
+${inputFile:path=Preface/Preface.pillar}$
+${inputFile:path=PharoTour/PharoTour.pillar}$
+${inputFile:path=FirstApplication/FirstApplication.pillar}$
+${inputFile:path=SyntaxNutshell/SyntaxNutshell.pillar}$
+${inputFile:path=UnderstandingMessage/UnderstandingMessage.pillar}$
+${inputFile:path=PharoObjectModel/PharoObjectModel.pillar}$
+${inputFile:path=Environment/Environment.pillar}$
+${inputFile:path=SharingCode/SharingCode.pillar}$
+${inputFile:path=SUnit/SUnit.pillar}$
+${inputFile:path=BasicClasses/BasicClasses.pillar}$
+${inputFile:path=Collections/Collections.pillar}$
+${inputFile:path=Streams/Streams.pillar}$
+${inputFile:path=Morphic/Morphic.pillar}$
+${inputFile:path=Seaside/Seaside.pillar}$
+${inputFile:path=Reflection/Reflection.pillar}$
+${inputFile:path=Regex/Regex.pillar}$
+${inputFile:path=Metaclasses/Metaclasses.pillar}$
