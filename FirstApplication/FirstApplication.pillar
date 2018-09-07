@@ -477,7 +477,8 @@ LOGame >> newCellAt: i at: j
 	origin := self innerBounds origin.
 	self addMorph: c.
 	c position: ((i - 1) * c width) @ ((j - 1) * c height) + origin.
-	c mouseAction: [ self toggleNeighboursOfCellAt: i at: j ]
+	c mouseAction: [ self toggleNeighboursOfCellAt: i at: j ].
+	^ c
 ]]]
 
 !!!!!Formatting.
@@ -520,7 +521,7 @@ To complete the Lights Out game, we need to define two more methods in class
 
 [[[caption=A typical setter method|label=scr:TypicalSetter
 LOCell >> mouseAction: aBlock
-	^ mouseAction := aBlock
+	mouseAction := aBlock
 ]]]
 
 The method above does nothing more than set the cell's ==mouseAction== variable
