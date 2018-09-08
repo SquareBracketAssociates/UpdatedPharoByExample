@@ -7,13 +7,6 @@ os:
 smalltalk:
   - Pharo-6.1
 
-# Unit tests run the normal pillar tests
-# Integration tests test that pillar itself can interact with generated files, pdf generation, etc.
-# System tests test that we can install and use pillar as a black box
-env:
-  matrix:
-  - JOB=test TYPE=System ARCHETYPE=book OUTPUT=pdf
-
 install:
   # Pillar installation
   - git clone https://github.com/pillar-markup/pillar.git -b dev-7 # Clone pillar
