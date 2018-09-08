@@ -1,0 +1,27 @@
+{
+    "package": {
+        "name": "Updated Pharo50",
+        "repo": "wip",
+        "subject": "squarebracketassociates",
+        "desc": "Updated Pharo By Example",
+        "licenses": ["MIT"],
+        "website_url": "http://books.pharo.org",
+        "issue_tracker_url": "https://github.com/SquareBracketAssociates/UpdatedPharoByExample",
+        "vcs_url": "https://github.com/SquareBracketAssociates/UpdatedPharoByExample.git",
+        "labels": ["work-in-progress"]
+    },
+
+    "version": {
+        "name": "latest",
+        "desc": "Latest successful build"
+    },
+
+    "files": [
+        {
+            "includePattern": "_result/pdf/book.pdf",
+            "uploadPattern": "updatedPharo50.pdf",
+            "matrixParams": { "override": 1 }
+        }
+    ],
+    "publish": true
+}

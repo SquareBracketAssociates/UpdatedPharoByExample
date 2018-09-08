@@ -21,8 +21,8 @@ deploy:
 - provider: bintray
   file: .bintray.json
   on:
-    repo: SquareBracketAssociates/DynamicWebDevelopmentWithSeaside
+    repo: SquareBracketAssociates/UpdatedPharoByExample
   skip_cleanup: true
   user: ducasse
   key:
-    secure: mdhMJbjvS2d1Nrl/+hW71tNfL6vpCsiT7ZrhpKcpg+Odd6UbNMohyqHdEo7mgfGOF0KcaDHhz2I1wjRiGALoBd10hPYhJNF3SIIWzvB5s8SmrtvqYhoRmU+iliXHWoLCASiD9vYObDzqgRfB6+K9Vuh/tp2BReVffUezqaC5MTo=
+    secure: fKmuLN4gqXEWHUUJMEewgbX+Hb058hPSA0n0ITHMpwdX3zaq0UZTLleK5AjTlJ2w/yafy5I5OeIF07F4rkAwUzRkWfP1zpiz3xuFkbTYFP4QyVA8k/CQbTWKrg03RUx6pduz3N7qbV3BDu66VUIhnDAbK165gCfOUSx/7BscLew=
