@@ -12,7 +12,7 @@ learn how to define a new method, create an object and send it messages.
 
 ''Note:'' Most of the introductory material in this book will work with any
 Pharo version, so if you already have one installed, you may as well continue to
-use it. However, since this book is written for Pharo 5.0, if you notice
+use it. However, since this book is written for Pharo 6.0, if you notice
 differences between the appearance or behaviour of your system and what is
 described here, do not be surprised.
 
@@ -23,8 +23,8 @@ described here, do not be surprised.
 Pharo is available as a free download from
 *http://pharo.org/download>http://pharo.org/download*. Click the button for your
 operating system to download the appropriate ==.zip== file. For example, the
-full Pharo 5.0 distribution for OS X will be available at
-*http://files.pharo.org/platform/Pharo5.0-mac.zip>http://files.pharo.org/platform/Pharo5.0-mac.zip*.
+full Pharo 6.0 distribution for OS X will be available at
+*http://files.pharo.org/platform/Pharo6.0-mac.zip>http://files.pharo.org/platform/Pharo6.0-mac.zip*.
 
 Once that file is unzipped, it will contain everything you need to run
 Pharo (this includes the VM, the image, and the sources, as explained below).
@@ -34,10 +34,10 @@ Pharo (this includes the VM, the image, and the sources, as explained below).
 *http://files.pharo.org/get/* offers a collection of scripts to download
 specific versions of Pharo. This is really handy to automate the process.
 
-To download the latest 5.0 full system, use the following snippet.
+To download the latest 6.0 full system, use the following snippet.
 
 [[[
-wget -O- get.pharo.org/50+vm | bash
+wget -O- get.pharo.org/60+vm | bash
 ]]]
 
 !!!Installing Pharo
@@ -58,9 +58,9 @@ of this book, it is useful to understand the roles they play.
 ""1."" The ""virtual machine"" (VM) is the only component that is different for
 each operating system. The VM is the execution engine (similar to a JVM). It
 takes Pharo bytcode that is generated each time user compiles a piece of code,
-converts it to machine code and executes it. Pharo comes with the Cog VM a very
-fast JITing VM.
-The VM executable is named:
+converts it to machine code and executes it. Pharo comes with the Spur VM (a
+very fast JIT VM). The VM executable is named:
+
 - ==Pharo.exe== for Windows;
 - ==pharo== for Linux ; and
 - ==Pharo== for OSX (inside a package also named ==Pharo.app==).
@@ -72,12 +72,12 @@ copied and run on any appropriate virtual machine.
 change frequently. Sources file is important because the image file format
 stores only objects including compiled methods and their bytecode and not their
 source code. Typically a new ""sources"" file is generated once per major
-release of Pharo. For Pharo 5.0, this file is named ==PharoV50.sources==.
+release of Pharo. For Pharo 6.0, this file is named ==PharoV60.sources==.
 
 ""3."" The ""changes"" file logs of all source code modifications (especially
 all the changes you did while programming) since the ==.sources== file was
 generated. Each release provides a near empty file named for the release, for
-example ==Pharo5.0.changes==. This facilitates a per method history for diffs or
+example ==Pharo6.0.changes==. This facilitates a per method history for diffs or
 reverting. It means that even if you did not manage to save the image file on a
 crash or you just forgot, you can recover your changes from this file. A changes
 file is always coupled with a image file. They work in pair.
@@ -87,8 +87,8 @@ system. This is the file where all objects are stored and as such it's a cross
 platform format. An image file contains the live state of all objects of the
 system (including classes and compiled methods, since they are objects too) at a
 given point. An image is a virtual object container. The file is named for the
-release (like ==Pharo5.0.image==) and it is synched with the
-==Pharo5.0.changes== file.
+release (like ==Pharo6.0.image==) and it is synched with the
+==Pharo6.0.changes== file.
 
 !!!Image/Changes Pair
 
@@ -121,7 +121,7 @@ onto the icon of the virtual machine, or double-click the .image file, or at the
 command line type the name of the virtual machine followed by the path to the
 .image file.
 
-- On ""OS X"", double click the ==Pharo5.0.app== bundle in the unzipped download.
+- On ""OS X"", double click the ==Pharo6.0.app== bundle in the unzipped download.
 - On ""Linux"", double click (or invoke from the command line) the ==pharo== executable bash script from the unzipped Pharo folder.
 - On ""Windows"", enter the unzipped Pharo folder and double click ==Pharo.exe==.
 
@@ -144,30 +144,30 @@ The general pattern for launching Pharo from a terminal is:
 ]]]
 
 !!!!!Linux command line.
-For Linux, assuming that you're in the unzipped ==pharo5.0== folder:
+For Linux, assuming that you're in the unzipped ==pharo6.0== folder:
 
 [[[caption=Launching Pharo from Linux|label=src:launchingFromLinux
-./pharo shared/Pharo5.0.image
+./pharo shared/Pharo6.0.image
 ]]]
 
 !!!!!OS X command line.
 For OS X, assuming that you're in the directory with the unzipped
-==Pharo5.0.app== bundle:
+==Pharo6.0.app== bundle:
 
 [[[caption=Launching Pharo from Mac OS X|label=src:launchingFromMac
-Pharo5.0.app/Contents/MacOS/Pharo Pharo5.0.app/Contents/Resources/Pharo5.0.image
+Pharo6.0.app/Contents/MacOS/Pharo Pharo6.0.app/Contents/Resources/Pharo6.0.image
 ]]]
 
-When using a Pharo bundle, you need to right-click on ==Pharo5.0.app== and
+When using a Pharo bundle, you need to right-click on ==Pharo6.0.app== and
 select 'Show Package Contents' to get access to the image. If you need this
 often, just download a separated image/changes pair and drop that image into the
-==Pharo5.0.app==.
+==Pharo6.0.app==.
 
 !!!!!Windows command line.
-For Windows, assuming that you're in the unzipped ==Pharo5.0== folder:
+For Windows, assuming that you're in the unzipped ==Pharo6.0== folder:
 
 [[[caption=Launching Pharo from Windows|label=src:launchingFromWindows
-Pharo.exe Pharo5.0.image
+Pharo.exe Pharo6.0.image
 ]]]
 
 !!Pharo Launcher

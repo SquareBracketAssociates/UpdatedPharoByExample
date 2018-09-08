@@ -9,7 +9,7 @@ fundamental elements:
 - A dynamically-typed language with a syntax so simple it can fit on a postcard and yet is readable even for someone unfamiliar with it.
 - A live coding environment that allows the programmer to modify code while the code executes, without any need to slow down their workflow.
 - A powerful IDE providing all the tools to help manage complex code and promote good code design.
-- A rich library that creates an environment so powerful that it can be viewed even as a virtual OS, including a very fast JITing VM and full access to OS libraries and features via its FFI.
+- A rich library that creates an environment so powerful that it can be viewed even as a virtual OS, including a very fast JIT VM and full access to OS libraries and features via its FFI.
 - A culture where changes and improvements are encouraged and highly valued.
 - A community that welcomes coders from any corner of the world with any skill and any programming languages.
 
@@ -22,8 +22,8 @@ reference implementation for the Seaside web development framework available at
 Pharo core contains only code that has been contributed under the MIT license.
 The Pharo project started in March 2008 as a fork of Squeak (a modern
 implementation of Smalltalk-80), and the first 1.0 beta version was
-released on July 31, 2009. The current version is Pharo 5.0, released in May
-2016. Pharo 6.0 is in alpha development and planned for release in April 2017.
+released on July 31, 2009. The current version is Pharo 6.0, released in spring
+of 2017.
 
 Pharo is highly portable. Pharo can run on OS X, Windows, Linux, Android, iOS,
 and Raspberry Pi. Its virtual machine is written entirely in a subset of Pharo
@@ -42,7 +42,6 @@ contributions and rapid feedback from the community, on which Pharo relies on
 for its success. Finally Pharo is not read-only, Pharo integrates changes made
 by the community, daily. Pharo has around 100 contributors, based all over the
 world. You can have an impact on Pharo too!
-
 
 !!Who should read this book?
 

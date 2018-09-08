@@ -448,7 +448,7 @@ otherwise caught, the debugger will open to this point in the execution.
 ==assert:== is especially useful to support ''design by contract''. The most
 typical usage is to check non-trivial pre-conditions to public methods of
 objects. ==Stack>>pop== could easily have been implemented as follows (note
-that this definition is anhypothetical example and not in the Pharo 5.0 system):
+that this definition is a hypothetical example and not in the Pharo 6.0 system):
 
 [[[caption=Checking a pre-condition
 Stack >> pop
