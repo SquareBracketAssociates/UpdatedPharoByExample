@@ -1,13 +1,21 @@
 \ProvidesFile{pharo-titlepage.sty}
   [2017/05/10 0.1 title page design for SBA booklets]
 
+% default titlepage appearance
+\newcommand\pharotitle@maketitle{\horizontitle}
+
 \DeclareOption{maketitle}{%
-  \renewcommand{\maketitle}{\pharotitle}}
+  \renewcommand{\maketitle}{\pharotitle@maketitle}}
+\DeclareOption{foggy}{%
+  \renewcommand\pharotitle@maketitle{\foggytitle}}
+\DeclareOption{horizon}{%
+  \renewcommand\pharotitle@maketitle{\horizontitle}}
 \ProcessOptions
 
 \RequirePackage{xcolor}
 \RequirePackage{tikz}
 \usetikzlibrary{calc}
+\usetikzlibrary{shadings}
 \usetikzlibrary{svg.path}
 
 % fixup TikZ page coordinates for memoir stock & trimming
@@ -40,11 +48,16 @@
 \definecolor{BeaconRed}{HTML}{ED1C24}
 
 \definecolor{LightShade}{HTML}{EEEEEE}
+\definecolor{Shade}{HTML}{88AACC}
+
+\colorlet{top}{LightShade}
+\colorlet{mid}{LightShade}
+\colorlet{bot}{PharoBlue}
 
 \pgfdeclarelayer{background}
 \pgfsetlayers{background,main}
 
-\newcommand\pharotitle{
+\newcommand\horizontitle{
   \thispagestyle{empty}
 
   \begin{tikzpicture}[remember picture,overlay,line width=0mm]
@@ -108,7 +121,77 @@
   \newpage
 }
 
-\newcommand\pharobeacon@tikz{
+\newcommand\foggytitle{
+  \thispagestyle{empty}
+
+  \begin{tikzpicture}[remember picture,overlay,line width=0mm]
+    \coordinate (left) at (current page.west);
+    \coordinate (right) at (current page.east);
+    \coordinate (top) at (current page.north);
+    \coordinate (center) at (current page.center);
+    \coordinate (bottom) at (current page.south);
+
+    \coordinate (stocktopleft) at ([left=\trimedge,above=\trimtop]current page.north west);
+    \coordinate (stockbottomright) at ([right=\stockwidth,below=\stockheight]stocktopleft);
+
+    \coordinate (horizon) at ($ (center)!.618!(top) $);
+    \coordinate (depths) at ($ (center)!.618!(bottom) $);
+
+    \newcommand\beaconscaling{(.618\paperheight/120pt)} % golden ratio factor & approx. height of beacon tower
+    \coordinate (beacon) at ($ (depths -| left) + (-9.75,-2.5) $);
+
+    \node[anchor=north east] at ($ (horizon -| right) + (-.1\pagewidth,0cm) $) {
+        \begin{varwidth}{.6\pagewidth}%
+          \flushright \fontsize{50pt}{60pt}\sffamily
+          \@title
+        \end{varwidth}
+      };
+
+    \node[anchor=south east] at ($ (depths -| right) + (-.1\pagewidth,1cm) $) {
+        \begin{varwidth}{.8\pagewidth}%
+          \flushright \HUGE\sffamily
+          \@author
+        \end{varwidth}
+      };
+
+      \node[anchor=north east] at ($ (depths -| right) + (-.1\pagewidth,-.5cm) $) {
+        \begin{varwidth}{.8\pagewidth}%
+          \flushright \huge\sffamily\color{PharoDarkBlue}%
+          \ifx\@empty\@series\else\@series\titlebreak\fi
+          \@date
+        \end{varwidth}
+      };
+
+    \begin{pgfonlayer}{background}
+      \shade[
+        upper left = Shade, upper right = Shade!25!PharoBlue,
+        lower left = LightShade!75!PharoBlue, lower right = LightShade
+      ] (stocktopleft) rectangle (depths -| stockbottomright);
+      \shade[
+        upper left = LightShade!75!PharoBlue, upper right = LightShade,
+        lower left = PharoDarkBlue!75!Shade, lower right = PharoBlue
+      ] (depths -| stocktopleft) rectangle (stockbottomright);
+
+      \begin{scope}[
+        transform canvas={shift=(beacon)},
+        scale=\beaconscaling]
+
+        \pharobeacon@tikz[PharoBlue!75!PharoDarkBlue!75!Shade]
+
+      \end{scope}
+    \end{pgfonlayer}
+  \end{tikzpicture}
+  \newpage
+}
+
+\newcommand\pharobeacon@tikz[1][PharoBlue]{
+  % vertical gradient along tower
+  \pgfdeclareverticalshading{column}{100bp}{
+    color(0)=(#1);
+    color(40)=(#1);
+    color(75)=(PharoRed);
+    color(100)=(PharoRed)}
+
   % beacon fire
   \shade[bottom color=BeaconRed, top color=BeaconOrange] svg {
     m 68.58,118.36 0,-14.22 22.72,0 0,15.14 -11.16,2.74 -11.56,-3.66

@@ -56,8 +56,12 @@
   Numbers=OldStyle
 ]{Open Sans}
 \setmonofont[
-  Scale=MatchLowercase
+  Scale=MatchLowercase,
+  HyphenChar={-} % enable hyphenation (disabled by default in mono fonts)
+  % caveat: LuaLaTeX doesn't support changing the actual character
+  % alternative solution: \usepackage[htt]{hyphenat}
 ]{Fira Mono}%{Hack}
+
 \let\codefamily\ttfamily
 \newcommand\textcode[1]{\texttt{#1}}
 
@@ -304,6 +308,9 @@
       language = {#1}
     },
     breakable,
+    lines before break = 4,
+    before={\par\nobreak\@afterheading},
+    after={\par\pagebreak[1]},
     frame code = {\draw
       ([xshift=-2pt]interior.south west)
       --([xshift=-4pt]interior.south west)
@@ -391,6 +398,20 @@
 %% to the list of figures
 \renewcommand\listfigurename{Illustrations}
 \renewcommand\ext@table{lof}
+
+%% Avoid ugly page breaks in contents / list of illustrations
+\newbool{captionsdefinedinchapter}
+\AfterEndEnvironment{figure}{\booltrue{captionsdefinedinchapter}}
+\AfterEndEnvironment{table}{\booltrue{captionsdefinedinchapter}}
+
+\renewcommand\mempreaddparttotochook{\addtocontents{toc}{\protect\needspace{6\baselineskip}}}
+\renewcommand\mempreaddchaptertotochook{\addtocontents{toc}{\protect\needspace{3\baselineskip}}}
+\renewcommand\insertchapterspace{%
+  \ifbool{captionsdefinedinchapter}
+  {%
+    \addtocontents{lof}{\protect\addvspace{10pt}\needspace{3\baselineskip}}%
+    \boolfalse{captionsdefinedinchapter}%
+  }{}}
 
 %% figures & tables, like sections
 \cftsetindents{figure}{0pt}{0em}

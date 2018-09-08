@@ -4,112 +4,82 @@ Style with support for rainbow parens
 
 */
 
-pre ::-moz-selection{ background: #FF5E99; color:#fff; text-shadow: none; }
-pre ::selection { background:#FF5E99; color:#fff; text-shadow: none; }
-
-pre code {
-  display: block; padding: 0.5em;
-  background: #474949; color: #D1D9E1;
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #474949;
+  color: #d1d9e1;
 }
 
 
-pre .body,
-pre .collection {
-   color: #D1D9E1;
-}
-
-pre .comment,
-pre .template_comment,
-pre .diff .header,
-pre .doctype,
-pre .lisp .string,
-pre .javadoc {
+.hljs-comment,
+.hljs-quote {
   color: #969896;
   font-style: italic;
 }
 
-pre .keyword,
-pre .clojure .attribute,
-pre .winutils,
-pre .javascript .title,
-pre .addition,
-pre .css .tag {
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-type,
+.hljs-addition {
   color: #cc99cc;
 }
 
-pre .number { color: #f99157; }
-
-pre .command,
-pre .string,
-pre .tag .value,
-pre .phpdoc,
-pre .tex .formula,
-pre .regexp,
-pre .hexcolor {
-  color: #8abeb7;
-}
-
-pre .title,
-pre .localvars,
-pre .function .title,
-pre .chunk,
-pre .decorator,
-pre .built_in,
-pre .lisp .title,
-pre .identifier
-{
-  color: #b5bd68;
-}
-
-pre .class .keyword
-{
-  color: #f2777a;
-}
-
-pre .variable,
-pre .lisp .body,
-pre .smalltalk .number,
-pre .constant,
-pre .class .title,
-pre .parent,
-pre .haskell .label,
-pre .id,
-pre .lisp .title,
-pre .clojure .title .built_in {
-   color: #ffcc66;
-}
-
-pre .tag .title,
-pre .rules .property,
-pre .django .tag .keyword,
-pre .clojure .title .built_in {
-  font-weight: bold;
-}
-
-pre .attribute,
-pre .clojure .title {
-  color: #81a2be;
-}
-
-pre .preprocessor,
-pre .pragma,
-pre .pi,
-pre .shebang,
-pre .symbol,
-pre .symbol .string,
-pre .diff .change,
-pre .special,
-pre .attr_selector,
-pre .important,
-pre .subst,
-pre .cdata {
+.hljs-number,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
   color: #f99157;
 }
 
-pre .deletion {
+.hljs-string,
+.hljs-doctag,
+.hljs-regexp {
+  color: #8abeb7;
+}
+
+.hljs-title,
+.hljs-name,
+.hljs-section,
+.hljs-built_in {
+  color: #b5bd68;
+}
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-selector-id,
+.hljs-class .hljs-title {
+   color: #ffcc66;
+}
+
+.hljs-section,
+.hljs-name,
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-subst,
+.hljs-meta,
+.hljs-link {
+  color: #f99157;
+}
+
+.hljs-deletion {
   color: #dc322f;
 }
 
-pre .tex .formula {
+.hljs-formula {
   background: #eee8d5;
+}
+
+.hljs-attr,
+.hljs-attribute {
+  color: #81a2be;
+}
+
+.hljs-emphasis {
+  font-style: italic;
 }

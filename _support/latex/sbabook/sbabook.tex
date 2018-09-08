@@ -2,6 +2,28 @@
 
 \pagelayout{\paperbackpage}
 
+\usepackage[useregional]{datetime2}
+
+% extract info from git commit
+% requires gitinfo2 2.0.7, and below fix needed until 2.0.8 released
+\makeatletter
+\let\THEDAY\@dtm@currentday
+\let\THEMONTH\@dtm@currentmonth
+\let\THEYEAR\@dtm@currentyear
+\makeatother
+\usepackage[local,dirty=*]{gitinfo2}
+\usepackage{xstring}% \IfEq and \StrCut
+% a couple extensions...
+\makeatletter
+\newcommand\gitCommitInfo{%
+  \IfEq{\gitRel}{}
+  {commit \texttt{\gitAbbrevHash\gitDirty}}
+  {\IfEq{\gitRoff}{0}
+    {release \gitRel}
+    {modified since release \gitRel{} --- commit \texttt{\gitAbbrevHash\gitDirty}}}}
+\newcommand\gitdate{\DTMusedate{gitdate}}
+\makeatother
+
 % \setotherlanguage{latin}
 % \usepackage{lipsum}
 
@@ -18,6 +40,7 @@
 \title{the Square Bracket Associates\titlebreak{}
   \texorpdfstring{\protect\LaTeX}{LaTeX} book class}
 \author{Damien Pollet}
+\date{\gitdate\titlebreak[\smallskip]{ -- }\protect\gitCommitInfo}
 
 \hypersetup{pdfinfo = {
     Title = {\thetitle},

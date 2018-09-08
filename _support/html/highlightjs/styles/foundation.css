@@ -6,128 +6,83 @@ Version: 1.0
 Date: 2013-04-02
 */
 
-pre code {
-  display: block; padding: 0.5em;
-  background: #eee;
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #eee; color: black;
 }
 
-pre .header,
-pre .decorator,
-pre .annotation {
-  color: #000077;
-}
-
-pre .horizontal_rule,
-pre .link_url,
-pre .emphasis,
-pre .attribute {
+.hljs-link,
+.hljs-emphasis,
+.hljs-attribute,
+.hljs-addition {
   color: #070;
 }
 
-pre .emphasis {
+.hljs-emphasis {
   font-style: italic;
 }
 
-pre .link_label,
-pre .strong,
-pre .value,
-pre .string,
-pre .scss .value .string {
+.hljs-strong,
+.hljs-string,
+.hljs-deletion {
   color: #d14;
 }
 
-pre .strong {
+.hljs-strong {
   font-weight: bold;
 }
 
-pre .blockquote,
-pre .comment {
+.hljs-quote,
+.hljs-comment {
   color: #998;
   font-style: italic;
 }
 
-pre .asciidoc .title,
-pre .function .title {
+.hljs-section,
+.hljs-title {
   color: #900;
 }
 
-pre .class {
+.hljs-class .hljs-title,
+.hljs-type {
   color: #458;
 }
 
-pre .id,
-pre .pseudo,
-pre .constant,
-pre .hexcolor {
-  color: teal;
-}
-
-pre .variable {
+.hljs-variable,
+.hljs-template-variable {
   color: #336699;
 }
 
-pre .bullet, 
-pre .javadoc {
+.hljs-bullet {
   color: #997700;
 }
 
-pre .pi,
-pre .doctype {
+.hljs-meta {
   color: #3344bb;
 }
 
-pre .code,
-pre .number {
+.hljs-code,
+.hljs-number,
+.hljs-literal,
+.hljs-keyword,
+.hljs-selector-tag {
   color: #099;
 }
 
-pre .important {
-  color: #f00;
-}
-
-pre .smartquote,
-pre .label {
-  color: #970;
-}
-
-pre .preprocessor,
-pre .pragma {
-  color: #579;
-}
-
-pre .reserved,
-pre .keyword,
-pre .scss .value {
-  color: #000;
-}
-
-pre .regexp {
+.hljs-regexp {
   background-color: #fff0ff;
   color: #880088;
 }
 
-pre .symbol {
+.hljs-symbol {
   color: #990073;
 }
 
-pre .symbol .string {
-  color: #a60;
-}
-
-pre .tag {
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class {
   color: #007700;
-}
-
-pre .at_rule,
-pre .at_rule .keyword {
-  color: #088;
-}
-
-pre .at_rule .preprocessor {
-  color: #808;
-}
-
-pre .scss .tag,
-pre .scss .attribute {
-  color: #339;
 }
