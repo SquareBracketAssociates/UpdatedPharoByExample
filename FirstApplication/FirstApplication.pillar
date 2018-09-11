@@ -478,8 +478,10 @@ LOGame >> newCellAt: i at: j
 	self addMorph: c.
 	c position: ((i - 1) * c width) @ ((j - 1) * c height) + origin.
 	c mouseAction: [ self toggleNeighboursOfCellAt: i at: j ].
-	^ c
 ]]]
+
+Pay attention the following code is not fully correct. Therefore, it will produce an error 
+and this is on purpose. 
 
 !!!!!Formatting.
 As you can see there are some tabulation and empty lines. In order to keep the
