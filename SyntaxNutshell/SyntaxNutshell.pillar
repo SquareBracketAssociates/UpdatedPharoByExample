@@ -527,7 +527,7 @@ In Pharo, the angle bracket syntax is also used for method annotations called pr
 - There are five kinds of literal objects: numbers (5, 2.5, 1.9e15, 2r111), characters (==$a==), strings (=='hello'==), symbols (==#hello==), and arrays (==#('hello' #hi)== or =={ 1 . 2 . 1 + 2 }== )
 - Strings are delimited by single quotes, comments by double quotes. To get a quote inside a string, double it.
 - Unlike strings, symbols are guaranteed to be globally unique.
-- Use ==#( ... )== to define a literal array at compile time. Use =={ ... }== to define a dynamic array at runtime. Note that ==#(1+2) size >>> 3==, but =={1+2} size >>> 1==.  To observe why, compare ==#(1+2) inspect== and =={1+2} inspect==.
+- Use ==#( ... )== to define a literal array at compile time. Use =={ ... }== to define a dynamic array at runtime. Note that ==#(1+2) size >>> 3==, but =={12+3} size >>> 1==.  To observe why, compare ==#(12+3) inspect== and =={1+2} inspect==.
 - There are three kinds of messages: unary (e.g., ==1 asString==, ==Array new==), binary (e.g., ==3 \+ 4==, =='hi', ' there'==), and keyword (e.g., =='hi' at: 2 put: $o==)
 - A cascaded message send is a sequence of messages sent to the same target, separated by semi-colons: ==OrderedCollection new add: #calvin; add: #hobbes; size >>> 2==
 - Local variables are declared with vertical bars. Use ==:= == for assignment. ==\|x\| x := 1 ==
