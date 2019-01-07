@@ -95,10 +95,10 @@ This book is an open book in the following senses:
 The Pharo community is friendly and active. Here is a short list of resources
 that you may find useful:
 
+- Pharo is also active on Discord - a platform for chat (*http://discordapp.com*), look for the inviation link on Pharo's website *http://pharo.org/community*, in the Discord team section. Everybody is welcomed.
 - *http://www.pharo.org>http://www.pharo.org* is the main web site of Pharo.
 - On IRC, you can find us on the freenode.net server, channel "pharo".
-- SmalltalkHub (*http://www.smalltalkhub.com/>http://www.smalltalkhub.com/*) is the equivalent of SourceForge/Github for Pharo projects. Many extra packages and projects for Pharo live there.
-- Pharo is also active on Slack - a platform for chat based on IRC (*http://pharoproject.slack.com*), just ask for an invitation on Pharo's website *http://pharo.org/community*, in the slack section. Everybody is welcomed.
+
 
 !!Examples and exercises
 
