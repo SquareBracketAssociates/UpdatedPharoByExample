@@ -305,7 +305,7 @@ initialize
 	width := sampleCell width.
 	height := sampleCell height.
 	self bounds: (5 @ 5 extent: (width * n) @ (height * n) + (2 * self borderWidth)).
-	cells := Matrix new: n tabulate: [ :i :j | self newCellAt: i at: j ]
+	cells := Array2D new: n tabulate: [ :i :j | self newCellAt: i at: j ]
 ]]]
 
 +Declaring ==cells== as a new instance variable>file://figures/doesntKnowCell.png|width=60|label=fig:doesntKnowCell+
@@ -377,7 +377,7 @@ initialize
 	width := sampleCell width.
 	height := sampleCell height.
 	self bounds: (5 @ 5 extent: (width * n) @ (height * n) + (2 * self borderWidth)).
-	cells := Matrix new: n tabulate: [ :i :j | self newCellAt: i at: j ]
+	cells := Array2D new: n tabulate: [ :i :j | self newCellAt: i at: j ]
 ]]]
 
 At line 2, the expression ==\| sampleCell width height n \|== declares 4
@@ -411,18 +411,18 @@ bottom-right corner far enough away to allow space for the right number of
 cells.
 
 The last line sets the ==LOGame== object's instance variable ==cells== to a
-newly created ==Matrix== with the right number of rows and columns. We do this
-by sending the message ==new: tabulate:== to the ==Matrix== class (classes are
+newly created ==Array2D== with the right number of rows and columns. We do this
+by sending the message ==new: tabulate:== to the ==Array2D== class (classes are
 objects too, so we can send them messages). We know that ==new: tabulate:==
 takes two arguments because it has two colons (:) in its name. The arguments go
 right after the colons. If you are used to languages that put all of the
 arguments together inside parentheses, this may seem weird at first. Don't
 panic, it's only syntax! It turns out to be a very good syntax because the name
 of the method can be used to explain the roles of the arguments. For example, it
-is pretty clear that ==Matrix rows: 5 columns: 2== has 5 rows and 2 columns, and
+is pretty clear that ==Array2D rows: 5 columns: 2== has 5 rows and 2 columns, and
 not 2 rows and 5 columns.
 
-==Matrix new: n tabulate: [ :i :j \| self newCellAt: i at: j ]== creates a new
+==Array2D new: n tabulate: [ :i :j \| self newCellAt: i at: j ]== creates a new
 n X n matrix and initializes its elements. The initial value of each element
 will depend on its coordinates. The (i,j)^^th^^ element will be initialized to
 the result of evaluating ==self newCellAt: i at: j.==
@@ -489,7 +489,7 @@ same convention you can right-click on the method edit area and click on
 ==Format== (or use ==CMD-Shift-f== shortcut). This will format your method.
 
 The method defined above created a new ==LOCell==, initialized to position (i,
-j) in the Matrix of cells. The last line defines the new cell's ==mouseAction==
+j) in the 2D array of cells. The last line defines the new cell's ==mouseAction==
 to be the block ==[ self toggleNeighboursOfCellAt: i at: j ]==. In effect, this
 defines the callback behaviour to perform when the mouse is clicked. The
 corresponding method also needs to be defined.
@@ -599,7 +599,7 @@ actual execution context.
 In this case we can see in the first line of the top panel that the
 ==toggleState== message has been sent to an instance of ==LOGame==, while it
 should clearly have been an instance of ==LOCell==. The problem is most likely
-with the initialization of the cells matrix. Browsing the code of
+with the initialization of the cells 2D array. Browsing the code of
 ==LOGame >> initialize== shows that ==cells== is filled with the return values
 of ==newCellAt: at:==, but when we look at that method, we see that there is no
 return statement there! By default, a method returns ==self==, which in the case
