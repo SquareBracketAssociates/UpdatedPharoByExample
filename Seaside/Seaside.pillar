@@ -1493,8 +1493,7 @@ For more advanced examples, have a further look at
 !!!!Hints
 
 In case of server side problems use the Debugger. In case of client
-side problems use FireFox (*http://www.mozilla.com*) with the JavaScript
-debugger FireBug (*http://www.getfirebug.com/*) plugin enabled.
+side problems use the JavaScript debugger of your favorite browser (Firefox JavaScript Debugger, Chrome or Edge developer tools).
 
 !!Chapter summary
 
