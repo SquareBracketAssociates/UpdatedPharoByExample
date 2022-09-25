@@ -12,11 +12,6 @@ You can find more info and documentation about Pharo at [https://github.com/Squa
 
 ## Latest Builds
 
-The latest versions of *Updated Pharo by Example* can be found at the following sites:
-
-* Jenkins ![Build Status](https://ci.inria.fr/pharo-contribution/buildStatus/icon?job=UpdatedPharoByExample)
-    Latest PDF: [UpdatedPharoByExample.pdf](https://ci.inria.fr/pharo-contribution/view/Books/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/book-result/UpdatedPharoByExample.pdf). All Chapters: [UpdatedPharoByExample build artifacts](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/book-result/)
-
 * Individual chapters can also be viewed online or be downloaded in pdf format
   in the following section:
 
