@@ -5,8 +5,9 @@
 *Pharo by Example (vol 1)* is a practical introduction for Pharo, a Smalltalk-inspired programming language, IDE and live coding enviroment. This book is an updated version of [Pharo By Example for Pharo 1.4](https://github.com/SquareBracketAssociates/PharoByExample-english).
 
 This version focuses on the latest stable version of Pharo (Pharo 5.0, at the time of writing).
+The most recent version is Pharo by Example 9 available at 
 
-You can find more info and documentation about Pharo at
+You can find more info and documentation about Pharo at [https://github.com/SquareBracketAssociates/NewPharoByExample9](https://github.com/SquareBracketAssociates/NewPharoByExample9).
 [Pharo.org](http://pharo.org/).
 
 ## Latest Builds
@@ -15,8 +16,7 @@ The latest versions of *Updated Pharo by Example* can be found at the following 
 
 * Jenkins ![Build Status](https://ci.inria.fr/pharo-contribution/buildStatus/icon?job=UpdatedPharoByExample)
     Latest PDF: [UpdatedPharoByExample.pdf](https://ci.inria.fr/pharo-contribution/view/Books/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/book-result/UpdatedPharoByExample.pdf). All Chapters: [UpdatedPharoByExample build artifacts](https://ci.inria.fr/pharo-contribution/job/UpdatedPharoByExample/lastSuccessfulBuild/artifact/book-result/)
-* Travis
-  ![Build Status](https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample.svg?branch=master)(https://travis-ci.org/SquareBracketAssociates/UpdatedPharoByExample)
+
 * Individual chapters can also be viewed online or be downloaded in pdf format
   in the following section:
 
